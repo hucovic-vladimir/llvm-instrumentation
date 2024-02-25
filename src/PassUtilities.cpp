@@ -17,7 +17,6 @@ std::pair<unsigned long, unsigned long> PassUtilities::getBasicBlockStartEndLine
            min = line < min ? line : min;
            max = line > max ? line : max;
        }       
-       else errs() << "No debug info found on this Instruction: " << inst << "\n";
     }
    return {min, max};
 }

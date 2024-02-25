@@ -5,7 +5,7 @@
 # with the rest of the object files.
 
 LINKER=ld
-INSTCODE_SRC_PATH="/home/vladimir/Documents/IP1/LLVMPass/src/" 
+INSTCODE_SRC_PATH="/home/vladimir/Documents/IP1/LLVMPass/src"
 INSTCODE_OBJ_FILE="./instrumentationCode.o"
 
 read -r bbcount < ./bbcount.tmp
