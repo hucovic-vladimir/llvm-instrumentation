@@ -4,6 +4,8 @@
 #include "../headers/PassUtilities.h"
 #include "../headers/InstrumentationFunctions.h"
 #include <algorithm>
+#include <bits/node_handle.h>
+#include <llvm/ADT/ilist_node_options.h>
 #include <llvm/IR/DerivedTypes.h>
 #include <llvm/IR/PassManager.h>
 #include <llvm/Passes/PassPlugin.h>
@@ -14,6 +16,45 @@
 #include <string>
 #include <llvm/IRReader/IRReader.h>
 #include <llvm/Demangle/Demangle.h>
+
+/* bool isTooSmall(BasicBlock& BB) { */
+/* 	return BB.sizeWithoutDebug() < 2; */
+/* } */
+
+
+
+/* GlobalVariable* getOrCreateBBCountVariable(Module &M) { */
+/* 	GlobalVariable* bbCount = M.getGlobalVariable("__basicblockCount"); */
+/* 	if(bbCount) return bbCount; */
+/* 	else { */
+/* 		LLVMContext& CTX = M.getContext(); */
+/* 		bbCount = new GlobalVariable(M, Type::getInt64Ty(CTX), false, GlobalValue::ExternalLinkage, nullptr, "__bbcount"); */
+/* 	} */
+/* 	return bbCount; */
+/* } */
+
+GlobalVariable* getOrCreateCounter(Module &M) {
+	GlobalVariable* counter = M.getGlobalVariable("__basicblocks");
+	if(counter) return counter;
+	else {
+		LLVMContext& CTX = M.getContext();
+		counter = new GlobalVariable(M, Type::getInt64PtrTy(CTX), false, GlobalValue::ExternalLinkage, nullptr, "__basicblocks");
+	}
+	return counter;
+}
+
+/// @todo move elsewhere
+void incrementCounter(Module &M, Instruction* insertionPoint, unsigned long bbIndex) {
+	LLVMContext& CTX = M.getContext();
+	GlobalVariable* counter =	getOrCreateCounter(M);
+	IRBuilder<> builder(insertionPoint);
+	Value* offset = ConstantInt::get(Type::getInt64Ty(CTX), bbIndex);
+	Value* addr = builder.CreateGEP(Type::getInt64Ty(CTX), counter, offset);
+	Value* counterValue = builder.CreateLoad(Type::getInt64Ty(CTX), addr);
+	Value* newCounterValue = builder.CreateAdd(counterValue, ConstantInt::get(Type::getInt64Ty(CTX), 1));
+	builder.CreateStore(newCounterValue, addr);
+}
+
 
 /// @todo Move elsewhere
 /// @brief Get the file name from a path
@@ -146,8 +187,9 @@ PreservedAnalyses InstructionCount::run(Module &M, ModuleAnalysisManager &MAM){
 
 			// Create the constant in the IR
 			// todo perhaps move this to the insertBBEnterCall function
-			Value* bbCountValue = ConstantInt::get(Type::getInt64Ty(CTX), bbCount);
-			IF.insertBBEnterCall(M, insertionPoint, bbCountValue);
+			/* Value* bbCountValue = ConstantInt::get(Type::getInt64Ty(CTX), bbCount); */
+			/* IF.insertBBEnterCall(M, insertionPoint, bbCountValue); */
+			incrementCounter(M, insertionPoint, bbCount);
 			bbCount++;
 
 			// Ensure that the information is properly exported
@@ -204,8 +246,6 @@ PreservedAnalyses InstructionCount::run(Module &M, ModuleAnalysisManager &MAM){
 
 	return PreservedAnalyses::none();
 }
-
-
 /// @brief Get the plugin info for the pass
 PassPluginLibraryInfo getInstructionCountPluginInfo(){
 	const auto callback = [](PassBuilder &PB) {
@@ -218,8 +258,13 @@ PassPluginLibraryInfo getInstructionCountPluginInfo(){
 	return {LLVM_PLUGIN_API_VERSION, "InstructionCount", "v0.1", callback};
 }
 
+
+
 /// @brief Register the pass with the pass manager
 extern "C" LLVM_ATTRIBUTE_WEAK ::llvm::PassPluginLibraryInfo
 llvmGetPassPluginInfo(){
 	return getInstructionCountPluginInfo();
 }
+
+
+

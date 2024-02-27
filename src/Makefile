@@ -24,4 +24,4 @@ lib-c:
 	ar rcs libinstrumentationCode.a instrumentationCode.bc
 
 c:
-	clang $(CFLAGS) instrumentationCode_new.c -o instrumentationCode_new.ll -DBBCOUNT=$(BBCOUNT) -std=c2x
+	clang $(CFLAGS) instrumentationCode_new.c -o instrumentationCode_new.ll -DBBCOUNT=$(BBCOUNT) -std=c2x -fPIC
