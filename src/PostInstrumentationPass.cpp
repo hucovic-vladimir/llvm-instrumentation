@@ -4,8 +4,11 @@
 #include <llvm/IR/PassManager.h>
 #include <llvm/Passes/PassBuilder.h>
 #include <llvm/Passes/PassPlugin.h>
+#include <llvm/Support/TargetSelect.h>
+#include <llvm/Support/CommandLine.h>
 #include <fstream>
 #include <algorithm>
+
 using namespace llvm;
 
 class PostInstrumentationPass : public PassInfoMixin<PostInstrumentationPass>  {
@@ -22,6 +25,29 @@ public:
 		unsigned long arraySize;
 		GlobalVariable* array = nullptr;
 	};
+
+
+	void runInliner(Module &M) {
+		LoopAnalysisManager LAM;
+		FunctionAnalysisManager FAM;
+		CGSCCAnalysisManager CGAM;
+		ModuleAnalysisManager MAM;
+
+		PassBuilder PB;
+
+		PB.registerModuleAnalyses(MAM);
+		PB.registerCGSCCAnalyses(CGAM);
+		PB.registerFunctionAnalyses(FAM);
+		PB.registerLoopAnalyses(LAM);
+		PB.crossRegisterProxies(LAM, FAM, CGAM, MAM);
+
+		ModulePassManager MPM;
+
+		auto inliner = PB.buildInlinerPipeline(OptimizationLevel::O3, ThinOrFullLTOPhase::None);
+		MPM.addPass(std::move(inliner));
+
+		MPM.run(M, MAM);
+	}
 
 	std::vector<ModuleInfo> getModulesArraysFromFile(Module &M) {
 		std::vector<ModuleInfo> modules;
@@ -89,6 +115,7 @@ public:
 		std::vector<ModuleInfo> modules = getModulesArraysFromFile(M);
 		std::cerr << modules.size() << " modules found." << std::endl;
 		insertArrayExportCalls(M, modules);
+		runInliner(M);
 		return PreservedAnalyses::none();
 	}
 };

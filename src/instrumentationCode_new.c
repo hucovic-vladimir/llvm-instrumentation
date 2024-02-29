@@ -27,6 +27,7 @@ void __export_array(const char* moduleName, unsigned long* arr, unsigned long le
 			fprintf(out, "%lu:%lu\n", i, arr[i]);
 		}
 	}
+	fprintf(out, "-----------------\n");
 }
 
 /// @brief exports the basic block execution counts to a file

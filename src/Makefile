@@ -27,4 +27,4 @@ c:
 	clang $(CFLAGS) instrumentationCode.c -o instrumentationCode.ll -DBBCOUNT=$(BBCOUNT) -std=c2x -fPIC
 
 c-multiple-arrays:
-	clang $(CFLAGS) instrumentationCode_new.c -o instrumentationCode_new.ll -std=c2x -fPIC -fpass-plugin=../build/src/libPostInstrumentationPass.so -O3
+	clang $(CFLAGS) instrumentationCode_new.c -o instrumentationCode_new.ll -std=c2x -fPIC -fpass-plugin=../build/src/libPostInstrumentationPass.so
