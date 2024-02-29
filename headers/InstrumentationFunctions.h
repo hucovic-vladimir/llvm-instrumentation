@@ -19,6 +19,7 @@ class InstrumentationFunctions {
 		/// @details It should be inserted at every point where the program can end 
 		/// so that the information is not lost.
 		llvm::FunctionType* profExportFuncType;
+		llvm::FunctionType* profExportFuncType2;
 
 		/// @brief The function type for the function that performs the basic block execution count increment
 		llvm::FunctionType* bbEnterFuncType;
@@ -28,6 +29,7 @@ class InstrumentationFunctions {
 
 		/// @brief Function Callee for export function
 		llvm::FunctionCallee profExportFunc;
+		llvm::FunctionCallee profExportFunc2;
 
 		/// @brief Function Callee for basic block enter function
 		llvm::FunctionCallee bbEnterFunc;
@@ -42,6 +44,7 @@ class InstrumentationFunctions {
 		llvm::FunctionType getBBEnterFuncType();
 		llvm::FunctionCallee* getInitFunctionCallee(llvm::Module& module);
 		llvm::FunctionCallee* getExportFunctionCallee(llvm::Module& module);
+		llvm::FunctionCallee* getExportFunctionCallee2(llvm::Module& module);
 		llvm::FunctionCallee* getBBEnterFunctionCallee(llvm::Module& module);
 
 		/// @brief inserts the __prof_init() function into the provided Module and

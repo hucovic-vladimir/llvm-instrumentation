@@ -17,28 +17,22 @@
 #include <llvm/IRReader/IRReader.h>
 #include <llvm/Demangle/Demangle.h>
 
-/* bool isTooSmall(BasicBlock& BB) { */
-/* 	return BB.sizeWithoutDebug() < 2; */
-/* } */
+const std::string getFileName(const std::string& path);
 
 
-
-/* GlobalVariable* getOrCreateBBCountVariable(Module &M) { */
-/* 	GlobalVariable* bbCount = M.getGlobalVariable("__basicblockCount"); */
-/* 	if(bbCount) return bbCount; */
-/* 	else { */
-/* 		LLVMContext& CTX = M.getContext(); */
-/* 		bbCount = new GlobalVariable(M, Type::getInt64Ty(CTX), false, GlobalValue::ExternalLinkage, nullptr, "__bbcount"); */
-/* 	} */
-/* 	return bbCount; */
-/* } */
+const std::string getLocalArrayName(Module &M) {
+	std::string arrayName = "__basicblocks_arr_" + getFileName(M.getSourceFileName());
+	arrayName.erase(std::remove(arrayName.begin(), arrayName.end(), '.'), arrayName.end());
+	return arrayName;
+}
 
 GlobalVariable* getOrCreateCounter(Module &M) {
-	GlobalVariable* counter = M.getGlobalVariable("__basicblocks");
+	std::string arrayName = getLocalArrayName(M); 
+	GlobalVariable* counter = M.getGlobalVariable(arrayName);
 	if(counter) return counter;
 	else {
 		LLVMContext& CTX = M.getContext();
-		counter = new GlobalVariable(M, Type::getInt64PtrTy(CTX), false, GlobalValue::ExternalLinkage, nullptr, "__basicblocks");
+		counter = new GlobalVariable(M, Type::getInt64PtrTy(CTX), false, GlobalValue::ExternalLinkage, nullptr, arrayName);
 	}
 	return counter;
 }
@@ -169,15 +163,6 @@ PreservedAnalyses InstructionCount::run(Module &M, ModuleAnalysisManager &MAM){
 
 	InstrumentationFunctions IF = InstrumentationFunctions(CTX);
 
-	// open bbcount for reading
-	// TODO think about how to handle this better
-	// to allow for parallel compilation
-	std::fstream bbCountFileRead("./bbcount.tmp", std::ios::in);
-	if(bbCountFileRead.is_open()){
-		bbCountFileRead >> bbCount;
-	}
-	bbCountFileRead.close();
-
 	/// insert the instrumentation calls
 	for(auto &F : M){
 		for(auto &BB : F){
@@ -229,20 +214,12 @@ PreservedAnalyses InstructionCount::run(Module &M, ModuleAnalysisManager &MAM){
 	}
 	M.print(llFileStream, nullptr);
 
-
-	/// write bbcount to file
-	std::fstream bbCountFile("./bbcount.tmp", std::ios::out | std::ios::trunc);
-	if(!bbCountFile.is_open()){
-		std::cerr << "Failed to open bbcount.tmp for writing" << "\n";
+	std::fstream arraysFile("./modules.tmp", std::ios::out | std::ios::app);	
+	if(!arraysFile.is_open()){
+		std::cerr << "Failed to open moduleArrays for writing" << "\n";
 		exit(1);
 	}
-
-	/// write the new bbcount to the file
-	/// to be read in the next run
-	/// TODO maybe there is a better way to 
-	bbCountFile << bbCount << std::endl;
-	bbCountFile.flush();
-	bbCountFile.close();
+	arraysFile << M.getSourceFileName() << "," << getLocalArrayName(M) << "," << bbCount << "\n";
 
 	return PreservedAnalyses::none();
 }
