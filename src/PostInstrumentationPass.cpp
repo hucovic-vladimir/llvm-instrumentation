@@ -61,10 +61,8 @@ public:
 			/// separate by coma
 			std::string moduleName = line.substr(0, line.find(","));
 			line.erase(0, moduleName.size() + 1);
-			std::cerr << "line: " << line << std::endl;
 			std::string arrayName = line.substr(0, line.find(","));
 			line.erase(0, arrayName.size() + 1);
-			std::cerr << "line: " << line << std::endl;
 			unsigned long arraySize = std::stoul(line);
 
 			ArrayType* arrayType = ArrayType::get(Type::getInt64Ty(M.getContext()), arraySize);
