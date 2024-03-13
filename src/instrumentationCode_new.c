@@ -9,8 +9,10 @@
 #include <stdlib.h>
 
 static FILE* out = NULL;
+static char export_file_name[150] = {0};
 
 /// @brief can be used in case some runtime initialization is needed before profiling starts 
+/// @note the instrumentation pass inserts this call at the beginning of the main function
 void __prof_init() {
 	return;
 }
@@ -30,12 +32,16 @@ void __export_array(const char* moduleName, unsigned long* arr, unsigned long le
 	fprintf(out, "-----------------\n");
 }
 
+
 /// @brief exports the basic block execution counts to a file
+/// @note the instrumentation pass inserts this call at the end of the main function and before each exit() call
 /// @note calls to __export_array are inserted by the post-instrumentation pass which runs on this module
 void __prof_export2() {
-	out = fopen("profile_data.txt", "w");
+	unsigned long proc_id = getpid();
+	snprintf(export_file_name, 150, "profile_data_pid_%lu.txt", proc_id);
+	out = fopen(export_file_name, "w");
 	if(out == NULL) {
-		fprintf(stderr, "Profiling error: Failed to open profile_data.txt. Dumping to stderr\n");
+		fprintf(stderr, "Profiling error: Failed to open %s. Dumping to stderr\n", export_file_name);
 		out = stderr;
 	}
 	return;
