@@ -1,8 +1,12 @@
 // TODO fix ugly formatting
-
+#include "../headers/BasicBlockWrapper.h"
 #include "../headers/InstructionCount.h"
 #include "../headers/PassUtilities.h"
 #include "../headers/InstrumentationFunctions.h"
+#include "../headers/DiamondPattern.h"
+#include "../headers/HalfDiamondPattern.h"
+#include "../headers/UnconditionalJumpPattern.h"
+#include "../headers/FunctionPatterns.h"
 #include <algorithm>
 #include <bits/node_handle.h>
 #include <llvm/ADT/ilist_node_options.h>
@@ -10,6 +14,7 @@
 #include <llvm/IR/DerivedTypes.h>
 #include <llvm/IR/Dominators.h>
 #include <llvm/IR/PassManager.h>
+#include <llvm/Pass.h>
 #include <llvm/Passes/PassPlugin.h>
 #include <llvm/Passes/PassBuilder.h>
 #include <fstream>
@@ -21,6 +26,11 @@
 #include <llvm/Analysis/PostDominators.h>
 #include <llvm/Analysis/CFGPrinter.h>
 #include <llvm/Support/GraphWriter.h>
+
+
+
+using blockWrapperMap = std::unordered_map<BasicBlock*, BasicBlockWrapper*>;
+blockWrapperMap wrappers;
 
 /// @todo Move elsewhere
 /// @todo rename
@@ -86,89 +96,6 @@ void loopsAnalysis(LoopInfo &LI, Function &F) {
 	}
 	F.viewCFG();
 }
-
-void dominatorAnalysis(Function &F, LoopInfo &LI) {
-	std::vector<BasicBlock*> coveredBlocks;
-	blockCovers blockCoversVector;
-	std::vector<BasicBlock*> blockQueue;
-
-	auto loops = LI.getLoopsInPreorder();
-	SmallVector<BasicBlock*> loopHeaders;
-	std::map<BasicBlock*, std::set<BasicBlock*>> loopExitMap;
-	for(Loop* loop : loops) {
-		SmallVector<BasicBlock*> loopExits;
-		BasicBlock* loopHeader = loop->getHeader();
-		loopHeaders.push_back(loopHeader);
-		loop->getExitBlocks(loopExits);
-		loopExitMap[loopHeader] = std::set<BasicBlock*>(loopExits.begin(), loopExits.end());
-		errs() << "Loop header: " << loopHeader->getName() << "\n";
-		for(BasicBlock* loopExit : loopExits) {
-			errs() << "\tLoop exit: " << loopExit->getName() << "\n";
-		}
-	}
-
-	BasicBlock* entryBlock = &F.getEntryBlock();
-	blockQueue.push_back(entryBlock);
-	while(!blockQueue.empty()) {
-		BasicBlock* currentBlock = blockQueue.front();
-		errs() << "Processing block " << currentBlock->getName() << "\n";
-		blockQueue.erase(blockQueue.begin());
-		if(std::find(loopHeaders.begin(), loopHeaders.end(), currentBlock) != loopHeaders.end()){
-			errs() << "Block " << currentBlock->getName() << " is a loop header, skipping past the loop\n";
-			for(BasicBlock* loopExit : loopExitMap[currentBlock]) {
-				blockQueue.push_back(loopExit);
-				errs() << "\tAdding loop exit " << loopExit->getName() << " to the queue\n";
-			}
-			continue;
-		}
-		if(!currentBlock) { errs() << "Current block null, exiting.\n"; return;}
-		if(currentBlock->getName().str() == "") { errs() << "Current block has no name, exiting.\n"; return; }
-		// 0 Predecessors - it is the entry block
-		if(pred_size(currentBlock) == 0) { 
-			enqueueSuccessors(currentBlock, blockQueue);
-			errs() << "Block " << currentBlock->getName() << " is an entry block and will be covered by any exit block\n";
-			coveredBlocks.push_back(currentBlock);
-			continue; 
-		}
-		// 0 successors - it is an exit block, TODO all the exit blocks should cover the entry block
-		if(succ_size(currentBlock) == 0) { errs() << "Block " << currentBlock->getName() << " is an exit block, returning back\n"; continue; }
-		// More than 1 successors, the function branches at this block
-		else if(succ_size(currentBlock) > 1) {
-			errs() << "Block " << currentBlock->getName() << " is a branch block\n";
-		}
-		enqueueSuccessors(currentBlock, blockQueue);
-		// 1 predecessor - This block can cover the predecessor
-		if(pred_size(currentBlock) == 1) {
-			BasicBlock* pred = *pred_begin(currentBlock);
-			errs() << "Block " << currentBlock->getName() << " has one predecessor: " << pred->getName() << "\n";
-			coveredBlocks.push_back(currentBlock);
-		}
-		// Multiple predecessors - This block cannot cover all predecessors
-		else if(pred_size(currentBlock) > 1) {
-			BasicBlock* succ = *succ_begin(currentBlock);
-			blockCoversVector[succ].insert(currentBlock);
-			coveredBlocks.push_back(currentBlock);
-			errs() << "Block " << currentBlock->getName() << " has multiple predecessors, marking it as covered (by itself)\n";
-		}
-	}
-
-	std::vector<BasicBlock*> allBlocks;
-	for(BasicBlock &bb : F) {
-		allBlocks.push_back(&bb);
-	}
-	std::vector<BasicBlock*> uncoveredBlocks = checkAllBlocksCovered(coveredBlocks, allBlocks);
-	if(uncoveredBlocks.empty()) {
-		errs() << "All blocks covered\n";
-	}
-	else {
-		errs() << "Not all blocks covered\n";
-		for(BasicBlock* bb : uncoveredBlocks) {
-			errs() << "\tUncovered block: " << bb->getName() << "\n";
-		}
-	}
-}
-
-
 
 const std::string getLocalArrayName(Module &M) {
 	std::string arrayName = "__basicblocks_arr_" + getFileName(M.getSourceFileName());
@@ -303,6 +230,7 @@ void writeBBInfoToFile(const std::string& bbInfo, std::string filename){
 	bbInfoFile.close();
 }
 
+
 /// @todo Move elsewhere
 /// @brief Describes the type of optimization that can be performed on the loop header instrumentation point
 enum class HeaderOptimizationType {
@@ -394,10 +322,59 @@ bool doesFunctionContainLoops(LoopInfo &LI) {
 	return !loops.empty();
 }
 
-
-
-
-blockCovers getOptimizedMapForNoLoopFunction(Function &F) {
+std::vector<OptimizationPattern*> getOptimizedMapForNoLoopFunction(Function &F) {
+	std::vector<OptimizationPattern*> patterns;
+	std::vector<BasicBlock*> blockQueue;
+	std::vector<BasicBlock*> processed;
+	blockQueue.push_back(&F.getEntryBlock());
+	while(!blockQueue.empty()) {
+		BasicBlock* bb = blockQueue.front();
+		blockQueue.erase(blockQueue.begin());
+		if(processed.size() > 0) {
+			if(std::find(processed.begin(), processed.end(), bb) != processed.end()) {
+				continue;
+			}
+		}
+		processed.push_back(bb);
+		DiamondPattern* diamond = DiamondPattern::checkForPattern(wrappers, wrappers[bb], processed);
+		if(diamond) {
+			errs() << "Diamond pattern found in " << F.getName() << "\n";
+			patterns.push_back(diamond);
+			BasicBlock* patternExitBlock = diamond->getPatternExitBlock();
+			for(BasicBlock* succ : successors(patternExitBlock)) {
+				if(std::find(processed.begin(), processed.end(), succ) == processed.end() && std::find(blockQueue.begin(), blockQueue.end(), succ) == blockQueue.end())
+					blockQueue.push_back(succ);
+			}
+			continue;
+		}
+		HalfDiamondPattern* halfDiamond = HalfDiamondPattern::checkForPattern(wrappers, wrappers[bb], processed);
+		if(halfDiamond) {
+			errs() << "Half Diamond pattern found in " << F.getName() << "\n";
+			patterns.push_back(halfDiamond);
+			BasicBlock* patternExitBlock = halfDiamond->getPatternExitBlock();
+			for(BasicBlock* succ : successors(patternExitBlock)) {
+				if(std::find(processed.begin(), processed.end(), succ) == processed.end() && std::find(blockQueue.begin(), blockQueue.end(), succ) == blockQueue.end())
+					blockQueue.push_back(succ);
+			}
+			continue;
+		}
+		UnconditionalJumpPattern* unconditionalJump = UnconditionalJumpPattern::checkForPattern(wrappers, wrappers[bb], processed);
+		if(unconditionalJump) {
+			errs() << "Unconditional jump pattern found in " << F.getName() << "\n";
+			patterns.push_back(unconditionalJump);
+			BasicBlock* patternExitBlock = unconditionalJump->getPatternExitBlock();
+			for(BasicBlock* succ : successors(patternExitBlock)) {
+				if(std::find(processed.begin(), processed.end(), succ) == processed.end() && std::find(blockQueue.begin(), blockQueue.end(), succ) == blockQueue.end())
+					blockQueue.push_back(succ);
+			}
+			continue;
+		}
+		for(BasicBlock* succ : successors(bb)) {
+			if(std::find(processed.begin(), processed.end(), succ) == processed.end() && std::find(blockQueue.begin(), blockQueue.end(), succ) == blockQueue.end())
+				blockQueue.push_back(succ);
+		}
+	}
+	return patterns;
 }
 
 // Recursive function to expand the coverage of a block to include indirect coverage
@@ -461,47 +438,62 @@ PreservedAnalyses InstructionCount::run(Module &M, ModuleAnalysisManager &MAM){
 
 	InstrumentationFunctions IF = InstrumentationFunctions(CTX);
 
-	/// insert the instrumentation calls
+	std::vector<FunctionPatterns*> patterns;
+
+
+	std::vector<BasicBlockWrapper*> wrappersVec;
+	for(auto &F : M) {
+		for(BasicBlock &BB : F) {
+			BasicBlockWrapper* wrapper = new BasicBlockWrapper(bbCount++, &BB);
+			wrappersVec.push_back(wrapper);
+			wrappers[&BB] = wrapper;
+		}
+	}
+
+	std::error_code EC;
+	raw_fd_ostream bbFile(".basicblocks/" + getFileName(M.getName().str()) + ".json", EC);
+	for(auto& wrapper : wrappersVec) {
+		wrapper->getSuccessors(wrappers);
+		bbFile << wrapper->toJson();
+		if(!(wrapper == wrappersVec.back())) {
+			bbFile << ",\n";
+		}
+	}
+
 	for(auto &F : M){
 		if(F.isDeclaration()) continue;
 		SmallVector<BasicBlock*> coveredBlocks;
 		FunctionPassManager FPM;
 		FPM.addPass(RequireAnalysisPass<LoopAnalysis, Function>());
-		FPM.addPass(LoopSimplifyPass());
 		FunctionAnalysisManager &FAM = MAM.getResult<FunctionAnalysisManagerModuleProxy>(M).getManager();
 		FPM.run(F, FAM);
-		LoopInfo &LI = FAM.getResult<LoopAnalysis>(F);
+		/* LoopInfo &LI = FAM.getResult<LoopAnalysis>(F); */
 
-		blockCovers blockCoversVector;
-		if(!doesFunctionContainLoops(LI)) {	
-			blockCoversVector = getOptimizedMapForNoLoopFunction(F);
-			blockCoversVector = getMinimalCoverMap(blockCoversVector);
-			for(auto [block, covers] : blockCoversVector) {
-				errs() << "Block " << block->getName() << " covers: ";
-				for(BasicBlock* covered : covers) {
-					errs() << "\t" << covered->getName() << " ";
-				}
-				errs() << "\n";
+		/* F.viewCFG(); */
+		std::vector<OptimizationPattern*> funcPatterns = getOptimizedMapForNoLoopFunction(F);
+
+		std::vector<BasicBlock*> nonInstrumentedBlocks;
+		for(auto& pattern : funcPatterns) {
+			auto patternNonInstrumentedBlocks = pattern->getNonInstrumentedBlocks();
+			for(auto& block : patternNonInstrumentedBlocks) {
+				nonInstrumentedBlocks.push_back(block->getBB());
 			}
 		}
 
-		loopsAnalysis(LI, F);
-		SmallVector<LatchHeaderPair> pairs = optimizeLoopHeaders(LI);
+		FunctionPatterns* funcPatternsObj = new FunctionPatterns(&F, funcPatterns);
+		if(funcPatternsObj->getPatternCount() > 0)
+			patterns.push_back(funcPatternsObj);
 
-		for(LatchHeaderPair pair : pairs) {
-			errs() << "Optimized loop header: " << pair.header->getName() << "\n";
-			for(BasicBlock* latch : pair.latches) {
-				errs() << "\tLatch: " << latch->getName() << "\n";
-			}
-		}
+		errs() << "THE FUNCTION " << F.getName() << " HAS " << funcPatternsObj->getPatternCount() << " PATTERNS\n";
 
 		for(auto &BB : F){
 			Instruction* insertionPoint = &*BB.getFirstInsertionPt();
 			std::string bbInfo = getBBInfo(BB, bbCount);
-			writeBBInfoToFile(bbInfo, "./bbinfo.csv");
+			/* writeBBInfoToFile(bbInfo, "./bbinfo.csv"); */
 
-			incrementCounter(M, insertionPoint, bbCount);
-			bbCount++;
+			if(std::find(nonInstrumentedBlocks.begin(), nonInstrumentedBlocks.end(), &BB) == nonInstrumentedBlocks.end()) {
+				incrementCounter(M, insertionPoint, wrappers[&BB]->getId());
+			}
 
 			// Ensure that the information is properly exported
 			// when the progaram terminates in other ways
@@ -532,7 +524,6 @@ PreservedAnalyses InstructionCount::run(Module &M, ModuleAnalysisManager &MAM){
 
 	/// dump the instrumented module to a file in the .llfiles directory
 	/// mostly for debugging purposes - could be turned on or off in compilation
-	std::error_code EC;
 	raw_fd_ostream llFileStream(".llfiles/" + getFileName(M.getName().str()) + ".ll", EC);
 	if(EC){
 		std::cerr << "Failed to open " << M.getName().str() << " for writing" << "\n";
@@ -546,6 +537,24 @@ PreservedAnalyses InstructionCount::run(Module &M, ModuleAnalysisManager &MAM){
 		exit(1);
 	}
 	arraysFile << M.getSourceFileName() << "," << getLocalArrayName(M) << "," << bbCount << "\n";
+
+
+	unsigned modulePatternCount = 0;
+	if(patterns.size() > 0){
+		raw_fd_ostream patternFile(".patterns/" + getFileName(M.getName().str()) + ".json", EC);
+		patternFile << "{\n";
+		for(auto p : patterns) {
+			modulePatternCount += p->getPatternCount();
+			if(p->getPatternCount() == 0) continue;
+			patternFile << p->toJson(1);
+			if(p == patterns.back()) { patternFile << "\n"; }
+			else { patternFile << ",\n"; }
+		}
+		patternFile << "}\n";
+	}
+	errs() << "Module " << M.getName() << " has " << modulePatternCount << " patterns\n";
+
+
 
 	return PreservedAnalyses::none();
 }

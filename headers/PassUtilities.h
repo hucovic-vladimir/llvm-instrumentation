@@ -1,5 +1,5 @@
 // TODO rework this class 
-
+#pragma once
 #include <stdlib.h>
 #include <llvm/IR/Module.h>
 #include <llvm/IR/BasicBlock.h>
@@ -27,4 +27,15 @@ class PassUtilities {
 				/// @todo maybe remove this or rework it to cover all the functions
 				/// that we dont want to instrument
         static bool isStdFunction(Function& f) { return f.getName().startswith("__cxx"); }
+
+				/// @brief Get the tabs for a given depth
+				/// @param depth The depth to get the tabs for
+				/// @return A string of tabs
+				static std::string getTabs(unsigned depth) {
+					std::string tabs = "";
+					for(unsigned i = 0; i < depth; i++) {
+						tabs += "\t";
+					}
+					return tabs;
+				}
 };
