@@ -13,9 +13,7 @@ class BasicBlockWrapper {
 	private:
 		unsigned long id;
 		BasicBlock* bb;
-		std::vector<unsigned long> successorsIds;
-
-
+		std::vector<BasicBlockWrapper*> successorWrappers;
 
 		std::string getDebugInformation(unsigned depth) {
 			auto tabs = PassUtilities::getTabs;
@@ -62,21 +60,21 @@ class BasicBlockWrapper {
 			ss << tabs(depth+1) << "\"name\": \"" << bb->getName().str() << "\",\n";
 			ss << tabs(depth+1) << "\"debug\": " << getDebugInformation(depth+1);
 			ss << tabs(depth+1) << "\"successors\": [";
-			for (size_t i = 0; i < successorsIds.size(); ++i) {
-				ss << successorsIds[i];
-				if (i < successorsIds.size() - 1) ss << ", ";
+			for (size_t i = 0; i < successorWrappers.size(); ++i) {
+				ss << successorWrappers[i]->getId();
+				if (i < successorWrappers.size() - 1) ss << ", ";
 			}
 			ss << "]\n";
 			ss << tabs(depth) << "}";
 			return ss.str();
 		}
 		
-		std::vector<unsigned long> getSuccessors(std::unordered_map<BasicBlock*, BasicBlockWrapper*> bbMap) {
-			successorsIds.clear();
+		std::vector<BasicBlockWrapper*> getSuccessors(std::unordered_map<BasicBlock*, BasicBlockWrapper*> bbMap) {
+			successorWrappers.clear();
 			for (BasicBlock* succ : successors(bb)) {
-				successorsIds.push_back(bbMap[succ]->getId());
+				successorWrappers.push_back(bbMap[succ]);
 			}
-			return successorsIds;
+			return successorWrappers;
 		}
 };
 

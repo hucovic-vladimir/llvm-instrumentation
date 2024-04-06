@@ -26,6 +26,7 @@
 #include <llvm/Analysis/PostDominators.h>
 #include <llvm/Analysis/CFGPrinter.h>
 #include <llvm/Support/GraphWriter.h>
+#include <llvm/Analysis/CallGraph.h>
 
 
 
@@ -427,6 +428,7 @@ blockCovers getMinimalCoverMap(blockCovers bc) {
     return bc;
 }
 
+
 /// @brief Run the pass
 /// @param M The module to run the pass on
 /// @param MAM The module analysis manager
@@ -554,6 +556,22 @@ PreservedAnalyses InstructionCount::run(Module &M, ModuleAnalysisManager &MAM){
 	}
 	errs() << "Module " << M.getName() << " has " << modulePatternCount << " patterns\n";
 
+
+	/* CallGraph CG(M); */
+	/* for (const auto &I : CG) { */
+	/* 	const llvm::CallGraphNode *N = I.second.get(); */
+	/* 	const llvm::Function *F = N->getFunction(); */
+
+	/* 	if (F) { */
+	/* 		llvm::errs() << "Function: " << F->getName() << "\n"; */
+	/* 		for (const auto &CI : *N) { */
+	/* 			if (const llvm::Function *Callee = CI.second->getFunction()) { */
+	/* 				const Module* m = Callee->getParent(); */
+	/* 				llvm::errs() << "  calls function: " << Callee->getName() << " in module " << Callee << " in module" << m->getName() << "\n"; */
+	/* 			} */
+	/* 		} */
+	/* 	} */
+	/* } */
 
 
 	return PreservedAnalyses::none();

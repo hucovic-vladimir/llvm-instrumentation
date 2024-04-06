@@ -23,13 +23,11 @@ void __prof_init() {
 /// @param len the length of the array
 /// @note only basic blocks with non-zero execution counts are exported
 void __export_array(const char* moduleName, unsigned long* arr, unsigned long len) {
-	fprintf(out, "%s\n-----------------\n", moduleName);
 	for (unsigned long i = 0; i < len; i++) { 
 		if(arr[i] > 0) {
-			fprintf(out, "%lu:%lu\n", i, arr[i]);
+			fprintf(out, "%s,%lu,%lu\n", moduleName, i, arr[i]);
 		}
 	}
-	fprintf(out, "-----------------\n");
 }
 
 
