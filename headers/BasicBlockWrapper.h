@@ -56,6 +56,7 @@ class BasicBlockWrapper {
 			auto tabs = PassUtilities::getTabs; 
 			std::stringstream ss;
 			ss << tabs(depth) << "{\n";
+			ss << tabs(depth+1) << "\"function\": \"" << bb->getParent()->getName().str() << "\",\n";
 			ss << tabs(depth+1) << "\"id\": " << id << ",\n";
 			ss << tabs(depth+1) << "\"name\": \"" << bb->getName().str() << "\",\n";
 			ss << tabs(depth+1) << "\"debug\": " << getDebugInformation(depth+1);
