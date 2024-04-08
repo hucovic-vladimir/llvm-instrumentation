@@ -16,7 +16,7 @@ class FunctionPatterns {
 			auto tabs = PassUtilities::getTabs;
 			std::stringstream ss;
 			ss << tabs(depth) << "{\n";
-			ss << tabs(depth+1) << "\"name\": \"" << function->getName().str() << "\",\n";
+			ss << tabs(depth+1) << "\"functionName\": \"" << function->getName().str() << "\",\n";
 			ss << tabs(depth+1) << "\"patterns\": [\n";
 			for(auto p : patterns) {
 				ss << p->toJson(depth+2);

@@ -24,9 +24,9 @@ class HalfDiamondPattern : public OptimizationPattern {
 			ss << tabs(depth+1) << "\"type\": \"halfDiamond\",\n";
 			ss << tabs(depth+1) << "\"condBlock\": " << condBlock->getId() << ",\n";
 			ss << tabs(depth+1) << "\"joinBlock\": " << joinBlock->getId() << ",\n";
-			ss << tabs(depth+1) << "\"branchBlocks\": [\n";
-			ss << tabs(depth+2) << "" << branchBlock->getId() << "";
-			ss << "\n" << tabs(depth+1) << "]\n";
+			ss << tabs(depth+1) << "\"branchBlocks\": [";
+			ss << branchBlock->getId();
+			ss << "]\n";
 			ss << tabs(depth) << "}";
 			return ss.str();
 		}

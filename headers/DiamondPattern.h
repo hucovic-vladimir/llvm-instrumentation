@@ -25,12 +25,12 @@ class DiamondPattern : public OptimizationPattern {
 			ss << tabs(depth+1) << "\"type\": \"diamond\",\n";
 			ss << tabs(depth+1) << "\"condBlock\": " << condBlock->getId() << ",\n";
 			ss << tabs(depth+1) << "\"joinBlock\": " << joinBlock->getId() << ",\n";
-			ss << tabs(depth+1) << "\"branchBlocks\": [\n";
+			ss << tabs(depth+1) << "\"branchBlocks\": [";
 			for(auto branchBlock : branchBlocks) {
-				ss << tabs(depth+2) << "" << branchBlock->getId() << "";
-				if(branchBlock != branchBlocks.back()) { ss << ",\n"; }
+				ss << branchBlock->getId() << "";
+				if(branchBlock != branchBlocks.back()) { ss << ", "; }
 			}
-			ss << "\n" << tabs(depth+1) << "]\n";
+			ss << "]\n";
 			ss << tabs(depth) << "}";
 			return ss.str();
 		}

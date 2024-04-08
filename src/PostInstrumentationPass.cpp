@@ -1,3 +1,4 @@
+
 /// TODO refactor and add comments
 
 #include <iostream>
@@ -17,6 +18,7 @@ public:
 	struct exportFunctions {
 		Function* exportFunction;
 		Function* exportArrayFunction;
+		Function* exportModulesFunction;
 	};
 
 	struct ModuleInfo {
@@ -25,29 +27,6 @@ public:
 		unsigned long arraySize;
 		GlobalVariable* array = nullptr;
 	};
-
-
-	void runInliner(Module &M) {
-		LoopAnalysisManager LAM;
-		FunctionAnalysisManager FAM;
-		CGSCCAnalysisManager CGAM;
-		ModuleAnalysisManager MAM;
-
-		PassBuilder PB;
-
-		PB.registerModuleAnalyses(MAM);
-		PB.registerCGSCCAnalyses(CGAM);
-		PB.registerFunctionAnalyses(FAM);
-		PB.registerLoopAnalyses(LAM);
-		PB.crossRegisterProxies(LAM, FAM, CGAM, MAM);
-
-		ModulePassManager MPM;
-
-		auto inliner = PB.buildInlinerPipeline(OptimizationLevel::O3, ThinOrFullLTOPhase::None);
-		MPM.addPass(std::move(inliner));
-
-		MPM.run(M, MAM);
-	}
 
 	std::vector<ModuleInfo> getModulesArraysFromFile(Module &M) {
 		std::vector<ModuleInfo> modules;
@@ -92,20 +71,34 @@ public:
 				<< "This pass should only be run on the instrumentation code." << std::endl;
 			exit(1);
 		}
-		return {exportFunction, exportArrayFunction};
+
+		Function* exportModulesFunction = M.getFunction("__export_modules");
+		return {exportFunction, exportArrayFunction, exportModulesFunction};
 	}
 
 	void insertArrayExportCalls(Module &M, std::vector<ModuleInfo> modules) {
-		auto [exportFunction, exportArrayFunction] = getExportFunctions(M);
+		std::cerr << "Inserting array export calls" << std::endl;
+		auto [exportFunction, exportArrayFunction, exportModulesFunction] = getExportFunctions(M);
+		errs() << "Export function: " << exportFunction->getName() << "\n";
+		errs() << "Export array function: " << exportArrayFunction->getName() << "\n";
+		errs() << "Export modules function: " << exportModulesFunction->getName() << "\n";
 		/// insert calls to __export_array into __prof_export function
-		Instruction* insertionPoint = exportFunction->getEntryBlock().getTerminator();
+		Instruction* insertionPoint = exportModulesFunction->getEntryBlock().getTerminator();
+		errs() << "Insertion point: " << *insertionPoint << "\n";
 		IRBuilder<> builder(insertionPoint);
+		unsigned long modulesSize = modules.size();
+		unsigned long i = 0;
 		for (auto [moduleName, arrayName, size, array] : modules) {
 			/// insert call to __export_array and all the necessary arguments
 			Constant* moduleNameValue = builder.CreateGlobalStringPtr(moduleName);
 			Value* sizeValue = ConstantInt::get(Type::getInt64Ty(M.getContext()), size);
-			Value* args[] = {moduleNameValue, array, sizeValue};
+			Value* trueValue = ConstantInt::get(Type::getInt1Ty(M.getContext()), true);
+			Value* falseValue = ConstantInt::get(Type::getInt1Ty(M.getContext()), false);
+			Value* isLastModule = i == modulesSize - 1 ? trueValue : falseValue;
+			Value* args[] = {moduleNameValue, array, sizeValue, isLastModule};
 			builder.CreateCall(exportArrayFunction, args);
+			std::cerr << "Created call: " << moduleName << " " << arrayName << " " << size << " " << isLastModule << std::endl;
+			i++;
 		}
 	}
 
@@ -113,7 +106,6 @@ public:
 		std::vector<ModuleInfo> modules = getModulesArraysFromFile(M);
 		std::cerr << modules.size() << " modules found." << std::endl;
 		insertArrayExportCalls(M, modules);
-		runInliner(M);
 		return PreservedAnalyses::none();
 	}
 };
@@ -121,7 +113,7 @@ public:
 
 PassPluginLibraryInfo getPostInstrumentationPassPluginInfo() {
 	const auto callback = [](PassBuilder &PB) {
-		PB.registerOptimizerLastEPCallback(
+		PB.registerPipelineEarlySimplificationEPCallback(
 				[](ModulePassManager &MPM, OptimizationLevel Level) {
 				MPM.addPass(PostInstrumentationPass());
 				}

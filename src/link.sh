@@ -5,12 +5,22 @@
 # Afterwards, this script should be passed to clang as a linker script.
 
 
-LINKER=ld
-INSTCODE_SRC_PATH="/home/vladimir/Documents/IP1/LLVMPass/src"
+LINKER=ld.lld
+INSTCODE_SRC_PATH="/home/vladimir/Documents/llvm-instrumentation/src"
 INSTCODE_OBJ_FILE="./instrumentationCode.o"
 
+object_files=()
+
+for arg in "$@"; do
+		if [[ $arg == *.o && ! $arg == *lib*.o ]]; then
+				object_files+=($arg)
+		fi
+done
+
+echo "Object files: ${object_files[@]}"
+
 cp ./modules.tmp $INSTCODE_SRC_PATH/modules.tmp
-make -C $INSTCODE_SRC_PATH -f Makefile c-multiple-arrays
+make -C $INSTCODE_SRC_PATH -f Makefile
 clang -c -o $INSTCODE_OBJ_FILE $INSTCODE_SRC_PATH/instrumentationCode_new.ll -O3
 
 $LINKER "$@" $INSTCODE_OBJ_FILE 
