@@ -97,7 +97,6 @@ public:
 			Value* isLastModule = i == modulesSize - 1 ? trueValue : falseValue;
 			Value* args[] = {moduleNameValue, array, sizeValue, isLastModule};
 			builder.CreateCall(exportArrayFunction, args);
-			std::cerr << "Created call: " << moduleName << " " << arrayName << " " << size << " " << isLastModule << std::endl;
 			i++;
 		}
 	}

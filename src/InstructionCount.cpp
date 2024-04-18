@@ -68,36 +68,6 @@ void doNothing() {
 	return;
 }
 
-
-void loopsAnalysis(LoopInfo &LI, Function &F) {
-	PostDominatorTree PDT(F);
-	PDT.recalculate(F);
-
-	auto root = PDT.getRoot();
-	std::vector<BasicBlock*> nodes;
-	nodes.push_back(root);
-
-	errs() << "All basic blocks in function " << F.getName() << "\n";
-	for(BasicBlock &bb : F) {
-		errs() << "\tBasic block: " << bb.getName() << "\n";
-	} 
-	auto loops = LI.getLoopsInPreorder();
-	if(loops.empty()) {
-		errs() << "No loops found in function " << F.getName() << "\n"; 
-	}
-	for(Loop* loop : loops) {
-		errs() << "Loop header: " << loop->getHeader()->getName() << "\n";
-		SmallVector<BasicBlock*> loopExits;
-		loop->getLoopLatches(loopExits);
-		for(BasicBlock* loopExit : loopExits) {
-			errs() << "\tLoop latch: " << loopExit->getName() << "\n";
-		}
-		/// Run the loop simplify pass
-		/// This pass will ensure that the loop is in a form that can be optimized
-	}
-	F.viewCFG();
-}
-
 const std::string getLocalArrayName(Module &M) {
 	std::string arrayName = "__basicblocks_arr_" + getFileName(M.getSourceFileName());
 	arrayName.erase(std::remove(arrayName.begin(), arrayName.end(), '.'), arrayName.end());
@@ -206,38 +176,12 @@ const std::string getBBInfo(BasicBlock& BB, unsigned long bbIndex){
 	return ss.str();
 }
 
-///	@todo Move elsewhere
-///	@brief Write the basic block information to a file
-///	@param bbInfo The string containing the basic block info
-///	@param filename The name of the file to write to
-///	@throws std::runtime_error if the file cannot be opened for writing
-///	@note If the file does not exist, it will be created
-///	@note If the file does exist, the basic block info will be appended to the file
-void writeBBInfoToFile(const std::string& bbInfo, std::string filename){
-	std::fstream bbInfoFile(filename, std::ios::app);
-	if(!bbInfoFile.is_open()) {
-		std::cerr << "Failed to open file " << filename << " for writing" << std::endl;
-		throw std::runtime_error("Could not open " + filename + " for writing");
-	}
-	else {
-		if(bbInfoFile.tellg() == 0) {
-			// write the header
-			bbInfoFile << "ID,MODULE,FUNCTION,LABEL,INSTRCOUNT,START_LINE,END_LINE\n";
-		}
-	} // else
-
-	bbInfoFile << bbInfo;
-	bbInfoFile.flush();
-	bbInfoFile.close();
-}
-
-
 bool doesFunctionContainLoops(LoopInfo &LI) {
 	auto loops = LI.getLoopsInPreorder();
 	return !loops.empty();
 }
 
-std::vector<OptimizationPattern*> getOptimizedMapForNoLoopFunction(Function &F) {
+std::vector<OptimizationPattern*> getOptimizationPatterns(Function &F) {
 	std::vector<OptimizationPattern*> patterns;
 	// return if the function has only 1 block
 	if(F.size() == 1) {
@@ -257,7 +201,6 @@ std::vector<OptimizationPattern*> getOptimizedMapForNoLoopFunction(Function &F) 
 		processed.push_back(bb);
 		DiamondPattern* diamond = DiamondPattern::checkForPattern(wrappers, wrappers[bb], processed);
 		if(diamond) {
-			errs() << "Diamond pattern found in " << F.getName() << "\n";
 			patterns.push_back(diamond);
 			BasicBlock* patternExitBlock = diamond->getPatternExitBlock();
 			for(BasicBlock* succ : successors(patternExitBlock)) {
@@ -268,7 +211,6 @@ std::vector<OptimizationPattern*> getOptimizedMapForNoLoopFunction(Function &F) 
 		}
 		HalfDiamondPattern* halfDiamond = HalfDiamondPattern::checkForPattern(wrappers, wrappers[bb], processed);
 		if(halfDiamond) {
-			errs() << "Half Diamond pattern found in " << F.getName() << "\n";
 			patterns.push_back(halfDiamond);
 			BasicBlock* patternExitBlock = halfDiamond->getPatternExitBlock();
 			for(BasicBlock* succ : successors(patternExitBlock)) {
@@ -279,7 +221,6 @@ std::vector<OptimizationPattern*> getOptimizedMapForNoLoopFunction(Function &F) 
 		}
 		UnconditionalJumpPattern* unconditionalJump = UnconditionalJumpPattern::checkForPattern(wrappers, wrappers[bb], processed);
 		if(unconditionalJump) {
-			errs() << "Unconditional jump pattern found in " << F.getName() << "\n";
 			patterns.push_back(unconditionalJump);
 			BasicBlock* patternExitBlock = unconditionalJump->getPatternExitBlock();
 			for(BasicBlock* succ : successors(patternExitBlock)) {
@@ -302,6 +243,8 @@ std::vector<OptimizationPattern*> getOptimizedMapForNoLoopFunction(Function &F) 
 /// @return The preserved analyses (IR is modified, so none to be safe)
 PreservedAnalyses InstructionCount::run(Module &M, ModuleAnalysisManager &MAM){
 
+	// TODO remove this and load the ignored modules from a file probably
+	if(M.getName() == "conftest.c") { return PreservedAnalyses::none(); }
 	unsigned long bbCount = 0;
 	LLVMContext& CTX = M.getContext();
 
@@ -343,12 +286,8 @@ PreservedAnalyses InstructionCount::run(Module &M, ModuleAnalysisManager &MAM){
 		FPM.addPass(RequireAnalysisPass<LoopAnalysis, Function>());
 		FunctionAnalysisManager &FAM = MAM.getResult<FunctionAnalysisManagerModuleProxy>(M).getManager();
 		FPM.run(F, FAM);
-		/* LoopInfo &LI = FAM.getResult<LoopAnalysis>(F); */
 
-		/* F.viewCFG(); */
-		std::vector<OptimizationPattern*> funcPatterns = getOptimizedMapForNoLoopFunction(F);
-	
-
+		std::vector<OptimizationPattern*> funcPatterns = getOptimizationPatterns(F);
 		std::vector<BasicBlock*> nonInstrumentedBlocks;
 		for(auto& pattern : funcPatterns) {
 			auto patternNonInstrumentedBlocks = pattern->getNonInstrumentedBlocks();
@@ -361,12 +300,8 @@ PreservedAnalyses InstructionCount::run(Module &M, ModuleAnalysisManager &MAM){
 		if(funcPatternsObj->getPatternCount() > 0)
 			patterns.push_back(funcPatternsObj);
 
-		errs() << "THE FUNCTION " << F.getName() << " HAS " << funcPatternsObj->getPatternCount() << " PATTERNS\n";
-
 		for(auto &BB : F){
 			Instruction* insertionPoint = &*BB.getFirstInsertionPt();
-			std::string bbInfo = getBBInfo(BB, bbCount);
-			/* writeBBInfoToFile(bbInfo, "./bbinfo.csv"); */
 
 			if(std::find(nonInstrumentedBlocks.begin(), nonInstrumentedBlocks.end(), &BB) == nonInstrumentedBlocks.end()) {
 				incrementCounter(M, insertionPoint, wrappers[&BB]->getId());
@@ -429,24 +364,6 @@ PreservedAnalyses InstructionCount::run(Module &M, ModuleAnalysisManager &MAM){
 		patternFile << PassUtilities::getTabs(1) << "]\n";
 		patternFile << "}\n";
 	}
-
-
-	/* CallGraph CG(M); */
-	/* for (const auto &I : CG) { */
-	/* 	const llvm::CallGraphNode *N = I.second.get(); */
-	/* 	const llvm::Function *F = N->getFunction(); */
-
-	/* 	if (F) { */
-	/* 		llvm::errs() << "Function: " << F->getName() << "\n"; */
-	/* 		for (const auto &CI : *N) { */
-	/* 			if (const llvm::Function *Callee = CI.second->getFunction()) { */
-	/* 				const Module* m = Callee->getParent(); */
-	/* 				llvm::errs() << "  calls function: " << Callee->getName() << " in module " << Callee << " in module" << m->getName() << "\n"; */
-	/* 			} */
-	/* 		} */
-	/* 	} */
-	/* } */
-
 
 	return PreservedAnalyses::none();
 }
