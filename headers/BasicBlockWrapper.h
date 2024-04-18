@@ -23,7 +23,9 @@ class BasicBlockWrapper {
 				auto debug = i.getDebugLoc();
 				if (debug) {
 					if(debug.getLine() != 0) {
-						lineToColumns[debug.getLine()].push_back(debug.getCol());
+						// Add if column not already in list
+						if(std::find(lineToColumns[debug.getLine()].begin(), lineToColumns[debug.getLine()].end(), debug.getCol()) == lineToColumns[debug.getLine()].end())
+							lineToColumns[debug.getLine()].push_back(debug.getCol());
 					}
 				}
 			}
@@ -47,6 +49,16 @@ class BasicBlockWrapper {
 			return ss.str();
 		}
 
+		std::vector<Instruction*> getNonDebugInstructions() {
+			std::vector<Instruction*> nonDebugInstructions;
+			for (Instruction& i : *bb) {
+				if (!i.isDebugOrPseudoInst()) {
+					nonDebugInstructions.push_back(&i);
+				}
+			}
+			return nonDebugInstructions;
+		}
+
 	public:
 		BasicBlockWrapper(unsigned long id, BasicBlock* bb) : id(id), bb(bb) {}
 
@@ -65,7 +77,21 @@ class BasicBlockWrapper {
 				ss << successorWrappers[i]->getId();
 				if (i < successorWrappers.size() - 1) ss << ", ";
 			}
-			ss << "]\n";
+			ss << "],\n";
+			ss << tabs(depth+1) << "\"ir\": [\n";
+			std::vector<Instruction*> nonDebugInstructions = getNonDebugInstructions();
+			for(Instruction* i : nonDebugInstructions) {
+				std::string instructionStr;
+				raw_string_ostream rso(instructionStr);
+				i->print(rso);
+				while(instructionStr.find("\n") != std::string::npos)
+					instructionStr.replace(instructionStr.find("\n"), 1, "\\n");
+				ss << tabs(depth+2) << "\"" << instructionStr.erase(0, 2) << "\"";
+				if(i != nonDebugInstructions.back())
+					ss << ",";
+				ss << "\n";
+			}
+			ss << tabs(depth+1) << "]\n";
 			ss << tabs(depth) << "}";
 			return ss.str();
 		}
