@@ -10,6 +10,8 @@ class HashtablePass : public PassInfoMixin<HashtablePass> {
 
 	public:
 		PreservedAnalyses run(Module &M, ModuleAnalysisManager &MAM) {
+			if(M.getName().contains("instrumentationCode")) 
+				return PreservedAnalyses::none();
 			FunctionCallee f = M.getOrInsertFunction("__bb_enter", FunctionType::get(Type::getVoidTy(M.getContext()), {IntegerType::getInt8PtrTy(M.getContext())}, false));
 			FunctionCallee f2 = M.getOrInsertFunction("__prof_export", FunctionType::get(Type::getVoidTy(M.getContext()), false));
 			IRBuilder builder(M.getContext());
