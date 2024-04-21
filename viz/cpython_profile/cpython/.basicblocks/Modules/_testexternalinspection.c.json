@@ -1,0 +1,3020 @@
+{
+	"blocks": [
+		{
+			"function": "find_python_map_start_address",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 233, "columns": [5, 10]
+				},
+				{
+					"line": 234, "columns": [5]
+				},
+				{
+					"line": 236, "columns": [23]
+				},
+				{
+					"line": 237, "columns": [19, 9]
+				}
+			],
+			"successors": [1, 2],
+			"ir": [
+				"%maps_file_path = alloca [64 x i8], align 16",
+				"%line = alloca [256 x i8], align 16",
+				"%map_filename = alloca [4096 x i8], align 16",
+				"%start_address = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 64, ptr nonnull %maps_file_path) #10, !dbg !596",
+				"%call = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %maps_file_path, ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %pid) #10, !dbg !598",
+				"%call2 = call ptr @fopen(ptr noundef nonnull %maps_file_path, ptr noundef nonnull @.str.1), !dbg !599",
+				"%cmp = icmp eq ptr %call2, null, !dbg !600",
+				"br i1 %cmp, label %if.then, label %if.end, !dbg !602"
+			]
+		},
+		{
+			"function": "find_python_map_start_address",
+			"id": 1,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 238, "columns": [28, 9]
+				},
+				{
+					"line": 239, "columns": [9]
+				}
+			],
+			"successors": [10],
+			"ir": [
+				"%0 = load ptr, ptr @PyExc_OSError, align 8, !dbg !603, !tbaa !605",
+				"%call3 = tail call ptr @PyErr_SetFromErrno(ptr noundef %0) #10, !dbg !609",
+				"br label %cleanup37, !dbg !610"
+			]
+		},
+		{
+			"function": "find_python_map_start_address",
+			"id": 2,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 244, "columns": [5, 10]
+				},
+				{
+					"line": 245, "columns": [5, 10]
+				},
+				{
+					"line": 247, "columns": [12, 49, 5]
+				}
+			],
+			"successors": [9, 3],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 256, ptr nonnull %line) #10, !dbg !611",
+				"call void @llvm.lifetime.start.p0(i64 4096, ptr nonnull %map_filename) #10, !dbg !613",
+				"%call557 = call ptr @fgets(ptr noundef nonnull %line, i32 noundef 256, ptr noundef nonnull %call2), !dbg !615",
+				"%cmp6.not58 = icmp eq ptr %call557, null, !dbg !616",
+				"br i1 %cmp6.not58, label %if.end32, label %while.body, !dbg !617"
+			]
+		},
+		{
+			"function": "find_python_map_start_address",
+			"id": 3,
+			"name": "while.body",
+			"debug": [
+				{
+					"line": 248, "columns": [9, 23]
+				},
+				{
+					"line": 249, "columns": [9]
+				},
+				{
+					"line": 250, "columns": [26]
+				},
+				{
+					"line": 251, "columns": [22, 13]
+				},
+				{
+					"line": 258, "columns": [14, 26]
+				}
+			],
+			"successors": [4, 6],
+			"ir": [
+				"%result_address.060 = phi ptr [ %result_address.1, %cleanup ], [ null, %if.end ]",
+				"%match_found.059 = phi i32 [ %match_found.1, %cleanup ], [ 0, %if.end ]",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %start_address) #10, !dbg !618",
+				"store i64 0, ptr %start_address, align 8, !dbg !620, !tbaa !621",
+				"%call9 = call i32 (ptr, ptr, ...) @__isoc99_sscanf(ptr noundef nonnull %line, ptr noundef nonnull @.str.2, ptr noundef nonnull %start_address, ptr noundef nonnull %map_filename) #10, !dbg !623",
+				"%call11 = call ptr @strrchr(ptr noundef nonnull dereferenceable(1) %map_filename, i32 noundef 47) #11, !dbg !624",
+				"%cmp12.not = icmp eq ptr %call11, null, !dbg !625",
+				"%incdec.ptr = getelementptr i8, ptr %call11, i64 1, !dbg !627",
+				"%filename.0 = select i1 %cmp12.not, ptr %map_filename, ptr %incdec.ptr, !dbg !627",
+				"%tobool.not = icmp eq i32 %match_found.059, 0, !dbg !628",
+				"br i1 %tobool.not, label %land.lhs.true, label %if.end21, !dbg !630"
+			]
+		},
+		{
+			"function": "find_python_map_start_address",
+			"id": 4,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 258, "columns": [29, 60, 13]
+				}
+			],
+			"successors": [5, 6],
+			"ir": [
+				"%call16 = call i32 @strncmp(ptr noundef nonnull dereferenceable(1) %filename.0, ptr noundef nonnull dereferenceable(7) @.str.3, i64 noundef 6) #11, !dbg !631",
+				"%cmp17 = icmp eq i32 %call16, 0, !dbg !632",
+				"br i1 %cmp17, label %if.then18, label %if.end21, !dbg !633"
+			]
+		},
+		{
+			"function": "find_python_map_start_address",
+			"id": 5,
+			"name": "if.then18",
+			"debug": [
+				{
+					"line": 260, "columns": [37, 30]
+				},
+				{
+					"line": 261, "columns": [13]
+				},
+				{
+					"line": 262, "columns": [9]
+				}
+			],
+			"successors": [6],
+			"ir": [
+				"%1 = load i64, ptr %start_address, align 8, !dbg !634, !tbaa !621",
+				"%2 = inttoptr i64 %1 to ptr, !dbg !636",
+				"%call20 = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %result_filename, ptr noundef nonnull dereferenceable(1) %map_filename) #10, !dbg !637",
+				"br label %if.end21, !dbg !638"
+			]
+		},
+		{
+			"function": "find_python_map_start_address",
+			"id": 6,
+			"name": "if.end21",
+			"debug": [
+				{
+					"line": 263, "columns": [13, 47]
+				}
+			],
+			"successors": [7, 8],
+			"ir": [
+				"%match_found.1 = phi i32 [ 1, %while.body ], [ 1, %if.then18 ], [ 0, %land.lhs.true ], !dbg !595",
+				"%result_address.1 = phi ptr [ %result_address.060, %while.body ], [ %2, %if.then18 ], [ %result_address.060, %land.lhs.true ], !dbg !595",
+				"%call22 = call i32 @strncmp(ptr noundef nonnull dereferenceable(1) %filename.0, ptr noundef nonnull dereferenceable(10) @.str.4, i64 noundef 9) #11, !dbg !639",
+				"%cmp23 = icmp eq i32 %call22, 0, !dbg !641",
+				"br i1 %cmp23, label %while.end.thread, label %cleanup, !dbg !642"
+			]
+		},
+		{
+			"function": "find_python_map_start_address",
+			"id": 7,
+			"name": "while.end.thread",
+			"debug": [
+				{
+					"line": 265, "columns": [37, 30]
+				},
+				{
+					"line": 266, "columns": [13]
+				},
+				{
+					"line": 269, "columns": [5]
+				},
+				{
+					"line": 273, "columns": [9]
+				}
+			],
+			"successors": [9],
+			"ir": [
+				"%3 = load i64, ptr %start_address, align 8, !dbg !643, !tbaa !621",
+				"%4 = inttoptr i64 %3 to ptr, !dbg !645",
+				"%call26 = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %result_filename, ptr noundef nonnull dereferenceable(1) %map_filename) #10, !dbg !646",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %start_address) #10, !dbg !647",
+				"br label %if.end32, !dbg !648"
+			]
+		},
+		{
+			"function": "find_python_map_start_address",
+			"id": 8,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 247, "columns": [12, 49, 5]
+				},
+				{
+					"line": 269, "columns": [5]
+				}
+			],
+			"successors": [9, 3],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %start_address) #10, !dbg !647",
+				"%call5 = call ptr @fgets(ptr noundef nonnull %line, i32 noundef 256, ptr noundef nonnull %call2), !dbg !615",
+				"%cmp6.not = icmp eq ptr %call5, null, !dbg !616",
+				"br i1 %cmp6.not, label %if.end32, label %while.body, !dbg !617"
+			]
+		},
+		{
+			"function": "find_python_map_start_address",
+			"id": 9,
+			"name": "if.end32",
+			"debug": [
+				{
+					"line": 271, "columns": [5]
+				},
+				{
+					"line": 278, "columns": [1]
+				}
+			],
+			"successors": [10],
+			"ir": [
+				"%result_address.354 = phi ptr [ %4, %while.end.thread ], [ null, %if.end ], [ %result_address.1, %cleanup ]",
+				"%call29 = call i32 @fclose(ptr noundef nonnull %call2), !dbg !649",
+				"call void @llvm.lifetime.end.p0(i64 4096, ptr nonnull %map_filename) #10, !dbg !650",
+				"call void @llvm.lifetime.end.p0(i64 256, ptr nonnull %line) #10, !dbg !650",
+				"br label %cleanup37"
+			]
+		},
+		{
+			"function": "find_python_map_start_address",
+			"id": 10,
+			"name": "cleanup37",
+			"debug": [
+				{
+					"line": 278, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ null, %if.then ], [ %result_address.354, %if.end32 ], !dbg !595",
+				"call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %maps_file_path) #10, !dbg !650",
+				"ret ptr %retval.0, !dbg !650"
+			]
+		},
+		{
+			"function": "get_py_runtime_linux",
+			"id": 11,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 283, "columns": [5, 10]
+				},
+				{
+					"line": 284, "columns": [34]
+				},
+				{
+					"line": 286, "columns": [23, 9]
+				}
+			],
+			"successors": [12, 13],
+			"ir": [
+				"%elf_file = alloca [256 x i8], align 16",
+				"%file_stats = alloca %struct.stat, align 8",
+				"call void @llvm.lifetime.start.p0(i64 256, ptr nonnull %elf_file) #10, !dbg !587",
+				"%call = call ptr @find_python_map_start_address(i32 noundef %pid, ptr noundef nonnull %elf_file), !dbg !589",
+				"%cmp = icmp eq ptr %call, null, !dbg !590",
+				"br i1 %cmp, label %if.then, label %if.end, !dbg !592"
+			]
+		},
+		{
+			"function": "get_py_runtime_linux",
+			"id": 12,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 287, "columns": [25, 9]
+				},
+				{
+					"line": 288, "columns": [9]
+				}
+			],
+			"successors": [33],
+			"ir": [
+				"%0 = load ptr, ptr @PyExc_RuntimeError, align 8, !dbg !593, !tbaa !595",
+				"call void @PyErr_SetString(ptr noundef %0, ptr noundef nonnull @.str.5) #10, !dbg !599",
+				"br label %cleanup74, !dbg !600"
+			]
+		},
+		{
+			"function": "get_py_runtime_linux",
+			"id": 13,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 294, "columns": [14]
+				},
+				{
+					"line": 295, "columns": [12, 9]
+				}
+			],
+			"successors": [14, 15],
+			"ir": [
+				"%call2 = call i32 (ptr, i32, ...) @open(ptr noundef nonnull %elf_file, i32 noundef 0) #10, !dbg !601",
+				"%cmp3 = icmp slt i32 %call2, 0, !dbg !602",
+				"br i1 %cmp3, label %if.then4, label %if.end6, !dbg !604"
+			]
+		},
+		{
+			"function": "get_py_runtime_linux",
+			"id": 14,
+			"name": "if.then4",
+			"debug": [
+				{
+					"line": 296, "columns": [28, 9]
+				},
+				{
+					"line": 297, "columns": [9]
+				}
+			],
+			"successors": [29],
+			"ir": [
+				"%1 = load ptr, ptr @PyExc_OSError, align 8, !dbg !605, !tbaa !595",
+				"%call5 = call ptr @PyErr_SetFromErrno(ptr noundef %1) #10, !dbg !607",
+				"br label %exit, !dbg !608"
+			]
+		},
+		{
+			"function": "get_py_runtime_linux",
+			"id": 15,
+			"name": "if.end6",
+			"debug": [
+				{
+					"line": 300, "columns": [17]
+				},
+				{
+					"line": 301, "columns": [32, 9]
+				},
+				{
+					"line": 469, "columns": [10]
+				}
+			],
+			"successors": [17, 16],
+			"ir": [
+				"%call.i = call i32 @__fxstat(i32 noundef 1, i32 noundef %call2, ptr noundef nonnull %file_stats) #10, !dbg !621",
+				"%cmp8.not = icmp eq i32 %call.i, 0, !dbg !622",
+				"br i1 %cmp8.not, label %if.end11, label %if.then9, !dbg !623"
+			]
+		},
+		{
+			"function": "get_py_runtime_linux",
+			"id": 16,
+			"name": "if.then9",
+			"debug": [
+				{
+					"line": 302, "columns": [28, 9]
+				},
+				{
+					"line": 303, "columns": [9]
+				}
+			],
+			"successors": [29],
+			"ir": [
+				"%2 = load ptr, ptr @PyExc_OSError, align 8, !dbg !624, !tbaa !595",
+				"%call10 = call ptr @PyErr_SetFromErrno(ptr noundef %2) #10, !dbg !626",
+				"br label %exit, !dbg !627"
+			]
+		},
+		{
+			"function": "get_py_runtime_linux",
+			"id": 17,
+			"name": "if.end11",
+			"debug": [
+				{
+					"line": 306, "columns": [41, 19]
+				},
+				{
+					"line": 307, "columns": [21, 9]
+				}
+			],
+			"successors": [18, 19],
+			"ir": [
+				"%st_size = getelementptr inbounds %struct.stat, ptr %file_stats, i64 0, i32 8, !dbg !628",
+				"%3 = load i64, ptr %st_size, align 8, !dbg !628, !tbaa !629",
+				"%call12 = call ptr @mmap(ptr noundef null, i64 noundef %3, i32 noundef 1, i32 noundef 2, i32 noundef %call2, i64 noundef 0) #10, !dbg !634",
+				"%cmp13 = icmp eq ptr %call12, inttoptr (i64 -1 to ptr), !dbg !635",
+				"br i1 %cmp13, label %if.then14, label %if.end16, !dbg !637"
+			]
+		},
+		{
+			"function": "get_py_runtime_linux",
+			"id": 18,
+			"name": "if.then14",
+			"debug": [
+				{
+					"line": 308, "columns": [28, 9]
+				},
+				{
+					"line": 309, "columns": [9]
+				}
+			],
+			"successors": [29],
+			"ir": [
+				"%4 = load ptr, ptr @PyExc_OSError, align 8, !dbg !638, !tbaa !595",
+				"%call15 = call ptr @PyErr_SetFromErrno(ptr noundef %4) #10, !dbg !640",
+				"br label %exit, !dbg !641"
+			]
+		},
+		{
+			"function": "get_py_runtime_linux",
+			"id": 19,
+			"name": "if.end16",
+			"debug": [
+				{
+					"line": 314, "columns": [76, 62]
+				},
+				{
+					"line": 316, "columns": [68, 35]
+				},
+				{
+					"line": 317, "columns": [62, 42]
+				},
+				{
+					"line": 320, "columns": [23, 5]
+				}
+			],
+			"successors": [23, 20],
+			"ir": [
+				"%e_shoff = getelementptr inbounds %struct.Elf64_Ehdr, ptr %call12, i64 0, i32 6, !dbg !642",
+				"%5 = load i64, ptr %e_shoff, align 8, !dbg !642, !tbaa !643",
+				"%add.ptr = getelementptr i8, ptr %call12, i64 %5, !dbg !646",
+				"%e_shstrndx = getelementptr inbounds %struct.Elf64_Ehdr, ptr %call12, i64 0, i32 13, !dbg !647",
+				"%6 = load i16, ptr %e_shstrndx, align 2, !dbg !647, !tbaa !648",
+				"%idxprom = zext i16 %6 to i64, !dbg !649",
+				"%sh_offset = getelementptr %struct.Elf64_Shdr, ptr %add.ptr, i64 %idxprom, i32 4, !dbg !650",
+				"%7 = load i64, ptr %sh_offset, align 8, !dbg !650, !tbaa !651",
+				"%add.ptr17 = getelementptr i8, ptr %call12, i64 %7, !dbg !653",
+				"%e_shnum = getelementptr inbounds %struct.Elf64_Ehdr, ptr %call12, i64 0, i32 12",
+				"%8 = load i16, ptr %e_shnum, align 4, !tbaa !655",
+				"%cmp18107.not = icmp eq i16 %8, 0, !dbg !656",
+				"br i1 %cmp18107.not, label %cleanup, label %for.body.preheader, !dbg !658"
+			]
+		},
+		{
+			"function": "get_py_runtime_linux",
+			"id": 20,
+			"name": "for.body.preheader",
+			"debug": [
+				{
+					"line": 320, "columns": [23, 5]
+				}
+			],
+			"successors": [22],
+			"ir": [
+				"%wide.trip.count = zext i16 %8 to i64, !dbg !656",
+				"br label %for.body, !dbg !658"
+			]
+		},
+		{
+			"function": "get_py_runtime_linux",
+			"id": 21,
+			"name": "for.cond",
+			"debug": [
+				{
+					"line": 320, "columns": [47, 23, 5]
+				}
+			],
+			"successors": [23, 22],
+			"ir": [
+				"%indvars.iv.next = add nuw nsw i64 %indvars.iv, 1, !dbg !659",
+				"%exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count, !dbg !656",
+				"br i1 %exitcond.not, label %cleanup, label %for.body, !dbg !658, !llvm.loop !660"
+			]
+		},
+		{
+			"function": "get_py_runtime_linux",
+			"id": 22,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 321, "columns": [45, 69, 43, 13, 78]
+				}
+			],
+			"successors": [23, 21],
+			"ir": [
+				"%indvars.iv = phi i64 [ 0, %for.body.preheader ], [ %indvars.iv.next, %for.cond ]",
+				"%arrayidx21 = getelementptr %struct.Elf64_Shdr, ptr %add.ptr, i64 %indvars.iv, !dbg !663",
+				"%9 = load i32, ptr %arrayidx21, align 8, !dbg !666, !tbaa !667",
+				"%idx.ext = zext i32 %9 to i64, !dbg !668",
+				"%add.ptr22 = getelementptr i8, ptr %add.ptr17, i64 %idx.ext, !dbg !668",
+				"%call23 = call i32 @strcmp(ptr noundef nonnull dereferenceable(11) @.str.6, ptr noundef nonnull dereferenceable(1) %add.ptr22) #11, !dbg !669",
+				"%cmp24 = icmp eq i32 %call23, 0, !dbg !670",
+				"br i1 %cmp24, label %cleanup, label %for.cond, !dbg !671"
+			]
+		},
+		{
+			"function": "get_py_runtime_linux",
+			"id": 23,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 327, "columns": [76, 62]
+				},
+				{
+					"line": 330, "columns": [23, 5]
+				}
+			],
+			"successors": [29, 24],
+			"ir": [
+				"%py_runtime_section.0 = phi ptr [ null, %if.end16 ], [ %arrayidx21, %for.body ], [ null, %for.cond ], !dbg !586",
+				"%e_phoff = getelementptr inbounds %struct.Elf64_Ehdr, ptr %call12, i64 0, i32 5, !dbg !672",
+				"%10 = load i64, ptr %e_phoff, align 8, !dbg !672, !tbaa !673",
+				"%add.ptr30 = getelementptr i8, ptr %call12, i64 %10, !dbg !674",
+				"%e_phnum = getelementptr inbounds %struct.Elf64_Ehdr, ptr %call12, i64 0, i32 10",
+				"%11 = load i16, ptr %e_phnum, align 8, !tbaa !676",
+				"%cmp34110.not = icmp eq i16 %11, 0, !dbg !677",
+				"br i1 %cmp34110.not, label %exit, label %for.body37.preheader, !dbg !679"
+			]
+		},
+		{
+			"function": "get_py_runtime_linux",
+			"id": 24,
+			"name": "for.body37.preheader",
+			"debug": [
+				{
+					"line": 330, "columns": [23, 5]
+				}
+			],
+			"successors": [26],
+			"ir": [
+				"%wide.trip.count117 = zext i16 %11 to i64, !dbg !677",
+				"br label %for.body37, !dbg !679"
+			]
+		},
+		{
+			"function": "get_py_runtime_linux",
+			"id": 25,
+			"name": "for.cond32",
+			"debug": [
+				{
+					"line": 330, "columns": [47, 23, 5]
+				}
+			],
+			"successors": [29, 26],
+			"ir": [
+				"%indvars.iv.next115 = add nuw nsw i64 %indvars.iv114, 1, !dbg !680",
+				"%exitcond118.not = icmp eq i64 %indvars.iv.next115, %wide.trip.count117, !dbg !677",
+				"br i1 %exitcond118.not, label %exit, label %for.body37, !dbg !679, !llvm.loop !681"
+			]
+		},
+		{
+			"function": "get_py_runtime_linux",
+			"id": 26,
+			"name": "for.body37",
+			"debug": [
+				{
+					"line": 331, "columns": [13, 37, 44]
+				}
+			],
+			"successors": [27, 25],
+			"ir": [
+				"%indvars.iv114 = phi i64 [ 0, %for.body37.preheader ], [ %indvars.iv.next115, %for.cond32 ]",
+				"%arrayidx39 = getelementptr %struct.Elf64_Phdr, ptr %add.ptr30, i64 %indvars.iv114, !dbg !683",
+				"%12 = load i32, ptr %arrayidx39, align 8, !dbg !686, !tbaa !687",
+				"%cmp40 = icmp eq i32 %12, 1, !dbg !689",
+				"br i1 %cmp40, label %cleanup48, label %for.cond32, !dbg !690"
+			]
+		},
+		{
+			"function": "get_py_runtime_linux",
+			"id": 27,
+			"name": "cleanup48",
+			"debug": [
+				{
+					"line": 337, "columns": [28, 36]
+				}
+			],
+			"successors": [29, 28],
+			"ir": [
+				"%cmp50.not = icmp eq ptr %py_runtime_section.0, null, !dbg !691",
+				"br i1 %cmp50.not, label %exit, label %if.then54, !dbg !692"
+			]
+		},
+		{
+			"function": "get_py_runtime_linux",
+			"id": 28,
+			"name": "if.then54",
+			"debug": [
+				{
+					"line": 338, "columns": [55]
+				},
+				{
+					"line": 339, "columns": [88, 66, 35]
+				},
+				{
+					"line": 340, "columns": [54, 32, 62]
+				},
+				{
+					"line": 341, "columns": [5]
+				}
+			],
+			"successors": [29],
+			"ir": [
+				"%p_vaddr = getelementptr %struct.Elf64_Phdr, ptr %add.ptr30, i64 %indvars.iv114, i32 3, !dbg !693",
+				"%13 = load i64, ptr %p_vaddr, align 8, !dbg !693, !tbaa !694",
+				"%p_align = getelementptr %struct.Elf64_Phdr, ptr %add.ptr30, i64 %indvars.iv114, i32 7, !dbg !695",
+				"%14 = load i64, ptr %p_align, align 8, !dbg !695, !tbaa !696",
+				"%rem = urem i64 %13, %14, !dbg !697",
+				"%sub.neg = sub i64 %rem, %13, !dbg !698",
+				"%sh_addr = getelementptr inbounds %struct.Elf64_Shdr, ptr %py_runtime_section.0, i64 0, i32 3, !dbg !700",
+				"%15 = load i64, ptr %sh_addr, align 8, !dbg !700, !tbaa !701",
+				"%add.ptr56 = getelementptr i8, ptr %call, i64 %15, !dbg !702",
+				"%add.ptr57 = getelementptr i8, ptr %add.ptr56, i64 %sub.neg, !dbg !703",
+				"br label %exit, !dbg !704"
+			]
+		},
+		{
+			"function": "get_py_runtime_linux",
+			"id": 29,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 343, "columns": [1]
+				},
+				{
+					"line": 344, "columns": [9, 19]
+				}
+			],
+			"successors": [31, 30],
+			"ir": [
+				"%file_memory.0 = phi ptr [ null, %if.then4 ], [ null, %if.then9 ], [ inttoptr (i64 -1 to ptr), %if.then14 ], [ %call12, %if.then54 ], [ %call12, %cleanup48 ], [ %call12, %cleanup ], [ %call12, %for.cond32 ], !dbg !586",
+				"%result.0 = phi ptr [ null, %if.then4 ], [ null, %if.then9 ], [ null, %if.then14 ], [ %add.ptr57, %if.then54 ], [ null, %cleanup48 ], [ null, %cleanup ], [ null, %for.cond32 ], !dbg !586",
+				"%call59 = call i32 @close(i32 noundef %call2) #10, !dbg !706",
+				"%cmp60.not = icmp eq i32 %call59, 0, !dbg !708",
+				"br i1 %cmp60.not, label %if.end64, label %if.then62, !dbg !709"
+			]
+		},
+		{
+			"function": "get_py_runtime_linux",
+			"id": 30,
+			"name": "if.then62",
+			"debug": [
+				{
+					"line": 345, "columns": [28, 9]
+				},
+				{
+					"line": 346, "columns": [5]
+				}
+			],
+			"successors": [31],
+			"ir": [
+				"%16 = load ptr, ptr @PyExc_OSError, align 8, !dbg !710, !tbaa !595",
+				"%call63 = call ptr @PyErr_SetFromErrno(ptr noundef %16) #10, !dbg !712",
+				"br label %if.end64, !dbg !713"
+			]
+		},
+		{
+			"function": "get_py_runtime_linux",
+			"id": 31,
+			"name": "if.end64",
+			"debug": [
+				{
+					"line": 347, "columns": [21, 9]
+				}
+			],
+			"successors": [33, 32],
+			"ir": [
+				"%cmp65.not = icmp eq ptr %file_memory.0, null, !dbg !714",
+				"br i1 %cmp65.not, label %cleanup74, label %if.then67, !dbg !716"
+			]
+		},
+		{
+			"function": "get_py_runtime_linux",
+			"id": 32,
+			"name": "if.then67",
+			"debug": [
+				{
+					"line": 348, "columns": [40, 9]
+				},
+				{
+					"line": 349, "columns": [5]
+				}
+			],
+			"successors": [33],
+			"ir": [
+				"%st_size68 = getelementptr inbounds %struct.stat, ptr %file_stats, i64 0, i32 8, !dbg !717",
+				"%17 = load i64, ptr %st_size68, align 8, !dbg !717, !tbaa !629",
+				"%call69 = call i32 @munmap(ptr noundef nonnull %file_memory.0, i64 noundef %17) #10, !dbg !719",
+				"br label %cleanup74, !dbg !720"
+			]
+		},
+		{
+			"function": "get_py_runtime_linux",
+			"id": 33,
+			"name": "cleanup74",
+			"debug": [
+				{
+					"line": 351, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ null, %if.then ], [ %result.0, %if.then67 ], [ %result.0, %if.end64 ], !dbg !586",
+				"call void @llvm.lifetime.end.p0(i64 256, ptr nonnull %elf_file) #10, !dbg !721",
+				"ret ptr %retval.0, !dbg !721"
+			]
+		},
+		{
+			"function": "read_memory",
+			"id": 34,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 359, "columns": [5, 18]
+				},
+				{
+					"line": 360, "columns": [5, 18]
+				},
+				{
+					"line": 364, "columns": [5]
+				}
+			],
+			"successors": [35],
+			"ir": [
+				"%local = alloca [1 x %struct.iovec], align 16",
+				"%remote = alloca [1 x %struct.iovec], align 16",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %local) #10, !dbg !540",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %remote) #10, !dbg !542",
+				"%iov_len = getelementptr inbounds %struct.iovec, ptr %local, i64 0, i32 1",
+				"%iov_len7 = getelementptr inbounds %struct.iovec, ptr %remote, i64 0, i32 1",
+				"br label %do.body, !dbg !544"
+			]
+		},
+		{
+			"function": "read_memory",
+			"id": 35,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 365, "columns": [33, 27]
+				},
+				{
+					"line": 366, "columns": [32, 26]
+				},
+				{
+					"line": 367, "columns": [53, 28]
+				},
+				{
+					"line": 368, "columns": [27]
+				},
+				{
+					"line": 370, "columns": [16]
+				},
+				{
+					"line": 371, "columns": [18, 13]
+				}
+			],
+			"successors": [36, 37],
+			"ir": [
+				"%result.0 = phi i64 [ 0, %entry ], [ %add, %if.end ], !dbg !539",
+				"%add.ptr = getelementptr i8, ptr %dst, i64 %result.0, !dbg !545",
+				"store ptr %add.ptr, ptr %local, align 16, !dbg !547, !tbaa !548",
+				"%sub = sub i64 %len, %result.0, !dbg !554",
+				"store i64 %sub, ptr %iov_len, align 8, !dbg !555, !tbaa !556",
+				"%add.ptr2 = getelementptr i8, ptr %remote_address, i64 %result.0, !dbg !557",
+				"store ptr %add.ptr2, ptr %remote, align 16, !dbg !558, !tbaa !548",
+				"store i64 %sub, ptr %iov_len7, align 8, !dbg !559, !tbaa !556",
+				"%call = call i64 @process_vm_readv(i32 noundef %pid, ptr noundef nonnull %local, i64 noundef 1, ptr noundef nonnull %remote, i64 noundef 1, i64 noundef 0) #10, !dbg !560",
+				"%cmp = icmp slt i64 %call, 0, !dbg !561",
+				"br i1 %cmp, label %if.then, label %if.end, !dbg !563"
+			]
+		},
+		{
+			"function": "read_memory",
+			"id": 36,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 372, "columns": [32, 13]
+				},
+				{
+					"line": 373, "columns": [13]
+				}
+			],
+			"successors": [38],
+			"ir": [
+				"%0 = load ptr, ptr @PyExc_OSError, align 8, !dbg !564, !tbaa !566",
+				"%call9 = call ptr @PyErr_SetFromErrno(ptr noundef %0) #10, !dbg !567",
+				"br label %cleanup, !dbg !568"
+			]
+		},
+		{
+			"function": "read_memory",
+			"id": 37,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 376, "columns": [16]
+				},
+				{
+					"line": 377, "columns": [39, 27, 5]
+				}
+			],
+			"successors": [38, 35],
+			"ir": [
+				"%add = add i64 %call, %result.0, !dbg !569",
+				"%1 = load i64, ptr %iov_len, align 8, !dbg !570, !tbaa !556",
+				"%cmp12.not = icmp eq i64 %call, %1, !dbg !571",
+				"br i1 %cmp12.not, label %cleanup, label %do.body, !dbg !572, !llvm.loop !573"
+			]
+		},
+		{
+			"function": "read_memory",
+			"id": 38,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 406, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i64 [ -1, %if.then ], [ %add, %if.end ], !dbg !539",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %remote) #10, !dbg !576",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %local) #10, !dbg !576",
+				"ret i64 %retval.0, !dbg !576"
+			]
+		},
+		{
+			"function": "read_string",
+			"id": 39,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 359, "columns": [5, 18]
+				},
+				{
+					"line": 360, "columns": [5, 18]
+				},
+				{
+					"line": 364, "columns": [5]
+				},
+				{
+					"line": 411, "columns": [5]
+				},
+				{
+					"line": 413, "columns": [70, 38]
+				}
+			],
+			"successors": [40],
+			"ir": [
+				"%local.i17 = alloca [1 x %struct.iovec], align 16",
+				"%remote.i18 = alloca [1 x %struct.iovec], align 16",
+				"%local.i = alloca [1 x %struct.iovec], align 16",
+				"%remote.i = alloca [1 x %struct.iovec], align 16",
+				"%len = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %len) #10, !dbg !609",
+				"%length = getelementptr inbounds %struct._Py_DebugOffsets, ptr %debug_offsets, i64 0, i32 11, i32 1, !dbg !610",
+				"%0 = load i64, ptr %length, align 8, !dbg !610, !tbaa !611",
+				"%add.ptr = getelementptr i8, ptr %address, i64 %0, !dbg !626",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %local.i) #10, !dbg !650",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %remote.i) #10, !dbg !652",
+				"%iov_len.i = getelementptr inbounds %struct.iovec, ptr %local.i, i64 0, i32 1",
+				"%iov_len7.i = getelementptr inbounds %struct.iovec, ptr %remote.i, i64 0, i32 1",
+				"br label %do.body.i, !dbg !654"
+			]
+		},
+		{
+			"function": "read_string",
+			"id": 40,
+			"name": "do.body.i",
+			"debug": [
+				{
+					"line": 365, "columns": [33, 27]
+				},
+				{
+					"line": 366, "columns": [32, 26]
+				},
+				{
+					"line": 367, "columns": [53, 28]
+				},
+				{
+					"line": 368, "columns": [27]
+				},
+				{
+					"line": 370, "columns": [16]
+				},
+				{
+					"line": 371, "columns": [18, 13]
+				}
+			],
+			"successors": [41, 42],
+			"ir": [
+				"%result.0.i = phi i64 [ 0, %entry ], [ %add.i, %if.end.i ], !dbg !648",
+				"%add.ptr.i = getelementptr i8, ptr %len, i64 %result.0.i, !dbg !655",
+				"store ptr %add.ptr.i, ptr %local.i, align 16, !dbg !657, !tbaa !658",
+				"%sub.i = sub i64 8, %result.0.i, !dbg !661",
+				"store i64 %sub.i, ptr %iov_len.i, align 8, !dbg !662, !tbaa !663",
+				"%add.ptr2.i = getelementptr i8, ptr %add.ptr, i64 %result.0.i, !dbg !664",
+				"store ptr %add.ptr2.i, ptr %remote.i, align 16, !dbg !665, !tbaa !658",
+				"store i64 %sub.i, ptr %iov_len7.i, align 8, !dbg !666, !tbaa !663",
+				"%call.i = call i64 @process_vm_readv(i32 noundef %pid, ptr noundef nonnull %local.i, i64 noundef 1, ptr noundef nonnull %remote.i, i64 noundef 1, i64 noundef 0) #10, !dbg !667",
+				"%cmp.i = icmp slt i64 %call.i, 0, !dbg !668",
+				"br i1 %cmp.i, label %read_memory.exit.thread, label %if.end.i, !dbg !670"
+			]
+		},
+		{
+			"function": "read_string",
+			"id": 41,
+			"name": "read_memory.exit.thread",
+			"debug": [
+				{
+					"line": 372, "columns": [32, 13]
+				},
+				{
+					"line": 406, "columns": [1]
+				},
+				{
+					"line": 414, "columns": [9]
+				}
+			],
+			"successors": [52],
+			"ir": [
+				"%1 = load ptr, ptr @PyExc_OSError, align 8, !dbg !671, !tbaa !673",
+				"%call9.i = call ptr @PyErr_SetFromErrno(ptr noundef %1) #10, !dbg !674",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %remote.i) #10, !dbg !675",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %local.i) #10, !dbg !675",
+				"br label %cleanup10, !dbg !676"
+			]
+		},
+		{
+			"function": "read_string",
+			"id": 42,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 376, "columns": [16]
+				},
+				{
+					"line": 377, "columns": [39, 27, 5]
+				}
+			],
+			"successors": [43, 40],
+			"ir": [
+				"%add.i = add i64 %call.i, %result.0.i, !dbg !677",
+				"%2 = load i64, ptr %iov_len.i, align 8, !dbg !678, !tbaa !663",
+				"%cmp12.not.i = icmp eq i64 %call.i, %2, !dbg !679",
+				"br i1 %cmp12.not.i, label %read_memory.exit, label %do.body.i, !dbg !680, !llvm.loop !681"
+			]
+		},
+		{
+			"function": "read_string",
+			"id": 43,
+			"name": "read_memory.exit",
+			"debug": [
+				{
+					"line": 406, "columns": [1]
+				},
+				{
+					"line": 414, "columns": [20, 9]
+				}
+			],
+			"successors": [52, 44],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %remote.i) #10, !dbg !675",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %local.i) #10, !dbg !675",
+				"%cmp = icmp eq i64 %add.i, -1, !dbg !684",
+				"br i1 %cmp, label %cleanup10, label %if.end, !dbg !676"
+			]
+		},
+		{
+			"function": "read_string",
+			"id": 44,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 417, "columns": [9, 13]
+				}
+			],
+			"successors": [46, 45],
+			"ir": [
+				"%3 = load i64, ptr %len, align 8, !dbg !686, !tbaa !688",
+				"%cmp1.not = icmp slt i64 %3, %size, !dbg !689",
+				"br i1 %cmp1.not, label %if.end3, label %if.then2, !dbg !690"
+			]
+		},
+		{
+			"function": "read_string",
+			"id": 45,
+			"name": "if.then2",
+			"debug": [
+				{
+					"line": 418, "columns": [25, 9]
+				},
+				{
+					"line": 419, "columns": [9]
+				}
+			],
+			"successors": [52],
+			"ir": [
+				"%4 = load ptr, ptr @PyExc_RuntimeError, align 8, !dbg !691, !tbaa !673",
+				"call void @PyErr_SetString(ptr noundef %4, ptr noundef nonnull @.str.7) #10, !dbg !693",
+				"br label %cleanup10, !dbg !694"
+			]
+		},
+		{
+			"function": "read_string",
+			"id": 46,
+			"name": "if.end3",
+			"debug": [
+				{
+					"line": 359, "columns": [5, 18]
+				},
+				{
+					"line": 360, "columns": [5, 18]
+				},
+				{
+					"line": 364, "columns": [5]
+				},
+				{
+					"line": 421, "columns": [51]
+				},
+				{
+					"line": 422, "columns": [43]
+				}
+			],
+			"successors": [47],
+			"ir": [
+				"%asciiobject_size = getelementptr inbounds %struct._Py_DebugOffsets, ptr %debug_offsets, i64 0, i32 11, i32 2, !dbg !695",
+				"%5 = load i64, ptr %asciiobject_size, align 8, !dbg !695, !tbaa !696",
+				"%add.ptr5 = getelementptr i8, ptr %address, i64 %5, !dbg !697",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %local.i17) #10, !dbg !700",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %remote.i18) #10, !dbg !702",
+				"%iov_len.i19 = getelementptr inbounds %struct.iovec, ptr %local.i17, i64 0, i32 1",
+				"%iov_len7.i20 = getelementptr inbounds %struct.iovec, ptr %remote.i18, i64 0, i32 1",
+				"br label %do.body.i27, !dbg !704"
+			]
+		},
+		{
+			"function": "read_string",
+			"id": 47,
+			"name": "do.body.i27",
+			"debug": [
+				{
+					"line": 365, "columns": [33, 27]
+				},
+				{
+					"line": 366, "columns": [32, 26]
+				},
+				{
+					"line": 367, "columns": [53, 28]
+				},
+				{
+					"line": 368, "columns": [27]
+				},
+				{
+					"line": 370, "columns": [16]
+				},
+				{
+					"line": 371, "columns": [18, 13]
+				}
+			],
+			"successors": [48, 49],
+			"ir": [
+				"%result.0.i21 = phi i64 [ 0, %if.end3 ], [ %add.i30, %if.end.i32 ], !dbg !698",
+				"%add.ptr.i22 = getelementptr i8, ptr %buffer, i64 %result.0.i21, !dbg !705",
+				"store ptr %add.ptr.i22, ptr %local.i17, align 16, !dbg !706, !tbaa !658",
+				"%sub.i23 = sub i64 %3, %result.0.i21, !dbg !707",
+				"store i64 %sub.i23, ptr %iov_len.i19, align 8, !dbg !708, !tbaa !663",
+				"%add.ptr2.i24 = getelementptr i8, ptr %add.ptr5, i64 %result.0.i21, !dbg !709",
+				"store ptr %add.ptr2.i24, ptr %remote.i18, align 16, !dbg !710, !tbaa !658",
+				"store i64 %sub.i23, ptr %iov_len7.i20, align 8, !dbg !711, !tbaa !663",
+				"%call.i25 = call i64 @process_vm_readv(i32 noundef %pid, ptr noundef nonnull %local.i17, i64 noundef 1, ptr noundef nonnull %remote.i18, i64 noundef 1, i64 noundef 0) #10, !dbg !712",
+				"%cmp.i26 = icmp slt i64 %call.i25, 0, !dbg !713",
+				"br i1 %cmp.i26, label %read_memory.exit34.thread, label %if.end.i32, !dbg !714"
+			]
+		},
+		{
+			"function": "read_string",
+			"id": 48,
+			"name": "read_memory.exit34.thread",
+			"debug": [
+				{
+					"line": 372, "columns": [32, 13]
+				},
+				{
+					"line": 406, "columns": [1]
+				},
+				{
+					"line": 423, "columns": [9]
+				}
+			],
+			"successors": [52],
+			"ir": [
+				"%6 = load ptr, ptr @PyExc_OSError, align 8, !dbg !715, !tbaa !673",
+				"%call9.i28 = call ptr @PyErr_SetFromErrno(ptr noundef %6) #10, !dbg !716",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %remote.i18) #10, !dbg !717",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %local.i17) #10, !dbg !717",
+				"br label %cleanup10, !dbg !718"
+			]
+		},
+		{
+			"function": "read_string",
+			"id": 49,
+			"name": "if.end.i32",
+			"debug": [
+				{
+					"line": 376, "columns": [16]
+				},
+				{
+					"line": 377, "columns": [39, 27, 5]
+				}
+			],
+			"successors": [50, 47],
+			"ir": [
+				"%add.i30 = add i64 %call.i25, %result.0.i21, !dbg !719",
+				"%7 = load i64, ptr %iov_len.i19, align 8, !dbg !720, !tbaa !663",
+				"%cmp12.not.i31 = icmp eq i64 %call.i25, %7, !dbg !721",
+				"br i1 %cmp12.not.i31, label %read_memory.exit34, label %do.body.i27, !dbg !722, !llvm.loop !723"
+			]
+		},
+		{
+			"function": "read_string",
+			"id": 50,
+			"name": "read_memory.exit34",
+			"debug": [
+				{
+					"line": 406, "columns": [1]
+				},
+				{
+					"line": 423, "columns": [20, 9]
+				}
+			],
+			"successors": [52, 51],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %remote.i18) #10, !dbg !717",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %local.i17) #10, !dbg !717",
+				"%cmp7 = icmp eq i64 %add.i30, -1, !dbg !725",
+				"br i1 %cmp7, label %cleanup10, label %if.end9, !dbg !718"
+			]
+		},
+		{
+			"function": "read_string",
+			"id": 51,
+			"name": "if.end9",
+			"debug": [
+				{
+					"line": 426, "columns": [12, 5, 17]
+				},
+				{
+					"line": 427, "columns": [5]
+				}
+			],
+			"successors": [52],
+			"ir": [
+				"%8 = load i64, ptr %len, align 8, !dbg !727, !tbaa !688",
+				"%arrayidx = getelementptr i8, ptr %buffer, i64 %8, !dbg !728",
+				"store i8 0, ptr %arrayidx, align 1, !dbg !729, !tbaa !730",
+				"br label %cleanup10, !dbg !731"
+			]
+		},
+		{
+			"function": "read_string",
+			"id": 52,
+			"name": "cleanup10",
+			"debug": [
+				{
+					"line": 428, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi i32 [ -1, %if.then2 ], [ -1, %read_memory.exit ], [ 0, %if.end9 ], [ -1, %read_memory.exit34 ], [ -1, %read_memory.exit.thread ], [ -1, %read_memory.exit34.thread ], !dbg !608",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %len) #10, !dbg !732",
+				"ret i32 %retval.1, !dbg !732"
+			]
+		},
+		{
+			"function": "get_py_runtime",
+			"id": 53,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 434, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call ptr @get_py_runtime_linux(i32 noundef %pid), !dbg !524",
+				"ret ptr %call, !dbg !525"
+			]
+		},
+		{
+			"function": "PyInit__testexternalinspection",
+			"id": 54,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 625, "columns": [21]
+				},
+				{
+					"line": 626, "columns": [14]
+				},
+				{
+					"line": 627, "columns": [12, 9]
+				}
+			],
+			"successors": [55, 58],
+			"ir": [
+				"%call = tail call ptr @PyModule_Create2(ptr noundef nonnull @module, i32 noundef 1013) #10, !dbg !520",
+				"%call1 = tail call i32 @PyModule_AddIntConstant(ptr noundef %call, ptr noundef nonnull @.str.8, i64 noundef 1) #10, !dbg !522",
+				"%cmp = icmp slt i32 %call1, 0, !dbg !523",
+				"br i1 %cmp, label %if.then, label %cleanup, !dbg !525"
+			]
+		},
+		{
+			"function": "PyInit__testexternalinspection",
+			"id": 55,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [56, 58],
+			"ir": [
+				"%op.val.i = load i64, ptr %call, align 8, !dbg !532, !tbaa !534",
+				"%0 = and i64 %op.val.i, 2147483648, !dbg !542",
+				"%cmp.i.not.i = icmp eq i64 %0, 0, !dbg !542",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %cleanup, !dbg !543"
+			]
+		},
+		{
+			"function": "PyInit__testexternalinspection",
+			"id": 56,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [57, 58],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !544",
+				"store i64 %dec.i, ptr %call, align 8, !dbg !544, !tbaa !534",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !546",
+				"br i1 %cmp.i, label %if.then1.i, label %cleanup, !dbg !547"
+			]
+		},
+		{
+			"function": "PyInit__testexternalinspection",
+			"id": 57,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [58],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call) #10, !dbg !548",
+				"br label %cleanup, !dbg !550"
+			]
+		},
+		{
+			"function": "PyInit__testexternalinspection",
+			"id": 58,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 632, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call, %entry ], [ null, %if.then ], [ null, %if.end.i ], [ null, %if.then1.i ], !dbg !521",
+				"ret ptr %retval.0, !dbg !551"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 59,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 532, "columns": [5]
+				},
+				{
+					"line": 534, "columns": [10, 9]
+				}
+			],
+			"successors": [132, 60],
+			"ir": [
+				"%local.i.i.i = alloca [1 x %struct.iovec], align 16",
+				"%remote.i.i.i = alloca [1 x %struct.iovec], align 16",
+				"%address_of_function_name.i.i = alloca ptr, align 8",
+				"%function_name.i.i = alloca [256 x i8], align 16",
+				"%local.i55.i = alloca [1 x %struct.iovec], align 16",
+				"%remote.i56.i = alloca [1 x %struct.iovec], align 16",
+				"%local.i37.i = alloca [1 x %struct.iovec], align 16",
+				"%remote.i38.i = alloca [1 x %struct.iovec], align 16",
+				"%local.i.i = alloca [1 x %struct.iovec], align 16",
+				"%remote.i.i = alloca [1 x %struct.iovec], align 16",
+				"%owner.i = alloca i8, align 1",
+				"%address_of_code_object.i = alloca ptr, align 8",
+				"%local.i93 = alloca [1 x %struct.iovec], align 16",
+				"%remote.i94 = alloca [1 x %struct.iovec], align 16",
+				"%local.i75 = alloca [1 x %struct.iovec], align 16",
+				"%remote.i76 = alloca [1 x %struct.iovec], align 16",
+				"%local.i57 = alloca [1 x %struct.iovec], align 16",
+				"%remote.i58 = alloca [1 x %struct.iovec], align 16",
+				"%local.i = alloca [1 x %struct.iovec], align 16",
+				"%remote.i = alloca [1 x %struct.iovec], align 16",
+				"%pid = alloca i32, align 4",
+				"%local_debug_offsets = alloca %struct._Py_DebugOffsets, align 8",
+				"%address_of_interpreter_state = alloca ptr, align 8",
+				"%address_of_thread = alloca ptr, align 8",
+				"%address_of_current_frame = alloca ptr, align 8",
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %pid) #10, !dbg !611",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.12, ptr noundef nonnull %pid) #10, !dbg !612",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !612",
+				"br i1 %tobool.not, label %cleanup46, label %if.end, !dbg !614"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 60,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 434, "columns": [12]
+				},
+				{
+					"line": 538, "columns": [50]
+				},
+				{
+					"line": 539, "columns": [31, 9]
+				}
+			],
+			"successors": [61, 63],
+			"ir": [
+				"%0 = load i32, ptr %pid, align 4, !dbg !615, !tbaa !616",
+				"%call.i = call ptr @get_py_runtime_linux(i32 noundef %0), !dbg !629",
+				"%cmp = icmp eq ptr %call.i, null, !dbg !630",
+				"br i1 %cmp, label %if.then2, label %if.end7, !dbg !632"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 61,
+			"name": "if.then2",
+			"debug": [
+				{
+					"line": 540, "columns": [14, 13]
+				}
+			],
+			"successors": [62, 132],
+			"ir": [
+				"%call3 = call ptr @PyErr_Occurred() #10, !dbg !633",
+				"%tobool4.not = icmp eq ptr %call3, null, !dbg !633",
+				"br i1 %tobool4.not, label %if.then5, label %cleanup46, !dbg !636"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 62,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 541, "columns": [29, 13]
+				},
+				{
+					"line": 542, "columns": [9]
+				}
+			],
+			"successors": [132],
+			"ir": [
+				"%1 = load ptr, ptr @PyExc_RuntimeError, align 8, !dbg !637, !tbaa !639",
+				"call void @PyErr_SetString(ptr noundef %1, ptr noundef nonnull @.str.13) #10, !dbg !641",
+				"br label %cleanup46, !dbg !642"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 63,
+			"name": "if.end7",
+			"debug": [
+				{
+					"line": 359, "columns": [5, 18]
+				},
+				{
+					"line": 360, "columns": [5, 18]
+				},
+				{
+					"line": 364, "columns": [5]
+				},
+				{
+					"line": 546, "columns": [5, 29]
+				},
+				{
+					"line": 548, "columns": [38]
+				}
+			],
+			"successors": [64],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 320, ptr nonnull %local_debug_offsets) #10, !dbg !643",
+				"%2 = load i32, ptr %pid, align 4, !dbg !645, !tbaa !616",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %local.i) #10, !dbg !669",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %remote.i) #10, !dbg !671",
+				"%iov_len.i = getelementptr inbounds %struct.iovec, ptr %local.i, i64 0, i32 1",
+				"%iov_len7.i = getelementptr inbounds %struct.iovec, ptr %remote.i, i64 0, i32 1",
+				"br label %do.body.i, !dbg !673"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 64,
+			"name": "do.body.i",
+			"debug": [
+				{
+					"line": 365, "columns": [33, 27]
+				},
+				{
+					"line": 366, "columns": [32, 26]
+				},
+				{
+					"line": 367, "columns": [53, 28]
+				},
+				{
+					"line": 368, "columns": [27]
+				},
+				{
+					"line": 370, "columns": [16]
+				},
+				{
+					"line": 371, "columns": [18, 13]
+				}
+			],
+			"successors": [65, 66],
+			"ir": [
+				"%result.0.i = phi i64 [ 0, %if.end7 ], [ %add.i, %if.end.i56 ], !dbg !667",
+				"%add.ptr.i = getelementptr i8, ptr %local_debug_offsets, i64 %result.0.i, !dbg !674",
+				"store ptr %add.ptr.i, ptr %local.i, align 16, !dbg !676, !tbaa !677",
+				"%sub.i = sub i64 320, %result.0.i, !dbg !680",
+				"store i64 %sub.i, ptr %iov_len.i, align 8, !dbg !681, !tbaa !682",
+				"%add.ptr2.i = getelementptr i8, ptr %call.i, i64 %result.0.i, !dbg !683",
+				"store ptr %add.ptr2.i, ptr %remote.i, align 16, !dbg !684, !tbaa !677",
+				"store i64 %sub.i, ptr %iov_len7.i, align 8, !dbg !685, !tbaa !682",
+				"%call.i54 = call i64 @process_vm_readv(i32 noundef %2, ptr noundef nonnull %local.i, i64 noundef 1, ptr noundef nonnull %remote.i, i64 noundef 1, i64 noundef 0) #10, !dbg !686",
+				"%cmp.i55 = icmp slt i64 %call.i54, 0, !dbg !687",
+				"br i1 %cmp.i55, label %read_memory.exit.thread, label %if.end.i56, !dbg !689"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 65,
+			"name": "read_memory.exit.thread",
+			"debug": [
+				{
+					"line": 372, "columns": [32, 13]
+				},
+				{
+					"line": 406, "columns": [1]
+				},
+				{
+					"line": 549, "columns": [9]
+				}
+			],
+			"successors": [131],
+			"ir": [
+				"%3 = load ptr, ptr @PyExc_OSError, align 8, !dbg !690, !tbaa !639",
+				"%call9.i = call ptr @PyErr_SetFromErrno(ptr noundef %3) #10, !dbg !692",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %remote.i) #10, !dbg !693",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %local.i) #10, !dbg !693",
+				"br label %cleanup42, !dbg !694"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 66,
+			"name": "if.end.i56",
+			"debug": [
+				{
+					"line": 376, "columns": [16]
+				},
+				{
+					"line": 377, "columns": [39, 27, 5]
+				}
+			],
+			"successors": [67, 64],
+			"ir": [
+				"%add.i = add i64 %call.i54, %result.0.i, !dbg !695",
+				"%4 = load i64, ptr %iov_len.i, align 8, !dbg !696, !tbaa !682",
+				"%cmp12.not.i = icmp eq i64 %call.i54, %4, !dbg !697",
+				"br i1 %cmp12.not.i, label %read_memory.exit, label %do.body.i, !dbg !698, !llvm.loop !699"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 67,
+			"name": "read_memory.exit",
+			"debug": [
+				{
+					"line": 406, "columns": [1]
+				},
+				{
+					"line": 549, "columns": [20, 9]
+				}
+			],
+			"successors": [131, 68],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %remote.i) #10, !dbg !693",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %local.i) #10, !dbg !693",
+				"%cmp9 = icmp eq i64 %add.i, -1, !dbg !702",
+				"br i1 %cmp9, label %cleanup42, label %if.end11, !dbg !694"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 68,
+			"name": "if.end11",
+			"debug": [
+				{
+					"line": 359, "columns": [5, 18]
+				},
+				{
+					"line": 360, "columns": [5, 18]
+				},
+				{
+					"line": 364, "columns": [5]
+				},
+				{
+					"line": 552, "columns": [70]
+				},
+				{
+					"line": 554, "columns": [5]
+				},
+				{
+					"line": 556, "columns": [13]
+				},
+				{
+					"line": 557, "columns": [43]
+				}
+			],
+			"successors": [69],
+			"ir": [
+				"%interpreters_head = getelementptr inbounds %struct._Py_DebugOffsets, ptr %local_debug_offsets, i64 0, i32 2, i32 1, !dbg !704",
+				"%5 = load i64, ptr %interpreters_head, align 8, !dbg !704, !tbaa !705",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %address_of_interpreter_state) #10, !dbg !717",
+				"%6 = load i32, ptr %pid, align 4, !dbg !718, !tbaa !616",
+				"%add.ptr = getelementptr i8, ptr %call.i, i64 %5, !dbg !719",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %local.i57) #10, !dbg !722",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %remote.i58) #10, !dbg !724",
+				"%iov_len.i59 = getelementptr inbounds %struct.iovec, ptr %local.i57, i64 0, i32 1",
+				"%iov_len7.i60 = getelementptr inbounds %struct.iovec, ptr %remote.i58, i64 0, i32 1",
+				"br label %do.body.i67, !dbg !726"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 69,
+			"name": "do.body.i67",
+			"debug": [
+				{
+					"line": 365, "columns": [33, 27]
+				},
+				{
+					"line": 366, "columns": [32, 26]
+				},
+				{
+					"line": 367, "columns": [53, 28]
+				},
+				{
+					"line": 368, "columns": [27]
+				},
+				{
+					"line": 370, "columns": [16]
+				},
+				{
+					"line": 371, "columns": [18, 13]
+				}
+			],
+			"successors": [70, 71],
+			"ir": [
+				"%result.0.i61 = phi i64 [ 0, %if.end11 ], [ %add.i70, %if.end.i72 ], !dbg !720",
+				"%add.ptr.i62 = getelementptr i8, ptr %address_of_interpreter_state, i64 %result.0.i61, !dbg !727",
+				"store ptr %add.ptr.i62, ptr %local.i57, align 16, !dbg !728, !tbaa !677",
+				"%sub.i63 = sub i64 8, %result.0.i61, !dbg !729",
+				"store i64 %sub.i63, ptr %iov_len.i59, align 8, !dbg !730, !tbaa !682",
+				"%add.ptr2.i64 = getelementptr i8, ptr %add.ptr, i64 %result.0.i61, !dbg !731",
+				"store ptr %add.ptr2.i64, ptr %remote.i58, align 16, !dbg !732, !tbaa !677",
+				"store i64 %sub.i63, ptr %iov_len7.i60, align 8, !dbg !733, !tbaa !682",
+				"%call.i65 = call i64 @process_vm_readv(i32 noundef %6, ptr noundef nonnull %local.i57, i64 noundef 1, ptr noundef nonnull %remote.i58, i64 noundef 1, i64 noundef 0) #10, !dbg !734",
+				"%cmp.i66 = icmp slt i64 %call.i65, 0, !dbg !735",
+				"br i1 %cmp.i66, label %read_memory.exit74.thread, label %if.end.i72, !dbg !736"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 70,
+			"name": "read_memory.exit74.thread",
+			"debug": [
+				{
+					"line": 372, "columns": [32, 13]
+				},
+				{
+					"line": 406, "columns": [1]
+				},
+				{
+					"line": 560, "columns": [9]
+				}
+			],
+			"successors": [130],
+			"ir": [
+				"%7 = load ptr, ptr @PyExc_OSError, align 8, !dbg !737, !tbaa !639",
+				"%call9.i68 = call ptr @PyErr_SetFromErrno(ptr noundef %7) #10, !dbg !738",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %remote.i58) #10, !dbg !739",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %local.i57) #10, !dbg !739",
+				"br label %cleanup40, !dbg !740"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 71,
+			"name": "if.end.i72",
+			"debug": [
+				{
+					"line": 376, "columns": [16]
+				},
+				{
+					"line": 377, "columns": [39, 27, 5]
+				}
+			],
+			"successors": [72, 69],
+			"ir": [
+				"%add.i70 = add i64 %call.i65, %result.0.i61, !dbg !741",
+				"%8 = load i64, ptr %iov_len.i59, align 8, !dbg !742, !tbaa !682",
+				"%cmp12.not.i71 = icmp eq i64 %call.i65, %8, !dbg !743",
+				"br i1 %cmp12.not.i71, label %read_memory.exit74, label %do.body.i67, !dbg !744, !llvm.loop !745"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 72,
+			"name": "read_memory.exit74",
+			"debug": [
+				{
+					"line": 406, "columns": [1]
+				},
+				{
+					"line": 560, "columns": [20, 9]
+				}
+			],
+			"successors": [130, 73],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %remote.i58) #10, !dbg !739",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %local.i57) #10, !dbg !739",
+				"%cmp13 = icmp eq i64 %add.i70, -1, !dbg !747",
+				"br i1 %cmp13, label %cleanup40, label %if.end15, !dbg !740"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 73,
+			"name": "if.end15",
+			"debug": [
+				{
+					"line": 564, "columns": [9, 38]
+				}
+			],
+			"successors": [74, 75],
+			"ir": [
+				"%9 = load ptr, ptr %address_of_interpreter_state, align 8, !dbg !749, !tbaa !639",
+				"%cmp16 = icmp eq ptr %9, null, !dbg !751",
+				"br i1 %cmp16, label %if.then17, label %if.end18, !dbg !752"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 74,
+			"name": "if.then17",
+			"debug": [
+				{
+					"line": 565, "columns": [25, 9]
+				},
+				{
+					"line": 566, "columns": [9]
+				}
+			],
+			"successors": [130],
+			"ir": [
+				"%10 = load ptr, ptr @PyExc_RuntimeError, align 8, !dbg !753, !tbaa !639",
+				"call void @PyErr_SetString(ptr noundef %10, ptr noundef nonnull @.str.14) #10, !dbg !755",
+				"br label %cleanup40, !dbg !756"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 75,
+			"name": "if.end18",
+			"debug": [
+				{
+					"line": 359, "columns": [5, 18]
+				},
+				{
+					"line": 360, "columns": [5, 18]
+				},
+				{
+					"line": 364, "columns": [5]
+				},
+				{
+					"line": 569, "columns": [5]
+				},
+				{
+					"line": 571, "columns": [13]
+				},
+				{
+					"line": 572, "columns": [90, 50]
+				}
+			],
+			"successors": [76],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %address_of_thread) #10, !dbg !757",
+				"%11 = load i32, ptr %pid, align 4, !dbg !758, !tbaa !616",
+				"%threads_head = getelementptr inbounds %struct._Py_DebugOffsets, ptr %local_debug_offsets, i64 0, i32 3, i32 1, !dbg !759",
+				"%12 = load i64, ptr %threads_head, align 8, !dbg !759, !tbaa !760",
+				"%add.ptr19 = getelementptr i8, ptr %9, i64 %12, !dbg !761",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %local.i75) #10, !dbg !764",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %remote.i76) #10, !dbg !766",
+				"%iov_len.i77 = getelementptr inbounds %struct.iovec, ptr %local.i75, i64 0, i32 1",
+				"%iov_len7.i78 = getelementptr inbounds %struct.iovec, ptr %remote.i76, i64 0, i32 1",
+				"br label %do.body.i85, !dbg !768"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 76,
+			"name": "do.body.i85",
+			"debug": [
+				{
+					"line": 365, "columns": [33, 27]
+				},
+				{
+					"line": 366, "columns": [32, 26]
+				},
+				{
+					"line": 367, "columns": [53, 28]
+				},
+				{
+					"line": 368, "columns": [27]
+				},
+				{
+					"line": 370, "columns": [16]
+				},
+				{
+					"line": 371, "columns": [18, 13]
+				}
+			],
+			"successors": [77, 78],
+			"ir": [
+				"%result.0.i79 = phi i64 [ 0, %if.end18 ], [ %add.i88, %if.end.i90 ], !dbg !762",
+				"%add.ptr.i80 = getelementptr i8, ptr %address_of_thread, i64 %result.0.i79, !dbg !769",
+				"store ptr %add.ptr.i80, ptr %local.i75, align 16, !dbg !770, !tbaa !677",
+				"%sub.i81 = sub i64 8, %result.0.i79, !dbg !771",
+				"store i64 %sub.i81, ptr %iov_len.i77, align 8, !dbg !772, !tbaa !682",
+				"%add.ptr2.i82 = getelementptr i8, ptr %add.ptr19, i64 %result.0.i79, !dbg !773",
+				"store ptr %add.ptr2.i82, ptr %remote.i76, align 16, !dbg !774, !tbaa !677",
+				"store i64 %sub.i81, ptr %iov_len7.i78, align 8, !dbg !775, !tbaa !682",
+				"%call.i83 = call i64 @process_vm_readv(i32 noundef %11, ptr noundef nonnull %local.i75, i64 noundef 1, ptr noundef nonnull %remote.i76, i64 noundef 1, i64 noundef 0) #10, !dbg !776",
+				"%cmp.i84 = icmp slt i64 %call.i83, 0, !dbg !777",
+				"br i1 %cmp.i84, label %read_memory.exit92.thread, label %if.end.i90, !dbg !778"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 77,
+			"name": "read_memory.exit92.thread",
+			"debug": [
+				{
+					"line": 372, "columns": [32, 13]
+				},
+				{
+					"line": 406, "columns": [1]
+				},
+				{
+					"line": 575, "columns": [9]
+				}
+			],
+			"successors": [129],
+			"ir": [
+				"%13 = load ptr, ptr @PyExc_OSError, align 8, !dbg !779, !tbaa !639",
+				"%call9.i86 = call ptr @PyErr_SetFromErrno(ptr noundef %13) #10, !dbg !780",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %remote.i76) #10, !dbg !781",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %local.i75) #10, !dbg !781",
+				"br label %cleanup39, !dbg !782"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 78,
+			"name": "if.end.i90",
+			"debug": [
+				{
+					"line": 376, "columns": [16]
+				},
+				{
+					"line": 377, "columns": [39, 27, 5]
+				}
+			],
+			"successors": [79, 76],
+			"ir": [
+				"%add.i88 = add i64 %call.i83, %result.0.i79, !dbg !783",
+				"%14 = load i64, ptr %iov_len.i77, align 8, !dbg !784, !tbaa !682",
+				"%cmp12.not.i89 = icmp eq i64 %call.i83, %14, !dbg !785",
+				"br i1 %cmp12.not.i89, label %read_memory.exit92, label %do.body.i85, !dbg !786, !llvm.loop !787"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 79,
+			"name": "read_memory.exit92",
+			"debug": [
+				{
+					"line": 406, "columns": [1]
+				},
+				{
+					"line": 575, "columns": [20, 9]
+				}
+			],
+			"successors": [129, 80],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %remote.i76) #10, !dbg !781",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %local.i75) #10, !dbg !781",
+				"%cmp21 = icmp eq i64 %add.i88, -1, !dbg !789",
+				"br i1 %cmp21, label %cleanup39, label %if.end23, !dbg !782"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 80,
+			"name": "if.end23",
+			"debug": [
+				{
+					"line": 579, "columns": [24]
+				},
+				{
+					"line": 580, "columns": [16, 9]
+				}
+			],
+			"successors": [129, 81],
+			"ir": [
+				"%call24 = call ptr @PyList_New(i64 noundef 0) #10, !dbg !791",
+				"%cmp25 = icmp eq ptr %call24, null, !dbg !792",
+				"br i1 %cmp25, label %cleanup39, label %if.end27, !dbg !794"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 81,
+			"name": "if.end27",
+			"debug": [
+				{
+					"line": 585, "columns": [9, 27]
+				}
+			],
+			"successors": [129, 82],
+			"ir": [
+				"%15 = load ptr, ptr %address_of_thread, align 8, !dbg !795, !tbaa !639",
+				"%cmp28.not = icmp eq ptr %15, null, !dbg !796",
+				"br i1 %cmp28.not, label %cleanup39, label %if.then29, !dbg !797"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 82,
+			"name": "if.then29",
+			"debug": [
+				{
+					"line": 359, "columns": [5, 18]
+				},
+				{
+					"line": 360, "columns": [5, 18]
+				},
+				{
+					"line": 364, "columns": [5]
+				},
+				{
+					"line": 586, "columns": [9]
+				},
+				{
+					"line": 588, "columns": [17]
+				},
+				{
+					"line": 589, "columns": [78, 43]
+				}
+			],
+			"successors": [83],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %address_of_current_frame) #10, !dbg !798",
+				"%16 = load i32, ptr %pid, align 4, !dbg !799, !tbaa !616",
+				"%current_frame = getelementptr inbounds %struct._Py_DebugOffsets, ptr %local_debug_offsets, i64 0, i32 4, i32 3, !dbg !800",
+				"%17 = load i64, ptr %current_frame, align 8, !dbg !800, !tbaa !801",
+				"%add.ptr30 = getelementptr i8, ptr %15, i64 %17, !dbg !802",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %local.i93) #10, !dbg !806",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %remote.i94) #10, !dbg !808",
+				"%iov_len.i95 = getelementptr inbounds %struct.iovec, ptr %local.i93, i64 0, i32 1",
+				"%iov_len7.i96 = getelementptr inbounds %struct.iovec, ptr %remote.i94, i64 0, i32 1",
+				"br label %do.body.i103, !dbg !810"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 83,
+			"name": "do.body.i103",
+			"debug": [
+				{
+					"line": 365, "columns": [33, 27]
+				},
+				{
+					"line": 366, "columns": [32, 26]
+				},
+				{
+					"line": 367, "columns": [53, 28]
+				},
+				{
+					"line": 368, "columns": [27]
+				},
+				{
+					"line": 370, "columns": [16]
+				},
+				{
+					"line": 371, "columns": [18, 13]
+				}
+			],
+			"successors": [84, 85],
+			"ir": [
+				"%result.0.i97 = phi i64 [ 0, %if.then29 ], [ %add.i106, %if.end.i108 ], !dbg !804",
+				"%add.ptr.i98 = getelementptr i8, ptr %address_of_current_frame, i64 %result.0.i97, !dbg !811",
+				"store ptr %add.ptr.i98, ptr %local.i93, align 16, !dbg !812, !tbaa !677",
+				"%sub.i99 = sub i64 8, %result.0.i97, !dbg !813",
+				"store i64 %sub.i99, ptr %iov_len.i95, align 8, !dbg !814, !tbaa !682",
+				"%add.ptr2.i100 = getelementptr i8, ptr %add.ptr30, i64 %result.0.i97, !dbg !815",
+				"store ptr %add.ptr2.i100, ptr %remote.i94, align 16, !dbg !816, !tbaa !677",
+				"store i64 %sub.i99, ptr %iov_len7.i96, align 8, !dbg !817, !tbaa !682",
+				"%call.i101 = call i64 @process_vm_readv(i32 noundef %16, ptr noundef nonnull %local.i93, i64 noundef 1, ptr noundef nonnull %remote.i94, i64 noundef 1, i64 noundef 0) #10, !dbg !818",
+				"%cmp.i102 = icmp slt i64 %call.i101, 0, !dbg !819",
+				"br i1 %cmp.i102, label %if.then.i105, label %if.end.i108, !dbg !820"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 84,
+			"name": "if.then.i105",
+			"debug": [
+				{
+					"line": 372, "columns": [32, 13]
+				},
+				{
+					"line": 373, "columns": [13]
+				}
+			],
+			"successors": [86],
+			"ir": [
+				"%18 = load ptr, ptr @PyExc_OSError, align 8, !dbg !821, !tbaa !639",
+				"%call9.i104 = call ptr @PyErr_SetFromErrno(ptr noundef %18) #10, !dbg !822",
+				"br label %read_memory.exit110, !dbg !823"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 85,
+			"name": "if.end.i108",
+			"debug": [
+				{
+					"line": 376, "columns": [16]
+				},
+				{
+					"line": 377, "columns": [39, 27, 5]
+				}
+			],
+			"successors": [86, 83],
+			"ir": [
+				"%add.i106 = add i64 %call.i101, %result.0.i97, !dbg !824",
+				"%19 = load i64, ptr %iov_len.i95, align 8, !dbg !825, !tbaa !682",
+				"%cmp12.not.i107 = icmp eq i64 %call.i101, %19, !dbg !826",
+				"br i1 %cmp12.not.i107, label %read_memory.exit110, label %do.body.i103, !dbg !827, !llvm.loop !828"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 86,
+			"name": "read_memory.exit110",
+			"debug": [
+				{
+					"line": 406, "columns": [1]
+				},
+				{
+					"line": 592, "columns": [9]
+				}
+			],
+			"successors": [87],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %remote.i94) #10, !dbg !830",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %local.i93) #10, !dbg !830",
+				"%interpreter_frame.i = getelementptr inbounds %struct._Py_DebugOffsets, ptr %local_debug_offsets, i64 0, i32 5",
+				"%iov_len.i.i = getelementptr inbounds %struct.iovec, ptr %local.i.i, i64 0, i32 1",
+				"%iov_len7.i.i = getelementptr inbounds %struct.iovec, ptr %remote.i.i, i64 0, i32 1",
+				"%owner2.i = getelementptr inbounds %struct._Py_DebugOffsets, ptr %local_debug_offsets, i64 0, i32 5, i32 4",
+				"%iov_len.i39.i = getelementptr inbounds %struct.iovec, ptr %local.i37.i, i64 0, i32 1",
+				"%iov_len7.i40.i = getelementptr inbounds %struct.iovec, ptr %remote.i38.i, i64 0, i32 1",
+				"%executable.i = getelementptr inbounds %struct._Py_DebugOffsets, ptr %local_debug_offsets, i64 0, i32 5, i32 1",
+				"%iov_len.i57.i = getelementptr inbounds %struct.iovec, ptr %local.i55.i, i64 0, i32 1",
+				"%iov_len7.i58.i = getelementptr inbounds %struct.iovec, ptr %remote.i56.i, i64 0, i32 1",
+				"%name.i.i = getelementptr inbounds %struct._Py_DebugOffsets, ptr %local_debug_offsets, i64 0, i32 7, i32 1",
+				"%iov_len.i.i.i = getelementptr inbounds %struct.iovec, ptr %local.i.i.i, i64 0, i32 1",
+				"%iov_len7.i.i.i = getelementptr inbounds %struct.iovec, ptr %remote.i.i.i, i64 0, i32 1",
+				"br label %while.cond, !dbg !831"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 87,
+			"name": "while.cond",
+			"debug": [
+				{
+					"line": 592, "columns": [16, 41, 9]
+				}
+			],
+			"successors": [128, 88],
+			"ir": [
+				"%20 = load ptr, ptr %address_of_current_frame, align 8, !dbg !832, !tbaa !639",
+				"%cmp32.not = icmp eq ptr %20, null, !dbg !833",
+				"br i1 %cmp32.not, label %if.end37.critedge, label %while.body, !dbg !831"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 88,
+			"name": "while.body",
+			"debug": [
+				{
+					"line": 359, "columns": [5, 18]
+				},
+				{
+					"line": 360, "columns": [5, 18]
+				},
+				{
+					"line": 364, "columns": [5]
+				},
+				{
+					"line": 491, "columns": [58, 29]
+				},
+				{
+					"line": 594, "columns": [25]
+				}
+			],
+			"successors": [89],
+			"ir": [
+				"%21 = load i32, ptr %pid, align 4, !dbg !834, !tbaa !616",
+				"%22 = load i64, ptr %interpreter_frame.i, align 8, !dbg !853, !tbaa !854",
+				"%add.ptr.i111 = getelementptr i8, ptr %20, i64 %22, !dbg !855",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %local.i.i) #10, !dbg !858",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %remote.i.i) #10, !dbg !860",
+				"br label %do.body.i.i, !dbg !862"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 89,
+			"name": "do.body.i.i",
+			"debug": [
+				{
+					"line": 365, "columns": [33, 27]
+				},
+				{
+					"line": 366, "columns": [32, 26]
+				},
+				{
+					"line": 367, "columns": [53, 28]
+				},
+				{
+					"line": 368, "columns": [27]
+				},
+				{
+					"line": 370, "columns": [16]
+				},
+				{
+					"line": 371, "columns": [18, 13]
+				}
+			],
+			"successors": [90, 91],
+			"ir": [
+				"%result.0.i.i = phi i64 [ 0, %while.body ], [ %add.i.i, %if.end.i.i ], !dbg !856",
+				"%add.ptr.i.i = getelementptr i8, ptr %address_of_current_frame, i64 %result.0.i.i, !dbg !863",
+				"store ptr %add.ptr.i.i, ptr %local.i.i, align 16, !dbg !864, !tbaa !677",
+				"%sub.i.i = sub i64 8, %result.0.i.i, !dbg !865",
+				"store i64 %sub.i.i, ptr %iov_len.i.i, align 8, !dbg !866, !tbaa !682",
+				"%add.ptr2.i.i = getelementptr i8, ptr %add.ptr.i111, i64 %result.0.i.i, !dbg !867",
+				"store ptr %add.ptr2.i.i, ptr %remote.i.i, align 16, !dbg !868, !tbaa !677",
+				"store i64 %sub.i.i, ptr %iov_len7.i.i, align 8, !dbg !869, !tbaa !682",
+				"%call.i.i = call i64 @process_vm_readv(i32 noundef %21, ptr noundef nonnull %local.i.i, i64 noundef 1, ptr noundef nonnull %remote.i.i, i64 noundef 1, i64 noundef 0) #10, !dbg !870",
+				"%cmp.i.i = icmp slt i64 %call.i.i, 0, !dbg !871",
+				"br i1 %cmp.i.i, label %read_memory.exit.thread.i, label %if.end.i.i, !dbg !872"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 90,
+			"name": "read_memory.exit.thread.i",
+			"debug": [
+				{
+					"line": 372, "columns": [32, 13]
+				},
+				{
+					"line": 406, "columns": [1]
+				},
+				{
+					"line": 494, "columns": [9]
+				}
+			],
+			"successors": [124],
+			"ir": [
+				"%23 = load ptr, ptr @PyExc_OSError, align 8, !dbg !873, !tbaa !639",
+				"%call9.i.i = call ptr @PyErr_SetFromErrno(ptr noundef %23) #10, !dbg !874",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %remote.i.i) #10, !dbg !875",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %local.i.i) #10, !dbg !875",
+				"br label %if.then35, !dbg !876"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 91,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 376, "columns": [16]
+				},
+				{
+					"line": 377, "columns": [39, 27, 5]
+				}
+			],
+			"successors": [92, 89],
+			"ir": [
+				"%add.i.i = add i64 %call.i.i, %result.0.i.i, !dbg !877",
+				"%24 = load i64, ptr %iov_len.i.i, align 8, !dbg !878, !tbaa !682",
+				"%cmp12.not.i.i = icmp eq i64 %call.i.i, %24, !dbg !879",
+				"br i1 %cmp12.not.i.i, label %read_memory.exit.i, label %do.body.i.i, !dbg !880, !llvm.loop !881"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 92,
+			"name": "read_memory.exit.i",
+			"debug": [
+				{
+					"line": 406, "columns": [1]
+				},
+				{
+					"line": 494, "columns": [20, 9]
+				}
+			],
+			"successors": [124, 93],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %remote.i.i) #10, !dbg !875",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %local.i.i) #10, !dbg !875",
+				"%cmp.i112 = icmp eq i64 %add.i.i, -1, !dbg !883",
+				"br i1 %cmp.i112, label %if.then35, label %if.end.i113, !dbg !876"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 93,
+			"name": "if.end.i113",
+			"debug": [
+				{
+					"line": 359, "columns": [5, 18]
+				},
+				{
+					"line": 360, "columns": [5, 18]
+				},
+				{
+					"line": 364, "columns": [5]
+				},
+				{
+					"line": 498, "columns": [5]
+				},
+				{
+					"line": 500, "columns": [75, 46]
+				}
+			],
+			"successors": [94],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %owner.i) #10, !dbg !885",
+				"%25 = load i64, ptr %owner2.i, align 8, !dbg !886, !tbaa !887",
+				"%add.ptr3.i = getelementptr i8, ptr %20, i64 %25, !dbg !888",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %local.i37.i) #10, !dbg !891",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %remote.i38.i) #10, !dbg !893",
+				"br label %do.body.i47.i, !dbg !895"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 94,
+			"name": "do.body.i47.i",
+			"debug": [
+				{
+					"line": 365, "columns": [33, 27]
+				},
+				{
+					"line": 366, "columns": [32, 26]
+				},
+				{
+					"line": 367, "columns": [53, 28]
+				},
+				{
+					"line": 368, "columns": [27]
+				},
+				{
+					"line": 370, "columns": [16]
+				},
+				{
+					"line": 371, "columns": [18, 13]
+				}
+			],
+			"successors": [95, 96],
+			"ir": [
+				"%result.0.i41.i = phi i64 [ 0, %if.end.i113 ], [ %add.i50.i, %if.end.i52.i ], !dbg !889",
+				"%add.ptr.i42.i = getelementptr i8, ptr %owner.i, i64 %result.0.i41.i, !dbg !896",
+				"store ptr %add.ptr.i42.i, ptr %local.i37.i, align 16, !dbg !897, !tbaa !677",
+				"%sub.i43.i = sub i64 1, %result.0.i41.i, !dbg !898",
+				"store i64 %sub.i43.i, ptr %iov_len.i39.i, align 8, !dbg !899, !tbaa !682",
+				"%add.ptr2.i44.i = getelementptr i8, ptr %add.ptr3.i, i64 %result.0.i41.i, !dbg !900",
+				"store ptr %add.ptr2.i44.i, ptr %remote.i38.i, align 16, !dbg !901, !tbaa !677",
+				"store i64 %sub.i43.i, ptr %iov_len7.i40.i, align 8, !dbg !902, !tbaa !682",
+				"%call.i45.i = call i64 @process_vm_readv(i32 noundef %21, ptr noundef nonnull %local.i37.i, i64 noundef 1, ptr noundef nonnull %remote.i38.i, i64 noundef 1, i64 noundef 0) #10, !dbg !903",
+				"%cmp.i46.i = icmp slt i64 %call.i45.i, 0, !dbg !904",
+				"br i1 %cmp.i46.i, label %read_memory.exit54.thread.i, label %if.end.i52.i, !dbg !905"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 95,
+			"name": "read_memory.exit54.thread.i",
+			"debug": [
+				{
+					"line": 372, "columns": [32, 13]
+				},
+				{
+					"line": 406, "columns": [1]
+				},
+				{
+					"line": 501, "columns": [9]
+				}
+			],
+			"successors": [122],
+			"ir": [
+				"%26 = load ptr, ptr @PyExc_OSError, align 8, !dbg !906, !tbaa !639",
+				"%call9.i48.i = call ptr @PyErr_SetFromErrno(ptr noundef %26) #10, !dbg !907",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %remote.i38.i) #10, !dbg !908",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %local.i37.i) #10, !dbg !908",
+				"br label %parse_frame_object.exit.thread124, !dbg !909"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 96,
+			"name": "if.end.i52.i",
+			"debug": [
+				{
+					"line": 376, "columns": [16]
+				},
+				{
+					"line": 377, "columns": [39, 27, 5]
+				}
+			],
+			"successors": [97, 94],
+			"ir": [
+				"%add.i50.i = add i64 %call.i45.i, %result.0.i41.i, !dbg !910",
+				"%27 = load i64, ptr %iov_len.i39.i, align 8, !dbg !911, !tbaa !682",
+				"%cmp12.not.i51.i = icmp eq i64 %call.i45.i, %27, !dbg !912",
+				"br i1 %cmp12.not.i51.i, label %read_memory.exit54.i, label %do.body.i47.i, !dbg !913, !llvm.loop !914"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 97,
+			"name": "read_memory.exit54.i",
+			"debug": [
+				{
+					"line": 406, "columns": [1]
+				},
+				{
+					"line": 501, "columns": [20, 9]
+				}
+			],
+			"successors": [122, 98],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %remote.i38.i) #10, !dbg !908",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %local.i37.i) #10, !dbg !908",
+				"%cmp5.i = icmp slt i64 %add.i50.i, 0, !dbg !916",
+				"br i1 %cmp5.i, label %parse_frame_object.exit.thread124, label %if.end7.i, !dbg !909"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 98,
+			"name": "if.end7.i",
+			"debug": [
+				{
+					"line": 505, "columns": [9, 15]
+				}
+			],
+			"successors": [123, 99],
+			"ir": [
+				"%28 = load i8, ptr %owner.i, align 1, !dbg !918, !tbaa !920",
+				"%cmp8.i = icmp eq i8 %28, 3, !dbg !921",
+				"br i1 %cmp8.i, label %parse_frame_object.exit, label %if.end11.i, !dbg !922"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 99,
+			"name": "if.end11.i",
+			"debug": [
+				{
+					"line": 359, "columns": [5, 18]
+				},
+				{
+					"line": 360, "columns": [5, 18]
+				},
+				{
+					"line": 364, "columns": [5]
+				},
+				{
+					"line": 509, "columns": [5]
+				},
+				{
+					"line": 512, "columns": [58, 29]
+				}
+			],
+			"successors": [100],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %address_of_code_object.i) #10, !dbg !923",
+				"%29 = load i64, ptr %executable.i, align 8, !dbg !924, !tbaa !925",
+				"%add.ptr13.i = getelementptr i8, ptr %20, i64 %29, !dbg !926",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %local.i55.i) #10, !dbg !929",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %remote.i56.i) #10, !dbg !931",
+				"br label %do.body.i65.i, !dbg !933"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 100,
+			"name": "do.body.i65.i",
+			"debug": [
+				{
+					"line": 365, "columns": [33, 27]
+				},
+				{
+					"line": 366, "columns": [32, 26]
+				},
+				{
+					"line": 367, "columns": [53, 28]
+				},
+				{
+					"line": 368, "columns": [27]
+				},
+				{
+					"line": 370, "columns": [16]
+				},
+				{
+					"line": 371, "columns": [18, 13]
+				}
+			],
+			"successors": [101, 102],
+			"ir": [
+				"%result.0.i59.i = phi i64 [ 0, %if.end11.i ], [ %add.i68.i, %if.end.i70.i ], !dbg !927",
+				"%add.ptr.i60.i = getelementptr i8, ptr %address_of_code_object.i, i64 %result.0.i59.i, !dbg !934",
+				"store ptr %add.ptr.i60.i, ptr %local.i55.i, align 16, !dbg !935, !tbaa !677",
+				"%sub.i61.i = sub i64 8, %result.0.i59.i, !dbg !936",
+				"store i64 %sub.i61.i, ptr %iov_len.i57.i, align 8, !dbg !937, !tbaa !682",
+				"%add.ptr2.i62.i = getelementptr i8, ptr %add.ptr13.i, i64 %result.0.i59.i, !dbg !938",
+				"store ptr %add.ptr2.i62.i, ptr %remote.i56.i, align 16, !dbg !939, !tbaa !677",
+				"store i64 %sub.i61.i, ptr %iov_len7.i58.i, align 8, !dbg !940, !tbaa !682",
+				"%call.i63.i = call i64 @process_vm_readv(i32 noundef %21, ptr noundef nonnull %local.i55.i, i64 noundef 1, ptr noundef nonnull %remote.i56.i, i64 noundef 1, i64 noundef 0) #10, !dbg !941",
+				"%cmp.i64.i = icmp slt i64 %call.i63.i, 0, !dbg !942",
+				"br i1 %cmp.i64.i, label %read_memory.exit72.thread.i, label %if.end.i70.i, !dbg !943"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 101,
+			"name": "read_memory.exit72.thread.i",
+			"debug": [
+				{
+					"line": 372, "columns": [32, 13]
+				},
+				{
+					"line": 406, "columns": [1]
+				},
+				{
+					"line": 515, "columns": [9]
+				}
+			],
+			"successors": [121],
+			"ir": [
+				"%30 = load ptr, ptr @PyExc_OSError, align 8, !dbg !944, !tbaa !639",
+				"%call9.i66.i = call ptr @PyErr_SetFromErrno(ptr noundef %30) #10, !dbg !945",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %remote.i56.i) #10, !dbg !946",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %local.i55.i) #10, !dbg !946",
+				"br label %cleanup.i, !dbg !947"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 102,
+			"name": "if.end.i70.i",
+			"debug": [
+				{
+					"line": 376, "columns": [16]
+				},
+				{
+					"line": 377, "columns": [39, 27, 5]
+				}
+			],
+			"successors": [103, 100],
+			"ir": [
+				"%add.i68.i = add i64 %call.i63.i, %result.0.i59.i, !dbg !948",
+				"%31 = load i64, ptr %iov_len.i57.i, align 8, !dbg !949, !tbaa !682",
+				"%cmp12.not.i69.i = icmp eq i64 %call.i63.i, %31, !dbg !950",
+				"br i1 %cmp12.not.i69.i, label %read_memory.exit72.i, label %do.body.i65.i, !dbg !951, !llvm.loop !952"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 103,
+			"name": "read_memory.exit72.i",
+			"debug": [
+				{
+					"line": 406, "columns": [1]
+				},
+				{
+					"line": 515, "columns": [20, 9]
+				}
+			],
+			"successors": [121, 104],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %remote.i56.i) #10, !dbg !946",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %local.i55.i) #10, !dbg !946",
+				"%cmp15.i = icmp eq i64 %add.i68.i, -1, !dbg !954",
+				"br i1 %cmp15.i, label %cleanup.i, label %if.end18.i, !dbg !947"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 104,
+			"name": "if.end18.i",
+			"debug": [
+				{
+					"line": 519, "columns": [9, 32]
+				}
+			],
+			"successors": [121, 105],
+			"ir": [
+				"%32 = load ptr, ptr %address_of_code_object.i, align 8, !dbg !956, !tbaa !639",
+				"%cmp19.i = icmp eq ptr %32, null, !dbg !958",
+				"br i1 %cmp19.i, label %cleanup.i, label %if.end22.i, !dbg !959"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 105,
+			"name": "if.end22.i",
+			"debug": [
+				{
+					"line": 359, "columns": [5, 18]
+				},
+				{
+					"line": 360, "columns": [5, 18]
+				},
+				{
+					"line": 364, "columns": [5]
+				},
+				{
+					"line": 450, "columns": [5]
+				},
+				{
+					"line": 453, "columns": [52, 29]
+				}
+			],
+			"successors": [106],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %address_of_function_name.i.i) #10, !dbg !975",
+				"%33 = load i64, ptr %name.i.i, align 8, !dbg !976, !tbaa !977",
+				"%add.ptr.i73.i = getelementptr i8, ptr %32, i64 %33, !dbg !978",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %local.i.i.i) #10, !dbg !981",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %remote.i.i.i) #10, !dbg !983",
+				"br label %do.body.i.i.i, !dbg !985"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 106,
+			"name": "do.body.i.i.i",
+			"debug": [
+				{
+					"line": 365, "columns": [33, 27]
+				},
+				{
+					"line": 366, "columns": [32, 26]
+				},
+				{
+					"line": 367, "columns": [53, 28]
+				},
+				{
+					"line": 368, "columns": [27]
+				},
+				{
+					"line": 370, "columns": [16]
+				},
+				{
+					"line": 371, "columns": [18, 13]
+				}
+			],
+			"successors": [107, 108],
+			"ir": [
+				"%result.0.i.i.i = phi i64 [ 0, %if.end22.i ], [ %add.i.i.i, %if.end.i29.i.i ], !dbg !979",
+				"%add.ptr.i.i.i = getelementptr i8, ptr %address_of_function_name.i.i, i64 %result.0.i.i.i, !dbg !986",
+				"store ptr %add.ptr.i.i.i, ptr %local.i.i.i, align 16, !dbg !987, !tbaa !677",
+				"%sub.i.i.i = sub i64 8, %result.0.i.i.i, !dbg !988",
+				"store i64 %sub.i.i.i, ptr %iov_len.i.i.i, align 8, !dbg !989, !tbaa !682",
+				"%add.ptr2.i.i.i = getelementptr i8, ptr %add.ptr.i73.i, i64 %result.0.i.i.i, !dbg !990",
+				"store ptr %add.ptr2.i.i.i, ptr %remote.i.i.i, align 16, !dbg !991, !tbaa !677",
+				"store i64 %sub.i.i.i, ptr %iov_len7.i.i.i, align 8, !dbg !992, !tbaa !682",
+				"%call.i.i.i = call i64 @process_vm_readv(i32 noundef %21, ptr noundef nonnull %local.i.i.i, i64 noundef 1, ptr noundef nonnull %remote.i.i.i, i64 noundef 1, i64 noundef 0) #10, !dbg !993",
+				"%cmp.i28.i.i = icmp slt i64 %call.i.i.i, 0, !dbg !994",
+				"br i1 %cmp.i28.i.i, label %if.then.i.i.i, label %if.end.i29.i.i, !dbg !995"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 107,
+			"name": "if.then.i.i.i",
+			"debug": [
+				{
+					"line": 372, "columns": [32, 13]
+				},
+				{
+					"line": 373, "columns": [13]
+				}
+			],
+			"successors": [109],
+			"ir": [
+				"%34 = load ptr, ptr @PyExc_OSError, align 8, !dbg !996, !tbaa !639",
+				"%call9.i.i.i = call ptr @PyErr_SetFromErrno(ptr noundef %34) #10, !dbg !997",
+				"br label %read_memory.exit.i.i, !dbg !998"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 108,
+			"name": "if.end.i29.i.i",
+			"debug": [
+				{
+					"line": 376, "columns": [16]
+				},
+				{
+					"line": 377, "columns": [39, 27, 5]
+				}
+			],
+			"successors": [109, 106],
+			"ir": [
+				"%add.i.i.i = add i64 %call.i.i.i, %result.0.i.i.i, !dbg !999",
+				"%35 = load i64, ptr %iov_len.i.i.i, align 8, !dbg !1000, !tbaa !682",
+				"%cmp12.not.i.i.i = icmp eq i64 %call.i.i.i, %35, !dbg !1001",
+				"br i1 %cmp12.not.i.i.i, label %read_memory.exit.i.i, label %do.body.i.i.i, !dbg !1002, !llvm.loop !1003"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 109,
+			"name": "read_memory.exit.i.i",
+			"debug": [
+				{
+					"line": 406, "columns": [1]
+				},
+				{
+					"line": 457, "columns": [9, 34]
+				}
+			],
+			"successors": [110, 111],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %remote.i.i.i) #10, !dbg !1005",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %local.i.i.i) #10, !dbg !1005",
+				"%36 = load ptr, ptr %address_of_function_name.i.i, align 8, !dbg !1006, !tbaa !639",
+				"%cmp.i74.i = icmp eq ptr %36, null, !dbg !1008",
+				"br i1 %cmp.i74.i, label %if.then.i75.i, label %if.end.i76.i, !dbg !1009"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 110,
+			"name": "if.then.i75.i",
+			"debug": [
+				{
+					"line": 458, "columns": [25, 9]
+				},
+				{
+					"line": 459, "columns": [9]
+				}
+			],
+			"successors": [120],
+			"ir": [
+				"%37 = load ptr, ptr @PyExc_RuntimeError, align 8, !dbg !1010, !tbaa !639",
+				"call void @PyErr_SetString(ptr noundef %37, ptr noundef nonnull @.str.15) #10, !dbg !1012",
+				"br label %parse_code_object.exit.i, !dbg !1013"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 111,
+			"name": "if.end.i76.i",
+			"debug": [
+				{
+					"line": 462, "columns": [5, 10]
+				},
+				{
+					"line": 463, "columns": [9, 99]
+				}
+			],
+			"successors": [112, 119],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 256, ptr nonnull %function_name.i.i) #10, !dbg !1014",
+				"%call1.i.i = call i32 @read_string(i32 noundef %21, ptr noundef nonnull %local_debug_offsets, ptr noundef nonnull %36, ptr noundef nonnull %function_name.i.i, i64 noundef 256), !dbg !1016, !range !1018",
+				"%cmp2.not.i.i = icmp eq i32 %call1.i.i, 0, !dbg !1019",
+				"br i1 %cmp2.not.i.i, label %if.end4.i.i, label %cleanup14.i.i, !dbg !1020"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 112,
+			"name": "if.end4.i.i",
+			"debug": [
+				{
+					"line": 467, "columns": [34]
+				},
+				{
+					"line": 468, "columns": [26, 9]
+				}
+			],
+			"successors": [119, 113],
+			"ir": [
+				"%call6.i.i = call ptr @PyUnicode_FromString(ptr noundef nonnull %function_name.i.i) #10, !dbg !1021",
+				"%cmp7.i.i = icmp eq ptr %call6.i.i, null, !dbg !1022",
+				"br i1 %cmp7.i.i, label %cleanup14.i.i, label %if.end9.i.i, !dbg !1024"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 113,
+			"name": "if.end9.i.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 472, "columns": [9, 49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [114, 116],
+			"ir": [
+				"%call10.i.i = call i32 @PyList_Append(ptr noundef nonnull %call24, ptr noundef nonnull %call6.i.i) #10, !dbg !1025",
+				"%cmp11.i.i = icmp eq i32 %call10.i.i, -1, !dbg !1027",
+				"%op.val.i.i.i = load i64, ptr %call6.i.i, align 8, !dbg !1036, !tbaa !920",
+				"%38 = and i64 %op.val.i.i.i, 2147483648, !dbg !1046",
+				"%cmp.i.not.i.i.i = icmp eq i64 %38, 0, !dbg !1046",
+				"br i1 %cmp11.i.i, label %if.then12.i.i, label %if.end13.i.i, !dbg !1048"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 114,
+			"name": "if.then12.i.i",
+			"debug": [
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [115, 119],
+			"ir": [
+				"br i1 %cmp.i.not.i.i.i, label %if.end.i.i.i, label %cleanup14.i.i, !dbg !1049"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 115,
+			"name": "if.end.i.i.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [118, 119],
+			"ir": [
+				"%dec.i.i.i = add i64 %op.val.i.i.i, -1, !dbg !1050",
+				"store i64 %dec.i.i.i, ptr %call6.i.i, align 8, !dbg !1050, !tbaa !920",
+				"%cmp.i.i.i = icmp eq i64 %dec.i.i.i, 0, !dbg !1052",
+				"br i1 %cmp.i.i.i, label %cleanup14.sink.split.i.i, label %cleanup14.i.i, !dbg !1053"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 116,
+			"name": "if.end13.i.i",
+			"debug": [
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [117, 119],
+			"ir": [
+				"br i1 %cmp.i.not.i.i.i, label %if.end.i25.i.i, label %cleanup14.i.i, !dbg !1054"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 117,
+			"name": "if.end.i25.i.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [118, 119],
+			"ir": [
+				"%dec.i23.i.i = add i64 %op.val.i.i.i, -1, !dbg !1055",
+				"store i64 %dec.i23.i.i, ptr %call6.i.i, align 8, !dbg !1055, !tbaa !920",
+				"%cmp.i24.i.i = icmp eq i64 %dec.i23.i.i, 0, !dbg !1056",
+				"br i1 %cmp.i24.i.i, label %cleanup14.sink.split.i.i, label %cleanup14.i.i, !dbg !1057"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 118,
+			"name": "cleanup14.sink.split.i.i",
+			"debug": [
+				{
+					"line": 479, "columns": [1]
+				},
+				{
+					"line": 945, "columns": [9]
+				}
+			],
+			"successors": [119],
+			"ir": [
+				"%retval.1.ph.i.i = phi i32 [ -1, %if.end.i.i.i ], [ 0, %if.end.i25.i.i ]",
+				"call void @_Py_Dealloc(ptr noundef nonnull %call6.i.i) #10, !dbg !1058",
+				"br label %cleanup14.i.i, !dbg !1060"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 119,
+			"name": "cleanup14.i.i",
+			"debug": [
+				{
+					"line": 479, "columns": [1]
+				}
+			],
+			"successors": [120],
+			"ir": [
+				"%retval.1.i.i = phi i32 [ -1, %if.end.i76.i ], [ -1, %if.end4.i.i ], [ -1, %if.then12.i.i ], [ -1, %if.end.i.i.i ], [ 0, %if.end13.i.i ], [ 0, %if.end.i25.i.i ], [ %retval.1.ph.i.i, %cleanup14.sink.split.i.i ], !dbg !973",
+				"call void @llvm.lifetime.end.p0(i64 256, ptr nonnull %function_name.i.i) #10, !dbg !1060",
+				"br label %parse_code_object.exit.i"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 120,
+			"name": "parse_code_object.exit.i",
+			"debug": [
+				{
+					"line": 479, "columns": [1]
+				},
+				{
+					"line": 522, "columns": [5]
+				}
+			],
+			"successors": [121],
+			"ir": [
+				"%retval.2.i.i = phi i32 [ -1, %if.then.i75.i ], [ %retval.1.i.i, %cleanup14.i.i ], !dbg !973",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %address_of_function_name.i.i) #10, !dbg !1060",
+				"br label %cleanup.i, !dbg !1061"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 121,
+			"name": "cleanup.i",
+			"debug": [
+				{
+					"line": 523, "columns": [1]
+				}
+			],
+			"successors": [123],
+			"ir": [
+				"%retval.0.i114 = phi i32 [ %retval.2.i.i, %parse_code_object.exit.i ], [ -1, %read_memory.exit72.i ], [ 0, %if.end18.i ], [ -1, %read_memory.exit72.thread.i ], !dbg !851",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %address_of_code_object.i) #10, !dbg !1062",
+				"br label %parse_frame_object.exit"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 122,
+			"name": "parse_frame_object.exit.thread124",
+			"debug": [
+				{
+					"line": 523, "columns": [1]
+				},
+				{
+					"line": 593, "columns": [17]
+				}
+			],
+			"successors": [124],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %owner.i) #10, !dbg !1062",
+				"br label %if.then35, !dbg !1063"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 123,
+			"name": "parse_frame_object.exit",
+			"debug": [
+				{
+					"line": 523, "columns": [1]
+				},
+				{
+					"line": 593, "columns": [17]
+				},
+				{
+					"line": 599, "columns": [17]
+				}
+			],
+			"successors": [124, 87],
+			"ir": [
+				"%retval.1.i = phi i32 [ %retval.0.i114, %cleanup.i ], [ 0, %if.end7.i ], !dbg !851",
+				"call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %owner.i) #10, !dbg !1062",
+				"%cmp34 = icmp slt i32 %retval.1.i, 0, !dbg !1064",
+				"br i1 %cmp34, label %if.then35, label %while.cond, !dbg !1063, !llvm.loop !1065"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 124,
+			"name": "if.then35",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [125, 127],
+			"ir": [
+				"%op.val.i = load i64, ptr %call24, align 8, !dbg !1070, !tbaa !920",
+				"%39 = and i64 %op.val.i, 2147483648, !dbg !1073",
+				"%cmp.i.not.i = icmp eq i64 %39, 0, !dbg !1073",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %Py_DECREF.exit, !dbg !1074"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 125,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [126, 127],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !1075",
+				"store i64 %dec.i, ptr %call24, align 8, !dbg !1075, !tbaa !920",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !1076",
+				"br i1 %cmp.i, label %if.then1.i, label %Py_DECREF.exit, !dbg !1077"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 126,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [127],
+			"ir": [
+				"call void @_Py_Dealloc(ptr noundef nonnull %call24) #10, !dbg !1078",
+				"br label %Py_DECREF.exit, !dbg !1079"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 127,
+			"name": "Py_DECREF.exit",
+			"debug": [
+				{
+					"line": 605, "columns": [5]
+				}
+			],
+			"successors": [129],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %address_of_current_frame) #10, !dbg !1080",
+				"br label %cleanup39"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 128,
+			"name": "if.end37.critedge",
+			"debug": [
+				{
+					"line": 605, "columns": [5]
+				}
+			],
+			"successors": [129],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %address_of_current_frame) #10, !dbg !1080",
+				"br label %cleanup39"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 129,
+			"name": "cleanup39",
+			"debug": [
+				{
+					"line": 608, "columns": [1]
+				}
+			],
+			"successors": [130],
+			"ir": [
+				"%retval.2 = phi ptr [ null, %read_memory.exit92 ], [ null, %Py_DECREF.exit ], [ null, %if.end23 ], [ null, %read_memory.exit92.thread ], [ %call24, %if.end37.critedge ], [ %call24, %if.end27 ], !dbg !610",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %address_of_thread) #10, !dbg !1081",
+				"br label %cleanup40"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 130,
+			"name": "cleanup40",
+			"debug": [
+				{
+					"line": 608, "columns": [1]
+				}
+			],
+			"successors": [131],
+			"ir": [
+				"%retval.3 = phi ptr [ null, %if.then17 ], [ %retval.2, %cleanup39 ], [ null, %read_memory.exit74 ], [ null, %read_memory.exit74.thread ], !dbg !610",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %address_of_interpreter_state) #10, !dbg !1081",
+				"br label %cleanup42"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 131,
+			"name": "cleanup42",
+			"debug": [
+				{
+					"line": 608, "columns": [1]
+				}
+			],
+			"successors": [132],
+			"ir": [
+				"%retval.4 = phi ptr [ %retval.3, %cleanup40 ], [ null, %read_memory.exit ], [ null, %read_memory.exit.thread ], !dbg !610",
+				"call void @llvm.lifetime.end.p0(i64 320, ptr nonnull %local_debug_offsets) #10, !dbg !1081",
+				"br label %cleanup46"
+			]
+		},
+		{
+			"function": "get_stack_trace",
+			"id": 132,
+			"name": "cleanup46",
+			"debug": [
+				{
+					"line": 608, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.6 = phi ptr [ null, %entry ], [ %retval.4, %cleanup42 ], [ null, %if.then5 ], [ null, %if.then2 ], !dbg !610",
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %pid) #10, !dbg !1081",
+				"ret ptr %retval.6, !dbg !1081"
+			]
+		}
+	]
+}

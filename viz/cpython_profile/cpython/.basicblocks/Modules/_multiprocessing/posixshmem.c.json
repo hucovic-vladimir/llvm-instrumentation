@@ -1,0 +1,477 @@
+{
+	"blocks": [
+		{
+			"function": "PyInit__posixshmem",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 148, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call ptr @PyModuleDef_Init(ptr noundef nonnull @_posixshmemmodule) #7, !dbg !205",
+				"ret ptr %call, !dbg !206"
+			]
+		},
+		{
+			"function": "_posixshmem_shm_open",
+			"id": 1,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 25, "columns": [5]
+				},
+				{
+					"line": 26, "columns": [5]
+				},
+				{
+					"line": 27, "columns": [5, 9]
+				},
+				{
+					"line": 30, "columns": [10, 9]
+				}
+			],
+			"successors": [12, 2],
+			"ir": [
+				"%name_size.i = alloca i64, align 8",
+				"%path = alloca ptr, align 8",
+				"%flags = alloca i32, align 4",
+				"%mode = alloca i32, align 4",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %path) #7, !dbg !204",
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %flags) #7, !dbg !205",
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %mode) #7, !dbg !206",
+				"store i32 511, ptr %mode, align 4, !dbg !207, !tbaa !208",
+				"%call = call i32 (ptr, ptr, ptr, ptr, ...) @PyArg_ParseTupleAndKeywords(ptr noundef %args, ptr noundef %kwargs, ptr noundef nonnull @.str.7, ptr noundef nonnull @_posixshmem_shm_open._keywords, ptr noundef nonnull %path, ptr noundef nonnull %flags, ptr noundef nonnull %mode) #7, !dbg !212",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !212",
+				"br i1 %tobool.not, label %exit, label %if.end, !dbg !214"
+			]
+		},
+		{
+			"function": "_posixshmem_shm_open",
+			"id": 2,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 33, "columns": [55, 61, 68]
+				},
+				{
+					"line": 51, "columns": [5]
+				},
+				{
+					"line": 52, "columns": [24]
+				},
+				{
+					"line": 53, "columns": [14, 9]
+				}
+			],
+			"successors": [10, 3],
+			"ir": [
+				"%0 = load ptr, ptr %path, align 8, !dbg !215, !tbaa !216",
+				"%1 = load i32, ptr %flags, align 4, !dbg !218, !tbaa !208",
+				"%2 = load i32, ptr %mode, align 4, !dbg !219, !tbaa !208",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %name_size.i) #7, !dbg !240",
+				"%call.i = call ptr @PyUnicode_AsUTF8AndSize(ptr noundef %0, ptr noundef nonnull %name_size.i) #7, !dbg !241",
+				"%cmp.i = icmp eq ptr %call.i, null, !dbg !242",
+				"br i1 %cmp.i, label %land.lhs.true, label %if.end.i, !dbg !244"
+			]
+		},
+		{
+			"function": "_posixshmem_shm_open",
+			"id": 3,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 56, "columns": [9, 33, 22]
+				}
+			],
+			"successors": [5, 4],
+			"ir": [
+				"%call1.i = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %call.i) #8, !dbg !245",
+				"%3 = load i64, ptr %name_size.i, align 8, !dbg !247, !tbaa !248",
+				"%cmp2.not.i = icmp eq i64 %call1.i, %3, !dbg !250",
+				"br i1 %cmp2.not.i, label %do.body.i, label %if.then3.i, !dbg !251"
+			]
+		},
+		{
+			"function": "_posixshmem_shm_open",
+			"id": 4,
+			"name": "if.then3.i",
+			"debug": [
+				{
+					"line": 57, "columns": [25, 9]
+				},
+				{
+					"line": 58, "columns": [9]
+				}
+			],
+			"successors": [10],
+			"ir": [
+				"%4 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !252, !tbaa !216",
+				"call void @PyErr_SetString(ptr noundef %4, ptr noundef nonnull @.str.8) #7, !dbg !254",
+				"br label %land.lhs.true, !dbg !255"
+			]
+		},
+		{
+			"function": "_posixshmem_shm_open",
+			"id": 5,
+			"name": "do.body.i",
+			"debug": [
+				{
+					"line": 61, "columns": [9]
+				},
+				{
+					"line": 62, "columns": [14]
+				},
+				{
+					"line": 63, "columns": [9]
+				},
+				{
+					"line": 64, "columns": [17, 21]
+				}
+			],
+			"successors": [6, 9],
+			"ir": [
+				"%call5.i = call ptr @PyEval_SaveThread() #7, !dbg !256",
+				"%call6.i = call i32 @shm_open(ptr noundef nonnull %call.i, i32 noundef %1, i32 noundef %2) #7, !dbg !258",
+				"call void @PyEval_RestoreThread(ptr noundef %call5.i) #7, !dbg !259",
+				"%cmp7.i = icmp slt i32 %call6.i, 0, !dbg !260",
+				"br i1 %cmp7.i, label %land.lhs.true.i, label %_posixshmem_shm_open_impl.exit, !dbg !261"
+			]
+		},
+		{
+			"function": "_posixshmem_shm_open",
+			"id": 6,
+			"name": "land.lhs.true.i",
+			"debug": [
+				{
+					"line": 64, "columns": [24, 30, 39]
+				}
+			],
+			"successors": [7, 8],
+			"ir": [
+				"%call8.i = tail call ptr @__errno_location() #9, !dbg !262",
+				"%5 = load i32, ptr %call8.i, align 4, !dbg !262, !tbaa !208",
+				"%cmp9.i = icmp eq i32 %5, 4, !dbg !263",
+				"br i1 %cmp9.i, label %land.rhs.i, label %if.then14.i, !dbg !264"
+			]
+		},
+		{
+			"function": "_posixshmem_shm_open",
+			"id": 7,
+			"name": "land.rhs.i",
+			"debug": [
+				{
+					"line": 64, "columns": [56, 42, 5]
+				}
+			],
+			"successors": [5, 10],
+			"ir": [
+				"%call10.i = call i32 @PyErr_CheckSignals() #7, !dbg !265",
+				"%tobool.not.i = icmp eq i32 %call10.i, 0, !dbg !266",
+				"br i1 %tobool.not.i, label %do.body.i, label %land.lhs.true, !dbg !267, !llvm.loop !268"
+			]
+		},
+		{
+			"function": "_posixshmem_shm_open",
+			"id": 8,
+			"name": "if.then14.i",
+			"debug": [
+				{
+					"line": 68, "columns": [50, 13]
+				}
+			],
+			"successors": [10],
+			"ir": [
+				"%6 = load ptr, ptr @PyExc_OSError, align 8, !dbg !272, !tbaa !216",
+				"%call15.i = call ptr @PyErr_SetFromErrnoWithFilenameObject(ptr noundef %6, ptr noundef %0) #7, !dbg !276",
+				"br label %land.lhs.true, !dbg !276"
+			]
+		},
+		{
+			"function": "_posixshmem_shm_open",
+			"id": 9,
+			"name": "_posixshmem_shm_open_impl.exit",
+			"debug": [
+				{
+					"line": 34, "columns": [31]
+				},
+				{
+					"line": 37, "columns": [36]
+				},
+				{
+					"line": 73, "columns": [1]
+				}
+			],
+			"successors": [11],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %name_size.i) #7, !dbg !277",
+				"%7 = zext i32 %call6.i to i64, !dbg !278",
+				"br label %if.end5, !dbg !279"
+			]
+		},
+		{
+			"function": "_posixshmem_shm_open",
+			"id": 10,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 34, "columns": [34, 9]
+				},
+				{
+					"line": 73, "columns": [1]
+				}
+			],
+			"successors": [11, 12],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %name_size.i) #7, !dbg !277",
+				"%call2 = call ptr @PyErr_Occurred() #7, !dbg !281",
+				"%tobool3.not = icmp eq ptr %call2, null, !dbg !281",
+				"br i1 %tobool3.not, label %if.end5, label %exit, !dbg !282"
+			]
+		},
+		{
+			"function": "_posixshmem_shm_open",
+			"id": 11,
+			"name": "if.end5",
+			"debug": [
+				{
+					"line": 37, "columns": [20, 5]
+				}
+			],
+			"successors": [12],
+			"ir": [
+				"%retval.0.i10 = phi i64 [ -1, %land.lhs.true ], [ %7, %_posixshmem_shm_open_impl.exit ]",
+				"%call6 = call ptr @PyLong_FromLong(i64 noundef %retval.0.i10) #7, !dbg !283",
+				"br label %exit, !dbg !284"
+			]
+		},
+		{
+			"function": "_posixshmem_shm_open",
+			"id": 12,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 39, "columns": [1]
+				},
+				{
+					"line": 40, "columns": [5]
+				},
+				{
+					"line": 41, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%return_value.0 = phi ptr [ null, %land.lhs.true ], [ %call6, %if.end5 ], [ null, %entry ], !dbg !203",
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %mode) #7, !dbg !286",
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %flags) #7, !dbg !286",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %path) #7, !dbg !286",
+				"ret ptr %return_value.0, !dbg !287"
+			]
+		},
+		{
+			"function": "_posixshmem_shm_unlink",
+			"id": 13,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 68, "columns": [5]
+				},
+				{
+					"line": 70, "columns": [10, 9]
+				}
+			],
+			"successors": [22, 14],
+			"ir": [
+				"%name_size.i = alloca i64, align 8",
+				"%path = alloca ptr, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %path) #7, !dbg !204",
+				"%call = call i32 (ptr, ptr, ptr, ptr, ...) @PyArg_ParseTupleAndKeywords(ptr noundef %args, ptr noundef %kwargs, ptr noundef nonnull @.str.9, ptr noundef nonnull @_posixshmem_shm_unlink._keywords, ptr noundef nonnull %path) #7, !dbg !205",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !205",
+				"br i1 %tobool.not, label %exit, label %if.end, !dbg !207"
+			]
+		},
+		{
+			"function": "_posixshmem_shm_unlink",
+			"id": 14,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 73, "columns": [56]
+				},
+				{
+					"line": 95, "columns": [5]
+				},
+				{
+					"line": 96, "columns": [24]
+				},
+				{
+					"line": 97, "columns": [14, 9]
+				}
+			],
+			"successors": [21, 15],
+			"ir": [
+				"%0 = load ptr, ptr %path, align 8, !dbg !208, !tbaa !209",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %name_size.i) #7, !dbg !229",
+				"%call.i = call ptr @PyUnicode_AsUTF8AndSize(ptr noundef %0, ptr noundef nonnull %name_size.i) #7, !dbg !230",
+				"%cmp.i = icmp eq ptr %call.i, null, !dbg !231",
+				"br i1 %cmp.i, label %_posixshmem_shm_unlink_impl.exit, label %if.end.i, !dbg !233"
+			]
+		},
+		{
+			"function": "_posixshmem_shm_unlink",
+			"id": 15,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 100, "columns": [9, 33, 22]
+				}
+			],
+			"successors": [17, 16],
+			"ir": [
+				"%call1.i = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %call.i) #8, !dbg !234",
+				"%1 = load i64, ptr %name_size.i, align 8, !dbg !236, !tbaa !237",
+				"%cmp2.not.i = icmp eq i64 %call1.i, %1, !dbg !239",
+				"br i1 %cmp2.not.i, label %do.body.i, label %if.then3.i, !dbg !240"
+			]
+		},
+		{
+			"function": "_posixshmem_shm_unlink",
+			"id": 16,
+			"name": "if.then3.i",
+			"debug": [
+				{
+					"line": 101, "columns": [25, 9]
+				},
+				{
+					"line": 102, "columns": [9]
+				}
+			],
+			"successors": [21],
+			"ir": [
+				"%2 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !241, !tbaa !209",
+				"call void @PyErr_SetString(ptr noundef %2, ptr noundef nonnull @.str.8) #7, !dbg !243",
+				"br label %_posixshmem_shm_unlink_impl.exit, !dbg !244"
+			]
+		},
+		{
+			"function": "_posixshmem_shm_unlink",
+			"id": 17,
+			"name": "do.body.i",
+			"debug": [
+				{
+					"line": 105, "columns": [9]
+				},
+				{
+					"line": 106, "columns": [14]
+				},
+				{
+					"line": 107, "columns": [9]
+				},
+				{
+					"line": 108, "columns": [17, 21]
+				}
+			],
+			"successors": [18, 21],
+			"ir": [
+				"%call5.i = call ptr @PyEval_SaveThread() #7, !dbg !245",
+				"%call6.i = call i32 @shm_unlink(ptr noundef nonnull %call.i) #7, !dbg !247",
+				"call void @PyEval_RestoreThread(ptr noundef %call5.i) #7, !dbg !248",
+				"%cmp7.i = icmp slt i32 %call6.i, 0, !dbg !249",
+				"br i1 %cmp7.i, label %land.lhs.true.i, label %_posixshmem_shm_unlink_impl.exit, !dbg !250"
+			]
+		},
+		{
+			"function": "_posixshmem_shm_unlink",
+			"id": 18,
+			"name": "land.lhs.true.i",
+			"debug": [
+				{
+					"line": 108, "columns": [24, 30, 39]
+				}
+			],
+			"successors": [19, 20],
+			"ir": [
+				"%call8.i = tail call ptr @__errno_location() #9, !dbg !251",
+				"%3 = load i32, ptr %call8.i, align 4, !dbg !251, !tbaa !252",
+				"%cmp9.i = icmp eq i32 %3, 4, !dbg !254",
+				"br i1 %cmp9.i, label %land.rhs.i, label %if.then14.i, !dbg !255"
+			]
+		},
+		{
+			"function": "_posixshmem_shm_unlink",
+			"id": 19,
+			"name": "land.rhs.i",
+			"debug": [
+				{
+					"line": 108, "columns": [56, 42, 5]
+				}
+			],
+			"successors": [17, 21],
+			"ir": [
+				"%call10.i = call i32 @PyErr_CheckSignals() #7, !dbg !256",
+				"%tobool.not.i = icmp eq i32 %call10.i, 0, !dbg !257",
+				"br i1 %tobool.not.i, label %do.body.i, label %_posixshmem_shm_unlink_impl.exit, !dbg !258, !llvm.loop !259"
+			]
+		},
+		{
+			"function": "_posixshmem_shm_unlink",
+			"id": 20,
+			"name": "if.then14.i",
+			"debug": [
+				{
+					"line": 112, "columns": [50, 13]
+				}
+			],
+			"successors": [21],
+			"ir": [
+				"%4 = load ptr, ptr @PyExc_OSError, align 8, !dbg !263, !tbaa !209",
+				"%call15.i = call ptr @PyErr_SetFromErrnoWithFilenameObject(ptr noundef %4, ptr noundef %0) #7, !dbg !267",
+				"br label %_posixshmem_shm_unlink_impl.exit, !dbg !267"
+			]
+		},
+		{
+			"function": "_posixshmem_shm_unlink",
+			"id": 21,
+			"name": "_posixshmem_shm_unlink_impl.exit",
+			"debug": [
+				{
+					"line": 73, "columns": [5]
+				},
+				{
+					"line": 117, "columns": [1]
+				}
+			],
+			"successors": [22],
+			"ir": [
+				"%retval.0.i = phi ptr [ null, %if.then3.i ], [ null, %if.end ], [ null, %if.then14.i ], [ @_Py_NoneStruct, %do.body.i ], [ null, %land.rhs.i ], !dbg !227",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %name_size.i) #7, !dbg !268",
+				"br label %exit, !dbg !269"
+			]
+		},
+		{
+			"function": "_posixshmem_shm_unlink",
+			"id": 22,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 75, "columns": [1]
+				},
+				{
+					"line": 76, "columns": [5]
+				},
+				{
+					"line": 77, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%return_value.0 = phi ptr [ %retval.0.i, %_posixshmem_shm_unlink_impl.exit ], [ null, %entry ], !dbg !203",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %path) #7, !dbg !271",
+				"ret ptr %return_value.0, !dbg !272"
+			]
+		}
+	]
+}

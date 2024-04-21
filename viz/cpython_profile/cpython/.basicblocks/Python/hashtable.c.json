@@ -1,0 +1,2170 @@
+{
+	"blocks": [
+		{
+			"function": "_Py_hashtable_hash_ptr",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 12, "columns": [19]
+				},
+				{
+					"line": 17, "columns": [18]
+				},
+				{
+					"line": 95, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = ptrtoint ptr %key to i64, !dbg !99",
+				"%or.i = tail call i64 @llvm.fshl.i64(i64 %0, i64 %0, i64 60), !dbg !100",
+				"ret i64 %or.i, !dbg !101"
+			]
+		},
+		{
+			"function": "_Py_hashtable_compare_direct",
+			"id": 1,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 102, "columns": [18, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%cmp = icmp eq ptr %key1, %key2, !dbg !91",
+				"%conv = zext i1 %cmp to i32, !dbg !91",
+				"ret i32 %conv, !dbg !92"
+			]
+		},
+		{
+			"function": "_Py_hashtable_size",
+			"id": 2,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 125, "columns": [17, 26, 10]
+				},
+				{
+					"line": 127, "columns": [17, 26, 10]
+				},
+				{
+					"line": 128, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%nbuckets = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 1, !dbg !95",
+				"%0 = load i64, ptr %nbuckets, align 8, !dbg !95, !tbaa !96",
+				"%mul = shl i64 %0, 3, !dbg !103",
+				"%add = add i64 %mul, 80, !dbg !104",
+				"%1 = load i64, ptr %ht, align 8, !dbg !105, !tbaa !106",
+				"%mul1 = shl i64 %1, 5, !dbg !107",
+				"%add2 = add i64 %add, %mul1, !dbg !108",
+				"ret i64 %add2, !dbg !109"
+			]
+		},
+		{
+			"function": "_Py_hashtable_len",
+			"id": 3,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 135, "columns": [16, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = load i64, ptr %ht, align 8, !dbg !94, !tbaa !95",
+				"ret i64 %0, !dbg !102"
+			]
+		},
+		{
+			"function": "_Py_hashtable_get_entry_generic",
+			"id": 4,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 142, "columns": [31, 27]
+				},
+				{
+					"line": 143, "columns": [36, 45, 29]
+				},
+				{
+					"line": 144, "columns": [36]
+				},
+				{
+					"line": 146, "columns": [19, 13]
+				},
+				{
+					"line": 149, "columns": [48]
+				}
+			],
+			"successors": [8, 5],
+			"ir": [
+				"%hash_func = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 4, !dbg !94",
+				"%0 = load ptr, ptr %hash_func, align 8, !dbg !94, !tbaa !95",
+				"%call = tail call i64 %0(ptr noundef %key) #8, !dbg !102",
+				"%nbuckets = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 1, !dbg !103",
+				"%1 = load i64, ptr %nbuckets, align 8, !dbg !103, !tbaa !104",
+				"%sub = add i64 %1, -1, !dbg !105",
+				"%and = and i64 %sub, %call, !dbg !106",
+				"%buckets = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 2, !dbg !107",
+				"%2 = load ptr, ptr %buckets, align 8, !dbg !107, !tbaa !108",
+				"%arrayidx = getelementptr %struct._Py_slist_t, ptr %2, i64 %and, !dbg !107",
+				"%compare_func = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 5, !dbg !109",
+				"%entry1.019 = load ptr, ptr %arrayidx, align 8, !dbg !93, !tbaa !112",
+				"%cmp20 = icmp eq ptr %entry1.019, null, !dbg !113",
+				"br i1 %cmp20, label %cleanup, label %if.end, !dbg !115"
+			]
+		},
+		{
+			"function": "_Py_hashtable_get_entry_generic",
+			"id": 5,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 149, "columns": [20, 29, 41]
+				}
+			],
+			"successors": [6, 7],
+			"ir": [
+				"%entry1.021 = phi ptr [ %entry1.0, %if.end7 ], [ %entry1.019, %entry ]",
+				"%key_hash2 = getelementptr inbounds %struct._Py_hashtable_entry_t, ptr %entry1.021, i64 0, i32 1, !dbg !116",
+				"%3 = load i64, ptr %key_hash2, align 8, !dbg !116, !tbaa !117",
+				"%cmp3 = icmp eq i64 %3, %call, !dbg !120",
+				"br i1 %cmp3, label %land.lhs.true, label %if.end7, !dbg !121"
+			]
+		},
+		{
+			"function": "_Py_hashtable_get_entry_generic",
+			"id": 6,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 149, "columns": [48, 73, 44, 13]
+				}
+			],
+			"successors": [7, 8],
+			"ir": [
+				"%4 = load ptr, ptr %compare_func, align 8, !dbg !109, !tbaa !122",
+				"%key4 = getelementptr inbounds %struct._Py_hashtable_entry_t, ptr %entry1.021, i64 0, i32 2, !dbg !123",
+				"%5 = load ptr, ptr %key4, align 8, !dbg !123, !tbaa !124",
+				"%call5 = tail call i32 %4(ptr noundef %key, ptr noundef %5) #8, !dbg !125",
+				"%tobool.not = icmp eq i32 %call5, 0, !dbg !125",
+				"br i1 %tobool.not, label %if.end7, label %cleanup, !dbg !126"
+			]
+		},
+		{
+			"function": "_Py_hashtable_get_entry_generic",
+			"id": 7,
+			"name": "if.end7",
+			"debug": [
+				{
+					"line": 146, "columns": [19, 13]
+				}
+			],
+			"successors": [8, 5],
+			"ir": [
+				"%entry1.0 = load ptr, ptr %entry1.021, align 8, !dbg !93, !tbaa !112",
+				"%cmp = icmp eq ptr %entry1.0, null, !dbg !113",
+				"br i1 %cmp, label %cleanup, label %if.end, !dbg !115, !llvm.loop !127"
+			]
+		},
+		{
+			"function": "_Py_hashtable_get_entry_generic",
+			"id": 8,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 155, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%entry1.0.lcssa = phi ptr [ null, %entry ], [ %entry1.021, %land.lhs.true ], [ null, %if.end7 ], !dbg !93",
+				"ret ptr %entry1.0.lcssa, !dbg !130"
+			]
+		},
+		{
+			"function": "_Py_hashtable_steal",
+			"id": 9,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 184, "columns": [31, 27]
+				},
+				{
+					"line": 185, "columns": [36, 45, 29]
+				},
+				{
+					"line": 187, "columns": [36]
+				},
+				{
+					"line": 190, "columns": [19, 13]
+				}
+			],
+			"successors": [25, 10],
+			"ir": [
+				"%hash_func = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 4, !dbg !98",
+				"%0 = load ptr, ptr %hash_func, align 8, !dbg !98, !tbaa !99",
+				"%call = tail call i64 %0(ptr noundef %key) #8, !dbg !106",
+				"%nbuckets = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 1, !dbg !107",
+				"%1 = load i64, ptr %nbuckets, align 8, !dbg !107, !tbaa !108",
+				"%sub = add i64 %1, -1, !dbg !109",
+				"%and = and i64 %sub, %call, !dbg !110",
+				"%buckets = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 2, !dbg !111",
+				"%2 = load ptr, ptr %buckets, align 8, !dbg !111, !tbaa !112",
+				"%arrayidx = getelementptr %struct._Py_slist_t, ptr %2, i64 %and, !dbg !111",
+				"%entry1.044 = load ptr, ptr %arrayidx, align 8, !dbg !97, !tbaa !113",
+				"%cmp45 = icmp eq ptr %entry1.044, null, !dbg !114",
+				"br i1 %cmp45, label %cleanup, label %if.end.lr.ph, !dbg !117"
+			]
+		},
+		{
+			"function": "_Py_hashtable_steal",
+			"id": 10,
+			"name": "if.end.lr.ph",
+			"debug": [
+				{
+					"line": 190, "columns": [13]
+				}
+			],
+			"successors": [11],
+			"ir": [
+				"%compare_func = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 5",
+				"br label %if.end, !dbg !117"
+			]
+		},
+		{
+			"function": "_Py_hashtable_steal",
+			"id": 11,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 194, "columns": [20, 29, 41]
+				}
+			],
+			"successors": [12, 13],
+			"ir": [
+				"%entry1.047 = phi ptr [ %entry1.044, %if.end.lr.ph ], [ %entry1.0, %if.end7 ]",
+				"%previous.046 = phi ptr [ null, %if.end.lr.ph ], [ %entry1.047, %if.end7 ]",
+				"%key_hash2 = getelementptr inbounds %struct._Py_hashtable_entry_t, ptr %entry1.047, i64 0, i32 1, !dbg !118",
+				"%3 = load i64, ptr %key_hash2, align 8, !dbg !118, !tbaa !120",
+				"%cmp3 = icmp eq i64 %3, %call, !dbg !123",
+				"br i1 %cmp3, label %land.lhs.true, label %if.end7, !dbg !124"
+			]
+		},
+		{
+			"function": "_Py_hashtable_steal",
+			"id": 12,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 194, "columns": [48, 73, 44, 13]
+				}
+			],
+			"successors": [13, 14],
+			"ir": [
+				"%4 = load ptr, ptr %compare_func, align 8, !dbg !125, !tbaa !126",
+				"%key4 = getelementptr inbounds %struct._Py_hashtable_entry_t, ptr %entry1.047, i64 0, i32 2, !dbg !127",
+				"%5 = load ptr, ptr %key4, align 8, !dbg !127, !tbaa !128",
+				"%call5 = tail call i32 %4(ptr noundef %key, ptr noundef %5) #8, !dbg !129",
+				"%tobool.not = icmp eq i32 %call5, 0, !dbg !129",
+				"br i1 %tobool.not, label %if.end7, label %while.end, !dbg !130"
+			]
+		},
+		{
+			"function": "_Py_hashtable_steal",
+			"id": 13,
+			"name": "if.end7",
+			"debug": [
+				{
+					"line": 190, "columns": [19, 13]
+				}
+			],
+			"successors": [25, 11],
+			"ir": [
+				"%entry1.0 = load ptr, ptr %entry1.047, align 8, !dbg !97, !tbaa !113",
+				"%cmp = icmp eq ptr %entry1.0, null, !dbg !114",
+				"br i1 %cmp, label %cleanup, label %if.end, !dbg !117, !llvm.loop !131"
+			]
+		},
+		{
+			"function": "_Py_hashtable_steal",
+			"id": 14,
+			"name": "while.end",
+			"debug": [
+				{
+					"line": 85, "columns": [18]
+				},
+				{
+					"line": 201, "columns": [27, 23]
+				},
+				{
+					"line": 203, "columns": [17]
+				},
+				{
+					"line": 205, "columns": [26]
+				},
+				{
+					"line": 206, "columns": [15, 5]
+				},
+				{
+					"line": 208, "columns": [20, 9, 42, 31, 29, 51]
+				}
+			],
+			"successors": [15, 25],
+			"ir": [
+				"%6 = load ptr, ptr %buckets, align 8, !dbg !134, !tbaa !112",
+				"%arrayidx9 = getelementptr %struct._Py_slist_t, ptr %6, i64 %and, !dbg !135",
+				"%cmp.not.i = icmp eq ptr %previous.046, null, !dbg !145",
+				"%7 = load ptr, ptr %entry1.047, align 8, !dbg !147, !tbaa !148",
+				"%list.previous.i = select i1 %cmp.not.i, ptr %arrayidx9, ptr %previous.046",
+				"store ptr %7, ptr %list.previous.i, align 8, !dbg !147, !tbaa !113",
+				"%8 = load i64, ptr %ht, align 8, !dbg !149, !tbaa !150",
+				"%dec = add i64 %8, -1, !dbg !149",
+				"store i64 %dec, ptr %ht, align 8, !dbg !149, !tbaa !150",
+				"%value10 = getelementptr inbounds %struct._Py_hashtable_entry_t, ptr %entry1.047, i64 0, i32 3, !dbg !151",
+				"%9 = load ptr, ptr %value10, align 8, !dbg !151, !tbaa !152",
+				"%free = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 8, i32 1, !dbg !153",
+				"%10 = load ptr, ptr %free, align 8, !dbg !153, !tbaa !154",
+				"tail call void %10(ptr noundef nonnull %entry1.047) #8, !dbg !155",
+				"%11 = load i64, ptr %ht, align 8, !dbg !156, !tbaa !150",
+				"%conv = uitofp i64 %11 to float, !dbg !158",
+				"%12 = load i64, ptr %nbuckets, align 8, !dbg !159, !tbaa !108",
+				"%conv13 = uitofp i64 %12 to float, !dbg !160",
+				"%div = fdiv float %conv, %conv13, !dbg !161",
+				"%conv14 = fpext float %div to double, !dbg !158",
+				"%cmp15 = fcmp olt double %conv14, 1.000000e-01, !dbg !162",
+				"br i1 %cmp15, label %if.then17, label %cleanup, !dbg !163"
+			]
+		},
+		{
+			"function": "_Py_hashtable_steal",
+			"id": 15,
+			"name": "if.then17",
+			"debug": [
+				{
+					"line": 111, "columns": [11, 9]
+				},
+				{
+					"line": 289, "columns": [43, 56, 58, 34]
+				}
+			],
+			"successors": [17, 16],
+			"ir": [
+				"%conv.i = uitofp i64 %11 to double, !dbg !183",
+				"%mul.i = fmul double %conv.i, 2.000000e+00, !dbg !184",
+				"%div.i = fdiv double %mul.i, 6.000000e-01, !dbg !185",
+				"%conv1.i = fptoui double %div.i to i64, !dbg !186",
+				"%cmp.i.i = icmp ult i64 %conv1.i, 16, !dbg !195",
+				"br i1 %cmp.i.i, label %round_size.exit.i, label %while.cond.i.i, !dbg !197"
+			]
+		},
+		{
+			"function": "_Py_hashtable_steal",
+			"id": 16,
+			"name": "while.cond.i.i",
+			"debug": [
+				{
+					"line": 114, "columns": [14, 5]
+				},
+				{
+					"line": 115, "columns": [11]
+				}
+			],
+			"successors": [16, 17],
+			"ir": [
+				"%i.0.i.i = phi i64 [ %shl.i.i, %while.cond.i.i ], [ 1, %if.then17 ], !dbg !193",
+				"%cmp1.i.i = icmp ult i64 %i.0.i.i, %conv1.i, !dbg !198",
+				"%shl.i.i = shl i64 %i.0.i.i, 1, !dbg !199",
+				"br i1 %cmp1.i.i, label %while.cond.i.i, label %round_size.exit.i, !dbg !200, !llvm.loop !201"
+			]
+		},
+		{
+			"function": "_Py_hashtable_steal",
+			"id": 17,
+			"name": "round_size.exit.i",
+			"debug": [
+				{
+					"line": 290, "columns": [18, 9]
+				}
+			],
+			"successors": [25, 18],
+			"ir": [
+				"%retval.0.i.i = phi i64 [ 16, %if.then17 ], [ %i.0.i.i, %while.cond.i.i ], !dbg !193",
+				"%cmp.i = icmp eq i64 %retval.0.i.i, %12, !dbg !204",
+				"br i1 %cmp.i, label %cleanup, label %if.end.i, !dbg !206"
+			]
+		},
+		{
+			"function": "_Py_hashtable_steal",
+			"id": 18,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 294, "columns": [36]
+				},
+				{
+					"line": 295, "columns": [36, 42, 32]
+				},
+				{
+					"line": 296, "columns": [21, 9]
+				}
+			],
+			"successors": [25, 19],
+			"ir": [
+				"%mul3.i = shl i64 %retval.0.i.i, 3, !dbg !207",
+				"%alloc.i = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 8, !dbg !208",
+				"%13 = load ptr, ptr %alloc.i, align 8, !dbg !209, !tbaa !210",
+				"%call4.i = tail call ptr %13(i64 noundef %mul3.i) #8, !dbg !211",
+				"%cmp5.i = icmp eq ptr %call4.i, null, !dbg !212",
+				"br i1 %cmp5.i, label %cleanup, label %if.end8.i, !dbg !214"
+			]
+		},
+		{
+			"function": "_Py_hashtable_steal",
+			"id": 19,
+			"name": "if.end8.i",
+			"debug": [
+				{
+					"line": 300, "columns": [5]
+				},
+				{
+					"line": 302, "columns": [36, 5]
+				}
+			],
+			"successors": [21, 20],
+			"ir": [
+				"tail call void @llvm.memset.p0.i64(ptr nonnull align 8 %call4.i, i8 0, i64 %mul3.i, i1 false), !dbg !215",
+				"%14 = load i64, ptr %nbuckets, align 8, !tbaa !108",
+				"%cmp1045.not.i = icmp eq i64 %14, 0, !dbg !217",
+				"%.pre.i = load ptr, ptr %buckets, align 8, !tbaa !112",
+				"br i1 %cmp1045.not.i, label %for.cond.cleanup.i, label %for.body.lr.ph.i, !dbg !218"
+			]
+		},
+		{
+			"function": "_Py_hashtable_steal",
+			"id": 20,
+			"name": "for.body.lr.ph.i",
+			"debug": [
+				{
+					"line": 302, "columns": [5]
+				}
+			],
+			"successors": [22],
+			"ir": [
+				"%sub.i = add i64 %retval.0.i.i, -1",
+				"br label %for.body.i, !dbg !218"
+			]
+		},
+		{
+			"function": "_Py_hashtable_steal",
+			"id": 21,
+			"name": "for.cond.cleanup.i",
+			"debug": [
+				{
+					"line": 315, "columns": [15, 5]
+				},
+				{
+					"line": 316, "columns": [18]
+				},
+				{
+					"line": 317, "columns": [17]
+				},
+				{
+					"line": 318, "columns": [5]
+				}
+			],
+			"successors": [25],
+			"ir": [
+				"%15 = load ptr, ptr %free, align 8, !dbg !219, !tbaa !154",
+				"tail call void %15(ptr noundef %.pre.i) #8, !dbg !220",
+				"store i64 %retval.0.i.i, ptr %nbuckets, align 8, !dbg !221, !tbaa !108",
+				"store ptr %call4.i, ptr %buckets, align 8, !dbg !222, !tbaa !112",
+				"br label %cleanup, !dbg !223"
+			]
+		},
+		{
+			"function": "_Py_hashtable_steal",
+			"id": 22,
+			"name": "for.body.i",
+			"debug": [
+				{
+					"line": 303, "columns": [40]
+				},
+				{
+					"line": 304, "columns": [22, 9]
+				}
+			],
+			"successors": [24, 23],
+			"ir": [
+				"%bucket.046.i = phi i64 [ 0, %for.body.lr.ph.i ], [ %inc.i, %while.end.i ]",
+				"%arrayidx.i = getelementptr %struct._Py_slist_t, ptr %.pre.i, i64 %bucket.046.i, !dbg !224",
+				"%16 = load ptr, ptr %arrayidx.i, align 8, !dbg !224, !tbaa !225",
+				"%cmp13.not43.i = icmp eq ptr %16, null, !dbg !228",
+				"br i1 %cmp13.not43.i, label %while.end.i, label %while.body.i, !dbg !229"
+			]
+		},
+		{
+			"function": "_Py_hashtable_steal",
+			"id": 23,
+			"name": "while.body.i",
+			"debug": [
+				{
+					"line": 76, "columns": [24, 16]
+				},
+				{
+					"line": 77, "columns": [16]
+				},
+				{
+					"line": 304, "columns": [22, 9]
+				},
+				{
+					"line": 306, "columns": [43]
+				},
+				{
+					"line": 307, "columns": [41, 50]
+				},
+				{
+					"line": 309, "columns": [32]
+				}
+			],
+			"successors": [24, 23],
+			"ir": [
+				"%entry12.044.i = phi ptr [ %17, %while.body.i ], [ %16, %for.body.i ]",
+				"%17 = load ptr, ptr %entry12.044.i, align 8, !dbg !230, !tbaa !148",
+				"%key_hash.i = getelementptr inbounds %struct._Py_hashtable_entry_t, ptr %entry12.044.i, i64 0, i32 1, !dbg !232",
+				"%18 = load i64, ptr %key_hash.i, align 8, !dbg !232, !tbaa !120",
+				"%and.i = and i64 %18, %sub.i, !dbg !233",
+				"%arrayidx16.i = getelementptr %struct._Py_slist_t, ptr %call4.i, i64 %and.i, !dbg !234",
+				"%19 = load ptr, ptr %arrayidx16.i, align 8, !dbg !243, !tbaa !225",
+				"store ptr %19, ptr %entry12.044.i, align 8, !dbg !244, !tbaa !148",
+				"store ptr %entry12.044.i, ptr %arrayidx16.i, align 8, !dbg !245, !tbaa !225",
+				"%cmp13.not.i = icmp eq ptr %17, null, !dbg !228",
+				"br i1 %cmp13.not.i, label %while.end.i, label %while.body.i, !dbg !229, !llvm.loop !246"
+			]
+		},
+		{
+			"function": "_Py_hashtable_steal",
+			"id": 24,
+			"name": "while.end.i",
+			"debug": [
+				{
+					"line": 302, "columns": [58, 36, 5]
+				}
+			],
+			"successors": [21, 22],
+			"ir": [
+				"%inc.i = add nuw i64 %bucket.046.i, 1, !dbg !248",
+				"%exitcond.not.i = icmp eq i64 %inc.i, %14, !dbg !217",
+				"br i1 %exitcond.not.i, label %for.cond.cleanup.i, label %for.body.i, !dbg !218, !llvm.loop !249"
+			]
+		},
+		{
+			"function": "_Py_hashtable_steal",
+			"id": 25,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 213, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %9, %while.end ], [ %9, %round_size.exit.i ], [ %9, %if.end.i ], [ %9, %for.cond.cleanup.i ], [ null, %entry ], [ null, %if.end7 ], !dbg !97",
+				"ret ptr %retval.0, !dbg !251"
+			]
+		},
+		{
+			"function": "_Py_hashtable_set",
+			"id": 26,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 229, "columns": [17, 23, 13]
+				},
+				{
+					"line": 230, "columns": [15, 9]
+				}
+			],
+			"successors": [40, 27],
+			"ir": [
+				"%alloc = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 8, !dbg !96",
+				"%0 = load ptr, ptr %alloc, align 8, !dbg !97, !tbaa !98",
+				"%call = tail call ptr %0(i64 noundef 32) #8, !dbg !105",
+				"%cmp = icmp eq ptr %call, null, !dbg !106",
+				"br i1 %cmp, label %cleanup, label %if.end, !dbg !108"
+			]
+		},
+		{
+			"function": "_Py_hashtable_set",
+			"id": 27,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 235, "columns": [27, 23, 12, 21]
+				},
+				{
+					"line": 236, "columns": [12, 16]
+				},
+				{
+					"line": 237, "columns": [12, 18]
+				},
+				{
+					"line": 239, "columns": [17]
+				},
+				{
+					"line": 240, "columns": [9, 42, 31, 29, 51]
+				}
+			],
+			"successors": [28, 39],
+			"ir": [
+				"%hash_func = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 4, !dbg !109",
+				"%1 = load ptr, ptr %hash_func, align 8, !dbg !109, !tbaa !110",
+				"%call2 = tail call i64 %1(ptr noundef %key) #8, !dbg !111",
+				"%key_hash = getelementptr inbounds %struct._Py_hashtable_entry_t, ptr %call, i64 0, i32 1, !dbg !112",
+				"store i64 %call2, ptr %key_hash, align 8, !dbg !113, !tbaa !114",
+				"%key3 = getelementptr inbounds %struct._Py_hashtable_entry_t, ptr %call, i64 0, i32 2, !dbg !117",
+				"store ptr %key, ptr %key3, align 8, !dbg !118, !tbaa !119",
+				"%value4 = getelementptr inbounds %struct._Py_hashtable_entry_t, ptr %call, i64 0, i32 3, !dbg !120",
+				"store ptr %value, ptr %value4, align 8, !dbg !121, !tbaa !122",
+				"%2 = load i64, ptr %ht, align 8, !dbg !123, !tbaa !124",
+				"%inc = add i64 %2, 1, !dbg !123",
+				"store i64 %inc, ptr %ht, align 8, !dbg !123, !tbaa !124",
+				"%conv = uitofp i64 %inc to float, !dbg !125",
+				"%nbuckets = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 1, !dbg !127",
+				"%3 = load i64, ptr %nbuckets, align 8, !dbg !127, !tbaa !128",
+				"%conv6 = uitofp i64 %3 to float, !dbg !129",
+				"%div = fdiv float %conv, %conv6, !dbg !130",
+				"%cmp8 = fcmp ogt float %div, 5.000000e-01, !dbg !131",
+				"br i1 %cmp8, label %if.then10, label %if.end18, !dbg !132"
+			]
+		},
+		{
+			"function": "_Py_hashtable_set",
+			"id": 28,
+			"name": "if.then10",
+			"debug": [
+				{
+					"line": 111, "columns": [11, 9]
+				},
+				{
+					"line": 289, "columns": [43, 56, 58, 34]
+				}
+			],
+			"successors": [30, 29],
+			"ir": [
+				"%conv.i = uitofp i64 %inc to double, !dbg !153",
+				"%mul.i = fmul double %conv.i, 2.000000e+00, !dbg !154",
+				"%div.i = fdiv double %mul.i, 6.000000e-01, !dbg !155",
+				"%conv1.i = fptoui double %div.i to i64, !dbg !156",
+				"%cmp.i.i = icmp ult i64 %conv1.i, 16, !dbg !165",
+				"br i1 %cmp.i.i, label %round_size.exit.i, label %while.cond.i.i, !dbg !167"
+			]
+		},
+		{
+			"function": "_Py_hashtable_set",
+			"id": 29,
+			"name": "while.cond.i.i",
+			"debug": [
+				{
+					"line": 114, "columns": [14, 5]
+				},
+				{
+					"line": 115, "columns": [11]
+				}
+			],
+			"successors": [29, 30],
+			"ir": [
+				"%i.0.i.i = phi i64 [ %shl.i.i, %while.cond.i.i ], [ 1, %if.then10 ], !dbg !163",
+				"%cmp1.i.i = icmp ult i64 %i.0.i.i, %conv1.i, !dbg !168",
+				"%shl.i.i = shl i64 %i.0.i.i, 1, !dbg !169",
+				"br i1 %cmp1.i.i, label %while.cond.i.i, label %round_size.exit.i, !dbg !170, !llvm.loop !171"
+			]
+		},
+		{
+			"function": "_Py_hashtable_set",
+			"id": 30,
+			"name": "round_size.exit.i",
+			"debug": [
+				{
+					"line": 290, "columns": [18, 9]
+				}
+			],
+			"successors": [39, 31],
+			"ir": [
+				"%retval.0.i.i = phi i64 [ 16, %if.then10 ], [ %i.0.i.i, %while.cond.i.i ], !dbg !163",
+				"%cmp.i = icmp eq i64 %retval.0.i.i, %3, !dbg !174",
+				"br i1 %cmp.i, label %if.end18, label %if.end.i, !dbg !176"
+			]
+		},
+		{
+			"function": "_Py_hashtable_set",
+			"id": 31,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 294, "columns": [36]
+				},
+				{
+					"line": 295, "columns": [42, 32]
+				},
+				{
+					"line": 296, "columns": [21, 9]
+				}
+			],
+			"successors": [38, 32],
+			"ir": [
+				"%mul3.i = shl i64 %retval.0.i.i, 3, !dbg !177",
+				"%4 = load ptr, ptr %alloc, align 8, !dbg !178, !tbaa !98",
+				"%call4.i = tail call ptr %4(i64 noundef %mul3.i) #8, !dbg !179",
+				"%cmp5.i = icmp eq ptr %call4.i, null, !dbg !180",
+				"br i1 %cmp5.i, label %if.then14, label %if.end8.i, !dbg !182"
+			]
+		},
+		{
+			"function": "_Py_hashtable_set",
+			"id": 32,
+			"name": "if.end8.i",
+			"debug": [
+				{
+					"line": 300, "columns": [5]
+				},
+				{
+					"line": 302, "columns": [36, 5]
+				}
+			],
+			"successors": [34, 33],
+			"ir": [
+				"tail call void @llvm.memset.p0.i64(ptr nonnull align 8 %call4.i, i8 0, i64 %mul3.i, i1 false), !dbg !183",
+				"%5 = load i64, ptr %nbuckets, align 8, !tbaa !128",
+				"%cmp1045.not.i = icmp eq i64 %5, 0, !dbg !185",
+				"%buckets18.phi.trans.insert.i = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 2",
+				"%.pre.i = load ptr, ptr %buckets18.phi.trans.insert.i, align 8, !tbaa !186",
+				"br i1 %cmp1045.not.i, label %for.cond.cleanup.i, label %for.body.lr.ph.i, !dbg !187"
+			]
+		},
+		{
+			"function": "_Py_hashtable_set",
+			"id": 33,
+			"name": "for.body.lr.ph.i",
+			"debug": [
+				{
+					"line": 302, "columns": [5]
+				}
+			],
+			"successors": [35],
+			"ir": [
+				"%sub.i = add i64 %retval.0.i.i, -1",
+				"br label %for.body.i, !dbg !187"
+			]
+		},
+		{
+			"function": "_Py_hashtable_set",
+			"id": 34,
+			"name": "for.cond.cleanup.i",
+			"debug": [
+				{
+					"line": 248, "columns": [27]
+				},
+				{
+					"line": 315, "columns": [15, 5]
+				},
+				{
+					"line": 316, "columns": [18]
+				},
+				{
+					"line": 317, "columns": [17]
+				},
+				{
+					"line": 318, "columns": [5]
+				}
+			],
+			"successors": [39],
+			"ir": [
+				"%free.i = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 8, i32 1, !dbg !188",
+				"%6 = load ptr, ptr %free.i, align 8, !dbg !188, !tbaa !189",
+				"tail call void %6(ptr noundef %.pre.i) #8, !dbg !190",
+				"store i64 %retval.0.i.i, ptr %nbuckets, align 8, !dbg !191, !tbaa !128",
+				"store ptr %call4.i, ptr %buckets18.phi.trans.insert.i, align 8, !dbg !192, !tbaa !186",
+				"%.pre = load i64, ptr %key_hash, align 8, !dbg !193, !tbaa !114",
+				"br label %if.end18, !dbg !194"
+			]
+		},
+		{
+			"function": "_Py_hashtable_set",
+			"id": 35,
+			"name": "for.body.i",
+			"debug": [
+				{
+					"line": 303, "columns": [40]
+				},
+				{
+					"line": 304, "columns": [22, 9]
+				}
+			],
+			"successors": [37, 36],
+			"ir": [
+				"%bucket.046.i = phi i64 [ 0, %for.body.lr.ph.i ], [ %inc.i, %while.end.i ]",
+				"%arrayidx.i = getelementptr %struct._Py_slist_t, ptr %.pre.i, i64 %bucket.046.i, !dbg !195",
+				"%7 = load ptr, ptr %arrayidx.i, align 8, !dbg !195, !tbaa !196",
+				"%cmp13.not43.i = icmp eq ptr %7, null, !dbg !199",
+				"br i1 %cmp13.not43.i, label %while.end.i, label %while.body.i, !dbg !200"
+			]
+		},
+		{
+			"function": "_Py_hashtable_set",
+			"id": 36,
+			"name": "while.body.i",
+			"debug": [
+				{
+					"line": 76, "columns": [24, 16]
+				},
+				{
+					"line": 77, "columns": [16]
+				},
+				{
+					"line": 304, "columns": [22, 9]
+				},
+				{
+					"line": 306, "columns": [43]
+				},
+				{
+					"line": 307, "columns": [41, 50]
+				},
+				{
+					"line": 309, "columns": [32]
+				}
+			],
+			"successors": [37, 36],
+			"ir": [
+				"%entry12.044.i = phi ptr [ %8, %while.body.i ], [ %7, %for.body.i ]",
+				"%8 = load ptr, ptr %entry12.044.i, align 8, !dbg !201, !tbaa !202",
+				"%key_hash.i = getelementptr inbounds %struct._Py_hashtable_entry_t, ptr %entry12.044.i, i64 0, i32 1, !dbg !204",
+				"%9 = load i64, ptr %key_hash.i, align 8, !dbg !204, !tbaa !114",
+				"%and.i = and i64 %9, %sub.i, !dbg !205",
+				"%arrayidx16.i = getelementptr %struct._Py_slist_t, ptr %call4.i, i64 %and.i, !dbg !206",
+				"%10 = load ptr, ptr %arrayidx16.i, align 8, !dbg !215, !tbaa !196",
+				"store ptr %10, ptr %entry12.044.i, align 8, !dbg !216, !tbaa !202",
+				"store ptr %entry12.044.i, ptr %arrayidx16.i, align 8, !dbg !217, !tbaa !196",
+				"%cmp13.not.i = icmp eq ptr %8, null, !dbg !199",
+				"br i1 %cmp13.not.i, label %while.end.i, label %while.body.i, !dbg !200, !llvm.loop !218"
+			]
+		},
+		{
+			"function": "_Py_hashtable_set",
+			"id": 37,
+			"name": "while.end.i",
+			"debug": [
+				{
+					"line": 302, "columns": [58, 36, 5]
+				}
+			],
+			"successors": [34, 35],
+			"ir": [
+				"%inc.i = add nuw i64 %bucket.046.i, 1, !dbg !220",
+				"%exitcond.not.i = icmp eq i64 %inc.i, %5, !dbg !185",
+				"br i1 %exitcond.not.i, label %for.cond.cleanup.i, label %for.body.i, !dbg !187, !llvm.loop !221"
+			]
+		},
+		{
+			"function": "_Py_hashtable_set",
+			"id": 38,
+			"name": "if.then14",
+			"debug": [
+				{
+					"line": 242, "columns": [25]
+				},
+				{
+					"line": 243, "columns": [23, 13]
+				},
+				{
+					"line": 244, "columns": [13]
+				}
+			],
+			"successors": [40],
+			"ir": [
+				"%11 = load i64, ptr %ht, align 8, !dbg !223, !tbaa !124",
+				"%dec = add i64 %11, -1, !dbg !223",
+				"store i64 %dec, ptr %ht, align 8, !dbg !223, !tbaa !124",
+				"%free = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 8, i32 1, !dbg !225",
+				"%12 = load ptr, ptr %free, align 8, !dbg !225, !tbaa !189",
+				"tail call void %12(ptr noundef nonnull %call) #8, !dbg !226",
+				"br label %cleanup, !dbg !227"
+			]
+		},
+		{
+			"function": "_Py_hashtable_set",
+			"id": 39,
+			"name": "if.end18",
+			"debug": [
+				{
+					"line": 76, "columns": [24, 16]
+				},
+				{
+					"line": 77, "columns": [16]
+				},
+				{
+					"line": 248, "columns": [43, 27, 52, 36]
+				},
+				{
+					"line": 249, "columns": [28, 24]
+				}
+			],
+			"successors": [40],
+			"ir": [
+				"%13 = phi i64 [ %retval.0.i.i, %for.cond.cleanup.i ], [ %3, %round_size.exit.i ], [ %3, %if.end ], !dbg !228",
+				"%14 = phi i64 [ %.pre, %for.cond.cleanup.i ], [ %call2, %round_size.exit.i ], [ %call2, %if.end ], !dbg !193",
+				"%sub = add i64 %13, -1, !dbg !229",
+				"%and = and i64 %sub, %14, !dbg !230",
+				"%buckets = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 2, !dbg !231",
+				"%15 = load ptr, ptr %buckets, align 8, !dbg !231, !tbaa !186",
+				"%arrayidx = getelementptr %struct._Py_slist_t, ptr %15, i64 %and, !dbg !232",
+				"%16 = load ptr, ptr %arrayidx, align 8, !dbg !235, !tbaa !196",
+				"store ptr %16, ptr %call, align 8, !dbg !236, !tbaa !202",
+				"store ptr %call, ptr %arrayidx, align 8, !dbg !237, !tbaa !196",
+				"br label %cleanup"
+			]
+		},
+		{
+			"function": "_Py_hashtable_set",
+			"id": 40,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 251, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ -1, %if.then14 ], [ 0, %if.end18 ], [ -1, %entry ], !dbg !95",
+				"ret i32 %retval.0, !dbg !238"
+			]
+		},
+		{
+			"function": "_Py_hashtable_get",
+			"id": 41,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 257, "columns": [40, 36]
+				},
+				{
+					"line": 258, "columns": [15, 9]
+				}
+			],
+			"successors": [43, 42],
+			"ir": [
+				"%get_entry_func = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 3, !dbg !94",
+				"%0 = load ptr, ptr %get_entry_func, align 8, !dbg !94, !tbaa !95",
+				"%call = tail call ptr %0(ptr noundef %ht, ptr noundef %key) #8, !dbg !102",
+				"%cmp.not = icmp eq ptr %call, null, !dbg !103",
+				"br i1 %cmp.not, label %cleanup, label %if.then, !dbg !105"
+			]
+		},
+		{
+			"function": "_Py_hashtable_get",
+			"id": 42,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 259, "columns": [23, 9]
+				}
+			],
+			"successors": [43],
+			"ir": [
+				"%value = getelementptr inbounds %struct._Py_hashtable_entry_t, ptr %call, i64 0, i32 3, !dbg !106",
+				"%1 = load ptr, ptr %value, align 8, !dbg !106, !tbaa !108",
+				"br label %cleanup, !dbg !111"
+			]
+		},
+		{
+			"function": "_Py_hashtable_get",
+			"id": 43,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 264, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %1, %if.then ], [ null, %entry ], !dbg !112",
+				"ret ptr %retval.0, !dbg !113"
+			]
+		},
+		{
+			"function": "_Py_hashtable_foreach",
+			"id": 44,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 272, "columns": [34, 28, 5]
+				}
+			],
+			"successors": [50, 45],
+			"ir": [
+				"%nbuckets = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 1",
+				"%0 = load i64, ptr %nbuckets, align 8, !dbg !106, !tbaa !107",
+				"%cmp.not24.not = icmp eq i64 %0, 0, !dbg !114",
+				"br i1 %cmp.not24.not, label %cleanup6, label %for.body.lr.ph, !dbg !115"
+			]
+		},
+		{
+			"function": "_Py_hashtable_foreach",
+			"id": 45,
+			"name": "for.body.lr.ph",
+			"debug": [
+				{
+					"line": 272, "columns": [5]
+				}
+			],
+			"successors": [46],
+			"ir": [
+				"%buckets = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 2",
+				"br label %for.body, !dbg !115"
+			]
+		},
+		{
+			"function": "_Py_hashtable_foreach",
+			"id": 46,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 273, "columns": [40]
+				},
+				{
+					"line": 274, "columns": [9]
+				}
+			],
+			"successors": [47],
+			"ir": [
+				"%hv.025 = phi i64 [ 0, %for.body.lr.ph ], [ %inc, %for.inc ]",
+				"%1 = load ptr, ptr %buckets, align 8, !dbg !116, !tbaa !117",
+				"%arrayidx = getelementptr %struct._Py_slist_t, ptr %1, i64 %hv.025, !dbg !116",
+				"br label %while.cond, !dbg !119"
+			]
+		},
+		{
+			"function": "_Py_hashtable_foreach",
+			"id": 47,
+			"name": "while.cond",
+			"debug": [
+				{
+					"line": 273, "columns": [32]
+				},
+				{
+					"line": 274, "columns": [22, 9]
+				}
+			],
+			"successors": [49, 48],
+			"ir": [
+				"%entry1.0.in = phi ptr [ %arrayidx, %for.body ], [ %entry1.0, %while.body ]",
+				"%entry1.0 = load ptr, ptr %entry1.0.in, align 8, !dbg !120, !tbaa !121",
+				"%cmp2.not = icmp eq ptr %entry1.0, null, !dbg !122",
+				"br i1 %cmp2.not, label %for.inc, label %while.body, !dbg !119"
+			]
+		},
+		{
+			"function": "_Py_hashtable_foreach",
+			"id": 48,
+			"name": "while.body",
+			"debug": [
+				{
+					"line": 275, "columns": [39, 51, 23]
+				},
+				{
+					"line": 276, "columns": [17]
+				}
+			],
+			"successors": [47, 50],
+			"ir": [
+				"%key = getelementptr inbounds %struct._Py_hashtable_entry_t, ptr %entry1.0, i64 0, i32 2, !dbg !123",
+				"%2 = load ptr, ptr %key, align 8, !dbg !123, !tbaa !124",
+				"%value = getelementptr inbounds %struct._Py_hashtable_entry_t, ptr %entry1.0, i64 0, i32 3, !dbg !127",
+				"%3 = load ptr, ptr %value, align 8, !dbg !127, !tbaa !128",
+				"%call = tail call i32 %func(ptr noundef %ht, ptr noundef %2, ptr noundef %3, ptr noundef %user_data) #8, !dbg !129",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !131",
+				"br i1 %tobool.not, label %while.cond, label %cleanup6, !dbg !133, !llvm.loop !134"
+			]
+		},
+		{
+			"function": "_Py_hashtable_foreach",
+			"id": 49,
+			"name": "for.inc",
+			"debug": [
+				{
+					"line": 272, "columns": [46, 34, 28, 5]
+				}
+			],
+			"successors": [46, 50],
+			"ir": [
+				"%inc = add nuw i64 %hv.025, 1, !dbg !137",
+				"%4 = load i64, ptr %nbuckets, align 8, !dbg !106, !tbaa !107",
+				"%cmp.not = icmp ult i64 %inc, %4, !dbg !114",
+				"br i1 %cmp.not, label %for.body, label %cleanup6, !dbg !115, !llvm.loop !138"
+			]
+		},
+		{
+			"function": "_Py_hashtable_foreach",
+			"id": 50,
+			"name": "cleanup6",
+			"debug": [
+				{
+					"line": 283, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%spec.select = phi i32 [ 0, %entry ], [ %call, %while.body ], [ 0, %for.inc ]",
+				"ret i32 %spec.select, !dbg !140"
+			]
+		},
+		{
+			"function": "_Py_hashtable_new_full",
+			"id": 51,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 330, "columns": [19, 9]
+				}
+			],
+			"successors": [53, 52],
+			"ir": [
+				"%cmp = icmp eq ptr %allocator, null, !dbg !100",
+				"br i1 %cmp, label %if.end, label %if.else, !dbg !102"
+			]
+		},
+		{
+			"function": "_Py_hashtable_new_full",
+			"id": 52,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 335, "columns": [17]
+				}
+			],
+			"successors": [53],
+			"ir": [
+				"%alloc.sroa.0.0.copyload = load ptr, ptr %allocator, align 8, !dbg !103, !tbaa.struct !105",
+				"%alloc.sroa.7.0..sroa_idx = getelementptr inbounds i8, ptr %allocator, i64 8, !dbg !103",
+				"%alloc.sroa.7.0.copyload = load ptr, ptr %alloc.sroa.7.0..sroa_idx, align 8, !dbg !103, !tbaa.struct !110",
+				"br label %if.end"
+			]
+		},
+		{
+			"function": "_Py_hashtable_new_full",
+			"id": 53,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 338, "columns": [46]
+				},
+				{
+					"line": 339, "columns": [12, 9]
+				}
+			],
+			"successors": [58, 54],
+			"ir": [
+				"%alloc.sroa.0.0 = phi ptr [ %alloc.sroa.0.0.copyload, %if.else ], [ @PyMem_Malloc, %entry ], !dbg !111",
+				"%alloc.sroa.7.0 = phi ptr [ %alloc.sroa.7.0.copyload, %if.else ], [ @PyMem_Free, %entry ], !dbg !111",
+				"%call = tail call ptr %alloc.sroa.0.0(i64 noundef 80) #8, !dbg !112",
+				"%cmp2 = icmp eq ptr %call, null, !dbg !113",
+				"br i1 %cmp2, label %cleanup26, label %if.end4, !dbg !115"
+			]
+		},
+		{
+			"function": "_Py_hashtable_new_full",
+			"id": 54,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 343, "columns": [9, 18]
+				},
+				{
+					"line": 344, "columns": [18]
+				},
+				{
+					"line": 347, "columns": [19, 9, 17]
+				},
+				{
+					"line": 348, "columns": [21, 9]
+				}
+			],
+			"successors": [55, 56],
+			"ir": [
+				"%nbuckets = getelementptr inbounds %struct._Py_hashtable_t, ptr %call, i64 0, i32 1, !dbg !116",
+				"store i64 16, ptr %nbuckets, align 8, !dbg !117, !tbaa !118",
+				"store i64 0, ptr %call, align 8, !dbg !122, !tbaa !123",
+				"%call7 = tail call ptr %alloc.sroa.0.0(i64 noundef 128) #8, !dbg !124",
+				"%buckets = getelementptr inbounds %struct._Py_hashtable_t, ptr %call, i64 0, i32 2, !dbg !125",
+				"store ptr %call7, ptr %buckets, align 8, !dbg !126, !tbaa !127",
+				"%cmp9 = icmp eq ptr %call7, null, !dbg !128",
+				"br i1 %cmp9, label %if.then10, label %if.end12, !dbg !130"
+			]
+		},
+		{
+			"function": "_Py_hashtable_new_full",
+			"id": 55,
+			"name": "if.then10",
+			"debug": [
+				{
+					"line": 349, "columns": [9]
+				},
+				{
+					"line": 350, "columns": [9]
+				}
+			],
+			"successors": [58],
+			"ir": [
+				"tail call void %alloc.sroa.7.0(ptr noundef nonnull %call) #8, !dbg !131",
+				"br label %cleanup26, !dbg !133"
+			]
+		},
+		{
+			"function": "_Py_hashtable_new_full",
+			"id": 56,
+			"name": "if.end12",
+			"debug": [
+				{
+					"line": 352, "columns": [5]
+				},
+				{
+					"line": 354, "columns": [9, 24]
+				},
+				{
+					"line": 355, "columns": [9, 19]
+				},
+				{
+					"line": 356, "columns": [9, 22]
+				},
+				{
+					"line": 357, "columns": [9, 26]
+				},
+				{
+					"line": 358, "columns": [9, 28]
+				},
+				{
+					"line": 359, "columns": [9, 17]
+				},
+				{
+					"line": 360, "columns": [23]
+				},
+				{
+					"line": 361, "columns": [9]
+				}
+			],
+			"successors": [57, 58],
+			"ir": [
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(128) %call7, i8 0, i64 128, i1 false), !dbg !134",
+				"%get_entry_func = getelementptr inbounds %struct._Py_hashtable_t, ptr %call, i64 0, i32 3, !dbg !135",
+				"store ptr @_Py_hashtable_get_entry_generic, ptr %get_entry_func, align 8, !dbg !136, !tbaa !137",
+				"%hash_func14 = getelementptr inbounds %struct._Py_hashtable_t, ptr %call, i64 0, i32 4, !dbg !138",
+				"store ptr %hash_func, ptr %hash_func14, align 8, !dbg !139, !tbaa !140",
+				"%compare_func15 = getelementptr inbounds %struct._Py_hashtable_t, ptr %call, i64 0, i32 5, !dbg !141",
+				"store ptr %compare_func, ptr %compare_func15, align 8, !dbg !142, !tbaa !143",
+				"%key_destroy_func16 = getelementptr inbounds %struct._Py_hashtable_t, ptr %call, i64 0, i32 6, !dbg !144",
+				"store ptr %key_destroy_func, ptr %key_destroy_func16, align 8, !dbg !145, !tbaa !146",
+				"%value_destroy_func17 = getelementptr inbounds %struct._Py_hashtable_t, ptr %call, i64 0, i32 7, !dbg !147",
+				"store ptr %value_destroy_func, ptr %value_destroy_func17, align 8, !dbg !148, !tbaa !149",
+				"%alloc18 = getelementptr inbounds %struct._Py_hashtable_t, ptr %call, i64 0, i32 8, !dbg !150",
+				"store ptr %alloc.sroa.0.0, ptr %alloc18, align 8, !dbg !151, !tbaa.struct !105",
+				"%alloc.sroa.7.0.alloc18.sroa_idx = getelementptr inbounds %struct._Py_hashtable_t, ptr %call, i64 0, i32 8, i32 1, !dbg !151",
+				"store ptr %alloc.sroa.7.0, ptr %alloc.sroa.7.0.alloc18.sroa_idx, align 8, !dbg !151, !tbaa.struct !110",
+				"%cmp20 = icmp eq ptr %hash_func, @_Py_hashtable_hash_ptr, !dbg !152",
+				"%cmp22 = icmp eq ptr %compare_func, @_Py_hashtable_compare_direct",
+				"%or.cond = and i1 %cmp20, %cmp22, !dbg !154",
+				"br i1 %or.cond, label %if.then23, label %cleanup26, !dbg !154"
+			]
+		},
+		{
+			"function": "_Py_hashtable_new_full",
+			"id": 57,
+			"name": "if.then23",
+			"debug": [
+				{
+					"line": 363, "columns": [28]
+				},
+				{
+					"line": 364, "columns": [5]
+				}
+			],
+			"successors": [58],
+			"ir": [
+				"store ptr @_Py_hashtable_get_entry_ptr, ptr %get_entry_func, align 8, !dbg !155, !tbaa !137",
+				"br label %cleanup26, !dbg !157"
+			]
+		},
+		{
+			"function": "_Py_hashtable_new_full",
+			"id": 58,
+			"name": "cleanup26",
+			"debug": [
+				{
+					"line": 366, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %if.end ], [ null, %if.then10 ], [ %call, %if.then23 ], [ %call, %if.end12 ], !dbg !99",
+				"ret ptr %retval.1, !dbg !158"
+			]
+		},
+		{
+			"function": "_Py_hashtable_get_entry_ptr",
+			"id": 59,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 12, "columns": [19]
+				},
+				{
+					"line": 17, "columns": [18]
+				},
+				{
+					"line": 165, "columns": [36, 45, 29]
+				},
+				{
+					"line": 166, "columns": [36]
+				},
+				{
+					"line": 167, "columns": [5]
+				}
+			],
+			"successors": [60],
+			"ir": [
+				"%0 = ptrtoint ptr %key to i64, !dbg !108",
+				"%or.i.i = tail call i64 @llvm.fshl.i64(i64 %0, i64 %0, i64 60), !dbg !109",
+				"%nbuckets = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 1, !dbg !110",
+				"%1 = load i64, ptr %nbuckets, align 8, !dbg !110, !tbaa !111",
+				"%sub = add i64 %1, -1, !dbg !118",
+				"%and = and i64 %sub, %or.i.i, !dbg !119",
+				"%buckets = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 2, !dbg !120",
+				"%2 = load ptr, ptr %buckets, align 8, !dbg !120, !tbaa !121",
+				"%arrayidx = getelementptr %struct._Py_slist_t, ptr %2, i64 %and, !dbg !120",
+				"br label %while.cond, !dbg !122"
+			]
+		},
+		{
+			"function": "_Py_hashtable_get_entry_ptr",
+			"id": 60,
+			"name": "while.cond",
+			"debug": [
+				{
+					"line": 168, "columns": [19, 13]
+				}
+			],
+			"successors": [62, 61],
+			"ir": [
+				"%entry1.0.in = phi ptr [ %arrayidx, %entry ], [ %entry1.0, %if.end ]",
+				"%entry1.0 = load ptr, ptr %entry1.0.in, align 8, !dbg !93, !tbaa !123",
+				"%cmp = icmp eq ptr %entry1.0, null, !dbg !124",
+				"br i1 %cmp, label %cleanup, label %if.end, !dbg !127"
+			]
+		},
+		{
+			"function": "_Py_hashtable_get_entry_ptr",
+			"id": 61,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 172, "columns": [20, 24, 13]
+				}
+			],
+			"successors": [62, 60],
+			"ir": [
+				"%key2 = getelementptr inbounds %struct._Py_hashtable_entry_t, ptr %entry1.0, i64 0, i32 2, !dbg !128",
+				"%3 = load ptr, ptr %key2, align 8, !dbg !128, !tbaa !130",
+				"%cmp3 = icmp eq ptr %3, %key, !dbg !133",
+				"br i1 %cmp3, label %cleanup, label %while.cond, !dbg !134, !llvm.loop !135"
+			]
+		},
+		{
+			"function": "_Py_hashtable_get_entry_ptr",
+			"id": 62,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 178, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret ptr %entry1.0, !dbg !137"
+			]
+		},
+		{
+			"function": "_Py_hashtable_new",
+			"id": 63,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 338, "columns": [46]
+				},
+				{
+					"line": 339, "columns": [12, 9]
+				}
+			],
+			"successors": [68, 64],
+			"ir": [
+				"%call.i = tail call ptr @PyMem_Malloc(i64 noundef 80) #8, !dbg !108",
+				"%cmp2.i = icmp eq ptr %call.i, null, !dbg !109",
+				"br i1 %cmp2.i, label %_Py_hashtable_new_full.exit, label %if.end4.i, !dbg !111"
+			]
+		},
+		{
+			"function": "_Py_hashtable_new",
+			"id": 64,
+			"name": "if.end4.i",
+			"debug": [
+				{
+					"line": 343, "columns": [9, 18]
+				},
+				{
+					"line": 344, "columns": [18]
+				},
+				{
+					"line": 347, "columns": [19, 9, 17]
+				},
+				{
+					"line": 348, "columns": [21, 9]
+				}
+			],
+			"successors": [65, 66],
+			"ir": [
+				"%nbuckets.i = getelementptr inbounds %struct._Py_hashtable_t, ptr %call.i, i64 0, i32 1, !dbg !112",
+				"store i64 16, ptr %nbuckets.i, align 8, !dbg !113, !tbaa !114",
+				"store i64 0, ptr %call.i, align 8, !dbg !121, !tbaa !122",
+				"%call7.i = tail call ptr @PyMem_Malloc(i64 noundef 128) #8, !dbg !123",
+				"%buckets.i = getelementptr inbounds %struct._Py_hashtable_t, ptr %call.i, i64 0, i32 2, !dbg !124",
+				"store ptr %call7.i, ptr %buckets.i, align 8, !dbg !125, !tbaa !126",
+				"%cmp9.i = icmp eq ptr %call7.i, null, !dbg !127",
+				"br i1 %cmp9.i, label %if.then10.i, label %if.end12.i, !dbg !129"
+			]
+		},
+		{
+			"function": "_Py_hashtable_new",
+			"id": 65,
+			"name": "if.then10.i",
+			"debug": [
+				{
+					"line": 349, "columns": [9]
+				},
+				{
+					"line": 350, "columns": [9]
+				}
+			],
+			"successors": [68],
+			"ir": [
+				"tail call void @PyMem_Free(ptr noundef nonnull %call.i) #8, !dbg !130",
+				"br label %_Py_hashtable_new_full.exit, !dbg !132"
+			]
+		},
+		{
+			"function": "_Py_hashtable_new",
+			"id": 66,
+			"name": "if.end12.i",
+			"debug": [
+				{
+					"line": 352, "columns": [5]
+				},
+				{
+					"line": 354, "columns": [9, 24]
+				},
+				{
+					"line": 355, "columns": [9, 19]
+				},
+				{
+					"line": 356, "columns": [9, 22]
+				},
+				{
+					"line": 357, "columns": [9]
+				},
+				{
+					"line": 358, "columns": [28]
+				},
+				{
+					"line": 359, "columns": [9, 17]
+				},
+				{
+					"line": 360, "columns": [23]
+				},
+				{
+					"line": 361, "columns": [9]
+				}
+			],
+			"successors": [67, 68],
+			"ir": [
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(128) %call7.i, i8 0, i64 128, i1 false), !dbg !133",
+				"%get_entry_func.i = getelementptr inbounds %struct._Py_hashtable_t, ptr %call.i, i64 0, i32 3, !dbg !134",
+				"store ptr @_Py_hashtable_get_entry_generic, ptr %get_entry_func.i, align 8, !dbg !135, !tbaa !136",
+				"%hash_func14.i = getelementptr inbounds %struct._Py_hashtable_t, ptr %call.i, i64 0, i32 4, !dbg !137",
+				"store ptr %hash_func, ptr %hash_func14.i, align 8, !dbg !138, !tbaa !139",
+				"%compare_func15.i = getelementptr inbounds %struct._Py_hashtable_t, ptr %call.i, i64 0, i32 5, !dbg !140",
+				"store ptr %compare_func, ptr %compare_func15.i, align 8, !dbg !141, !tbaa !142",
+				"%key_destroy_func16.i = getelementptr inbounds %struct._Py_hashtable_t, ptr %call.i, i64 0, i32 6, !dbg !143",
+				"%alloc18.i = getelementptr inbounds %struct._Py_hashtable_t, ptr %call.i, i64 0, i32 8, !dbg !144",
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %key_destroy_func16.i, i8 0, i64 16, i1 false), !dbg !145",
+				"store ptr @PyMem_Malloc, ptr %alloc18.i, align 8, !dbg !146, !tbaa.struct !147",
+				"%alloc.sroa.7.0.alloc18.sroa_idx.i = getelementptr inbounds %struct._Py_hashtable_t, ptr %call.i, i64 0, i32 8, i32 1, !dbg !146",
+				"store ptr @PyMem_Free, ptr %alloc.sroa.7.0.alloc18.sroa_idx.i, align 8, !dbg !146, !tbaa.struct !149",
+				"%cmp20.i = icmp eq ptr %hash_func, @_Py_hashtable_hash_ptr, !dbg !150",
+				"%cmp22.i = icmp eq ptr %compare_func, @_Py_hashtable_compare_direct",
+				"%or.cond.i = and i1 %cmp20.i, %cmp22.i, !dbg !152",
+				"br i1 %or.cond.i, label %if.then23.i, label %_Py_hashtable_new_full.exit, !dbg !152"
+			]
+		},
+		{
+			"function": "_Py_hashtable_new",
+			"id": 67,
+			"name": "if.then23.i",
+			"debug": [
+				{
+					"line": 363, "columns": [28]
+				},
+				{
+					"line": 364, "columns": [5]
+				}
+			],
+			"successors": [68],
+			"ir": [
+				"store ptr @_Py_hashtable_get_entry_ptr, ptr %get_entry_func.i, align 8, !dbg !153, !tbaa !136",
+				"br label %_Py_hashtable_new_full.exit, !dbg !155"
+			]
+		},
+		{
+			"function": "_Py_hashtable_new",
+			"id": 68,
+			"name": "_Py_hashtable_new_full.exit",
+			"debug": [
+				{
+					"line": 373, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1.i = phi ptr [ null, %entry ], [ null, %if.then10.i ], [ %call.i, %if.then23.i ], [ %call.i, %if.end12.i ], !dbg !106",
+				"ret ptr %retval.1.i, !dbg !156"
+			]
+		},
+		{
+			"function": "_Py_hashtable_clear",
+			"id": 69,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 394, "columns": [30, 24, 5]
+				}
+			],
+			"successors": [70, 71],
+			"ir": [
+				"%nbuckets = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 1",
+				"%0 = load i64, ptr %nbuckets, align 8, !dbg !100, !tbaa !101",
+				"%cmp20.not = icmp eq i64 %0, 0, !dbg !108",
+				"br i1 %cmp20.not, label %round_size.exit.i.thread, label %for.body.lr.ph, !dbg !109"
+			]
+		},
+		{
+			"function": "_Py_hashtable_clear",
+			"id": 70,
+			"name": "round_size.exit.i.thread",
+			"debug": [
+				{
+					"line": 290, "columns": [9]
+				},
+				{
+					"line": 403, "columns": [18]
+				}
+			],
+			"successors": [73],
+			"ir": [
+				"store i64 0, ptr %ht, align 8, !dbg !110, !tbaa !111",
+				"br label %if.end.i, !dbg !130"
+			]
+		},
+		{
+			"function": "_Py_hashtable_clear",
+			"id": 71,
+			"name": "for.body.lr.ph",
+			"debug": [
+				{
+					"line": 394, "columns": [5]
+				},
+				{
+					"line": 395, "columns": [40]
+				}
+			],
+			"successors": [80],
+			"ir": [
+				"%buckets = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 2",
+				"%key_destroy_func.i = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 6",
+				"%value_destroy_func.i = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 7",
+				"%free.i17 = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 8, i32 1",
+				"%.pre = load ptr, ptr %buckets, align 8, !dbg !131, !tbaa !132",
+				"br label %for.body, !dbg !109"
+			]
+		},
+		{
+			"function": "_Py_hashtable_clear",
+			"id": 72,
+			"name": "round_size.exit.i",
+			"debug": [
+				{
+					"line": 290, "columns": [18, 9]
+				},
+				{
+					"line": 403, "columns": [18]
+				}
+			],
+			"successors": [79, 73],
+			"ir": [
+				"store i64 0, ptr %ht, align 8, !dbg !110, !tbaa !111",
+				"%cmp.i = icmp eq i64 %17, 16, !dbg !133",
+				"br i1 %cmp.i, label %hashtable_rehash.exit, label %if.end.i, !dbg !130"
+			]
+		},
+		{
+			"function": "_Py_hashtable_clear",
+			"id": 73,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 295, "columns": [36, 42, 32]
+				},
+				{
+					"line": 296, "columns": [21, 9]
+				}
+			],
+			"successors": [79, 74],
+			"ir": [
+				"%alloc.i = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 8, !dbg !135",
+				"%1 = load ptr, ptr %alloc.i, align 8, !dbg !136, !tbaa !137",
+				"%call4.i = tail call ptr %1(i64 noundef 128) #8, !dbg !138",
+				"%cmp5.i = icmp eq ptr %call4.i, null, !dbg !139",
+				"br i1 %cmp5.i, label %hashtable_rehash.exit, label %if.end8.i, !dbg !141"
+			]
+		},
+		{
+			"function": "_Py_hashtable_clear",
+			"id": 74,
+			"name": "if.end8.i",
+			"debug": [
+				{
+					"line": 300, "columns": [5]
+				},
+				{
+					"line": 302, "columns": [36, 5]
+				}
+			],
+			"successors": [75, 76],
+			"ir": [
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(128) %call4.i, i8 0, i64 128, i1 false), !dbg !142",
+				"%2 = load i64, ptr %nbuckets, align 8, !tbaa !101",
+				"%cmp1045.not.i = icmp eq i64 %2, 0, !dbg !144",
+				"%buckets18.phi.trans.insert.i = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 2",
+				"%.pre.i = load ptr, ptr %buckets18.phi.trans.insert.i, align 8, !tbaa !132",
+				"br i1 %cmp1045.not.i, label %for.cond.cleanup.i, label %for.body.i, !dbg !145"
+			]
+		},
+		{
+			"function": "_Py_hashtable_clear",
+			"id": 75,
+			"name": "for.cond.cleanup.i",
+			"debug": [
+				{
+					"line": 315, "columns": [15, 5]
+				},
+				{
+					"line": 316, "columns": [18]
+				},
+				{
+					"line": 317, "columns": [17]
+				},
+				{
+					"line": 318, "columns": [5]
+				}
+			],
+			"successors": [79],
+			"ir": [
+				"%free.i = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 8, i32 1, !dbg !146",
+				"%3 = load ptr, ptr %free.i, align 8, !dbg !146, !tbaa !147",
+				"tail call void %3(ptr noundef %.pre.i) #8, !dbg !148",
+				"store i64 16, ptr %nbuckets, align 8, !dbg !149, !tbaa !101",
+				"store ptr %call4.i, ptr %buckets18.phi.trans.insert.i, align 8, !dbg !150, !tbaa !132",
+				"br label %hashtable_rehash.exit, !dbg !151"
+			]
+		},
+		{
+			"function": "_Py_hashtable_clear",
+			"id": 76,
+			"name": "for.body.i",
+			"debug": [
+				{
+					"line": 303, "columns": [40]
+				},
+				{
+					"line": 304, "columns": [22, 9]
+				}
+			],
+			"successors": [78, 77],
+			"ir": [
+				"%bucket.046.i = phi i64 [ %inc.i, %while.end.i ], [ 0, %if.end8.i ]",
+				"%arrayidx.i = getelementptr %struct._Py_slist_t, ptr %.pre.i, i64 %bucket.046.i, !dbg !152",
+				"%4 = load ptr, ptr %arrayidx.i, align 8, !dbg !152, !tbaa !153",
+				"%cmp13.not43.i = icmp eq ptr %4, null, !dbg !156",
+				"br i1 %cmp13.not43.i, label %while.end.i, label %while.body.i, !dbg !157"
+			]
+		},
+		{
+			"function": "_Py_hashtable_clear",
+			"id": 77,
+			"name": "while.body.i",
+			"debug": [
+				{
+					"line": 76, "columns": [24, 16]
+				},
+				{
+					"line": 77, "columns": [16]
+				},
+				{
+					"line": 304, "columns": [22, 9]
+				},
+				{
+					"line": 306, "columns": [43]
+				},
+				{
+					"line": 307, "columns": [41, 50]
+				},
+				{
+					"line": 309, "columns": [32]
+				}
+			],
+			"successors": [78, 77],
+			"ir": [
+				"%entry12.044.i = phi ptr [ %5, %while.body.i ], [ %4, %for.body.i ]",
+				"%5 = load ptr, ptr %entry12.044.i, align 8, !dbg !158, !tbaa !159",
+				"%key_hash.i = getelementptr inbounds %struct._Py_hashtable_entry_t, ptr %entry12.044.i, i64 0, i32 1, !dbg !162",
+				"%6 = load i64, ptr %key_hash.i, align 8, !dbg !162, !tbaa !163",
+				"%and.i = and i64 %6, 15, !dbg !165",
+				"%arrayidx16.i = getelementptr %struct._Py_slist_t, ptr %call4.i, i64 %and.i, !dbg !166",
+				"%7 = load ptr, ptr %arrayidx16.i, align 8, !dbg !175, !tbaa !153",
+				"store ptr %7, ptr %entry12.044.i, align 8, !dbg !176, !tbaa !159",
+				"store ptr %entry12.044.i, ptr %arrayidx16.i, align 8, !dbg !177, !tbaa !153",
+				"%cmp13.not.i = icmp eq ptr %5, null, !dbg !156",
+				"br i1 %cmp13.not.i, label %while.end.i, label %while.body.i, !dbg !157, !llvm.loop !178"
+			]
+		},
+		{
+			"function": "_Py_hashtable_clear",
+			"id": 78,
+			"name": "while.end.i",
+			"debug": [
+				{
+					"line": 302, "columns": [58, 36, 5]
+				}
+			],
+			"successors": [75, 76],
+			"ir": [
+				"%inc.i = add nuw i64 %bucket.046.i, 1, !dbg !181",
+				"%exitcond.not.i = icmp eq i64 %inc.i, %2, !dbg !144",
+				"br i1 %exitcond.not.i, label %for.cond.cleanup.i, label %for.body.i, !dbg !145, !llvm.loop !182"
+			]
+		},
+		{
+			"function": "_Py_hashtable_clear",
+			"id": 79,
+			"name": "hashtable_rehash.exit",
+			"debug": [
+				{
+					"line": 407, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !184"
+			]
+		},
+		{
+			"function": "_Py_hashtable_clear",
+			"id": 80,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 395, "columns": [40]
+				},
+				{
+					"line": 396, "columns": [22, 9]
+				}
+			],
+			"successors": [87, 81],
+			"ir": [
+				"%8 = phi i64 [ %0, %for.body.lr.ph ], [ %17, %while.end ]",
+				"%9 = phi ptr [ %.pre, %for.body.lr.ph ], [ %18, %while.end ]",
+				"%i.021 = phi i64 [ 0, %for.body.lr.ph ], [ %inc, %while.end ]",
+				"%arrayidx = getelementptr %struct._Py_slist_t, ptr %9, i64 %i.021, !dbg !131",
+				"%10 = load ptr, ptr %arrayidx, align 8, !dbg !131, !tbaa !153",
+				"%cmp2.not18 = icmp eq ptr %10, null, !dbg !186",
+				"br i1 %cmp2.not18, label %while.end, label %while.body, !dbg !187"
+			]
+		},
+		{
+			"function": "_Py_hashtable_clear",
+			"id": 81,
+			"name": "while.body",
+			"debug": [
+				{
+					"line": 381, "columns": [13, 9]
+				},
+				{
+					"line": 397, "columns": [43]
+				}
+			],
+			"successors": [83, 82],
+			"ir": [
+				"%entry1.019 = phi ptr [ %11, %_Py_hashtable_destroy_entry.exit ], [ %10, %for.body ]",
+				"%11 = load ptr, ptr %entry1.019, align 8, !dbg !188, !tbaa !159",
+				"%12 = load ptr, ptr %key_destroy_func.i, align 8, !dbg !198, !tbaa !200",
+				"%tobool.not.i = icmp eq ptr %12, null, !dbg !201",
+				"br i1 %tobool.not.i, label %if.end.i16, label %if.then.i, !dbg !202"
+			]
+		},
+		{
+			"function": "_Py_hashtable_clear",
+			"id": 82,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 382, "columns": [37, 9]
+				},
+				{
+					"line": 383, "columns": [5]
+				}
+			],
+			"successors": [83],
+			"ir": [
+				"%key.i = getelementptr inbounds %struct._Py_hashtable_entry_t, ptr %entry1.019, i64 0, i32 2, !dbg !203",
+				"%13 = load ptr, ptr %key.i, align 8, !dbg !203, !tbaa !205",
+				"tail call void %12(ptr noundef %13) #8, !dbg !206",
+				"br label %if.end.i16, !dbg !207"
+			]
+		},
+		{
+			"function": "_Py_hashtable_clear",
+			"id": 83,
+			"name": "if.end.i16",
+			"debug": [
+				{
+					"line": 384, "columns": [13, 9]
+				}
+			],
+			"successors": [85, 84],
+			"ir": [
+				"%14 = load ptr, ptr %value_destroy_func.i, align 8, !dbg !208, !tbaa !210",
+				"%tobool3.not.i = icmp eq ptr %14, null, !dbg !211",
+				"br i1 %tobool3.not.i, label %_Py_hashtable_destroy_entry.exit, label %if.then4.i, !dbg !212"
+			]
+		},
+		{
+			"function": "_Py_hashtable_clear",
+			"id": 84,
+			"name": "if.then4.i",
+			"debug": [
+				{
+					"line": 385, "columns": [39, 9]
+				},
+				{
+					"line": 386, "columns": [5]
+				}
+			],
+			"successors": [85],
+			"ir": [
+				"%value.i = getelementptr inbounds %struct._Py_hashtable_entry_t, ptr %entry1.019, i64 0, i32 3, !dbg !213",
+				"%15 = load ptr, ptr %value.i, align 8, !dbg !213, !tbaa !215",
+				"tail call void %14(ptr noundef %15) #8, !dbg !216",
+				"br label %_Py_hashtable_destroy_entry.exit, !dbg !217"
+			]
+		},
+		{
+			"function": "_Py_hashtable_clear",
+			"id": 85,
+			"name": "_Py_hashtable_destroy_entry.exit",
+			"debug": [
+				{
+					"line": 387, "columns": [15, 5]
+				},
+				{
+					"line": 396, "columns": [22, 9]
+				}
+			],
+			"successors": [86, 81],
+			"ir": [
+				"%16 = load ptr, ptr %free.i17, align 8, !dbg !218, !tbaa !147",
+				"tail call void %16(ptr noundef nonnull %entry1.019) #8, !dbg !219",
+				"%cmp2.not = icmp eq ptr %11, null, !dbg !186",
+				"br i1 %cmp2.not, label %while.end.loopexit, label %while.body, !dbg !187, !llvm.loop !220"
+			]
+		},
+		{
+			"function": "_Py_hashtable_clear",
+			"id": 86,
+			"name": "while.end.loopexit",
+			"debug": [
+				{
+					"line": 394, "columns": [30]
+				},
+				{
+					"line": 401, "columns": [29]
+				}
+			],
+			"successors": [87],
+			"ir": [
+				"%.pre23 = load ptr, ptr %buckets, align 8, !dbg !222, !tbaa !132",
+				"%.pre24 = load i64, ptr %nbuckets, align 8, !dbg !100, !tbaa !101",
+				"br label %while.end, !dbg !222"
+			]
+		},
+		{
+			"function": "_Py_hashtable_clear",
+			"id": 87,
+			"name": "while.end",
+			"debug": [
+				{
+					"line": 69, "columns": [16]
+				},
+				{
+					"line": 394, "columns": [30, 41, 24, 5]
+				},
+				{
+					"line": 401, "columns": [29, 25]
+				}
+			],
+			"successors": [80, 72],
+			"ir": [
+				"%17 = phi i64 [ %.pre24, %while.end.loopexit ], [ %8, %for.body ], !dbg !100",
+				"%18 = phi ptr [ %.pre23, %while.end.loopexit ], [ %9, %for.body ], !dbg !222",
+				"%arrayidx5 = getelementptr %struct._Py_slist_t, ptr %18, i64 %i.021, !dbg !223",
+				"store ptr null, ptr %arrayidx5, align 8, !dbg !231, !tbaa !153",
+				"%inc = add nuw i64 %i.021, 1, !dbg !232",
+				"%cmp = icmp ult i64 %inc, %17, !dbg !108",
+				"br i1 %cmp, label %for.body, label %round_size.exit.i, !dbg !109, !llvm.loop !233"
+			]
+		},
+		{
+			"function": "_Py_hashtable_destroy",
+			"id": 88,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 413, "columns": [32, 26, 5]
+				}
+			],
+			"successors": [90, 89],
+			"ir": [
+				"%nbuckets = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 1",
+				"%0 = load i64, ptr %nbuckets, align 8, !dbg !100, !tbaa !101",
+				"%cmp17.not = icmp eq i64 %0, 0, !dbg !108",
+				"br i1 %cmp17.not, label %for.cond.cleanup, label %for.body.lr.ph, !dbg !109"
+			]
+		},
+		{
+			"function": "_Py_hashtable_destroy",
+			"id": 89,
+			"name": "for.body.lr.ph",
+			"debug": [
+				{
+					"line": 413, "columns": [5]
+				}
+			],
+			"successors": [91],
+			"ir": [
+				"%buckets = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 2",
+				"%key_destroy_func.i = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 6",
+				"%value_destroy_func.i = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 7",
+				"%free.i = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 8, i32 1",
+				"br label %for.body, !dbg !109"
+			]
+		},
+		{
+			"function": "_Py_hashtable_destroy",
+			"id": 90,
+			"name": "for.cond.cleanup",
+			"debug": [
+				{
+					"line": 422, "columns": [15, 24, 5]
+				},
+				{
+					"line": 423, "columns": [15, 5]
+				},
+				{
+					"line": 424, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%free = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 8, i32 1, !dbg !110",
+				"%1 = load ptr, ptr %free, align 8, !dbg !110, !tbaa !111",
+				"%buckets2 = getelementptr inbounds %struct._Py_hashtable_t, ptr %ht, i64 0, i32 2, !dbg !112",
+				"%2 = load ptr, ptr %buckets2, align 8, !dbg !112, !tbaa !113",
+				"tail call void %1(ptr noundef %2) #8, !dbg !114",
+				"%3 = load ptr, ptr %free, align 8, !dbg !115, !tbaa !111",
+				"tail call void %3(ptr noundef nonnull %ht) #8, !dbg !116",
+				"ret void, !dbg !117"
+			]
+		},
+		{
+			"function": "_Py_hashtable_destroy",
+			"id": 91,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 414, "columns": [40]
+				},
+				{
+					"line": 415, "columns": [9]
+				}
+			],
+			"successors": [98, 92],
+			"ir": [
+				"%4 = phi i64 [ %0, %for.body.lr.ph ], [ %13, %while.end ]",
+				"%i.018 = phi i64 [ 0, %for.body.lr.ph ], [ %inc, %while.end ]",
+				"%5 = load ptr, ptr %buckets, align 8, !dbg !118, !tbaa !113",
+				"%arrayidx = getelementptr %struct._Py_slist_t, ptr %5, i64 %i.018, !dbg !118",
+				"%6 = load ptr, ptr %arrayidx, align 8, !dbg !118, !tbaa !119",
+				"%tobool.not15 = icmp eq ptr %6, null, !dbg !122",
+				"br i1 %tobool.not15, label %while.end, label %while.body, !dbg !122"
+			]
+		},
+		{
+			"function": "_Py_hashtable_destroy",
+			"id": 92,
+			"name": "while.body",
+			"debug": [
+				{
+					"line": 381, "columns": [13, 9]
+				},
+				{
+					"line": 416, "columns": [49]
+				}
+			],
+			"successors": [94, 93],
+			"ir": [
+				"%entry1.016 = phi ptr [ %7, %_Py_hashtable_destroy_entry.exit ], [ %6, %for.body ]",
+				"%7 = load ptr, ptr %entry1.016, align 8, !dbg !123, !tbaa !124",
+				"%8 = load ptr, ptr %key_destroy_func.i, align 8, !dbg !135, !tbaa !137",
+				"%tobool.not.i = icmp eq ptr %8, null, !dbg !138",
+				"br i1 %tobool.not.i, label %if.end.i, label %if.then.i, !dbg !139"
+			]
+		},
+		{
+			"function": "_Py_hashtable_destroy",
+			"id": 93,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 382, "columns": [37, 9]
+				},
+				{
+					"line": 383, "columns": [5]
+				}
+			],
+			"successors": [94],
+			"ir": [
+				"%key.i = getelementptr inbounds %struct._Py_hashtable_entry_t, ptr %entry1.016, i64 0, i32 2, !dbg !140",
+				"%9 = load ptr, ptr %key.i, align 8, !dbg !140, !tbaa !142",
+				"tail call void %8(ptr noundef %9) #8, !dbg !144",
+				"br label %if.end.i, !dbg !145"
+			]
+		},
+		{
+			"function": "_Py_hashtable_destroy",
+			"id": 94,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 384, "columns": [13, 9]
+				}
+			],
+			"successors": [96, 95],
+			"ir": [
+				"%10 = load ptr, ptr %value_destroy_func.i, align 8, !dbg !146, !tbaa !148",
+				"%tobool3.not.i = icmp eq ptr %10, null, !dbg !149",
+				"br i1 %tobool3.not.i, label %_Py_hashtable_destroy_entry.exit, label %if.then4.i, !dbg !150"
+			]
+		},
+		{
+			"function": "_Py_hashtable_destroy",
+			"id": 95,
+			"name": "if.then4.i",
+			"debug": [
+				{
+					"line": 385, "columns": [39, 9]
+				},
+				{
+					"line": 386, "columns": [5]
+				}
+			],
+			"successors": [96],
+			"ir": [
+				"%value.i = getelementptr inbounds %struct._Py_hashtable_entry_t, ptr %entry1.016, i64 0, i32 3, !dbg !151",
+				"%11 = load ptr, ptr %value.i, align 8, !dbg !151, !tbaa !153",
+				"tail call void %10(ptr noundef %11) #8, !dbg !154",
+				"br label %_Py_hashtable_destroy_entry.exit, !dbg !155"
+			]
+		},
+		{
+			"function": "_Py_hashtable_destroy",
+			"id": 96,
+			"name": "_Py_hashtable_destroy_entry.exit",
+			"debug": [
+				{
+					"line": 387, "columns": [15, 5]
+				},
+				{
+					"line": 415, "columns": [9]
+				}
+			],
+			"successors": [97, 92],
+			"ir": [
+				"%12 = load ptr, ptr %free.i, align 8, !dbg !156, !tbaa !111",
+				"tail call void %12(ptr noundef nonnull %entry1.016) #8, !dbg !157",
+				"%tobool.not = icmp eq ptr %7, null, !dbg !122",
+				"br i1 %tobool.not, label %while.end.loopexit, label %while.body, !dbg !122, !llvm.loop !158"
+			]
+		},
+		{
+			"function": "_Py_hashtable_destroy",
+			"id": 97,
+			"name": "while.end.loopexit",
+			"debug": [
+				{
+					"line": 413, "columns": [32, 43]
+				}
+			],
+			"successors": [98],
+			"ir": [
+				"%.pre = load i64, ptr %nbuckets, align 8, !dbg !100, !tbaa !101",
+				"br label %while.end, !dbg !161"
+			]
+		},
+		{
+			"function": "_Py_hashtable_destroy",
+			"id": 98,
+			"name": "while.end",
+			"debug": [
+				{
+					"line": 413, "columns": [32, 43, 26, 5]
+				}
+			],
+			"successors": [91, 90],
+			"ir": [
+				"%13 = phi i64 [ %.pre, %while.end.loopexit ], [ %4, %for.body ], !dbg !100",
+				"%inc = add nuw i64 %i.018, 1, !dbg !161",
+				"%cmp = icmp ult i64 %inc, %13, !dbg !108",
+				"br i1 %cmp, label %for.body, label %for.cond.cleanup, !dbg !109, !llvm.loop !162"
+			]
+		}
+	]
+}

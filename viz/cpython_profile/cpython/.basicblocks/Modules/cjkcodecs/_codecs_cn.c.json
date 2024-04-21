@@ -1,0 +1,4775 @@
+{
+	"blocks": [
+		{
+			"function": "PyInit__codecs_cn",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 470, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call ptr @PyModuleDef_Init(ptr noundef nonnull @_cjk_module) #11, !dbg !645",
+				"ret ptr %call, !dbg !645"
+			]
+		},
+		{
+			"function": "_cjk_free",
+			"id": 1,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 83, "columns": [19]
+				},
+				{
+					"line": 494, "columns": [20, 5]
+				},
+				{
+					"line": 495, "columns": [20, 5]
+				},
+				{
+					"line": 496, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call.i = tail call ptr @PyModule_GetState(ptr noundef %mod) #11, !dbg !656",
+				"%mapping_list = getelementptr inbounds %struct._cjk_mod_state, ptr %call.i, i64 0, i32 2, !dbg !657",
+				"%0 = load ptr, ptr %mapping_list, align 8, !dbg !657, !tbaa !658",
+				"tail call void @PyMem_Free(ptr noundef %0) #11, !dbg !664",
+				"%codec_list = getelementptr inbounds %struct._cjk_mod_state, ptr %call.i, i64 0, i32 3, !dbg !665",
+				"%1 = load ptr, ptr %codec_list, align 8, !dbg !665, !tbaa !666",
+				"tail call void @PyMem_Free(ptr noundef %1) #11, !dbg !667",
+				"ret void, !dbg !668"
+			]
+		},
+		{
+			"function": "getcodec",
+			"id": 2,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 357, "columns": [10, 9]
+				}
+			],
+			"successors": [3, 4],
+			"ir": [
+				"%0 = getelementptr i8, ptr %encoding, i64 8, !dbg !655",
+				"%encoding.val = load ptr, ptr %0, align 8, !dbg !655, !tbaa !657",
+				"%1 = getelementptr i8, ptr %encoding.val, i64 168, !dbg !655",
+				"%call.val = load i64, ptr %1, align 8, !dbg !655, !tbaa !662",
+				"%2 = and i64 %call.val, 268435456, !dbg !655",
+				"%tobool.not = icmp eq i64 %2, 0, !dbg !655",
+				"br i1 %tobool.not, label %if.then, label %if.end, !dbg !668"
+			]
+		},
+		{
+			"function": "getcodec",
+			"id": 3,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 358, "columns": [25, 9]
+				},
+				{
+					"line": 360, "columns": [9]
+				}
+			],
+			"successors": [25],
+			"ir": [
+				"%3 = load ptr, ptr @PyExc_TypeError, align 8, !dbg !669, !tbaa !671",
+				"tail call void @PyErr_SetString(ptr noundef %3, ptr noundef nonnull @.str.3) #11, !dbg !672",
+				"br label %return, !dbg !673"
+			]
+		},
+		{
+			"function": "getcodec",
+			"id": 4,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 362, "columns": [23]
+				},
+				{
+					"line": 363, "columns": [13, 9]
+				}
+			],
+			"successors": [25, 5],
+			"ir": [
+				"%call2 = tail call ptr @PyUnicode_AsUTF8(ptr noundef nonnull %encoding) #11, !dbg !674",
+				"%cmp = icmp eq ptr %call2, null, !dbg !675",
+				"br i1 %cmp, label %return, label %if.end4, !dbg !677"
+			]
+		},
+		{
+			"function": "getcodec",
+			"id": 5,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 83, "columns": [19]
+				},
+				{
+					"line": 368, "columns": [23, 5]
+				}
+			],
+			"successors": [6, 24],
+			"ir": [
+				"%call.i = tail call ptr @PyModule_GetState(ptr noundef %self) #11, !dbg !686",
+				"%num_codecs = getelementptr inbounds %struct._cjk_mod_state, ptr %call.i, i64 0, i32 1",
+				"%4 = load i32, ptr %num_codecs, align 4, !tbaa !688",
+				"%cmp6.not28 = icmp sgt i32 %4, 0, !dbg !690",
+				"br i1 %cmp6.not28, label %for.body.lr.ph, label %for.end, !dbg !691"
+			]
+		},
+		{
+			"function": "getcodec",
+			"id": 6,
+			"name": "for.body.lr.ph",
+			"debug": [
+				{
+					"line": 368, "columns": [23, 5]
+				}
+			],
+			"successors": [8],
+			"ir": [
+				"%codec_list = getelementptr inbounds %struct._cjk_mod_state, ptr %call.i, i64 0, i32 3",
+				"%5 = load ptr, ptr %codec_list, align 8, !tbaa !692",
+				"%wide.trip.count = zext i32 %4 to i64, !dbg !690",
+				"br label %for.body, !dbg !691"
+			]
+		},
+		{
+			"function": "getcodec",
+			"id": 7,
+			"name": "for.cond",
+			"debug": [
+				{
+					"line": 368, "columns": [42, 23, 5]
+				}
+			],
+			"successors": [24, 8],
+			"ir": [
+				"%indvars.iv.next = add nuw nsw i64 %indvars.iv, 1, !dbg !693",
+				"%exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count, !dbg !690",
+				"br i1 %exitcond.not, label %for.end, label %for.body, !dbg !691, !llvm.loop !694"
+			]
+		},
+		{
+			"function": "getcodec",
+			"id": 8,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 369, "columns": [40]
+				},
+				{
+					"line": 370, "columns": [27, 13, 42]
+				}
+			],
+			"successors": [9, 7],
+			"ir": [
+				"%indvars.iv = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next, %for.cond ]",
+				"%arrayidx = getelementptr %struct._multibyte_codec, ptr %5, i64 %indvars.iv, !dbg !697",
+				"%6 = load ptr, ptr %arrayidx, align 8, !dbg !699, !tbaa !701",
+				"%call8 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %6, ptr noundef nonnull dereferenceable(1) %call2) #12, !dbg !703",
+				"%cmp9.not = icmp eq i32 %call8, 0, !dbg !704",
+				"br i1 %cmp9.not, label %if.then10, label %for.cond, !dbg !705"
+			]
+		},
+		{
+			"function": "getcodec",
+			"id": 9,
+			"name": "if.then10",
+			"debug": [
+				{
+					"line": 302, "columns": [12]
+				},
+				{
+					"line": 331, "columns": [16, 9]
+				}
+			],
+			"successors": [25, 10],
+			"ir": [
+				"%call.i.i = tail call ptr @_PyImport_GetModuleAttrString(ptr noundef nonnull @.str.6, ptr noundef nonnull @.str.7) #11, !dbg !719",
+				"%cmp.i = icmp eq ptr %call.i.i, null, !dbg !723",
+				"br i1 %cmp.i, label %return, label %if.end.i, !dbg !725"
+			]
+		},
+		{
+			"function": "getcodec",
+			"id": 10,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 317, "columns": [27]
+				},
+				{
+					"line": 318, "columns": [14, 9]
+				}
+			],
+			"successors": [13, 11],
+			"ir": [
+				"%call.i41.i = tail call ptr @PyMem_Malloc(i64 noundef 16) #11, !dbg !735",
+				"%cmp.i42.i = icmp eq ptr %call.i41.i, null, !dbg !736",
+				"br i1 %cmp.i42.i, label %if.then3.i, label %if.end.i43.i, !dbg !738"
+			]
+		},
+		{
+			"function": "getcodec",
+			"id": 11,
+			"name": "if.end.i43.i",
+			"debug": [
+				{
+					"line": 322, "columns": [17]
+				},
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [15, 12],
+			"ir": [
+				"store ptr %arrayidx, ptr %call.i41.i, align 8, !dbg !739, !tbaa !740",
+				"%7 = load i32, ptr %self, align 8, !dbg !754, !tbaa !755",
+				"%add.i.i.i.i = add i32 %7, 1, !dbg !756",
+				"%cmp.i.i.i.i = icmp eq i32 %add.i.i.i.i, 0, !dbg !757",
+				"br i1 %cmp.i.i.i.i, label %if.end4.i, label %if.end.i.i.i.i, !dbg !759"
+			]
+		},
+		{
+			"function": "getcodec",
+			"id": 12,
+			"name": "if.end.i.i.i.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [15],
+			"ir": [
+				"store i32 %add.i.i.i.i, ptr %self, align 8, !dbg !760, !tbaa !755",
+				"br label %if.end4.i, !dbg !761"
+			]
+		},
+		{
+			"function": "getcodec",
+			"id": 13,
+			"name": "if.then3.i",
+			"debug": [
+				{
+					"line": 319, "columns": [9]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [14, 25],
+			"ir": [
+				"%call1.i.i = tail call ptr @PyErr_NoMemory() #11, !dbg !762",
+				"%op.val.i.i = load i64, ptr %call.i.i, align 8, !dbg !771, !tbaa !755",
+				"%8 = and i64 %op.val.i.i, 2147483648, !dbg !778",
+				"%cmp.i.not.i.i = icmp eq i64 %8, 0, !dbg !778",
+				"br i1 %cmp.i.not.i.i, label %if.end.i.i, label %return, !dbg !779"
+			]
+		},
+		{
+			"function": "getcodec",
+			"id": 14,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [23, 25],
+			"ir": [
+				"%dec.i.i = add i64 %op.val.i.i, -1, !dbg !780",
+				"store i64 %dec.i.i, ptr %call.i.i, align 8, !dbg !780, !tbaa !755",
+				"%cmp.i.i = icmp eq i64 %dec.i.i, 0, !dbg !782",
+				"br i1 %cmp.i.i, label %cleanup11.sink.split.i, label %return, !dbg !783"
+			]
+		},
+		{
+			"function": "getcodec",
+			"id": 15,
+			"name": "if.end4.i",
+			"debug": [
+				{
+					"line": 323, "columns": [11, 22]
+				},
+				{
+					"line": 340, "columns": [26]
+				},
+				{
+					"line": 342, "columns": [18, 9]
+				}
+			],
+			"successors": [16, 18],
+			"ir": [
+				"%cjk_module.i.i = getelementptr inbounds %struct.codec_capsule, ptr %call.i41.i, i64 0, i32 1, !dbg !784",
+				"store ptr %self, ptr %cjk_module.i.i, align 8, !dbg !785, !tbaa !786",
+				"%call5.i = tail call ptr @PyCapsule_New(ptr noundef nonnull %call.i41.i, ptr noundef nonnull @.str.5, ptr noundef nonnull @destroy_codec_capsule) #11, !dbg !787",
+				"%cmp6.i = icmp eq ptr %call5.i, null, !dbg !788",
+				"br i1 %cmp6.i, label %if.then7.i, label %if.end8.i, !dbg !797"
+			]
+		},
+		{
+			"function": "getcodec",
+			"id": 16,
+			"name": "if.then7.i",
+			"debug": [
+				{
+					"line": 343, "columns": [9]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [17, 25],
+			"ir": [
+				"tail call void @PyMem_Free(ptr noundef nonnull %call.i41.i) #11, !dbg !798",
+				"%op.val.i20.i = load i64, ptr %call.i.i, align 8, !dbg !800, !tbaa !755",
+				"%9 = and i64 %op.val.i20.i, 2147483648, !dbg !801",
+				"%cmp.i.not.i21.i = icmp eq i64 %9, 0, !dbg !801",
+				"br i1 %cmp.i.not.i21.i, label %if.end.i24.i, label %return, !dbg !802"
+			]
+		},
+		{
+			"function": "getcodec",
+			"id": 17,
+			"name": "if.end.i24.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [23, 25],
+			"ir": [
+				"%dec.i22.i = add i64 %op.val.i20.i, -1, !dbg !803",
+				"store i64 %dec.i22.i, ptr %call.i.i, align 8, !dbg !803, !tbaa !755",
+				"%cmp.i23.i = icmp eq i64 %dec.i22.i, 0, !dbg !804",
+				"br i1 %cmp.i23.i, label %cleanup11.sink.split.i, label %return, !dbg !805"
+			]
+		},
+		{
+			"function": "getcodec",
+			"id": 18,
+			"name": "if.end8.i",
+			"debug": [
+				{
+					"line": 348, "columns": [21]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [19, 21],
+			"ir": [
+				"%call9.i = tail call ptr @PyObject_CallOneArg(ptr noundef nonnull %call.i.i, ptr noundef nonnull %call5.i) #11, !dbg !806",
+				"%op.val.i27.i = load i64, ptr %call5.i, align 8, !dbg !808, !tbaa !755",
+				"%10 = and i64 %op.val.i27.i, 2147483648, !dbg !809",
+				"%cmp.i.not.i28.i = icmp eq i64 %10, 0, !dbg !809",
+				"br i1 %cmp.i.not.i28.i, label %if.end.i31.i, label %Py_DECREF.exit33.i, !dbg !810"
+			]
+		},
+		{
+			"function": "getcodec",
+			"id": 19,
+			"name": "if.end.i31.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [20, 21],
+			"ir": [
+				"%dec.i29.i = add i64 %op.val.i27.i, -1, !dbg !811",
+				"store i64 %dec.i29.i, ptr %call5.i, align 8, !dbg !811, !tbaa !755",
+				"%cmp.i30.i = icmp eq i64 %dec.i29.i, 0, !dbg !812",
+				"br i1 %cmp.i30.i, label %if.then1.i32.i, label %Py_DECREF.exit33.i, !dbg !813"
+			]
+		},
+		{
+			"function": "getcodec",
+			"id": 20,
+			"name": "if.then1.i32.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [21],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call5.i) #11, !dbg !814",
+				"br label %Py_DECREF.exit33.i, !dbg !816"
+			]
+		},
+		{
+			"function": "getcodec",
+			"id": 21,
+			"name": "Py_DECREF.exit33.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [22, 25],
+			"ir": [
+				"%op.val.i34.i = load i64, ptr %call.i.i, align 8, !dbg !819, !tbaa !755",
+				"%11 = and i64 %op.val.i34.i, 2147483648, !dbg !822",
+				"%cmp.i.not.i35.i = icmp eq i64 %11, 0, !dbg !822",
+				"br i1 %cmp.i.not.i35.i, label %if.end.i38.i, label %return, !dbg !823"
+			]
+		},
+		{
+			"function": "getcodec",
+			"id": 22,
+			"name": "if.end.i38.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [23, 25],
+			"ir": [
+				"%dec.i36.i = add i64 %op.val.i34.i, -1, !dbg !824",
+				"store i64 %dec.i36.i, ptr %call.i.i, align 8, !dbg !824, !tbaa !755",
+				"%cmp.i37.i = icmp eq i64 %dec.i36.i, 0, !dbg !825",
+				"br i1 %cmp.i37.i, label %cleanup11.sink.split.i, label %return, !dbg !826"
+			]
+		},
+		{
+			"function": "getcodec",
+			"id": 23,
+			"name": "cleanup11.sink.split.i",
+			"debug": [
+				{
+					"line": 352, "columns": [1]
+				},
+				{
+					"line": 945, "columns": [9]
+				}
+			],
+			"successors": [25],
+			"ir": [
+				"%retval.2.ph.i = phi ptr [ null, %if.end.i.i ], [ null, %if.end.i24.i ], [ %call9.i, %if.end.i38.i ]",
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i.i) #11, !dbg !827",
+				"br label %return, !dbg !829"
+			]
+		},
+		{
+			"function": "getcodec",
+			"id": 24,
+			"name": "for.end",
+			"debug": [
+				{
+					"line": 375, "columns": [21, 5]
+				},
+				{
+					"line": 377, "columns": [5]
+				}
+			],
+			"successors": [25],
+			"ir": [
+				"%12 = load ptr, ptr @PyExc_LookupError, align 8, !dbg !830, !tbaa !671",
+				"tail call void @PyErr_SetString(ptr noundef %12, ptr noundef nonnull @.str.4) #11, !dbg !831",
+				"br label %return, !dbg !832"
+			]
+		},
+		{
+			"function": "getcodec",
+			"id": 25,
+			"name": "return",
+			"debug": [
+				{
+					"line": 378, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.5 = phi ptr [ null, %if.then ], [ null, %if.end ], [ null, %for.end ], [ %retval.2.ph.i, %cleanup11.sink.split.i ], [ %call9.i, %if.end.i38.i ], [ %call9.i, %Py_DECREF.exit33.i ], [ null, %if.end.i24.i ], [ null, %if.then7.i ], [ null, %if.end.i.i ], [ null, %if.then3.i ], [ null, %if.then10 ], !dbg !654",
+				"ret ptr %retval.5, !dbg !833"
+			]
+		},
+		{
+			"function": "destroy_codec_capsule",
+			"id": 26,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 308, "columns": [17]
+				},
+				{
+					"line": 310, "columns": [5]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [27, 29],
+			"ir": [
+				"%call = tail call ptr @PyCapsule_GetPointer(ptr noundef %capsule, ptr noundef nonnull @.str.5) #11, !dbg !649",
+				"%cjk_module = getelementptr inbounds %struct.codec_capsule, ptr %call, i64 0, i32 1, !dbg !650",
+				"%0 = load ptr, ptr %cjk_module, align 8, !dbg !650, !tbaa !651",
+				"%op.val.i = load i64, ptr %0, align 8, !dbg !661, !tbaa !663",
+				"%1 = and i64 %op.val.i, 2147483648, !dbg !669",
+				"%cmp.i.not.i = icmp eq i64 %1, 0, !dbg !669",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %Py_DECREF.exit, !dbg !670"
+			]
+		},
+		{
+			"function": "destroy_codec_capsule",
+			"id": 27,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [28, 29],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !671",
+				"store i64 %dec.i, ptr %0, align 8, !dbg !671, !tbaa !663",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !673",
+				"br i1 %cmp.i, label %if.then1.i, label %Py_DECREF.exit, !dbg !674"
+			]
+		},
+		{
+			"function": "destroy_codec_capsule",
+			"id": 28,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [29],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %0) #11, !dbg !675",
+				"br label %Py_DECREF.exit, !dbg !677"
+			]
+		},
+		{
+			"function": "destroy_codec_capsule",
+			"id": 29,
+			"name": "Py_DECREF.exit",
+			"debug": [
+				{
+					"line": 311, "columns": [5]
+				},
+				{
+					"line": 312, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @PyMem_Free(ptr noundef nonnull %call) #11, !dbg !678",
+				"ret void, !dbg !679"
+			]
+		},
+		{
+			"function": "_cjk_exec",
+			"id": 30,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 83, "columns": [19]
+				},
+				{
+					"line": 456, "columns": [1]
+				}
+			],
+			"successors": [42, 31],
+			"ir": [
+				"%mhname.i = alloca [256 x i8], align 16",
+				"%call.i.i = tail call ptr @PyModule_GetState(ptr noundef %module) #11, !dbg !671",
+				"store i32 4, ptr %call.i.i, align 8, !dbg !681, !tbaa !682",
+				"%call.i29.i = tail call ptr @PyMem_Calloc(i64 noundef 4, i64 noundef 24) #11, !dbg !681",
+				"%mapping_list.i.i = getelementptr inbounds %struct._cjk_mod_state, ptr %call.i.i, i64 0, i32 2, !dbg !681",
+				"store ptr %call.i29.i, ptr %mapping_list.i.i, align 8, !dbg !681, !tbaa !688",
+				"%cmp.i.i = icmp eq ptr %call.i29.i, null, !dbg !689",
+				"br i1 %cmp.i.i, label %register_maps.exit, label %if.end.i, !dbg !681"
+			]
+		},
+		{
+			"function": "_cjk_exec",
+			"id": 31,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 457, "columns": [3]
+				},
+				{
+					"line": 458, "columns": [3]
+				},
+				{
+					"line": 459, "columns": [3]
+				},
+				{
+					"line": 460, "columns": [3]
+				},
+				{
+					"line": 463, "columns": [1]
+				}
+			],
+			"successors": [42, 32],
+			"ir": [
+				"store ptr @.str.9, ptr %call.i29.i, align 8, !dbg !691, !tbaa.struct !692",
+				"%.compoundliteral.sroa.2.0.arrayidx.sroa_idx.i.i = getelementptr inbounds i8, ptr %call.i29.i, i64 8, !dbg !691",
+				"store ptr null, ptr %.compoundliteral.sroa.2.0.arrayidx.sroa_idx.i.i, align 8, !dbg !691, !tbaa.struct !694",
+				"%.compoundliteral.sroa.3.0.arrayidx.sroa_idx.i.i = getelementptr inbounds i8, ptr %call.i29.i, i64 16, !dbg !691",
+				"store ptr @gb2312_decmap, ptr %.compoundliteral.sroa.3.0.arrayidx.sroa_idx.i.i, align 8, !dbg !691, !tbaa.struct !695",
+				"%0 = load ptr, ptr %mapping_list.i.i, align 8, !dbg !696, !tbaa !688",
+				"%arrayidx6.i.i = getelementptr %struct.dbcs_map, ptr %0, i64 1, !dbg !696",
+				"store ptr @.str.10, ptr %arrayidx6.i.i, align 8, !dbg !696, !tbaa.struct !692",
+				"%.compoundliteral7.sroa.2.0.arrayidx6.sroa_idx.i.i = getelementptr %struct.dbcs_map, ptr %0, i64 1, i32 1, !dbg !696",
+				"store ptr null, ptr %.compoundliteral7.sroa.2.0.arrayidx6.sroa_idx.i.i, align 8, !dbg !696, !tbaa.struct !694",
+				"%.compoundliteral7.sroa.3.0.arrayidx6.sroa_idx.i.i = getelementptr %struct.dbcs_map, ptr %0, i64 1, i32 2, !dbg !696",
+				"store ptr @gbkext_decmap, ptr %.compoundliteral7.sroa.3.0.arrayidx6.sroa_idx.i.i, align 8, !dbg !696, !tbaa.struct !695",
+				"%1 = load ptr, ptr %mapping_list.i.i, align 8, !dbg !697, !tbaa !688",
+				"%arrayidx14.i.i = getelementptr %struct.dbcs_map, ptr %1, i64 2, !dbg !697",
+				"store ptr @.str.11, ptr %arrayidx14.i.i, align 8, !dbg !697, !tbaa.struct !692",
+				"%.compoundliteral15.sroa.2.0.arrayidx14.sroa_idx.i.i = getelementptr %struct.dbcs_map, ptr %1, i64 2, i32 1, !dbg !697",
+				"store ptr @gbcommon_encmap, ptr %.compoundliteral15.sroa.2.0.arrayidx14.sroa_idx.i.i, align 8, !dbg !697, !tbaa.struct !694",
+				"%.compoundliteral15.sroa.3.0.arrayidx14.sroa_idx.i.i = getelementptr %struct.dbcs_map, ptr %1, i64 2, i32 2, !dbg !697",
+				"store ptr null, ptr %.compoundliteral15.sroa.3.0.arrayidx14.sroa_idx.i.i, align 8, !dbg !697, !tbaa.struct !695",
+				"%2 = load ptr, ptr %mapping_list.i.i, align 8, !dbg !698, !tbaa !688",
+				"%arrayidx22.i.i = getelementptr %struct.dbcs_map, ptr %2, i64 3, !dbg !698",
+				"store ptr @.str.12, ptr %arrayidx22.i.i, align 8, !dbg !698, !tbaa.struct !692",
+				"%.compoundliteral23.sroa.2.0.arrayidx22.sroa_idx.i.i = getelementptr %struct.dbcs_map, ptr %2, i64 3, i32 1, !dbg !698",
+				"store ptr @gb18030ext_encmap, ptr %.compoundliteral23.sroa.2.0.arrayidx22.sroa_idx.i.i, align 8, !dbg !698, !tbaa.struct !694",
+				"%.compoundliteral23.sroa.3.0.arrayidx22.sroa_idx.i.i = getelementptr %struct.dbcs_map, ptr %2, i64 3, i32 2, !dbg !698",
+				"store ptr @gb18030ext_decmap, ptr %.compoundliteral23.sroa.3.0.arrayidx22.sroa_idx.i.i, align 8, !dbg !698, !tbaa.struct !695",
+				"%num_codecs.i.i = getelementptr inbounds %struct._cjk_mod_state, ptr %call.i.i, i64 0, i32 1, !dbg !708",
+				"store i32 4, ptr %num_codecs.i.i, align 4, !dbg !708, !tbaa !709",
+				"%call.i30.i = tail call ptr @PyMem_Calloc(i64 noundef 4, i64 noundef 80) #11, !dbg !708",
+				"%codec_list.i.i = getelementptr inbounds %struct._cjk_mod_state, ptr %call.i.i, i64 0, i32 3, !dbg !708",
+				"store ptr %call.i30.i, ptr %codec_list.i.i, align 8, !dbg !708, !tbaa !710",
+				"%cmp.i31.i = icmp eq ptr %call.i30.i, null, !dbg !711",
+				"br i1 %cmp.i31.i, label %register_maps.exit, label %if.end.i35.i, !dbg !708"
+			]
+		},
+		{
+			"function": "_cjk_exec",
+			"id": 32,
+			"name": "if.end.i35.i",
+			"debug": [
+				{
+					"line": 464, "columns": [3]
+				},
+				{
+					"line": 465, "columns": [3]
+				},
+				{
+					"line": 466, "columns": [3]
+				},
+				{
+					"line": 467, "columns": [3]
+				},
+				{
+					"line": 468, "columns": [1]
+				}
+			],
+			"successors": [33, 38],
+			"ir": [
+				"store ptr @.str.9, ptr %call.i30.i, align 8, !dbg !713, !tbaa.struct !714",
+				"%.compoundliteral.sroa.2.0.arrayidx.sroa_idx.i32.i = getelementptr inbounds i8, ptr %call.i30.i, i64 8, !dbg !713",
+				"%.compoundliteral.sroa.4.0.arrayidx.sroa_idx.i.i = getelementptr inbounds i8, ptr %call.i30.i, i64 24, !dbg !713",
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %.compoundliteral.sroa.2.0.arrayidx.sroa_idx.i32.i, i8 0, i64 16, i1 false), !dbg !713",
+				"store ptr @gb2312_encode, ptr %.compoundliteral.sroa.4.0.arrayidx.sroa_idx.i.i, align 8, !dbg !713, !tbaa.struct !715",
+				"%.compoundliteral.sroa.5.0.arrayidx.sroa_idx.i.i = getelementptr inbounds i8, ptr %call.i30.i, i64 32, !dbg !713",
+				"%.compoundliteral.sroa.7.0.arrayidx.sroa_idx.i.i = getelementptr inbounds i8, ptr %call.i30.i, i64 48, !dbg !713",
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %.compoundliteral.sroa.5.0.arrayidx.sroa_idx.i.i, i8 0, i64 16, i1 false), !dbg !713",
+				"store ptr @gb2312_decode, ptr %.compoundliteral.sroa.7.0.arrayidx.sroa_idx.i.i, align 8, !dbg !713, !tbaa.struct !716",
+				"%.compoundliteral.sroa.8.0.arrayidx.sroa_idx.i.i = getelementptr inbounds i8, ptr %call.i30.i, i64 56, !dbg !713",
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %.compoundliteral.sroa.8.0.arrayidx.sroa_idx.i.i, i8 0, i64 24, i1 false), !dbg !713",
+				"%3 = load ptr, ptr %codec_list.i.i, align 8, !dbg !717, !tbaa !710",
+				"%arrayidx6.i33.i = getelementptr %struct._multibyte_codec, ptr %3, i64 1, !dbg !717",
+				"store ptr @.str.15, ptr %arrayidx6.i33.i, align 8, !dbg !717, !tbaa.struct !714",
+				"%.compoundliteral7.sroa.2.0.arrayidx6.sroa_idx.i34.i = getelementptr %struct._multibyte_codec, ptr %3, i64 1, i32 1, !dbg !717",
+				"%.compoundliteral7.sroa.4.0.arrayidx6.sroa_idx.i.i = getelementptr %struct._multibyte_codec, ptr %3, i64 1, i32 3, !dbg !717",
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %.compoundliteral7.sroa.2.0.arrayidx6.sroa_idx.i34.i, i8 0, i64 16, i1 false), !dbg !717",
+				"store ptr @gbk_encode, ptr %.compoundliteral7.sroa.4.0.arrayidx6.sroa_idx.i.i, align 8, !dbg !717, !tbaa.struct !715",
+				"%.compoundliteral7.sroa.5.0.arrayidx6.sroa_idx.i.i = getelementptr %struct._multibyte_codec, ptr %3, i64 1, i32 4, !dbg !717",
+				"%.compoundliteral7.sroa.7.0.arrayidx6.sroa_idx.i.i = getelementptr %struct._multibyte_codec, ptr %3, i64 1, i32 6, !dbg !717",
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %.compoundliteral7.sroa.5.0.arrayidx6.sroa_idx.i.i, i8 0, i64 16, i1 false), !dbg !717",
+				"store ptr @gbk_decode, ptr %.compoundliteral7.sroa.7.0.arrayidx6.sroa_idx.i.i, align 8, !dbg !717, !tbaa.struct !716",
+				"%.compoundliteral7.sroa.8.0.arrayidx6.sroa_idx.i.i = getelementptr %struct._multibyte_codec, ptr %3, i64 1, i32 7, !dbg !717",
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %.compoundliteral7.sroa.8.0.arrayidx6.sroa_idx.i.i, i8 0, i64 24, i1 false), !dbg !717",
+				"%4 = load ptr, ptr %codec_list.i.i, align 8, !dbg !718, !tbaa !710",
+				"%arrayidx21.i.i = getelementptr %struct._multibyte_codec, ptr %4, i64 2, !dbg !718",
+				"store ptr @.str.16, ptr %arrayidx21.i.i, align 8, !dbg !718, !tbaa.struct !714",
+				"%.compoundliteral22.sroa.2.0.arrayidx21.sroa_idx.i.i = getelementptr %struct._multibyte_codec, ptr %4, i64 2, i32 1, !dbg !718",
+				"%.compoundliteral22.sroa.4.0.arrayidx21.sroa_idx.i.i = getelementptr %struct._multibyte_codec, ptr %4, i64 2, i32 3, !dbg !718",
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %.compoundliteral22.sroa.2.0.arrayidx21.sroa_idx.i.i, i8 0, i64 16, i1 false), !dbg !718",
+				"store ptr @gb18030_encode, ptr %.compoundliteral22.sroa.4.0.arrayidx21.sroa_idx.i.i, align 8, !dbg !718, !tbaa.struct !715",
+				"%.compoundliteral22.sroa.5.0.arrayidx21.sroa_idx.i.i = getelementptr %struct._multibyte_codec, ptr %4, i64 2, i32 4, !dbg !718",
+				"%.compoundliteral22.sroa.7.0.arrayidx21.sroa_idx.i.i = getelementptr %struct._multibyte_codec, ptr %4, i64 2, i32 6, !dbg !718",
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %.compoundliteral22.sroa.5.0.arrayidx21.sroa_idx.i.i, i8 0, i64 16, i1 false), !dbg !718",
+				"store ptr @gb18030_decode, ptr %.compoundliteral22.sroa.7.0.arrayidx21.sroa_idx.i.i, align 8, !dbg !718, !tbaa.struct !716",
+				"%.compoundliteral22.sroa.8.0.arrayidx21.sroa_idx.i.i = getelementptr %struct._multibyte_codec, ptr %4, i64 2, i32 7, !dbg !718",
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %.compoundliteral22.sroa.8.0.arrayidx21.sroa_idx.i.i, i8 0, i64 24, i1 false), !dbg !718",
+				"%5 = load ptr, ptr %codec_list.i.i, align 8, !dbg !719, !tbaa !710",
+				"%arrayidx36.i.i = getelementptr %struct._multibyte_codec, ptr %5, i64 3, !dbg !719",
+				"store ptr @.str.17, ptr %arrayidx36.i.i, align 8, !dbg !719, !tbaa.struct !714",
+				"%.compoundliteral37.sroa.2.0.arrayidx36.sroa_idx.i.i = getelementptr %struct._multibyte_codec, ptr %5, i64 3, i32 1, !dbg !719",
+				"%.compoundliteral37.sroa.4.0.arrayidx36.sroa_idx.i.i = getelementptr %struct._multibyte_codec, ptr %5, i64 3, i32 3, !dbg !719",
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %.compoundliteral37.sroa.2.0.arrayidx36.sroa_idx.i.i, i8 0, i64 16, i1 false), !dbg !719",
+				"store ptr @hz_encode, ptr %.compoundliteral37.sroa.4.0.arrayidx36.sroa_idx.i.i, align 8, !dbg !719, !tbaa.struct !715",
+				"%.compoundliteral37.sroa.5.0.arrayidx36.sroa_idx.i.i = getelementptr %struct._multibyte_codec, ptr %5, i64 3, i32 4, !dbg !719",
+				"store ptr @hz_encode_init, ptr %.compoundliteral37.sroa.5.0.arrayidx36.sroa_idx.i.i, align 8, !dbg !719, !tbaa.struct !720",
+				"%.compoundliteral37.sroa.6.0.arrayidx36.sroa_idx.i.i = getelementptr %struct._multibyte_codec, ptr %5, i64 3, i32 5, !dbg !719",
+				"store ptr @hz_encode_reset, ptr %.compoundliteral37.sroa.6.0.arrayidx36.sroa_idx.i.i, align 8, !dbg !719, !tbaa.struct !721",
+				"%.compoundliteral37.sroa.7.0.arrayidx36.sroa_idx.i.i = getelementptr %struct._multibyte_codec, ptr %5, i64 3, i32 6, !dbg !719",
+				"store ptr @hz_decode, ptr %.compoundliteral37.sroa.7.0.arrayidx36.sroa_idx.i.i, align 8, !dbg !719, !tbaa.struct !716",
+				"%.compoundliteral37.sroa.8.0.arrayidx36.sroa_idx.i.i = getelementptr %struct._multibyte_codec, ptr %5, i64 3, i32 7, !dbg !719",
+				"store ptr @hz_decode_init, ptr %.compoundliteral37.sroa.8.0.arrayidx36.sroa_idx.i.i, align 8, !dbg !719, !tbaa.struct !692",
+				"%.compoundliteral37.sroa.9.0.arrayidx36.sroa_idx.i.i = getelementptr %struct._multibyte_codec, ptr %5, i64 3, i32 8, !dbg !719",
+				"store ptr @hz_decode_reset, ptr %.compoundliteral37.sroa.9.0.arrayidx36.sroa_idx.i.i, align 8, !dbg !719, !tbaa.struct !694",
+				"%.compoundliteral37.sroa.10.0.arrayidx36.sroa_idx.i.i = getelementptr %struct._multibyte_codec, ptr %5, i64 3, i32 9, !dbg !719",
+				"store ptr null, ptr %.compoundliteral37.sroa.10.0.arrayidx36.sroa_idx.i.i, align 8, !dbg !719, !tbaa.struct !695",
+				"%6 = load i32, ptr %num_codecs.i.i, align 4, !tbaa !709",
+				"%cmp4970.i.i = icmp sgt i32 %6, 0, !dbg !723",
+				"br i1 %cmp4970.i.i, label %for.body.lr.ph.i.i, label %add_codecs.exit.i, !dbg !725"
+			]
+		},
+		{
+			"function": "_cjk_exec",
+			"id": 33,
+			"name": "for.body.lr.ph.i.i",
+			"debug": [
+				{
+					"line": 468, "columns": [1]
+				}
+			],
+			"successors": [36, 34],
+			"ir": [
+				"%7 = load ptr, ptr %codec_list.i.i, align 8, !tbaa !710",
+				"%wide.trip.count.i.i = zext i32 %6 to i64, !dbg !723",
+				"%xtraiter = and i64 %wide.trip.count.i.i, 3, !dbg !725",
+				"%8 = icmp ult i32 %6, 4, !dbg !725",
+				"br i1 %8, label %add_codecs.exit.i.loopexit.unr-lcssa, label %for.body.lr.ph.i.i.new, !dbg !725"
+			]
+		},
+		{
+			"function": "_cjk_exec",
+			"id": 34,
+			"name": "for.body.lr.ph.i.i.new",
+			"debug": [
+				{
+					"line": 468, "columns": [1]
+				}
+			],
+			"successors": [35],
+			"ir": [
+				"%unroll_iter = and i64 %wide.trip.count.i.i, 4294967292, !dbg !725",
+				"br label %for.body.i.i, !dbg !725"
+			]
+		},
+		{
+			"function": "_cjk_exec",
+			"id": 35,
+			"name": "for.body.i.i",
+			"debug": [
+				{
+					"line": 468, "columns": [1]
+				}
+			],
+			"successors": [36, 35],
+			"ir": [
+				"%indvars.iv.i.i = phi i64 [ 0, %for.body.lr.ph.i.i.new ], [ %indvars.iv.next.i.i.3, %for.body.i.i ]",
+				"%niter = phi i64 [ 0, %for.body.lr.ph.i.i.new ], [ %niter.next.3, %for.body.i.i ]",
+				"%modstate53.i.i = getelementptr %struct._multibyte_codec, ptr %7, i64 %indvars.iv.i.i, i32 9, !dbg !726",
+				"store ptr %call.i.i, ptr %modstate53.i.i, align 8, !dbg !726, !tbaa !728",
+				"%indvars.iv.next.i.i = or i64 %indvars.iv.i.i, 1, !dbg !723",
+				"%modstate53.i.i.1 = getelementptr %struct._multibyte_codec, ptr %7, i64 %indvars.iv.next.i.i, i32 9, !dbg !726",
+				"store ptr %call.i.i, ptr %modstate53.i.i.1, align 8, !dbg !726, !tbaa !728",
+				"%indvars.iv.next.i.i.1 = or i64 %indvars.iv.i.i, 2, !dbg !723",
+				"%modstate53.i.i.2 = getelementptr %struct._multibyte_codec, ptr %7, i64 %indvars.iv.next.i.i.1, i32 9, !dbg !726",
+				"store ptr %call.i.i, ptr %modstate53.i.i.2, align 8, !dbg !726, !tbaa !728",
+				"%indvars.iv.next.i.i.2 = or i64 %indvars.iv.i.i, 3, !dbg !723",
+				"%modstate53.i.i.3 = getelementptr %struct._multibyte_codec, ptr %7, i64 %indvars.iv.next.i.i.2, i32 9, !dbg !726",
+				"store ptr %call.i.i, ptr %modstate53.i.i.3, align 8, !dbg !726, !tbaa !728",
+				"%indvars.iv.next.i.i.3 = add nuw nsw i64 %indvars.iv.i.i, 4, !dbg !723",
+				"%niter.next.3 = add i64 %niter, 4, !dbg !725",
+				"%niter.ncmp.3 = icmp eq i64 %niter.next.3, %unroll_iter, !dbg !725",
+				"br i1 %niter.ncmp.3, label %add_codecs.exit.i.loopexit.unr-lcssa, label %for.body.i.i, !dbg !725, !llvm.loop !730"
+			]
+		},
+		{
+			"function": "_cjk_exec",
+			"id": 36,
+			"name": "add_codecs.exit.i.loopexit.unr-lcssa",
+			"debug": [
+				{
+					"line": 468, "columns": [1]
+				}
+			],
+			"successors": [38, 37],
+			"ir": [
+				"%indvars.iv.i.i.unr = phi i64 [ 0, %for.body.lr.ph.i.i ], [ %indvars.iv.next.i.i.3, %for.body.i.i ]",
+				"%lcmp.mod.not = icmp eq i64 %xtraiter, 0, !dbg !725",
+				"br i1 %lcmp.mod.not, label %add_codecs.exit.i, label %for.body.i.i.epil, !dbg !725"
+			]
+		},
+		{
+			"function": "_cjk_exec",
+			"id": 37,
+			"name": "for.body.i.i.epil",
+			"debug": [
+				{
+					"line": 468, "columns": [1]
+				}
+			],
+			"successors": [38, 37],
+			"ir": [
+				"%indvars.iv.i.i.epil = phi i64 [ %indvars.iv.next.i.i.epil, %for.body.i.i.epil ], [ %indvars.iv.i.i.unr, %add_codecs.exit.i.loopexit.unr-lcssa ]",
+				"%epil.iter = phi i64 [ %epil.iter.next, %for.body.i.i.epil ], [ 0, %add_codecs.exit.i.loopexit.unr-lcssa ]",
+				"%modstate53.i.i.epil = getelementptr %struct._multibyte_codec, ptr %7, i64 %indvars.iv.i.i.epil, i32 9, !dbg !726",
+				"store ptr %call.i.i, ptr %modstate53.i.i.epil, align 8, !dbg !726, !tbaa !728",
+				"%indvars.iv.next.i.i.epil = add nuw nsw i64 %indvars.iv.i.i.epil, 1, !dbg !723",
+				"%epil.iter.next = add i64 %epil.iter, 1, !dbg !725",
+				"%epil.iter.cmp.not = icmp eq i64 %epil.iter.next, %xtraiter, !dbg !725",
+				"br i1 %epil.iter.cmp.not, label %add_codecs.exit.i, label %for.body.i.i.epil, !dbg !725, !llvm.loop !732"
+			]
+		},
+		{
+			"function": "_cjk_exec",
+			"id": 38,
+			"name": "add_codecs.exit.i",
+			"debug": [
+				{
+					"line": 395, "columns": [29, 23, 5]
+				}
+			],
+			"successors": [39, 42],
+			"ir": [
+				"%9 = load i32, ptr %call.i.i, align 8, !dbg !735, !tbaa !682",
+				"%cmp6.not41.i = icmp sgt i32 %9, 0, !dbg !736",
+				"br i1 %cmp6.not41.i, label %for.body.lr.ph.i, label %register_maps.exit, !dbg !737"
+			]
+		},
+		{
+			"function": "_cjk_exec",
+			"id": 39,
+			"name": "for.body.lr.ph.i",
+			"debug": [
+				{
+					"line": 395, "columns": [5]
+				}
+			],
+			"successors": [41],
+			"ir": [
+				"%10 = getelementptr inbounds [256 x i8], ptr %mhname.i, i64 0, i64 4",
+				"%11 = getelementptr inbounds [256 x i8], ptr %mhname.i, i64 0, i64 5",
+				"%add.ptr7.i = getelementptr inbounds i8, ptr %mhname.i, i64 6",
+				"br label %for.body.i, !dbg !737"
+			]
+		},
+		{
+			"function": "_cjk_exec",
+			"id": 40,
+			"name": "for.cond.i",
+			"debug": [
+				{
+					"line": 395, "columns": [44, 29, 23, 5]
+				}
+			],
+			"successors": [41, 42],
+			"ir": [
+				"%indvars.iv.next.i = add nuw nsw i64 %indvars.iv.i, 1, !dbg !738",
+				"%12 = load i32, ptr %call.i.i, align 8, !dbg !735, !tbaa !682",
+				"%13 = sext i32 %12 to i64, !dbg !736",
+				"%cmp6.not.i = icmp slt i64 %indvars.iv.next.i, %13, !dbg !736",
+				"br i1 %cmp6.not.i, label %for.body.i, label %register_maps.exit, !dbg !737, !llvm.loop !739"
+			]
+		},
+		{
+			"function": "_cjk_exec",
+			"id": 41,
+			"name": "for.body.i",
+			"debug": [
+				{
+					"line": 396, "columns": [41, 37]
+				},
+				{
+					"line": 397, "columns": [9, 14]
+				},
+				{
+					"line": 398, "columns": [50, 9]
+				},
+				{
+					"line": 400, "columns": [29]
+				},
+				{
+					"line": 401, "columns": [13, 51]
+				},
+				{
+					"line": 404, "columns": [5]
+				}
+			],
+			"successors": [40, 42],
+			"ir": [
+				"%indvars.iv.i = phi i64 [ 0, %for.body.lr.ph.i ], [ %indvars.iv.next.i, %for.cond.i ]",
+				"%14 = load ptr, ptr %mapping_list.i.i, align 8, !dbg !741, !tbaa !688",
+				"%arrayidx.i = getelementptr %struct.dbcs_map, ptr %14, i64 %indvars.iv.i, !dbg !742",
+				"call void @llvm.lifetime.start.p0(i64 256, ptr nonnull %mhname.i) #11, !dbg !744",
+				"call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(256) %mhname.i, i8 0, i64 256, i1 false), !dbg !745",
+				"store <4 x i8> <i8 95, i8 95, i8 109, i8 97>, ptr %mhname.i, align 16, !dbg !745",
+				"store i8 112, ptr %10, align 4, !dbg !745",
+				"store i8 95, ptr %11, align 1, !dbg !745",
+				"%15 = load ptr, ptr %arrayidx.i, align 8, !dbg !746, !tbaa !747",
+				"%call8.i = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %add.ptr7.i, ptr noundef nonnull dereferenceable(1) %15) #11, !dbg !749",
+				"%call9.i = call ptr @PyCapsule_New(ptr noundef nonnull %arrayidx.i, ptr noundef nonnull @.str.8, ptr noundef null) #11, !dbg !750",
+				"%call11.i = call i32 @PyModule_Add(ptr noundef %module, ptr noundef nonnull %mhname.i, ptr noundef %call9.i) #11, !dbg !751",
+				"%cmp12.i = icmp sgt i32 %call11.i, -1, !dbg !753",
+				"call void @llvm.lifetime.end.p0(i64 256, ptr nonnull %mhname.i) #11, !dbg !754",
+				"br i1 %cmp12.i, label %for.cond.i, label %register_maps.exit"
+			]
+		},
+		{
+			"function": "_cjk_exec",
+			"id": 42,
+			"name": "register_maps.exit",
+			"debug": [
+				{
+					"line": 487, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.3.i = phi i32 [ -1, %entry ], [ -1, %if.end.i ], [ 0, %add_codecs.exit.i ], [ -1, %for.body.i ], [ 0, %for.cond.i ], !dbg !661",
+				"ret i32 %retval.3.i, !dbg !755"
+			]
+		},
+		{
+			"function": "gb2312_encode",
+			"id": 43,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 66, "columns": [12, 19, 5]
+				}
+			],
+			"successors": [44, 59],
+			"ir": [
+				"%0 = load i64, ptr %inpos, align 8, !dbg !660, !tbaa !661",
+				"%cmp127 = icmp slt i64 %0, %inlen, !dbg !665",
+				"br i1 %cmp127, label %while.body, label %return, !dbg !666"
+			]
+		},
+		{
+			"function": "gb2312_encode",
+			"id": 44,
+			"name": "while.body",
+			"debug": [
+				{
+					"line": 317, "columns": [9]
+				}
+			],
+			"successors": [47, 45, 46],
+			"ir": [
+				"%1 = phi i64 [ %add88.sink, %cleanup ], [ %0, %entry ]",
+				"%outleft.addr.0128 = phi i64 [ %sub93, %cleanup ], [ %outleft, %entry ]",
+				"switch i32 %kind, label %if.end6.i [\n    i32 1, label %if.then.i\n    i32 2, label %if.then3.i\n  ], !dbg !676"
+			]
+		},
+		{
+			"function": "gb2312_encode",
+			"id": 45,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 318, "columns": [16, 9]
+				}
+			],
+			"successors": [48],
+			"ir": [
+				"%arrayidx.i = getelementptr i8, ptr %data, i64 %1, !dbg !677",
+				"%2 = load i8, ptr %arrayidx.i, align 1, !dbg !677, !tbaa !680",
+				"%conv.i = zext i8 %2 to i32, !dbg !677",
+				"br label %PyUnicode_READ.exit, !dbg !681"
+			]
+		},
+		{
+			"function": "gb2312_encode",
+			"id": 46,
+			"name": "if.then3.i",
+			"debug": [
+				{
+					"line": 321, "columns": [16, 9]
+				}
+			],
+			"successors": [48],
+			"ir": [
+				"%arrayidx4.i = getelementptr i16, ptr %data, i64 %1, !dbg !682",
+				"%3 = load i16, ptr %arrayidx4.i, align 2, !dbg !682, !tbaa !685",
+				"%conv5.i = zext i16 %3 to i32, !dbg !682",
+				"br label %PyUnicode_READ.exit, !dbg !687"
+			]
+		},
+		{
+			"function": "gb2312_encode",
+			"id": 47,
+			"name": "if.end6.i",
+			"debug": [
+				{
+					"line": 324, "columns": [12, 5]
+				}
+			],
+			"successors": [48],
+			"ir": [
+				"%arrayidx7.i = getelementptr i32, ptr %data, i64 %1, !dbg !688",
+				"%4 = load i32, ptr %arrayidx7.i, align 4, !dbg !688, !tbaa !689",
+				"br label %PyUnicode_READ.exit, !dbg !691"
+			]
+		},
+		{
+			"function": "gb2312_encode",
+			"id": 48,
+			"name": "PyUnicode_READ.exit",
+			"debug": [
+				{
+					"line": 70, "columns": [15, 13]
+				}
+			],
+			"successors": [49, 51],
+			"ir": [
+				"%retval.0.i = phi i32 [ %conv.i, %if.then.i ], [ %conv5.i, %if.then3.i ], [ %4, %if.end6.i ], !dbg !674",
+				"%cmp1 = icmp ult i32 %retval.0.i, 128, !dbg !693",
+				"br i1 %cmp1, label %do.body2, label %if.end19, !dbg !695"
+			]
+		},
+		{
+			"function": "gb2312_encode",
+			"id": 49,
+			"name": "do.body2",
+			"debug": [
+				{
+					"line": 71, "columns": [13]
+				}
+			],
+			"successors": [59, 50],
+			"ir": [
+				"%cmp3 = icmp slt i64 %outleft.addr.0128, 1, !dbg !696",
+				"br i1 %cmp3, label %return, label %do.body5, !dbg !701"
+			]
+		},
+		{
+			"function": "gb2312_encode",
+			"id": 50,
+			"name": "do.body5",
+			"debug": [
+				{
+					"line": 71, "columns": [13]
+				},
+				{
+					"line": 73, "columns": [13]
+				}
+			],
+			"successors": [58],
+			"ir": [
+				"%conv = trunc i32 %retval.0.i to i8, !dbg !702",
+				"%5 = load ptr, ptr %outbuf, align 8, !dbg !702, !tbaa !704",
+				"store i8 %conv, ptr %5, align 1, !dbg !702, !tbaa !680",
+				"br label %cleanup, !dbg !706, !llvm.loop !707"
+			]
+		},
+		{
+			"function": "gb2312_encode",
+			"id": 51,
+			"name": "if.end19",
+			"debug": [
+				{
+					"line": 76, "columns": [15, 13]
+				}
+			],
+			"successors": [59, 52],
+			"ir": [
+				"%cmp20 = icmp ugt i32 %retval.0.i, 65535, !dbg !710",
+				"br i1 %cmp20, label %return, label %do.body24, !dbg !712"
+			]
+		},
+		{
+			"function": "gb2312_encode",
+			"id": 52,
+			"name": "do.body24",
+			"debug": [
+				{
+					"line": 79, "columns": [9]
+				}
+			],
+			"successors": [59, 53],
+			"ir": [
+				"%cmp25 = icmp slt i64 %outleft.addr.0128, 2, !dbg !713",
+				"br i1 %cmp25, label %return, label %do.end30, !dbg !716"
+			]
+		},
+		{
+			"function": "gb2312_encode",
+			"id": 53,
+			"name": "do.end30",
+			"debug": [
+				{
+					"line": 80, "columns": [13]
+				}
+			],
+			"successors": [59, 54],
+			"ir": [
+				"%shr = lshr i32 %retval.0.i, 8, !dbg !717",
+				"%idxprom = zext i32 %shr to i64, !dbg !717",
+				"%arrayidx31 = getelementptr [256 x %struct.unim_index], ptr @gbcommon_encmap, i64 0, i64 %idxprom, !dbg !717",
+				"%6 = load ptr, ptr %arrayidx31, align 16, !dbg !717, !tbaa !719",
+				"%cmp32.not = icmp eq ptr %6, null, !dbg !717",
+				"br i1 %cmp32.not, label %return, label %land.lhs.true, !dbg !717"
+			]
+		},
+		{
+			"function": "gb2312_encode",
+			"id": 54,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 80, "columns": [13]
+				}
+			],
+			"successors": [59, 55],
+			"ir": [
+				"%and = and i32 %retval.0.i, 255, !dbg !717",
+				"%bottom = getelementptr [256 x %struct.unim_index], ptr @gbcommon_encmap, i64 0, i64 %idxprom, i32 1, !dbg !717",
+				"%7 = load i8, ptr %bottom, align 8, !dbg !717, !tbaa !721",
+				"%conv37 = zext i8 %7 to i32, !dbg !717",
+				"%cmp38.not = icmp ult i32 %and, %conv37, !dbg !717",
+				"br i1 %cmp38.not, label %return, label %land.lhs.true40, !dbg !717"
+			]
+		},
+		{
+			"function": "gb2312_encode",
+			"id": 55,
+			"name": "land.lhs.true40",
+			"debug": [
+				{
+					"line": 80, "columns": [13]
+				}
+			],
+			"successors": [59, 56],
+			"ir": [
+				"%top = getelementptr [256 x %struct.unim_index], ptr @gbcommon_encmap, i64 0, i64 %idxprom, i32 2, !dbg !717",
+				"%8 = load i8, ptr %top, align 1, !dbg !717, !tbaa !722",
+				"%conv45 = zext i8 %8 to i32, !dbg !717",
+				"%cmp46.not = icmp ugt i32 %and, %conv45, !dbg !717",
+				"br i1 %cmp46.not, label %return, label %land.lhs.true48, !dbg !717"
+			]
+		},
+		{
+			"function": "gb2312_encode",
+			"id": 56,
+			"name": "land.lhs.true48",
+			"debug": [
+				{
+					"line": 80, "columns": [13]
+				}
+			],
+			"successors": [57, 59],
+			"ir": [
+				"%sub59 = sub nsw i32 %and, %conv37, !dbg !717",
+				"%idxprom60 = zext i32 %sub59 to i64, !dbg !717",
+				"%arrayidx61 = getelementptr i16, ptr %6, i64 %idxprom60, !dbg !717",
+				"%9 = load i16, ptr %arrayidx61, align 2, !dbg !717, !tbaa !685",
+				"%tobool.not = icmp sgt i16 %9, -1",
+				"br i1 %tobool.not, label %do.body71, label %return, !dbg !723"
+			]
+		},
+		{
+			"function": "gb2312_encode",
+			"id": 57,
+			"name": "do.body71",
+			"debug": [
+				{
+					"line": 88, "columns": [9]
+				},
+				{
+					"line": 89, "columns": [9]
+				},
+				{
+					"line": 91, "columns": [5]
+				}
+			],
+			"successors": [58],
+			"ir": [
+				"%shr73 = lshr i16 %9, 8",
+				"%10 = trunc i16 %shr73 to i8, !dbg !724",
+				"%conv74 = or i8 %10, -128, !dbg !724",
+				"%11 = load ptr, ptr %outbuf, align 8, !dbg !724, !tbaa !704",
+				"store i8 %conv74, ptr %11, align 1, !dbg !724, !tbaa !680",
+				"%12 = trunc i16 %9 to i8, !dbg !726",
+				"%conv82 = or i8 %12, -128, !dbg !726",
+				"%13 = load ptr, ptr %outbuf, align 8, !dbg !726, !tbaa !704",
+				"%arrayidx83 = getelementptr i8, ptr %13, i64 1, !dbg !726",
+				"store i8 %conv82, ptr %arrayidx83, align 1, !dbg !726, !tbaa !680",
+				"br label %cleanup, !dbg !708"
+			]
+		},
+		{
+			"function": "gb2312_encode",
+			"id": 58,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 66, "columns": [19, 5]
+				}
+			],
+			"successors": [44, 59],
+			"ir": [
+				"%.sink137 = phi i64 [ 2, %do.body71 ], [ 1, %do.body5 ]",
+				"%.sink = phi i64 [ -2, %do.body71 ], [ -1, %do.body5 ]",
+				"%add88.sink.in = load i64, ptr %inpos, align 8, !dbg !692, !tbaa !661",
+				"%add88.sink = add i64 %add88.sink.in, 1, !dbg !692",
+				"store i64 %add88.sink, ptr %inpos, align 8, !dbg !692, !tbaa !661",
+				"%14 = load ptr, ptr %outbuf, align 8, !dbg !692, !tbaa !704",
+				"%add.ptr92 = getelementptr i8, ptr %14, i64 %.sink137, !dbg !692",
+				"store ptr %add.ptr92, ptr %outbuf, align 8, !dbg !692, !tbaa !704",
+				"%sub93 = add nsw i64 %outleft.addr.0128, %.sink, !dbg !692",
+				"%cmp = icmp slt i64 %add88.sink, %inlen, !dbg !665",
+				"br i1 %cmp, label %while.body, label %return, !dbg !666"
+			]
+		},
+		{
+			"function": "gb2312_encode",
+			"id": 59,
+			"name": "return",
+			"debug": [
+				{
+					"line": 94, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.2 = phi i64 [ 0, %entry ], [ 1, %do.end30 ], [ 1, %land.lhs.true ], [ 1, %land.lhs.true40 ], [ 1, %land.lhs.true48 ], [ -1, %do.body24 ], [ 1, %if.end19 ], [ -1, %do.body2 ], [ 0, %cleanup ], !dbg !659",
+				"ret i64 %retval.2, !dbg !728"
+			]
+		},
+		{
+			"function": "gb2312_decode",
+			"id": 60,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 98, "columns": [19, 5]
+				}
+			],
+			"successors": [61, 71],
+			"ir": [
+				"%cmp99 = icmp sgt i64 %inleft, 0, !dbg !656",
+				"br i1 %cmp99, label %while.body.preheader, label %return, !dbg !657"
+			]
+		},
+		{
+			"function": "gb2312_decode",
+			"id": 61,
+			"name": "while.body.preheader",
+			"debug": [
+				{
+					"line": 99, "columns": [28]
+				},
+				{
+					"line": 102, "columns": [13]
+				}
+			],
+			"successors": [62],
+			"ir": [
+				"%.pre = load ptr, ptr %inbuf, align 8, !dbg !658, !tbaa !659",
+				"br label %while.body, !dbg !663"
+			]
+		},
+		{
+			"function": "gb2312_decode",
+			"id": 62,
+			"name": "while.body",
+			"debug": [
+				{
+					"line": 99, "columns": [28, 27]
+				},
+				{
+					"line": 102, "columns": [13, 15]
+				}
+			],
+			"successors": [63, 64],
+			"ir": [
+				"%0 = phi ptr [ %add.ptr73, %cleanup ], [ %.pre, %while.body.preheader ], !dbg !658",
+				"%inleft.addr.0100 = phi i64 [ %sub74, %cleanup ], [ %inleft, %while.body.preheader ]",
+				"%1 = load i8, ptr %0, align 1, !dbg !664, !tbaa !665",
+				"%conv = zext i8 %1 to i32, !dbg !667",
+				"%cmp1 = icmp sgt i8 %1, -1, !dbg !669",
+				"br i1 %cmp1, label %do.body, label %do.body11, !dbg !663"
+			]
+		},
+		{
+			"function": "gb2312_decode",
+			"id": 63,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 103, "columns": [13]
+				}
+			],
+			"successors": [71, 70],
+			"ir": [
+				"%call = tail call i32 @_PyUnicodeWriter_WriteChar(ptr noundef %writer, i32 noundef %conv) #11, !dbg !670",
+				"%cmp4 = icmp slt i32 %call, 0, !dbg !670",
+				"br i1 %cmp4, label %return, label %cleanup, !dbg !674, !llvm.loop !675"
+			]
+		},
+		{
+			"function": "gb2312_decode",
+			"id": 64,
+			"name": "do.body11",
+			"debug": [
+				{
+					"line": 108, "columns": [9]
+				}
+			],
+			"successors": [71, 65],
+			"ir": [
+				"%cmp12 = icmp ult i64 %inleft.addr.0100, 2, !dbg !678",
+				"br i1 %cmp12, label %return, label %do.end17, !dbg !681"
+			]
+		},
+		{
+			"function": "gb2312_decode",
+			"id": 65,
+			"name": "do.end17",
+			"debug": [
+				{
+					"line": 109, "columns": [13]
+				}
+			],
+			"successors": [71, 66],
+			"ir": [
+				"%xor = xor i32 %conv, 128, !dbg !682",
+				"%idxprom = zext i32 %xor to i64",
+				"%arrayidx = getelementptr [256 x %struct.dbcs_index], ptr @gb2312_decmap, i64 0, i64 %idxprom, !dbg !682",
+				"%2 = load ptr, ptr %arrayidx, align 16, !dbg !682, !tbaa !684",
+				"%cmp19.not = icmp eq ptr %2, null, !dbg !682",
+				"br i1 %cmp19.not, label %return, label %land.lhs.true, !dbg !682"
+			]
+		},
+		{
+			"function": "gb2312_decode",
+			"id": 66,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 109, "columns": [13]
+				}
+			],
+			"successors": [71, 67],
+			"ir": [
+				"%arrayidx21 = getelementptr i8, ptr %0, i64 1, !dbg !682",
+				"%3 = load i8, ptr %arrayidx21, align 1, !dbg !682, !tbaa !665",
+				"%4 = xor i8 %3, -128, !dbg !682",
+				"%xor23 = zext i8 %4 to i64, !dbg !682",
+				"%bottom = getelementptr [256 x %struct.dbcs_index], ptr @gb2312_decmap, i64 0, i64 %idxprom, i32 1, !dbg !682",
+				"%5 = load i8, ptr %bottom, align 8, !dbg !682, !tbaa !686",
+				"%conv28 = zext i8 %5 to i64, !dbg !682",
+				"%cmp29.not = icmp ult i8 %4, %5, !dbg !682",
+				"br i1 %cmp29.not, label %return, label %land.lhs.true31, !dbg !682"
+			]
+		},
+		{
+			"function": "gb2312_decode",
+			"id": 67,
+			"name": "land.lhs.true31",
+			"debug": [
+				{
+					"line": 109, "columns": [13]
+				}
+			],
+			"successors": [71, 68],
+			"ir": [
+				"%top = getelementptr [256 x %struct.dbcs_index], ptr @gb2312_decmap, i64 0, i64 %idxprom, i32 2, !dbg !682",
+				"%6 = load i8, ptr %top, align 1, !dbg !682, !tbaa !687",
+				"%cmp40.not = icmp ugt i8 %4, %6, !dbg !682",
+				"br i1 %cmp40.not, label %return, label %land.lhs.true42, !dbg !682"
+			]
+		},
+		{
+			"function": "gb2312_decode",
+			"id": 68,
+			"name": "land.lhs.true42",
+			"debug": [
+				{
+					"line": 109, "columns": [13]
+				}
+			],
+			"successors": [71, 69],
+			"ir": [
+				"%sub57 = sub nsw i64 %xor23, %conv28, !dbg !682",
+				"%arrayidx59 = getelementptr i16, ptr %2, i64 %sub57, !dbg !682",
+				"%7 = load i16, ptr %arrayidx59, align 2, !dbg !682, !tbaa !688",
+				"%cmp61.not = icmp eq i16 %7, -2, !dbg !682",
+				"br i1 %cmp61.not, label %return, label %do.body64, !dbg !690"
+			]
+		},
+		{
+			"function": "gb2312_decode",
+			"id": 69,
+			"name": "do.body64",
+			"debug": [
+				{
+					"line": 109, "columns": [13]
+				},
+				{
+					"line": 110, "columns": [13]
+				}
+			],
+			"successors": [71, 70],
+			"ir": [
+				"%conv60 = zext i16 %7 to i32, !dbg !682",
+				"%call65 = tail call i32 @_PyUnicodeWriter_WriteChar(ptr noundef %writer, i32 noundef %conv60) #11, !dbg !691",
+				"%cmp66 = icmp slt i32 %call65, 0, !dbg !691",
+				"br i1 %cmp66, label %return, label %cleanup, !dbg !695"
+			]
+		},
+		{
+			"function": "gb2312_decode",
+			"id": 70,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 98, "columns": [19, 5]
+				}
+			],
+			"successors": [62, 71],
+			"ir": [
+				"%.sink109 = phi i64 [ 1, %do.body ], [ 2, %do.body64 ]",
+				"%.sink = phi i64 [ -1, %do.body ], [ -2, %do.body64 ]",
+				"%8 = load ptr, ptr %inbuf, align 8, !dbg !666, !tbaa !659",
+				"%add.ptr73 = getelementptr i8, ptr %8, i64 %.sink109, !dbg !666",
+				"store ptr %add.ptr73, ptr %inbuf, align 8, !dbg !666, !tbaa !659",
+				"%sub74 = add nsw i64 %inleft.addr.0100, %.sink, !dbg !666",
+				"%cmp = icmp sgt i64 %sub74, 0, !dbg !656",
+				"br i1 %cmp, label %while.body, label %return, !dbg !657"
+			]
+		},
+		{
+			"function": "gb2312_decode",
+			"id": 71,
+			"name": "return",
+			"debug": [
+				{
+					"line": 118, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.2 = phi i64 [ 0, %entry ], [ 1, %do.end17 ], [ 1, %land.lhs.true ], [ 1, %land.lhs.true31 ], [ 1, %land.lhs.true42 ], [ -4, %do.body64 ], [ -2, %do.body11 ], [ -4, %do.body ], [ 0, %cleanup ], !dbg !655",
+				"ret i64 %retval.2, !dbg !696"
+			]
+		},
+		{
+			"function": "gbk_encode",
+			"id": 72,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 127, "columns": [12, 19, 5]
+				}
+			],
+			"successors": [73, 95],
+			"ir": [
+				"%0 = load i64, ptr %inpos, align 8, !dbg !660, !tbaa !661",
+				"%cmp164 = icmp slt i64 %0, %inlen, !dbg !665",
+				"br i1 %cmp164, label %while.body, label %return, !dbg !666"
+			]
+		},
+		{
+			"function": "gbk_encode",
+			"id": 73,
+			"name": "while.body",
+			"debug": [
+				{
+					"line": 317, "columns": [9]
+				}
+			],
+			"successors": [76, 74, 75],
+			"ir": [
+				"%1 = phi i64 [ %add114.sink, %cleanup ], [ %0, %entry ]",
+				"%outleft.addr.0165 = phi i64 [ %sub119, %cleanup ], [ %outleft, %entry ]",
+				"switch i32 %kind, label %if.end6.i [\n    i32 1, label %if.then.i\n    i32 2, label %if.then3.i\n  ], !dbg !676"
+			]
+		},
+		{
+			"function": "gbk_encode",
+			"id": 74,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 318, "columns": [16, 9]
+				}
+			],
+			"successors": [77],
+			"ir": [
+				"%arrayidx.i = getelementptr i8, ptr %data, i64 %1, !dbg !677",
+				"%2 = load i8, ptr %arrayidx.i, align 1, !dbg !677, !tbaa !680",
+				"%conv.i = zext i8 %2 to i32, !dbg !677",
+				"br label %PyUnicode_READ.exit, !dbg !681"
+			]
+		},
+		{
+			"function": "gbk_encode",
+			"id": 75,
+			"name": "if.then3.i",
+			"debug": [
+				{
+					"line": 321, "columns": [16, 9]
+				}
+			],
+			"successors": [77],
+			"ir": [
+				"%arrayidx4.i = getelementptr i16, ptr %data, i64 %1, !dbg !682",
+				"%3 = load i16, ptr %arrayidx4.i, align 2, !dbg !682, !tbaa !685",
+				"%conv5.i = zext i16 %3 to i32, !dbg !682",
+				"br label %PyUnicode_READ.exit, !dbg !687"
+			]
+		},
+		{
+			"function": "gbk_encode",
+			"id": 76,
+			"name": "if.end6.i",
+			"debug": [
+				{
+					"line": 324, "columns": [12, 5]
+				}
+			],
+			"successors": [77],
+			"ir": [
+				"%arrayidx7.i = getelementptr i32, ptr %data, i64 %1, !dbg !688",
+				"%4 = load i32, ptr %arrayidx7.i, align 4, !dbg !688, !tbaa !689",
+				"br label %PyUnicode_READ.exit, !dbg !691"
+			]
+		},
+		{
+			"function": "gbk_encode",
+			"id": 77,
+			"name": "PyUnicode_READ.exit",
+			"debug": [
+				{
+					"line": 131, "columns": [15, 13]
+				}
+			],
+			"successors": [78, 80],
+			"ir": [
+				"%retval.0.i = phi i32 [ %conv.i, %if.then.i ], [ %conv5.i, %if.then3.i ], [ %4, %if.end6.i ], !dbg !674",
+				"%cmp1 = icmp ult i32 %retval.0.i, 128, !dbg !693",
+				"br i1 %cmp1, label %do.body2, label %if.end19, !dbg !695"
+			]
+		},
+		{
+			"function": "gbk_encode",
+			"id": 78,
+			"name": "do.body2",
+			"debug": [
+				{
+					"line": 132, "columns": [13]
+				}
+			],
+			"successors": [95, 79],
+			"ir": [
+				"%cmp3 = icmp slt i64 %outleft.addr.0165, 1, !dbg !696",
+				"br i1 %cmp3, label %return, label %do.body5, !dbg !701"
+			]
+		},
+		{
+			"function": "gbk_encode",
+			"id": 79,
+			"name": "do.body5",
+			"debug": [
+				{
+					"line": 132, "columns": [13]
+				},
+				{
+					"line": 134, "columns": [13]
+				}
+			],
+			"successors": [94],
+			"ir": [
+				"%conv = trunc i32 %retval.0.i to i8, !dbg !702",
+				"%5 = load ptr, ptr %outbuf, align 8, !dbg !702, !tbaa !704",
+				"store i8 %conv, ptr %5, align 1, !dbg !702, !tbaa !680",
+				"br label %cleanup, !dbg !706, !llvm.loop !707"
+			]
+		},
+		{
+			"function": "gbk_encode",
+			"id": 80,
+			"name": "if.end19",
+			"debug": [
+				{
+					"line": 137, "columns": [15, 13]
+				}
+			],
+			"successors": [95, 81],
+			"ir": [
+				"%cmp20 = icmp ugt i32 %retval.0.i, 65535, !dbg !710",
+				"br i1 %cmp20, label %return, label %do.body24, !dbg !712"
+			]
+		},
+		{
+			"function": "gbk_encode",
+			"id": 81,
+			"name": "do.body24",
+			"debug": [
+				{
+					"line": 140, "columns": [9]
+				}
+			],
+			"successors": [95, 82],
+			"ir": [
+				"%cmp25 = icmp slt i64 %outleft.addr.0165, 2, !dbg !713",
+				"br i1 %cmp25, label %return, label %do.end30, !dbg !716"
+			]
+		},
+		{
+			"function": "gbk_encode",
+			"id": 82,
+			"name": "do.end30",
+			"debug": [
+				{
+					"line": 142, "columns": [9]
+				}
+			],
+			"successors": [85, 89, 83, 84, 95],
+			"ir": [
+				"switch i32 %retval.0.i, label %land.lhs.true [\n    i32 8212, label %do.body85.thread\n    i32 8213, label %if.then36\n    i32 183, label %if.then40\n    i32 12539, label %return\n  ], !dbg !717"
+			]
+		},
+		{
+			"function": "gbk_encode",
+			"id": 83,
+			"name": "if.then36",
+			"debug": [
+				{
+					"line": 142, "columns": [9]
+				}
+			],
+			"successors": [89],
+			"ir": [
+				"br label %do.body85.thread, !dbg !718"
+			]
+		},
+		{
+			"function": "gbk_encode",
+			"id": 84,
+			"name": "if.then40",
+			"debug": [
+				{
+					"line": 142, "columns": [9]
+				}
+			],
+			"successors": [89],
+			"ir": [
+				"br label %do.body85.thread, !dbg !722"
+			]
+		},
+		{
+			"function": "gbk_encode",
+			"id": 85,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 142, "columns": [9]
+				}
+			],
+			"successors": [95, 86],
+			"ir": [
+				"%shr = lshr i32 %retval.0.i, 8, !dbg !725",
+				"%idxprom = zext i32 %shr to i64, !dbg !725",
+				"%arrayidx44 = getelementptr [256 x %struct.unim_index], ptr @gbcommon_encmap, i64 0, i64 %idxprom, !dbg !725",
+				"%6 = load ptr, ptr %arrayidx44, align 16, !dbg !725, !tbaa !727",
+				"%cmp45.not = icmp eq ptr %6, null, !dbg !725",
+				"br i1 %cmp45.not, label %return, label %land.lhs.true47, !dbg !725"
+			]
+		},
+		{
+			"function": "gbk_encode",
+			"id": 86,
+			"name": "land.lhs.true47",
+			"debug": [
+				{
+					"line": 142, "columns": [9]
+				}
+			],
+			"successors": [95, 87],
+			"ir": [
+				"%and = and i32 %retval.0.i, 255, !dbg !725",
+				"%bottom = getelementptr [256 x %struct.unim_index], ptr @gbcommon_encmap, i64 0, i64 %idxprom, i32 1, !dbg !725",
+				"%7 = load i8, ptr %bottom, align 8, !dbg !725, !tbaa !729",
+				"%conv51 = zext i8 %7 to i32, !dbg !725",
+				"%cmp52.not = icmp ult i32 %and, %conv51, !dbg !725",
+				"br i1 %cmp52.not, label %return, label %land.lhs.true54, !dbg !725"
+			]
+		},
+		{
+			"function": "gbk_encode",
+			"id": 87,
+			"name": "land.lhs.true54",
+			"debug": [
+				{
+					"line": 142, "columns": [9]
+				}
+			],
+			"successors": [95, 88],
+			"ir": [
+				"%top = getelementptr [256 x %struct.unim_index], ptr @gbcommon_encmap, i64 0, i64 %idxprom, i32 2, !dbg !725",
+				"%8 = load i8, ptr %top, align 1, !dbg !725, !tbaa !730",
+				"%conv59 = zext i8 %8 to i32, !dbg !725",
+				"%cmp60.not = icmp ugt i32 %and, %conv59, !dbg !725",
+				"br i1 %cmp60.not, label %return, label %land.lhs.true62, !dbg !725"
+			]
+		},
+		{
+			"function": "gbk_encode",
+			"id": 88,
+			"name": "land.lhs.true62",
+			"debug": [
+				{
+					"line": 142, "columns": [9]
+				}
+			],
+			"successors": [95, 90],
+			"ir": [
+				"%sub73 = sub nsw i32 %and, %conv51, !dbg !725",
+				"%idxprom74 = zext i32 %sub73 to i64, !dbg !725",
+				"%arrayidx75 = getelementptr i16, ptr %6, i64 %idxprom74, !dbg !725",
+				"%9 = load i16, ptr %arrayidx75, align 2, !dbg !725, !tbaa !685",
+				"%cmp77.not = icmp eq i16 %9, -1, !dbg !725",
+				"br i1 %cmp77.not, label %return, label %do.body85, !dbg !731"
+			]
+		},
+		{
+			"function": "gbk_encode",
+			"id": 89,
+			"name": "do.body85.thread",
+			"debug": [
+				{
+					"line": 146, "columns": [9]
+				},
+				{
+					"line": 147, "columns": [13]
+				}
+			],
+			"successors": [91],
+			"ir": [
+				"%code.0.ph = phi i16 [ -24150, %do.end30 ], [ -24156, %if.then40 ], [ -22460, %if.then36 ]",
+				"%shr87155 = lshr i16 %code.0.ph, 8",
+				"%10 = trunc i16 %shr87155 to i8, !dbg !732",
+				"%11 = load ptr, ptr %outbuf, align 8, !dbg !732, !tbaa !704",
+				"store i8 %10, ptr %11, align 1, !dbg !732, !tbaa !680",
+				"br label %do.body95, !dbg !734"
+			]
+		},
+		{
+			"function": "gbk_encode",
+			"id": 90,
+			"name": "do.body85",
+			"debug": [
+				{
+					"line": 146, "columns": [9]
+				},
+				{
+					"line": 147, "columns": [18, 13]
+				}
+			],
+			"successors": [92, 91],
+			"ir": [
+				"%shr87 = lshr i16 %9, 8",
+				"%12 = trunc i16 %shr87 to i8, !dbg !732",
+				"%conv88 = or i8 %12, -128, !dbg !732",
+				"%13 = load ptr, ptr %outbuf, align 8, !dbg !732, !tbaa !704",
+				"store i8 %conv88, ptr %13, align 1, !dbg !732, !tbaa !680",
+				"%tobool.not = icmp sgt i16 %9, -1, !dbg !735",
+				"br i1 %tobool.not, label %do.body103, label %do.body95, !dbg !734"
+			]
+		},
+		{
+			"function": "gbk_encode",
+			"id": 91,
+			"name": "do.body95",
+			"debug": [
+				{
+					"line": 148, "columns": [13]
+				}
+			],
+			"successors": [93],
+			"ir": [
+				"%code.0158 = phi i16 [ %code.0.ph, %do.body85.thread ], [ %9, %do.body85 ]",
+				"%conv98 = trunc i16 %code.0158 to i8, !dbg !737",
+				"br label %do.body113, !dbg !737"
+			]
+		},
+		{
+			"function": "gbk_encode",
+			"id": 92,
+			"name": "do.body103",
+			"debug": [
+				{
+					"line": 150, "columns": [13]
+				}
+			],
+			"successors": [93],
+			"ir": [
+				"%14 = trunc i16 %9 to i8, !dbg !739",
+				"%conv107 = or i8 %14, -128, !dbg !739",
+				"br label %do.body113"
+			]
+		},
+		{
+			"function": "gbk_encode",
+			"id": 93,
+			"name": "do.body113",
+			"debug": [
+				{
+					"line": 152, "columns": [5]
+				}
+			],
+			"successors": [94],
+			"ir": [
+				"%conv107.sink = phi i8 [ %conv107, %do.body103 ], [ %conv98, %do.body95 ]",
+				"%15 = load ptr, ptr %outbuf, align 8, !dbg !741, !tbaa !704",
+				"%arrayidx108 = getelementptr i8, ptr %15, i64 1, !dbg !741",
+				"store i8 %conv107.sink, ptr %arrayidx108, align 1, !dbg !741, !tbaa !680",
+				"br label %cleanup, !dbg !708"
+			]
+		},
+		{
+			"function": "gbk_encode",
+			"id": 94,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 127, "columns": [19, 5]
+				}
+			],
+			"successors": [73, 95],
+			"ir": [
+				"%.sink175 = phi i64 [ 2, %do.body113 ], [ 1, %do.body5 ]",
+				"%.sink = phi i64 [ -2, %do.body113 ], [ -1, %do.body5 ]",
+				"%add114.sink.in = load i64, ptr %inpos, align 8, !dbg !692, !tbaa !661",
+				"%add114.sink = add i64 %add114.sink.in, 1, !dbg !692",
+				"store i64 %add114.sink, ptr %inpos, align 8, !dbg !692, !tbaa !661",
+				"%16 = load ptr, ptr %outbuf, align 8, !dbg !692, !tbaa !704",
+				"%add.ptr118 = getelementptr i8, ptr %16, i64 %.sink175, !dbg !692",
+				"store ptr %add.ptr118, ptr %outbuf, align 8, !dbg !692, !tbaa !704",
+				"%sub119 = add nsw i64 %outleft.addr.0165, %.sink, !dbg !692",
+				"%cmp = icmp slt i64 %add114.sink, %inlen, !dbg !665",
+				"br i1 %cmp, label %while.body, label %return, !dbg !666"
+			]
+		},
+		{
+			"function": "gbk_encode",
+			"id": 95,
+			"name": "return",
+			"debug": [
+				{
+					"line": 155, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.2 = phi i64 [ 0, %entry ], [ 1, %land.lhs.true ], [ 1, %land.lhs.true47 ], [ 1, %land.lhs.true54 ], [ 1, %land.lhs.true62 ], [ 1, %do.end30 ], [ -1, %do.body24 ], [ 1, %if.end19 ], [ -1, %do.body2 ], [ 0, %cleanup ], !dbg !659",
+				"ret i64 %retval.2, !dbg !742"
+			]
+		},
+		{
+			"function": "gbk_decode",
+			"id": 96,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 159, "columns": [19, 5]
+				}
+			],
+			"successors": [97, 118],
+			"ir": [
+				"%cmp228 = icmp sgt i64 %inleft, 0, !dbg !656",
+				"br i1 %cmp228, label %while.body.preheader, label %return, !dbg !657"
+			]
+		},
+		{
+			"function": "gbk_decode",
+			"id": 97,
+			"name": "while.body.preheader",
+			"debug": [
+				{
+					"line": 160, "columns": [27]
+				},
+				{
+					"line": 163, "columns": [13]
+				}
+			],
+			"successors": [98],
+			"ir": [
+				"%.pre = load ptr, ptr %inbuf, align 8, !dbg !658, !tbaa !659",
+				"br label %while.body, !dbg !663"
+			]
+		},
+		{
+			"function": "gbk_decode",
+			"id": 98,
+			"name": "while.body",
+			"debug": [
+				{
+					"line": 160, "columns": [27]
+				},
+				{
+					"line": 163, "columns": [13, 15]
+				}
+			],
+			"successors": [99, 100],
+			"ir": [
+				"%0 = phi ptr [ %add.ptr182, %cleanup ], [ %.pre, %while.body.preheader ], !dbg !658",
+				"%inleft.addr.0229 = phi i64 [ %sub183, %cleanup ], [ %inleft, %while.body.preheader ]",
+				"%1 = load i8, ptr %0, align 1, !dbg !658, !tbaa !664",
+				"%conv = zext i8 %1 to i32, !dbg !666",
+				"%cmp1 = icmp sgt i8 %1, -1, !dbg !668",
+				"br i1 %cmp1, label %do.body, label %do.body11, !dbg !663"
+			]
+		},
+		{
+			"function": "gbk_decode",
+			"id": 99,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 164, "columns": [13]
+				}
+			],
+			"successors": [118, 117],
+			"ir": [
+				"%call = tail call i32 @_PyUnicodeWriter_WriteChar(ptr noundef %writer, i32 noundef %conv) #11, !dbg !669",
+				"%cmp4 = icmp slt i32 %call, 0, !dbg !669",
+				"br i1 %cmp4, label %return, label %cleanup, !dbg !673, !llvm.loop !674"
+			]
+		},
+		{
+			"function": "gbk_decode",
+			"id": 100,
+			"name": "do.body11",
+			"debug": [
+				{
+					"line": 169, "columns": [9]
+				}
+			],
+			"successors": [118, 101],
+			"ir": [
+				"%cmp12 = icmp ult i64 %inleft.addr.0229, 2, !dbg !677",
+				"br i1 %cmp12, label %return, label %do.end17, !dbg !680"
+			]
+		},
+		{
+			"function": "gbk_decode",
+			"id": 101,
+			"name": "do.end17",
+			"debug": [
+				{
+					"line": 171, "columns": [9]
+				}
+			],
+			"successors": [107, 102, 104],
+			"ir": [
+				"switch i8 %1, label %if.else69 [\n    i8 -95, label %land.lhs.true\n    i8 -88, label %land.lhs.true37\n  ], !dbg !681"
+			]
+		},
+		{
+			"function": "gbk_decode",
+			"id": 102,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 171, "columns": [9]
+				}
+			],
+			"successors": [107, 103, 106],
+			"ir": [
+				"%arrayidx21 = getelementptr i8, ptr %0, i64 1, !dbg !681",
+				"%2 = load i8, ptr %arrayidx21, align 1, !dbg !681, !tbaa !664",
+				"switch i8 %2, label %if.else69 [\n    i8 -86, label %do.body26\n    i8 -92, label %do.body61\n  ], !dbg !683"
+			]
+		},
+		{
+			"function": "gbk_decode",
+			"id": 103,
+			"name": "do.body26",
+			"debug": [
+				{
+					"line": 171, "columns": [9]
+				}
+			],
+			"successors": [118, 117],
+			"ir": [
+				"%call27 = tail call i32 @_PyUnicodeWriter_WriteChar(ptr noundef %writer, i32 noundef 8212) #11, !dbg !684",
+				"%cmp28 = icmp slt i32 %call27, 0, !dbg !684",
+				"br i1 %cmp28, label %return, label %cleanup, !dbg !688"
+			]
+		},
+		{
+			"function": "gbk_decode",
+			"id": 104,
+			"name": "land.lhs.true37",
+			"debug": [
+				{
+					"line": 171, "columns": [9]
+				}
+			],
+			"successors": [105, 107],
+			"ir": [
+				"%arrayidx38 = getelementptr i8, ptr %0, i64 1, !dbg !689",
+				"%3 = load i8, ptr %arrayidx38, align 1, !dbg !689, !tbaa !664",
+				"%cmp40 = icmp eq i8 %3, 68, !dbg !689",
+				"br i1 %cmp40, label %do.body43, label %if.else69, !dbg !681"
+			]
+		},
+		{
+			"function": "gbk_decode",
+			"id": 105,
+			"name": "do.body43",
+			"debug": [
+				{
+					"line": 171, "columns": [9]
+				}
+			],
+			"successors": [118, 117],
+			"ir": [
+				"%call44 = tail call i32 @_PyUnicodeWriter_WriteChar(ptr noundef %writer, i32 noundef 8213) #11, !dbg !691",
+				"%cmp45 = icmp slt i32 %call44, 0, !dbg !691",
+				"br i1 %cmp45, label %return, label %cleanup, !dbg !695"
+			]
+		},
+		{
+			"function": "gbk_decode",
+			"id": 106,
+			"name": "do.body61",
+			"debug": [
+				{
+					"line": 171, "columns": [9]
+				}
+			],
+			"successors": [118, 117],
+			"ir": [
+				"%call62 = tail call i32 @_PyUnicodeWriter_WriteChar(ptr noundef %writer, i32 noundef 183) #11, !dbg !696",
+				"%cmp63 = icmp slt i32 %call62, 0, !dbg !696",
+				"br i1 %cmp63, label %return, label %cleanup, !dbg !701"
+			]
+		},
+		{
+			"function": "gbk_decode",
+			"id": 107,
+			"name": "if.else69",
+			"debug": [
+				{
+					"line": 171, "columns": [9]
+				}
+			],
+			"successors": [112, 108],
+			"ir": [
+				"%xor = xor i32 %conv, 128, !dbg !702",
+				"%idxprom = zext i32 %xor to i64",
+				"%arrayidx71 = getelementptr [256 x %struct.dbcs_index], ptr @gb2312_decmap, i64 0, i64 %idxprom, !dbg !702",
+				"%4 = load ptr, ptr %arrayidx71, align 16, !dbg !702, !tbaa !704",
+				"%cmp72.not = icmp eq ptr %4, null, !dbg !702",
+				"br i1 %cmp72.not, label %if.else126, label %land.lhs.true74, !dbg !702"
+			]
+		},
+		{
+			"function": "gbk_decode",
+			"id": 108,
+			"name": "land.lhs.true74",
+			"debug": [
+				{
+					"line": 171, "columns": [9]
+				}
+			],
+			"successors": [112, 109],
+			"ir": [
+				"%arrayidx75 = getelementptr i8, ptr %0, i64 1, !dbg !702",
+				"%5 = load i8, ptr %arrayidx75, align 1, !dbg !702, !tbaa !664",
+				"%6 = xor i8 %5, -128, !dbg !702",
+				"%xor77 = zext i8 %6 to i64, !dbg !702",
+				"%bottom = getelementptr [256 x %struct.dbcs_index], ptr @gb2312_decmap, i64 0, i64 %idxprom, i32 1, !dbg !702",
+				"%7 = load i8, ptr %bottom, align 8, !dbg !702, !tbaa !706",
+				"%conv82 = zext i8 %7 to i64, !dbg !702",
+				"%cmp83.not = icmp ult i8 %6, %7, !dbg !702",
+				"br i1 %cmp83.not, label %if.else126, label %land.lhs.true85, !dbg !702"
+			]
+		},
+		{
+			"function": "gbk_decode",
+			"id": 109,
+			"name": "land.lhs.true85",
+			"debug": [
+				{
+					"line": 171, "columns": [9]
+				}
+			],
+			"successors": [112, 110],
+			"ir": [
+				"%top = getelementptr [256 x %struct.dbcs_index], ptr @gb2312_decmap, i64 0, i64 %idxprom, i32 2, !dbg !702",
+				"%8 = load i8, ptr %top, align 1, !dbg !702, !tbaa !707",
+				"%cmp94.not = icmp ugt i8 %6, %8, !dbg !702",
+				"br i1 %cmp94.not, label %if.else126, label %land.lhs.true96, !dbg !702"
+			]
+		},
+		{
+			"function": "gbk_decode",
+			"id": 110,
+			"name": "land.lhs.true96",
+			"debug": [
+				{
+					"line": 171, "columns": [9]
+				}
+			],
+			"successors": [112, 111],
+			"ir": [
+				"%sub111 = sub nsw i64 %xor77, %conv82, !dbg !702",
+				"%arrayidx113 = getelementptr i16, ptr %4, i64 %sub111, !dbg !702",
+				"%9 = load i16, ptr %arrayidx113, align 2, !dbg !702, !tbaa !708",
+				"%cmp115.not = icmp eq i16 %9, -2, !dbg !702",
+				"br i1 %cmp115.not, label %if.else126, label %do.body118, !dbg !710"
+			]
+		},
+		{
+			"function": "gbk_decode",
+			"id": 111,
+			"name": "do.body118",
+			"debug": [
+				{
+					"line": 171, "columns": [9]
+				}
+			],
+			"successors": [118, 117],
+			"ir": [
+				"%conv114 = zext i16 %9 to i32, !dbg !702",
+				"%call119 = tail call i32 @_PyUnicodeWriter_WriteChar(ptr noundef %writer, i32 noundef %conv114) #11, !dbg !711",
+				"%cmp120 = icmp slt i32 %call119, 0, !dbg !711",
+				"br i1 %cmp120, label %return, label %cleanup, !dbg !715"
+			]
+		},
+		{
+			"function": "gbk_decode",
+			"id": 112,
+			"name": "if.else126",
+			"debug": [
+				{
+					"line": 171, "columns": [9]
+				}
+			],
+			"successors": [118, 113],
+			"ir": [
+				"%idxprom127 = zext i8 %1 to i64, !dbg !716",
+				"%arrayidx128 = getelementptr [256 x %struct.dbcs_index], ptr @gbkext_decmap, i64 0, i64 %idxprom127, !dbg !716",
+				"%10 = load ptr, ptr %arrayidx128, align 16, !dbg !716, !tbaa !704",
+				"%cmp130.not = icmp eq ptr %10, null, !dbg !716",
+				"br i1 %cmp130.not, label %return, label %land.lhs.true132, !dbg !716"
+			]
+		},
+		{
+			"function": "gbk_decode",
+			"id": 113,
+			"name": "land.lhs.true132",
+			"debug": [
+				{
+					"line": 171, "columns": [9]
+				}
+			],
+			"successors": [118, 114],
+			"ir": [
+				"%arrayidx133 = getelementptr i8, ptr %0, i64 1, !dbg !716",
+				"%11 = load i8, ptr %arrayidx133, align 1, !dbg !716, !tbaa !664",
+				"%conv134 = zext i8 %11 to i64, !dbg !716",
+				"%bottom137 = getelementptr [256 x %struct.dbcs_index], ptr @gbkext_decmap, i64 0, i64 %idxprom127, i32 1, !dbg !716",
+				"%12 = load i8, ptr %bottom137, align 8, !dbg !716, !tbaa !706",
+				"%conv138 = zext i8 %12 to i64, !dbg !716",
+				"%cmp139.not = icmp ult i8 %11, %12, !dbg !716",
+				"br i1 %cmp139.not, label %return, label %land.lhs.true141, !dbg !716"
+			]
+		},
+		{
+			"function": "gbk_decode",
+			"id": 114,
+			"name": "land.lhs.true141",
+			"debug": [
+				{
+					"line": 171, "columns": [9]
+				}
+			],
+			"successors": [118, 115],
+			"ir": [
+				"%top146 = getelementptr [256 x %struct.dbcs_index], ptr @gbkext_decmap, i64 0, i64 %idxprom127, i32 2, !dbg !716",
+				"%13 = load i8, ptr %top146, align 1, !dbg !716, !tbaa !707",
+				"%cmp148.not = icmp ugt i8 %11, %13, !dbg !716",
+				"br i1 %cmp148.not, label %return, label %land.lhs.true150, !dbg !716"
+			]
+		},
+		{
+			"function": "gbk_decode",
+			"id": 115,
+			"name": "land.lhs.true150",
+			"debug": [
+				{
+					"line": 171, "columns": [9]
+				}
+			],
+			"successors": [118, 116],
+			"ir": [
+				"%sub160 = sub nsw i64 %conv134, %conv138, !dbg !716",
+				"%arrayidx162 = getelementptr i16, ptr %10, i64 %sub160, !dbg !716",
+				"%14 = load i16, ptr %arrayidx162, align 2, !dbg !716, !tbaa !708",
+				"%cmp164.not = icmp eq i16 %14, -2, !dbg !716",
+				"br i1 %cmp164.not, label %return, label %do.body167, !dbg !702"
+			]
+		},
+		{
+			"function": "gbk_decode",
+			"id": 116,
+			"name": "do.body167",
+			"debug": [
+				{
+					"line": 171, "columns": [9]
+				}
+			],
+			"successors": [118, 117],
+			"ir": [
+				"%conv163 = zext i16 %14 to i32, !dbg !716",
+				"%call168 = tail call i32 @_PyUnicodeWriter_WriteChar(ptr noundef %writer, i32 noundef %conv163) #11, !dbg !718",
+				"%cmp169 = icmp slt i32 %call168, 0, !dbg !718",
+				"br i1 %cmp169, label %return, label %cleanup, !dbg !722"
+			]
+		},
+		{
+			"function": "gbk_decode",
+			"id": 117,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 159, "columns": [19, 5]
+				}
+			],
+			"successors": [98, 118],
+			"ir": [
+				"%.sink242 = phi i64 [ 1, %do.body ], [ 2, %do.body26 ], [ 2, %do.body61 ], [ 2, %do.body167 ], [ 2, %do.body118 ], [ 2, %do.body43 ]",
+				"%.sink = phi i64 [ -1, %do.body ], [ -2, %do.body26 ], [ -2, %do.body61 ], [ -2, %do.body167 ], [ -2, %do.body118 ], [ -2, %do.body43 ]",
+				"%15 = load ptr, ptr %inbuf, align 8, !dbg !665, !tbaa !659",
+				"%add.ptr182 = getelementptr i8, ptr %15, i64 %.sink242, !dbg !665",
+				"store ptr %add.ptr182, ptr %inbuf, align 8, !dbg !665, !tbaa !659",
+				"%sub183 = add nsw i64 %inleft.addr.0229, %.sink, !dbg !665",
+				"%cmp = icmp sgt i64 %sub183, 0, !dbg !656",
+				"br i1 %cmp, label %while.body, label %return, !dbg !657"
+			]
+		},
+		{
+			"function": "gbk_decode",
+			"id": 118,
+			"name": "return",
+			"debug": [
+				{
+					"line": 179, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.2 = phi i64 [ 0, %entry ], [ 1, %if.else126 ], [ 1, %land.lhs.true132 ], [ 1, %land.lhs.true141 ], [ 1, %land.lhs.true150 ], [ -4, %do.body167 ], [ -4, %do.body118 ], [ -4, %do.body61 ], [ -4, %do.body43 ], [ -4, %do.body26 ], [ -2, %do.body11 ], [ -4, %do.body ], [ 0, %cleanup ], !dbg !655",
+				"ret i64 %retval.2, !dbg !723"
+			]
+		},
+		{
+			"function": "gb18030_encode",
+			"id": 119,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 188, "columns": [12, 19, 5]
+				}
+			],
+			"successors": [120, 153],
+			"ir": [
+				"%.pre = load i64, ptr %inpos, align 8, !dbg !676, !tbaa !677",
+				"%cmp410 = icmp slt i64 %.pre, %inlen, !dbg !681",
+				"br i1 %cmp410, label %while.body, label %return, !dbg !682"
+			]
+		},
+		{
+			"function": "gb18030_encode",
+			"id": 120,
+			"name": "while.body",
+			"debug": [
+				{
+					"line": 317, "columns": [9]
+				}
+			],
+			"successors": [123, 121, 122],
+			"ir": [
+				"%outleft.addr.0411 = phi i64 [ %sub244, %cleanup301 ], [ %outleft, %entry ]",
+				"%0 = phi i64 [ %add239.sink, %cleanup301 ], [ %.pre, %entry ]",
+				"switch i32 %kind, label %if.end6.i [\n    i32 1, label %if.then.i\n    i32 2, label %if.then3.i\n  ], !dbg !692"
+			]
+		},
+		{
+			"function": "gb18030_encode",
+			"id": 121,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 318, "columns": [16, 9]
+				}
+			],
+			"successors": [124],
+			"ir": [
+				"%arrayidx.i = getelementptr i8, ptr %data, i64 %0, !dbg !693",
+				"%1 = load i8, ptr %arrayidx.i, align 1, !dbg !693, !tbaa !696",
+				"%conv.i = zext i8 %1 to i32, !dbg !693",
+				"br label %PyUnicode_READ.exit, !dbg !697"
+			]
+		},
+		{
+			"function": "gb18030_encode",
+			"id": 122,
+			"name": "if.then3.i",
+			"debug": [
+				{
+					"line": 321, "columns": [16, 9]
+				}
+			],
+			"successors": [124],
+			"ir": [
+				"%arrayidx4.i = getelementptr i16, ptr %data, i64 %0, !dbg !698",
+				"%2 = load i16, ptr %arrayidx4.i, align 2, !dbg !698, !tbaa !701",
+				"%conv5.i = zext i16 %2 to i32, !dbg !698",
+				"br label %PyUnicode_READ.exit, !dbg !703"
+			]
+		},
+		{
+			"function": "gb18030_encode",
+			"id": 123,
+			"name": "if.end6.i",
+			"debug": [
+				{
+					"line": 324, "columns": [12, 5]
+				}
+			],
+			"successors": [124],
+			"ir": [
+				"%arrayidx7.i = getelementptr i32, ptr %data, i64 %0, !dbg !704",
+				"%3 = load i32, ptr %arrayidx7.i, align 4, !dbg !704, !tbaa !705",
+				"br label %PyUnicode_READ.exit, !dbg !707"
+			]
+		},
+		{
+			"function": "gb18030_encode",
+			"id": 124,
+			"name": "PyUnicode_READ.exit",
+			"debug": [
+				{
+					"line": 192, "columns": [15, 13]
+				}
+			],
+			"successors": [125, 127],
+			"ir": [
+				"%retval.0.i = phi i32 [ %conv.i, %if.then.i ], [ %conv5.i, %if.then3.i ], [ %3, %if.end6.i ], !dbg !690",
+				"%cmp1 = icmp ult i32 %retval.0.i, 128, !dbg !709",
+				"br i1 %cmp1, label %do.body2, label %if.end19, !dbg !711"
+			]
+		},
+		{
+			"function": "gb18030_encode",
+			"id": 125,
+			"name": "do.body2",
+			"debug": [
+				{
+					"line": 193, "columns": [13]
+				}
+			],
+			"successors": [153, 126],
+			"ir": [
+				"%cmp3 = icmp slt i64 %outleft.addr.0411, 1, !dbg !712",
+				"br i1 %cmp3, label %return, label %do.body5, !dbg !717"
+			]
+		},
+		{
+			"function": "gb18030_encode",
+			"id": 126,
+			"name": "do.body5",
+			"debug": [
+				{
+					"line": 193, "columns": [13]
+				},
+				{
+					"line": 195, "columns": [13]
+				}
+			],
+			"successors": [152],
+			"ir": [
+				"%conv = trunc i32 %retval.0.i to i8, !dbg !718",
+				"%4 = load ptr, ptr %outbuf, align 8, !dbg !718, !tbaa !720",
+				"store i8 %conv, ptr %4, align 1, !dbg !718, !tbaa !696",
+				"br label %cleanup301, !dbg !722, !llvm.loop !723"
+			]
+		},
+		{
+			"function": "gb18030_encode",
+			"id": 127,
+			"name": "if.end19",
+			"debug": [
+				{
+					"line": 198, "columns": [15, 13]
+				}
+			],
+			"successors": [128, 130],
+			"ir": [
+				"%cmp20 = icmp ugt i32 %retval.0.i, 65535, !dbg !726",
+				"br i1 %cmp20, label %if.then22, label %do.body78, !dbg !727"
+			]
+		},
+		{
+			"function": "gb18030_encode",
+			"id": 128,
+			"name": "if.then22",
+			"debug": [
+				{
+					"line": 202, "columns": [13]
+				}
+			],
+			"successors": [153, 129],
+			"ir": [
+				"%cmp25 = icmp slt i64 %outleft.addr.0411, 4, !dbg !729",
+				"br i1 %cmp25, label %return, label %do.body31, !dbg !732"
+			]
+		},
+		{
+			"function": "gb18030_encode",
+			"id": 129,
+			"name": "do.body31",
+			"debug": [
+				{
+					"line": 199, "columns": [28]
+				},
+				{
+					"line": 204, "columns": [13]
+				},
+				{
+					"line": 205, "columns": [16]
+				},
+				{
+					"line": 206, "columns": [13]
+				},
+				{
+					"line": 207, "columns": [16]
+				},
+				{
+					"line": 208, "columns": [13]
+				},
+				{
+					"line": 209, "columns": [16]
+				},
+				{
+					"line": 210, "columns": [13]
+				},
+				{
+					"line": 213, "columns": [13]
+				}
+			],
+			"successors": [152],
+			"ir": [
+				"%sub23 = add i32 %retval.0.i, -65536, !dbg !733",
+				"%rem = urem i32 %sub23, 10, !dbg !734",
+				"%5 = trunc i32 %rem to i8, !dbg !734",
+				"%conv35 = or i8 %5, 48, !dbg !734",
+				"%6 = load ptr, ptr %outbuf, align 8, !dbg !734, !tbaa !720",
+				"%arrayidx36 = getelementptr i8, ptr %6, i64 3, !dbg !734",
+				"store i8 %conv35, ptr %arrayidx36, align 1, !dbg !734, !tbaa !696",
+				"%div = udiv i32 %sub23, 10, !dbg !736",
+				"%rem40 = urem i32 %div, 126, !dbg !737",
+				"%7 = trunc i32 %rem40 to i8, !dbg !737",
+				"%conv44 = add nuw nsw i8 %7, -127, !dbg !737",
+				"%8 = load ptr, ptr %outbuf, align 8, !dbg !737, !tbaa !720",
+				"%arrayidx45 = getelementptr i8, ptr %8, i64 2, !dbg !737",
+				"store i8 %conv44, ptr %arrayidx45, align 1, !dbg !737, !tbaa !696",
+				"%div48 = udiv i32 %sub23, 1260, !dbg !739",
+				"%rem50 = urem i32 %div48, 10, !dbg !740",
+				"%9 = trunc i32 %rem50 to i8, !dbg !740",
+				"%conv54 = or i8 %9, 48, !dbg !740",
+				"%10 = load ptr, ptr %outbuf, align 8, !dbg !740, !tbaa !720",
+				"%arrayidx55 = getelementptr i8, ptr %10, i64 1, !dbg !740",
+				"store i8 %conv54, ptr %arrayidx55, align 1, !dbg !740, !tbaa !696",
+				"%div58 = udiv i32 %sub23, 12600, !dbg !742",
+				"%11 = trunc i32 %div58 to i8, !dbg !743",
+				"%conv61 = add i8 %11, -112, !dbg !743",
+				"%12 = load ptr, ptr %outbuf, align 8, !dbg !743, !tbaa !720",
+				"store i8 %conv61, ptr %12, align 1, !dbg !743, !tbaa !696",
+				"br label %cleanup301, !dbg !745, !llvm.loop !723"
+			]
+		},
+		{
+			"function": "gb18030_encode",
+			"id": 130,
+			"name": "do.body78",
+			"debug": [
+				{
+					"line": 216, "columns": [9]
+				}
+			],
+			"successors": [153, 131],
+			"ir": [
+				"%cmp79 = icmp slt i64 %outleft.addr.0411, 2, !dbg !746",
+				"br i1 %cmp79, label %return, label %do.end84, !dbg !749"
+			]
+		},
+		{
+			"function": "gb18030_encode",
+			"id": 131,
+			"name": "do.end84",
+			"debug": [
+				{
+					"line": 218, "columns": [9]
+				}
+			],
+			"successors": [134, 147, 132, 133, 138],
+			"ir": [
+				"switch i32 %retval.0.i, label %land.lhs.true [\n    i32 8212, label %do.body262.thread\n    i32 8213, label %if.then90\n    i32 183, label %if.then94\n    i32 12539, label %if.else134\n  ], !dbg !750"
+			]
+		},
+		{
+			"function": "gb18030_encode",
+			"id": 132,
+			"name": "if.then90",
+			"debug": [
+				{
+					"line": 218, "columns": [9]
+				}
+			],
+			"successors": [147],
+			"ir": [
+				"br label %do.body262.thread, !dbg !751"
+			]
+		},
+		{
+			"function": "gb18030_encode",
+			"id": 133,
+			"name": "if.then94",
+			"debug": [
+				{
+					"line": 218, "columns": [9]
+				}
+			],
+			"successors": [147],
+			"ir": [
+				"br label %do.body262.thread, !dbg !753"
+			]
+		},
+		{
+			"function": "gb18030_encode",
+			"id": 134,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 218, "columns": [9]
+				}
+			],
+			"successors": [138, 135],
+			"ir": [
+				"%shr = lshr i32 %retval.0.i, 8, !dbg !755",
+				"%idxprom = zext i32 %shr to i64, !dbg !755",
+				"%arrayidx98 = getelementptr [256 x %struct.unim_index], ptr @gbcommon_encmap, i64 0, i64 %idxprom, !dbg !755",
+				"%13 = load ptr, ptr %arrayidx98, align 16, !dbg !755, !tbaa !756",
+				"%cmp99.not = icmp eq ptr %13, null, !dbg !755",
+				"br i1 %cmp99.not, label %if.else134, label %land.lhs.true101, !dbg !755"
+			]
+		},
+		{
+			"function": "gb18030_encode",
+			"id": 135,
+			"name": "land.lhs.true101",
+			"debug": [
+				{
+					"line": 218, "columns": [9]
+				}
+			],
+			"successors": [138, 136],
+			"ir": [
+				"%and = and i32 %retval.0.i, 255, !dbg !755",
+				"%bottom = getelementptr [256 x %struct.unim_index], ptr @gbcommon_encmap, i64 0, i64 %idxprom, i32 1, !dbg !755",
+				"%14 = load i8, ptr %bottom, align 8, !dbg !755, !tbaa !758",
+				"%conv105 = zext i8 %14 to i32, !dbg !755",
+				"%cmp106.not = icmp ult i32 %and, %conv105, !dbg !755",
+				"br i1 %cmp106.not, label %if.else134, label %land.lhs.true108, !dbg !755"
+			]
+		},
+		{
+			"function": "gb18030_encode",
+			"id": 136,
+			"name": "land.lhs.true108",
+			"debug": [
+				{
+					"line": 218, "columns": [9]
+				}
+			],
+			"successors": [138, 137],
+			"ir": [
+				"%top = getelementptr [256 x %struct.unim_index], ptr @gbcommon_encmap, i64 0, i64 %idxprom, i32 2, !dbg !755",
+				"%15 = load i8, ptr %top, align 1, !dbg !755, !tbaa !759",
+				"%conv113 = zext i8 %15 to i32, !dbg !755",
+				"%cmp114.not = icmp ugt i32 %and, %conv113, !dbg !755",
+				"br i1 %cmp114.not, label %if.else134, label %land.lhs.true116, !dbg !755"
+			]
+		},
+		{
+			"function": "gb18030_encode",
+			"id": 137,
+			"name": "land.lhs.true116",
+			"debug": [
+				{
+					"line": 218, "columns": [9]
+				}
+			],
+			"successors": [138, 148],
+			"ir": [
+				"%sub127 = sub nsw i32 %and, %conv105, !dbg !755",
+				"%idxprom128 = zext i32 %sub127 to i64, !dbg !755",
+				"%arrayidx129 = getelementptr i16, ptr %13, i64 %idxprom128, !dbg !755",
+				"%16 = load i16, ptr %arrayidx129, align 2, !dbg !755, !tbaa !701",
+				"%cmp131.not = icmp eq i16 %16, -1, !dbg !755",
+				"br i1 %cmp131.not, label %if.else134, label %do.body262, !dbg !760"
+			]
+		},
+		{
+			"function": "gb18030_encode",
+			"id": 138,
+			"name": "if.else134",
+			"debug": [
+				{
+					"line": 219, "columns": [18]
+				}
+			],
+			"successors": [142, 139],
+			"ir": [
+				"%idxprom136.pre-phi = phi i64 [ %idxprom, %land.lhs.true116 ], [ %idxprom, %land.lhs.true108 ], [ %idxprom, %land.lhs.true101 ], [ %idxprom, %land.lhs.true ], [ 48, %do.end84 ], !dbg !761",
+				"%arrayidx137 = getelementptr [256 x %struct.unim_index], ptr @gb18030ext_encmap, i64 0, i64 %idxprom136.pre-phi, !dbg !761",
+				"%17 = load ptr, ptr %arrayidx137, align 16, !dbg !761, !tbaa !756",
+				"%cmp139.not = icmp eq ptr %17, null, !dbg !761",
+				"br i1 %cmp139.not, label %if.else177, label %land.lhs.true141, !dbg !761"
+			]
+		},
+		{
+			"function": "gb18030_encode",
+			"id": 139,
+			"name": "land.lhs.true141",
+			"debug": [
+				{
+					"line": 219, "columns": [18]
+				}
+			],
+			"successors": [142, 140],
+			"ir": [
+				"%and142 = and i32 %retval.0.i, 255, !dbg !761",
+				"%bottom146 = getelementptr [256 x %struct.unim_index], ptr @gb18030ext_encmap, i64 0, i64 %idxprom136.pre-phi, i32 1, !dbg !761",
+				"%18 = load i8, ptr %bottom146, align 8, !dbg !761, !tbaa !758",
+				"%conv147 = zext i8 %18 to i32, !dbg !761",
+				"%cmp148.not = icmp ult i32 %and142, %conv147, !dbg !761",
+				"br i1 %cmp148.not, label %if.else177, label %land.lhs.true150, !dbg !761"
+			]
+		},
+		{
+			"function": "gb18030_encode",
+			"id": 140,
+			"name": "land.lhs.true150",
+			"debug": [
+				{
+					"line": 219, "columns": [18]
+				}
+			],
+			"successors": [142, 141],
+			"ir": [
+				"%top155 = getelementptr [256 x %struct.unim_index], ptr @gb18030ext_encmap, i64 0, i64 %idxprom136.pre-phi, i32 2, !dbg !761",
+				"%19 = load i8, ptr %top155, align 1, !dbg !761, !tbaa !759",
+				"%conv156 = zext i8 %19 to i32, !dbg !761",
+				"%cmp157.not = icmp ugt i32 %and142, %conv156, !dbg !761",
+				"br i1 %cmp157.not, label %if.else177, label %land.lhs.true159, !dbg !761"
+			]
+		},
+		{
+			"function": "gb18030_encode",
+			"id": 141,
+			"name": "land.lhs.true159",
+			"debug": [
+				{
+					"line": 219, "columns": [18]
+				}
+			],
+			"successors": [142, 148],
+			"ir": [
+				"%sub170 = sub nsw i32 %and142, %conv147, !dbg !761",
+				"%idxprom171 = zext i32 %sub170 to i64, !dbg !761",
+				"%arrayidx172 = getelementptr i16, ptr %17, i64 %idxprom171, !dbg !761",
+				"%20 = load i16, ptr %arrayidx172, align 2, !dbg !761, !tbaa !701",
+				"%cmp174.not = icmp eq i16 %20, -1, !dbg !761",
+				"br i1 %cmp174.not, label %if.else177, label %do.body262, !dbg !762"
+			]
+		},
+		{
+			"function": "gb18030_encode",
+			"id": 142,
+			"name": "if.else177",
+			"debug": [
+				{
+					"line": 224, "columns": [13]
+				}
+			],
+			"successors": [153, 143],
+			"ir": [
+				"%cmp179 = icmp ult i64 %outleft.addr.0411, 4, !dbg !763",
+				"br i1 %cmp179, label %return, label %for.body, !dbg !766"
+			]
+		},
+		{
+			"function": "gb18030_encode",
+			"id": 143,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 229, "columns": [37, 42]
+				}
+			],
+			"successors": [146, 144],
+			"ir": [
+				"%21 = phi i32 [ %32, %for.inc ], [ 128, %if.else177 ]",
+				"%utrrange.0393 = phi ptr [ %incdec.ptr, %for.inc ], [ @gb18030_to_unibmp_ranges, %if.else177 ]",
+				"%cmp188.not = icmp ult i32 %retval.0.i, %21, !dbg !768",
+				"br i1 %cmp188.not, label %for.inc, label %land.lhs.true190, !dbg !769"
+			]
+		},
+		{
+			"function": "gb18030_encode",
+			"id": 144,
+			"name": "land.lhs.true190",
+			"debug": [
+				{
+					"line": 229, "columns": [21]
+				},
+				{
+					"line": 230, "columns": [36, 23]
+				}
+			],
+			"successors": [146, 145],
+			"ir": [
+				"%last = getelementptr inbounds %struct._gb18030_to_unibmp_ranges, ptr %utrrange.0393, i64 0, i32 1, !dbg !770",
+				"%22 = load i32, ptr %last, align 4, !dbg !770, !tbaa !771",
+				"%cmp191.not = icmp ugt i32 %retval.0.i, %22, !dbg !773",
+				"br i1 %cmp191.not, label %for.inc, label %if.then193, !dbg !774"
+			]
+		},
+		{
+			"function": "gb18030_encode",
+			"id": 145,
+			"name": "if.then193",
+			"debug": [
+				{
+					"line": 233, "columns": [28, 46]
+				},
+				{
+					"line": 234, "columns": [36, 26]
+				},
+				{
+					"line": 236, "columns": [21]
+				},
+				{
+					"line": 237, "columns": [24]
+				},
+				{
+					"line": 238, "columns": [21]
+				},
+				{
+					"line": 239, "columns": [24]
+				},
+				{
+					"line": 240, "columns": [21]
+				},
+				{
+					"line": 241, "columns": [24]
+				},
+				{
+					"line": 242, "columns": [21]
+				}
+			],
+			"successors": [152],
+			"ir": [
+				"%sub196 = sub nsw i32 %retval.0.i, %21, !dbg !775",
+				"%base = getelementptr inbounds %struct._gb18030_to_unibmp_ranges, ptr %utrrange.0393, i64 0, i32 2, !dbg !776",
+				"%23 = load i16, ptr %base, align 4, !dbg !776, !tbaa !777",
+				"%conv197 = zext i16 %23 to i32, !dbg !778",
+				"%add198 = add nsw i32 %sub196, %conv197, !dbg !779",
+				"%rem200 = urem i32 %add198, 10, !dbg !781",
+				"%24 = trunc i32 %rem200 to i8, !dbg !781",
+				"%conv204 = or i8 %24, 48, !dbg !781",
+				"%25 = load ptr, ptr %outbuf, align 8, !dbg !781, !tbaa !720",
+				"%arrayidx205 = getelementptr i8, ptr %25, i64 3, !dbg !781",
+				"store i8 %conv204, ptr %arrayidx205, align 1, !dbg !781, !tbaa !696",
+				"%div208 = udiv i32 %add198, 10, !dbg !783",
+				"%rem210 = urem i32 %div208, 126, !dbg !784",
+				"%26 = trunc i32 %rem210 to i8, !dbg !784",
+				"%conv214 = add nuw nsw i8 %26, -127, !dbg !784",
+				"%27 = load ptr, ptr %outbuf, align 8, !dbg !784, !tbaa !720",
+				"%arrayidx215 = getelementptr i8, ptr %27, i64 2, !dbg !784",
+				"store i8 %conv214, ptr %arrayidx215, align 1, !dbg !784, !tbaa !696",
+				"%div218 = udiv i32 %add198, 1260, !dbg !786",
+				"%rem220 = urem i32 %div218, 10, !dbg !787",
+				"%28 = trunc i32 %rem220 to i8, !dbg !787",
+				"%conv224 = or i8 %28, 48, !dbg !787",
+				"%29 = load ptr, ptr %outbuf, align 8, !dbg !787, !tbaa !720",
+				"%arrayidx225 = getelementptr i8, ptr %29, i64 1, !dbg !787",
+				"store i8 %conv224, ptr %arrayidx225, align 1, !dbg !787, !tbaa !696",
+				"%div228 = udiv i32 %add198, 12600, !dbg !789",
+				"%30 = trunc i32 %div228 to i8, !dbg !790",
+				"%conv233 = add i8 %30, -127, !dbg !790",
+				"%31 = load ptr, ptr %outbuf, align 8, !dbg !790, !tbaa !720",
+				"store i8 %conv233, ptr %31, align 1, !dbg !790, !tbaa !696",
+				"br label %cleanup301"
+			]
+		},
+		{
+			"function": "gb18030_encode",
+			"id": 146,
+			"name": "for.inc",
+			"debug": [
+				{
+					"line": 226, "columns": [13]
+				},
+				{
+					"line": 227, "columns": [28, 34]
+				},
+				{
+					"line": 228, "columns": [26]
+				}
+			],
+			"successors": [153, 143],
+			"ir": [
+				"%incdec.ptr = getelementptr %struct._gb18030_to_unibmp_ranges, ptr %utrrange.0393, i64 1, !dbg !792",
+				"%32 = load i32, ptr %incdec.ptr, align 4, !dbg !793, !tbaa !794",
+				"%cmp185.not = icmp eq i32 %32, 0, !dbg !795",
+				"br i1 %cmp185.not, label %return, label %for.body, !dbg !796, !llvm.loop !797"
+			]
+		},
+		{
+			"function": "gb18030_encode",
+			"id": 147,
+			"name": "do.body262.thread",
+			"debug": [
+				{
+					"line": 253, "columns": [9]
+				},
+				{
+					"line": 254, "columns": [13]
+				}
+			],
+			"successors": [149],
+			"ir": [
+				"%code.0.ph = phi i16 [ -24150, %do.end84 ], [ -24156, %if.then94 ], [ -22460, %if.then90 ]",
+				"%shr264381 = lshr i16 %code.0.ph, 8",
+				"%33 = trunc i16 %shr264381 to i8, !dbg !799",
+				"%34 = load ptr, ptr %outbuf, align 8, !dbg !799, !tbaa !720",
+				"store i8 %33, ptr %34, align 1, !dbg !799, !tbaa !696",
+				"br label %do.body272, !dbg !801"
+			]
+		},
+		{
+			"function": "gb18030_encode",
+			"id": 148,
+			"name": "do.body262",
+			"debug": [
+				{
+					"line": 253, "columns": [9]
+				},
+				{
+					"line": 254, "columns": [18, 13]
+				}
+			],
+			"successors": [150, 149],
+			"ir": [
+				"%code.0 = phi i16 [ %16, %land.lhs.true116 ], [ %20, %land.lhs.true159 ], !dbg !802",
+				"%shr264 = lshr i16 %code.0, 8",
+				"%35 = trunc i16 %shr264 to i8, !dbg !799",
+				"%conv265 = or i8 %35, -128, !dbg !799",
+				"%36 = load ptr, ptr %outbuf, align 8, !dbg !799, !tbaa !720",
+				"store i8 %conv265, ptr %36, align 1, !dbg !799, !tbaa !696",
+				"%tobool.not = icmp sgt i16 %code.0, -1, !dbg !803",
+				"br i1 %tobool.not, label %do.body280, label %do.body272, !dbg !801"
+			]
+		},
+		{
+			"function": "gb18030_encode",
+			"id": 149,
+			"name": "do.body272",
+			"debug": [
+				{
+					"line": 255, "columns": [13]
+				}
+			],
+			"successors": [151],
+			"ir": [
+				"%code.0384 = phi i16 [ %code.0.ph, %do.body262.thread ], [ %code.0, %do.body262 ]",
+				"%conv275 = trunc i16 %code.0384 to i8, !dbg !805",
+				"br label %do.body290, !dbg !805"
+			]
+		},
+		{
+			"function": "gb18030_encode",
+			"id": 150,
+			"name": "do.body280",
+			"debug": [
+				{
+					"line": 257, "columns": [13]
+				}
+			],
+			"successors": [151],
+			"ir": [
+				"%37 = trunc i16 %code.0 to i8, !dbg !807",
+				"%conv284 = or i8 %37, -128, !dbg !807",
+				"br label %do.body290"
+			]
+		},
+		{
+			"function": "gb18030_encode",
+			"id": 151,
+			"name": "do.body290",
+			"debug": [
+				{
+					"line": 260, "columns": [5]
+				}
+			],
+			"successors": [152],
+			"ir": [
+				"%conv284.sink = phi i8 [ %conv284, %do.body280 ], [ %conv275, %do.body272 ]",
+				"%38 = load ptr, ptr %outbuf, align 8, !dbg !809, !tbaa !720",
+				"%arrayidx285 = getelementptr i8, ptr %38, i64 1, !dbg !809",
+				"store i8 %conv284.sink, ptr %arrayidx285, align 1, !dbg !809, !tbaa !696",
+				"br label %cleanup301, !dbg !724"
+			]
+		},
+		{
+			"function": "gb18030_encode",
+			"id": 152,
+			"name": "cleanup301",
+			"debug": [
+				{
+					"line": 188, "columns": [19, 5]
+				}
+			],
+			"successors": [120, 153],
+			"ir": [
+				"%.sink406 = phi i64 [ 4, %if.then193 ], [ 4, %do.body31 ], [ 2, %do.body290 ], [ 1, %do.body5 ]",
+				"%.sink = phi i64 [ -4, %if.then193 ], [ -4, %do.body31 ], [ -2, %do.body290 ], [ -1, %do.body5 ]",
+				"%add239.sink.in = load i64, ptr %inpos, align 8, !dbg !708, !tbaa !677",
+				"%add239.sink = add i64 %add239.sink.in, 1, !dbg !708",
+				"store i64 %add239.sink, ptr %inpos, align 8, !dbg !708, !tbaa !677",
+				"%39 = load ptr, ptr %outbuf, align 8, !dbg !708, !tbaa !720",
+				"%add.ptr243 = getelementptr i8, ptr %39, i64 %.sink406, !dbg !708",
+				"store ptr %add.ptr243, ptr %outbuf, align 8, !dbg !708, !tbaa !720",
+				"%sub244 = add nsw i64 %outleft.addr.0411, %.sink, !dbg !708",
+				"%cmp = icmp slt i64 %add239.sink, %inlen, !dbg !681",
+				"br i1 %cmp, label %while.body, label %return, !dbg !682"
+			]
+		},
+		{
+			"function": "gb18030_encode",
+			"id": 153,
+			"name": "return",
+			"debug": [
+				{
+					"line": 263, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.4 = phi i64 [ 0, %entry ], [ 1, %for.inc ], [ -1, %if.else177 ], [ -1, %do.body78 ], [ -1, %if.then22 ], [ -1, %do.body2 ], [ 0, %cleanup301 ], !dbg !675",
+				"ret i64 %retval.4, !dbg !810"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 154,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 267, "columns": [19, 5]
+				}
+			],
+			"successors": [155, 192],
+			"ir": [
+				"%cmp453 = icmp sgt i64 %inleft, 0, !dbg !664",
+				"br i1 %cmp453, label %while.body.preheader, label %return, !dbg !665"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 155,
+			"name": "while.body.preheader",
+			"debug": [
+				{
+					"line": 268, "columns": [27]
+				},
+				{
+					"line": 271, "columns": [13]
+				}
+			],
+			"successors": [156],
+			"ir": [
+				"%.pre = load ptr, ptr %inbuf, align 8, !dbg !666, !tbaa !667",
+				"br label %while.body, !dbg !671"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 156,
+			"name": "while.body",
+			"debug": [
+				{
+					"line": 268, "columns": [27]
+				},
+				{
+					"line": 271, "columns": [13, 15]
+				}
+			],
+			"successors": [157, 158],
+			"ir": [
+				"%0 = phi ptr [ %add.ptr103, %cleanup355 ], [ %.pre, %while.body.preheader ], !dbg !666",
+				"%inleft.addr.0454 = phi i64 [ %sub104, %cleanup355 ], [ %inleft, %while.body.preheader ]",
+				"%1 = load i8, ptr %0, align 1, !dbg !666, !tbaa !672",
+				"%conv = zext i8 %1 to i32, !dbg !674",
+				"%cmp1 = icmp sgt i8 %1, -1, !dbg !676",
+				"br i1 %cmp1, label %do.body, label %do.body11, !dbg !671"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 157,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 272, "columns": [13]
+				}
+			],
+			"successors": [192, 191],
+			"ir": [
+				"%call = tail call i32 @_PyUnicodeWriter_WriteChar(ptr noundef %writer, i32 noundef %conv) #11, !dbg !677",
+				"%cmp4 = icmp slt i32 %call, 0, !dbg !677",
+				"br i1 %cmp4, label %return, label %cleanup355, !dbg !681, !llvm.loop !682"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 158,
+			"name": "do.body11",
+			"debug": [
+				{
+					"line": 277, "columns": [9]
+				}
+			],
+			"successors": [192, 159],
+			"ir": [
+				"%cmp12 = icmp ult i64 %inleft.addr.0454, 2, !dbg !685",
+				"br i1 %cmp12, label %return, label %do.end17, !dbg !688"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 159,
+			"name": "do.end17",
+			"debug": [
+				{
+					"line": 279, "columns": [14]
+				},
+				{
+					"line": 280, "columns": [13, 24]
+				}
+			],
+			"successors": [160, 170],
+			"ir": [
+				"%arrayidx18 = getelementptr i8, ptr %0, i64 1, !dbg !689",
+				"%2 = load i8, ptr %arrayidx18, align 1, !dbg !689, !tbaa !672",
+				"%conv19 = zext i8 %2 to i32, !dbg !690",
+				"%3 = add i8 %2, -48, !dbg !691",
+				"%or.cond = icmp ult i8 %3, 10, !dbg !691",
+				"br i1 %or.cond, label %if.then25, label %if.end146, !dbg !691"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 160,
+			"name": "if.then25",
+			"debug": [
+				{
+					"line": 285, "columns": [13]
+				}
+			],
+			"successors": [192, 161],
+			"ir": [
+				"%cmp27 = icmp ult i64 %inleft.addr.0454, 4, !dbg !692",
+				"br i1 %cmp27, label %return, label %do.end32, !dbg !695"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 161,
+			"name": "do.end32",
+			"debug": [
+				{
+					"line": 286, "columns": [18]
+				},
+				{
+					"line": 287, "columns": [18]
+				},
+				{
+					"line": 288, "columns": [27]
+				}
+			],
+			"successors": [192, 162],
+			"ir": [
+				"%arrayidx33 = getelementptr i8, ptr %0, i64 2, !dbg !696",
+				"%4 = load i8, ptr %arrayidx33, align 1, !dbg !696, !tbaa !672",
+				"%arrayidx34 = getelementptr i8, ptr %0, i64 3, !dbg !698",
+				"%5 = load i8, ptr %arrayidx34, align 1, !dbg !698, !tbaa !672",
+				"%6 = add nsw i8 %1, 1, !dbg !699",
+				"%or.cond358 = icmp ult i8 %6, -126, !dbg !699",
+				"%cmp43 = icmp ult i8 %4, -127",
+				"%or.cond359 = select i1 %or.cond358, i1 true, i1 %cmp43, !dbg !699",
+				"%cmp47 = icmp eq i8 %4, -1",
+				"%or.cond360 = select i1 %or.cond359, i1 true, i1 %cmp47, !dbg !699",
+				"%cmp51 = icmp ult i8 %5, 48",
+				"%or.cond361 = select i1 %or.cond360, i1 true, i1 %cmp51, !dbg !699",
+				"%cmp55 = icmp ugt i8 %5, 57",
+				"%or.cond362 = select i1 %or.cond361, i1 true, i1 %cmp55, !dbg !699",
+				"br i1 %or.cond362, label %return, label %if.end58, !dbg !699"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 162,
+			"name": "if.end58",
+			"debug": [
+				{
+					"line": 292, "columns": [15]
+				},
+				{
+					"line": 293, "columns": [16, 28]
+				},
+				{
+					"line": 295, "columns": [17, 19]
+				}
+			],
+			"successors": [163, 167],
+			"ir": [
+				"%sub60 = add nsw i8 %1, 127, !dbg !701",
+				"%sub66 = add nsw i8 %4, 127, !dbg !702",
+				"%sub69 = add nsw i8 %5, -48, !dbg !703",
+				"%conv71 = zext i8 %sub60 to i32, !dbg !704",
+				"%cmp72 = icmp ult i8 %sub60, 4, !dbg !706",
+				"br i1 %cmp72, label %if.then74, label %if.else, !dbg !707"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 163,
+			"name": "if.then74",
+			"debug": [
+				{
+					"line": 296, "columns": [36, 43, 41, 47, 54]
+				},
+				{
+					"line": 297, "columns": [21, 33, 40, 38]
+				},
+				{
+					"line": 298, "columns": [26, 21]
+				}
+			],
+			"successors": [164, 192],
+			"ir": [
+				"%mul = mul nuw nsw i32 %conv71, 10, !dbg !708",
+				"%conv76 = zext i8 %3 to i32, !dbg !710",
+				"%add = add nuw nsw i32 %mul, %conv76, !dbg !711",
+				"%mul77 = mul nuw nsw i32 %add, 1260, !dbg !712",
+				"%conv78 = zext i8 %sub66 to i32, !dbg !713",
+				"%mul79 = mul nuw nsw i32 %conv78, 10, !dbg !714",
+				"%add80 = add nuw nsw i32 %mul79, %mul77, !dbg !715",
+				"%conv81 = zext i8 %sub69 to i32, !dbg !716",
+				"%add82 = add nuw nsw i32 %add80, %conv81, !dbg !717",
+				"%cmp83 = icmp ult i32 %add82, 39420, !dbg !718",
+				"br i1 %cmp83, label %for.cond.preheader, label %return, !dbg !720"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 164,
+			"name": "for.cond.preheader",
+			"debug": [
+				{
+					"line": 299, "columns": [21]
+				}
+			],
+			"successors": [165],
+			"ir": [
+				"%7 = trunc i32 %add82 to i16",
+				"br label %for.cond, !dbg !721"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 165,
+			"name": "for.cond",
+			"debug": [
+				{
+					"line": 299, "columns": [21]
+				},
+				{
+					"line": 300, "columns": [45, 31]
+				},
+				{
+					"line": 301, "columns": [29]
+				}
+			],
+			"successors": [166, 165],
+			"ir": [
+				"%utr.0 = phi ptr [ %incdec.ptr, %for.cond ], [ @gb18030_to_unibmp_ranges, %for.cond.preheader ], !dbg !724",
+				"%base = getelementptr %struct._gb18030_to_unibmp_ranges, ptr %utr.0, i64 1, i32 2, !dbg !725",
+				"%8 = load i16, ptr %base, align 4, !dbg !725, !tbaa !727",
+				"%cmp88.not = icmp ugt i16 %8, %7, !dbg !731",
+				"%incdec.ptr = getelementptr %struct._gb18030_to_unibmp_ranges, ptr %utr.0, i64 1, !dbg !732",
+				"br i1 %cmp88.not, label %do.body90, label %for.cond, !dbg !721, !llvm.loop !733"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 166,
+			"name": "do.body90",
+			"debug": [
+				{
+					"line": 302, "columns": [21]
+				}
+			],
+			"successors": [192, 191],
+			"ir": [
+				"%9 = load i32, ptr %utr.0, align 4, !dbg !735, !tbaa !738",
+				"%base91 = getelementptr inbounds %struct._gb18030_to_unibmp_ranges, ptr %utr.0, i64 0, i32 2, !dbg !735",
+				"%10 = load i16, ptr %base91, align 4, !dbg !735, !tbaa !727",
+				"%conv92 = zext i16 %10 to i32, !dbg !735",
+				"%sub93 = add i32 %9, %add82, !dbg !735",
+				"%add94 = sub i32 %sub93, %conv92, !dbg !735",
+				"%call95 = tail call i32 @_PyUnicodeWriter_WriteChar(ptr noundef %writer, i32 noundef %add94) #11, !dbg !735",
+				"%cmp96 = icmp slt i32 %call95, 0, !dbg !735",
+				"br i1 %cmp96, label %return, label %cleanup355, !dbg !739, !llvm.loop !682"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 167,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 307, "columns": [24, 22]
+				}
+			],
+			"successors": [168, 192],
+			"ir": [
+				"%cmp109 = icmp ugt i8 %sub60, 14, !dbg !740",
+				"br i1 %cmp109, label %if.then111, label %return, !dbg !742"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 168,
+			"name": "if.then111",
+			"debug": [
+				{
+					"line": 308, "columns": [51, 58, 56, 32]
+				},
+				{
+					"line": 309, "columns": [21, 30, 42, 28, 49, 47]
+				},
+				{
+					"line": 310, "columns": [26, 21]
+				}
+			],
+			"successors": [169, 192],
+			"ir": [
+				"%11 = mul nuw nsw i32 %conv71, 10, !dbg !743",
+				"%mul114 = add nsw i32 %11, -150, !dbg !743",
+				"%conv115 = zext i8 %3 to i32, !dbg !745",
+				"%add116 = add nuw nsw i32 %mul114, %conv115, !dbg !746",
+				"%mul117 = mul nuw nsw i32 %add116, 1260, !dbg !747",
+				"%add118 = add nuw nsw i32 %mul117, 65536, !dbg !748",
+				"%conv119 = zext i8 %sub66 to i32, !dbg !749",
+				"%mul120 = mul nuw nsw i32 %conv119, 10, !dbg !750",
+				"%add121 = add nuw nsw i32 %add118, %mul120, !dbg !751",
+				"%conv122 = zext i8 %sub69 to i32, !dbg !752",
+				"%add123 = add nuw nsw i32 %add121, %conv122, !dbg !753",
+				"%cmp124 = icmp ult i32 %add123, 1114112, !dbg !754",
+				"br i1 %cmp124, label %do.body127, label %return, !dbg !756"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 169,
+			"name": "do.body127",
+			"debug": [
+				{
+					"line": 311, "columns": [21]
+				}
+			],
+			"successors": [192, 191],
+			"ir": [
+				"%call128 = tail call i32 @_PyUnicodeWriter_WriteChar(ptr noundef %writer, i32 noundef %add123) #11, !dbg !757",
+				"%cmp129 = icmp slt i32 %call128, 0, !dbg !757",
+				"br i1 %cmp129, label %return, label %cleanup355, !dbg !761, !llvm.loop !682"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 170,
+			"name": "if.end146",
+			"debug": [
+				{
+					"line": 319, "columns": [9]
+				}
+			],
+			"successors": [171, 172],
+			"ir": [
+				"%cmp148 = icmp eq i8 %1, -95, !dbg !762",
+				"%cmp152 = icmp eq i8 %2, -86, !dbg !762",
+				"%or.cond363 = and i1 %cmp148, %cmp152, !dbg !762",
+				"br i1 %or.cond363, label %do.body155, label %if.else163, !dbg !762"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 171,
+			"name": "do.body155",
+			"debug": [
+				{
+					"line": 319, "columns": [9]
+				}
+			],
+			"successors": [192, 191],
+			"ir": [
+				"%call156 = tail call i32 @_PyUnicodeWriter_WriteChar(ptr noundef %writer, i32 noundef 8212) #11, !dbg !764",
+				"%cmp157 = icmp slt i32 %call156, 0, !dbg !764",
+				"br i1 %cmp157, label %return, label %cleanup355, !dbg !768"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 172,
+			"name": "if.else163",
+			"debug": [
+				{
+					"line": 319, "columns": [9]
+				}
+			],
+			"successors": [173, 174],
+			"ir": [
+				"%cmp165 = icmp eq i8 %1, -88, !dbg !769",
+				"%cmp169 = icmp eq i8 %2, 68, !dbg !769",
+				"%or.cond364 = and i1 %cmp165, %cmp169, !dbg !769",
+				"br i1 %or.cond364, label %do.body172, label %if.else180, !dbg !769"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 173,
+			"name": "do.body172",
+			"debug": [
+				{
+					"line": 319, "columns": [9]
+				}
+			],
+			"successors": [192, 191],
+			"ir": [
+				"%call173 = tail call i32 @_PyUnicodeWriter_WriteChar(ptr noundef %writer, i32 noundef 8213) #11, !dbg !771",
+				"%cmp174 = icmp slt i32 %call173, 0, !dbg !771",
+				"br i1 %cmp174, label %return, label %cleanup355, !dbg !775"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 174,
+			"name": "if.else180",
+			"debug": [
+				{
+					"line": 319, "columns": [9]
+				}
+			],
+			"successors": [175, 176],
+			"ir": [
+				"%cmp186 = icmp eq i8 %2, -92, !dbg !776",
+				"%or.cond365 = and i1 %cmp148, %cmp186, !dbg !776",
+				"br i1 %or.cond365, label %do.body189, label %if.else197, !dbg !776"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 175,
+			"name": "do.body189",
+			"debug": [
+				{
+					"line": 319, "columns": [9]
+				}
+			],
+			"successors": [192, 191],
+			"ir": [
+				"%call190 = tail call i32 @_PyUnicodeWriter_WriteChar(ptr noundef %writer, i32 noundef 183) #11, !dbg !778",
+				"%cmp191 = icmp slt i32 %call190, 0, !dbg !778",
+				"br i1 %cmp191, label %return, label %cleanup355, !dbg !782"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 176,
+			"name": "if.else197",
+			"debug": [
+				{
+					"line": 319, "columns": [9]
+				}
+			],
+			"successors": [181, 177],
+			"ir": [
+				"%xor = xor i32 %conv, 128, !dbg !783",
+				"%idxprom = zext i32 %xor to i64",
+				"%arrayidx199 = getelementptr [256 x %struct.dbcs_index], ptr @gb2312_decmap, i64 0, i64 %idxprom, !dbg !783",
+				"%12 = load ptr, ptr %arrayidx199, align 16, !dbg !783, !tbaa !785",
+				"%cmp200.not = icmp eq ptr %12, null, !dbg !783",
+				"br i1 %cmp200.not, label %if.else251, label %land.lhs.true202, !dbg !783"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 177,
+			"name": "land.lhs.true202",
+			"debug": [
+				{
+					"line": 319, "columns": [9]
+				}
+			],
+			"successors": [181, 178],
+			"ir": [
+				"%xor204 = xor i32 %conv19, 128, !dbg !783",
+				"%bottom = getelementptr [256 x %struct.dbcs_index], ptr @gb2312_decmap, i64 0, i64 %idxprom, i32 1, !dbg !783",
+				"%13 = load i8, ptr %bottom, align 8, !dbg !783, !tbaa !787",
+				"%conv209 = zext i8 %13 to i32, !dbg !783",
+				"%cmp210.not = icmp ult i32 %xor204, %conv209, !dbg !783",
+				"br i1 %cmp210.not, label %if.else251, label %land.lhs.true212, !dbg !783"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 178,
+			"name": "land.lhs.true212",
+			"debug": [
+				{
+					"line": 319, "columns": [9]
+				}
+			],
+			"successors": [181, 179],
+			"ir": [
+				"%top = getelementptr [256 x %struct.dbcs_index], ptr @gb2312_decmap, i64 0, i64 %idxprom, i32 2, !dbg !783",
+				"%14 = load i8, ptr %top, align 1, !dbg !783, !tbaa !788",
+				"%conv219 = zext i8 %14 to i32, !dbg !783",
+				"%cmp220.not = icmp ugt i32 %xor204, %conv219, !dbg !783",
+				"br i1 %cmp220.not, label %if.else251, label %land.lhs.true222, !dbg !783"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 179,
+			"name": "land.lhs.true222",
+			"debug": [
+				{
+					"line": 319, "columns": [9]
+				}
+			],
+			"successors": [181, 180],
+			"ir": [
+				"%sub236 = sub nsw i32 %xor204, %conv209, !dbg !783",
+				"%idxprom237 = sext i32 %sub236 to i64, !dbg !783",
+				"%arrayidx238 = getelementptr i16, ptr %12, i64 %idxprom237, !dbg !783",
+				"%15 = load i16, ptr %arrayidx238, align 2, !dbg !783, !tbaa !789",
+				"%cmp240.not = icmp eq i16 %15, -2, !dbg !783",
+				"br i1 %cmp240.not, label %if.else251, label %do.body243, !dbg !776"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 180,
+			"name": "do.body243",
+			"debug": [
+				{
+					"line": 319, "columns": [9]
+				}
+			],
+			"successors": [192, 191],
+			"ir": [
+				"%conv239 = zext i16 %15 to i32, !dbg !783",
+				"%call244 = tail call i32 @_PyUnicodeWriter_WriteChar(ptr noundef %writer, i32 noundef %conv239) #11, !dbg !790",
+				"%cmp245 = icmp slt i32 %call244, 0, !dbg !790",
+				"br i1 %cmp245, label %return, label %cleanup355, !dbg !794"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 181,
+			"name": "if.else251",
+			"debug": [
+				{
+					"line": 319, "columns": [9]
+				}
+			],
+			"successors": [186, 182],
+			"ir": [
+				"%idxprom252 = zext i8 %1 to i64, !dbg !795",
+				"%arrayidx253 = getelementptr [256 x %struct.dbcs_index], ptr @gbkext_decmap, i64 0, i64 %idxprom252, !dbg !795",
+				"%16 = load ptr, ptr %arrayidx253, align 16, !dbg !795, !tbaa !785",
+				"%cmp255.not = icmp eq ptr %16, null, !dbg !795",
+				"br i1 %cmp255.not, label %if.else297, label %land.lhs.true257, !dbg !795"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 182,
+			"name": "land.lhs.true257",
+			"debug": [
+				{
+					"line": 319, "columns": [9]
+				}
+			],
+			"successors": [186, 183],
+			"ir": [
+				"%bottom261 = getelementptr [256 x %struct.dbcs_index], ptr @gbkext_decmap, i64 0, i64 %idxprom252, i32 1, !dbg !795",
+				"%17 = load i8, ptr %bottom261, align 8, !dbg !795, !tbaa !787",
+				"%conv262 = zext i8 %17 to i32, !dbg !795",
+				"%cmp263.not = icmp ult i8 %2, %17, !dbg !795",
+				"br i1 %cmp263.not, label %if.else297, label %land.lhs.true265, !dbg !795"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 183,
+			"name": "land.lhs.true265",
+			"debug": [
+				{
+					"line": 319, "columns": [9]
+				}
+			],
+			"successors": [186, 184],
+			"ir": [
+				"%top269 = getelementptr [256 x %struct.dbcs_index], ptr @gbkext_decmap, i64 0, i64 %idxprom252, i32 2, !dbg !795",
+				"%18 = load i8, ptr %top269, align 1, !dbg !795, !tbaa !788",
+				"%cmp271.not = icmp ugt i8 %2, %18, !dbg !795",
+				"br i1 %cmp271.not, label %if.else297, label %land.lhs.true273, !dbg !795"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 184,
+			"name": "land.lhs.true273",
+			"debug": [
+				{
+					"line": 319, "columns": [9]
+				}
+			],
+			"successors": [186, 185],
+			"ir": [
+				"%sub282 = sub nsw i32 %conv19, %conv262, !dbg !795",
+				"%idxprom283 = sext i32 %sub282 to i64, !dbg !795",
+				"%arrayidx284 = getelementptr i16, ptr %16, i64 %idxprom283, !dbg !795",
+				"%19 = load i16, ptr %arrayidx284, align 2, !dbg !795, !tbaa !789",
+				"%cmp286.not = icmp eq i16 %19, -2, !dbg !795",
+				"br i1 %cmp286.not, label %if.else297, label %do.body289, !dbg !783"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 185,
+			"name": "do.body289",
+			"debug": [
+				{
+					"line": 319, "columns": [9]
+				}
+			],
+			"successors": [192, 191],
+			"ir": [
+				"%conv285 = zext i16 %19 to i32, !dbg !795",
+				"%call290 = tail call i32 @_PyUnicodeWriter_WriteChar(ptr noundef %writer, i32 noundef %conv285) #11, !dbg !797",
+				"%cmp291 = icmp slt i32 %call290, 0, !dbg !797",
+				"br i1 %cmp291, label %return, label %cleanup355, !dbg !801"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 186,
+			"name": "if.else297",
+			"debug": [
+				{
+					"line": 320, "columns": [18]
+				}
+			],
+			"successors": [192, 187],
+			"ir": [
+				"%arrayidx299 = getelementptr [256 x %struct.dbcs_index], ptr @gb18030ext_decmap, i64 0, i64 %idxprom252, !dbg !802",
+				"%20 = load ptr, ptr %arrayidx299, align 16, !dbg !802, !tbaa !785",
+				"%cmp301.not = icmp eq ptr %20, null, !dbg !802",
+				"br i1 %cmp301.not, label %return, label %land.lhs.true303, !dbg !802"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 187,
+			"name": "land.lhs.true303",
+			"debug": [
+				{
+					"line": 320, "columns": [18]
+				}
+			],
+			"successors": [192, 188],
+			"ir": [
+				"%bottom307 = getelementptr [256 x %struct.dbcs_index], ptr @gb18030ext_decmap, i64 0, i64 %idxprom252, i32 1, !dbg !802",
+				"%21 = load i8, ptr %bottom307, align 8, !dbg !802, !tbaa !787",
+				"%conv308 = zext i8 %21 to i32, !dbg !802",
+				"%cmp309.not = icmp ult i8 %2, %21, !dbg !802",
+				"br i1 %cmp309.not, label %return, label %land.lhs.true311, !dbg !802"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 188,
+			"name": "land.lhs.true311",
+			"debug": [
+				{
+					"line": 320, "columns": [18]
+				}
+			],
+			"successors": [192, 189],
+			"ir": [
+				"%top315 = getelementptr [256 x %struct.dbcs_index], ptr @gb18030ext_decmap, i64 0, i64 %idxprom252, i32 2, !dbg !802",
+				"%22 = load i8, ptr %top315, align 1, !dbg !802, !tbaa !788",
+				"%cmp317.not = icmp ugt i8 %2, %22, !dbg !802",
+				"br i1 %cmp317.not, label %return, label %land.lhs.true319, !dbg !802"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 189,
+			"name": "land.lhs.true319",
+			"debug": [
+				{
+					"line": 320, "columns": [18]
+				}
+			],
+			"successors": [192, 190],
+			"ir": [
+				"%sub328 = sub nsw i32 %conv19, %conv308, !dbg !802",
+				"%idxprom329 = sext i32 %sub328 to i64, !dbg !802",
+				"%arrayidx330 = getelementptr i16, ptr %20, i64 %idxprom329, !dbg !802",
+				"%23 = load i16, ptr %arrayidx330, align 2, !dbg !802, !tbaa !789",
+				"%cmp332.not = icmp eq i16 %23, -2, !dbg !802",
+				"br i1 %cmp332.not, label %return, label %do.body335, !dbg !804"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 190,
+			"name": "do.body335",
+			"debug": [
+				{
+					"line": 320, "columns": [18]
+				},
+				{
+					"line": 321, "columns": [13]
+				}
+			],
+			"successors": [192, 191],
+			"ir": [
+				"%conv331 = zext i16 %23 to i32, !dbg !802",
+				"%call336 = tail call i32 @_PyUnicodeWriter_WriteChar(ptr noundef %writer, i32 noundef %conv331) #11, !dbg !805",
+				"%cmp337 = icmp slt i32 %call336, 0, !dbg !805",
+				"br i1 %cmp337, label %return, label %cleanup355, !dbg !808"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 191,
+			"name": "cleanup355",
+			"debug": [
+				{
+					"line": 267, "columns": [19, 5]
+				}
+			],
+			"successors": [156, 192],
+			"ir": [
+				"%.sink475 = phi i64 [ 1, %do.body ], [ 4, %do.body90 ], [ 4, %do.body127 ], [ 2, %do.body155 ], [ 2, %do.body189 ], [ 2, %do.body289 ], [ 2, %do.body335 ], [ 2, %do.body243 ], [ 2, %do.body172 ]",
+				"%.sink = phi i64 [ -1, %do.body ], [ -4, %do.body90 ], [ -4, %do.body127 ], [ -2, %do.body155 ], [ -2, %do.body189 ], [ -2, %do.body289 ], [ -2, %do.body335 ], [ -2, %do.body243 ], [ -2, %do.body172 ]",
+				"%24 = load ptr, ptr %inbuf, align 8, !dbg !673, !tbaa !667",
+				"%add.ptr103 = getelementptr i8, ptr %24, i64 %.sink475, !dbg !673",
+				"store ptr %add.ptr103, ptr %inbuf, align 8, !dbg !673, !tbaa !667",
+				"%sub104 = add nsw i64 %inleft.addr.0454, %.sink, !dbg !673",
+				"%cmp = icmp sgt i64 %sub104, 0, !dbg !664",
+				"br i1 %cmp, label %while.body, label %return, !dbg !665"
+			]
+		},
+		{
+			"function": "gb18030_decode",
+			"id": 192,
+			"name": "return",
+			"debug": [
+				{
+					"line": 329, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.3 = phi i64 [ 0, %entry ], [ 1, %if.else297 ], [ 1, %land.lhs.true303 ], [ 1, %land.lhs.true311 ], [ 1, %land.lhs.true319 ], [ -4, %do.body335 ], [ -4, %do.body289 ], [ -4, %do.body243 ], [ -4, %do.body189 ], [ -4, %do.body172 ], [ -4, %do.body155 ], [ 1, %if.then74 ], [ 1, %if.then111 ], [ 1, %if.else ], [ -4, %do.body127 ], [ -4, %do.body90 ], [ 1, %do.end32 ], [ -2, %if.then25 ], [ -2, %do.body11 ], [ -4, %do.body ], [ 0, %cleanup355 ], !dbg !663",
+				"ret i64 %retval.3, !dbg !809"
+			]
+		},
+		{
+			"function": "hz_encode",
+			"id": 193,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 354, "columns": [12, 19, 5]
+				}
+			],
+			"successors": [194, 217],
+			"ir": [
+				"%0 = load i64, ptr %inpos, align 8, !dbg !660, !tbaa !661",
+				"%cmp258 = icmp slt i64 %0, %inlen, !dbg !665",
+				"br i1 %cmp258, label %while.body, label %return, !dbg !666"
+			]
+		},
+		{
+			"function": "hz_encode",
+			"id": 194,
+			"name": "while.body",
+			"debug": [
+				{
+					"line": 317, "columns": [9]
+				}
+			],
+			"successors": [197, 195, 196],
+			"ir": [
+				"%1 = phi i64 [ %28, %cleanup ], [ %0, %entry ]",
+				"%outleft.addr.0259 = phi i64 [ %outleft.addr.4, %cleanup ], [ %outleft, %entry ]",
+				"switch i32 %kind, label %if.end6.i [\n    i32 1, label %if.then.i\n    i32 2, label %if.then3.i\n  ], !dbg !676"
+			]
+		},
+		{
+			"function": "hz_encode",
+			"id": 195,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 318, "columns": [16, 9]
+				}
+			],
+			"successors": [198],
+			"ir": [
+				"%arrayidx.i = getelementptr i8, ptr %data, i64 %1, !dbg !677",
+				"%2 = load i8, ptr %arrayidx.i, align 1, !dbg !677, !tbaa !680",
+				"%conv.i = zext i8 %2 to i32, !dbg !677",
+				"br label %PyUnicode_READ.exit, !dbg !681"
+			]
+		},
+		{
+			"function": "hz_encode",
+			"id": 196,
+			"name": "if.then3.i",
+			"debug": [
+				{
+					"line": 321, "columns": [16, 9]
+				}
+			],
+			"successors": [198],
+			"ir": [
+				"%arrayidx4.i = getelementptr i16, ptr %data, i64 %1, !dbg !682",
+				"%3 = load i16, ptr %arrayidx4.i, align 2, !dbg !682, !tbaa !685",
+				"%conv5.i = zext i16 %3 to i32, !dbg !682",
+				"br label %PyUnicode_READ.exit, !dbg !687"
+			]
+		},
+		{
+			"function": "hz_encode",
+			"id": 197,
+			"name": "if.end6.i",
+			"debug": [
+				{
+					"line": 324, "columns": [12, 5]
+				}
+			],
+			"successors": [198],
+			"ir": [
+				"%arrayidx7.i = getelementptr i32, ptr %data, i64 %1, !dbg !688",
+				"%4 = load i32, ptr %arrayidx7.i, align 4, !dbg !688, !tbaa !689",
+				"br label %PyUnicode_READ.exit, !dbg !691"
+			]
+		},
+		{
+			"function": "hz_encode",
+			"id": 198,
+			"name": "PyUnicode_READ.exit",
+			"debug": [
+				{
+					"line": 358, "columns": [15, 13]
+				}
+			],
+			"successors": [199, 206],
+			"ir": [
+				"%retval.0.i = phi i32 [ %conv.i, %if.then.i ], [ %conv5.i, %if.then3.i ], [ %4, %if.end6.i ], !dbg !674",
+				"%cmp1 = icmp ult i32 %retval.0.i, 128, !dbg !693",
+				"br i1 %cmp1, label %if.then, label %if.end70, !dbg !695"
+			]
+		},
+		{
+			"function": "hz_encode",
+			"id": 199,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 359, "columns": [17]
+				}
+			],
+			"successors": [202, 200],
+			"ir": [
+				"%5 = load i8, ptr %state, align 1, !dbg !696, !tbaa !680",
+				"%tobool.not = icmp eq i8 %5, 0, !dbg !696",
+				"br i1 %tobool.not, label %do.body24, label %do.body4, !dbg !699"
+			]
+		},
+		{
+			"function": "hz_encode",
+			"id": 200,
+			"name": "do.body4",
+			"debug": [
+				{
+					"line": 360, "columns": [17]
+				}
+			],
+			"successors": [217, 201],
+			"ir": [
+				"%cmp5 = icmp slt i64 %outleft.addr.0259, 2, !dbg !700",
+				"br i1 %cmp5, label %return, label %do.body7, !dbg !705"
+			]
+		},
+		{
+			"function": "hz_encode",
+			"id": 201,
+			"name": "do.body7",
+			"debug": [
+				{
+					"line": 360, "columns": [17]
+				},
+				{
+					"line": 361, "columns": [17]
+				},
+				{
+					"line": 362, "columns": [43]
+				},
+				{
+					"line": 363, "columns": [13]
+				}
+			],
+			"successors": [202],
+			"ir": [
+				"%6 = load ptr, ptr %outbuf, align 8, !dbg !706, !tbaa !708",
+				"store i8 126, ptr %6, align 1, !dbg !706, !tbaa !680",
+				"%7 = load ptr, ptr %outbuf, align 8, !dbg !710, !tbaa !708",
+				"%arrayidx12 = getelementptr i8, ptr %7, i64 1, !dbg !710",
+				"store i8 125, ptr %arrayidx12, align 1, !dbg !710, !tbaa !680",
+				"%8 = load ptr, ptr %outbuf, align 8, !dbg !712, !tbaa !708",
+				"%add.ptr = getelementptr i8, ptr %8, i64 2, !dbg !712",
+				"store ptr %add.ptr, ptr %outbuf, align 8, !dbg !712, !tbaa !708",
+				"%sub = add nsw i64 %outleft.addr.0259, -2, !dbg !712",
+				"store i8 0, ptr %state, align 1, !dbg !714, !tbaa !680",
+				"br label %do.body24, !dbg !715"
+			]
+		},
+		{
+			"function": "hz_encode",
+			"id": 202,
+			"name": "do.body24",
+			"debug": [
+				{
+					"line": 364, "columns": [13]
+				}
+			],
+			"successors": [217, 203],
+			"ir": [
+				"%outleft.addr.1 = phi i64 [ %sub, %do.body7 ], [ %outleft.addr.0259, %if.then ]",
+				"%cmp25 = icmp slt i64 %outleft.addr.1, 1, !dbg !716",
+				"br i1 %cmp25, label %return, label %do.body30, !dbg !720"
+			]
+		},
+		{
+			"function": "hz_encode",
+			"id": 203,
+			"name": "do.body30",
+			"debug": [
+				{
+					"line": 364, "columns": [13]
+				},
+				{
+					"line": 365, "columns": [13]
+				},
+				{
+					"line": 366, "columns": [19, 17]
+				}
+			],
+			"successors": [204, 216],
+			"ir": [
+				"%conv = trunc i32 %retval.0.i to i8, !dbg !721",
+				"%9 = load ptr, ptr %outbuf, align 8, !dbg !721, !tbaa !708",
+				"store i8 %conv, ptr %9, align 1, !dbg !721, !tbaa !680",
+				"%10 = load i64, ptr %inpos, align 8, !dbg !723, !tbaa !661",
+				"%add = add i64 %10, 1, !dbg !723",
+				"store i64 %add, ptr %inpos, align 8, !dbg !723, !tbaa !661",
+				"%11 = load ptr, ptr %outbuf, align 8, !dbg !726, !tbaa !708",
+				"%add.ptr41 = getelementptr i8, ptr %11, i64 1, !dbg !726",
+				"store ptr %add.ptr41, ptr %outbuf, align 8, !dbg !726, !tbaa !708",
+				"%sub42 = add nsw i64 %outleft.addr.1, -1, !dbg !726",
+				"%cmp47 = icmp eq i32 %retval.0.i, 126, !dbg !728",
+				"br i1 %cmp47, label %do.body51, label %cleanup, !dbg !730, !llvm.loop !731"
+			]
+		},
+		{
+			"function": "hz_encode",
+			"id": 204,
+			"name": "do.body51",
+			"debug": [
+				{
+					"line": 367, "columns": [17]
+				}
+			],
+			"successors": [217, 205],
+			"ir": [
+				"%cmp52 = icmp ult i64 %outleft.addr.1, 2, !dbg !734",
+				"br i1 %cmp52, label %return, label %do.body58, !dbg !739"
+			]
+		},
+		{
+			"function": "hz_encode",
+			"id": 205,
+			"name": "do.body58",
+			"debug": [
+				{
+					"line": 367, "columns": [17]
+				},
+				{
+					"line": 368, "columns": [17]
+				},
+				{
+					"line": 369, "columns": [13]
+				}
+			],
+			"successors": [216],
+			"ir": [
+				"store i8 126, ptr %add.ptr41, align 1, !dbg !740, !tbaa !680",
+				"%12 = load ptr, ptr %outbuf, align 8, !dbg !742, !tbaa !708",
+				"%add.ptr65 = getelementptr i8, ptr %12, i64 1, !dbg !742",
+				"store ptr %add.ptr65, ptr %outbuf, align 8, !dbg !742, !tbaa !708",
+				"%sub66 = add nsw i64 %outleft.addr.1, -2, !dbg !742",
+				"br label %cleanup, !dbg !744, !llvm.loop !731"
+			]
+		},
+		{
+			"function": "hz_encode",
+			"id": 206,
+			"name": "if.end70",
+			"debug": [
+				{
+					"line": 373, "columns": [15, 13]
+				}
+			],
+			"successors": [217, 207],
+			"ir": [
+				"%cmp71 = icmp ugt i32 %retval.0.i, 65535, !dbg !745",
+				"br i1 %cmp71, label %return, label %if.end74, !dbg !747"
+			]
+		},
+		{
+			"function": "hz_encode",
+			"id": 207,
+			"name": "if.end74",
+			"debug": [
+				{
+					"line": 376, "columns": [13]
+				}
+			],
+			"successors": [217, 208],
+			"ir": [
+				"%shr = lshr i32 %retval.0.i, 8, !dbg !748",
+				"%idxprom = zext i32 %shr to i64, !dbg !748",
+				"%arrayidx75 = getelementptr [256 x %struct.unim_index], ptr @gbcommon_encmap, i64 0, i64 %idxprom, !dbg !748",
+				"%13 = load ptr, ptr %arrayidx75, align 16, !dbg !748, !tbaa !750",
+				"%cmp76.not = icmp eq ptr %13, null, !dbg !748",
+				"br i1 %cmp76.not, label %return, label %land.lhs.true, !dbg !748"
+			]
+		},
+		{
+			"function": "hz_encode",
+			"id": 208,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 376, "columns": [13]
+				}
+			],
+			"successors": [217, 209],
+			"ir": [
+				"%and = and i32 %retval.0.i, 255, !dbg !748",
+				"%bottom = getelementptr [256 x %struct.unim_index], ptr @gbcommon_encmap, i64 0, i64 %idxprom, i32 1, !dbg !748",
+				"%14 = load i8, ptr %bottom, align 8, !dbg !748, !tbaa !752",
+				"%conv81 = zext i8 %14 to i32, !dbg !748",
+				"%cmp82.not = icmp ult i32 %and, %conv81, !dbg !748",
+				"br i1 %cmp82.not, label %return, label %land.lhs.true84, !dbg !748"
+			]
+		},
+		{
+			"function": "hz_encode",
+			"id": 209,
+			"name": "land.lhs.true84",
+			"debug": [
+				{
+					"line": 376, "columns": [13]
+				}
+			],
+			"successors": [217, 210],
+			"ir": [
+				"%top = getelementptr [256 x %struct.unim_index], ptr @gbcommon_encmap, i64 0, i64 %idxprom, i32 2, !dbg !748",
+				"%15 = load i8, ptr %top, align 1, !dbg !748, !tbaa !753",
+				"%conv89 = zext i8 %15 to i32, !dbg !748",
+				"%cmp90.not = icmp ugt i32 %and, %conv89, !dbg !748",
+				"br i1 %cmp90.not, label %return, label %land.lhs.true92, !dbg !748"
+			]
+		},
+		{
+			"function": "hz_encode",
+			"id": 210,
+			"name": "land.lhs.true92",
+			"debug": [
+				{
+					"line": 376, "columns": [13]
+				}
+			],
+			"successors": [211, 217],
+			"ir": [
+				"%sub103 = sub nsw i32 %and, %conv81, !dbg !748",
+				"%idxprom104 = zext i32 %sub103 to i64, !dbg !748",
+				"%arrayidx105 = getelementptr i16, ptr %13, i64 %idxprom104, !dbg !748",
+				"%16 = load i16, ptr %arrayidx105, align 2, !dbg !748, !tbaa !685",
+				"%tobool113.not = icmp sgt i16 %16, -1",
+				"br i1 %tobool113.not, label %if.end115, label %return, !dbg !754"
+			]
+		},
+		{
+			"function": "hz_encode",
+			"id": 211,
+			"name": "if.end115",
+			"debug": [
+				{
+					"line": 384, "columns": [13, 39]
+				}
+			],
+			"successors": [212, 214],
+			"ir": [
+				"%17 = load i8, ptr %state, align 1, !dbg !755, !tbaa !680",
+				"%cmp119 = icmp eq i8 %17, 0, !dbg !757",
+				"br i1 %cmp119, label %do.body123, label %do.body170, !dbg !758"
+			]
+		},
+		{
+			"function": "hz_encode",
+			"id": 212,
+			"name": "do.body123",
+			"debug": [
+				{
+					"line": 385, "columns": [13]
+				}
+			],
+			"successors": [217, 213],
+			"ir": [
+				"%cmp124 = icmp slt i64 %outleft.addr.0259, 4, !dbg !759",
+				"br i1 %cmp124, label %return, label %do.body130, !dbg !764"
+			]
+		},
+		{
+			"function": "hz_encode",
+			"id": 213,
+			"name": "do.body130",
+			"debug": [
+				{
+					"line": 385, "columns": [13]
+				},
+				{
+					"line": 386, "columns": [13]
+				},
+				{
+					"line": 387, "columns": [39]
+				},
+				{
+					"line": 388, "columns": [9]
+				}
+			],
+			"successors": [216],
+			"ir": [
+				"%18 = load ptr, ptr %outbuf, align 8, !dbg !765, !tbaa !708",
+				"store i8 126, ptr %18, align 1, !dbg !765, !tbaa !680",
+				"%19 = load ptr, ptr %outbuf, align 8, !dbg !767, !tbaa !708",
+				"%arrayidx135 = getelementptr i8, ptr %19, i64 1, !dbg !767",
+				"store i8 123, ptr %arrayidx135, align 1, !dbg !767, !tbaa !680",
+				"%shr140 = lshr i16 %16, 8",
+				"%conv141 = trunc i16 %shr140 to i8, !dbg !769",
+				"%20 = load ptr, ptr %outbuf, align 8, !dbg !769, !tbaa !708",
+				"%arrayidx142 = getelementptr i8, ptr %20, i64 2, !dbg !769",
+				"store i8 %conv141, ptr %arrayidx142, align 1, !dbg !769, !tbaa !680",
+				"%conv148 = trunc i16 %16 to i8, !dbg !771",
+				"%21 = load ptr, ptr %outbuf, align 8, !dbg !771, !tbaa !708",
+				"%arrayidx149 = getelementptr i8, ptr %21, i64 3, !dbg !771",
+				"store i8 %conv148, ptr %arrayidx149, align 1, !dbg !771, !tbaa !680",
+				"%22 = load i64, ptr %inpos, align 8, !dbg !773, !tbaa !661",
+				"%add156 = add i64 %22, 1, !dbg !773",
+				"store i64 %add156, ptr %inpos, align 8, !dbg !773, !tbaa !661",
+				"%23 = load ptr, ptr %outbuf, align 8, !dbg !776, !tbaa !708",
+				"%add.ptr160 = getelementptr i8, ptr %23, i64 4, !dbg !776",
+				"store ptr %add.ptr160, ptr %outbuf, align 8, !dbg !776, !tbaa !708",
+				"%sub161 = add nsw i64 %outleft.addr.0259, -4, !dbg !776",
+				"store i8 1, ptr %state, align 1, !dbg !778, !tbaa !680",
+				"br label %cleanup, !dbg !779"
+			]
+		},
+		{
+			"function": "hz_encode",
+			"id": 214,
+			"name": "do.body170",
+			"debug": [
+				{
+					"line": 390, "columns": [13]
+				}
+			],
+			"successors": [217, 215],
+			"ir": [
+				"%cmp171 = icmp slt i64 %outleft.addr.0259, 2, !dbg !780",
+				"br i1 %cmp171, label %return, label %do.body177, !dbg !785"
+			]
+		},
+		{
+			"function": "hz_encode",
+			"id": 215,
+			"name": "do.body177",
+			"debug": [
+				{
+					"line": 390, "columns": [13]
+				},
+				{
+					"line": 391, "columns": [13]
+				}
+			],
+			"successors": [216],
+			"ir": [
+				"%shr179 = lshr i16 %16, 8",
+				"%conv180 = trunc i16 %shr179 to i8, !dbg !786",
+				"%24 = load ptr, ptr %outbuf, align 8, !dbg !786, !tbaa !708",
+				"store i8 %conv180, ptr %24, align 1, !dbg !786, !tbaa !680",
+				"%conv187 = trunc i16 %16 to i8, !dbg !788",
+				"%25 = load ptr, ptr %outbuf, align 8, !dbg !788, !tbaa !708",
+				"%arrayidx188 = getelementptr i8, ptr %25, i64 1, !dbg !788",
+				"store i8 %conv187, ptr %arrayidx188, align 1, !dbg !788, !tbaa !680",
+				"%26 = load i64, ptr %inpos, align 8, !dbg !790, !tbaa !661",
+				"%add195 = add i64 %26, 1, !dbg !790",
+				"store i64 %add195, ptr %inpos, align 8, !dbg !790, !tbaa !661",
+				"%27 = load ptr, ptr %outbuf, align 8, !dbg !793, !tbaa !708",
+				"%add.ptr199 = getelementptr i8, ptr %27, i64 2, !dbg !793",
+				"store ptr %add.ptr199, ptr %outbuf, align 8, !dbg !793, !tbaa !708",
+				"%sub200 = add nsw i64 %outleft.addr.0259, -2, !dbg !793",
+				"br label %cleanup"
+			]
+		},
+		{
+			"function": "hz_encode",
+			"id": 216,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 354, "columns": [12, 19, 5]
+				}
+			],
+			"successors": [194, 217],
+			"ir": [
+				"%outleft.addr.4 = phi i64 [ %sub66, %do.body58 ], [ %sub42, %do.body30 ], [ %sub161, %do.body130 ], [ %sub200, %do.body177 ]",
+				"%28 = load i64, ptr %inpos, align 8, !dbg !660, !tbaa !661",
+				"%cmp = icmp slt i64 %28, %inlen, !dbg !665",
+				"br i1 %cmp, label %while.body, label %return, !dbg !666"
+			]
+		},
+		{
+			"function": "hz_encode",
+			"id": 217,
+			"name": "return",
+			"debug": [
+				{
+					"line": 396, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.2 = phi i64 [ 0, %entry ], [ -1, %do.body170 ], [ -1, %do.body123 ], [ 1, %if.end74 ], [ 1, %land.lhs.true ], [ 1, %land.lhs.true84 ], [ 1, %land.lhs.true92 ], [ 1, %if.end70 ], [ -1, %do.body51 ], [ -1, %do.body24 ], [ -1, %do.body4 ], [ 0, %cleanup ], !dbg !659",
+				"ret i64 %retval.2, !dbg !795"
+			]
+		},
+		{
+			"function": "hz_encode_init",
+			"id": 218,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 338, "columns": [31]
+				},
+				{
+					"line": 339, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"store i8 0, ptr %state, align 1, !dbg !650, !tbaa !651",
+				"ret i32 0, !dbg !654"
+			]
+		},
+		{
+			"function": "hz_encode_reset",
+			"id": 219,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 344, "columns": [9, 35]
+				}
+			],
+			"successors": [222, 220],
+			"ir": [
+				"%0 = load i8, ptr %state, align 1, !dbg !652, !tbaa !654",
+				"%cmp.not = icmp eq i8 %0, 0, !dbg !657",
+				"br i1 %cmp.not, label %return, label %do.body2, !dbg !658"
+			]
+		},
+		{
+			"function": "hz_encode_reset",
+			"id": 220,
+			"name": "do.body2",
+			"debug": [
+				{
+					"line": 345, "columns": [9]
+				}
+			],
+			"successors": [222, 221],
+			"ir": [
+				"%cmp3 = icmp slt i64 %outleft, 2, !dbg !659",
+				"br i1 %cmp3, label %return, label %do.body6, !dbg !664"
+			]
+		},
+		{
+			"function": "hz_encode_reset",
+			"id": 221,
+			"name": "do.body6",
+			"debug": [
+				{
+					"line": 345, "columns": [9]
+				},
+				{
+					"line": 346, "columns": [35]
+				},
+				{
+					"line": 347, "columns": [9]
+				},
+				{
+					"line": 348, "columns": [5]
+				}
+			],
+			"successors": [222],
+			"ir": [
+				"%1 = load ptr, ptr %outbuf, align 8, !dbg !665, !tbaa !667",
+				"store i8 126, ptr %1, align 1, !dbg !665, !tbaa !654",
+				"%2 = load ptr, ptr %outbuf, align 8, !dbg !669, !tbaa !667",
+				"%arrayidx10 = getelementptr i8, ptr %2, i64 1, !dbg !669",
+				"store i8 125, ptr %arrayidx10, align 1, !dbg !669, !tbaa !654",
+				"store i8 0, ptr %state, align 1, !dbg !671, !tbaa !654",
+				"%3 = load ptr, ptr %outbuf, align 8, !dbg !672, !tbaa !667",
+				"%add.ptr = getelementptr i8, ptr %3, i64 2, !dbg !672",
+				"store ptr %add.ptr, ptr %outbuf, align 8, !dbg !672, !tbaa !667",
+				"br label %return, !dbg !674"
+			]
+		},
+		{
+			"function": "hz_encode_reset",
+			"id": 222,
+			"name": "return",
+			"debug": [
+				{
+					"line": 350, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i64 [ -1, %do.body2 ], [ 0, %do.body6 ], [ 0, %entry ], !dbg !651",
+				"ret i64 %retval.0, !dbg !675"
+			]
+		},
+		{
+			"function": "hz_decode",
+			"id": 223,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 412, "columns": [19, 5]
+				}
+			],
+			"successors": [224, 244],
+			"ir": [
+				"%cmp188 = icmp sgt i64 %inleft, 0, !dbg !659",
+				"br i1 %cmp188, label %while.body.preheader, label %return, !dbg !660"
+			]
+		},
+		{
+			"function": "hz_decode",
+			"id": 224,
+			"name": "while.body.preheader",
+			"debug": [
+				{
+					"line": 413, "columns": [27]
+				},
+				{
+					"line": 416, "columns": [13]
+				}
+			],
+			"successors": [225],
+			"ir": [
+				"%.pre = load ptr, ptr %inbuf, align 8, !dbg !661, !tbaa !662",
+				"br label %while.body, !dbg !666"
+			]
+		},
+		{
+			"function": "hz_decode",
+			"id": 225,
+			"name": "while.body",
+			"debug": [
+				{
+					"line": 413, "columns": [27]
+				},
+				{
+					"line": 416, "columns": [13, 15]
+				}
+			],
+			"successors": [226, 234],
+			"ir": [
+				"%0 = phi ptr [ %add.ptr87, %cleanup151 ], [ %.pre, %while.body.preheader ], !dbg !661",
+				"%inleft.addr.0189 = phi i64 [ %sub88, %cleanup151 ], [ %inleft, %while.body.preheader ]",
+				"%1 = load i8, ptr %0, align 1, !dbg !661, !tbaa !667",
+				"%conv = zext i8 %1 to i32, !dbg !669",
+				"%cmp1 = icmp eq i8 %1, 126, !dbg !670",
+				"br i1 %cmp1, label %if.then, label %if.end67, !dbg !666"
+			]
+		},
+		{
+			"function": "hz_decode",
+			"id": 226,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 419, "columns": [13]
+				}
+			],
+			"successors": [244, 227],
+			"ir": [
+				"%cmp4 = icmp ult i64 %inleft.addr.0189, 2, !dbg !672",
+				"br i1 %cmp4, label %return, label %do.end, !dbg !675"
+			]
+		},
+		{
+			"function": "hz_decode",
+			"id": 227,
+			"name": "do.end",
+			"debug": [
+				{
+					"line": 417, "columns": [32]
+				},
+				{
+					"line": 420, "columns": [27]
+				}
+			],
+			"successors": [244, 228, 230, 231, 232],
+			"ir": [
+				"%arrayidx3 = getelementptr i8, ptr %0, i64 1, !dbg !676",
+				"%2 = load i8, ptr %arrayidx3, align 1, !dbg !676, !tbaa !667",
+				"switch i8 %2, label %return [\n    i8 126, label %land.lhs.true\n    i8 123, label %land.lhs.true26\n    i8 10, label %land.lhs.true39\n    i8 125, label %land.lhs.true50\n  ], !dbg !677"
+			]
+		},
+		{
+			"function": "hz_decode",
+			"id": 228,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 420, "columns": [30, 56, 17]
+				}
+			],
+			"successors": [229, 244],
+			"ir": [
+				"%3 = load i8, ptr %state, align 1, !dbg !679, !tbaa !667",
+				"%cmp13 = icmp eq i8 %3, 0, !dbg !680",
+				"br i1 %cmp13, label %do.body16, label %return, !dbg !681"
+			]
+		},
+		{
+			"function": "hz_decode",
+			"id": 229,
+			"name": "do.body16",
+			"debug": [
+				{
+					"line": 421, "columns": [17]
+				}
+			],
+			"successors": [244, 243],
+			"ir": [
+				"%call = tail call i32 @_PyUnicodeWriter_WriteChar(ptr noundef %writer, i32 noundef 126) #11, !dbg !682",
+				"%cmp17 = icmp slt i32 %call, 0, !dbg !682",
+				"br i1 %cmp17, label %return, label %cleanup151, !dbg !685, !llvm.loop !686"
+			]
+		},
+		{
+			"function": "hz_decode",
+			"id": 230,
+			"name": "land.lhs.true26",
+			"debug": [
+				{
+					"line": 422, "columns": [35, 61, 22]
+				}
+			],
+			"successors": [233, 244],
+			"ir": [
+				"%4 = load i8, ptr %state, align 1, !dbg !689, !tbaa !667",
+				"%cmp30 = icmp eq i8 %4, 0, !dbg !691",
+				"br i1 %cmp30, label %do.body64.sink.split, label %return, !dbg !692"
+			]
+		},
+		{
+			"function": "hz_decode",
+			"id": 231,
+			"name": "land.lhs.true39",
+			"debug": [
+				{
+					"line": 424, "columns": [36, 62, 22]
+				}
+			],
+			"successors": [243, 244],
+			"ir": [
+				"%5 = load i8, ptr %state, align 1, !dbg !693, !tbaa !667",
+				"%cmp43 = icmp eq i8 %5, 0, !dbg !695",
+				"br i1 %cmp43, label %cleanup151, label %return, !dbg !696, !llvm.loop !686"
+			]
+		},
+		{
+			"function": "hz_decode",
+			"id": 232,
+			"name": "land.lhs.true50",
+			"debug": [
+				{
+					"line": 426, "columns": [35, 61, 22]
+				}
+			],
+			"successors": [233, 244],
+			"ir": [
+				"%6 = load i8, ptr %state, align 1, !dbg !697, !tbaa !667",
+				"%cmp54 = icmp eq i8 %6, 1, !dbg !699",
+				"br i1 %cmp54, label %do.body64.sink.split, label %return, !dbg !700"
+			]
+		},
+		{
+			"function": "hz_decode",
+			"id": 233,
+			"name": "do.body64.sink.split",
+			"debug": [
+				{
+					"line": 430, "columns": [13]
+				}
+			],
+			"successors": [243],
+			"ir": [
+				"%.sink = phi i8 [ 1, %land.lhs.true26 ], [ 0, %land.lhs.true50 ]",
+				"store i8 %.sink, ptr %state, align 1, !dbg !701, !tbaa !667",
+				"br label %cleanup151, !dbg !702, !llvm.loop !686"
+			]
+		},
+		{
+			"function": "hz_decode",
+			"id": 234,
+			"name": "if.end67",
+			"debug": [
+				{
+					"line": 434, "columns": [15, 13]
+				}
+			],
+			"successors": [235, 244],
+			"ir": [
+				"%tobool.not = icmp sgt i8 %1, -1, !dbg !704",
+				"br i1 %tobool.not, label %if.end70, label %return, !dbg !706"
+			]
+		},
+		{
+			"function": "hz_decode",
+			"id": 235,
+			"name": "if.end70",
+			"debug": [
+				{
+					"line": 437, "columns": [13, 39]
+				}
+			],
+			"successors": [236, 237],
+			"ir": [
+				"%7 = load i8, ptr %state, align 1, !dbg !707, !tbaa !667",
+				"%cmp74 = icmp eq i8 %7, 0, !dbg !709",
+				"br i1 %cmp74, label %do.body77, label %do.body92, !dbg !710"
+			]
+		},
+		{
+			"function": "hz_decode",
+			"id": 236,
+			"name": "do.body77",
+			"debug": [
+				{
+					"line": 438, "columns": [13]
+				}
+			],
+			"successors": [244, 243],
+			"ir": [
+				"%call79 = tail call i32 @_PyUnicodeWriter_WriteChar(ptr noundef %writer, i32 noundef %conv) #11, !dbg !711",
+				"%cmp80 = icmp slt i32 %call79, 0, !dbg !711",
+				"br i1 %cmp80, label %return, label %cleanup151, !dbg !715"
+			]
+		},
+		{
+			"function": "hz_decode",
+			"id": 237,
+			"name": "do.body92",
+			"debug": [
+				{
+					"line": 442, "columns": [13]
+				}
+			],
+			"successors": [244, 238],
+			"ir": [
+				"%cmp93 = icmp ult i64 %inleft.addr.0189, 2, !dbg !716",
+				"br i1 %cmp93, label %return, label %do.end98, !dbg !720"
+			]
+		},
+		{
+			"function": "hz_decode",
+			"id": 238,
+			"name": "do.end98",
+			"debug": [
+				{
+					"line": 443, "columns": [17]
+				}
+			],
+			"successors": [244, 239],
+			"ir": [
+				"%idxprom = zext i8 %1 to i64, !dbg !721",
+				"%arrayidx99 = getelementptr [256 x %struct.dbcs_index], ptr @gb2312_decmap, i64 0, i64 %idxprom, !dbg !721",
+				"%8 = load ptr, ptr %arrayidx99, align 16, !dbg !721, !tbaa !723",
+				"%cmp100.not = icmp eq ptr %8, null, !dbg !721",
+				"br i1 %cmp100.not, label %return, label %land.lhs.true102, !dbg !721"
+			]
+		},
+		{
+			"function": "hz_decode",
+			"id": 239,
+			"name": "land.lhs.true102",
+			"debug": [
+				{
+					"line": 443, "columns": [17]
+				}
+			],
+			"successors": [244, 240],
+			"ir": [
+				"%arrayidx103 = getelementptr i8, ptr %0, i64 1, !dbg !721",
+				"%9 = load i8, ptr %arrayidx103, align 1, !dbg !721, !tbaa !667",
+				"%conv104 = zext i8 %9 to i64, !dbg !721",
+				"%bottom = getelementptr [256 x %struct.dbcs_index], ptr @gb2312_decmap, i64 0, i64 %idxprom, i32 1, !dbg !721",
+				"%10 = load i8, ptr %bottom, align 8, !dbg !721, !tbaa !725",
+				"%conv107 = zext i8 %10 to i64, !dbg !721",
+				"%cmp108.not = icmp ult i8 %9, %10, !dbg !721",
+				"br i1 %cmp108.not, label %return, label %land.lhs.true110, !dbg !721"
+			]
+		},
+		{
+			"function": "hz_decode",
+			"id": 240,
+			"name": "land.lhs.true110",
+			"debug": [
+				{
+					"line": 443, "columns": [17]
+				}
+			],
+			"successors": [244, 241],
+			"ir": [
+				"%top = getelementptr [256 x %struct.dbcs_index], ptr @gb2312_decmap, i64 0, i64 %idxprom, i32 2, !dbg !721",
+				"%11 = load i8, ptr %top, align 1, !dbg !721, !tbaa !726",
+				"%cmp116.not = icmp ugt i8 %9, %11, !dbg !721",
+				"br i1 %cmp116.not, label %return, label %land.lhs.true118, !dbg !721"
+			]
+		},
+		{
+			"function": "hz_decode",
+			"id": 241,
+			"name": "land.lhs.true118",
+			"debug": [
+				{
+					"line": 443, "columns": [17]
+				}
+			],
+			"successors": [244, 242],
+			"ir": [
+				"%sub128 = sub nsw i64 %conv104, %conv107, !dbg !721",
+				"%arrayidx130 = getelementptr i16, ptr %8, i64 %sub128, !dbg !721",
+				"%12 = load i16, ptr %arrayidx130, align 2, !dbg !721, !tbaa !727",
+				"%cmp132.not = icmp eq i16 %12, -2, !dbg !721",
+				"br i1 %cmp132.not, label %return, label %do.body135, !dbg !729"
+			]
+		},
+		{
+			"function": "hz_decode",
+			"id": 242,
+			"name": "do.body135",
+			"debug": [
+				{
+					"line": 443, "columns": [17]
+				},
+				{
+					"line": 444, "columns": [17]
+				}
+			],
+			"successors": [244, 243],
+			"ir": [
+				"%conv131 = zext i16 %12 to i32, !dbg !721",
+				"%call136 = tail call i32 @_PyUnicodeWriter_WriteChar(ptr noundef %writer, i32 noundef %conv131) #11, !dbg !730",
+				"%cmp137 = icmp slt i32 %call136, 0, !dbg !730",
+				"br i1 %cmp137, label %return, label %cleanup151, !dbg !734"
+			]
+		},
+		{
+			"function": "hz_decode",
+			"id": 243,
+			"name": "cleanup151",
+			"debug": [
+				{
+					"line": 412, "columns": [19, 5]
+				}
+			],
+			"successors": [225, 244],
+			"ir": [
+				"%.sink207 = phi i64 [ 2, %do.body64.sink.split ], [ 2, %do.body16 ], [ 2, %land.lhs.true39 ], [ 1, %do.body77 ], [ 2, %do.body135 ]",
+				"%.sink205 = phi i64 [ -2, %do.body64.sink.split ], [ -2, %do.body16 ], [ -2, %land.lhs.true39 ], [ -1, %do.body77 ], [ -2, %do.body135 ]",
+				"%13 = load ptr, ptr %inbuf, align 8, !dbg !668, !tbaa !662",
+				"%add.ptr87 = getelementptr i8, ptr %13, i64 %.sink207, !dbg !668",
+				"store ptr %add.ptr87, ptr %inbuf, align 8, !dbg !668, !tbaa !662",
+				"%sub88 = add nsw i64 %inleft.addr.0189, %.sink205, !dbg !668",
+				"%cmp = icmp sgt i64 %sub88, 0, !dbg !659",
+				"br i1 %cmp, label %while.body, label %return, !dbg !660"
+			]
+		},
+		{
+			"function": "hz_decode",
+			"id": 244,
+			"name": "return",
+			"debug": [
+				{
+					"line": 453, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.3 = phi i64 [ 0, %entry ], [ 1, %land.lhs.true39 ], [ 1, %land.lhs.true26 ], [ 1, %land.lhs.true ], [ 1, %do.end98 ], [ 1, %land.lhs.true102 ], [ 1, %land.lhs.true110 ], [ 1, %land.lhs.true118 ], [ -4, %do.body135 ], [ -2, %do.body92 ], [ -4, %do.body77 ], [ 1, %if.end67 ], [ 1, %land.lhs.true50 ], [ 1, %do.end ], [ -4, %do.body16 ], [ -2, %if.then ], [ 0, %cleanup151 ], !dbg !658",
+				"ret i64 %retval.3, !dbg !735"
+			]
+		},
+		{
+			"function": "hz_decode_init",
+			"id": 245,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 400, "columns": [31]
+				},
+				{
+					"line": 401, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"store i8 0, ptr %state, align 1, !dbg !650, !tbaa !651",
+				"ret i32 0, !dbg !654"
+			]
+		},
+		{
+			"function": "hz_decode_reset",
+			"id": 246,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 406, "columns": [31]
+				},
+				{
+					"line": 407, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"store i8 0, ptr %state, align 1, !dbg !650, !tbaa !651",
+				"ret i64 0, !dbg !654"
+			]
+		}
+	]
+}

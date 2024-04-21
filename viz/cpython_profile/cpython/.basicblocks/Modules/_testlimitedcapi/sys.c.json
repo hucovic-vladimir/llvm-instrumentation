@@ -1,0 +1,366 @@
+{
+	"blocks": [
+		{
+			"function": "_PyTestLimitedCAPI_Init_Sys",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 51, "columns": [9]
+				},
+				{
+					"line": 56, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call i32 @PyModule_AddFunctions(ptr noundef %m, ptr noundef nonnull @test_methods) #5, !dbg !108",
+				"%call.lobit = ashr i32 %call, 31, !dbg !107",
+				"ret i32 %call.lobit, !dbg !110"
+			]
+		},
+		{
+			"function": "sys_getobject",
+			"id": 1,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 8, "columns": [5]
+				},
+				{
+					"line": 9, "columns": [5]
+				},
+				{
+					"line": 10, "columns": [10, 9]
+				}
+			],
+			"successors": [4, 2],
+			"ir": [
+				"%name = alloca ptr, align 8",
+				"%size = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %name) #5, !dbg !110",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %size) #5, !dbg !111",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_Parse(ptr noundef %arg, ptr noundef nonnull @.str.3, ptr noundef nonnull %name, ptr noundef nonnull %size) #5, !dbg !112",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !112",
+				"br i1 %tobool.not, label %cleanup, label %if.end, !dbg !114"
+			]
+		},
+		{
+			"function": "sys_getobject",
+			"id": 2,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 13, "columns": [40, 24]
+				},
+				{
+					"line": 14, "columns": [16, 9]
+				},
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [4, 3],
+			"ir": [
+				"%0 = load ptr, ptr %name, align 8, !dbg !115, !tbaa !116",
+				"%call1 = call ptr @PySys_GetObject(ptr noundef %0) #5, !dbg !120",
+				"%cmp = icmp eq ptr %call1, null, !dbg !121",
+				"%1 = load ptr, ptr @PyExc_AttributeError, align 8",
+				"%spec.select = select i1 %cmp, ptr %1, ptr %call1, !dbg !123",
+				"%2 = load i32, ptr %spec.select, align 8, !dbg !140, !tbaa !141",
+				"%add.i.i = add i32 %2, 1, !dbg !142",
+				"%cmp.i.i = icmp eq i32 %add.i.i, 0, !dbg !143",
+				"br i1 %cmp.i.i, label %cleanup, label %if.end.i.i, !dbg !145"
+			]
+		},
+		{
+			"function": "sys_getobject",
+			"id": 3,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [4],
+			"ir": [
+				"store i32 %add.i.i, ptr %spec.select, align 8, !dbg !146, !tbaa !141",
+				"br label %cleanup, !dbg !147"
+			]
+		},
+		{
+			"function": "sys_getobject",
+			"id": 4,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 18, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ null, %entry ], [ %spec.select, %if.end ], [ %spec.select, %if.end.i.i ], !dbg !109",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %size) #5, !dbg !148",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %name) #5, !dbg !148",
+				"ret ptr %retval.0, !dbg !148"
+			]
+		},
+		{
+			"function": "sys_setobject",
+			"id": 5,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 23, "columns": [5]
+				},
+				{
+					"line": 24, "columns": [5]
+				},
+				{
+					"line": 25, "columns": [5]
+				},
+				{
+					"line": 26, "columns": [10, 9]
+				}
+			],
+			"successors": [14, 6],
+			"ir": [
+				"%name = alloca ptr, align 8",
+				"%size = alloca i64, align 8",
+				"%value = alloca ptr, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %name) #5, !dbg !112",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %size) #5, !dbg !113",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %value) #5, !dbg !114",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.4, ptr noundef nonnull %name, ptr noundef nonnull %size, ptr noundef nonnull %value) #5, !dbg !115",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !115",
+				"br i1 %tobool.not, label %cleanup18, label %do.body, !dbg !117"
+			]
+		},
+		{
+			"function": "sys_setobject",
+			"id": 6,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 29, "columns": [5]
+				}
+			],
+			"successors": [7, 8],
+			"ir": [
+				"%0 = load ptr, ptr %value, align 8, !dbg !118, !tbaa !121",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !118",
+				"br i1 %cmp, label %if.then1, label %do.body3, !dbg !125"
+			]
+		},
+		{
+			"function": "sys_setobject",
+			"id": 7,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 29, "columns": [5]
+				}
+			],
+			"successors": [8],
+			"ir": [
+				"store ptr null, ptr %value, align 8, !dbg !126, !tbaa !121",
+				"br label %do.body3, !dbg !126"
+			]
+		},
+		{
+			"function": "sys_setobject",
+			"id": 8,
+			"name": "do.body3",
+			"debug": [
+				{
+					"line": 30, "columns": [5]
+				}
+			],
+			"successors": [9, 11],
+			"ir": [
+				"%1 = phi ptr [ %0, %do.body ], [ null, %if.then1 ], !dbg !128",
+				"%2 = load ptr, ptr %name, align 8, !dbg !128, !tbaa !121",
+				"%call4 = call i32 @PySys_SetObject(ptr noundef %2, ptr noundef %1) #5, !dbg !128",
+				"%cmp5 = icmp eq i32 %call4, -1, !dbg !130",
+				"%call7 = call ptr @PyErr_Occurred() #5, !dbg !128",
+				"%tobool8.not = icmp eq ptr %call7, null, !dbg !128",
+				"br i1 %cmp5, label %if.then6, label %if.end9, !dbg !128"
+			]
+		},
+		{
+			"function": "sys_setobject",
+			"id": 9,
+			"name": "if.then6",
+			"debug": [
+				{
+					"line": 30, "columns": [5]
+				}
+			],
+			"successors": [10, 14],
+			"ir": [
+				"br i1 %tobool8.not, label %cond.false, label %cleanup18, !dbg !132"
+			]
+		},
+		{
+			"function": "sys_setobject",
+			"id": 10,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 30, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.5, ptr noundef nonnull @.str.6, i32 noundef 30, ptr noundef nonnull @__PRETTY_FUNCTION__.sys_setobject) #6, !dbg !132",
+				"unreachable, !dbg !132"
+			]
+		},
+		{
+			"function": "sys_setobject",
+			"id": 11,
+			"name": "if.end9",
+			"debug": [
+				{
+					"line": 30, "columns": [5]
+				}
+			],
+			"successors": [13, 12],
+			"ir": [
+				"br i1 %tobool8.not, label %cond.end14, label %cond.false13, !dbg !128"
+			]
+		},
+		{
+			"function": "sys_setobject",
+			"id": 12,
+			"name": "cond.false13",
+			"debug": [
+				{
+					"line": 30, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.7, ptr noundef nonnull @.str.6, i32 noundef 30, ptr noundef nonnull @__PRETTY_FUNCTION__.sys_setobject) #6, !dbg !128",
+				"unreachable, !dbg !128"
+			]
+		},
+		{
+			"function": "sys_setobject",
+			"id": 13,
+			"name": "cond.end14",
+			"debug": [
+				{
+					"line": 30, "columns": [5]
+				}
+			],
+			"successors": [14],
+			"ir": [
+				"%conv = sext i32 %call4 to i64, !dbg !128",
+				"%call15 = call ptr @PyLong_FromLong(i64 noundef %conv) #5, !dbg !128",
+				"br label %cleanup18, !dbg !128"
+			]
+		},
+		{
+			"function": "sys_setobject",
+			"id": 14,
+			"name": "cleanup18",
+			"debug": [
+				{
+					"line": 31, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %entry ], [ %call15, %cond.end14 ], [ null, %if.then6 ], !dbg !111",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %value) #5, !dbg !134",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %size) #5, !dbg !134",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %name) #5, !dbg !134",
+				"ret ptr %retval.1, !dbg !134"
+			]
+		},
+		{
+			"function": "sys_getxoptions",
+			"id": 15,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 36, "columns": [24]
+				},
+				{
+					"line": 1027, "columns": [12, 9]
+				}
+			],
+			"successors": [18, 16],
+			"ir": [
+				"%call = tail call ptr @PySys_GetXOptions() #5, !dbg !108",
+				"%cmp.not.i.i = icmp eq ptr %call, null, !dbg !123",
+				"br i1 %cmp.not.i.i, label %_Py_XNewRef.exit, label %if.then.i.i, !dbg !125"
+			]
+		},
+		{
+			"function": "sys_getxoptions",
+			"id": 16,
+			"name": "if.then.i.i",
+			"debug": [
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [18, 17],
+			"ir": [
+				"%0 = load i32, ptr %call, align 8, !dbg !134, !tbaa !135",
+				"%add.i.i.i = add i32 %0, 1, !dbg !138",
+				"%cmp.i.i.i = icmp eq i32 %add.i.i.i, 0, !dbg !139",
+				"br i1 %cmp.i.i.i, label %_Py_XNewRef.exit, label %if.end.i.i.i, !dbg !141"
+			]
+		},
+		{
+			"function": "sys_getxoptions",
+			"id": 17,
+			"name": "if.end.i.i.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [18],
+			"ir": [
+				"store i32 %add.i.i.i, ptr %call, align 8, !dbg !142, !tbaa !135",
+				"br label %_Py_XNewRef.exit, !dbg !143"
+			]
+		},
+		{
+			"function": "sys_getxoptions",
+			"id": 18,
+			"name": "_Py_XNewRef.exit",
+			"debug": [
+				{
+					"line": 37, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret ptr %call, !dbg !144"
+			]
+		}
+	]
+}

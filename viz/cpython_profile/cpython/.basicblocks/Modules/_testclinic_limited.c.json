@@ -1,0 +1,707 @@
+{
+	"blocks": [
+		{
+			"function": "PyInit__testclinic_limited",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 145, "columns": [19]
+				},
+				{
+					"line": 150, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call ptr @PyModule_Create2(ptr noundef nonnull @_testclinic_module, i32 noundef 3) #4, !dbg !183",
+				"ret ptr %call, !dbg !185"
+			]
+		},
+		{
+			"function": "test_empty_function",
+			"id": 1,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 19, "columns": [5]
+				},
+				{
+					"line": 37, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call.i = tail call ptr @Py_GetConstantBorrowed(i32 noundef 0) #4, !dbg !192",
+				"ret ptr %call.i, !dbg !193"
+			]
+		},
+		{
+			"function": "my_int_func",
+			"id": 2,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 40, "columns": [11]
+				},
+				{
+					"line": 41, "columns": [13, 19]
+				}
+			],
+			"successors": [3, 5],
+			"ir": [
+				"%call = tail call i32 @PyLong_AsInt(ptr noundef %arg_) #4, !dbg !189",
+				"%cmp = icmp eq i32 %call, -1, !dbg !190",
+				"br i1 %cmp, label %land.lhs.true, label %if.end8, !dbg !192"
+			]
+		},
+		{
+			"function": "my_int_func",
+			"id": 3,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 41, "columns": [22, 9]
+				}
+			],
+			"successors": [4, 6],
+			"ir": [
+				"%call1 = tail call ptr @PyErr_Occurred() #4, !dbg !193",
+				"%tobool.not = icmp eq ptr %call1, null, !dbg !193",
+				"br i1 %tobool.not, label %land.lhs.true4, label %exit, !dbg !194"
+			]
+		},
+		{
+			"function": "my_int_func",
+			"id": 4,
+			"name": "land.lhs.true4",
+			"debug": [
+				{
+					"line": 45, "columns": [34, 9]
+				}
+			],
+			"successors": [5, 6],
+			"ir": [
+				"%call5 = tail call ptr @PyErr_Occurred() #4, !dbg !195",
+				"%tobool6.not = icmp eq ptr %call5, null, !dbg !195",
+				"br i1 %tobool6.not, label %if.end8, label %exit, !dbg !197"
+			]
+		},
+		{
+			"function": "my_int_func",
+			"id": 5,
+			"name": "if.end8",
+			"debug": [
+				{
+					"line": 48, "columns": [36, 20, 5]
+				}
+			],
+			"successors": [6],
+			"ir": [
+				"%conv = sext i32 %call to i64, !dbg !198",
+				"%call9 = tail call ptr @PyLong_FromLong(i64 noundef %conv) #4, !dbg !199",
+				"br label %exit, !dbg !200"
+			]
+		},
+		{
+			"function": "my_int_func",
+			"id": 6,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 50, "columns": [1]
+				},
+				{
+					"line": 51, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%return_value.0 = phi ptr [ null, %land.lhs.true ], [ null, %land.lhs.true4 ], [ %call9, %if.end8 ], !dbg !188",
+				"ret ptr %return_value.0, !dbg !202"
+			]
+		},
+		{
+			"function": "my_int_sum",
+			"id": 7,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 73, "columns": [15, 9]
+				}
+			],
+			"successors": [9, 8],
+			"ir": [
+				"%cmp.not = icmp eq i64 %nargs, 2, !dbg !195",
+				"br i1 %cmp.not, label %if.end, label %if.then, !dbg !197"
+			]
+		},
+		{
+			"function": "my_int_sum",
+			"id": 8,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 74, "columns": [22, 9]
+				},
+				{
+					"line": 75, "columns": [9]
+				}
+			],
+			"successors": [16],
+			"ir": [
+				"%0 = load ptr, ptr @PyExc_TypeError, align 8, !dbg !198, !tbaa !200",
+				"%call = tail call ptr (ptr, ptr, ...) @PyErr_Format(ptr noundef %0, ptr noundef nonnull @.str.7, i64 noundef %nargs) #4, !dbg !204",
+				"br label %exit, !dbg !205"
+			]
+		},
+		{
+			"function": "my_int_sum",
+			"id": 9,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 77, "columns": [22, 9]
+				},
+				{
+					"line": 78, "columns": [11, 17]
+				}
+			],
+			"successors": [10, 11],
+			"ir": [
+				"%1 = load ptr, ptr %args, align 8, !dbg !206, !tbaa !200",
+				"%call1 = tail call i32 @PyLong_AsInt(ptr noundef %1) #4, !dbg !207",
+				"%cmp2 = icmp eq i32 %call1, -1, !dbg !208",
+				"br i1 %cmp2, label %land.lhs.true, label %if.end5, !dbg !210"
+			]
+		},
+		{
+			"function": "my_int_sum",
+			"id": 10,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 78, "columns": [20, 9]
+				}
+			],
+			"successors": [11, 16],
+			"ir": [
+				"%call3 = tail call ptr @PyErr_Occurred() #4, !dbg !211",
+				"%tobool.not = icmp eq ptr %call3, null, !dbg !211",
+				"br i1 %tobool.not, label %if.end5, label %exit, !dbg !212"
+			]
+		},
+		{
+			"function": "my_int_sum",
+			"id": 11,
+			"name": "if.end5",
+			"debug": [
+				{
+					"line": 81, "columns": [22, 9]
+				},
+				{
+					"line": 82, "columns": [11, 17]
+				}
+			],
+			"successors": [12, 13],
+			"ir": [
+				"%arrayidx6 = getelementptr ptr, ptr %args, i64 1, !dbg !213",
+				"%2 = load ptr, ptr %arrayidx6, align 8, !dbg !213, !tbaa !200",
+				"%call7 = tail call i32 @PyLong_AsInt(ptr noundef %2) #4, !dbg !214",
+				"%cmp8 = icmp eq i32 %call7, -1, !dbg !215",
+				"br i1 %cmp8, label %land.lhs.true9, label %if.end13, !dbg !217"
+			]
+		},
+		{
+			"function": "my_int_sum",
+			"id": 12,
+			"name": "land.lhs.true9",
+			"debug": [
+				{
+					"line": 82, "columns": [20, 9]
+				}
+			],
+			"successors": [13, 16],
+			"ir": [
+				"%call10 = tail call ptr @PyErr_Occurred() #4, !dbg !218",
+				"%tobool11.not = icmp eq ptr %call10, null, !dbg !218",
+				"br i1 %tobool11.not, label %if.end13, label %exit, !dbg !219"
+			]
+		},
+		{
+			"function": "my_int_sum",
+			"id": 13,
+			"name": "if.end13",
+			"debug": [
+				{
+					"line": 85, "columns": [21]
+				},
+				{
+					"line": 86, "columns": [24, 31]
+				}
+			],
+			"successors": [14, 15],
+			"ir": [
+				"%phi.call = add i32 %call7, %call1, !dbg !220",
+				"%cmp15 = icmp eq i32 %phi.call, -1, !dbg !221",
+				"br i1 %cmp15, label %land.lhs.true16, label %if.end20, !dbg !223"
+			]
+		},
+		{
+			"function": "my_int_sum",
+			"id": 14,
+			"name": "land.lhs.true16",
+			"debug": [
+				{
+					"line": 86, "columns": [34, 9]
+				}
+			],
+			"successors": [15, 16],
+			"ir": [
+				"%call17 = tail call ptr @PyErr_Occurred() #4, !dbg !224",
+				"%tobool18.not = icmp eq ptr %call17, null, !dbg !224",
+				"br i1 %tobool18.not, label %if.end20, label %exit, !dbg !225"
+			]
+		},
+		{
+			"function": "my_int_sum",
+			"id": 15,
+			"name": "if.end20",
+			"debug": [
+				{
+					"line": 89, "columns": [36, 20, 5]
+				}
+			],
+			"successors": [16],
+			"ir": [
+				"%conv = sext i32 %phi.call to i64, !dbg !226",
+				"%call21 = tail call ptr @PyLong_FromLong(i64 noundef %conv) #4, !dbg !227",
+				"br label %exit, !dbg !228"
+			]
+		},
+		{
+			"function": "my_int_sum",
+			"id": 16,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 91, "columns": [1]
+				},
+				{
+					"line": 92, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%return_value.0 = phi ptr [ null, %if.then ], [ null, %land.lhs.true ], [ null, %land.lhs.true9 ], [ null, %land.lhs.true16 ], [ %call21, %if.end20 ], !dbg !194",
+				"ret ptr %return_value.0, !dbg !230"
+			]
+		},
+		{
+			"function": "my_float_sum",
+			"id": 17,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 114, "columns": [15, 9]
+				}
+			],
+			"successors": [19, 18],
+			"ir": [
+				"%cmp.not = icmp eq i64 %nargs, 2, !dbg !195",
+				"br i1 %cmp.not, label %if.end, label %if.then, !dbg !197"
+			]
+		},
+		{
+			"function": "my_float_sum",
+			"id": 18,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 115, "columns": [22, 9]
+				},
+				{
+					"line": 116, "columns": [9]
+				}
+			],
+			"successors": [26],
+			"ir": [
+				"%0 = load ptr, ptr @PyExc_TypeError, align 8, !dbg !198, !tbaa !200",
+				"%call = tail call ptr (ptr, ptr, ...) @PyErr_Format(ptr noundef %0, ptr noundef nonnull @.str.8, i64 noundef %nargs) #4, !dbg !204",
+				"br label %exit, !dbg !205"
+			]
+		},
+		{
+			"function": "my_float_sum",
+			"id": 19,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 118, "columns": [34, 17, 9]
+				},
+				{
+					"line": 119, "columns": [11, 19]
+				}
+			],
+			"successors": [20, 21],
+			"ir": [
+				"%1 = load ptr, ptr %args, align 8, !dbg !206, !tbaa !200",
+				"%call1 = tail call double @PyFloat_AsDouble(ptr noundef %1) #4, !dbg !207",
+				"%conv = fptrunc double %call1 to float, !dbg !208",
+				"%cmp3 = fcmp oeq float %conv, -1.000000e+00, !dbg !209",
+				"br i1 %cmp3, label %land.lhs.true, label %if.end7, !dbg !211"
+			]
+		},
+		{
+			"function": "my_float_sum",
+			"id": 20,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 119, "columns": [22, 9]
+				}
+			],
+			"successors": [21, 26],
+			"ir": [
+				"%call5 = tail call ptr @PyErr_Occurred() #4, !dbg !212",
+				"%tobool.not = icmp eq ptr %call5, null, !dbg !212",
+				"br i1 %tobool.not, label %if.end7, label %exit, !dbg !213"
+			]
+		},
+		{
+			"function": "my_float_sum",
+			"id": 21,
+			"name": "if.end7",
+			"debug": [
+				{
+					"line": 122, "columns": [34, 17, 9]
+				},
+				{
+					"line": 123, "columns": [11, 19]
+				}
+			],
+			"successors": [22, 23],
+			"ir": [
+				"%arrayidx8 = getelementptr ptr, ptr %args, i64 1, !dbg !214",
+				"%2 = load ptr, ptr %arrayidx8, align 8, !dbg !214, !tbaa !200",
+				"%call9 = tail call double @PyFloat_AsDouble(ptr noundef %2) #4, !dbg !215",
+				"%conv10 = fptrunc double %call9 to float, !dbg !216",
+				"%cmp12 = fcmp oeq float %conv10, -1.000000e+00, !dbg !217",
+				"br i1 %cmp12, label %land.lhs.true14, label %if.end18, !dbg !219"
+			]
+		},
+		{
+			"function": "my_float_sum",
+			"id": 22,
+			"name": "land.lhs.true14",
+			"debug": [
+				{
+					"line": 123, "columns": [22, 9]
+				}
+			],
+			"successors": [23, 26],
+			"ir": [
+				"%call15 = tail call ptr @PyErr_Occurred() #4, !dbg !220",
+				"%tobool16.not = icmp eq ptr %call15, null, !dbg !220",
+				"br i1 %tobool16.not, label %if.end18, label %exit, !dbg !221"
+			]
+		},
+		{
+			"function": "my_float_sum",
+			"id": 23,
+			"name": "if.end18",
+			"debug": [
+				{
+					"line": 87, "columns": [14]
+				},
+				{
+					"line": 127, "columns": [10, 24, 33]
+				}
+			],
+			"successors": [24, 25],
+			"ir": [
+				"%add.i = fadd float %conv, %conv10, !dbg !231",
+				"%conv20 = fpext float %add.i to double, !dbg !232",
+				"%cmp21 = fcmp oeq float %add.i, -1.000000e+00, !dbg !234",
+				"br i1 %cmp21, label %land.lhs.true23, label %if.end27, !dbg !235"
+			]
+		},
+		{
+			"function": "my_float_sum",
+			"id": 24,
+			"name": "land.lhs.true23",
+			"debug": [
+				{
+					"line": 127, "columns": [36, 9]
+				}
+			],
+			"successors": [25, 26],
+			"ir": [
+				"%call24 = tail call ptr @PyErr_Occurred() #4, !dbg !236",
+				"%tobool25.not = icmp eq ptr %call24, null, !dbg !236",
+				"br i1 %tobool25.not, label %if.end27, label %exit, !dbg !237"
+			]
+		},
+		{
+			"function": "my_float_sum",
+			"id": 25,
+			"name": "if.end27",
+			"debug": [
+				{
+					"line": 130, "columns": [20, 5]
+				}
+			],
+			"successors": [26],
+			"ir": [
+				"%call29 = tail call ptr @PyFloat_FromDouble(double noundef %conv20) #4, !dbg !238",
+				"br label %exit, !dbg !239"
+			]
+		},
+		{
+			"function": "my_float_sum",
+			"id": 26,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 132, "columns": [1]
+				},
+				{
+					"line": 133, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%return_value.0 = phi ptr [ null, %if.then ], [ null, %land.lhs.true ], [ null, %land.lhs.true14 ], [ null, %land.lhs.true23 ], [ %call29, %if.end27 ], !dbg !194",
+				"ret ptr %return_value.0, !dbg !241"
+			]
+		},
+		{
+			"function": "my_double_sum",
+			"id": 27,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 155, "columns": [15, 9]
+				}
+			],
+			"successors": [29, 28],
+			"ir": [
+				"%cmp.not = icmp eq i64 %nargs, 2, !dbg !195",
+				"br i1 %cmp.not, label %if.end, label %if.then, !dbg !197"
+			]
+		},
+		{
+			"function": "my_double_sum",
+			"id": 28,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 156, "columns": [22, 9]
+				},
+				{
+					"line": 157, "columns": [9]
+				}
+			],
+			"successors": [36],
+			"ir": [
+				"%0 = load ptr, ptr @PyExc_TypeError, align 8, !dbg !198, !tbaa !200",
+				"%call = tail call ptr (ptr, ptr, ...) @PyErr_Format(ptr noundef %0, ptr noundef nonnull @.str.9, i64 noundef %nargs) #4, !dbg !204",
+				"br label %exit, !dbg !205"
+			]
+		},
+		{
+			"function": "my_double_sum",
+			"id": 29,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 159, "columns": [26, 9]
+				},
+				{
+					"line": 160, "columns": [11, 19]
+				}
+			],
+			"successors": [30, 31],
+			"ir": [
+				"%1 = load ptr, ptr %args, align 8, !dbg !206, !tbaa !200",
+				"%call1 = tail call double @PyFloat_AsDouble(ptr noundef %1) #4, !dbg !207",
+				"%cmp2 = fcmp oeq double %call1, -1.000000e+00, !dbg !208",
+				"br i1 %cmp2, label %land.lhs.true, label %if.end5, !dbg !210"
+			]
+		},
+		{
+			"function": "my_double_sum",
+			"id": 30,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 160, "columns": [22, 9]
+				}
+			],
+			"successors": [31, 36],
+			"ir": [
+				"%call3 = tail call ptr @PyErr_Occurred() #4, !dbg !211",
+				"%tobool.not = icmp eq ptr %call3, null, !dbg !211",
+				"br i1 %tobool.not, label %if.end5, label %exit, !dbg !212"
+			]
+		},
+		{
+			"function": "my_double_sum",
+			"id": 31,
+			"name": "if.end5",
+			"debug": [
+				{
+					"line": 163, "columns": [26, 9]
+				},
+				{
+					"line": 164, "columns": [11, 19]
+				}
+			],
+			"successors": [32, 33],
+			"ir": [
+				"%arrayidx6 = getelementptr ptr, ptr %args, i64 1, !dbg !213",
+				"%2 = load ptr, ptr %arrayidx6, align 8, !dbg !213, !tbaa !200",
+				"%call7 = tail call double @PyFloat_AsDouble(ptr noundef %2) #4, !dbg !214",
+				"%cmp8 = fcmp oeq double %call7, -1.000000e+00, !dbg !215",
+				"br i1 %cmp8, label %land.lhs.true9, label %if.end13, !dbg !217"
+			]
+		},
+		{
+			"function": "my_double_sum",
+			"id": 32,
+			"name": "land.lhs.true9",
+			"debug": [
+				{
+					"line": 164, "columns": [22, 9]
+				}
+			],
+			"successors": [33, 36],
+			"ir": [
+				"%call10 = tail call ptr @PyErr_Occurred() #4, !dbg !218",
+				"%tobool11.not = icmp eq ptr %call10, null, !dbg !218",
+				"br i1 %tobool11.not, label %if.end13, label %exit, !dbg !219"
+			]
+		},
+		{
+			"function": "my_double_sum",
+			"id": 33,
+			"name": "if.end13",
+			"debug": [
+				{
+					"line": 104, "columns": [14]
+				},
+				{
+					"line": 168, "columns": [24, 33]
+				}
+			],
+			"successors": [34, 35],
+			"ir": [
+				"%add.i = fadd double %call1, %call7, !dbg !229",
+				"%cmp15 = fcmp oeq double %add.i, -1.000000e+00, !dbg !230",
+				"br i1 %cmp15, label %land.lhs.true16, label %if.end20, !dbg !232"
+			]
+		},
+		{
+			"function": "my_double_sum",
+			"id": 34,
+			"name": "land.lhs.true16",
+			"debug": [
+				{
+					"line": 168, "columns": [36, 9]
+				}
+			],
+			"successors": [35, 36],
+			"ir": [
+				"%call17 = tail call ptr @PyErr_Occurred() #4, !dbg !233",
+				"%tobool18.not = icmp eq ptr %call17, null, !dbg !233",
+				"br i1 %tobool18.not, label %if.end20, label %exit, !dbg !234"
+			]
+		},
+		{
+			"function": "my_double_sum",
+			"id": 35,
+			"name": "if.end20",
+			"debug": [
+				{
+					"line": 171, "columns": [20, 5]
+				}
+			],
+			"successors": [36],
+			"ir": [
+				"%call21 = tail call ptr @PyFloat_FromDouble(double noundef %add.i) #4, !dbg !235",
+				"br label %exit, !dbg !236"
+			]
+		},
+		{
+			"function": "my_double_sum",
+			"id": 36,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 173, "columns": [1]
+				},
+				{
+					"line": 174, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%return_value.0 = phi ptr [ null, %if.then ], [ null, %land.lhs.true ], [ null, %land.lhs.true9 ], [ null, %land.lhs.true16 ], [ %call21, %if.end20 ], !dbg !194",
+				"ret ptr %return_value.0, !dbg !238"
+			]
+		},
+		{
+			"function": "get_file_descriptor",
+			"id": 37,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 196, "columns": [10]
+				},
+				{
+					"line": 197, "columns": [12, 9]
+				}
+			],
+			"successors": [39, 38],
+			"ir": [
+				"%call = tail call i32 @PyObject_AsFileDescriptor(ptr noundef %arg) #4, !dbg !189",
+				"%cmp = icmp slt i32 %call, 0, !dbg !190",
+				"br i1 %cmp, label %exit, label %if.end, !dbg !192"
+			]
+		},
+		{
+			"function": "get_file_descriptor",
+			"id": 38,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 204, "columns": [20, 5]
+				}
+			],
+			"successors": [39],
+			"ir": [
+				"%conv = zext i32 %call to i64",
+				"%call6 = tail call ptr @PyLong_FromLong(i64 noundef %conv) #4, !dbg !193",
+				"br label %exit, !dbg !194"
+			]
+		},
+		{
+			"function": "get_file_descriptor",
+			"id": 39,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 206, "columns": [1]
+				},
+				{
+					"line": 207, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%return_value.0 = phi ptr [ null, %entry ], [ %call6, %if.end ], !dbg !188",
+				"ret ptr %return_value.0, !dbg !196"
+			]
+		}
+	]
+}

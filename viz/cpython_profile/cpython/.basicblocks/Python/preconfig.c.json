@@ -1,0 +1,5674 @@
+{
+	"blocks": [
+		{
+			"function": "_Py_ClearFileSystemEncoding",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 30, "columns": [10, 42]
+				}
+			],
+			"successors": [1, 2],
+			"ir": [
+				"%0 = load i32, ptr @Py_HasFileSystemDefaultEncoding, align 4, !dbg !551, !tbaa !553",
+				"%tobool = icmp eq i32 %0, 0, !dbg !551",
+				"%1 = load ptr, ptr @Py_FileSystemDefaultEncoding, align 8",
+				"%tobool1 = icmp ne ptr %1, null",
+				"%or.cond = select i1 %tobool, i1 %tobool1, i1 false, !dbg !557",
+				"br i1 %or.cond, label %if.then, label %if.end, !dbg !557"
+			]
+		},
+		{
+			"function": "_Py_ClearFileSystemEncoding",
+			"id": 1,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 31, "columns": [9]
+				},
+				{
+					"line": 32, "columns": [38]
+				},
+				{
+					"line": 33, "columns": [5]
+				}
+			],
+			"successors": [2],
+			"ir": [
+				"tail call void @PyMem_RawFree(ptr noundef nonnull %1) #20, !dbg !558",
+				"store ptr null, ptr @Py_FileSystemDefaultEncoding, align 8, !dbg !560, !tbaa !561",
+				"br label %if.end, !dbg !563"
+			]
+		},
+		{
+			"function": "_Py_ClearFileSystemEncoding",
+			"id": 2,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 34, "columns": [10, 47]
+				}
+			],
+			"successors": [3, 4],
+			"ir": [
+				"%2 = load i32, ptr @_Py_HasFileSystemDefaultEncodeErrors, align 4, !dbg !564, !tbaa !553",
+				"%tobool2 = icmp eq i32 %2, 0, !dbg !564",
+				"%3 = load ptr, ptr @Py_FileSystemDefaultEncodeErrors, align 8",
+				"%tobool4 = icmp ne ptr %3, null",
+				"%or.cond7 = select i1 %tobool2, i1 %tobool4, i1 false, !dbg !566",
+				"br i1 %or.cond7, label %if.then5, label %if.end6, !dbg !566"
+			]
+		},
+		{
+			"function": "_Py_ClearFileSystemEncoding",
+			"id": 3,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 35, "columns": [9]
+				},
+				{
+					"line": 36, "columns": [42]
+				},
+				{
+					"line": 37, "columns": [5]
+				}
+			],
+			"successors": [4],
+			"ir": [
+				"tail call void @PyMem_RawFree(ptr noundef nonnull %3) #20, !dbg !567",
+				"store ptr null, ptr @Py_FileSystemDefaultEncodeErrors, align 8, !dbg !569, !tbaa !561",
+				"br label %if.end6, !dbg !570"
+			]
+		},
+		{
+			"function": "_Py_ClearFileSystemEncoding",
+			"id": 4,
+			"name": "if.end6",
+			"debug": [
+				{
+					"line": 39, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !571"
+			]
+		},
+		{
+			"function": "_Py_SetFileSystemEncoding",
+			"id": 5,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 50, "columns": [23]
+				},
+				{
+					"line": 51, "columns": [19, 9]
+				}
+			],
+			"successors": [13, 6],
+			"ir": [
+				"%call = tail call ptr @_PyMem_RawStrdup(ptr noundef %encoding) #20, !dbg !556",
+				"%cmp = icmp eq ptr %call, null, !dbg !557",
+				"br i1 %cmp, label %cleanup5, label %if.end, !dbg !559"
+			]
+		},
+		{
+			"function": "_Py_SetFileSystemEncoding",
+			"id": 6,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 55, "columns": [21]
+				},
+				{
+					"line": 56, "columns": [17, 9]
+				}
+			],
+			"successors": [7, 8],
+			"ir": [
+				"%call1 = tail call ptr @_PyMem_RawStrdup(ptr noundef %errors) #20, !dbg !560",
+				"%cmp2 = icmp eq ptr %call1, null, !dbg !561",
+				"br i1 %cmp2, label %if.then3, label %if.end4, !dbg !563"
+			]
+		},
+		{
+			"function": "_Py_SetFileSystemEncoding",
+			"id": 7,
+			"name": "if.then3",
+			"debug": [
+				{
+					"line": 57, "columns": [9]
+				},
+				{
+					"line": 58, "columns": [9]
+				}
+			],
+			"successors": [13],
+			"ir": [
+				"tail call void @PyMem_RawFree(ptr noundef nonnull %call) #20, !dbg !564",
+				"br label %cleanup5, !dbg !566"
+			]
+		},
+		{
+			"function": "_Py_SetFileSystemEncoding",
+			"id": 8,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 30, "columns": [10, 42]
+				}
+			],
+			"successors": [9, 10],
+			"ir": [
+				"%0 = load i32, ptr @Py_HasFileSystemDefaultEncoding, align 4, !dbg !567, !tbaa !574",
+				"%tobool.i = icmp eq i32 %0, 0, !dbg !567",
+				"%1 = load ptr, ptr @Py_FileSystemDefaultEncoding, align 8",
+				"%tobool1.i = icmp ne ptr %1, null",
+				"%or.cond.i = select i1 %tobool.i, i1 %tobool1.i, i1 false, !dbg !578",
+				"br i1 %or.cond.i, label %if.then.i, label %if.end.i, !dbg !578"
+			]
+		},
+		{
+			"function": "_Py_SetFileSystemEncoding",
+			"id": 9,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 31, "columns": [9]
+				},
+				{
+					"line": 32, "columns": [38]
+				},
+				{
+					"line": 33, "columns": [5]
+				}
+			],
+			"successors": [10],
+			"ir": [
+				"tail call void @PyMem_RawFree(ptr noundef nonnull %1) #20, !dbg !579",
+				"store ptr null, ptr @Py_FileSystemDefaultEncoding, align 8, !dbg !581, !tbaa !582",
+				"br label %if.end.i, !dbg !584"
+			]
+		},
+		{
+			"function": "_Py_SetFileSystemEncoding",
+			"id": 10,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 34, "columns": [10, 47]
+				}
+			],
+			"successors": [11, 12],
+			"ir": [
+				"%2 = load i32, ptr @_Py_HasFileSystemDefaultEncodeErrors, align 4, !dbg !585, !tbaa !574",
+				"%tobool2.i = icmp eq i32 %2, 0, !dbg !585",
+				"%3 = load ptr, ptr @Py_FileSystemDefaultEncodeErrors, align 8",
+				"%tobool4.i = icmp ne ptr %3, null",
+				"%or.cond7.i = select i1 %tobool2.i, i1 %tobool4.i, i1 false, !dbg !587",
+				"br i1 %or.cond7.i, label %if.then5.i, label %_Py_ClearFileSystemEncoding.exit, !dbg !587"
+			]
+		},
+		{
+			"function": "_Py_SetFileSystemEncoding",
+			"id": 11,
+			"name": "if.then5.i",
+			"debug": [
+				{
+					"line": 35, "columns": [9]
+				},
+				{
+					"line": 37, "columns": [5]
+				}
+			],
+			"successors": [12],
+			"ir": [
+				"tail call void @PyMem_RawFree(ptr noundef nonnull %3) #20, !dbg !588",
+				"br label %_Py_ClearFileSystemEncoding.exit, !dbg !590"
+			]
+		},
+		{
+			"function": "_Py_SetFileSystemEncoding",
+			"id": 12,
+			"name": "_Py_ClearFileSystemEncoding.exit",
+			"debug": [
+				{
+					"line": 65, "columns": [34]
+				},
+				{
+					"line": 66, "columns": [37]
+				},
+				{
+					"line": 68, "columns": [38]
+				},
+				{
+					"line": 69, "columns": [42]
+				},
+				{
+					"line": 71, "columns": [5]
+				}
+			],
+			"successors": [13],
+			"ir": [
+				"store ptr %call, ptr @Py_FileSystemDefaultEncoding, align 8, !dbg !591, !tbaa !582",
+				"store i32 0, ptr @Py_HasFileSystemDefaultEncoding, align 4, !dbg !592, !tbaa !574",
+				"store ptr %call1, ptr @Py_FileSystemDefaultEncodeErrors, align 8, !dbg !593, !tbaa !582",
+				"store i32 0, ptr @_Py_HasFileSystemDefaultEncodeErrors, align 4, !dbg !594, !tbaa !574",
+				"br label %cleanup5, !dbg !595"
+			]
+		},
+		{
+			"function": "_Py_SetFileSystemEncoding",
+			"id": 13,
+			"name": "cleanup5",
+			"debug": [
+				{
+					"line": 72, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi i32 [ -1, %entry ], [ -1, %if.then3 ], [ 0, %_Py_ClearFileSystemEncoding.exit ], !dbg !555",
+				"ret i32 %retval.1, !dbg !596"
+			]
+		},
+		{
+			"function": "_PyArgv_AsWstrList",
+			"id": 14,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 81, "columns": [5, 22]
+				},
+				{
+					"line": 82, "columns": [15, 9]
+				}
+			],
+			"successors": [23, 15],
+			"ir": [
+				"%wargv = alloca %struct.PyWideStringList, align 8",
+				"%len = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %wargv) #20, !dbg !584",
+				"call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %wargv, i8 0, i64 16, i1 false), !dbg !585",
+				"%use_bytes_argv = getelementptr inbounds %struct._PyArgv, ptr %args, i64 0, i32 1, !dbg !586",
+				"%0 = load i32, ptr %use_bytes_argv, align 8, !dbg !586, !tbaa !587",
+				"%tobool.not = icmp eq i32 %0, 0, !dbg !594",
+				"%1 = load i64, ptr %args, align 8, !dbg !595, !tbaa !596",
+				"br i1 %tobool.not, label %if.else, label %if.then, !dbg !597"
+			]
+		},
+		{
+			"function": "_PyArgv_AsWstrList",
+			"id": 15,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 83, "columns": [40]
+				},
+				{
+					"line": 84, "columns": [35, 15, 21]
+				},
+				{
+					"line": 85, "columns": [25, 13]
+				}
+			],
+			"successors": [18, 16],
+			"ir": [
+				"%mul = shl i64 %1, 3, !dbg !598",
+				"%call = tail call ptr @PyMem_RawMalloc(i64 noundef %mul) #20, !dbg !600",
+				"%items = getelementptr inbounds %struct.PyWideStringList, ptr %wargv, i64 0, i32 1, !dbg !601",
+				"store ptr %call, ptr %items, align 8, !dbg !602, !tbaa !603",
+				"%cmp = icmp eq ptr %call, null, !dbg !605",
+				"br i1 %cmp, label %if.then2, label %for.cond.preheader, !dbg !607"
+			]
+		},
+		{
+			"function": "_PyArgv_AsWstrList",
+			"id": 16,
+			"name": "for.cond.preheader",
+			"debug": [
+				{
+					"line": 89, "columns": [42, 34, 9]
+				}
+			],
+			"successors": [17, 22],
+			"ir": [
+				"%2 = load i64, ptr %args, align 8, !dbg !609, !tbaa !596",
+				"%cmp4.not59 = icmp sgt i64 %2, 0, !dbg !610",
+				"br i1 %cmp4.not59, label %for.body.lr.ph, label %for.end, !dbg !611"
+			]
+		},
+		{
+			"function": "_PyArgv_AsWstrList",
+			"id": 17,
+			"name": "for.body.lr.ph",
+			"debug": [
+				{
+					"line": 89, "columns": [9]
+				}
+			],
+			"successors": [19],
+			"ir": [
+				"%bytes_argv = getelementptr inbounds %struct._PyArgv, ptr %args, i64 0, i32 2",
+				"br label %for.body, !dbg !611"
+			]
+		},
+		{
+			"function": "_PyArgv_AsWstrList",
+			"id": 18,
+			"name": "if.then2",
+			"debug": [
+				{
+					"line": 86, "columns": [20, 13]
+				}
+			],
+			"successors": [26],
+			"ir": [
+				"store i32 1, ptr %agg.result, align 8, !dbg !612, !tbaa !614",
+				"%func = getelementptr inbounds %struct.PyStatus, ptr %agg.result, i64 0, i32 1, !dbg !612",
+				"store ptr @__func__._PyArgv_AsWstrList, ptr %func, align 8, !dbg !612, !tbaa !616",
+				"%err_msg = getelementptr inbounds %struct.PyStatus, ptr %agg.result, i64 0, i32 2, !dbg !612",
+				"store ptr @.str, ptr %err_msg, align 8, !dbg !612, !tbaa !617",
+				"%exitcode = getelementptr inbounds %struct.PyStatus, ptr %agg.result, i64 0, i32 3, !dbg !612",
+				"store i32 0, ptr %exitcode, align 8, !dbg !612, !tbaa !618",
+				"br label %cleanup43, !dbg !619"
+			]
+		},
+		{
+			"function": "_PyArgv_AsWstrList",
+			"id": 19,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 90, "columns": [13]
+				},
+				{
+					"line": 91, "columns": [50, 44, 28]
+				},
+				{
+					"line": 92, "columns": [21, 17]
+				}
+			],
+			"successors": [20, 21],
+			"ir": [
+				"%3 = phi i64 [ 0, %for.body.lr.ph ], [ %inc, %for.inc ]",
+				"%i.060 = phi i64 [ 0, %for.body.lr.ph ], [ %inc21, %for.inc ]",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %len) #20, !dbg !620",
+				"%4 = load ptr, ptr %bytes_argv, align 8, !dbg !621, !tbaa !622",
+				"%arrayidx = getelementptr ptr, ptr %4, i64 %i.060, !dbg !623",
+				"%5 = load ptr, ptr %arrayidx, align 8, !dbg !623, !tbaa !624",
+				"%call5 = call ptr @Py_DecodeLocale(ptr noundef %5, ptr noundef nonnull %len) #20, !dbg !626",
+				"%cmp6.not = icmp eq ptr %call5, null, !dbg !627",
+				"br i1 %cmp6.not, label %if.then7, label %for.inc, !dbg !629"
+			]
+		},
+		{
+			"function": "_PyArgv_AsWstrList",
+			"id": 20,
+			"name": "if.then7",
+			"debug": [
+				{
+					"line": 93, "columns": [17]
+				},
+				{
+					"line": 94, "columns": [24]
+				},
+				{
+					"line": 98, "columns": [9]
+				}
+			],
+			"successors": [26],
+			"ir": [
+				"call void @_PyWideStringList_Clear(ptr noundef nonnull %wargv) #20, !dbg !630",
+				"%6 = load i64, ptr %len, align 8, !dbg !632, !tbaa !633",
+				"%cmp8 = icmp eq i64 %6, -2, !dbg !632",
+				"%spec.select = select i1 %cmp8, ptr @.str.1, ptr @.str, !dbg !632",
+				"store i32 1, ptr %agg.result, align 8, !dbg !632",
+				"%7 = getelementptr inbounds %struct.PyStatus, ptr %agg.result, i64 0, i32 1, !dbg !632",
+				"store ptr @__func__._PyArgv_AsWstrList, ptr %7, align 8, !dbg !632",
+				"%8 = getelementptr inbounds %struct.PyStatus, ptr %agg.result, i64 0, i32 2, !dbg !632",
+				"store ptr %spec.select, ptr %8, align 8, !dbg !632",
+				"%9 = getelementptr inbounds %struct.PyStatus, ptr %agg.result, i64 0, i32 3, !dbg !632",
+				"store i32 0, ptr %9, align 8, !dbg !632",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %len) #20, !dbg !634",
+				"br label %cleanup43"
+			]
+		},
+		{
+			"function": "_PyArgv_AsWstrList",
+			"id": 21,
+			"name": "for.inc",
+			"debug": [
+				{
+					"line": 89, "columns": [49, 42, 34, 9]
+				},
+				{
+					"line": 96, "columns": [19, 13, 28]
+				},
+				{
+					"line": 97, "columns": [25]
+				},
+				{
+					"line": 98, "columns": [9]
+				}
+			],
+			"successors": [19, 22],
+			"ir": [
+				"%10 = load ptr, ptr %items, align 8, !dbg !635, !tbaa !603",
+				"%arrayidx19 = getelementptr ptr, ptr %10, i64 %i.060, !dbg !636",
+				"store ptr %call5, ptr %arrayidx19, align 8, !dbg !637, !tbaa !624",
+				"%inc = add i64 %3, 1, !dbg !638",
+				"store i64 %inc, ptr %wargv, align 8, !dbg !638, !tbaa !639",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %len) #20, !dbg !634",
+				"%inc21 = add nuw nsw i64 %i.060, 1, !dbg !640",
+				"%11 = load i64, ptr %args, align 8, !dbg !609, !tbaa !596",
+				"%cmp4.not = icmp slt i64 %inc21, %11, !dbg !610",
+				"br i1 %cmp4.not, label %for.body, label %for.end, !dbg !611, !llvm.loop !641"
+			]
+		},
+		{
+			"function": "_PyArgv_AsWstrList",
+			"id": 22,
+			"name": "for.end",
+			"debug": [
+				{
+					"line": 100, "columns": [9]
+				},
+				{
+					"line": 101, "columns": [17]
+				}
+			],
+			"successors": [25],
+			"ir": [
+				"call void @_PyWideStringList_Clear(ptr noundef %list) #20, !dbg !644",
+				"call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %list, ptr noundef nonnull align 8 dereferenceable(16) %wargv, i64 16, i1 false), !dbg !645, !tbaa.struct !646",
+				"br label %if.end38"
+			]
+		},
+		{
+			"function": "_PyArgv_AsWstrList",
+			"id": 23,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 104, "columns": [22]
+				},
+				{
+					"line": 105, "columns": [41, 15, 21]
+				},
+				{
+					"line": 106, "columns": [13, 50]
+				}
+			],
+			"successors": [24, 25],
+			"ir": [
+				"store i64 %1, ptr %wargv, align 8, !dbg !647, !tbaa !639",
+				"%wchar_argv = getelementptr inbounds %struct._PyArgv, ptr %args, i64 0, i32 3, !dbg !649",
+				"%12 = load ptr, ptr %wchar_argv, align 8, !dbg !649, !tbaa !650",
+				"%items29 = getelementptr inbounds %struct.PyWideStringList, ptr %wargv, i64 0, i32 1, !dbg !651",
+				"store ptr %12, ptr %items29, align 8, !dbg !652, !tbaa !603",
+				"%call30 = call i32 @_PyWideStringList_Copy(ptr noundef %list, ptr noundef nonnull %wargv) #20, !dbg !653",
+				"%cmp31 = icmp slt i32 %call30, 0, !dbg !655",
+				"br i1 %cmp31, label %if.then32, label %if.end38, !dbg !656"
+			]
+		},
+		{
+			"function": "_PyArgv_AsWstrList",
+			"id": 24,
+			"name": "if.then32",
+			"debug": [
+				{
+					"line": 107, "columns": [20, 13]
+				}
+			],
+			"successors": [26],
+			"ir": [
+				"store i32 1, ptr %agg.result, align 8, !dbg !657, !tbaa !614",
+				"%func34 = getelementptr inbounds %struct.PyStatus, ptr %agg.result, i64 0, i32 1, !dbg !657",
+				"store ptr @__func__._PyArgv_AsWstrList, ptr %func34, align 8, !dbg !657, !tbaa !616",
+				"%err_msg35 = getelementptr inbounds %struct.PyStatus, ptr %agg.result, i64 0, i32 2, !dbg !657",
+				"store ptr @.str, ptr %err_msg35, align 8, !dbg !657, !tbaa !617",
+				"%exitcode36 = getelementptr inbounds %struct.PyStatus, ptr %agg.result, i64 0, i32 3, !dbg !657",
+				"store i32 0, ptr %exitcode36, align 8, !dbg !657, !tbaa !618",
+				"br label %cleanup43, !dbg !659"
+			]
+		},
+		{
+			"function": "_PyArgv_AsWstrList",
+			"id": 25,
+			"name": "if.end38",
+			"debug": [
+				{
+					"line": 110, "columns": [12, 5]
+				}
+			],
+			"successors": [26],
+			"ir": [
+				"call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %agg.result, i8 0, i64 32, i1 false), !dbg !660",
+				"br label %cleanup43, !dbg !661"
+			]
+		},
+		{
+			"function": "_PyArgv_AsWstrList",
+			"id": 26,
+			"name": "cleanup43",
+			"debug": [
+				{
+					"line": 111, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %wargv) #20, !dbg !662",
+				"ret void, !dbg !662"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Clear",
+			"id": 27,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 119, "columns": [5]
+				},
+				{
+					"line": 120, "columns": [39, 5]
+				},
+				{
+					"line": 121, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @_PyWideStringList_Clear(ptr noundef %cmdline) #20, !dbg !568",
+				"%xoptions = getelementptr inbounds %struct._PyPreCmdline, ptr %cmdline, i64 0, i32 1, !dbg !569",
+				"tail call void @_PyWideStringList_Clear(ptr noundef nonnull %xoptions) #20, !dbg !570",
+				"ret void, !dbg !571"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_SetArgv",
+			"id": 28,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 127, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @_PyArgv_AsWstrList(ptr sret(%struct.PyStatus) align 8 %agg.result, ptr noundef %args, ptr noundef %cmdline), !dbg !583",
+				"ret void, !dbg !584"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_SetConfig",
+			"id": 29,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 167, "columns": [5, 14, 57, 77, 23]
+				},
+				{
+					"line": 168, "columns": [9]
+				}
+			],
+			"successors": [31, 30],
+			"ir": [
+				"%status = alloca %struct.PyStatus, align 8",
+				"call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %status) #20, !dbg !642",
+				"%xoptions = getelementptr inbounds %struct.PyConfig, ptr %config, i64 0, i32 22, !dbg !644",
+				"%xoptions1 = getelementptr inbounds %struct._PyPreCmdline, ptr %cmdline, i64 0, i32 1, !dbg !645",
+				"call void @_PyWideStringList_Extend(ptr nonnull sret(%struct.PyStatus) align 8 %status, ptr noundef nonnull %xoptions, ptr noundef nonnull %xoptions1) #20, !dbg !646",
+				"%0 = load i32, ptr %status, align 8, !dbg !647, !tbaa !649",
+				"%cmp.not = icmp eq i32 %0, 0, !dbg !647",
+				"br i1 %cmp.not, label %if.end, label %if.then, !dbg !655"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_SetConfig",
+			"id": 30,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 169, "columns": [16, 9]
+				}
+			],
+			"successors": [32],
+			"ir": [
+				"call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %agg.result, ptr noundef nonnull align 8 dereferenceable(32) %status, i64 32, i1 false), !dbg !656, !tbaa.struct !658",
+				"br label %cleanup, !dbg !662"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_SetConfig",
+			"id": 31,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 172, "columns": [5]
+				},
+				{
+					"line": 174, "columns": [5]
+				},
+				{
+					"line": 175, "columns": [5]
+				},
+				{
+					"line": 176, "columns": [12, 5]
+				}
+			],
+			"successors": [32],
+			"ir": [
+				"%isolated = getelementptr inbounds %struct._PyPreCmdline, ptr %cmdline, i64 0, i32 2, !dbg !663",
+				"%isolated2 = getelementptr inbounds %struct.PyConfig, ptr %config, i64 0, i32 1, !dbg !663",
+				"%1 = load <2 x i32>, ptr %isolated, align 8, !dbg !663, !tbaa !661",
+				"store <2 x i32> %1, ptr %isolated2, align 4, !dbg !663, !tbaa !661",
+				"%dev_mode = getelementptr inbounds %struct._PyPreCmdline, ptr %cmdline, i64 0, i32 4, !dbg !664",
+				"%2 = load i32, ptr %dev_mode, align 8, !dbg !664, !tbaa !665",
+				"%dev_mode4 = getelementptr inbounds %struct.PyConfig, ptr %config, i64 0, i32 3, !dbg !664",
+				"store i32 %2, ptr %dev_mode4, align 4, !dbg !664, !tbaa !669",
+				"%warn_default_encoding = getelementptr inbounds %struct._PyPreCmdline, ptr %cmdline, i64 0, i32 5, !dbg !671",
+				"%3 = load i32, ptr %warn_default_encoding, align 4, !dbg !671, !tbaa !672",
+				"%warn_default_encoding5 = getelementptr inbounds %struct.PyConfig, ptr %config, i64 0, i32 26, !dbg !671",
+				"store i32 %3, ptr %warn_default_encoding5, align 8, !dbg !671, !tbaa !673",
+				"call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %agg.result, i8 0, i64 32, i1 false), !dbg !674",
+				"br label %cleanup, !dbg !675"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_SetConfig",
+			"id": 32,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 179, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %status) #20, !dbg !676",
+				"ret void, !dbg !676"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 33,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 139, "columns": [5]
+				}
+			],
+			"successors": [35, 34],
+			"ir": [
+				"%longindex.i = alloca i32, align 4",
+				"%isolated.i = getelementptr inbounds %struct.PyPreConfig, ptr %preconfig, i64 0, i32 2, !dbg !596",
+				"%0 = load i32, ptr %isolated.i, align 4, !dbg !596, !tbaa !598",
+				"%cmp.not.i = icmp eq i32 %0, -1, !dbg !596",
+				"br i1 %cmp.not.i, label %if.end.i, label %if.then.i, !dbg !603"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 34,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 139, "columns": [5]
+				}
+			],
+			"successors": [35],
+			"ir": [
+				"%isolated2.i = getelementptr inbounds %struct._PyPreCmdline, ptr %cmdline, i64 0, i32 2, !dbg !604",
+				"store i32 %0, ptr %isolated2.i, align 8, !dbg !604, !tbaa !606",
+				"br label %if.end.i, !dbg !604"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 35,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 140, "columns": [5]
+				}
+			],
+			"successors": [37, 36],
+			"ir": [
+				"%use_environment.i = getelementptr inbounds %struct.PyPreConfig, ptr %preconfig, i64 0, i32 3, !dbg !611",
+				"%1 = load i32, ptr %use_environment.i, align 4, !dbg !611, !tbaa !613",
+				"%cmp3.not.i = icmp eq i32 %1, -1, !dbg !611",
+				"br i1 %cmp3.not.i, label %if.end7.i, label %if.then4.i, !dbg !614"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 36,
+			"name": "if.then4.i",
+			"debug": [
+				{
+					"line": 140, "columns": [5]
+				}
+			],
+			"successors": [37],
+			"ir": [
+				"%use_environment6.i = getelementptr inbounds %struct._PyPreCmdline, ptr %cmdline, i64 0, i32 3, !dbg !615",
+				"store i32 %1, ptr %use_environment6.i, align 4, !dbg !615, !tbaa !617",
+				"br label %if.end7.i, !dbg !615"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 37,
+			"name": "if.end7.i",
+			"debug": [
+				{
+					"line": 141, "columns": [5]
+				}
+			],
+			"successors": [39, 38],
+			"ir": [
+				"%dev_mode.i = getelementptr inbounds %struct.PyPreConfig, ptr %preconfig, i64 0, i32 8, !dbg !618",
+				"%2 = load i32, ptr %dev_mode.i, align 4, !dbg !618, !tbaa !620",
+				"%cmp8.not.i = icmp eq i32 %2, -1, !dbg !618",
+				"br i1 %cmp8.not.i, label %precmdline_get_preconfig.exit, label %if.then9.i, !dbg !621"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 38,
+			"name": "if.then9.i",
+			"debug": [
+				{
+					"line": 141, "columns": [5]
+				}
+			],
+			"successors": [39],
+			"ir": [
+				"%dev_mode11.i = getelementptr inbounds %struct._PyPreCmdline, ptr %cmdline, i64 0, i32 4, !dbg !622",
+				"store i32 %2, ptr %dev_mode11.i, align 8, !dbg !622, !tbaa !624",
+				"br label %precmdline_get_preconfig.exit, !dbg !622"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 39,
+			"name": "precmdline_get_preconfig.exit",
+			"debug": [
+				{
+					"line": 235, "columns": [20, 9]
+				}
+			],
+			"successors": [48, 40],
+			"ir": [
+				"%parse_argv = getelementptr inbounds %struct.PyPreConfig, ptr %preconfig, i64 0, i32 1, !dbg !625",
+				"%3 = load i32, ptr %parse_argv, align 4, !dbg !625, !tbaa !626",
+				"%tobool.not = icmp eq i32 %3, 0, !dbg !627",
+				"br i1 %tobool.not, label %if.end2, label %if.then, !dbg !628"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 40,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 188, "columns": [5]
+				},
+				{
+					"line": 191, "columns": [18]
+				},
+				{
+					"line": 192, "columns": [5]
+				},
+				{
+					"line": 236, "columns": [18, 27]
+				}
+			],
+			"successors": [41],
+			"ir": [
+				"tail call void @llvm.experimental.noalias.scope.decl(metadata !937), !dbg !940",
+				"tail call void @_PyOS_ResetGetOpt() #20, !dbg !650, !noalias !630",
+				"store i32 0, ptr @_PyOS_opterr, align 4, !dbg !651, !tbaa !652, !noalias !630",
+				"%items.i = getelementptr inbounds %struct.PyWideStringList, ptr %cmdline, i64 0, i32 1",
+				"%xoptions.i = getelementptr inbounds %struct._PyPreCmdline, ptr %cmdline, i64 0, i32 1",
+				"%isolated.i56 = getelementptr inbounds %struct._PyPreCmdline, ptr %cmdline, i64 0, i32 2",
+				"%use_environment.i57 = getelementptr inbounds %struct._PyPreCmdline, ptr %cmdline, i64 0, i32 3",
+				"br label %do.body.i, !dbg !653"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 41,
+			"name": "do.body.i",
+			"debug": [
+				{
+					"line": 193, "columns": [9, 13]
+				},
+				{
+					"line": 194, "columns": [36, 50, 17]
+				},
+				{
+					"line": 196, "columns": [22]
+				}
+			],
+			"successors": [45, 46, 46, 46, 42, 43, 44],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %longindex.i) #20, !dbg !654, !noalias !630",
+				"store i32 -1, ptr %longindex.i, align 4, !dbg !656, !tbaa !652, !noalias !630",
+				"%4 = load i64, ptr %cmdline, align 8, !dbg !657, !tbaa !658, !noalias !630",
+				"%5 = load ptr, ptr %items.i, align 8, !dbg !659, !tbaa !660, !noalias !630",
+				"%call.i = call i32 @_PyOS_GetOpt(i64 noundef %4, ptr noundef %5, ptr noundef nonnull %longindex.i) #20, !dbg !661",
+				"switch i32 %call.i, label %cleanup.i [\n    i32 -1, label %precmdline_parse_cmdline.exit.thread\n    i32 109, label %precmdline_parse_cmdline.exit.thread\n    i32 99, label %precmdline_parse_cmdline.exit.thread\n    i32 69, label %sw.bb.i\n    i32 73, label %sw.bb5.i\n    i32 88, label %sw.bb6.i\n  ], !dbg !662"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 42,
+			"name": "sw.bb.i",
+			"debug": [
+				{
+					"line": 202, "columns": [38]
+				},
+				{
+					"line": 203, "columns": [13]
+				}
+			],
+			"successors": [45],
+			"ir": [
+				"store i32 0, ptr %use_environment.i57, align 4, !dbg !664, !tbaa !617, !noalias !630",
+				"br label %cleanup.i, !dbg !665"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 43,
+			"name": "sw.bb5.i",
+			"debug": [
+				{
+					"line": 206, "columns": [31]
+				},
+				{
+					"line": 207, "columns": [13]
+				}
+			],
+			"successors": [45],
+			"ir": [
+				"store i32 1, ptr %isolated.i56, align 8, !dbg !666, !tbaa !606, !noalias !630",
+				"br label %cleanup.i, !dbg !667"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 44,
+			"name": "sw.bb6.i",
+			"debug": [
+				{
+					"line": 211, "columns": [22, 31]
+				},
+				{
+					"line": 212, "columns": [55]
+				},
+				{
+					"line": 213, "columns": [17]
+				}
+			],
+			"successors": [45, 47],
+			"ir": [
+				"%6 = load ptr, ptr @_PyOS_optarg, align 8, !dbg !669, !tbaa !670, !noalias !630",
+				"call void @PyWideStringList_Append(ptr sret(%struct.PyStatus) align 8 %agg.result, ptr noundef nonnull %xoptions.i, ptr noundef %6) #20, !dbg !671",
+				"%7 = load i32, ptr %agg.result, align 8, !dbg !672, !tbaa !674",
+				"%cmp7.not.i = icmp eq i32 %7, 0, !dbg !672",
+				"br i1 %cmp7.not.i, label %cleanup.i, label %precmdline_parse_cmdline.exit, !dbg !676"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 45,
+			"name": "cleanup.i",
+			"debug": [
+				{
+					"line": 224, "columns": [5]
+				}
+			],
+			"successors": [41],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %longindex.i) #20, !dbg !677, !noalias !630",
+				"br label %do.body.i"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 46,
+			"name": "precmdline_parse_cmdline.exit.thread",
+			"debug": [
+				{
+					"line": 224, "columns": [5]
+				},
+				{
+					"line": 226, "columns": [12]
+				},
+				{
+					"line": 237, "columns": [13]
+				}
+			],
+			"successors": [48],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %longindex.i) #20, !dbg !677, !noalias !630",
+				"call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %agg.result, i8 0, i64 32, i1 false), !dbg !678, !alias.scope !630",
+				"br label %if.end2, !dbg !679"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 47,
+			"name": "precmdline_parse_cmdline.exit",
+			"debug": [
+				{
+					"line": 224, "columns": [5]
+				},
+				{
+					"line": 237, "columns": [13]
+				}
+			],
+			"successors": [83],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %longindex.i) #20, !dbg !677, !noalias !630",
+				"br label %return, !dbg !679"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 48,
+			"name": "if.end2",
+			"debug": [
+				{
+					"line": 243, "columns": [18, 27, 9]
+				}
+			],
+			"successors": [49, 50],
+			"ir": [
+				"%isolated = getelementptr inbounds %struct._PyPreCmdline, ptr %cmdline, i64 0, i32 2, !dbg !680",
+				"%8 = load i32, ptr %isolated, align 8, !dbg !680, !tbaa !606",
+				"%cmp3 = icmp slt i32 %8, 0, !dbg !682",
+				"br i1 %cmp3, label %if.end6.thread, label %if.end6, !dbg !683"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 49,
+			"name": "if.end6.thread",
+			"debug": [
+				{
+					"line": 244, "columns": [27]
+				},
+				{
+					"line": 246, "columns": [9]
+				}
+			],
+			"successors": [52],
+			"ir": [
+				"store i32 0, ptr %isolated, align 8, !dbg !684, !tbaa !606",
+				"br label %if.end10, !dbg !686"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 50,
+			"name": "if.end6",
+			"debug": [
+				{
+					"line": 246, "columns": [27, 9]
+				}
+			],
+			"successors": [52, 51],
+			"ir": [
+				"%cmp8.not = icmp eq i32 %8, 0, !dbg !687",
+				"br i1 %cmp8.not, label %if.end10, label %if.then9, !dbg !686"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 51,
+			"name": "if.then9",
+			"debug": [
+				{
+					"line": 247, "columns": [18, 34]
+				},
+				{
+					"line": 248, "columns": [5]
+				}
+			],
+			"successors": [52],
+			"ir": [
+				"%use_environment = getelementptr inbounds %struct._PyPreCmdline, ptr %cmdline, i64 0, i32 3, !dbg !689",
+				"store i32 0, ptr %use_environment, align 4, !dbg !691, !tbaa !617",
+				"br label %if.end10, !dbg !692"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 52,
+			"name": "if.end10",
+			"debug": [
+				{
+					"line": 249, "columns": [18, 34, 9]
+				}
+			],
+			"successors": [53, 54],
+			"ir": [
+				"%use_environment11 = getelementptr inbounds %struct._PyPreCmdline, ptr %cmdline, i64 0, i32 3, !dbg !693",
+				"%9 = load i32, ptr %use_environment11, align 4, !dbg !693, !tbaa !617",
+				"%cmp12 = icmp slt i32 %9, 0, !dbg !695",
+				"br i1 %cmp12, label %if.then13, label %if.end15, !dbg !696"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 53,
+			"name": "if.then13",
+			"debug": [
+				{
+					"line": 250, "columns": [34]
+				},
+				{
+					"line": 251, "columns": [5]
+				}
+			],
+			"successors": [54],
+			"ir": [
+				"store i32 0, ptr %use_environment11, align 4, !dbg !697, !tbaa !617",
+				"br label %if.end15, !dbg !699"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 54,
+			"name": "if.end15",
+			"debug": [
+				{
+					"line": 254, "columns": [19, 28]
+				},
+				{
+					"line": 255, "columns": [9]
+				}
+			],
+			"successors": [55, 69],
+			"ir": [
+				"%10 = phi i32 [ 0, %if.then13 ], [ %9, %if.end10 ]",
+				"%dev_mode = getelementptr inbounds %struct._PyPreCmdline, ptr %cmdline, i64 0, i32 4, !dbg !700",
+				"%11 = load i32, ptr %dev_mode, align 8, !dbg !700, !tbaa !624",
+				"%cmp16 = icmp slt i32 %11, 0, !dbg !702",
+				"%xoptions = getelementptr inbounds %struct._PyPreCmdline, ptr %cmdline, i64 0, i32 1",
+				"%12 = load i64, ptr %xoptions, align 8, !tbaa !658",
+				"br i1 %cmp16, label %land.lhs.true, label %if.end28, !dbg !703"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 55,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 584, "columns": [28, 5]
+				}
+			],
+			"successors": [56, 64],
+			"ir": [
+				"%cmp.not27.i = icmp sgt i64 %12, 0, !dbg !722",
+				"br i1 %cmp.not27.i, label %for.body.lr.ph.i, label %lor.lhs.false, !dbg !723"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 56,
+			"name": "for.body.lr.ph.i",
+			"debug": [
+				{
+					"line": 584, "columns": [5]
+				}
+			],
+			"successors": [57],
+			"ir": [
+				"%items.i58 = getelementptr inbounds %struct._PyPreCmdline, ptr %cmdline, i64 0, i32 1, i32 1",
+				"%13 = load ptr, ptr %items.i58, align 8, !tbaa !660",
+				"br label %for.body.i, !dbg !723"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 57,
+			"name": "for.body.i",
+			"debug": [
+				{
+					"line": 585, "columns": [33]
+				},
+				{
+					"line": 587, "columns": [24]
+				},
+				{
+					"line": 588, "columns": [17, 13]
+				}
+			],
+			"successors": [59, 58],
+			"ir": [
+				"%i.028.i = phi i64 [ 0, %for.body.lr.ph.i ], [ %inc.i, %for.inc.i ]",
+				"%arrayidx.i = getelementptr ptr, ptr %13, i64 %i.028.i, !dbg !724",
+				"%14 = load ptr, ptr %arrayidx.i, align 8, !dbg !724, !tbaa !670",
+				"%call.i59 = call ptr @wcschr(ptr noundef %14, i32 noundef 61) #21, !dbg !726",
+				"%cmp1.not.i = icmp eq ptr %call.i59, null, !dbg !727",
+				"br i1 %cmp1.not.i, label %if.else.i, label %if.then.i60, !dbg !729"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 58,
+			"name": "if.then.i60",
+			"debug": [
+				{
+					"line": 589, "columns": [24]
+				},
+				{
+					"line": 590, "columns": [9]
+				}
+			],
+			"successors": [60],
+			"ir": [
+				"%sub.ptr.lhs.cast.i = ptrtoint ptr %call.i59 to i64, !dbg !730",
+				"%sub.ptr.rhs.cast.i = ptrtoint ptr %14 to i64, !dbg !730",
+				"%sub.ptr.sub.i = sub i64 %sub.ptr.lhs.cast.i, %sub.ptr.rhs.cast.i, !dbg !730",
+				"%sub.ptr.div.i = ashr exact i64 %sub.ptr.sub.i, 2, !dbg !730",
+				"br label %if.end.i61, !dbg !732"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 59,
+			"name": "if.else.i",
+			"debug": [
+				{
+					"line": 592, "columns": [19]
+				}
+			],
+			"successors": [60],
+			"ir": [
+				"%call2.i = call i64 @wcslen(ptr noundef %14) #21, !dbg !733",
+				"br label %if.end.i61"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 60,
+			"name": "if.end.i61",
+			"debug": [
+				{
+					"line": 594, "columns": [13, 40, 45]
+				}
+			],
+			"successors": [61, 62],
+			"ir": [
+				"%len.0.i = phi i64 [ %sub.ptr.div.i, %if.then.i60 ], [ %call2.i, %if.else.i ], !dbg !735",
+				"%call3.i = call i32 @wcsncmp(ptr noundef %14, ptr noundef nonnull @.str.2, i64 noundef %len.0.i) #21, !dbg !736",
+				"%cmp4.i = icmp eq i32 %call3.i, 0, !dbg !738",
+				"br i1 %cmp4.i, label %land.lhs.true.i, label %for.inc.i, !dbg !739"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 61,
+			"name": "land.lhs.true.i",
+			"debug": [
+				{
+					"line": 594, "columns": [48, 58, 13]
+				}
+			],
+			"successors": [63, 62],
+			"ir": [
+				"%arrayidx5.i = getelementptr i32, ptr @.str.2, i64 %len.0.i, !dbg !740",
+				"%15 = load i32, ptr %arrayidx5.i, align 4, !dbg !740, !tbaa !652",
+				"%cmp6.i = icmp eq i32 %15, 0, !dbg !741",
+				"br i1 %cmp6.i, label %_Py_get_xoption.exit, label %for.inc.i, !dbg !742"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 62,
+			"name": "for.inc.i",
+			"debug": [
+				{
+					"line": 584, "columns": [49, 28, 5]
+				}
+			],
+			"successors": [64, 57],
+			"ir": [
+				"%inc.i = add nuw nsw i64 %i.028.i, 1, !dbg !743",
+				"%exitcond.not.i = icmp eq i64 %inc.i, %12, !dbg !722",
+				"br i1 %exitcond.not.i, label %lor.lhs.false, label %for.body.i, !dbg !723, !llvm.loop !744"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 63,
+			"name": "_Py_get_xoption.exit",
+			"debug": [
+				{
+					"line": 255, "columns": [13]
+				},
+				{
+					"line": 256, "columns": [13]
+				}
+			],
+			"successors": [64, 68],
+			"ir": [
+				"%tobool17.not = icmp eq ptr %14, null, !dbg !747",
+				"br i1 %tobool17.not, label %lor.lhs.false, label %if.end28.sink.split, !dbg !748"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 64,
+			"name": "lor.lhs.false",
+			"debug": [
+				{
+					"line": 531, "columns": [10, 9]
+				}
+			],
+			"successors": [67, 65],
+			"ir": [
+				"%tobool.not.i = icmp eq i32 %10, 0, !dbg !758",
+				"br i1 %tobool.not.i, label %if.then26, label %if.end.i63, !dbg !760"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 65,
+			"name": "if.end.i63",
+			"debug": [
+				{
+					"line": 535, "columns": [23]
+				},
+				{
+					"line": 536, "columns": [9, 13]
+				}
+			],
+			"successors": [67, 66],
+			"ir": [
+				"%call.i62 = call ptr @getenv(ptr noundef nonnull @.str.3) #20, !dbg !761",
+				"%tobool1.not.i = icmp eq ptr %call.i62, null, !dbg !762",
+				"br i1 %tobool1.not.i, label %if.then26, label %land.lhs.true.i65, !dbg !764"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 66,
+			"name": "land.lhs.true.i65",
+			"debug": [
+				{
+					"line": 536, "columns": [16, 23, 9]
+				}
+			],
+			"successors": [67, 68],
+			"ir": [
+				"%16 = load i8, ptr %call.i62, align 1, !dbg !765, !tbaa !766",
+				"%cmp.not.i64 = icmp eq i8 %16, 0, !dbg !767",
+				"br i1 %cmp.not.i64, label %if.then26, label %if.end28.sink.split, !dbg !768"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 67,
+			"name": "if.then26",
+			"debug": [
+				{
+					"line": 262, "columns": [5]
+				}
+			],
+			"successors": [68],
+			"ir": [
+				"br label %if.end28.sink.split, !dbg !769"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 68,
+			"name": "if.end28.sink.split",
+			"debug": [
+				{
+					"line": 584, "columns": [28]
+				}
+			],
+			"successors": [69],
+			"ir": [
+				"%.sink = phi i32 [ 0, %if.then26 ], [ 1, %land.lhs.true.i65 ], [ 1, %_Py_get_xoption.exit ]",
+				"store i32 %.sink, ptr %dev_mode, align 8, !dbg !587, !tbaa !624",
+				"br label %if.end28, !dbg !772"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 69,
+			"name": "if.end28",
+			"debug": [
+				{
+					"line": 584, "columns": [28, 5]
+				}
+			],
+			"successors": [70, 78],
+			"ir": [
+				"%cmp.not27.i67 = icmp sgt i64 %12, 0, !dbg !772",
+				"br i1 %cmp.not27.i67, label %for.body.lr.ph.i69, label %lor.lhs.false32, !dbg !777"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 70,
+			"name": "for.body.lr.ph.i69",
+			"debug": [
+				{
+					"line": 584, "columns": [5]
+				}
+			],
+			"successors": [71],
+			"ir": [
+				"%items.i68 = getelementptr inbounds %struct._PyPreCmdline, ptr %cmdline, i64 0, i32 1, i32 1",
+				"%17 = load ptr, ptr %items.i68, align 8, !tbaa !660",
+				"br label %for.body.i74, !dbg !777"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 71,
+			"name": "for.body.i74",
+			"debug": [
+				{
+					"line": 585, "columns": [33]
+				},
+				{
+					"line": 587, "columns": [24]
+				},
+				{
+					"line": 588, "columns": [17, 13]
+				}
+			],
+			"successors": [73, 72],
+			"ir": [
+				"%i.028.i70 = phi i64 [ 0, %for.body.lr.ph.i69 ], [ %inc.i89, %for.inc.i91 ]",
+				"%arrayidx.i71 = getelementptr ptr, ptr %17, i64 %i.028.i70, !dbg !778",
+				"%18 = load ptr, ptr %arrayidx.i71, align 8, !dbg !778, !tbaa !670",
+				"%call.i72 = call ptr @wcschr(ptr noundef %18, i32 noundef 61) #21, !dbg !780",
+				"%cmp1.not.i73 = icmp eq ptr %call.i72, null, !dbg !781",
+				"br i1 %cmp1.not.i73, label %if.else.i81, label %if.then.i79, !dbg !782"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 72,
+			"name": "if.then.i79",
+			"debug": [
+				{
+					"line": 589, "columns": [24]
+				},
+				{
+					"line": 590, "columns": [9]
+				}
+			],
+			"successors": [74],
+			"ir": [
+				"%sub.ptr.lhs.cast.i75 = ptrtoint ptr %call.i72 to i64, !dbg !783",
+				"%sub.ptr.rhs.cast.i76 = ptrtoint ptr %18 to i64, !dbg !783",
+				"%sub.ptr.sub.i77 = sub i64 %sub.ptr.lhs.cast.i75, %sub.ptr.rhs.cast.i76, !dbg !783",
+				"%sub.ptr.div.i78 = ashr exact i64 %sub.ptr.sub.i77, 2, !dbg !783",
+				"br label %if.end.i85, !dbg !784"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 73,
+			"name": "if.else.i81",
+			"debug": [
+				{
+					"line": 592, "columns": [19]
+				}
+			],
+			"successors": [74],
+			"ir": [
+				"%call2.i80 = call i64 @wcslen(ptr noundef %18) #21, !dbg !785",
+				"br label %if.end.i85"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 74,
+			"name": "if.end.i85",
+			"debug": [
+				{
+					"line": 594, "columns": [13, 40, 45]
+				}
+			],
+			"successors": [75, 76],
+			"ir": [
+				"%len.0.i82 = phi i64 [ %sub.ptr.div.i78, %if.then.i79 ], [ %call2.i80, %if.else.i81 ], !dbg !786",
+				"%call3.i83 = call i32 @wcsncmp(ptr noundef %18, ptr noundef nonnull @.str.4, i64 noundef %len.0.i82) #21, !dbg !787",
+				"%cmp4.i84 = icmp eq i32 %call3.i83, 0, !dbg !788",
+				"br i1 %cmp4.i84, label %land.lhs.true.i88, label %for.inc.i91, !dbg !789"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 75,
+			"name": "land.lhs.true.i88",
+			"debug": [
+				{
+					"line": 594, "columns": [48, 58, 13]
+				}
+			],
+			"successors": [77, 76],
+			"ir": [
+				"%arrayidx5.i86 = getelementptr i32, ptr @.str.4, i64 %len.0.i82, !dbg !790",
+				"%19 = load i32, ptr %arrayidx5.i86, align 4, !dbg !790, !tbaa !652",
+				"%cmp6.i87 = icmp eq i32 %19, 0, !dbg !791",
+				"br i1 %cmp6.i87, label %_Py_get_xoption.exit93, label %for.inc.i91, !dbg !792"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 76,
+			"name": "for.inc.i91",
+			"debug": [
+				{
+					"line": 584, "columns": [49, 28, 5]
+				}
+			],
+			"successors": [78, 71],
+			"ir": [
+				"%inc.i89 = add nuw nsw i64 %i.028.i70, 1, !dbg !793",
+				"%exitcond.not.i90 = icmp eq i64 %inc.i89, %12, !dbg !772",
+				"br i1 %exitcond.not.i90, label %lor.lhs.false32, label %for.body.i74, !dbg !777, !llvm.loop !794"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 77,
+			"name": "_Py_get_xoption.exit93",
+			"debug": [
+				{
+					"line": 265, "columns": [9]
+				},
+				{
+					"line": 266, "columns": [13]
+				}
+			],
+			"successors": [78, 81],
+			"ir": [
+				"%tobool31.not = icmp eq ptr %18, null, !dbg !796",
+				"br i1 %tobool31.not, label %lor.lhs.false32, label %if.then36, !dbg !797"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 78,
+			"name": "lor.lhs.false32",
+			"debug": [
+				{
+					"line": 531, "columns": [10, 9]
+				}
+			],
+			"successors": [82, 79],
+			"ir": [
+				"%tobool.not.i94 = icmp eq i32 %10, 0, !dbg !800",
+				"br i1 %tobool.not.i94, label %if.end37, label %if.end.i97, !dbg !801"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 79,
+			"name": "if.end.i97",
+			"debug": [
+				{
+					"line": 535, "columns": [23]
+				},
+				{
+					"line": 536, "columns": [9, 13]
+				}
+			],
+			"successors": [82, 80],
+			"ir": [
+				"%call.i95 = call ptr @getenv(ptr noundef nonnull @.str.5) #20, !dbg !802",
+				"%tobool1.not.i96 = icmp eq ptr %call.i95, null, !dbg !803",
+				"br i1 %tobool1.not.i96, label %if.end37, label %land.lhs.true.i99, !dbg !804"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 80,
+			"name": "land.lhs.true.i99",
+			"debug": [
+				{
+					"line": 536, "columns": [16, 23, 9]
+				}
+			],
+			"successors": [82, 81],
+			"ir": [
+				"%20 = load i8, ptr %call.i95, align 1, !dbg !805, !tbaa !766",
+				"%cmp.not.i98 = icmp eq i8 %20, 0, !dbg !806",
+				"br i1 %cmp.not.i98, label %if.end37, label %if.then36, !dbg !807"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 81,
+			"name": "if.then36",
+			"debug": [
+				{
+					"line": 268, "columns": [18, 40]
+				},
+				{
+					"line": 269, "columns": [5]
+				}
+			],
+			"successors": [82],
+			"ir": [
+				"%warn_default_encoding = getelementptr inbounds %struct._PyPreCmdline, ptr %cmdline, i64 0, i32 5, !dbg !808",
+				"store i32 1, ptr %warn_default_encoding, align 4, !dbg !810, !tbaa !811",
+				"br label %if.end37, !dbg !812"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 82,
+			"name": "if.end37",
+			"debug": [
+				{
+					"line": 276, "columns": [12, 5]
+				}
+			],
+			"successors": [83],
+			"ir": [
+				"call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %agg.result, i8 0, i64 32, i1 false), !dbg !813",
+				"br label %return, !dbg !814"
+			]
+		},
+		{
+			"function": "_PyPreCmdline_Read",
+			"id": 83,
+			"name": "return",
+			"debug": [
+				{
+					"line": 277, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !815"
+			]
+		},
+		{
+			"function": "_Py_get_xoption",
+			"id": 84,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 584, "columns": [28, 5]
+				}
+			],
+			"successors": [85, 92],
+			"ir": [
+				"%0 = load i64, ptr %xoptions, align 8, !tbaa !571",
+				"%cmp.not27 = icmp sgt i64 %0, 0, !dbg !577",
+				"br i1 %cmp.not27, label %for.body.lr.ph, label %cleanup11, !dbg !578"
+			]
+		},
+		{
+			"function": "_Py_get_xoption",
+			"id": 85,
+			"name": "for.body.lr.ph",
+			"debug": [
+				{
+					"line": 584, "columns": [5]
+				}
+			],
+			"successors": [86],
+			"ir": [
+				"%items = getelementptr inbounds %struct.PyWideStringList, ptr %xoptions, i64 0, i32 1",
+				"%1 = load ptr, ptr %items, align 8, !tbaa !579",
+				"br label %for.body, !dbg !578"
+			]
+		},
+		{
+			"function": "_Py_get_xoption",
+			"id": 86,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 585, "columns": [33]
+				},
+				{
+					"line": 587, "columns": [24]
+				},
+				{
+					"line": 588, "columns": [17, 13]
+				}
+			],
+			"successors": [88, 87],
+			"ir": [
+				"%i.028 = phi i64 [ 0, %for.body.lr.ph ], [ %inc, %for.inc ]",
+				"%arrayidx = getelementptr ptr, ptr %1, i64 %i.028, !dbg !580",
+				"%2 = load ptr, ptr %arrayidx, align 8, !dbg !580, !tbaa !581",
+				"%call = tail call ptr @wcschr(ptr noundef %2, i32 noundef 61) #20, !dbg !583",
+				"%cmp1.not = icmp eq ptr %call, null, !dbg !584",
+				"br i1 %cmp1.not, label %if.else, label %if.then, !dbg !586"
+			]
+		},
+		{
+			"function": "_Py_get_xoption",
+			"id": 87,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 589, "columns": [24]
+				},
+				{
+					"line": 590, "columns": [9]
+				}
+			],
+			"successors": [89],
+			"ir": [
+				"%sub.ptr.lhs.cast = ptrtoint ptr %call to i64, !dbg !587",
+				"%sub.ptr.rhs.cast = ptrtoint ptr %2 to i64, !dbg !587",
+				"%sub.ptr.sub = sub i64 %sub.ptr.lhs.cast, %sub.ptr.rhs.cast, !dbg !587",
+				"%sub.ptr.div = ashr exact i64 %sub.ptr.sub, 2, !dbg !587",
+				"br label %if.end, !dbg !589"
+			]
+		},
+		{
+			"function": "_Py_get_xoption",
+			"id": 88,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 592, "columns": [19]
+				}
+			],
+			"successors": [89],
+			"ir": [
+				"%call2 = tail call i64 @wcslen(ptr noundef %2) #20, !dbg !590",
+				"br label %if.end"
+			]
+		},
+		{
+			"function": "_Py_get_xoption",
+			"id": 89,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 594, "columns": [13, 40, 45]
+				}
+			],
+			"successors": [90, 91],
+			"ir": [
+				"%len.0 = phi i64 [ %sub.ptr.div, %if.then ], [ %call2, %if.else ], !dbg !592",
+				"%call3 = tail call i32 @wcsncmp(ptr noundef %2, ptr noundef %name, i64 noundef %len.0) #20, !dbg !593",
+				"%cmp4 = icmp eq i32 %call3, 0, !dbg !595",
+				"br i1 %cmp4, label %land.lhs.true, label %for.inc, !dbg !596"
+			]
+		},
+		{
+			"function": "_Py_get_xoption",
+			"id": 90,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 594, "columns": [48, 58, 13]
+				}
+			],
+			"successors": [92, 91],
+			"ir": [
+				"%arrayidx5 = getelementptr i32, ptr %name, i64 %len.0, !dbg !597",
+				"%3 = load i32, ptr %arrayidx5, align 4, !dbg !597, !tbaa !598",
+				"%cmp6 = icmp eq i32 %3, 0, !dbg !600",
+				"br i1 %cmp6, label %cleanup11, label %for.inc, !dbg !601"
+			]
+		},
+		{
+			"function": "_Py_get_xoption",
+			"id": 91,
+			"name": "for.inc",
+			"debug": [
+				{
+					"line": 584, "columns": [49, 28, 5]
+				}
+			],
+			"successors": [92, 86],
+			"ir": [
+				"%inc = add nuw nsw i64 %i.028, 1, !dbg !602",
+				"%exitcond.not = icmp eq i64 %inc, %0, !dbg !577",
+				"br i1 %exitcond.not, label %cleanup11, label %for.body, !dbg !578, !llvm.loop !603"
+			]
+		},
+		{
+			"function": "_Py_get_xoption",
+			"id": 92,
+			"name": "cleanup11",
+			"debug": [
+				{
+					"line": 599, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%spec.select = phi ptr [ null, %entry ], [ %2, %land.lhs.true ], [ null, %for.inc ]",
+				"ret ptr %spec.select, !dbg !606"
+			]
+		},
+		{
+			"function": "_Py_GetEnv",
+			"id": 93,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 531, "columns": [10, 9]
+				}
+			],
+			"successors": [97, 94],
+			"ir": [
+				"%tobool.not = icmp eq i32 %use_environment, 0, !dbg !555",
+				"br i1 %tobool.not, label %return, label %if.end, !dbg !557"
+			]
+		},
+		{
+			"function": "_Py_GetEnv",
+			"id": 94,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 535, "columns": [23]
+				},
+				{
+					"line": 536, "columns": [9, 13]
+				}
+			],
+			"successors": [96, 95],
+			"ir": [
+				"%call = tail call ptr @getenv(ptr noundef %name) #20, !dbg !558",
+				"%tobool1.not = icmp eq ptr %call, null, !dbg !559",
+				"br i1 %tobool1.not, label %if.else, label %land.lhs.true, !dbg !561"
+			]
+		},
+		{
+			"function": "_Py_GetEnv",
+			"id": 95,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 536, "columns": [16, 23, 9]
+				}
+			],
+			"successors": [96, 97],
+			"ir": [
+				"%0 = load i8, ptr %call, align 1, !dbg !562, !tbaa !563",
+				"%cmp.not = icmp eq i8 %0, 0, !dbg !566",
+				"br i1 %cmp.not, label %if.else, label %return, !dbg !567"
+			]
+		},
+		{
+			"function": "_Py_GetEnv",
+			"id": 96,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 540, "columns": [9]
+				}
+			],
+			"successors": [97],
+			"ir": [
+				"br label %return, !dbg !568"
+			]
+		},
+		{
+			"function": "_Py_GetEnv",
+			"id": 97,
+			"name": "return",
+			"debug": [
+				{
+					"line": 542, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %entry ], [ null, %if.else ], [ %call, %land.lhs.true ], !dbg !554",
+				"ret ptr %retval.1, !dbg !570"
+			]
+		},
+		{
+			"function": "_PyPreConfig_InitCompatConfig",
+			"id": 98,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 288, "columns": [26]
+				},
+				{
+					"line": 292, "columns": [13, 30]
+				},
+				{
+					"line": 303, "columns": [13, 22]
+				},
+				{
+					"line": 304, "columns": [13, 23]
+				},
+				{
+					"line": 308, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"store <4 x i32> <i32 1, i32 0, i32 -1, i32 -1>, ptr %config, align 4, !dbg !567, !tbaa !568",
+				"%configure_locale = getelementptr inbounds %struct.PyPreConfig, ptr %config, i64 0, i32 4, !dbg !572",
+				"store <4 x i32> <i32 1, i32 0, i32 0, i32 0>, ptr %configure_locale, align 4, !dbg !573, !tbaa !568",
+				"%dev_mode = getelementptr inbounds %struct.PyPreConfig, ptr %config, i64 0, i32 8, !dbg !574",
+				"store i32 -1, ptr %dev_mode, align 4, !dbg !575, !tbaa !576",
+				"%allocator = getelementptr inbounds %struct.PyPreConfig, ptr %config, i64 0, i32 9, !dbg !578",
+				"store i32 0, ptr %allocator, align 4, !dbg !579, !tbaa !580",
+				"ret void, !dbg !581"
+			]
+		},
+		{
+			"function": "PyPreConfig_InitPythonConfig",
+			"id": 99,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 292, "columns": [13, 30]
+				},
+				{
+					"line": 303, "columns": [13, 22]
+				},
+				{
+					"line": 304, "columns": [13, 23]
+				},
+				{
+					"line": 316, "columns": [26]
+				},
+				{
+					"line": 329, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%configure_locale.i = getelementptr inbounds %struct.PyPreConfig, ptr %config, i64 0, i32 4, !dbg !572",
+				"%dev_mode.i = getelementptr inbounds %struct.PyPreConfig, ptr %config, i64 0, i32 8, !dbg !573",
+				"store i32 -1, ptr %dev_mode.i, align 4, !dbg !574, !tbaa !575",
+				"%allocator.i = getelementptr inbounds %struct.PyPreConfig, ptr %config, i64 0, i32 9, !dbg !580",
+				"store i32 0, ptr %allocator.i, align 4, !dbg !581, !tbaa !582",
+				"store <4 x i32> <i32 2, i32 1, i32 0, i32 1>, ptr %config, align 4, !dbg !583, !tbaa !584",
+				"store <4 x i32> <i32 1, i32 -1, i32 -1, i32 -1>, ptr %configure_locale.i, align 4, !dbg !585, !tbaa !584",
+				"ret void, !dbg !586"
+			]
+		},
+		{
+			"function": "PyPreConfig_InitIsolatedConfig",
+			"id": 100,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 292, "columns": [13]
+				},
+				{
+					"line": 303, "columns": [13]
+				},
+				{
+					"line": 304, "columns": [13, 23]
+				},
+				{
+					"line": 337, "columns": [26]
+				},
+				{
+					"line": 338, "columns": [30]
+				},
+				{
+					"line": 342, "columns": [22]
+				},
+				{
+					"line": 346, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%configure_locale.i = getelementptr inbounds %struct.PyPreConfig, ptr %config, i64 0, i32 4, !dbg !572",
+				"%dev_mode.i = getelementptr inbounds %struct.PyPreConfig, ptr %config, i64 0, i32 8, !dbg !573",
+				"%allocator.i = getelementptr inbounds %struct.PyPreConfig, ptr %config, i64 0, i32 9, !dbg !574",
+				"store i32 0, ptr %allocator.i, align 4, !dbg !575, !tbaa !576",
+				"store <4 x i32> <i32 3, i32 0, i32 1, i32 0>, ptr %config, align 4, !dbg !581, !tbaa !582",
+				"store <4 x i32> zeroinitializer, ptr %configure_locale.i, align 4, !dbg !583, !tbaa !582",
+				"store i32 0, ptr %dev_mode.i, align 4, !dbg !584, !tbaa !585",
+				"ret void, !dbg !586"
+			]
+		},
+		{
+			"function": "_PyPreConfig_InitFromPreConfig",
+			"id": 101,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 292, "columns": [13, 30]
+				},
+				{
+					"line": 303, "columns": [13, 22]
+				},
+				{
+					"line": 304, "columns": [13, 23]
+				},
+				{
+					"line": 316, "columns": [26]
+				},
+				{
+					"line": 355, "columns": [12, 5]
+				},
+				{
+					"line": 384, "columns": [5]
+				},
+				{
+					"line": 388, "columns": [5]
+				},
+				{
+					"line": 389, "columns": [5]
+				},
+				{
+					"line": 393, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%configure_locale.i.i = getelementptr inbounds %struct.PyPreConfig, ptr %config, i64 0, i32 4, !dbg !583",
+				"%dev_mode.i.i = getelementptr inbounds %struct.PyPreConfig, ptr %config, i64 0, i32 8, !dbg !584",
+				"store i32 -1, ptr %dev_mode.i.i, align 4, !dbg !585, !tbaa !586",
+				"%allocator.i.i = getelementptr inbounds %struct.PyPreConfig, ptr %config, i64 0, i32 9, !dbg !591",
+				"store i32 0, ptr %allocator.i.i, align 4, !dbg !592, !tbaa !593",
+				"store <4 x i32> <i32 2, i32 1, i32 0, i32 1>, ptr %config, align 4, !dbg !594, !tbaa !595",
+				"store <4 x i32> <i32 1, i32 -1, i32 -1, i32 -1>, ptr %configure_locale.i.i, align 4, !dbg !596, !tbaa !595",
+				"%0 = load <4 x i32>, ptr %config2, align 4, !dbg !605, !tbaa !595",
+				"store <4 x i32> %0, ptr %config, align 4, !dbg !605, !tbaa !595",
+				"%configure_locale.i = getelementptr inbounds %struct.PyPreConfig, ptr %config2, i64 0, i32 4, !dbg !606",
+				"%dev_mode.i = getelementptr inbounds %struct.PyPreConfig, ptr %config2, i64 0, i32 8, !dbg !607",
+				"%1 = load i32, ptr %dev_mode.i, align 4, !dbg !607, !tbaa !586",
+				"store i32 %1, ptr %dev_mode.i.i, align 4, !dbg !607, !tbaa !586",
+				"%2 = load <4 x i32>, ptr %configure_locale.i, align 4, !dbg !606, !tbaa !595",
+				"store <4 x i32> %2, ptr %configure_locale.i.i, align 4, !dbg !606, !tbaa !595",
+				"%allocator.i = getelementptr inbounds %struct.PyPreConfig, ptr %config2, i64 0, i32 9, !dbg !608",
+				"%3 = load i32, ptr %allocator.i, align 4, !dbg !608, !tbaa !593",
+				"store i32 %3, ptr %allocator.i.i, align 4, !dbg !608, !tbaa !593",
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %agg.result, i8 0, i64 32, i1 false), !dbg !609",
+				"ret void, !dbg !610"
+			]
+		},
+		{
+			"function": "_PyPreConfig_InitFromConfig",
+			"id": 102,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 362, "columns": [64]
+				},
+				{
+					"line": 363, "columns": [5]
+				}
+			],
+			"successors": [105, 103, 104],
+			"ir": [
+				"%0 = load i32, ptr %config, align 8, !dbg !645, !tbaa !646",
+				"switch i32 %0, label %sw.default [\n    i32 2, label %sw.bb\n    i32 3, label %sw.bb1\n  ], !dbg !654"
+			]
+		},
+		{
+			"function": "_PyPreConfig_InitFromConfig",
+			"id": 103,
+			"name": "sw.bb",
+			"debug": [
+				{
+					"line": 292, "columns": [13, 30]
+				},
+				{
+					"line": 303, "columns": [13, 22]
+				},
+				{
+					"line": 304, "columns": [13, 23]
+				},
+				{
+					"line": 316, "columns": [26]
+				},
+				{
+					"line": 366, "columns": [9]
+				}
+			],
+			"successors": [106],
+			"ir": [
+				"%configure_locale.i.i = getelementptr inbounds %struct.PyPreConfig, ptr %preconfig, i64 0, i32 4, !dbg !668",
+				"%dev_mode.i.i = getelementptr inbounds %struct.PyPreConfig, ptr %preconfig, i64 0, i32 8, !dbg !669",
+				"store i32 -1, ptr %dev_mode.i.i, align 4, !dbg !670, !tbaa !671",
+				"%allocator.i.i = getelementptr inbounds %struct.PyPreConfig, ptr %preconfig, i64 0, i32 9, !dbg !673",
+				"store i32 0, ptr %allocator.i.i, align 4, !dbg !674, !tbaa !675",
+				"store <4 x i32> <i32 2, i32 1, i32 0, i32 1>, ptr %preconfig, align 4, !dbg !676, !tbaa !677",
+				"store <4 x i32> <i32 1, i32 -1, i32 -1, i32 -1>, ptr %configure_locale.i.i, align 4, !dbg !678, !tbaa !677",
+				"br label %sw.epilog, !dbg !679"
+			]
+		},
+		{
+			"function": "_PyPreConfig_InitFromConfig",
+			"id": 104,
+			"name": "sw.bb1",
+			"debug": [
+				{
+					"line": 292, "columns": [13]
+				},
+				{
+					"line": 303, "columns": [13]
+				},
+				{
+					"line": 304, "columns": [13, 23]
+				},
+				{
+					"line": 337, "columns": [26]
+				},
+				{
+					"line": 338, "columns": [30]
+				},
+				{
+					"line": 342, "columns": [22]
+				},
+				{
+					"line": 369, "columns": [9]
+				}
+			],
+			"successors": [106],
+			"ir": [
+				"%configure_locale.i.i10 = getelementptr inbounds %struct.PyPreConfig, ptr %preconfig, i64 0, i32 4, !dbg !687",
+				"%dev_mode.i.i14 = getelementptr inbounds %struct.PyPreConfig, ptr %preconfig, i64 0, i32 8, !dbg !688",
+				"%allocator.i.i15 = getelementptr inbounds %struct.PyPreConfig, ptr %preconfig, i64 0, i32 9, !dbg !689",
+				"store i32 0, ptr %allocator.i.i15, align 4, !dbg !690, !tbaa !675",
+				"store <4 x i32> <i32 3, i32 0, i32 1, i32 0>, ptr %preconfig, align 4, !dbg !691, !tbaa !677",
+				"store <4 x i32> zeroinitializer, ptr %configure_locale.i.i10, align 4, !dbg !692, !tbaa !677",
+				"store i32 0, ptr %dev_mode.i.i14, align 4, !dbg !693, !tbaa !671",
+				"br label %sw.epilog, !dbg !694"
+			]
+		},
+		{
+			"function": "_PyPreConfig_InitFromConfig",
+			"id": 105,
+			"name": "sw.default",
+			"debug": [
+				{
+					"line": 288, "columns": [26]
+				},
+				{
+					"line": 292, "columns": [13, 30]
+				},
+				{
+					"line": 303, "columns": [13, 22]
+				},
+				{
+					"line": 304, "columns": [13, 23]
+				},
+				{
+					"line": 373, "columns": [5]
+				}
+			],
+			"successors": [106],
+			"ir": [
+				"store <4 x i32> <i32 1, i32 0, i32 -1, i32 -1>, ptr %preconfig, align 4, !dbg !697, !tbaa !677",
+				"%configure_locale.i = getelementptr inbounds %struct.PyPreConfig, ptr %preconfig, i64 0, i32 4, !dbg !698",
+				"store <4 x i32> <i32 1, i32 0, i32 0, i32 0>, ptr %configure_locale.i, align 4, !dbg !699, !tbaa !677",
+				"%dev_mode.i = getelementptr inbounds %struct.PyPreConfig, ptr %preconfig, i64 0, i32 8, !dbg !700",
+				"store i32 -1, ptr %dev_mode.i, align 4, !dbg !701, !tbaa !671",
+				"%allocator.i = getelementptr inbounds %struct.PyPreConfig, ptr %preconfig, i64 0, i32 9, !dbg !702",
+				"store i32 0, ptr %allocator.i, align 4, !dbg !703, !tbaa !675",
+				"br label %sw.epilog, !dbg !704"
+			]
+		},
+		{
+			"function": "_PyPreConfig_InitFromConfig",
+			"id": 106,
+			"name": "sw.epilog",
+			"debug": [
+				{
+					"line": 456, "columns": [5]
+				}
+			],
+			"successors": [108, 107],
+			"ir": [
+				"%parse_argv.i16 = getelementptr inbounds %struct.PyConfig, ptr %config, i64 0, i32 19, !dbg !711",
+				"%1 = load i32, ptr %parse_argv.i16, align 8, !dbg !711, !tbaa !713",
+				"%cmp.not.i = icmp eq i32 %1, -1, !dbg !711",
+				"br i1 %cmp.not.i, label %if.end.i, label %if.then.i, !dbg !714"
+			]
+		},
+		{
+			"function": "_PyPreConfig_InitFromConfig",
+			"id": 107,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 456, "columns": [5]
+				}
+			],
+			"successors": [108],
+			"ir": [
+				"%parse_argv2.i = getelementptr inbounds %struct.PyPreConfig, ptr %preconfig, i64 0, i32 1, !dbg !715",
+				"store i32 %1, ptr %parse_argv2.i, align 4, !dbg !715, !tbaa !717",
+				"br label %if.end.i, !dbg !715"
+			]
+		},
+		{
+			"function": "_PyPreConfig_InitFromConfig",
+			"id": 108,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 457, "columns": [5]
+				}
+			],
+			"successors": [110, 109],
+			"ir": [
+				"%isolated.i17 = getelementptr inbounds %struct.PyConfig, ptr %config, i64 0, i32 1, !dbg !718",
+				"%2 = load i32, ptr %isolated.i17, align 4, !dbg !718, !tbaa !720",
+				"%cmp3.not.i = icmp eq i32 %2, -1, !dbg !718",
+				"br i1 %cmp3.not.i, label %if.end7.i, label %if.then4.i, !dbg !721"
+			]
+		},
+		{
+			"function": "_PyPreConfig_InitFromConfig",
+			"id": 109,
+			"name": "if.then4.i",
+			"debug": [
+				{
+					"line": 457, "columns": [5]
+				}
+			],
+			"successors": [110],
+			"ir": [
+				"%isolated6.i = getelementptr inbounds %struct.PyPreConfig, ptr %preconfig, i64 0, i32 2, !dbg !722",
+				"store i32 %2, ptr %isolated6.i, align 4, !dbg !722, !tbaa !724",
+				"br label %if.end7.i, !dbg !722"
+			]
+		},
+		{
+			"function": "_PyPreConfig_InitFromConfig",
+			"id": 110,
+			"name": "if.end7.i",
+			"debug": [
+				{
+					"line": 458, "columns": [5]
+				}
+			],
+			"successors": [112, 111],
+			"ir": [
+				"%use_environment.i18 = getelementptr inbounds %struct.PyConfig, ptr %config, i64 0, i32 2, !dbg !725",
+				"%3 = load i32, ptr %use_environment.i18, align 8, !dbg !725, !tbaa !727",
+				"%cmp8.not.i = icmp eq i32 %3, -1, !dbg !725",
+				"br i1 %cmp8.not.i, label %if.end12.i, label %if.then9.i, !dbg !728"
+			]
+		},
+		{
+			"function": "_PyPreConfig_InitFromConfig",
+			"id": 111,
+			"name": "if.then9.i",
+			"debug": [
+				{
+					"line": 458, "columns": [5]
+				}
+			],
+			"successors": [112],
+			"ir": [
+				"%use_environment11.i = getelementptr inbounds %struct.PyPreConfig, ptr %preconfig, i64 0, i32 3, !dbg !729",
+				"store i32 %3, ptr %use_environment11.i, align 4, !dbg !729, !tbaa !731",
+				"br label %if.end12.i, !dbg !729"
+			]
+		},
+		{
+			"function": "_PyPreConfig_InitFromConfig",
+			"id": 112,
+			"name": "if.end12.i",
+			"debug": [
+				{
+					"line": 459, "columns": [5]
+				}
+			],
+			"successors": [114, 113],
+			"ir": [
+				"%dev_mode.i19 = getelementptr inbounds %struct.PyConfig, ptr %config, i64 0, i32 3, !dbg !732",
+				"%4 = load i32, ptr %dev_mode.i19, align 4, !dbg !732, !tbaa !734",
+				"%cmp13.not.i = icmp eq i32 %4, -1, !dbg !732",
+				"br i1 %cmp13.not.i, label %_PyPreConfig_GetConfig.exit, label %if.then14.i, !dbg !735"
+			]
+		},
+		{
+			"function": "_PyPreConfig_InitFromConfig",
+			"id": 113,
+			"name": "if.then14.i",
+			"debug": [
+				{
+					"line": 459, "columns": [5]
+				}
+			],
+			"successors": [114],
+			"ir": [
+				"%dev_mode16.i = getelementptr inbounds %struct.PyPreConfig, ptr %preconfig, i64 0, i32 8, !dbg !736",
+				"store i32 %4, ptr %dev_mode16.i, align 4, !dbg !736, !tbaa !671",
+				"br label %_PyPreConfig_GetConfig.exit, !dbg !736"
+			]
+		},
+		{
+			"function": "_PyPreConfig_InitFromConfig",
+			"id": 114,
+			"name": "_PyPreConfig_GetConfig.exit",
+			"debug": [
+				{
+					"line": 376, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !738"
+			]
+		},
+		{
+			"function": "_PyPreConfig_GetConfig",
+			"id": 115,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 456, "columns": [5]
+				}
+			],
+			"successors": [117, 116],
+			"ir": [
+				"%parse_argv = getelementptr inbounds %struct.PyConfig, ptr %config, i64 0, i32 19, !dbg !644",
+				"%0 = load i32, ptr %parse_argv, align 8, !dbg !644, !tbaa !646",
+				"%cmp.not = icmp eq i32 %0, -1, !dbg !644",
+				"br i1 %cmp.not, label %if.end, label %if.then, !dbg !654"
+			]
+		},
+		{
+			"function": "_PyPreConfig_GetConfig",
+			"id": 116,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 456, "columns": [5]
+				}
+			],
+			"successors": [117],
+			"ir": [
+				"%parse_argv2 = getelementptr inbounds %struct.PyPreConfig, ptr %preconfig, i64 0, i32 1, !dbg !655",
+				"store i32 %0, ptr %parse_argv2, align 4, !dbg !655, !tbaa !657",
+				"br label %if.end, !dbg !655"
+			]
+		},
+		{
+			"function": "_PyPreConfig_GetConfig",
+			"id": 117,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 457, "columns": [5]
+				}
+			],
+			"successors": [119, 118],
+			"ir": [
+				"%isolated = getelementptr inbounds %struct.PyConfig, ptr %config, i64 0, i32 1, !dbg !659",
+				"%1 = load i32, ptr %isolated, align 4, !dbg !659, !tbaa !661",
+				"%cmp3.not = icmp eq i32 %1, -1, !dbg !659",
+				"br i1 %cmp3.not, label %if.end7, label %if.then4, !dbg !662"
+			]
+		},
+		{
+			"function": "_PyPreConfig_GetConfig",
+			"id": 118,
+			"name": "if.then4",
+			"debug": [
+				{
+					"line": 457, "columns": [5]
+				}
+			],
+			"successors": [119],
+			"ir": [
+				"%isolated6 = getelementptr inbounds %struct.PyPreConfig, ptr %preconfig, i64 0, i32 2, !dbg !663",
+				"store i32 %1, ptr %isolated6, align 4, !dbg !663, !tbaa !665",
+				"br label %if.end7, !dbg !663"
+			]
+		},
+		{
+			"function": "_PyPreConfig_GetConfig",
+			"id": 119,
+			"name": "if.end7",
+			"debug": [
+				{
+					"line": 458, "columns": [5]
+				}
+			],
+			"successors": [121, 120],
+			"ir": [
+				"%use_environment = getelementptr inbounds %struct.PyConfig, ptr %config, i64 0, i32 2, !dbg !666",
+				"%2 = load i32, ptr %use_environment, align 8, !dbg !666, !tbaa !668",
+				"%cmp8.not = icmp eq i32 %2, -1, !dbg !666",
+				"br i1 %cmp8.not, label %if.end12, label %if.then9, !dbg !669"
+			]
+		},
+		{
+			"function": "_PyPreConfig_GetConfig",
+			"id": 120,
+			"name": "if.then9",
+			"debug": [
+				{
+					"line": 458, "columns": [5]
+				}
+			],
+			"successors": [121],
+			"ir": [
+				"%use_environment11 = getelementptr inbounds %struct.PyPreConfig, ptr %preconfig, i64 0, i32 3, !dbg !670",
+				"store i32 %2, ptr %use_environment11, align 4, !dbg !670, !tbaa !672",
+				"br label %if.end12, !dbg !670"
+			]
+		},
+		{
+			"function": "_PyPreConfig_GetConfig",
+			"id": 121,
+			"name": "if.end12",
+			"debug": [
+				{
+					"line": 459, "columns": [5]
+				}
+			],
+			"successors": [123, 122],
+			"ir": [
+				"%dev_mode = getelementptr inbounds %struct.PyConfig, ptr %config, i64 0, i32 3, !dbg !673",
+				"%3 = load i32, ptr %dev_mode, align 4, !dbg !673, !tbaa !675",
+				"%cmp13.not = icmp eq i32 %3, -1, !dbg !673",
+				"br i1 %cmp13.not, label %if.end17, label %if.then14, !dbg !676"
+			]
+		},
+		{
+			"function": "_PyPreConfig_GetConfig",
+			"id": 122,
+			"name": "if.then14",
+			"debug": [
+				{
+					"line": 459, "columns": [5]
+				}
+			],
+			"successors": [123],
+			"ir": [
+				"%dev_mode16 = getelementptr inbounds %struct.PyPreConfig, ptr %preconfig, i64 0, i32 8, !dbg !677",
+				"store i32 %3, ptr %dev_mode16, align 4, !dbg !677, !tbaa !679",
+				"br label %if.end17, !dbg !677"
+			]
+		},
+		{
+			"function": "_PyPreConfig_GetConfig",
+			"id": 123,
+			"name": "if.end17",
+			"debug": [
+				{
+					"line": 462, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !680"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 124,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 407, "columns": [12]
+				},
+				{
+					"line": 408, "columns": [14, 9]
+				}
+			],
+			"successors": [178, 125],
+			"ir": [
+				"%call = tail call ptr @PyDict_New() #20, !dbg !600",
+				"%cmp = icmp eq ptr %call, null, !dbg !601",
+				"br i1 %cmp, label %cleanup192, label %do.body, !dbg !603"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 125,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 425, "columns": [5]
+				}
+			],
+			"successors": [175, 126],
+			"ir": [
+				"%0 = load i32, ptr %config, align 4, !dbg !604, !tbaa !605",
+				"%conv = sext i32 %0 to i64, !dbg !604",
+				"%call1 = tail call ptr @PyLong_FromLong(i64 noundef %conv) #20, !dbg !604",
+				"%cmp2 = icmp eq ptr %call1, null, !dbg !611",
+				"br i1 %cmp2, label %fail, label %if.end5, !dbg !604"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 126,
+			"name": "if.end5",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 425, "columns": [5]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [127, 129],
+			"ir": [
+				"%call6 = tail call i32 @PyDict_SetItemString(ptr noundef nonnull %call, ptr noundef nonnull @.str.6, ptr noundef nonnull %call1) #20, !dbg !604",
+				"%op.val.i = load i64, ptr %call1, align 8, !dbg !618, !tbaa !620",
+				"%1 = and i64 %op.val.i, 2147483648, !dbg !626",
+				"%cmp.i.not.i = icmp eq i64 %1, 0, !dbg !626",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %Py_DECREF.exit, !dbg !627"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 127,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [128, 129],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !628",
+				"store i64 %dec.i, ptr %call1, align 8, !dbg !628, !tbaa !620",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !630",
+				"br i1 %cmp.i, label %if.then1.i, label %Py_DECREF.exit, !dbg !631"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 128,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [129],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call1) #20, !dbg !632",
+				"br label %Py_DECREF.exit, !dbg !634"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 129,
+			"name": "Py_DECREF.exit",
+			"debug": [
+				{
+					"line": 425, "columns": [5]
+				}
+			],
+			"successors": [175, 130],
+			"ir": [
+				"%cmp7 = icmp slt i32 %call6, 0, !dbg !635",
+				"br i1 %cmp7, label %fail, label %do.body12"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 130,
+			"name": "do.body12",
+			"debug": [
+				{
+					"line": 426, "columns": [5]
+				}
+			],
+			"successors": [175, 131],
+			"ir": [
+				"%parse_argv = getelementptr inbounds %struct.PyPreConfig, ptr %config, i64 0, i32 1, !dbg !637",
+				"%2 = load i32, ptr %parse_argv, align 4, !dbg !637, !tbaa !638",
+				"%conv14 = sext i32 %2 to i64, !dbg !637",
+				"%call15 = tail call ptr @PyLong_FromLong(i64 noundef %conv14) #20, !dbg !637",
+				"%cmp16 = icmp eq ptr %call15, null, !dbg !640",
+				"br i1 %cmp16, label %fail, label %if.end19, !dbg !637"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 131,
+			"name": "if.end19",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 426, "columns": [5]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [132, 134],
+			"ir": [
+				"%call21 = tail call i32 @PyDict_SetItemString(ptr noundef nonnull %call, ptr noundef nonnull @.str.7, ptr noundef nonnull %call15) #20, !dbg !637",
+				"%op.val.i271 = load i64, ptr %call15, align 8, !dbg !644, !tbaa !620",
+				"%3 = and i64 %op.val.i271, 2147483648, !dbg !647",
+				"%cmp.i.not.i272 = icmp eq i64 %3, 0, !dbg !647",
+				"br i1 %cmp.i.not.i272, label %if.end.i275, label %Py_DECREF.exit277, !dbg !648"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 132,
+			"name": "if.end.i275",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [133, 134],
+			"ir": [
+				"%dec.i273 = add i64 %op.val.i271, -1, !dbg !649",
+				"store i64 %dec.i273, ptr %call15, align 8, !dbg !649, !tbaa !620",
+				"%cmp.i274 = icmp eq i64 %dec.i273, 0, !dbg !650",
+				"br i1 %cmp.i274, label %if.then1.i276, label %Py_DECREF.exit277, !dbg !651"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 133,
+			"name": "if.then1.i276",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [134],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call15) #20, !dbg !652",
+				"br label %Py_DECREF.exit277, !dbg !653"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 134,
+			"name": "Py_DECREF.exit277",
+			"debug": [
+				{
+					"line": 426, "columns": [5]
+				}
+			],
+			"successors": [175, 135],
+			"ir": [
+				"%cmp22 = icmp slt i32 %call21, 0, !dbg !654",
+				"br i1 %cmp22, label %fail, label %do.body32"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 135,
+			"name": "do.body32",
+			"debug": [
+				{
+					"line": 427, "columns": [5]
+				}
+			],
+			"successors": [175, 136],
+			"ir": [
+				"%isolated = getelementptr inbounds %struct.PyPreConfig, ptr %config, i64 0, i32 2, !dbg !656",
+				"%4 = load i32, ptr %isolated, align 4, !dbg !656, !tbaa !657",
+				"%conv34 = sext i32 %4 to i64, !dbg !656",
+				"%call35 = tail call ptr @PyLong_FromLong(i64 noundef %conv34) #20, !dbg !656",
+				"%cmp36 = icmp eq ptr %call35, null, !dbg !659",
+				"br i1 %cmp36, label %fail, label %if.end39, !dbg !656"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 136,
+			"name": "if.end39",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 427, "columns": [5]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [137, 139],
+			"ir": [
+				"%call41 = tail call i32 @PyDict_SetItemString(ptr noundef nonnull %call, ptr noundef nonnull @.str.8, ptr noundef nonnull %call35) #20, !dbg !656",
+				"%op.val.i278 = load i64, ptr %call35, align 8, !dbg !663, !tbaa !620",
+				"%5 = and i64 %op.val.i278, 2147483648, !dbg !666",
+				"%cmp.i.not.i279 = icmp eq i64 %5, 0, !dbg !666",
+				"br i1 %cmp.i.not.i279, label %if.end.i282, label %Py_DECREF.exit284, !dbg !667"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 137,
+			"name": "if.end.i282",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [138, 139],
+			"ir": [
+				"%dec.i280 = add i64 %op.val.i278, -1, !dbg !668",
+				"store i64 %dec.i280, ptr %call35, align 8, !dbg !668, !tbaa !620",
+				"%cmp.i281 = icmp eq i64 %dec.i280, 0, !dbg !669",
+				"br i1 %cmp.i281, label %if.then1.i283, label %Py_DECREF.exit284, !dbg !670"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 138,
+			"name": "if.then1.i283",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [139],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call35) #20, !dbg !671",
+				"br label %Py_DECREF.exit284, !dbg !672"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 139,
+			"name": "Py_DECREF.exit284",
+			"debug": [
+				{
+					"line": 427, "columns": [5]
+				}
+			],
+			"successors": [175, 140],
+			"ir": [
+				"%cmp42 = icmp slt i32 %call41, 0, !dbg !673",
+				"br i1 %cmp42, label %fail, label %do.body52"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 140,
+			"name": "do.body52",
+			"debug": [
+				{
+					"line": 428, "columns": [5]
+				}
+			],
+			"successors": [175, 141],
+			"ir": [
+				"%use_environment = getelementptr inbounds %struct.PyPreConfig, ptr %config, i64 0, i32 3, !dbg !675",
+				"%6 = load i32, ptr %use_environment, align 4, !dbg !675, !tbaa !676",
+				"%conv54 = sext i32 %6 to i64, !dbg !675",
+				"%call55 = tail call ptr @PyLong_FromLong(i64 noundef %conv54) #20, !dbg !675",
+				"%cmp56 = icmp eq ptr %call55, null, !dbg !678",
+				"br i1 %cmp56, label %fail, label %if.end59, !dbg !675"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 141,
+			"name": "if.end59",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 428, "columns": [5]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [142, 144],
+			"ir": [
+				"%call61 = tail call i32 @PyDict_SetItemString(ptr noundef nonnull %call, ptr noundef nonnull @.str.9, ptr noundef nonnull %call55) #20, !dbg !675",
+				"%op.val.i285 = load i64, ptr %call55, align 8, !dbg !682, !tbaa !620",
+				"%7 = and i64 %op.val.i285, 2147483648, !dbg !685",
+				"%cmp.i.not.i286 = icmp eq i64 %7, 0, !dbg !685",
+				"br i1 %cmp.i.not.i286, label %if.end.i289, label %Py_DECREF.exit291, !dbg !686"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 142,
+			"name": "if.end.i289",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [143, 144],
+			"ir": [
+				"%dec.i287 = add i64 %op.val.i285, -1, !dbg !687",
+				"store i64 %dec.i287, ptr %call55, align 8, !dbg !687, !tbaa !620",
+				"%cmp.i288 = icmp eq i64 %dec.i287, 0, !dbg !688",
+				"br i1 %cmp.i288, label %if.then1.i290, label %Py_DECREF.exit291, !dbg !689"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 143,
+			"name": "if.then1.i290",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [144],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call55) #20, !dbg !690",
+				"br label %Py_DECREF.exit291, !dbg !691"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 144,
+			"name": "Py_DECREF.exit291",
+			"debug": [
+				{
+					"line": 428, "columns": [5]
+				}
+			],
+			"successors": [175, 145],
+			"ir": [
+				"%cmp62 = icmp slt i32 %call61, 0, !dbg !692",
+				"br i1 %cmp62, label %fail, label %do.body72"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 145,
+			"name": "do.body72",
+			"debug": [
+				{
+					"line": 429, "columns": [5]
+				}
+			],
+			"successors": [175, 146],
+			"ir": [
+				"%configure_locale = getelementptr inbounds %struct.PyPreConfig, ptr %config, i64 0, i32 4, !dbg !694",
+				"%8 = load i32, ptr %configure_locale, align 4, !dbg !694, !tbaa !695",
+				"%conv74 = sext i32 %8 to i64, !dbg !694",
+				"%call75 = tail call ptr @PyLong_FromLong(i64 noundef %conv74) #20, !dbg !694",
+				"%cmp76 = icmp eq ptr %call75, null, !dbg !697",
+				"br i1 %cmp76, label %fail, label %if.end79, !dbg !694"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 146,
+			"name": "if.end79",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 429, "columns": [5]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [147, 149],
+			"ir": [
+				"%call81 = tail call i32 @PyDict_SetItemString(ptr noundef nonnull %call, ptr noundef nonnull @.str.10, ptr noundef nonnull %call75) #20, !dbg !694",
+				"%op.val.i292 = load i64, ptr %call75, align 8, !dbg !701, !tbaa !620",
+				"%9 = and i64 %op.val.i292, 2147483648, !dbg !704",
+				"%cmp.i.not.i293 = icmp eq i64 %9, 0, !dbg !704",
+				"br i1 %cmp.i.not.i293, label %if.end.i296, label %Py_DECREF.exit298, !dbg !705"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 147,
+			"name": "if.end.i296",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [148, 149],
+			"ir": [
+				"%dec.i294 = add i64 %op.val.i292, -1, !dbg !706",
+				"store i64 %dec.i294, ptr %call75, align 8, !dbg !706, !tbaa !620",
+				"%cmp.i295 = icmp eq i64 %dec.i294, 0, !dbg !707",
+				"br i1 %cmp.i295, label %if.then1.i297, label %Py_DECREF.exit298, !dbg !708"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 148,
+			"name": "if.then1.i297",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [149],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call75) #20, !dbg !709",
+				"br label %Py_DECREF.exit298, !dbg !710"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 149,
+			"name": "Py_DECREF.exit298",
+			"debug": [
+				{
+					"line": 429, "columns": [5]
+				}
+			],
+			"successors": [175, 150],
+			"ir": [
+				"%cmp82 = icmp slt i32 %call81, 0, !dbg !711",
+				"br i1 %cmp82, label %fail, label %do.body92"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 150,
+			"name": "do.body92",
+			"debug": [
+				{
+					"line": 430, "columns": [5]
+				}
+			],
+			"successors": [175, 151],
+			"ir": [
+				"%coerce_c_locale = getelementptr inbounds %struct.PyPreConfig, ptr %config, i64 0, i32 5, !dbg !713",
+				"%10 = load i32, ptr %coerce_c_locale, align 4, !dbg !713, !tbaa !714",
+				"%conv94 = sext i32 %10 to i64, !dbg !713",
+				"%call95 = tail call ptr @PyLong_FromLong(i64 noundef %conv94) #20, !dbg !713",
+				"%cmp96 = icmp eq ptr %call95, null, !dbg !716",
+				"br i1 %cmp96, label %fail, label %if.end99, !dbg !713"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 151,
+			"name": "if.end99",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 430, "columns": [5]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [152, 154],
+			"ir": [
+				"%call101 = tail call i32 @PyDict_SetItemString(ptr noundef nonnull %call, ptr noundef nonnull @.str.11, ptr noundef nonnull %call95) #20, !dbg !713",
+				"%op.val.i299 = load i64, ptr %call95, align 8, !dbg !720, !tbaa !620",
+				"%11 = and i64 %op.val.i299, 2147483648, !dbg !723",
+				"%cmp.i.not.i300 = icmp eq i64 %11, 0, !dbg !723",
+				"br i1 %cmp.i.not.i300, label %if.end.i303, label %Py_DECREF.exit305, !dbg !724"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 152,
+			"name": "if.end.i303",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [153, 154],
+			"ir": [
+				"%dec.i301 = add i64 %op.val.i299, -1, !dbg !725",
+				"store i64 %dec.i301, ptr %call95, align 8, !dbg !725, !tbaa !620",
+				"%cmp.i302 = icmp eq i64 %dec.i301, 0, !dbg !726",
+				"br i1 %cmp.i302, label %if.then1.i304, label %Py_DECREF.exit305, !dbg !727"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 153,
+			"name": "if.then1.i304",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [154],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call95) #20, !dbg !728",
+				"br label %Py_DECREF.exit305, !dbg !729"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 154,
+			"name": "Py_DECREF.exit305",
+			"debug": [
+				{
+					"line": 430, "columns": [5]
+				}
+			],
+			"successors": [175, 155],
+			"ir": [
+				"%cmp102 = icmp slt i32 %call101, 0, !dbg !730",
+				"br i1 %cmp102, label %fail, label %do.body112"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 155,
+			"name": "do.body112",
+			"debug": [
+				{
+					"line": 431, "columns": [5]
+				}
+			],
+			"successors": [175, 156],
+			"ir": [
+				"%coerce_c_locale_warn = getelementptr inbounds %struct.PyPreConfig, ptr %config, i64 0, i32 6, !dbg !732",
+				"%12 = load i32, ptr %coerce_c_locale_warn, align 4, !dbg !732, !tbaa !733",
+				"%conv114 = sext i32 %12 to i64, !dbg !732",
+				"%call115 = tail call ptr @PyLong_FromLong(i64 noundef %conv114) #20, !dbg !732",
+				"%cmp116 = icmp eq ptr %call115, null, !dbg !735",
+				"br i1 %cmp116, label %fail, label %if.end119, !dbg !732"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 156,
+			"name": "if.end119",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 431, "columns": [5]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [157, 159],
+			"ir": [
+				"%call121 = tail call i32 @PyDict_SetItemString(ptr noundef nonnull %call, ptr noundef nonnull @.str.12, ptr noundef nonnull %call115) #20, !dbg !732",
+				"%op.val.i306 = load i64, ptr %call115, align 8, !dbg !739, !tbaa !620",
+				"%13 = and i64 %op.val.i306, 2147483648, !dbg !742",
+				"%cmp.i.not.i307 = icmp eq i64 %13, 0, !dbg !742",
+				"br i1 %cmp.i.not.i307, label %if.end.i310, label %Py_DECREF.exit312, !dbg !743"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 157,
+			"name": "if.end.i310",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [158, 159],
+			"ir": [
+				"%dec.i308 = add i64 %op.val.i306, -1, !dbg !744",
+				"store i64 %dec.i308, ptr %call115, align 8, !dbg !744, !tbaa !620",
+				"%cmp.i309 = icmp eq i64 %dec.i308, 0, !dbg !745",
+				"br i1 %cmp.i309, label %if.then1.i311, label %Py_DECREF.exit312, !dbg !746"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 158,
+			"name": "if.then1.i311",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [159],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call115) #20, !dbg !747",
+				"br label %Py_DECREF.exit312, !dbg !748"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 159,
+			"name": "Py_DECREF.exit312",
+			"debug": [
+				{
+					"line": 431, "columns": [5]
+				}
+			],
+			"successors": [175, 160],
+			"ir": [
+				"%cmp122 = icmp slt i32 %call121, 0, !dbg !749",
+				"br i1 %cmp122, label %fail, label %do.body132"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 160,
+			"name": "do.body132",
+			"debug": [
+				{
+					"line": 432, "columns": [5]
+				}
+			],
+			"successors": [175, 161],
+			"ir": [
+				"%utf8_mode = getelementptr inbounds %struct.PyPreConfig, ptr %config, i64 0, i32 7, !dbg !751",
+				"%14 = load i32, ptr %utf8_mode, align 4, !dbg !751, !tbaa !752",
+				"%conv134 = sext i32 %14 to i64, !dbg !751",
+				"%call135 = tail call ptr @PyLong_FromLong(i64 noundef %conv134) #20, !dbg !751",
+				"%cmp136 = icmp eq ptr %call135, null, !dbg !754",
+				"br i1 %cmp136, label %fail, label %if.end139, !dbg !751"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 161,
+			"name": "if.end139",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 432, "columns": [5]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [162, 164],
+			"ir": [
+				"%call141 = tail call i32 @PyDict_SetItemString(ptr noundef nonnull %call, ptr noundef nonnull @.str.13, ptr noundef nonnull %call135) #20, !dbg !751",
+				"%op.val.i313 = load i64, ptr %call135, align 8, !dbg !758, !tbaa !620",
+				"%15 = and i64 %op.val.i313, 2147483648, !dbg !761",
+				"%cmp.i.not.i314 = icmp eq i64 %15, 0, !dbg !761",
+				"br i1 %cmp.i.not.i314, label %if.end.i317, label %Py_DECREF.exit319, !dbg !762"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 162,
+			"name": "if.end.i317",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [163, 164],
+			"ir": [
+				"%dec.i315 = add i64 %op.val.i313, -1, !dbg !763",
+				"store i64 %dec.i315, ptr %call135, align 8, !dbg !763, !tbaa !620",
+				"%cmp.i316 = icmp eq i64 %dec.i315, 0, !dbg !764",
+				"br i1 %cmp.i316, label %if.then1.i318, label %Py_DECREF.exit319, !dbg !765"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 163,
+			"name": "if.then1.i318",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [164],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call135) #20, !dbg !766",
+				"br label %Py_DECREF.exit319, !dbg !767"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 164,
+			"name": "Py_DECREF.exit319",
+			"debug": [
+				{
+					"line": 432, "columns": [5]
+				}
+			],
+			"successors": [175, 165],
+			"ir": [
+				"%cmp142 = icmp slt i32 %call141, 0, !dbg !768",
+				"br i1 %cmp142, label %fail, label %do.body152"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 165,
+			"name": "do.body152",
+			"debug": [
+				{
+					"line": 436, "columns": [5]
+				}
+			],
+			"successors": [175, 166],
+			"ir": [
+				"%dev_mode = getelementptr inbounds %struct.PyPreConfig, ptr %config, i64 0, i32 8, !dbg !770",
+				"%16 = load i32, ptr %dev_mode, align 4, !dbg !770, !tbaa !771",
+				"%conv154 = sext i32 %16 to i64, !dbg !770",
+				"%call155 = tail call ptr @PyLong_FromLong(i64 noundef %conv154) #20, !dbg !770",
+				"%cmp156 = icmp eq ptr %call155, null, !dbg !773",
+				"br i1 %cmp156, label %fail, label %if.end159, !dbg !770"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 166,
+			"name": "if.end159",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 436, "columns": [5]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [167, 169],
+			"ir": [
+				"%call161 = tail call i32 @PyDict_SetItemString(ptr noundef nonnull %call, ptr noundef nonnull @.str.14, ptr noundef nonnull %call155) #20, !dbg !770",
+				"%op.val.i320 = load i64, ptr %call155, align 8, !dbg !777, !tbaa !620",
+				"%17 = and i64 %op.val.i320, 2147483648, !dbg !780",
+				"%cmp.i.not.i321 = icmp eq i64 %17, 0, !dbg !780",
+				"br i1 %cmp.i.not.i321, label %if.end.i324, label %Py_DECREF.exit326, !dbg !781"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 167,
+			"name": "if.end.i324",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [168, 169],
+			"ir": [
+				"%dec.i322 = add i64 %op.val.i320, -1, !dbg !782",
+				"store i64 %dec.i322, ptr %call155, align 8, !dbg !782, !tbaa !620",
+				"%cmp.i323 = icmp eq i64 %dec.i322, 0, !dbg !783",
+				"br i1 %cmp.i323, label %if.then1.i325, label %Py_DECREF.exit326, !dbg !784"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 168,
+			"name": "if.then1.i325",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [169],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call155) #20, !dbg !785",
+				"br label %Py_DECREF.exit326, !dbg !786"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 169,
+			"name": "Py_DECREF.exit326",
+			"debug": [
+				{
+					"line": 436, "columns": [5]
+				}
+			],
+			"successors": [175, 170],
+			"ir": [
+				"%cmp162 = icmp slt i32 %call161, 0, !dbg !787",
+				"br i1 %cmp162, label %fail, label %do.body172"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 170,
+			"name": "do.body172",
+			"debug": [
+				{
+					"line": 437, "columns": [5]
+				}
+			],
+			"successors": [175, 171],
+			"ir": [
+				"%allocator = getelementptr inbounds %struct.PyPreConfig, ptr %config, i64 0, i32 9, !dbg !789",
+				"%18 = load i32, ptr %allocator, align 4, !dbg !789, !tbaa !790",
+				"%conv174 = sext i32 %18 to i64, !dbg !789",
+				"%call175 = tail call ptr @PyLong_FromLong(i64 noundef %conv174) #20, !dbg !789",
+				"%cmp176 = icmp eq ptr %call175, null, !dbg !792",
+				"br i1 %cmp176, label %fail, label %if.end179, !dbg !789"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 171,
+			"name": "if.end179",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 437, "columns": [5]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [172, 174],
+			"ir": [
+				"%call181 = tail call i32 @PyDict_SetItemString(ptr noundef nonnull %call, ptr noundef nonnull @.str.15, ptr noundef nonnull %call175) #20, !dbg !789",
+				"%op.val.i327 = load i64, ptr %call175, align 8, !dbg !796, !tbaa !620",
+				"%19 = and i64 %op.val.i327, 2147483648, !dbg !799",
+				"%cmp.i.not.i328 = icmp eq i64 %19, 0, !dbg !799",
+				"br i1 %cmp.i.not.i328, label %if.end.i331, label %Py_DECREF.exit333, !dbg !800"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 172,
+			"name": "if.end.i331",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [173, 174],
+			"ir": [
+				"%dec.i329 = add i64 %op.val.i327, -1, !dbg !801",
+				"store i64 %dec.i329, ptr %call175, align 8, !dbg !801, !tbaa !620",
+				"%cmp.i330 = icmp eq i64 %dec.i329, 0, !dbg !802",
+				"br i1 %cmp.i330, label %if.then1.i332, label %Py_DECREF.exit333, !dbg !803"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 173,
+			"name": "if.then1.i332",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [174],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call175) #20, !dbg !804",
+				"br label %Py_DECREF.exit333, !dbg !805"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 174,
+			"name": "Py_DECREF.exit333",
+			"debug": [
+				{
+					"line": 437, "columns": [5]
+				}
+			],
+			"successors": [175, 178],
+			"ir": [
+				"%cmp182 = icmp slt i32 %call181, 0, !dbg !806",
+				"br i1 %cmp182, label %fail, label %cleanup192"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 175,
+			"name": "fail",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 440, "columns": [1]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [176, 178],
+			"ir": [
+				"%op.val.i334 = load i64, ptr %call, align 8, !dbg !811, !tbaa !620",
+				"%20 = and i64 %op.val.i334, 2147483648, !dbg !814",
+				"%cmp.i.not.i335 = icmp eq i64 %20, 0, !dbg !814",
+				"br i1 %cmp.i.not.i335, label %if.end.i338, label %cleanup192, !dbg !815"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 176,
+			"name": "if.end.i338",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [177, 178],
+			"ir": [
+				"%dec.i336 = add i64 %op.val.i334, -1, !dbg !816",
+				"store i64 %dec.i336, ptr %call, align 8, !dbg !816, !tbaa !620",
+				"%cmp.i337 = icmp eq i64 %dec.i336, 0, !dbg !817",
+				"br i1 %cmp.i337, label %if.then1.i339, label %cleanup192, !dbg !818"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 177,
+			"name": "if.then1.i339",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [178],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call) #20, !dbg !819",
+				"br label %cleanup192, !dbg !820"
+			]
+		},
+		{
+			"function": "_PyPreConfig_AsDict",
+			"id": 178,
+			"name": "cleanup192",
+			"debug": [
+				{
+					"line": 445, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ null, %entry ], [ %call, %Py_DECREF.exit333 ], [ null, %fail ], [ null, %if.end.i338 ], [ null, %if.then1.i339 ]",
+				"ret ptr %retval.0, !dbg !821"
+			]
+		},
+		{
+			"function": "_Py_str_to_int",
+			"id": 179,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 548, "columns": [5, 17]
+				},
+				{
+					"line": 549, "columns": [5, 11]
+				},
+				{
+					"line": 550, "columns": [18]
+				},
+				{
+					"line": 551, "columns": [10, 9, 17, 25]
+				}
+			],
+			"successors": [180, 182],
+			"ir": [
+				"%endptr = alloca ptr, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %endptr) #20, !dbg !557",
+				"store ptr %str, ptr %endptr, align 8, !dbg !558, !tbaa !559",
+				"%call = tail call ptr @__errno_location() #21, !dbg !563",
+				"store i32 0, ptr %call, align 4, !dbg !564, !tbaa !565",
+				"%call1 = call i64 @strtol(ptr noundef %str, ptr noundef nonnull %endptr, i32 noundef 10) #20, !dbg !567",
+				"%0 = load ptr, ptr %endptr, align 8, !dbg !568, !tbaa !559",
+				"%1 = load i8, ptr %0, align 1, !dbg !570, !tbaa !571",
+				"%cmp.not = icmp eq i8 %1, 0, !dbg !572",
+				"br i1 %cmp.not, label %lor.lhs.false, label %cleanup, !dbg !573"
+			]
+		},
+		{
+			"function": "_Py_str_to_int",
+			"id": 180,
+			"name": "lor.lhs.false",
+			"debug": [
+				{
+					"line": 551, "columns": [28, 34, 9]
+				}
+			],
+			"successors": [182, 181],
+			"ir": [
+				"%2 = load i32, ptr %call, align 4, !dbg !574, !tbaa !565",
+				"%cmp4 = icmp eq i32 %2, 34, !dbg !575",
+				"%3 = add i64 %call1, -2147483648",
+				"%or.cond = icmp ult i64 %3, -4294967296",
+				"%or.cond18 = select i1 %cmp4, i1 true, i1 %or.cond, !dbg !576",
+				"br i1 %or.cond18, label %cleanup, label %if.end12, !dbg !576"
+			]
+		},
+		{
+			"function": "_Py_str_to_int",
+			"id": 181,
+			"name": "if.end12",
+			"debug": [
+				{
+					"line": 558, "columns": [15, 13]
+				},
+				{
+					"line": 559, "columns": [5]
+				}
+			],
+			"successors": [182],
+			"ir": [
+				"%conv13 = trunc i64 %call1 to i32, !dbg !577",
+				"store i32 %conv13, ptr %result, align 4, !dbg !578, !tbaa !565",
+				"br label %cleanup, !dbg !579"
+			]
+		},
+		{
+			"function": "_Py_str_to_int",
+			"id": 182,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 560, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ 0, %if.end12 ], [ -1, %lor.lhs.false ], [ -1, %entry ], !dbg !556",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %endptr) #20, !dbg !580",
+				"ret i32 %retval.0, !dbg !580"
+			]
+		},
+		{
+			"function": "_Py_get_env_flag",
+			"id": 183,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 531, "columns": [10, 9]
+				}
+			],
+			"successors": [193, 184],
+			"ir": [
+				"%endptr.i = alloca ptr, align 8",
+				"%tobool.not.i = icmp eq i32 %use_environment, 0, !dbg !567",
+				"br i1 %tobool.not.i, label %cleanup, label %if.end.i, !dbg !569"
+			]
+		},
+		{
+			"function": "_Py_get_env_flag",
+			"id": 184,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 535, "columns": [23]
+				},
+				{
+					"line": 536, "columns": [9, 13]
+				}
+			],
+			"successors": [193, 185],
+			"ir": [
+				"%call.i = tail call ptr @getenv(ptr noundef %name) #20, !dbg !570",
+				"%tobool1.not.i = icmp eq ptr %call.i, null, !dbg !571",
+				"br i1 %tobool1.not.i, label %cleanup, label %land.lhs.true.i, !dbg !573"
+			]
+		},
+		{
+			"function": "_Py_get_env_flag",
+			"id": 185,
+			"name": "land.lhs.true.i",
+			"debug": [
+				{
+					"line": 536, "columns": [16, 23, 9]
+				}
+			],
+			"successors": [193, 186],
+			"ir": [
+				"%0 = load i8, ptr %call.i, align 1, !dbg !574, !tbaa !575",
+				"%cmp.not.i = icmp eq i8 %0, 0, !dbg !578",
+				"br i1 %cmp.not.i, label %cleanup, label %if.end, !dbg !579"
+			]
+		},
+		{
+			"function": "_Py_get_env_flag",
+			"id": 186,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 548, "columns": [5, 17]
+				},
+				{
+					"line": 549, "columns": [5, 11]
+				},
+				{
+					"line": 550, "columns": [18]
+				},
+				{
+					"line": 551, "columns": [10, 9, 17, 25]
+				}
+			],
+			"successors": [187, 188],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %endptr.i) #20, !dbg !591",
+				"store ptr %call.i, ptr %endptr.i, align 8, !dbg !592, !tbaa !593",
+				"%call.i10 = tail call ptr @__errno_location() #21, !dbg !595",
+				"store i32 0, ptr %call.i10, align 4, !dbg !596, !tbaa !597",
+				"%call1.i = call i64 @strtol(ptr noundef nonnull %call.i, ptr noundef nonnull %endptr.i, i32 noundef 10) #20, !dbg !599",
+				"%1 = load ptr, ptr %endptr.i, align 8, !dbg !600, !tbaa !593",
+				"%2 = load i8, ptr %1, align 1, !dbg !602, !tbaa !575",
+				"%cmp.not.i11 = icmp eq i8 %2, 0, !dbg !603",
+				"br i1 %cmp.not.i11, label %lor.lhs.false.i, label %_Py_str_to_int.exit.thread, !dbg !604"
+			]
+		},
+		{
+			"function": "_Py_get_env_flag",
+			"id": 187,
+			"name": "lor.lhs.false.i",
+			"debug": [
+				{
+					"line": 551, "columns": [28, 34, 9]
+				}
+			],
+			"successors": [188, 189],
+			"ir": [
+				"%3 = load i32, ptr %call.i10, align 4, !dbg !605, !tbaa !597",
+				"%cmp4.i = icmp eq i32 %3, 34, !dbg !606",
+				"%4 = add i64 %call1.i, -2147483648",
+				"%or.cond.i = icmp ult i64 %4, -4294967296",
+				"%or.cond18.i = select i1 %cmp4.i, i1 true, i1 %or.cond.i, !dbg !607",
+				"br i1 %or.cond18.i, label %_Py_str_to_int.exit.thread, label %_Py_str_to_int.exit, !dbg !607"
+			]
+		},
+		{
+			"function": "_Py_get_env_flag",
+			"id": 188,
+			"name": "_Py_str_to_int.exit.thread",
+			"debug": [
+				{
+					"line": 560, "columns": [1]
+				},
+				{
+					"line": 571, "columns": [41]
+				}
+			],
+			"successors": [190],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %endptr.i) #20, !dbg !608",
+				"br label %if.then3, !dbg !609"
+			]
+		},
+		{
+			"function": "_Py_get_env_flag",
+			"id": 189,
+			"name": "_Py_str_to_int.exit",
+			"debug": [
+				{
+					"line": 558, "columns": [15]
+				},
+				{
+					"line": 560, "columns": [1]
+				},
+				{
+					"line": 571, "columns": [41]
+				}
+			],
+			"successors": [190, 191],
+			"ir": [
+				"%conv13.i = trunc i64 %call1.i to i32, !dbg !610",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %endptr.i) #20, !dbg !608",
+				"%cmp2 = icmp slt i32 %conv13.i, 0",
+				"br i1 %cmp2, label %if.then3, label %if.end4, !dbg !609"
+			]
+		},
+		{
+			"function": "_Py_get_env_flag",
+			"id": 190,
+			"name": "if.then3",
+			"debug": [
+				{
+					"line": 574, "columns": [5]
+				}
+			],
+			"successors": [191],
+			"ir": [
+				"br label %if.end4, !dbg !611"
+			]
+		},
+		{
+			"function": "_Py_get_env_flag",
+			"id": 191,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 575, "columns": [9, 15]
+				}
+			],
+			"successors": [192, 193],
+			"ir": [
+				"%value.1 = phi i32 [ 1, %if.then3 ], [ %conv13.i, %_Py_str_to_int.exit ]",
+				"%5 = load i32, ptr %flag, align 4, !dbg !613, !tbaa !597",
+				"%cmp5 = icmp slt i32 %5, %value.1, !dbg !615",
+				"br i1 %cmp5, label %if.then6, label %cleanup, !dbg !616"
+			]
+		},
+		{
+			"function": "_Py_get_env_flag",
+			"id": 192,
+			"name": "if.then6",
+			"debug": [
+				{
+					"line": 576, "columns": [15]
+				},
+				{
+					"line": 577, "columns": [5]
+				}
+			],
+			"successors": [193],
+			"ir": [
+				"store i32 %value.1, ptr %flag, align 4, !dbg !617, !tbaa !597",
+				"br label %cleanup, !dbg !619"
+			]
+		},
+		{
+			"function": "_Py_get_env_flag",
+			"id": 193,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 578, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !620"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 194,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 802, "columns": [14]
+				},
+				{
+					"line": 803, "columns": [9]
+				}
+			],
+			"successors": [196, 195],
+			"ir": [
+				"%name.i.i = alloca i32, align 4",
+				"%tmp.i = alloca %struct.PyStatus, align 8",
+				"%tmp = alloca %struct.PyStatus, align 8",
+				"%cmdline = alloca %struct._PyPreCmdline, align 8",
+				"%tmp31 = alloca %struct.PyStatus, align 8",
+				"call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %tmp) #20, !dbg !610",
+				"call void @_PyRuntime_Initialize(ptr nonnull sret(%struct.PyStatus) align 8 %tmp) #20, !dbg !610",
+				"%0 = load <2 x i32>, ptr %tmp, align 8, !dbg !610",
+				"%status.sroa.17.0.tmp.sroa_idx = getelementptr inbounds i8, ptr %tmp, i64 8, !dbg !610",
+				"%1 = load <2 x ptr>, ptr %status.sroa.17.0.tmp.sroa_idx, align 8, !dbg !610",
+				"%status.sroa.19.0.tmp.sroa_idx = getelementptr inbounds i8, ptr %tmp, i64 24, !dbg !610",
+				"%2 = load <2 x i32>, ptr %status.sroa.19.0.tmp.sroa_idx, align 8, !dbg !610",
+				"call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %tmp) #20, !dbg !610",
+				"%3 = extractelement <2 x i32> %0, i64 0, !dbg !611",
+				"%cmp.not = icmp eq i32 %3, 0, !dbg !611",
+				"br i1 %cmp.not, label %if.end, label %if.then, !dbg !613"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 195,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 804, "columns": [16, 9]
+				}
+			],
+			"successors": [269],
+			"ir": [
+				"store <2 x i32> %0, ptr %agg.result, align 8, !dbg !614",
+				"%status.sroa.17.0.agg.result.sroa_idx = getelementptr inbounds i8, ptr %agg.result, i64 8, !dbg !614",
+				"store <2 x ptr> %1, ptr %status.sroa.17.0.agg.result.sroa_idx, align 8, !dbg !614",
+				"%status.sroa.19.0.agg.result.sroa_idx = getelementptr inbounds i8, ptr %agg.result, i64 24, !dbg !614",
+				"store <2 x i32> %2, ptr %status.sroa.19.0.agg.result.sroa_idx, align 8, !dbg !614",
+				"br label %cleanup79, !dbg !616"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 196,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 468, "columns": [17, 30, 9]
+				}
+			],
+			"successors": [197, 203],
+			"ir": [
+				"%4 = load i32, ptr %config, align 4, !dbg !624, !tbaa !626",
+				"%cmp.not.i = icmp eq i32 %4, 1, !dbg !631",
+				"br i1 %cmp.not.i, label %if.end.i, label %preconfig_get_global_vars.exit, !dbg !632"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 197,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 484, "columns": [5]
+				}
+			],
+			"successors": [198, 199],
+			"ir": [
+				"%isolated.i = getelementptr inbounds %struct.PyPreConfig, ptr %config, i64 0, i32 2, !dbg !633",
+				"%5 = load i32, ptr %isolated.i, align 4, !dbg !633, !tbaa !635",
+				"%cmp1.i = icmp slt i32 %5, 0, !dbg !633",
+				"br i1 %cmp1.i, label %if.then2.i, label %if.end4.i, !dbg !636"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 198,
+			"name": "if.then2.i",
+			"debug": [
+				{
+					"line": 484, "columns": [5]
+				}
+			],
+			"successors": [199],
+			"ir": [
+				"%6 = load i32, ptr @Py_IsolatedFlag, align 4, !dbg !637, !tbaa !639",
+				"store i32 %6, ptr %isolated.i, align 4, !dbg !637, !tbaa !635",
+				"br label %if.end4.i, !dbg !637"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 199,
+			"name": "if.end4.i",
+			"debug": [
+				{
+					"line": 485, "columns": [5]
+				}
+			],
+			"successors": [200, 201],
+			"ir": [
+				"%use_environment.i = getelementptr inbounds %struct.PyPreConfig, ptr %config, i64 0, i32 3, !dbg !640",
+				"%7 = load i32, ptr %use_environment.i, align 4, !dbg !640, !tbaa !642",
+				"%cmp5.i = icmp slt i32 %7, 0, !dbg !640",
+				"br i1 %cmp5.i, label %if.then6.i, label %if.end8.i, !dbg !643"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 200,
+			"name": "if.then6.i",
+			"debug": [
+				{
+					"line": 485, "columns": [5]
+				}
+			],
+			"successors": [201],
+			"ir": [
+				"%8 = load i32, ptr @Py_IgnoreEnvironmentFlag, align 4, !dbg !644, !tbaa !639",
+				"%tobool.not.i = icmp eq i32 %8, 0, !dbg !644",
+				"%lnot.ext.i = zext i1 %tobool.not.i to i32, !dbg !644",
+				"store i32 %lnot.ext.i, ptr %use_environment.i, align 4, !dbg !644, !tbaa !642",
+				"br label %if.end8.i, !dbg !644"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 201,
+			"name": "if.end8.i",
+			"debug": [
+				{
+					"line": 486, "columns": [9, 21]
+				}
+			],
+			"successors": [202, 203],
+			"ir": [
+				"%9 = load i32, ptr @Py_UTF8Mode, align 4, !dbg !646, !tbaa !639",
+				"%cmp9.i = icmp sgt i32 %9, 0, !dbg !648",
+				"br i1 %cmp9.i, label %if.then10.i, label %preconfig_get_global_vars.exit, !dbg !649"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 202,
+			"name": "if.then10.i",
+			"debug": [
+				{
+					"line": 487, "columns": [17, 27]
+				},
+				{
+					"line": 488, "columns": [5]
+				}
+			],
+			"successors": [203],
+			"ir": [
+				"%utf8_mode.i = getelementptr inbounds %struct.PyPreConfig, ptr %config, i64 0, i32 7, !dbg !650",
+				"store i32 %9, ptr %utf8_mode.i, align 4, !dbg !652, !tbaa !653",
+				"br label %preconfig_get_global_vars.exit, !dbg !654"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 203,
+			"name": "preconfig_get_global_vars.exit",
+			"debug": [
+				{
+					"line": 810, "columns": [23]
+				},
+				{
+					"line": 811, "columns": [13, 9]
+				}
+			],
+			"successors": [204, 205],
+			"ir": [
+				"%call = call ptr @setlocale(i32 noundef 0, ptr noundef null) #20, !dbg !655",
+				"%cmp1 = icmp eq ptr %call, null, !dbg !656",
+				"br i1 %cmp1, label %if.then2, label %if.end4, !dbg !658"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 204,
+			"name": "if.then2",
+			"debug": [
+				{
+					"line": 812, "columns": [16, 9]
+				}
+			],
+			"successors": [269],
+			"ir": [
+				"store i32 1, ptr %agg.result, align 8, !dbg !659, !tbaa !661",
+				"%func = getelementptr inbounds %struct.PyStatus, ptr %agg.result, i64 0, i32 1, !dbg !659",
+				"store ptr @__func__._PyPreConfig_Read, ptr %func, align 8, !dbg !659, !tbaa !664",
+				"%err_msg = getelementptr inbounds %struct.PyStatus, ptr %agg.result, i64 0, i32 2, !dbg !659",
+				"store ptr @.str.16, ptr %err_msg, align 8, !dbg !659, !tbaa !665",
+				"%exitcode = getelementptr inbounds %struct.PyStatus, ptr %agg.result, i64 0, i32 3, !dbg !659",
+				"store i32 0, ptr %exitcode, align 8, !dbg !659, !tbaa !666",
+				"br label %cleanup79, !dbg !667"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 205,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 814, "columns": [31]
+				},
+				{
+					"line": 815, "columns": [27, 9]
+				}
+			],
+			"successors": [206, 207],
+			"ir": [
+				"%call5 = call ptr @_PyMem_RawStrdup(ptr noundef nonnull %call) #20, !dbg !668",
+				"%cmp6 = icmp eq ptr %call5, null, !dbg !669",
+				"br i1 %cmp6, label %if.then7, label %if.end17, !dbg !671"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 206,
+			"name": "if.then7",
+			"debug": [
+				{
+					"line": 816, "columns": [16, 9]
+				}
+			],
+			"successors": [269],
+			"ir": [
+				"store i32 1, ptr %agg.result, align 8, !dbg !672, !tbaa !661",
+				"%func9 = getelementptr inbounds %struct.PyStatus, ptr %agg.result, i64 0, i32 1, !dbg !672",
+				"store ptr @__func__._PyPreConfig_Read, ptr %func9, align 8, !dbg !672, !tbaa !664",
+				"%err_msg10 = getelementptr inbounds %struct.PyStatus, ptr %agg.result, i64 0, i32 2, !dbg !672",
+				"store ptr @.str, ptr %err_msg10, align 8, !dbg !672, !tbaa !665",
+				"%exitcode11 = getelementptr inbounds %struct.PyStatus, ptr %agg.result, i64 0, i32 3, !dbg !672",
+				"store i32 0, ptr %exitcode11, align 8, !dbg !672, !tbaa !666",
+				"br label %cleanup79, !dbg !674"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 207,
+			"name": "if.end17",
+			"debug": [
+				{
+					"line": 384, "columns": [5]
+				},
+				{
+					"line": 385, "columns": [5]
+				},
+				{
+					"line": 386, "columns": [5]
+				},
+				{
+					"line": 387, "columns": [5]
+				},
+				{
+					"line": 388, "columns": [5]
+				},
+				{
+					"line": 389, "columns": [5]
+				},
+				{
+					"line": 390, "columns": [5]
+				},
+				{
+					"line": 391, "columns": [5]
+				},
+				{
+					"line": 392, "columns": [5]
+				},
+				{
+					"line": 393, "columns": [5]
+				},
+				{
+					"line": 828, "columns": [9]
+				}
+			],
+			"successors": [209, 208],
+			"ir": [
+				"%parse_argv.i.i = getelementptr inbounds %struct.PyPreConfig, ptr %config, i64 0, i32 1, !dbg !693",
+				"%isolated.i.i = getelementptr inbounds %struct.PyPreConfig, ptr %config, i64 0, i32 2, !dbg !694",
+				"%use_environment.i.i = getelementptr inbounds %struct.PyPreConfig, ptr %config, i64 0, i32 3, !dbg !695",
+				"%10 = load <4 x i32>, ptr %config, align 4, !dbg !696, !tbaa !639",
+				"%configure_locale.i.i = getelementptr inbounds %struct.PyPreConfig, ptr %config, i64 0, i32 4, !dbg !697",
+				"%11 = load i32, ptr %configure_locale.i.i, align 4, !dbg !697, !tbaa !698",
+				"%dev_mode.i.i = getelementptr inbounds %struct.PyPreConfig, ptr %config, i64 0, i32 8, !dbg !699",
+				"%12 = load i32, ptr %dev_mode.i.i, align 4, !dbg !699, !tbaa !700",
+				"%coerce_c_locale.i.i = getelementptr inbounds %struct.PyPreConfig, ptr %config, i64 0, i32 5, !dbg !701",
+				"%coerce_c_locale_warn.i.i = getelementptr inbounds %struct.PyPreConfig, ptr %config, i64 0, i32 6, !dbg !702",
+				"%13 = load i32, ptr %coerce_c_locale_warn.i.i, align 4, !dbg !702, !tbaa !703",
+				"%utf8_mode.i.i = getelementptr inbounds %struct.PyPreConfig, ptr %config, i64 0, i32 7, !dbg !704",
+				"%allocator.i.i = getelementptr inbounds %struct.PyPreConfig, ptr %config, i64 0, i32 9, !dbg !705",
+				"%14 = load i32, ptr %allocator.i.i, align 4, !dbg !705, !tbaa !706",
+				"%tobool.not = icmp eq i32 %11, 0, !dbg !707",
+				"br i1 %tobool.not, label %if.end20, label %if.then18, !dbg !709"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 208,
+			"name": "if.then18",
+			"debug": [
+				{
+					"line": 384, "columns": [5]
+				},
+				{
+					"line": 388, "columns": [5]
+				},
+				{
+					"line": 389, "columns": [5]
+				},
+				{
+					"line": 391, "columns": [5]
+				},
+				{
+					"line": 393, "columns": [5]
+				},
+				{
+					"line": 829, "columns": [9]
+				},
+				{
+					"line": 830, "columns": [5]
+				}
+			],
+			"successors": [209],
+			"ir": [
+				"%call19 = call ptr @_Py_SetLocaleFromEnv(i32 noundef 0) #20, !dbg !710",
+				"%15 = load <4 x i32>, ptr %config, align 4, !dbg !712, !tbaa !639",
+				"%.pre233.pre = load i32, ptr %configure_locale.i.i, align 4, !dbg !714, !tbaa !698",
+				"%.pre234.pre = load i32, ptr %dev_mode.i.i, align 4, !dbg !715, !tbaa !700",
+				"%.pre236.pre = load i32, ptr %coerce_c_locale_warn.i.i, align 4, !dbg !716, !tbaa !703",
+				"%.pre237.pre = load i32, ptr %allocator.i.i, align 4, !dbg !717, !tbaa !706",
+				"br label %if.end20, !dbg !718"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 209,
+			"name": "if.end20",
+			"debug": [
+				{
+					"line": 384, "columns": [5]
+				},
+				{
+					"line": 385, "columns": [5]
+				},
+				{
+					"line": 386, "columns": [5]
+				},
+				{
+					"line": 387, "columns": [5]
+				},
+				{
+					"line": 388, "columns": [5]
+				},
+				{
+					"line": 389, "columns": [5]
+				},
+				{
+					"line": 390, "columns": [5]
+				},
+				{
+					"line": 391, "columns": [5]
+				},
+				{
+					"line": 393, "columns": [5]
+				},
+				{
+					"line": 835, "columns": [5, 19]
+				},
+				{
+					"line": 840, "columns": [33]
+				},
+				{
+					"line": 844, "columns": [13]
+				}
+			],
+			"successors": [210],
+			"ir": [
+				"%.pre237 = phi i32 [ %.pre237.pre, %if.then18 ], [ %14, %if.end17 ], !dbg !717",
+				"%.pre236 = phi i32 [ %.pre236.pre, %if.then18 ], [ %13, %if.end17 ], !dbg !716",
+				"%.pre234 = phi i32 [ %.pre234.pre, %if.then18 ], [ %12, %if.end17 ], !dbg !715",
+				"%.pre233 = phi i32 [ %.pre233.pre, %if.then18 ], [ 0, %if.end17 ], !dbg !714",
+				"%16 = phi <4 x i32> [ %15, %if.then18 ], [ %10, %if.end17 ], !dbg !712",
+				"%.pr = load i32, ptr %utf8_mode.i.i, align 4, !dbg !719, !tbaa !653",
+				"%.pre235 = load i32, ptr %coerce_c_locale.i.i, align 4, !dbg !720, !tbaa !721",
+				"%17 = load <4 x i32>, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 31), align 8, !dbg !724, !tbaa !639",
+				"%18 = load <4 x i32>, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 31, i32 4), align 8, !dbg !725, !tbaa !639",
+				"%19 = load <2 x i32>, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 31, i32 8), align 8, !dbg !726, !tbaa !639",
+				"call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %cmdline) #20, !dbg !727",
+				"call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(48) %cmdline, i8 0, i64 48, i1 false), !dbg !728",
+				"%20 = getelementptr inbounds %struct._PyPreCmdline, ptr %cmdline, i64 0, i32 2, !dbg !728",
+				"store i32 -1, ptr %20, align 8, !dbg !728",
+				"%21 = getelementptr inbounds %struct._PyPreCmdline, ptr %cmdline, i64 0, i32 3, !dbg !728",
+				"store i32 -1, ptr %21, align 4, !dbg !728",
+				"%22 = getelementptr inbounds %struct._PyPreCmdline, ptr %cmdline, i64 0, i32 4, !dbg !728",
+				"store i32 -1, ptr %22, align 8, !dbg !728",
+				"%tobool29.not = icmp eq ptr %args, null",
+				"%status.sroa.17.0.tmp31.sroa_idx = getelementptr inbounds i8, ptr %tmp31, i64 8",
+				"%status.sroa.18.0.tmp31.sroa_idx = getelementptr inbounds i8, ptr %tmp31, i64 16",
+				"%status.sroa.19.0.tmp31.sroa_idx = getelementptr inbounds i8, ptr %tmp31, i64 24",
+				"%status.sroa.11.sroa.8.0.status.sroa.11.0.tmp.sroa_idx.sroa_idx.i = getelementptr inbounds i8, ptr %tmp.i, i64 8",
+				"%status.sroa.11.sroa.10.0.status.sroa.11.0.tmp.sroa_idx.sroa_idx.i = getelementptr inbounds i8, ptr %tmp.i, i64 16",
+				"%status.sroa.11.sroa.12.0.status.sroa.11.0.tmp.sroa_idx.sroa_idx.i = getelementptr inbounds i8, ptr %tmp.i, i64 24",
+				"%xoptions.i.i = getelementptr inbounds %struct._PyPreCmdline, ptr %cmdline, i64 0, i32 1",
+				"%items.i.i.i = getelementptr inbounds %struct._PyPreCmdline, ptr %cmdline, i64 0, i32 1, i32 1",
+				"%23 = extractelement <4 x i32> %10, i64 0, !dbg !730",
+				"%24 = extractelement <4 x i32> %10, i64 1, !dbg !732",
+				"%25 = extractelement <4 x i32> %10, i64 2, !dbg !733",
+				"%26 = extractelement <4 x i32> %10, i64 3, !dbg !734",
+				"br label %if.end28, !dbg !735"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 210,
+			"name": "if.end28",
+			"debug": [
+				{
+					"line": 384, "columns": [5]
+				},
+				{
+					"line": 388, "columns": [5]
+				},
+				{
+					"line": 389, "columns": [5]
+				},
+				{
+					"line": 390, "columns": [5]
+				},
+				{
+					"line": 391, "columns": [5]
+				},
+				{
+					"line": 392, "columns": [5]
+				},
+				{
+					"line": 393, "columns": [5]
+				},
+				{
+					"line": 855, "columns": [13]
+				}
+			],
+			"successors": [212, 211],
+			"ir": [
+				"%27 = phi i32 [ %.pre237, %if.end20 ], [ %14, %cleanup65 ], !dbg !717",
+				"%28 = phi i32 [ %.pre236, %if.end20 ], [ %13, %cleanup65 ], !dbg !716",
+				"%29 = phi i32 [ %.pre235, %if.end20 ], [ %65, %cleanup65 ], !dbg !720",
+				"%30 = phi i32 [ %.pre234, %if.end20 ], [ %12, %cleanup65 ], !dbg !715",
+				"%31 = phi i32 [ %.pre233, %if.end20 ], [ %11, %cleanup65 ], !dbg !714",
+				"%inc227 = phi i32 [ 1, %if.end20 ], [ %inc, %cleanup65 ]",
+				"%locale_coerced.0226 = phi i32 [ 0, %if.end20 ], [ %locale_coerced.1, %cleanup65 ]",
+				"%32 = phi i32 [ %.pr, %if.end20 ], [ %64, %cleanup65 ]",
+				"%33 = phi <4 x i32> [ %16, %if.end20 ], [ %10, %cleanup65 ], !dbg !712",
+				"store <4 x i32> %33, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 31), align 8, !dbg !712, !tbaa !639",
+				"store i32 %31, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 31, i32 4), align 8, !dbg !714, !tbaa !698",
+				"store i32 %30, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 31, i32 8), align 8, !dbg !715, !tbaa !700",
+				"store i32 %29, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 31, i32 5), align 4, !dbg !720, !tbaa !721",
+				"store i32 %28, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 31, i32 6), align 8, !dbg !716, !tbaa !703",
+				"store i32 %32, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 31, i32 7), align 4, !dbg !737, !tbaa !653",
+				"store i32 %27, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 31, i32 9), align 4, !dbg !717, !tbaa !706",
+				"br i1 %tobool29.not, label %if.end36, label %if.then30, !dbg !738"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 211,
+			"name": "if.then30",
+			"debug": [
+				{
+					"line": 127, "columns": [12]
+				},
+				{
+					"line": 858, "columns": [22]
+				},
+				{
+					"line": 859, "columns": [17]
+				}
+			],
+			"successors": [212, 268],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %tmp31) #20, !dbg !739",
+				"call void @_PyArgv_AsWstrList(ptr nonnull sret(%struct.PyStatus) align 8 %tmp31, ptr noundef nonnull %args, ptr noundef nonnull %cmdline), !dbg !751",
+				"%34 = load <2 x i32>, ptr %tmp31, align 8, !dbg !739",
+				"%status.sroa.17.0.copyload107 = load ptr, ptr %status.sroa.17.0.tmp31.sroa_idx, align 8, !dbg !739, !tbaa.struct !752",
+				"%status.sroa.18.0.copyload115 = load ptr, ptr %status.sroa.18.0.tmp31.sroa_idx, align 8, !dbg !739, !tbaa.struct !754",
+				"%35 = load <2 x i32>, ptr %status.sroa.19.0.tmp31.sroa_idx, align 8, !dbg !739",
+				"call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %tmp31) #20, !dbg !739",
+				"%36 = extractelement <2 x i32> %34, i64 0, !dbg !755",
+				"%cmp33.not = icmp eq i32 %36, 0, !dbg !755",
+				"br i1 %cmp33.not, label %if.end36, label %cleanup76, !dbg !757"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 212,
+			"name": "if.end36",
+			"debug": [
+				{
+					"line": 750, "columns": [14]
+				},
+				{
+					"line": 751, "columns": [9]
+				}
+			],
+			"successors": [213, 268],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %tmp.i) #20, !dbg !767, !noalias !768",
+				"call void @_PyPreCmdline_Read(ptr nonnull sret(%struct.PyStatus) align 8 %tmp.i, ptr noundef nonnull %cmdline, ptr noundef nonnull %config), !dbg !767, !noalias !768",
+				"%37 = load <2 x i32>, ptr %tmp.i, align 8, !dbg !767, !noalias !768",
+				"%status.sroa.11.sroa.8.0.copyload.i = load ptr, ptr %status.sroa.11.sroa.8.0.status.sroa.11.0.tmp.sroa_idx.sroa_idx.i, align 8, !dbg !767, !tbaa.struct !752, !noalias !768",
+				"%status.sroa.11.sroa.10.0.copyload.i = load ptr, ptr %status.sroa.11.sroa.10.0.status.sroa.11.0.tmp.sroa_idx.sroa_idx.i, align 8, !dbg !767, !tbaa.struct !754, !noalias !768",
+				"%38 = load <2 x i32>, ptr %status.sroa.11.sroa.12.0.status.sroa.11.0.tmp.sroa_idx.sroa_idx.i, align 8, !dbg !767, !noalias !768",
+				"call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %tmp.i) #20, !dbg !767, !noalias !768",
+				"%39 = extractelement <2 x i32> %37, i64 0, !dbg !771",
+				"%cmp.not.i153 = icmp eq i32 %39, 0, !dbg !771",
+				"br i1 %cmp.not.i153, label %if.end.i158, label %cleanup76, !dbg !773"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 213,
+			"name": "if.end.i158",
+			"debug": [
+				{
+					"line": 153, "columns": [5]
+				},
+				{
+					"line": 154, "columns": [5]
+				},
+				{
+					"line": 155, "columns": [5]
+				},
+				{
+					"line": 676, "columns": [18, 10, 9]
+				}
+			],
+			"successors": [214, 215],
+			"ir": [
+				"%40 = load i32, ptr %20, align 8, !dbg !784, !tbaa !785, !noalias !768",
+				"store i32 %40, ptr %isolated.i.i, align 4, !dbg !784, !tbaa !635, !noalias !768",
+				"%41 = load i32, ptr %21, align 4, !dbg !789, !tbaa !790, !noalias !768",
+				"store i32 %41, ptr %use_environment.i.i, align 4, !dbg !789, !tbaa !642, !noalias !768",
+				"%42 = load i32, ptr %22, align 8, !dbg !791, !tbaa !792, !noalias !768",
+				"store i32 %42, ptr %dev_mode.i.i, align 4, !dbg !791, !tbaa !700, !noalias !768",
+				"%43 = load i32, ptr %configure_locale.i.i, align 4, !dbg !799, !tbaa !698, !noalias !768",
+				"%tobool.not.i.i = icmp eq i32 %43, 0, !dbg !801",
+				"br i1 %tobool.not.i.i, label %if.then.i.i, label %if.end.i.i, !dbg !802"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 214,
+			"name": "if.then.i.i",
+			"debug": [
+				{
+					"line": 677, "columns": [33]
+				},
+				{
+					"line": 679, "columns": [9]
+				}
+			],
+			"successors": [229],
+			"ir": [
+				"store i32 0, ptr %coerce_c_locale.i.i, align 4, !dbg !803, !tbaa !721, !noalias !768",
+				"br label %return.sink.split.i.i, !dbg !805"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 215,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 531, "columns": [10, 9]
+				}
+			],
+			"successors": [226, 216],
+			"ir": [
+				"%tobool.not.i.i.i = icmp eq i32 %41, 0, !dbg !815",
+				"br i1 %tobool.not.i.i.i, label %if.end26.i.i, label %if.end.i.i.i, !dbg !817"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 216,
+			"name": "if.end.i.i.i",
+			"debug": [
+				{
+					"line": 535, "columns": [23]
+				},
+				{
+					"line": 536, "columns": [9, 13]
+				}
+			],
+			"successors": [226, 217],
+			"ir": [
+				"%call.i.i.i = call ptr @getenv(ptr noundef nonnull @.str.19) #20, !dbg !818, !noalias !768",
+				"%tobool1.not.i.i.i = icmp eq ptr %call.i.i.i, null, !dbg !819",
+				"br i1 %tobool1.not.i.i.i, label %if.end26.i.i, label %land.lhs.true.i.i.i, !dbg !821"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 217,
+			"name": "land.lhs.true.i.i.i",
+			"debug": [
+				{
+					"line": 536, "columns": [16, 23, 9]
+				}
+			],
+			"successors": [226, 218],
+			"ir": [
+				"%44 = load i8, ptr %call.i.i.i, align 1, !dbg !822, !tbaa !823, !noalias !768",
+				"%cmp.not.i.i.i = icmp eq i8 %44, 0, !dbg !824",
+				"br i1 %cmp.not.i.i.i, label %if.end26.i.i, label %if.then2.i.i, !dbg !825"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 218,
+			"name": "if.then2.i.i",
+			"debug": [
+				{
+					"line": 684, "columns": [13, 30]
+				}
+			],
+			"successors": [219, 221],
+			"ir": [
+				"%call3.i.i = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %call.i.i.i, ptr noundef nonnull dereferenceable(2) @.str.20) #21, !dbg !826, !noalias !768",
+				"%cmp.i.i = icmp eq i32 %call3.i.i, 0, !dbg !830",
+				"br i1 %cmp.i.i, label %if.then4.i.i, label %if.else.i.i, !dbg !831"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 219,
+			"name": "if.then4.i.i",
+			"debug": [
+				{
+					"line": 685, "columns": [25, 41, 17]
+				}
+			],
+			"successors": [220, 226],
+			"ir": [
+				"%45 = load i32, ptr %coerce_c_locale.i.i, align 4, !dbg !832, !tbaa !721, !noalias !768",
+				"%cmp6.i.i = icmp slt i32 %45, 0, !dbg !835",
+				"br i1 %cmp6.i.i, label %if.then7.i.i, label %if.end26.i.i, !dbg !836"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 220,
+			"name": "if.then7.i.i",
+			"debug": [
+				{
+					"line": 686, "columns": [41]
+				},
+				{
+					"line": 687, "columns": [13]
+				}
+			],
+			"successors": [226],
+			"ir": [
+				"store i32 0, ptr %coerce_c_locale.i.i, align 4, !dbg !837, !tbaa !721, !noalias !768",
+				"br label %if.end26.i.i, !dbg !839"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 221,
+			"name": "if.else.i.i",
+			"debug": [
+				{
+					"line": 689, "columns": [18, 38]
+				}
+			],
+			"successors": [222, 224],
+			"ir": [
+				"%call10.i.i = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %call.i.i.i, ptr noundef nonnull dereferenceable(5) @.str.21) #21, !dbg !840, !noalias !768",
+				"%cmp11.i.i = icmp eq i32 %call10.i.i, 0, !dbg !842",
+				"br i1 %cmp11.i.i, label %if.then12.i.i, label %if.else18.i.i, !dbg !843"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 222,
+			"name": "if.then12.i.i",
+			"debug": [
+				{
+					"line": 690, "columns": [25, 46, 17]
+				}
+			],
+			"successors": [223, 226],
+			"ir": [
+				"%46 = load i32, ptr %coerce_c_locale_warn.i.i, align 4, !dbg !844, !tbaa !703, !noalias !768",
+				"%cmp14.i.i = icmp slt i32 %46, 0, !dbg !847",
+				"br i1 %cmp14.i.i, label %if.then15.i.i, label %if.end26.i.i, !dbg !848"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 223,
+			"name": "if.then15.i.i",
+			"debug": [
+				{
+					"line": 691, "columns": [46]
+				},
+				{
+					"line": 692, "columns": [13]
+				}
+			],
+			"successors": [226],
+			"ir": [
+				"store i32 1, ptr %coerce_c_locale_warn.i.i, align 4, !dbg !849, !tbaa !703, !noalias !768",
+				"br label %if.end26.i.i, !dbg !851"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 224,
+			"name": "if.else18.i.i",
+			"debug": [
+				{
+					"line": 695, "columns": [25, 41, 17]
+				}
+			],
+			"successors": [225, 226],
+			"ir": [
+				"%47 = load i32, ptr %coerce_c_locale.i.i, align 4, !dbg !852, !tbaa !721, !noalias !768",
+				"%cmp20.i.i = icmp slt i32 %47, 0, !dbg !855",
+				"br i1 %cmp20.i.i, label %if.then21.i.i, label %if.end26.i.i, !dbg !856"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 225,
+			"name": "if.then21.i.i",
+			"debug": [
+				{
+					"line": 696, "columns": [41]
+				},
+				{
+					"line": 697, "columns": [13]
+				}
+			],
+			"successors": [226],
+			"ir": [
+				"store i32 1, ptr %coerce_c_locale.i.i, align 4, !dbg !857, !tbaa !721, !noalias !768",
+				"br label %if.end26.i.i, !dbg !859"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 226,
+			"name": "if.end26.i.i",
+			"debug": [
+				{
+					"line": 704, "columns": [17, 33, 37]
+				}
+			],
+			"successors": [227, 228],
+			"ir": [
+				"%48 = load i32, ptr %coerce_c_locale.i.i, align 4, !dbg !860, !tbaa !721, !noalias !768",
+				"%cmp28.i.i = icmp slt i32 %48, 0, !dbg !862",
+				"%cmp30.i.i = icmp eq i32 %48, 1",
+				"%or.cond.i.i = or i1 %cmp28.i.i, %cmp30.i.i, !dbg !863",
+				"br i1 %or.cond.i.i, label %if.then31.i.i, label %if.end39.i.i, !dbg !863"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 227,
+			"name": "if.then31.i.i",
+			"debug": [
+				{
+					"line": 706, "columns": [13]
+				},
+				{
+					"line": 714, "columns": [17]
+				}
+			],
+			"successors": [228],
+			"ir": [
+				"%call32.i.i = call i32 @_Py_LegacyLocaleDetected(i32 noundef 0) #20, !dbg !864, !noalias !768",
+				"%tobool33.not.i.i = icmp eq i32 %call32.i.i, 0, !dbg !864",
+				"%..i.i = select i1 %tobool33.not.i.i, i32 0, i32 2",
+				"store i32 %..i.i, ptr %coerce_c_locale.i.i, align 4, !dbg !867, !tbaa !721, !noalias !768",
+				"br label %if.end39.i.i, !dbg !868"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 228,
+			"name": "if.end39.i.i",
+			"debug": [
+				{
+					"line": 714, "columns": [17, 38, 9]
+				}
+			],
+			"successors": [229, 230],
+			"ir": [
+				"%49 = load i32, ptr %coerce_c_locale_warn.i.i, align 4, !dbg !868, !tbaa !703, !noalias !768",
+				"%cmp41.i.i = icmp slt i32 %49, 0, !dbg !870",
+				"br i1 %cmp41.i.i, label %return.sink.split.i.i, label %preconfig_init_coerce_c_locale.exit.i, !dbg !871"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 229,
+			"name": "return.sink.split.i.i",
+			"debug": [
+				{
+					"line": 717, "columns": [1]
+				}
+			],
+			"successors": [230],
+			"ir": [
+				"store i32 0, ptr %coerce_c_locale_warn.i.i, align 4, !dbg !797, !tbaa !703, !noalias !768",
+				"br label %preconfig_init_coerce_c_locale.exit.i, !dbg !872"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 230,
+			"name": "preconfig_init_coerce_c_locale.exit.i",
+			"debug": [
+				{
+					"line": 611, "columns": [17, 27, 9]
+				}
+			],
+			"successors": [253, 231],
+			"ir": [
+				"%50 = load i32, ptr %utf8_mode.i.i, align 4, !dbg !891, !tbaa !653, !noalias !893",
+				"%cmp.i28.i = icmp sgt i32 %50, -1, !dbg !896",
+				"br i1 %cmp.i28.i, label %if.end5.i, label %if.end.i30.i, !dbg !897"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 231,
+			"name": "if.end.i30.i",
+			"debug": [
+				{
+					"line": 584, "columns": [28, 5]
+				}
+			],
+			"successors": [232, 243],
+			"ir": [
+				"%51 = load i64, ptr %xoptions.i.i, align 8, !tbaa !916, !noalias !893",
+				"%cmp.not27.i.i.i = icmp sgt i64 %51, 0, !dbg !917",
+				"br i1 %cmp.not27.i.i.i, label %for.body.lr.ph.i.i.i, label %if.end24.i.i, !dbg !918"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 232,
+			"name": "for.body.lr.ph.i.i.i",
+			"debug": [
+				{
+					"line": 584, "columns": [5]
+				}
+			],
+			"successors": [233],
+			"ir": [
+				"%52 = load ptr, ptr %items.i.i.i, align 8, !tbaa !919, !noalias !893",
+				"br label %for.body.i.i.i, !dbg !918"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 233,
+			"name": "for.body.i.i.i",
+			"debug": [
+				{
+					"line": 585, "columns": [33]
+				},
+				{
+					"line": 587, "columns": [24]
+				},
+				{
+					"line": 588, "columns": [17, 13]
+				}
+			],
+			"successors": [235, 234],
+			"ir": [
+				"%i.028.i.i.i = phi i64 [ 0, %for.body.lr.ph.i.i.i ], [ %inc.i.i.i, %for.inc.i.i.i ]",
+				"%arrayidx.i.i.i = getelementptr ptr, ptr %52, i64 %i.028.i.i.i, !dbg !920",
+				"%53 = load ptr, ptr %arrayidx.i.i.i, align 8, !dbg !920, !tbaa !753, !noalias !893",
+				"%call.i.i31.i = call ptr @wcschr(ptr noundef %53, i32 noundef 61) #21, !dbg !922, !noalias !893",
+				"%cmp1.not.i.i.i = icmp eq ptr %call.i.i31.i, null, !dbg !923",
+				"br i1 %cmp1.not.i.i.i, label %if.else.i.i.i, label %if.then.i.i.i, !dbg !925"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 234,
+			"name": "if.then.i.i.i",
+			"debug": [
+				{
+					"line": 589, "columns": [24]
+				},
+				{
+					"line": 590, "columns": [9]
+				}
+			],
+			"successors": [236],
+			"ir": [
+				"%sub.ptr.lhs.cast.i.i.i = ptrtoint ptr %call.i.i31.i to i64, !dbg !926",
+				"%sub.ptr.rhs.cast.i.i.i = ptrtoint ptr %53 to i64, !dbg !926",
+				"%sub.ptr.sub.i.i.i = sub i64 %sub.ptr.lhs.cast.i.i.i, %sub.ptr.rhs.cast.i.i.i, !dbg !926",
+				"%sub.ptr.div.i.i.i = ashr exact i64 %sub.ptr.sub.i.i.i, 2, !dbg !926",
+				"br label %if.end.i.i32.i, !dbg !928"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 235,
+			"name": "if.else.i.i.i",
+			"debug": [
+				{
+					"line": 592, "columns": [19]
+				}
+			],
+			"successors": [236],
+			"ir": [
+				"%call2.i.i.i = call i64 @wcslen(ptr noundef %53) #21, !dbg !929, !noalias !893",
+				"br label %if.end.i.i32.i"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 236,
+			"name": "if.end.i.i32.i",
+			"debug": [
+				{
+					"line": 594, "columns": [13, 40, 45]
+				}
+			],
+			"successors": [237, 238],
+			"ir": [
+				"%len.0.i.i.i = phi i64 [ %sub.ptr.div.i.i.i, %if.then.i.i.i ], [ %call2.i.i.i, %if.else.i.i.i ], !dbg !931",
+				"%call3.i.i.i = call i32 @wcsncmp(ptr noundef %53, ptr noundef nonnull @.str.22, i64 noundef %len.0.i.i.i) #21, !dbg !932, !noalias !893",
+				"%cmp4.i.i.i = icmp eq i32 %call3.i.i.i, 0, !dbg !934",
+				"br i1 %cmp4.i.i.i, label %land.lhs.true.i.i33.i, label %for.inc.i.i.i, !dbg !935"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 237,
+			"name": "land.lhs.true.i.i33.i",
+			"debug": [
+				{
+					"line": 594, "columns": [48, 58, 13]
+				}
+			],
+			"successors": [239, 238],
+			"ir": [
+				"%arrayidx5.i.i.i = getelementptr i32, ptr @.str.22, i64 %len.0.i.i.i, !dbg !936",
+				"%54 = load i32, ptr %arrayidx5.i.i.i, align 4, !dbg !936, !tbaa !639, !noalias !893",
+				"%cmp6.i.i.i = icmp eq i32 %54, 0, !dbg !937",
+				"br i1 %cmp6.i.i.i, label %_Py_get_xoption.exit.i.i, label %for.inc.i.i.i, !dbg !938"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 238,
+			"name": "for.inc.i.i.i",
+			"debug": [
+				{
+					"line": 584, "columns": [49, 28, 5]
+				}
+			],
+			"successors": [243, 233],
+			"ir": [
+				"%inc.i.i.i = add nuw nsw i64 %i.028.i.i.i, 1, !dbg !939",
+				"%exitcond.not.i.i.i = icmp eq i64 %inc.i.i.i, %51, !dbg !917",
+				"br i1 %exitcond.not.i.i.i, label %if.end24.i.i, label %for.body.i.i.i, !dbg !918, !llvm.loop !940"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 239,
+			"name": "_Py_get_xoption.exit.i.i",
+			"debug": [
+				{
+					"line": 617, "columns": [9]
+				}
+			],
+			"successors": [243, 240],
+			"ir": [
+				"%tobool.not.i34.i = icmp eq ptr %53, null, !dbg !943",
+				"br i1 %tobool.not.i34.i, label %if.end24.i.i, label %if.then1.i.i, !dbg !944"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 240,
+			"name": "if.then1.i.i",
+			"debug": [
+				{
+					"line": 618, "columns": [24]
+				},
+				{
+					"line": 619, "columns": [13]
+				}
+			],
+			"successors": [252, 241],
+			"ir": [
+				"%call2.i.i = call ptr @wcschr(ptr noundef nonnull %53, i32 noundef 61) #21, !dbg !945, !noalias !893",
+				"%tobool3.not.i.i = icmp eq ptr %call2.i.i, null, !dbg !947",
+				"br i1 %tobool3.not.i.i, label %if.end5.sink.split.i, label %if.then4.i36.i, !dbg !949"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 241,
+			"name": "if.then4.i36.i",
+			"debug": [
+				{
+					"line": 620, "columns": [24]
+				},
+				{
+					"line": 621, "columns": [17, 36]
+				}
+			],
+			"successors": [252, 242],
+			"ir": [
+				"%add.ptr.i.i = getelementptr i32, ptr %call2.i.i, i64 1, !dbg !950",
+				"%call5.i.i = call i32 @wcscmp(ptr noundef %add.ptr.i.i, ptr noundef nonnull @.str.23) #21, !dbg !952, !noalias !893",
+				"%cmp6.i35.i = icmp eq i32 %call5.i.i, 0, !dbg !954",
+				"br i1 %cmp6.i35.i, label %if.end5.sink.split.i, label %if.else.i37.i, !dbg !955"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 242,
+			"name": "if.else.i37.i",
+			"debug": [
+				{
+					"line": 624, "columns": [22, 41]
+				}
+			],
+			"successors": [252, 268],
+			"ir": [
+				"%call9.i.i = call i32 @wcscmp(ptr noundef %add.ptr.i.i, ptr noundef nonnull @.str.24) #21, !dbg !956, !noalias !893",
+				"%cmp10.i.i = icmp eq i32 %call9.i.i, 0, !dbg !958",
+				"br i1 %cmp10.i.i, label %if.end5.sink.split.i, label %cleanup76, !dbg !959"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 243,
+			"name": "if.end24.i.i",
+			"debug": [
+				{
+					"line": 531, "columns": [10, 9]
+				},
+				{
+					"line": 637, "columns": [42]
+				}
+			],
+			"successors": [248, 244],
+			"ir": [
+				"%55 = load i32, ptr %use_environment.i.i, align 4, !dbg !960, !tbaa !642, !noalias !893",
+				"%tobool.not.i.i39.i = icmp eq i32 %55, 0, !dbg !963",
+				"br i1 %tobool.not.i.i39.i, label %if.end48.i.i, label %if.end.i92.i.i, !dbg !964"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 244,
+			"name": "if.end.i92.i.i",
+			"debug": [
+				{
+					"line": 535, "columns": [23]
+				},
+				{
+					"line": 536, "columns": [9, 13]
+				}
+			],
+			"successors": [248, 245],
+			"ir": [
+				"%call.i91.i.i = call ptr @getenv(ptr noundef nonnull @.str.26) #20, !dbg !965, !noalias !893",
+				"%tobool1.not.i.i40.i = icmp eq ptr %call.i91.i.i, null, !dbg !966",
+				"br i1 %tobool1.not.i.i40.i, label %if.end48.i.i, label %land.lhs.true.i93.i.i, !dbg !967"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 245,
+			"name": "land.lhs.true.i93.i.i",
+			"debug": [
+				{
+					"line": 536, "columns": [16, 23, 9]
+				}
+			],
+			"successors": [248, 246],
+			"ir": [
+				"%56 = load i8, ptr %call.i91.i.i, align 1, !dbg !968, !tbaa !823, !noalias !893",
+				"%cmp.not.i.i41.i = icmp eq i8 %56, 0, !dbg !969",
+				"br i1 %cmp.not.i.i41.i, label %if.end48.i.i, label %if.then27.i.i, !dbg !970"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 246,
+			"name": "if.then27.i.i",
+			"debug": [
+				{
+					"line": 639, "columns": [13, 30]
+				}
+			],
+			"successors": [252, 247],
+			"ir": [
+				"%call28.i.i = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %call.i91.i.i, ptr noundef nonnull dereferenceable(2) @.str.27) #21, !dbg !971, !noalias !893",
+				"%cmp29.i.i = icmp eq i32 %call28.i.i, 0, !dbg !975",
+				"br i1 %cmp29.i.i, label %if.end5.sink.split.i, label %if.else32.i.i, !dbg !976"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 247,
+			"name": "if.else32.i.i",
+			"debug": [
+				{
+					"line": 642, "columns": [18, 35]
+				}
+			],
+			"successors": [252, 268],
+			"ir": [
+				"%call33.i.i = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %call.i91.i.i, ptr noundef nonnull dereferenceable(2) @.str.20) #21, !dbg !977, !noalias !893",
+				"%cmp34.i.i = icmp eq i32 %call33.i.i, 0, !dbg !979",
+				"br i1 %cmp34.i.i, label %if.end5.sink.split.i, label %cleanup76, !dbg !980"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 248,
+			"name": "if.end48.i.i",
+			"debug": [
+				{
+					"line": 656, "columns": [33]
+				},
+				{
+					"line": 657, "columns": [23]
+				},
+				{
+					"line": 658, "columns": [12]
+				}
+			],
+			"successors": [251, 249],
+			"ir": [
+				"%call52.i.i = call ptr @setlocale(i32 noundef 0, ptr noundef null) #20, !dbg !981, !noalias !893",
+				"%cmp53.not.i.i = icmp eq ptr %call52.i.i, null, !dbg !983",
+				"br i1 %cmp53.not.i.i, label %if.end61.i.i, label %land.lhs.true.i.i, !dbg !985"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 249,
+			"name": "land.lhs.true.i.i",
+			"debug": [
+				{
+					"line": 658, "columns": [16, 39]
+				},
+				{
+					"line": 659, "columns": [16]
+				}
+			],
+			"successors": [252, 250],
+			"ir": [
+				"%call54.i.i = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %call52.i.i, ptr noundef nonnull dereferenceable(2) @.str.29) #21, !dbg !986, !noalias !893",
+				"%cmp55.i.i = icmp eq i32 %call54.i.i, 0, !dbg !987",
+				"br i1 %cmp55.i.i, label %if.end5.sink.split.i, label %lor.lhs.false.i.i, !dbg !988"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 250,
+			"name": "lor.lhs.false.i.i",
+			"debug": [
+				{
+					"line": 657, "columns": [13]
+				},
+				{
+					"line": 659, "columns": [19, 46]
+				}
+			],
+			"successors": [252, 251],
+			"ir": [
+				"%call56.i.i = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %call52.i.i, ptr noundef nonnull dereferenceable(6) @.str.30) #21, !dbg !989, !noalias !893",
+				"%cmp57.i.i = icmp eq i32 %call56.i.i, 0, !dbg !990",
+				"br i1 %cmp57.i.i, label %if.end5.sink.split.i, label %if.end61.i.i, !dbg !991"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 251,
+			"name": "if.end61.i.i",
+			"debug": [
+				{
+					"line": 666, "columns": [17, 27, 9]
+				}
+			],
+			"successors": [252, 253],
+			"ir": [
+				"%.pr.i.i = load i32, ptr %utf8_mode.i.i, align 4, !dbg !992, !tbaa !653, !noalias !893",
+				"%cmp63.i.i = icmp slt i32 %.pr.i.i, 0, !dbg !994",
+				"br i1 %cmp63.i.i, label %if.end5.sink.split.i, label %if.end5.i, !dbg !995"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 252,
+			"name": "if.end5.sink.split.i",
+			"debug": [
+				{
+					"line": 723, "columns": [17]
+				}
+			],
+			"successors": [253],
+			"ir": [
+				"%storemerge.i.sink.i = phi i32 [ 1, %if.then4.i36.i ], [ 0, %if.else.i37.i ], [ 1, %if.then1.i.i ], [ 1, %if.then27.i.i ], [ 0, %if.else32.i.i ], [ 1, %land.lhs.true.i.i ], [ 1, %lor.lhs.false.i.i ], [ 0, %if.end61.i.i ]",
+				"store i32 %storemerge.i.sink.i, ptr %utf8_mode.i.i, align 4, !dbg !889, !tbaa !653, !noalias !893",
+				"br label %if.end5.i, !dbg !996"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 253,
+			"name": "if.end5.i",
+			"debug": [
+				{
+					"line": 723, "columns": [17, 27, 9]
+				}
+			],
+			"successors": [254, 262],
+			"ir": [
+				"%57 = load i32, ptr %allocator.i.i, align 4, !dbg !996, !tbaa !706, !noalias !1010",
+				"%cmp.i42.i = icmp eq i32 %57, 0, !dbg !1013",
+				"br i1 %cmp.i42.i, label %if.then.i45.i, label %if.end41, !dbg !1014"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 254,
+			"name": "if.then.i45.i",
+			"debug": [
+				{
+					"line": 531, "columns": [10, 9]
+				},
+				{
+					"line": 728, "columns": [49]
+				}
+			],
+			"successors": [259, 255],
+			"ir": [
+				"%58 = load i32, ptr %use_environment.i.i, align 4, !dbg !1015, !tbaa !642, !noalias !1010",
+				"%tobool.not.i.i44.i = icmp eq i32 %58, 0, !dbg !1018",
+				"br i1 %tobool.not.i.i44.i, label %if.end10.i.i, label %if.end.i.i48.i, !dbg !1019"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 255,
+			"name": "if.end.i.i48.i",
+			"debug": [
+				{
+					"line": 535, "columns": [23]
+				},
+				{
+					"line": 536, "columns": [9, 13]
+				}
+			],
+			"successors": [259, 256],
+			"ir": [
+				"%call.i.i46.i = call ptr @getenv(ptr noundef nonnull @.str.31) #20, !dbg !1020, !noalias !1010",
+				"%tobool1.not.i.i47.i = icmp eq ptr %call.i.i46.i, null, !dbg !1021",
+				"br i1 %tobool1.not.i.i47.i, label %if.end10.i.i, label %land.lhs.true.i.i50.i, !dbg !1022"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 256,
+			"name": "land.lhs.true.i.i50.i",
+			"debug": [
+				{
+					"line": 536, "columns": [16, 23, 9]
+				}
+			],
+			"successors": [259, 257],
+			"ir": [
+				"%59 = load i8, ptr %call.i.i46.i, align 1, !dbg !1023, !tbaa !823, !noalias !1010",
+				"%cmp.not.i.i49.i = icmp eq i8 %59, 0, !dbg !1024",
+				"br i1 %cmp.not.i.i49.i, label %if.end10.i.i, label %if.then1.i52.i, !dbg !1025"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 257,
+			"name": "if.then1.i52.i",
+			"debug": [
+				{
+					"line": 730, "columns": [13]
+				},
+				{
+					"line": 731, "columns": [17, 56]
+				}
+			],
+			"successors": [258, 261],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %name.i.i) #20, !dbg !1027, !noalias !1010",
+				"%call2.i51.i = call i32 @_PyMem_GetAllocatorName(ptr noundef nonnull %call.i.i46.i, ptr noundef nonnull %name.i.i) #20, !dbg !1029, !noalias !1010",
+				"%cmp3.i.i = icmp sgt i32 %call2.i51.i, -1, !dbg !1031",
+				"br i1 %cmp3.i.i, label %cleanup.thread.i.i, label %if.then9.i, !dbg !1032"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 258,
+			"name": "cleanup.thread.i.i",
+			"debug": [
+				{
+					"line": 734, "columns": [38, 31]
+				},
+				{
+					"line": 735, "columns": [9]
+				}
+			],
+			"successors": [259],
+			"ir": [
+				"%60 = load i32, ptr %name.i.i, align 4, !dbg !1033, !tbaa !823, !noalias !1010",
+				"store i32 %60, ptr %allocator.i.i, align 4, !dbg !1034, !tbaa !706, !noalias !1010",
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %name.i.i) #20, !dbg !1035, !noalias !1010",
+				"%61 = icmp eq i32 %60, 0",
+				"br label %if.end10.i.i"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 259,
+			"name": "if.end10.i.i",
+			"debug": [
+				{
+					"line": 738, "columns": [17, 9, 26]
+				}
+			],
+			"successors": [260, 262],
+			"ir": [
+				"%cmp13.i.i = phi i1 [ true, %if.end.i.i48.i ], [ true, %land.lhs.true.i.i50.i ], [ true, %if.then.i45.i ], [ %61, %cleanup.thread.i.i ]",
+				"%62 = load i32, ptr %dev_mode.i.i, align 4, !dbg !1036, !tbaa !700, !noalias !1010",
+				"%tobool11.not.i.i = icmp ne i32 %62, 0, !dbg !1038",
+				"%or.cond.i57.i = select i1 %tobool11.not.i.i, i1 %cmp13.i.i, i1 false, !dbg !1039",
+				"br i1 %or.cond.i57.i, label %if.then14.i.i, label %if.end41, !dbg !1039"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 260,
+			"name": "if.then14.i.i",
+			"debug": [
+				{
+					"line": 739, "columns": [27]
+				},
+				{
+					"line": 740, "columns": [5]
+				}
+			],
+			"successors": [262],
+			"ir": [
+				"store i32 2, ptr %allocator.i.i, align 4, !dbg !1040, !tbaa !706, !noalias !1010",
+				"br label %if.end41, !dbg !1042"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 261,
+			"name": "if.then9.i",
+			"debug": [
+				{
+					"line": 735, "columns": [9]
+				},
+				{
+					"line": 774, "columns": [9]
+				}
+			],
+			"successors": [268],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %name.i.i) #20, !dbg !1035, !noalias !1010",
+				"br label %cleanup76, !dbg !1043"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 262,
+			"name": "if.end41",
+			"debug": [
+				{
+					"line": 880, "columns": [21, 13, 37]
+				}
+			],
+			"successors": [264, 263],
+			"ir": [
+				"%63 = load i32, ptr %coerce_c_locale.i.i, align 4, !dbg !1046, !tbaa !721",
+				"%tobool42 = icmp eq i32 %63, 0, !dbg !1048",
+				"%tobool43 = icmp ne i32 %locale_coerced.0226, 0",
+				"%or.cond = select i1 %tobool42, i1 true, i1 %tobool43, !dbg !1049",
+				"br i1 %or.cond, label %if.end46, label %if.then44, !dbg !1049"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 263,
+			"name": "if.then44",
+			"debug": [
+				{
+					"line": 882, "columns": [13]
+				},
+				{
+					"line": 884, "columns": [9]
+				}
+			],
+			"successors": [264],
+			"ir": [
+				"%call45 = call i32 @_Py_CoerceLegacyLocale(i32 noundef 0) #20, !dbg !1050",
+				"br label %if.end46, !dbg !1052"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 264,
+			"name": "if.end46",
+			"debug": [
+				{
+					"line": 886, "columns": [23, 13]
+				}
+			],
+			"successors": [265, 266],
+			"ir": [
+				"%locale_coerced.1 = phi i32 [ %locale_coerced.0226, %if.end41 ], [ 1, %if.then44 ], !dbg !609",
+				"%cmp47 = icmp eq i32 %32, -1, !dbg !1053",
+				"%64 = load i32, ptr %utf8_mode.i.i, align 4, !dbg !1055, !tbaa !653",
+				"br i1 %cmp47, label %if.then48, label %if.else, !dbg !1056"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 265,
+			"name": "if.then48",
+			"debug": [
+				{
+					"line": 887, "columns": [35, 17]
+				}
+			],
+			"successors": [268, 267],
+			"ir": [
+				"%cmp50 = icmp ne i32 %64, 1, !dbg !1057",
+				"%or.cond224 = and i1 %or.cond, %cmp50, !dbg !1060",
+				"br i1 %or.cond224, label %cleanup76, label %cleanup65, !dbg !1060"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 266,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 893, "columns": [35, 17]
+				}
+			],
+			"successors": [268, 267],
+			"ir": [
+				"%cmp54.not = icmp eq i32 %64, %32, !dbg !1061",
+				"%or.cond223 = and i1 %or.cond, %cmp54.not, !dbg !1064",
+				"br i1 %or.cond223, label %cleanup76, label %cleanup65, !dbg !1064"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 267,
+			"name": "cleanup65",
+			"debug": [
+				{
+					"line": 384, "columns": [5]
+				},
+				{
+					"line": 385, "columns": [5]
+				},
+				{
+					"line": 386, "columns": [5]
+				},
+				{
+					"line": 387, "columns": [5]
+				},
+				{
+					"line": 388, "columns": [5]
+				},
+				{
+					"line": 389, "columns": [5]
+				},
+				{
+					"line": 391, "columns": [5]
+				},
+				{
+					"line": 393, "columns": [5]
+				},
+				{
+					"line": 843, "columns": [14]
+				},
+				{
+					"line": 844, "columns": [19, 13]
+				},
+				{
+					"line": 905, "columns": [43]
+				},
+				{
+					"line": 907, "columns": [27]
+				},
+				{
+					"line": 908, "columns": [33]
+				}
+			],
+			"successors": [268, 210],
+			"ir": [
+				"%65 = load i32, ptr %coerce_c_locale.i.i, align 4, !dbg !1065, !tbaa !721",
+				"store i32 %23, ptr %config, align 4, !dbg !730, !tbaa !626",
+				"store i32 %24, ptr %parse_argv.i.i, align 4, !dbg !732, !tbaa !1067",
+				"store i32 %25, ptr %isolated.i.i, align 4, !dbg !733, !tbaa !635",
+				"store i32 %26, ptr %use_environment.i.i, align 4, !dbg !734, !tbaa !642",
+				"store i32 %11, ptr %configure_locale.i.i, align 4, !dbg !1068, !tbaa !698",
+				"store i32 %12, ptr %dev_mode.i.i, align 4, !dbg !1069, !tbaa !700",
+				"store i32 %13, ptr %coerce_c_locale_warn.i.i, align 4, !dbg !1070, !tbaa !703",
+				"store i32 %14, ptr %allocator.i.i, align 4, !dbg !1071, !tbaa !706",
+				"store i32 %64, ptr %utf8_mode.i.i, align 4, !dbg !1072, !tbaa !653",
+				"store i32 %65, ptr %coerce_c_locale.i.i, align 4, !dbg !1073, !tbaa !721",
+				"%inc = add nuw nsw i32 %inc227, 1, !dbg !1074",
+				"%cmp22 = icmp eq i32 %inc, 3, !dbg !1075",
+				"br i1 %cmp22, label %cleanup76, label %if.end28, !dbg !735"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 268,
+			"name": "cleanup76",
+			"debug": [
+				{
+					"line": 119, "columns": [5]
+				},
+				{
+					"line": 120, "columns": [5]
+				},
+				{
+					"line": 384, "columns": [5]
+				},
+				{
+					"line": 388, "columns": [5]
+				},
+				{
+					"line": 389, "columns": [5]
+				},
+				{
+					"line": 915, "columns": [1]
+				},
+				{
+					"line": 917, "columns": [5]
+				},
+				{
+					"line": 918, "columns": [5]
+				},
+				{
+					"line": 921, "columns": [12]
+				},
+				{
+					"line": 922, "columns": [1]
+				}
+			],
+			"successors": [269],
+			"ir": [
+				"%status.sroa.17.1 = phi ptr [ @__func__.preconfig_init_allocator, %if.then9.i ], [ null, %if.then48 ], [ null, %if.else ], [ %status.sroa.11.sroa.8.0.copyload.i, %if.end36 ], [ @__func__.preconfig_init_utf8_mode, %if.else32.i.i ], [ @__func__.preconfig_init_utf8_mode, %if.else.i37.i ], [ @__func__._PyPreConfig_Read, %cleanup65 ], [ %status.sroa.17.0.copyload107, %if.then30 ], !dbg !609",
+				"%status.sroa.18.1 = phi ptr [ @.str.32, %if.then9.i ], [ null, %if.then48 ], [ null, %if.else ], [ %status.sroa.11.sroa.10.0.copyload.i, %if.end36 ], [ @.str.28, %if.else32.i.i ], [ @.str.25, %if.else.i37.i ], [ @.str.17, %cleanup65 ], [ %status.sroa.18.0.copyload115, %if.then30 ], !dbg !609",
+				"%66 = phi <2 x i32> [ <i32 1, i32 0>, %if.then9.i ], [ zeroinitializer, %if.then48 ], [ zeroinitializer, %if.else ], [ %37, %if.end36 ], [ <i32 1, i32 0>, %if.else32.i.i ], [ <i32 1, i32 0>, %if.else.i37.i ], [ <i32 1, i32 undef>, %cleanup65 ], [ %34, %if.then30 ], !dbg !609",
+				"%67 = phi <2 x i32> [ zeroinitializer, %if.then9.i ], [ zeroinitializer, %if.then48 ], [ zeroinitializer, %if.else ], [ %38, %if.end36 ], [ zeroinitializer, %if.else32.i.i ], [ zeroinitializer, %if.else.i37.i ], [ <i32 0, i32 undef>, %cleanup65 ], [ %35, %if.then30 ], !dbg !609",
+				"%call71 = call ptr @setlocale(i32 noundef 0, ptr noundef nonnull %call5) #20, !dbg !1078",
+				"call void @PyMem_RawFree(ptr noundef nonnull %call5) #20, !dbg !1079",
+				"store <4 x i32> %17, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 31), align 8, !dbg !1082, !tbaa !639",
+				"store <4 x i32> %18, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 31, i32 4), align 8, !dbg !1083, !tbaa !639",
+				"store <2 x i32> %19, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 31, i32 8), align 8, !dbg !1084, !tbaa !639",
+				"call void @_PyWideStringList_Clear(ptr noundef nonnull %cmdline) #20, !dbg !1092",
+				"call void @_PyWideStringList_Clear(ptr noundef nonnull %xoptions.i.i) #20, !dbg !1093",
+				"store <2 x i32> %66, ptr %agg.result, align 8, !dbg !1094",
+				"%status.sroa.17.0.agg.result.sroa_idx109 = getelementptr inbounds i8, ptr %agg.result, i64 8, !dbg !1094",
+				"store ptr %status.sroa.17.1, ptr %status.sroa.17.0.agg.result.sroa_idx109, align 8, !dbg !1094, !tbaa.struct !752",
+				"%status.sroa.18.0.agg.result.sroa_idx117 = getelementptr inbounds i8, ptr %agg.result, i64 16, !dbg !1094",
+				"store ptr %status.sroa.18.1, ptr %status.sroa.18.0.agg.result.sroa_idx117, align 8, !dbg !1094, !tbaa.struct !754",
+				"%status.sroa.19.0.agg.result.sroa_idx125 = getelementptr inbounds i8, ptr %agg.result, i64 24, !dbg !1094",
+				"store <2 x i32> %67, ptr %status.sroa.19.0.agg.result.sroa_idx125, align 8, !dbg !1094",
+				"call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %cmdline) #20, !dbg !1095",
+				"br label %cleanup79"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Read",
+			"id": 269,
+			"name": "cleanup79",
+			"debug": [
+				{
+					"line": 922, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !1095"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Write",
+			"id": 270,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 384, "columns": [5]
+				},
+				{
+					"line": 388, "columns": [5]
+				},
+				{
+					"line": 390, "columns": [5]
+				},
+				{
+					"line": 391, "columns": [5]
+				},
+				{
+					"line": 947, "columns": [20, 9]
+				}
+			],
+			"successors": [272, 271],
+			"ir": [
+				"%0 = load <4 x i32>, ptr %src_config, align 4, !dbg !589, !tbaa !590, !noalias !594",
+				"%configure_locale.i.i = getelementptr inbounds %struct.PyPreConfig, ptr %src_config, i64 0, i32 4, !dbg !597",
+				"%1 = load i32, ptr %configure_locale.i.i, align 4, !dbg !597, !tbaa !598, !noalias !594",
+				"%coerce_c_locale.i.i = getelementptr inbounds %struct.PyPreConfig, ptr %src_config, i64 0, i32 5, !dbg !600",
+				"%2 = load i32, ptr %coerce_c_locale.i.i, align 4, !dbg !600, !tbaa !601, !noalias !594",
+				"%coerce_c_locale_warn.i.i = getelementptr inbounds %struct.PyPreConfig, ptr %src_config, i64 0, i32 6, !dbg !602",
+				"%3 = load <4 x i32>, ptr %coerce_c_locale_warn.i.i, align 4, !dbg !602, !tbaa !590, !noalias !594",
+				"%4 = load i32, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 4), align 4, !dbg !603, !tbaa !605",
+				"%tobool.not = icmp eq i32 %4, 0, !dbg !737",
+				"br i1 %tobool.not, label %if.end3, label %if.then1, !dbg !738"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Write",
+			"id": 271,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 950, "columns": [16, 9]
+				}
+			],
+			"successors": [286],
+			"ir": [
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %agg.result, i8 0, i64 32, i1 false), !dbg !739",
+				"br label %cleanup27, !dbg !741"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Write",
+			"id": 272,
+			"name": "if.end3",
+			"debug": [
+				{
+					"line": 954, "columns": [14, 9]
+				}
+			],
+			"successors": [275, 273],
+			"ir": [
+				"%5 = extractelement <4 x i32> %3, i64 3, !dbg !742",
+				"%cmp4.not = icmp eq i32 %5, 0, !dbg !742",
+				"br i1 %cmp4.not, label %if.end10, label %if.then5, !dbg !744"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Write",
+			"id": 273,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 955, "columns": [13, 42]
+				}
+			],
+			"successors": [274, 275],
+			"ir": [
+				"%call = tail call i32 @_PyMem_SetupAllocators(i32 noundef %5) #20, !dbg !745",
+				"%cmp6 = icmp slt i32 %call, 0, !dbg !748",
+				"br i1 %cmp6, label %if.then7, label %if.end10, !dbg !749"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Write",
+			"id": 274,
+			"name": "if.then7",
+			"debug": [
+				{
+					"line": 956, "columns": [20, 13]
+				}
+			],
+			"successors": [286],
+			"ir": [
+				"store i32 1, ptr %agg.result, align 8, !dbg !750, !tbaa !752",
+				"%func = getelementptr inbounds %struct.PyStatus, ptr %agg.result, i64 0, i32 1, !dbg !750",
+				"store ptr @__func__._PyPreConfig_Write, ptr %func, align 8, !dbg !750, !tbaa !754",
+				"%err_msg = getelementptr inbounds %struct.PyStatus, ptr %agg.result, i64 0, i32 2, !dbg !750",
+				"store ptr @.str.18, ptr %err_msg, align 8, !dbg !750, !tbaa !755",
+				"%exitcode = getelementptr inbounds %struct.PyStatus, ptr %agg.result, i64 0, i32 3, !dbg !750",
+				"store i32 0, ptr %exitcode, align 8, !dbg !750, !tbaa !756",
+				"br label %cleanup27, !dbg !757"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Write",
+			"id": 275,
+			"name": "if.end10",
+			"debug": [
+				{
+					"line": 513, "columns": [5]
+				}
+			],
+			"successors": [276, 277],
+			"ir": [
+				"%6 = extractelement <4 x i32> %0, i64 2, !dbg !765",
+				"%cmp.i = icmp sgt i32 %6, -1, !dbg !765",
+				"br i1 %cmp.i, label %if.then.i, label %if.end.i, !dbg !767"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Write",
+			"id": 276,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 513, "columns": [5]
+				}
+			],
+			"successors": [277],
+			"ir": [
+				"store i32 %6, ptr @Py_IsolatedFlag, align 4, !dbg !768, !tbaa !590",
+				"br label %if.end.i, !dbg !768"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Write",
+			"id": 277,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 514, "columns": [5]
+				}
+			],
+			"successors": [278, 279],
+			"ir": [
+				"%7 = extractelement <4 x i32> %0, i64 3, !dbg !770",
+				"%cmp2.i = icmp sgt i32 %7, -1, !dbg !770",
+				"br i1 %cmp2.i, label %if.then3.i, label %if.end5.i, !dbg !772"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Write",
+			"id": 278,
+			"name": "if.then3.i",
+			"debug": [
+				{
+					"line": 514, "columns": [5]
+				}
+			],
+			"successors": [279],
+			"ir": [
+				"%tobool.not.i = icmp eq i32 %7, 0, !dbg !773",
+				"%lnot.ext.i = zext i1 %tobool.not.i to i32, !dbg !773",
+				"store i32 %lnot.ext.i, ptr @Py_IgnoreEnvironmentFlag, align 4, !dbg !773, !tbaa !590",
+				"br label %if.end5.i, !dbg !773"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Write",
+			"id": 279,
+			"name": "if.end5.i",
+			"debug": [
+				{
+					"line": 518, "columns": [5]
+				}
+			],
+			"successors": [280, 281],
+			"ir": [
+				"%8 = extractelement <4 x i32> %3, i64 1, !dbg !775",
+				"%cmp6.i = icmp sgt i32 %8, -1, !dbg !775",
+				"br i1 %cmp6.i, label %if.then7.i, label %preconfig_set_global_vars.exit, !dbg !777"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Write",
+			"id": 280,
+			"name": "if.then7.i",
+			"debug": [
+				{
+					"line": 518, "columns": [5]
+				}
+			],
+			"successors": [281],
+			"ir": [
+				"store i32 %8, ptr @Py_UTF8Mode, align 4, !dbg !778, !tbaa !590",
+				"br label %preconfig_set_global_vars.exit, !dbg !778"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Write",
+			"id": 281,
+			"name": "preconfig_set_global_vars.exit",
+			"debug": [
+				{
+					"line": 962, "columns": [9]
+				}
+			],
+			"successors": [285, 282],
+			"ir": [
+				"%tobool11.not = icmp eq i32 %1, 0, !dbg !780",
+				"br i1 %tobool11.not, label %if.end22, label %if.then12, !dbg !782"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Write",
+			"id": 282,
+			"name": "if.then12",
+			"debug": [
+				{
+					"line": 963, "columns": [13]
+				}
+			],
+			"successors": [284, 283],
+			"ir": [
+				"%tobool13.not = icmp eq i32 %2, 0, !dbg !783",
+				"br i1 %tobool13.not, label %if.end20, label %if.then14, !dbg !786"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Write",
+			"id": 283,
+			"name": "if.then14",
+			"debug": [
+				{
+					"line": 964, "columns": [18, 17]
+				}
+			],
+			"successors": [284],
+			"ir": [
+				"%9 = extractelement <4 x i32> %3, i64 0, !dbg !787",
+				"%call15 = tail call i32 @_Py_CoerceLegacyLocale(i32 noundef %9) #20, !dbg !787",
+				"%tobool16.not = icmp eq i32 %call15, 0, !dbg !787",
+				"%spec.select = select i1 %tobool16.not, i32 0, i32 %2, !dbg !790",
+				"br label %if.end20, !dbg !790"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Write",
+			"id": 284,
+			"name": "if.end20",
+			"debug": [
+				{
+					"line": 971, "columns": [9]
+				},
+				{
+					"line": 972, "columns": [5]
+				}
+			],
+			"successors": [285],
+			"ir": [
+				"%config.sroa.20.0 = phi i32 [ 0, %if.then12 ], [ %spec.select, %if.then14 ], !dbg !571",
+				"%call21 = tail call ptr @_Py_SetLocaleFromEnv(i32 noundef 0) #20, !dbg !791",
+				"br label %if.end22, !dbg !792"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Write",
+			"id": 285,
+			"name": "if.end22",
+			"debug": [
+				{
+					"line": 384, "columns": [5]
+				},
+				{
+					"line": 388, "columns": [5]
+				},
+				{
+					"line": 390, "columns": [5]
+				},
+				{
+					"line": 391, "columns": [5]
+				},
+				{
+					"line": 977, "columns": [12, 5]
+				}
+			],
+			"successors": [286],
+			"ir": [
+				"%config.sroa.20.1 = phi i32 [ %2, %preconfig_set_global_vars.exit ], [ %config.sroa.20.0, %if.end20 ], !dbg !600",
+				"store <4 x i32> %0, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 31), align 8, !dbg !795, !tbaa !590",
+				"store i32 %1, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 31, i32 4), align 8, !dbg !796, !tbaa !598",
+				"store i32 %config.sroa.20.1, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 31, i32 5), align 4, !dbg !797, !tbaa !601",
+				"store <4 x i32> %3, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 31, i32 6), align 8, !dbg !798, !tbaa !590",
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %agg.result, i8 0, i64 32, i1 false), !dbg !799",
+				"br label %cleanup27, !dbg !800"
+			]
+		},
+		{
+			"function": "_PyPreConfig_Write",
+			"id": 286,
+			"name": "cleanup27",
+			"debug": [
+				{
+					"line": 978, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !801"
+			]
+		}
+	]
+}

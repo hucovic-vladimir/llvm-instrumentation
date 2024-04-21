@@ -1,0 +1,1032 @@
+{
+	"blocks": [
+		{
+			"function": "_PyMp_SetError",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 43, "columns": [5]
+				}
+			],
+			"successors": [3, 1, 1, 2, 4],
+			"ir": [
+				"switch i32 %num, label %sw.default [\n    i32 -1, label %sw.bb\n    i32 -1002, label %sw.bb\n    i32 -1001, label %sw.bb1\n    i32 -1003, label %sw.epilog\n  ], !dbg !449"
+			]
+		},
+		{
+			"function": "_PyMp_SetError",
+			"id": 1,
+			"name": "sw.bb",
+			"debug": [
+				{
+					"line": 58, "columns": [18, 13]
+				},
+				{
+					"line": 60, "columns": [9]
+				},
+				{
+					"line": 61, "columns": [9]
+				}
+			],
+			"successors": [4],
+			"ir": [
+				"%cmp = icmp eq ptr %Type, null, !dbg !450",
+				"%0 = load ptr, ptr @PyExc_OSError, align 8",
+				"%spec.select = select i1 %cmp, ptr %0, ptr %Type, !dbg !453",
+				"%call = tail call ptr @PyErr_SetFromErrno(ptr noundef %spec.select) #5, !dbg !454",
+				"br label %sw.epilog, !dbg !455"
+			]
+		},
+		{
+			"function": "_PyMp_SetError",
+			"id": 2,
+			"name": "sw.bb1",
+			"debug": [
+				{
+					"line": 64, "columns": [9]
+				},
+				{
+					"line": 65, "columns": [9]
+				}
+			],
+			"successors": [4],
+			"ir": [
+				"%call2 = tail call ptr @PyErr_NoMemory() #5, !dbg !456",
+				"br label %sw.epilog, !dbg !457"
+			]
+		},
+		{
+			"function": "_PyMp_SetError",
+			"id": 3,
+			"name": "sw.default",
+			"debug": [
+				{
+					"line": 69, "columns": [22, 9]
+				},
+				{
+					"line": 71, "columns": [5]
+				}
+			],
+			"successors": [4],
+			"ir": [
+				"%1 = load ptr, ptr @PyExc_RuntimeError, align 8, !dbg !458, !tbaa !459",
+				"%call3 = tail call ptr (ptr, ptr, ...) @PyErr_Format(ptr noundef %1, ptr noundef nonnull @.str, i32 noundef %num) #5, !dbg !463",
+				"br label %sw.epilog, !dbg !464"
+			]
+		},
+		{
+			"function": "_PyMp_SetError",
+			"id": 4,
+			"name": "sw.epilog",
+			"debug": [
+				{
+					"line": 72, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret ptr null, !dbg !465"
+			]
+		},
+		{
+			"function": "PyInit__multiprocessing",
+			"id": 5,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 294, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call ptr @PyModuleDef_Init(ptr noundef nonnull @multiprocessing_module) #5, !dbg !444",
+				"ret ptr %call, !dbg !445"
+			]
+		},
+		{
+			"function": "_multiprocessing_sem_unlink",
+			"id": 6,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 137, "columns": [10, 9]
+				}
+			],
+			"successors": [7, 8],
+			"ir": [
+				"%name_length = alloca i64, align 8",
+				"%0 = getelementptr i8, ptr %arg, i64 8, !dbg !451",
+				"%arg.val = load ptr, ptr %0, align 8, !dbg !451, !tbaa !453",
+				"%1 = getelementptr i8, ptr %arg.val, i64 168, !dbg !451",
+				"%call.val = load i64, ptr %1, align 8, !dbg !451, !tbaa !458",
+				"%2 = and i64 %call.val, 268435456, !dbg !451",
+				"%tobool.not = icmp eq i64 %2, 0, !dbg !451",
+				"br i1 %tobool.not, label %if.then, label %if.end, !dbg !464"
+			]
+		},
+		{
+			"function": "_multiprocessing_sem_unlink",
+			"id": 7,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 138, "columns": [9]
+				},
+				{
+					"line": 139, "columns": [9]
+				}
+			],
+			"successors": [12],
+			"ir": [
+				"tail call void @_PyArg_BadArgument(ptr noundef nonnull @.str.2, ptr noundef nonnull @.str.3, ptr noundef nonnull @.str.4, ptr noundef nonnull %arg) #5, !dbg !465",
+				"br label %exit, !dbg !467"
+			]
+		},
+		{
+			"function": "_multiprocessing_sem_unlink",
+			"id": 8,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 142, "columns": [12]
+				},
+				{
+					"line": 143, "columns": [14, 9]
+				}
+			],
+			"successors": [12, 9],
+			"ir": [
+				"%call2 = call ptr @PyUnicode_AsUTF8AndSize(ptr noundef nonnull %arg, ptr noundef nonnull %name_length) #5, !dbg !468",
+				"%cmp = icmp eq ptr %call2, null, !dbg !469",
+				"br i1 %cmp, label %exit, label %if.end4, !dbg !471"
+			]
+		},
+		{
+			"function": "_multiprocessing_sem_unlink",
+			"id": 9,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 146, "columns": [9, 33, 22]
+				}
+			],
+			"successors": [11, 10],
+			"ir": [
+				"%call5 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %call2) #6, !dbg !472",
+				"%3 = load i64, ptr %name_length, align 8, !dbg !474, !tbaa !475",
+				"%cmp6.not = icmp eq i64 %call5, %3, !dbg !476",
+				"br i1 %cmp6.not, label %if.end8, label %if.then7, !dbg !477"
+			]
+		},
+		{
+			"function": "_multiprocessing_sem_unlink",
+			"id": 10,
+			"name": "if.then7",
+			"debug": [
+				{
+					"line": 147, "columns": [25, 9]
+				},
+				{
+					"line": 148, "columns": [9]
+				}
+			],
+			"successors": [12],
+			"ir": [
+				"%4 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !478, !tbaa !480",
+				"call void @PyErr_SetString(ptr noundef %4, ptr noundef nonnull @.str.5) #5, !dbg !481",
+				"br label %exit, !dbg !482"
+			]
+		},
+		{
+			"function": "_multiprocessing_sem_unlink",
+			"id": 11,
+			"name": "if.end8",
+			"debug": [
+				{
+					"line": 150, "columns": [5]
+				},
+				{
+					"line": 171, "columns": [12]
+				}
+			],
+			"successors": [12],
+			"ir": [
+				"%call.i = call ptr @_PyMp_sem_unlink(ptr noundef nonnull %call2) #5, !dbg !491",
+				"br label %exit, !dbg !492"
+			]
+		},
+		{
+			"function": "_multiprocessing_sem_unlink",
+			"id": 12,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 152, "columns": [1]
+				},
+				{
+					"line": 153, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%return_value.0 = phi ptr [ null, %if.end ], [ null, %if.then7 ], [ %call.i, %if.end8 ], [ null, %if.then ], !dbg !450",
+				"ret ptr %return_value.0, !dbg !494"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 13,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 200, "columns": [50]
+				},
+				{
+					"line": 203, "columns": [22, 9]
+				}
+			],
+			"successors": [56, 14],
+			"ir": [
+				"%call = tail call ptr @PyType_FromModuleAndSpec(ptr noundef %module, ptr noundef nonnull @_PyMp_SemLockType_spec, ptr noundef null) #5, !dbg !454",
+				"%cmp = icmp eq ptr %call, null, !dbg !455",
+				"br i1 %cmp, label %cleanup46, label %if.end, !dbg !457"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 14,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 206, "columns": [14]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [15, 17],
+			"ir": [
+				"%call1 = tail call i32 @PyModule_AddType(ptr noundef %module, ptr noundef nonnull %call) #5, !dbg !458",
+				"%op.val.i = load i64, ptr %call, align 8, !dbg !464, !tbaa !466",
+				"%0 = and i64 %op.val.i, 2147483648, !dbg !474",
+				"%cmp.i.not.i = icmp eq i64 %0, 0, !dbg !474",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %Py_DECREF.exit, !dbg !475"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 15,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [16, 17],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !476",
+				"store i64 %dec.i, ptr %call, align 8, !dbg !476, !tbaa !466",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !478",
+				"br i1 %cmp.i, label %if.then1.i, label %Py_DECREF.exit, !dbg !479"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 16,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [17],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call) #5, !dbg !480",
+				"br label %Py_DECREF.exit, !dbg !482"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 17,
+			"name": "Py_DECREF.exit",
+			"debug": [
+				{
+					"line": 208, "columns": [12, 9]
+				}
+			],
+			"successors": [56, 18],
+			"ir": [
+				"%cmp2 = icmp slt i32 %call1, 0, !dbg !483",
+				"br i1 %cmp2, label %cleanup46, label %if.end4, !dbg !485"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 18,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 222, "columns": [28]
+				},
+				{
+					"line": 224, "columns": [26, 9]
+				}
+			],
+			"successors": [56, 19],
+			"ir": [
+				"%call5 = tail call ptr @PyLong_FromLong(i64 noundef 2147483647) #5, !dbg !486",
+				"%cmp6 = icmp eq ptr %call5, null, !dbg !489",
+				"br i1 %cmp6, label %cleanup46, label %if.end8, !dbg !491"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 19,
+			"name": "if.end8",
+			"debug": [
+				{
+					"line": 227, "columns": [44, 9]
+				},
+				{
+					"line": 228, "columns": [44]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [20, 23],
+			"ir": [
+				"%tp_dict = getelementptr inbounds %struct._typeobject, ptr %call, i64 0, i32 31, !dbg !492",
+				"%1 = load ptr, ptr %tp_dict, align 8, !dbg !492, !tbaa !494",
+				"%call9 = tail call i32 @PyDict_SetItemString(ptr noundef %1, ptr noundef nonnull @.str.6, ptr noundef nonnull %call5) #5, !dbg !502",
+				"%cmp10 = icmp slt i32 %call9, 0, !dbg !503",
+				"%op.val.i70 = load i64, ptr %call5, align 8, !dbg !509, !tbaa !466",
+				"%2 = and i64 %op.val.i70, 2147483648, !dbg !514",
+				"%cmp.i.not.i71 = icmp eq i64 %2, 0, !dbg !514",
+				"br i1 %cmp10, label %if.then11, label %if.end12, !dbg !515"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 20,
+			"name": "if.then11",
+			"debug": [
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [21, 56],
+			"ir": [
+				"br i1 %cmp.i.not.i71, label %if.end.i74, label %cleanup46, !dbg !516"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 21,
+			"name": "if.end.i74",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [22, 56],
+			"ir": [
+				"%dec.i72 = add i64 %op.val.i70, -1, !dbg !517",
+				"store i64 %dec.i72, ptr %call5, align 8, !dbg !517, !tbaa !466",
+				"%cmp.i73 = icmp eq i64 %dec.i72, 0, !dbg !518",
+				"br i1 %cmp.i73, label %if.then1.i75, label %cleanup46, !dbg !519"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 22,
+			"name": "if.then1.i75",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [56],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call5) #5, !dbg !520",
+				"br label %cleanup46, !dbg !521"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 23,
+			"name": "if.end12",
+			"debug": [
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [24, 26],
+			"ir": [
+				"br i1 %cmp.i.not.i71, label %if.end.i81, label %Py_DECREF.exit83, !dbg !522"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 24,
+			"name": "if.end.i81",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [25, 26],
+			"ir": [
+				"%dec.i79 = add i64 %op.val.i70, -1, !dbg !523",
+				"store i64 %dec.i79, ptr %call5, align 8, !dbg !523, !tbaa !466",
+				"%cmp.i80 = icmp eq i64 %dec.i79, 0, !dbg !524",
+				"br i1 %cmp.i80, label %if.then1.i82, label %Py_DECREF.exit83, !dbg !525"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 25,
+			"name": "if.then1.i82",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [26],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call5) #5, !dbg !526",
+				"br label %Py_DECREF.exit83, !dbg !527"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 26,
+			"name": "Py_DECREF.exit83",
+			"debug": [
+				{
+					"line": 237, "columns": [23]
+				},
+				{
+					"line": 238, "columns": [10, 9]
+				}
+			],
+			"successors": [56, 27],
+			"ir": [
+				"%call13 = tail call ptr @PyDict_New() #5, !dbg !528",
+				"%tobool.not = icmp eq ptr %call13, null, !dbg !529",
+				"br i1 %tobool.not, label %cleanup46, label %do.body, !dbg !531"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 27,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 258, "columns": [5]
+				}
+			],
+			"successors": [28, 31],
+			"ir": [
+				"%call16 = tail call ptr @PyLong_FromLong(i64 noundef 1) #5, !dbg !532",
+				"%cmp17 = icmp eq ptr %call16, null, !dbg !534",
+				"br i1 %cmp17, label %if.then18, label %if.end19, !dbg !532"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 28,
+			"name": "if.then18",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [29, 56],
+			"ir": [
+				"%op.val.i84 = load i64, ptr %call13, align 8, !dbg !539, !tbaa !466",
+				"%3 = and i64 %op.val.i84, 2147483648, !dbg !542",
+				"%cmp.i.not.i85 = icmp eq i64 %3, 0, !dbg !542",
+				"br i1 %cmp.i.not.i85, label %if.end.i88, label %cleanup46, !dbg !543"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 29,
+			"name": "if.end.i88",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [30, 56],
+			"ir": [
+				"%dec.i86 = add i64 %op.val.i84, -1, !dbg !544",
+				"store i64 %dec.i86, ptr %call13, align 8, !dbg !544, !tbaa !466",
+				"%cmp.i87 = icmp eq i64 %dec.i86, 0, !dbg !545",
+				"br i1 %cmp.i87, label %if.then1.i89, label %cleanup46, !dbg !546"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 30,
+			"name": "if.then1.i89",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [56],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call13) #5, !dbg !547",
+				"br label %cleanup46, !dbg !548"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 31,
+			"name": "if.end19",
+			"debug": [
+				{
+					"line": 258, "columns": [5]
+				}
+			],
+			"successors": [32, 38],
+			"ir": [
+				"%call20 = tail call i32 @PyDict_SetItemString(ptr noundef nonnull %call13, ptr noundef nonnull @.str.7, ptr noundef nonnull %call16) #5, !dbg !549",
+				"%cmp21 = icmp slt i32 %call20, 0, !dbg !549",
+				"br i1 %cmp21, label %if.then22, label %if.end23, !dbg !532"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 32,
+			"name": "if.then22",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [33, 35],
+			"ir": [
+				"%op.val.i91 = load i64, ptr %call13, align 8, !dbg !559, !tbaa !466",
+				"%4 = and i64 %op.val.i91, 2147483648, !dbg !560",
+				"%cmp.i.not.i92 = icmp eq i64 %4, 0, !dbg !560",
+				"br i1 %cmp.i.not.i92, label %if.end.i95, label %Py_DECREF.exit97, !dbg !561"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 33,
+			"name": "if.end.i95",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [34, 35],
+			"ir": [
+				"%dec.i93 = add i64 %op.val.i91, -1, !dbg !562",
+				"store i64 %dec.i93, ptr %call13, align 8, !dbg !562, !tbaa !466",
+				"%cmp.i94 = icmp eq i64 %dec.i93, 0, !dbg !563",
+				"br i1 %cmp.i94, label %if.then1.i96, label %Py_DECREF.exit97, !dbg !564"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 34,
+			"name": "if.then1.i96",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [35],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call13) #5, !dbg !565",
+				"br label %Py_DECREF.exit97, !dbg !566"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 35,
+			"name": "Py_DECREF.exit97",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [36, 56],
+			"ir": [
+				"%op.val.i98 = load i64, ptr %call16, align 8, !dbg !569, !tbaa !466",
+				"%5 = and i64 %op.val.i98, 2147483648, !dbg !572",
+				"%cmp.i.not.i99 = icmp eq i64 %5, 0, !dbg !572",
+				"br i1 %cmp.i.not.i99, label %if.end.i102, label %cleanup46, !dbg !573"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 36,
+			"name": "if.end.i102",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [37, 56],
+			"ir": [
+				"%dec.i100 = add i64 %op.val.i98, -1, !dbg !574",
+				"store i64 %dec.i100, ptr %call16, align 8, !dbg !574, !tbaa !466",
+				"%cmp.i101 = icmp eq i64 %dec.i100, 0, !dbg !575",
+				"br i1 %cmp.i101, label %if.then1.i103, label %cleanup46, !dbg !576"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 37,
+			"name": "if.then1.i103",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [56],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call16) #5, !dbg !577",
+				"br label %cleanup46, !dbg !578"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 38,
+			"name": "if.end23",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [39, 41],
+			"ir": [
+				"%op.val.i105 = load i64, ptr %call16, align 8, !dbg !580, !tbaa !466",
+				"%6 = and i64 %op.val.i105, 2147483648, !dbg !581",
+				"%cmp.i.not.i106 = icmp eq i64 %6, 0, !dbg !581",
+				"br i1 %cmp.i.not.i106, label %if.end.i109, label %Py_DECREF.exit111, !dbg !582"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 39,
+			"name": "if.end.i109",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [40, 41],
+			"ir": [
+				"%dec.i107 = add i64 %op.val.i105, -1, !dbg !583",
+				"store i64 %dec.i107, ptr %call16, align 8, !dbg !583, !tbaa !466",
+				"%cmp.i108 = icmp eq i64 %dec.i107, 0, !dbg !584",
+				"br i1 %cmp.i108, label %if.then1.i110, label %Py_DECREF.exit111, !dbg !585"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 40,
+			"name": "if.then1.i110",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [41],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call16) #5, !dbg !586",
+				"br label %Py_DECREF.exit111, !dbg !587"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 41,
+			"name": "Py_DECREF.exit111",
+			"debug": [
+				{
+					"line": 261, "columns": [5]
+				}
+			],
+			"successors": [42, 45],
+			"ir": [
+				"%call26 = tail call ptr @PyLong_FromLong(i64 noundef 1) #5, !dbg !588",
+				"%cmp27 = icmp eq ptr %call26, null, !dbg !590",
+				"br i1 %cmp27, label %if.then28, label %if.end29, !dbg !588"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 42,
+			"name": "if.then28",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [43, 56],
+			"ir": [
+				"%op.val.i112 = load i64, ptr %call13, align 8, !dbg !595, !tbaa !466",
+				"%7 = and i64 %op.val.i112, 2147483648, !dbg !598",
+				"%cmp.i.not.i113 = icmp eq i64 %7, 0, !dbg !598",
+				"br i1 %cmp.i.not.i113, label %if.end.i116, label %cleanup46, !dbg !599"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 43,
+			"name": "if.end.i116",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [44, 56],
+			"ir": [
+				"%dec.i114 = add i64 %op.val.i112, -1, !dbg !600",
+				"store i64 %dec.i114, ptr %call13, align 8, !dbg !600, !tbaa !466",
+				"%cmp.i115 = icmp eq i64 %dec.i114, 0, !dbg !601",
+				"br i1 %cmp.i115, label %if.then1.i117, label %cleanup46, !dbg !602"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 44,
+			"name": "if.then1.i117",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [56],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call13) #5, !dbg !603",
+				"br label %cleanup46, !dbg !604"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 45,
+			"name": "if.end29",
+			"debug": [
+				{
+					"line": 261, "columns": [5]
+				}
+			],
+			"successors": [46, 52],
+			"ir": [
+				"%call30 = tail call i32 @PyDict_SetItemString(ptr noundef nonnull %call13, ptr noundef nonnull @.str.8, ptr noundef nonnull %call26) #5, !dbg !605",
+				"%cmp31 = icmp slt i32 %call30, 0, !dbg !605",
+				"br i1 %cmp31, label %if.then32, label %if.end33, !dbg !588"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 46,
+			"name": "if.then32",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [47, 49],
+			"ir": [
+				"%op.val.i119 = load i64, ptr %call13, align 8, !dbg !615, !tbaa !466",
+				"%8 = and i64 %op.val.i119, 2147483648, !dbg !616",
+				"%cmp.i.not.i120 = icmp eq i64 %8, 0, !dbg !616",
+				"br i1 %cmp.i.not.i120, label %if.end.i123, label %Py_DECREF.exit125, !dbg !617"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 47,
+			"name": "if.end.i123",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [48, 49],
+			"ir": [
+				"%dec.i121 = add i64 %op.val.i119, -1, !dbg !618",
+				"store i64 %dec.i121, ptr %call13, align 8, !dbg !618, !tbaa !466",
+				"%cmp.i122 = icmp eq i64 %dec.i121, 0, !dbg !619",
+				"br i1 %cmp.i122, label %if.then1.i124, label %Py_DECREF.exit125, !dbg !620"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 48,
+			"name": "if.then1.i124",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [49],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call13) #5, !dbg !621",
+				"br label %Py_DECREF.exit125, !dbg !622"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 49,
+			"name": "Py_DECREF.exit125",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [50, 56],
+			"ir": [
+				"%op.val.i126 = load i64, ptr %call26, align 8, !dbg !625, !tbaa !466",
+				"%9 = and i64 %op.val.i126, 2147483648, !dbg !628",
+				"%cmp.i.not.i127 = icmp eq i64 %9, 0, !dbg !628",
+				"br i1 %cmp.i.not.i127, label %if.end.i130, label %cleanup46, !dbg !629"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 50,
+			"name": "if.end.i130",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [51, 56],
+			"ir": [
+				"%dec.i128 = add i64 %op.val.i126, -1, !dbg !630",
+				"store i64 %dec.i128, ptr %call26, align 8, !dbg !630, !tbaa !466",
+				"%cmp.i129 = icmp eq i64 %dec.i128, 0, !dbg !631",
+				"br i1 %cmp.i129, label %if.then1.i131, label %cleanup46, !dbg !632"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 51,
+			"name": "if.then1.i131",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [56],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call26) #5, !dbg !633",
+				"br label %cleanup46, !dbg !634"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 52,
+			"name": "if.end33",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [53, 55],
+			"ir": [
+				"%op.val.i133 = load i64, ptr %call26, align 8, !dbg !636, !tbaa !466",
+				"%10 = and i64 %op.val.i133, 2147483648, !dbg !637",
+				"%cmp.i.not.i134 = icmp eq i64 %10, 0, !dbg !637",
+				"br i1 %cmp.i.not.i134, label %if.end.i137, label %Py_DECREF.exit139, !dbg !638"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 53,
+			"name": "if.end.i137",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [54, 55],
+			"ir": [
+				"%dec.i135 = add i64 %op.val.i133, -1, !dbg !639",
+				"store i64 %dec.i135, ptr %call26, align 8, !dbg !639, !tbaa !466",
+				"%cmp.i136 = icmp eq i64 %dec.i135, 0, !dbg !640",
+				"br i1 %cmp.i136, label %if.then1.i138, label %Py_DECREF.exit139, !dbg !641"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 54,
+			"name": "if.then1.i138",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [55],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call26) #5, !dbg !642",
+				"br label %Py_DECREF.exit139, !dbg !643"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 55,
+			"name": "Py_DECREF.exit139",
+			"debug": [
+				{
+					"line": 270, "columns": [9]
+				}
+			],
+			"successors": [56],
+			"ir": [
+				"%call39 = tail call i32 @PyModule_Add(ptr noundef %module, ptr noundef nonnull @.str.9, ptr noundef nonnull %call13) #5, !dbg !644",
+				"%call39.lobit = ashr i32 %call39, 31, !dbg !646",
+				"br label %cleanup46, !dbg !646"
+			]
+		},
+		{
+			"function": "multiprocessing_exec",
+			"id": 56,
+			"name": "cleanup46",
+			"debug": [
+				{
+					"line": 275, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.5 = phi i32 [ -1, %entry ], [ -1, %Py_DECREF.exit ], [ -1, %if.end4 ], [ -1, %Py_DECREF.exit83 ], [ %call39.lobit, %Py_DECREF.exit139 ], [ -1, %if.then11 ], [ -1, %if.end.i74 ], [ -1, %if.then1.i75 ], [ -1, %if.then18 ], [ -1, %if.end.i88 ], [ -1, %if.then1.i89 ], [ -1, %Py_DECREF.exit97 ], [ -1, %if.end.i102 ], [ -1, %if.then1.i103 ], [ -1, %if.then28 ], [ -1, %if.end.i116 ], [ -1, %if.then1.i117 ], [ -1, %Py_DECREF.exit125 ], [ -1, %if.end.i130 ], [ -1, %if.then1.i131 ], !dbg !453",
+				"ret i32 %retval.5, !dbg !647"
+			]
+		}
+	]
+}

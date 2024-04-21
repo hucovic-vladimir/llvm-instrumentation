@@ -1,0 +1,392 @@
+{
+	"blocks": [
+		{
+			"function": "_PyTestLimitedCAPI_Init_Object",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 75, "columns": [9]
+				},
+				{
+					"line": 80, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call i32 @PyModule_AddFunctions(ptr noundef %m, ptr noundef nonnull @test_methods) #5, !dbg !133",
+				"%call.lobit = ashr i32 %call, 31, !dbg !132",
+				"ret i32 %call.lobit, !dbg !135"
+			]
+		},
+		{
+			"function": "get_constant",
+			"id": 1,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 15, "columns": [5]
+				},
+				{
+					"line": 16, "columns": [10, 9]
+				}
+			],
+			"successors": [5, 2],
+			"ir": [
+				"%constant_id = alloca i32, align 4",
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %constant_id) #5, !dbg !134",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.3, ptr noundef nonnull %constant_id) #5, !dbg !135",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !135",
+				"br i1 %tobool.not, label %cleanup6, label %if.end, !dbg !137"
+			]
+		},
+		{
+			"function": "get_constant",
+			"id": 2,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 20, "columns": [36, 21]
+				},
+				{
+					"line": 21, "columns": [13, 9]
+				}
+			],
+			"successors": [3, 5],
+			"ir": [
+				"%0 = load i32, ptr %constant_id, align 4, !dbg !138, !tbaa !139",
+				"%call1 = call ptr @Py_GetConstant(i32 noundef %0) #5, !dbg !143",
+				"%cmp = icmp eq ptr %call1, null, !dbg !144",
+				"br i1 %cmp, label %if.then2, label %cleanup6, !dbg !146"
+			]
+		},
+		{
+			"function": "get_constant",
+			"id": 3,
+			"name": "if.then2",
+			"debug": [
+				{
+					"line": 22, "columns": [9]
+				}
+			],
+			"successors": [4, 5],
+			"ir": [
+				"%call3 = call ptr @PyErr_Occurred() #5, !dbg !147",
+				"%tobool4.not = icmp eq ptr %call3, null, !dbg !147",
+				"br i1 %tobool4.not, label %cond.false, label %cleanup6, !dbg !147"
+			]
+		},
+		{
+			"function": "get_constant",
+			"id": 4,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 22, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.4, ptr noundef nonnull @.str.5, i32 noundef 22, ptr noundef nonnull @__PRETTY_FUNCTION__.get_constant) #6, !dbg !147",
+				"unreachable, !dbg !147"
+			]
+		},
+		{
+			"function": "get_constant",
+			"id": 5,
+			"name": "cleanup6",
+			"debug": [
+				{
+					"line": 26, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %entry ], [ null, %if.then2 ], [ %call1, %if.end ], !dbg !133",
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %constant_id) #5, !dbg !149",
+				"ret ptr %retval.1, !dbg !149"
+			]
+		},
+		{
+			"function": "get_constant_borrowed",
+			"id": 6,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 33, "columns": [5]
+				},
+				{
+					"line": 34, "columns": [10, 9]
+				}
+			],
+			"successors": [11, 7],
+			"ir": [
+				"%constant_id = alloca i32, align 4",
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %constant_id) #5, !dbg !134",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.3, ptr noundef nonnull %constant_id) #5, !dbg !135",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !135",
+				"br i1 %tobool.not, label %cleanup7, label %if.end, !dbg !137"
+			]
+		},
+		{
+			"function": "get_constant_borrowed",
+			"id": 7,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 38, "columns": [44, 21]
+				},
+				{
+					"line": 39, "columns": [13, 9]
+				}
+			],
+			"successors": [8, 10],
+			"ir": [
+				"%0 = load i32, ptr %constant_id, align 4, !dbg !138, !tbaa !139",
+				"%call1 = call ptr @Py_GetConstantBorrowed(i32 noundef %0) #5, !dbg !143",
+				"%cmp = icmp eq ptr %call1, null, !dbg !144",
+				"br i1 %cmp, label %if.then2, label %if.end5, !dbg !146"
+			]
+		},
+		{
+			"function": "get_constant_borrowed",
+			"id": 8,
+			"name": "if.then2",
+			"debug": [
+				{
+					"line": 40, "columns": [9]
+				}
+			],
+			"successors": [9, 11],
+			"ir": [
+				"%call3 = call ptr @PyErr_Occurred() #5, !dbg !147",
+				"%tobool4.not = icmp eq ptr %call3, null, !dbg !147",
+				"br i1 %tobool4.not, label %cond.false, label %cleanup7, !dbg !147"
+			]
+		},
+		{
+			"function": "get_constant_borrowed",
+			"id": 9,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 40, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.4, ptr noundef nonnull @.str.5, i32 noundef 40, ptr noundef nonnull @__PRETTY_FUNCTION__.get_constant_borrowed) #6, !dbg !147",
+				"unreachable, !dbg !147"
+			]
+		},
+		{
+			"function": "get_constant_borrowed",
+			"id": 10,
+			"name": "if.end5",
+			"debug": [
+				{
+					"line": 43, "columns": [5]
+				},
+				{
+					"line": 798, "columns": [5]
+				}
+			],
+			"successors": [11],
+			"ir": [
+				"call void @_Py_IncRef(ptr noundef nonnull %call1) #5, !dbg !163",
+				"br label %cleanup7, !dbg !164"
+			]
+		},
+		{
+			"function": "get_constant_borrowed",
+			"id": 11,
+			"name": "cleanup7",
+			"debug": [
+				{
+					"line": 44, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %entry ], [ %call1, %if.end5 ], [ null, %if.then2 ], !dbg !133",
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %constant_id) #5, !dbg !165",
+				"ret ptr %retval.1, !dbg !165"
+			]
+		},
+		{
+			"function": "test_constants",
+			"id": 12,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 56, "columns": [5]
+				}
+			],
+			"successors": [14, 13],
+			"ir": [
+				"%call = tail call ptr @Py_GetConstantBorrowed(i32 noundef 0) #5, !dbg !132",
+				"%call1 = tail call ptr @Py_GetConstant(i32 noundef 0) #5, !dbg !132",
+				"%cmp = icmp eq ptr %call, %call1, !dbg !132",
+				"br i1 %cmp, label %cond.end, label %cond.false, !dbg !132"
+			]
+		},
+		{
+			"function": "test_constants",
+			"id": 13,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 56, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.6, ptr noundef nonnull @.str.5, i32 noundef 56, ptr noundef nonnull @__PRETTY_FUNCTION__.test_constants) #6, !dbg !132",
+				"unreachable, !dbg !132"
+			]
+		},
+		{
+			"function": "test_constants",
+			"id": 14,
+			"name": "cond.end",
+			"debug": [
+				{
+					"line": 57, "columns": [5]
+				}
+			],
+			"successors": [16, 15],
+			"ir": [
+				"%call2 = tail call ptr @Py_GetConstantBorrowed(i32 noundef 1) #5, !dbg !133",
+				"%call3 = tail call ptr @Py_GetConstant(i32 noundef 1) #5, !dbg !133",
+				"%cmp4 = icmp eq ptr %call2, %call3, !dbg !133",
+				"br i1 %cmp4, label %cond.end7, label %cond.false6, !dbg !133"
+			]
+		},
+		{
+			"function": "test_constants",
+			"id": 15,
+			"name": "cond.false6",
+			"debug": [
+				{
+					"line": 57, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.7, ptr noundef nonnull @.str.5, i32 noundef 57, ptr noundef nonnull @__PRETTY_FUNCTION__.test_constants) #6, !dbg !133",
+				"unreachable, !dbg !133"
+			]
+		},
+		{
+			"function": "test_constants",
+			"id": 16,
+			"name": "cond.end7",
+			"debug": [
+				{
+					"line": 58, "columns": [5]
+				}
+			],
+			"successors": [18, 17],
+			"ir": [
+				"%call8 = tail call ptr @Py_GetConstantBorrowed(i32 noundef 2) #5, !dbg !134",
+				"%call9 = tail call ptr @Py_GetConstant(i32 noundef 2) #5, !dbg !134",
+				"%cmp10 = icmp eq ptr %call8, %call9, !dbg !134",
+				"br i1 %cmp10, label %cond.end13, label %cond.false12, !dbg !134"
+			]
+		},
+		{
+			"function": "test_constants",
+			"id": 17,
+			"name": "cond.false12",
+			"debug": [
+				{
+					"line": 58, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.5, i32 noundef 58, ptr noundef nonnull @__PRETTY_FUNCTION__.test_constants) #6, !dbg !134",
+				"unreachable, !dbg !134"
+			]
+		},
+		{
+			"function": "test_constants",
+			"id": 18,
+			"name": "cond.end13",
+			"debug": [
+				{
+					"line": 59, "columns": [5]
+				}
+			],
+			"successors": [20, 19],
+			"ir": [
+				"%call14 = tail call ptr @Py_GetConstantBorrowed(i32 noundef 3) #5, !dbg !135",
+				"%call15 = tail call ptr @Py_GetConstant(i32 noundef 3) #5, !dbg !135",
+				"%cmp16 = icmp eq ptr %call14, %call15, !dbg !135",
+				"br i1 %cmp16, label %cond.end19, label %cond.false18, !dbg !135"
+			]
+		},
+		{
+			"function": "test_constants",
+			"id": 19,
+			"name": "cond.false18",
+			"debug": [
+				{
+					"line": 59, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.9, ptr noundef nonnull @.str.5, i32 noundef 59, ptr noundef nonnull @__PRETTY_FUNCTION__.test_constants) #6, !dbg !135",
+				"unreachable, !dbg !135"
+			]
+		},
+		{
+			"function": "test_constants",
+			"id": 20,
+			"name": "cond.end19",
+			"debug": [
+				{
+					"line": 60, "columns": [5]
+				}
+			],
+			"successors": [22, 21],
+			"ir": [
+				"%call20 = tail call ptr @Py_GetConstantBorrowed(i32 noundef 4) #5, !dbg !136",
+				"%call21 = tail call ptr @Py_GetConstant(i32 noundef 4) #5, !dbg !136",
+				"%cmp22 = icmp eq ptr %call20, %call21, !dbg !136",
+				"br i1 %cmp22, label %cond.end25, label %cond.false24, !dbg !136"
+			]
+		},
+		{
+			"function": "test_constants",
+			"id": 21,
+			"name": "cond.false24",
+			"debug": [
+				{
+					"line": 60, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.10, ptr noundef nonnull @.str.5, i32 noundef 60, ptr noundef nonnull @__PRETTY_FUNCTION__.test_constants) #6, !dbg !136",
+				"unreachable, !dbg !136"
+			]
+		},
+		{
+			"function": "test_constants",
+			"id": 22,
+			"name": "cond.end25",
+			"debug": [
+				{
+					"line": 62, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call26 = tail call ptr @Py_GetConstantBorrowed(i32 noundef 0) #5, !dbg !137",
+				"ret ptr %call26, !dbg !137"
+			]
+		}
+	]
+}

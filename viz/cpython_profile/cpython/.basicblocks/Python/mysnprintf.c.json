@@ -1,0 +1,167 @@
+{
+	"blocks": [
+		{
+			"function": "PyOS_snprintf",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 44, "columns": [5, 13]
+				},
+				{
+					"line": 46, "columns": [5]
+				},
+				{
+					"line": 64, "columns": [14, 9]
+				}
+			],
+			"successors": [2, 1],
+			"ir": [
+				"%va = alloca [1 x %struct.__va_list_tag], align 16",
+				"call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %va) #6, !dbg !44",
+				"call void @llvm.va_start(ptr nonnull %va), !dbg !46",
+				"%cmp.i = icmp ugt i64 %size, 2147483646, !dbg !60",
+				"br i1 %cmp.i, label %if.then2.i, label %Done.i, !dbg !62"
+			]
+		},
+		{
+			"function": "PyOS_snprintf",
+			"id": 1,
+			"name": "Done.i",
+			"debug": [
+				{
+					"line": 72, "columns": [11]
+				},
+				{
+					"line": 75, "columns": [1]
+				},
+				{
+					"line": 76, "columns": [14, 9]
+				}
+			],
+			"successors": [3, 2],
+			"ir": [
+				"%call.i = call i32 @vsnprintf(ptr noundef %str, i64 noundef %size, ptr noundef %format, ptr noundef nonnull %va) #6, !dbg !63",
+				"%cmp1.not.i = icmp eq i64 %size, 0, !dbg !65",
+				"br i1 %cmp1.not.i, label %PyOS_vsnprintf.exit, label %if.then2.i, !dbg !67"
+			]
+		},
+		{
+			"function": "PyOS_snprintf",
+			"id": 2,
+			"name": "if.then2.i",
+			"debug": [
+				{
+					"line": 77, "columns": [17, 9, 21]
+				},
+				{
+					"line": 78, "columns": [5]
+				}
+			],
+			"successors": [3],
+			"ir": [
+				"%len.010.i = phi i32 [ %call.i, %Done.i ], [ -666, %entry ]",
+				"%sub.i = add i64 %size, -1, !dbg !68",
+				"%arrayidx.i = getelementptr i8, ptr %str, i64 %sub.i, !dbg !70",
+				"store i8 0, ptr %arrayidx.i, align 1, !dbg !71, !tbaa !72",
+				"br label %PyOS_vsnprintf.exit, !dbg !75"
+			]
+		},
+		{
+			"function": "PyOS_snprintf",
+			"id": 3,
+			"name": "PyOS_vsnprintf.exit",
+			"debug": [
+				{
+					"line": 48, "columns": [5]
+				},
+				{
+					"line": 49, "columns": [5]
+				},
+				{
+					"line": 50, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%len.011.i = phi i32 [ %len.010.i, %if.then2.i ], [ %call.i, %Done.i ]",
+				"call void @llvm.va_end(ptr nonnull %va), !dbg !76",
+				"call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %va) #6, !dbg !77",
+				"ret i32 %len.011.i, !dbg !78"
+			]
+		},
+		{
+			"function": "PyOS_vsnprintf",
+			"id": 4,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 64, "columns": [14, 9]
+				}
+			],
+			"successors": [6, 5],
+			"ir": [
+				"%cmp = icmp ugt i64 %size, 2147483646, !dbg !38",
+				"br i1 %cmp, label %if.then2, label %Done, !dbg !40"
+			]
+		},
+		{
+			"function": "PyOS_vsnprintf",
+			"id": 5,
+			"name": "Done",
+			"debug": [
+				{
+					"line": 72, "columns": [11]
+				},
+				{
+					"line": 75, "columns": [1]
+				},
+				{
+					"line": 76, "columns": [14, 9]
+				}
+			],
+			"successors": [7, 6],
+			"ir": [
+				"%call = tail call i32 @vsnprintf(ptr noundef %str, i64 noundef %size, ptr noundef %format, ptr noundef %va) #6, !dbg !41",
+				"%cmp1.not = icmp eq i64 %size, 0, !dbg !43",
+				"br i1 %cmp1.not, label %if.end3, label %if.then2, !dbg !45"
+			]
+		},
+		{
+			"function": "PyOS_vsnprintf",
+			"id": 6,
+			"name": "if.then2",
+			"debug": [
+				{
+					"line": 77, "columns": [17, 9, 21]
+				},
+				{
+					"line": 78, "columns": [5]
+				}
+			],
+			"successors": [7],
+			"ir": [
+				"%len.010 = phi i32 [ %call, %Done ], [ -666, %entry ]",
+				"%sub = add i64 %size, -1, !dbg !46",
+				"%arrayidx = getelementptr i8, ptr %str, i64 %sub, !dbg !48",
+				"store i8 0, ptr %arrayidx, align 1, !dbg !49, !tbaa !50",
+				"br label %if.end3, !dbg !53"
+			]
+		},
+		{
+			"function": "PyOS_vsnprintf",
+			"id": 7,
+			"name": "if.end3",
+			"debug": [
+				{
+					"line": 79, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%len.011 = phi i32 [ %len.010, %if.then2 ], [ %call, %Done ]",
+				"ret i32 %len.011, !dbg !54"
+			]
+		}
+	]
+}

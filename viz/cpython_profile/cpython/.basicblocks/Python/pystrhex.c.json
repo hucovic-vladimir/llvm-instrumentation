@@ -1,0 +1,1558 @@
+{
+	"blocks": [
+		{
+			"function": "_Py_strhex",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 53, "columns": [16, 9]
+				}
+			],
+			"successors": [2, 1],
+			"ir": [
+				"%cmp40.not.i = icmp slt i64 %arglen, 4611686018427387903, !dbg !462",
+				"br i1 %cmp40.not.i, label %if.end44.i, label %if.then42.i, !dbg !464"
+			]
+		},
+		{
+			"function": "_Py_strhex",
+			"id": 1,
+			"name": "if.then42.i",
+			"debug": [
+				{
+					"line": 54, "columns": [16, 9]
+				}
+			],
+			"successors": [8],
+			"ir": [
+				"%call43.i = tail call ptr @PyErr_NoMemory() #4, !dbg !465",
+				"br label %_Py_strhex_impl.exit, !dbg !467"
+			]
+		},
+		{
+			"function": "_Py_strhex",
+			"id": 2,
+			"name": "if.end44.i",
+			"debug": [
+				{
+					"line": 56, "columns": [25]
+				},
+				{
+					"line": 74, "columns": [18]
+				},
+				{
+					"line": 75, "columns": [14, 13]
+				}
+			],
+			"successors": [8, 3],
+			"ir": [
+				"%mul.i = shl i64 %arglen, 1, !dbg !468",
+				"%call59.i = tail call ptr @PyUnicode_New(i64 noundef %mul.i, i32 noundef 127) #4, !dbg !469",
+				"%tobool60.not.i = icmp eq ptr %call59.i, null, !dbg !472",
+				"br i1 %tobool60.not.i, label %_Py_strhex_impl.exit, label %if.end62.i, !dbg !474"
+			]
+		},
+		{
+			"function": "_Py_strhex",
+			"id": 3,
+			"name": "if.end62.i",
+			"debug": [
+				{
+					"line": 262, "columns": [9]
+				}
+			],
+			"successors": [5, 4],
+			"ir": [
+				"%0 = getelementptr i8, ptr %call59.i, i64 32, !dbg !482",
+				"%op.val.i.i = load i32, ptr %0, align 8, !dbg !482",
+				"%1 = and i32 %op.val.i.i, 32, !dbg !482",
+				"%tobool.not.i.i = icmp eq i32 %1, 0, !dbg !482",
+				"br i1 %tobool.not.i.i, label %if.end.i.i, label %if.then.i290.i, !dbg !484"
+			]
+		},
+		{
+			"function": "_Py_strhex",
+			"id": 4,
+			"name": "if.then.i290.i",
+			"debug": [
+				{
+					"line": 247, "columns": [9]
+				},
+				{
+					"line": 263, "columns": [9]
+				}
+			],
+			"successors": [6],
+			"ir": [
+				"%2 = and i32 %op.val.i.i, 64, !dbg !491",
+				"%tobool.not.i.i288.i = icmp eq i32 %2, 0, !dbg !491",
+				"%add.ptr.i.i.i = getelementptr %struct.PyASCIIObject, ptr %call59.i, i64 1, !dbg !493",
+				"%add.ptr1.i.i.i = getelementptr %struct.PyCompactUnicodeObject, ptr %call59.i, i64 1, !dbg !493",
+				"%retval.0.i.i289.i = select i1 %tobool.not.i.i288.i, ptr %add.ptr1.i.i.i, ptr %add.ptr.i.i.i, !dbg !493",
+				"br label %if.end64.i, !dbg !494"
+			]
+		},
+		{
+			"function": "_Py_strhex",
+			"id": 5,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 265, "columns": [12, 5]
+				}
+			],
+			"successors": [6],
+			"ir": [
+				"%3 = getelementptr i8, ptr %call59.i, i64 56, !dbg !495",
+				"%op.val5.i.i = load ptr, ptr %3, align 8, !dbg !495, !tbaa !496",
+				"br label %if.end64.i, !dbg !499"
+			]
+		},
+		{
+			"function": "_Py_strhex",
+			"id": 6,
+			"name": "if.end64.i",
+			"debug": [
+				{
+					"line": 86, "columns": [27, 9]
+				}
+			],
+			"successors": [7, 8],
+			"ir": [
+				"%retbuf.0.i = phi ptr [ %retval.0.i.i289.i, %if.then.i290.i ], [ %op.val5.i.i, %if.end.i.i ], !dbg !500",
+				"%cmp68338.i = icmp sgt i64 %arglen, 0, !dbg !501",
+				"br i1 %cmp68338.i, label %for.body.i, label %_Py_strhex_impl.exit, !dbg !505"
+			]
+		},
+		{
+			"function": "_Py_strhex",
+			"id": 7,
+			"name": "for.body.i",
+			"debug": [
+				{
+					"line": 86, "columns": [37, 27, 9]
+				},
+				{
+					"line": 88, "columns": [17]
+				},
+				{
+					"line": 89, "columns": [27, 40, 21, 13, 25]
+				},
+				{
+					"line": 90, "columns": [27, 42, 21, 13, 25]
+				}
+			],
+			"successors": [8, 7],
+			"ir": [
+				"%j.0340.i = phi i64 [ %inc77.i, %for.body.i ], [ 0, %if.end64.i ]",
+				"%i.0339.i = phi i64 [ %inc79.i, %for.body.i ], [ 0, %if.end64.i ]",
+				"%arrayidx70.i = getelementptr i8, ptr %argbuf, i64 %i.0339.i, !dbg !506",
+				"%4 = load i8, ptr %arrayidx70.i, align 1, !dbg !506, !tbaa !496",
+				"%5 = load ptr, ptr @Py_hexdigits, align 8, !dbg !508, !tbaa !509",
+				"%conv71.i = zext i8 %4 to i32, !dbg !511",
+				"%shr.i = lshr i32 %conv71.i, 4",
+				"%idxprom.i = zext i32 %shr.i to i64, !dbg !508",
+				"%arrayidx72.i = getelementptr i8, ptr %5, i64 %idxprom.i, !dbg !508",
+				"%6 = load i8, ptr %arrayidx72.i, align 1, !dbg !508, !tbaa !496",
+				"%inc.i = or i64 %j.0340.i, 1, !dbg !512",
+				"%arrayidx73.i = getelementptr i8, ptr %retbuf.0.i, i64 %j.0340.i, !dbg !513",
+				"store i8 %6, ptr %arrayidx73.i, align 1, !dbg !514, !tbaa !496",
+				"%7 = load ptr, ptr @Py_hexdigits, align 8, !dbg !515, !tbaa !509",
+				"%and.i = and i32 %conv71.i, 15, !dbg !516",
+				"%idxprom75.i = zext i32 %and.i to i64",
+				"%arrayidx76.i = getelementptr i8, ptr %7, i64 %idxprom75.i, !dbg !515",
+				"%8 = load i8, ptr %arrayidx76.i, align 1, !dbg !515, !tbaa !496",
+				"%inc77.i = add nuw i64 %j.0340.i, 2, !dbg !517",
+				"%arrayidx78.i = getelementptr i8, ptr %retbuf.0.i, i64 %inc.i, !dbg !518",
+				"store i8 %8, ptr %arrayidx78.i, align 1, !dbg !519, !tbaa !496",
+				"%inc79.i = add nuw nsw i64 %i.0339.i, 1, !dbg !520",
+				"%exitcond350.not.i = icmp eq i64 %inc79.i, %arglen, !dbg !501",
+				"br i1 %exitcond350.not.i, label %_Py_strhex_impl.exit, label %for.body.i, !dbg !505, !llvm.loop !521"
+			]
+		},
+		{
+			"function": "_Py_strhex",
+			"id": 8,
+			"name": "_Py_strhex_impl.exit",
+			"debug": [
+				{
+					"line": 148, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.3.i = phi ptr [ %call43.i, %if.then42.i ], [ null, %if.end44.i ], [ %call59.i, %if.end64.i ], [ %call59.i, %for.body.i ], !dbg !460",
+				"ret ptr %retval.3.i, !dbg !524"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 9,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 14, "columns": [9]
+				}
+			],
+			"successors": [37, 10],
+			"ir": [
+				"%tobool.not = icmp eq ptr %sep, null, !dbg !454",
+				"br i1 %tobool.not, label %if.end38, label %if.then, !dbg !455"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 10,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 15, "columns": [29]
+				},
+				{
+					"line": 16, "columns": [20, 13]
+				}
+			],
+			"successors": [66, 11],
+			"ir": [
+				"%call = tail call i64 @PyObject_Size(ptr noundef nonnull %sep) #4, !dbg !456",
+				"%cmp = icmp slt i64 %call, 0, !dbg !458",
+				"br i1 %cmp, label %cleanup193, label %if.end, !dbg !460"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 11,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 19, "columns": [20, 13]
+				}
+			],
+			"successors": [13, 12],
+			"ir": [
+				"%cmp2.not = icmp eq i64 %call, 1, !dbg !461",
+				"br i1 %cmp2.not, label %if.end4, label %if.then3, !dbg !463"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 12,
+			"name": "if.then3",
+			"debug": [
+				{
+					"line": 20, "columns": [29, 13]
+				},
+				{
+					"line": 21, "columns": [13]
+				}
+			],
+			"successors": [66],
+			"ir": [
+				"%0 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !464, !tbaa !466",
+				"tail call void @PyErr_SetString(ptr noundef %0, ptr noundef nonnull @.str) #4, !dbg !470",
+				"br label %cleanup193, !dbg !471"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 13,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 23, "columns": [13]
+				}
+			],
+			"successors": [30, 14],
+			"ir": [
+				"%1 = getelementptr i8, ptr %sep, i64 8, !dbg !472",
+				"%sep.val282 = load ptr, ptr %1, align 8, !dbg !472, !tbaa !474",
+				"%2 = getelementptr i8, ptr %sep.val282, i64 168, !dbg !472",
+				"%call5.val = load i64, ptr %2, align 8, !dbg !472, !tbaa !476",
+				"%3 = and i64 %call5.val, 268435456, !dbg !472",
+				"%tobool7.not = icmp eq i64 %3, 0, !dbg !472",
+				"br i1 %tobool7.not, label %if.else, label %if.then8, !dbg !482"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 14,
+			"name": "if.then8",
+			"debug": [
+				{
+					"line": 24, "columns": [17, 37]
+				}
+			],
+			"successors": [16, 15],
+			"ir": [
+				"%state = getelementptr inbounds %struct.PyASCIIObject, ptr %sep, i64 0, i32 3, !dbg !483",
+				"%bf.load = load i32, ptr %state, align 8, !dbg !483",
+				"%4 = and i32 %bf.load, 28, !dbg !486",
+				"%cmp9.not = icmp eq i32 %4, 4, !dbg !486",
+				"br i1 %cmp9.not, label %if.end11, label %if.then10, !dbg !487"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 15,
+			"name": "if.then10",
+			"debug": [
+				{
+					"line": 25, "columns": [33, 17]
+				},
+				{
+					"line": 26, "columns": [17]
+				}
+			],
+			"successors": [66],
+			"ir": [
+				"%5 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !488, !tbaa !466",
+				"tail call void @PyErr_SetString(ptr noundef %5, ptr noundef nonnull @.str.1) #4, !dbg !490",
+				"br label %cleanup193, !dbg !491"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 16,
+			"name": "if.end11",
+			"debug": [
+				{
+					"line": 343, "columns": [12]
+				},
+				{
+					"line": 344, "columns": [9]
+				}
+			],
+			"successors": [25, 17, 21],
+			"ir": [
+				"%bf.lshr.i = lshr i32 %bf.load, 2, !dbg !501",
+				"%bf.clear.i = and i32 %bf.lshr.i, 7, !dbg !501",
+				"switch i32 %bf.clear.i, label %if.end7.i [\n    i32 1, label %if.then.i\n    i32 2, label %if.then3.i\n  ], !dbg !502"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 17,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 262, "columns": [9]
+				}
+			],
+			"successors": [19, 18],
+			"ir": [
+				"%6 = and i32 %bf.load, 32, !dbg !512",
+				"%tobool.not.i.i = icmp eq i32 %6, 0, !dbg !512",
+				"br i1 %tobool.not.i.i, label %if.end.i.i, label %if.then.i.i, !dbg !514"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 18,
+			"name": "if.then.i.i",
+			"debug": [
+				{
+					"line": 247, "columns": [9]
+				},
+				{
+					"line": 263, "columns": [9]
+				}
+			],
+			"successors": [20],
+			"ir": [
+				"%7 = and i32 %bf.load, 64, !dbg !521",
+				"%tobool.not.i.i.i = icmp eq i32 %7, 0, !dbg !521",
+				"%add.ptr.i.i.i = getelementptr %struct.PyASCIIObject, ptr %sep, i64 1, !dbg !523",
+				"%add.ptr1.i.i.i = getelementptr %struct.PyCompactUnicodeObject, ptr %sep, i64 1, !dbg !523",
+				"%retval.0.i.i.i = select i1 %tobool.not.i.i.i, ptr %add.ptr1.i.i.i, ptr %add.ptr.i.i.i, !dbg !523",
+				"br label %PyUnicode_DATA.exit.i, !dbg !524"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 19,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 265, "columns": [12, 5]
+				}
+			],
+			"successors": [20],
+			"ir": [
+				"%8 = getelementptr i8, ptr %sep, i64 56, !dbg !525",
+				"%op.val5.i.i = load ptr, ptr %8, align 8, !dbg !525, !tbaa !526",
+				"br label %PyUnicode_DATA.exit.i, !dbg !527"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 20,
+			"name": "PyUnicode_DATA.exit.i",
+			"debug": [
+				{
+					"line": 345, "columns": [16, 9]
+				}
+			],
+			"successors": [29],
+			"ir": [
+				"%retval.0.i.i = phi ptr [ %retval.0.i.i.i, %if.then.i.i ], [ %op.val5.i.i, %if.end.i.i ], !dbg !508",
+				"%9 = load i8, ptr %retval.0.i.i, align 1, !dbg !528, !tbaa !526",
+				"%conv.i283 = zext i8 %9 to i32, !dbg !528",
+				"br label %PyUnicode_READ_CHAR.exit, !dbg !529"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 21,
+			"name": "if.then3.i",
+			"debug": [
+				{
+					"line": 262, "columns": [9]
+				}
+			],
+			"successors": [23, 22],
+			"ir": [
+				"%10 = and i32 %bf.load, 32, !dbg !534",
+				"%tobool.not.i17.i = icmp eq i32 %10, 0, !dbg !534",
+				"br i1 %tobool.not.i17.i, label %if.end.i24.i, label %if.then.i22.i, !dbg !535"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 22,
+			"name": "if.then.i22.i",
+			"debug": [
+				{
+					"line": 247, "columns": [9]
+				},
+				{
+					"line": 263, "columns": [9]
+				}
+			],
+			"successors": [24],
+			"ir": [
+				"%11 = and i32 %bf.load, 64, !dbg !538",
+				"%tobool.not.i.i18.i = icmp eq i32 %11, 0, !dbg !538",
+				"%add.ptr.i.i19.i = getelementptr %struct.PyASCIIObject, ptr %sep, i64 1, !dbg !539",
+				"%add.ptr1.i.i20.i = getelementptr %struct.PyCompactUnicodeObject, ptr %sep, i64 1, !dbg !539",
+				"%retval.0.i.i21.i = select i1 %tobool.not.i.i18.i, ptr %add.ptr1.i.i20.i, ptr %add.ptr.i.i19.i, !dbg !539",
+				"br label %PyUnicode_DATA.exit26.i, !dbg !540"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 23,
+			"name": "if.end.i24.i",
+			"debug": [
+				{
+					"line": 265, "columns": [12, 5]
+				}
+			],
+			"successors": [24],
+			"ir": [
+				"%12 = getelementptr i8, ptr %sep, i64 56, !dbg !541",
+				"%op.val5.i23.i = load ptr, ptr %12, align 8, !dbg !541, !tbaa !526",
+				"br label %PyUnicode_DATA.exit26.i, !dbg !542"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 24,
+			"name": "PyUnicode_DATA.exit26.i",
+			"debug": [
+				{
+					"line": 348, "columns": [16, 9]
+				}
+			],
+			"successors": [29],
+			"ir": [
+				"%retval.0.i25.i = phi ptr [ %retval.0.i.i21.i, %if.then.i22.i ], [ %op.val5.i23.i, %if.end.i24.i ], !dbg !530",
+				"%13 = load i16, ptr %retval.0.i25.i, align 2, !dbg !543, !tbaa !544",
+				"%conv6.i = zext i16 %13 to i32, !dbg !543",
+				"br label %PyUnicode_READ_CHAR.exit, !dbg !545"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 25,
+			"name": "if.end7.i",
+			"debug": [
+				{
+					"line": 262, "columns": [9]
+				}
+			],
+			"successors": [27, 26],
+			"ir": [
+				"%14 = and i32 %bf.load, 32, !dbg !548",
+				"%tobool.not.i28.i = icmp eq i32 %14, 0, !dbg !548",
+				"br i1 %tobool.not.i28.i, label %if.end.i35.i, label %if.then.i33.i, !dbg !549"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 26,
+			"name": "if.then.i33.i",
+			"debug": [
+				{
+					"line": 247, "columns": [9]
+				},
+				{
+					"line": 263, "columns": [9]
+				}
+			],
+			"successors": [28],
+			"ir": [
+				"%15 = and i32 %bf.load, 64, !dbg !552",
+				"%tobool.not.i.i29.i = icmp eq i32 %15, 0, !dbg !552",
+				"%add.ptr.i.i30.i = getelementptr %struct.PyASCIIObject, ptr %sep, i64 1, !dbg !553",
+				"%add.ptr1.i.i31.i = getelementptr %struct.PyCompactUnicodeObject, ptr %sep, i64 1, !dbg !553",
+				"%retval.0.i.i32.i = select i1 %tobool.not.i.i29.i, ptr %add.ptr1.i.i31.i, ptr %add.ptr.i.i30.i, !dbg !553",
+				"br label %PyUnicode_DATA.exit37.i, !dbg !554"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 27,
+			"name": "if.end.i35.i",
+			"debug": [
+				{
+					"line": 265, "columns": [12, 5]
+				}
+			],
+			"successors": [28],
+			"ir": [
+				"%16 = getelementptr i8, ptr %sep, i64 56, !dbg !555",
+				"%op.val5.i34.i = load ptr, ptr %16, align 8, !dbg !555, !tbaa !526",
+				"br label %PyUnicode_DATA.exit37.i, !dbg !556"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 28,
+			"name": "PyUnicode_DATA.exit37.i",
+			"debug": [
+				{
+					"line": 351, "columns": [12, 5]
+				}
+			],
+			"successors": [29],
+			"ir": [
+				"%retval.0.i36.i = phi ptr [ %retval.0.i.i32.i, %if.then.i33.i ], [ %op.val5.i34.i, %if.end.i35.i ], !dbg !546",
+				"%17 = load i32, ptr %retval.0.i36.i, align 4, !dbg !557, !tbaa !558",
+				"br label %PyUnicode_READ_CHAR.exit, !dbg !559"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 29,
+			"name": "PyUnicode_READ_CHAR.exit",
+			"debug": [
+				{
+					"line": 28, "columns": [24]
+				},
+				{
+					"line": 29, "columns": [9]
+				}
+			],
+			"successors": [33],
+			"ir": [
+				"%retval.0.i = phi i32 [ %conv.i283, %PyUnicode_DATA.exit.i ], [ %conv6.i, %PyUnicode_DATA.exit26.i ], [ %17, %PyUnicode_DATA.exit37.i ], !dbg !499",
+				"%conv = trunc i32 %retval.0.i to i8, !dbg !560",
+				"br label %if.end20, !dbg !561"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 30,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 30, "columns": [18]
+				}
+			],
+			"successors": [32, 31],
+			"ir": [
+				"%18 = and i64 %call5.val, 134217728, !dbg !562",
+				"%tobool15.not = icmp eq i64 %18, 0, !dbg !562",
+				"br i1 %tobool15.not, label %if.else18, label %if.then16, !dbg !564"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 31,
+			"name": "if.then16",
+			"debug": [
+				{
+					"line": 25, "columns": [31]
+				},
+				{
+					"line": 31, "columns": [24]
+				}
+			],
+			"successors": [33],
+			"ir": [
+				"%ob_sval.i = getelementptr inbounds %struct.PyBytesObject, ptr %sep, i64 0, i32 2, !dbg !573",
+				"%19 = load i8, ptr %ob_sval.i, align 1, !dbg !574, !tbaa !526",
+				"br label %if.end20"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 32,
+			"name": "if.else18",
+			"debug": [
+				{
+					"line": 34, "columns": [29, 13]
+				},
+				{
+					"line": 35, "columns": [13]
+				}
+			],
+			"successors": [66],
+			"ir": [
+				"%20 = load ptr, ptr @PyExc_TypeError, align 8, !dbg !575, !tbaa !466",
+				"tail call void @PyErr_SetString(ptr noundef %20, ptr noundef nonnull @.str.2) #4, !dbg !577",
+				"br label %cleanup193, !dbg !578"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 33,
+			"name": "if.end20",
+			"debug": [
+				{
+					"line": 37, "columns": [22, 28]
+				}
+			],
+			"successors": [35, 34],
+			"ir": [
+				"%sep_char.0 = phi i8 [ %conv, %PyUnicode_READ_CHAR.exit ], [ %19, %if.then16 ], !dbg !579",
+				"%cmp22 = icmp sgt i8 %sep_char.0, -1, !dbg !580",
+				"%tobool24 = icmp ne i32 %return_bytes, 0",
+				"%or.cond = or i1 %tobool24, %cmp22, !dbg !582",
+				"br i1 %or.cond, label %if.end28, label %if.then25, !dbg !582"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 34,
+			"name": "if.then25",
+			"debug": [
+				{
+					"line": 38, "columns": [29, 13]
+				},
+				{
+					"line": 39, "columns": [13]
+				}
+			],
+			"successors": [66],
+			"ir": [
+				"%21 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !583, !tbaa !466",
+				"tail call void @PyErr_SetString(ptr noundef %21, ptr noundef nonnull @.str.1) #4, !dbg !585",
+				"br label %cleanup193, !dbg !586"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 35,
+			"name": "if.end28",
+			"debug": [
+				{
+					"line": 46, "columns": [38]
+				},
+				{
+					"line": 48, "columns": [9, 29]
+				}
+			],
+			"successors": [36, 37],
+			"ir": [
+				"%cond = tail call i32 @llvm.abs.i32(i32 %bytes_per_sep_group, i1 false), !dbg !587",
+				"%tobool31 = icmp ne i32 %bytes_per_sep_group, 0, !dbg !588",
+				"%cmp33 = icmp sgt i64 %arglen, 0",
+				"%or.cond195 = and i1 %cmp33, %tobool31, !dbg !590",
+				"br i1 %or.cond195, label %if.then35, label %if.end38, !dbg !590"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 36,
+			"name": "if.then35",
+			"debug": [
+				{
+					"line": 50, "columns": [29, 36]
+				},
+				{
+					"line": 51, "columns": [5]
+				}
+			],
+			"successors": [37],
+			"ir": [
+				"%sub36 = add nsw i64 %arglen, -1, !dbg !591",
+				"%conv37 = zext i32 %cond to i64, !dbg !593",
+				"%div = udiv i64 %sub36, %conv37",
+				"br label %if.end38, !dbg !594"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 37,
+			"name": "if.end38",
+			"debug": [
+				{
+					"line": 53, "columns": [38, 16, 9]
+				}
+			],
+			"successors": [39, 38],
+			"ir": [
+				"%cond302 = phi i32 [ %cond, %if.then35 ], [ %cond, %if.end28 ], [ 0, %entry ]",
+				"%bytes_per_sep_group.addr.0301 = phi i32 [ %bytes_per_sep_group, %if.then35 ], [ %bytes_per_sep_group, %if.end28 ], [ 0, %entry ]",
+				"%sep_char.2300 = phi i8 [ %sep_char.0, %if.then35 ], [ %sep_char.0, %if.end28 ], [ 0, %entry ]",
+				"%resultlen.0 = phi i64 [ %div, %if.then35 ], [ 0, %if.end28 ], [ 0, %entry ], !dbg !453",
+				"%sub39 = sub nsw i64 4611686018427387903, %resultlen.0, !dbg !595",
+				"%cmp40.not = icmp sgt i64 %sub39, %arglen, !dbg !597",
+				"br i1 %cmp40.not, label %if.end44, label %if.then42, !dbg !598"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 38,
+			"name": "if.then42",
+			"debug": [
+				{
+					"line": 54, "columns": [16, 9]
+				}
+			],
+			"successors": [66],
+			"ir": [
+				"%call43 = tail call ptr @PyErr_NoMemory() #4, !dbg !599",
+				"br label %cleanup193, !dbg !601"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 39,
+			"name": "if.end44",
+			"debug": [
+				{
+					"line": 56, "columns": [25, 15]
+				},
+				{
+					"line": 58, "columns": [9, 35]
+				},
+				{
+					"line": 65, "columns": [9]
+				}
+			],
+			"successors": [42, 40],
+			"ir": [
+				"%mul = shl i64 %arglen, 1, !dbg !602",
+				"%add = add i64 %resultlen.0, %mul, !dbg !603",
+				"%conv45 = zext i32 %cond302 to i64, !dbg !604",
+				"%cmp46.not = icmp ult i64 %conv45, %arglen, !dbg !606",
+				"%spec.select = select i1 %cmp46.not, i32 %bytes_per_sep_group.addr.0301, i32 0, !dbg !607",
+				"%spec.select281 = select i1 %cmp46.not, i32 %cond302, i32 0, !dbg !607",
+				"%tobool51.not = icmp eq i32 %return_bytes, 0, !dbg !608",
+				"br i1 %tobool51.not, label %if.else58, label %if.then52, !dbg !610"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 40,
+			"name": "if.then52",
+			"debug": [
+				{
+					"line": 67, "columns": [18]
+				},
+				{
+					"line": 68, "columns": [14, 13]
+				}
+			],
+			"successors": [66, 41],
+			"ir": [
+				"%call53 = tail call ptr @PyBytes_FromStringAndSize(ptr noundef null, i64 noundef %add) #4, !dbg !611",
+				"%tobool54.not = icmp eq ptr %call53, null, !dbg !613",
+				"br i1 %tobool54.not, label %cleanup193, label %if.end56, !dbg !615"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 41,
+			"name": "if.end56",
+			"debug": [
+				{
+					"line": 25, "columns": [31]
+				},
+				{
+					"line": 72, "columns": [5]
+				}
+			],
+			"successors": [46],
+			"ir": [
+				"%ob_sval.i287 = getelementptr inbounds %struct.PyBytesObject, ptr %call53, i64 0, i32 2, !dbg !618",
+				"br label %if.end64, !dbg !619"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 42,
+			"name": "if.else58",
+			"debug": [
+				{
+					"line": 74, "columns": [18]
+				},
+				{
+					"line": 75, "columns": [14, 13]
+				}
+			],
+			"successors": [66, 43],
+			"ir": [
+				"%call59 = tail call ptr @PyUnicode_New(i64 noundef %add, i32 noundef 127) #4, !dbg !620",
+				"%tobool60.not = icmp eq ptr %call59, null, !dbg !622",
+				"br i1 %tobool60.not, label %cleanup193, label %if.end62, !dbg !624"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 43,
+			"name": "if.end62",
+			"debug": [
+				{
+					"line": 262, "columns": [9]
+				}
+			],
+			"successors": [45, 44],
+			"ir": [
+				"%22 = getelementptr i8, ptr %call59, i64 32, !dbg !627",
+				"%op.val.i = load i32, ptr %22, align 8, !dbg !627",
+				"%23 = and i32 %op.val.i, 32, !dbg !627",
+				"%tobool.not.i = icmp eq i32 %23, 0, !dbg !627",
+				"br i1 %tobool.not.i, label %if.end.i, label %if.then.i290, !dbg !628"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 44,
+			"name": "if.then.i290",
+			"debug": [
+				{
+					"line": 247, "columns": [9]
+				},
+				{
+					"line": 263, "columns": [9]
+				}
+			],
+			"successors": [46],
+			"ir": [
+				"%24 = and i32 %op.val.i, 64, !dbg !631",
+				"%tobool.not.i.i288 = icmp eq i32 %24, 0, !dbg !631",
+				"%add.ptr.i.i = getelementptr %struct.PyASCIIObject, ptr %call59, i64 1, !dbg !632",
+				"%add.ptr1.i.i = getelementptr %struct.PyCompactUnicodeObject, ptr %call59, i64 1, !dbg !632",
+				"%retval.0.i.i289 = select i1 %tobool.not.i.i288, ptr %add.ptr1.i.i, ptr %add.ptr.i.i, !dbg !632",
+				"br label %if.end64, !dbg !633"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 45,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 265, "columns": [12, 5]
+				}
+			],
+			"successors": [46],
+			"ir": [
+				"%25 = getelementptr i8, ptr %call59, i64 56, !dbg !634",
+				"%op.val5.i = load ptr, ptr %25, align 8, !dbg !634, !tbaa !526",
+				"br label %if.end64, !dbg !635"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 46,
+			"name": "if.end64",
+			"debug": [
+				{
+					"line": 85, "columns": [29, 9]
+				}
+			],
+			"successors": [47, 49],
+			"ir": [
+				"%retval50.0 = phi ptr [ %call53, %if.end56 ], [ %call59, %if.then.i290 ], [ %call59, %if.end.i ], !dbg !636",
+				"%retbuf.0 = phi ptr [ %ob_sval.i287, %if.end56 ], [ %retval.0.i.i289, %if.then.i290 ], [ %op.val5.i, %if.end.i ], !dbg !636",
+				"%cmp65 = icmp eq i32 %spec.select, 0, !dbg !637",
+				"br i1 %cmp65, label %for.cond.preheader, label %if.else80, !dbg !638"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 47,
+			"name": "for.cond.preheader",
+			"debug": [
+				{
+					"line": 86, "columns": [27, 9]
+				}
+			],
+			"successors": [48, 66],
+			"ir": [
+				"%cmp68338 = icmp sgt i64 %arglen, 0, !dbg !639",
+				"br i1 %cmp68338, label %for.body, label %cleanup193, !dbg !643"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 48,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 86, "columns": [37, 27, 9]
+				},
+				{
+					"line": 88, "columns": [17]
+				},
+				{
+					"line": 89, "columns": [27, 40, 21, 13, 25]
+				},
+				{
+					"line": 90, "columns": [27, 42, 21, 13, 25]
+				}
+			],
+			"successors": [66, 48],
+			"ir": [
+				"%j.0340 = phi i64 [ %inc77, %for.body ], [ 0, %for.cond.preheader ]",
+				"%i.0339 = phi i64 [ %inc79, %for.body ], [ 0, %for.cond.preheader ]",
+				"%arrayidx70 = getelementptr i8, ptr %argbuf, i64 %i.0339, !dbg !644",
+				"%26 = load i8, ptr %arrayidx70, align 1, !dbg !644, !tbaa !526",
+				"%27 = load ptr, ptr @Py_hexdigits, align 8, !dbg !646, !tbaa !466",
+				"%conv71 = zext i8 %26 to i32, !dbg !647",
+				"%shr = lshr i32 %conv71, 4",
+				"%idxprom = zext i32 %shr to i64, !dbg !646",
+				"%arrayidx72 = getelementptr i8, ptr %27, i64 %idxprom, !dbg !646",
+				"%28 = load i8, ptr %arrayidx72, align 1, !dbg !646, !tbaa !526",
+				"%inc = or i64 %j.0340, 1, !dbg !648",
+				"%arrayidx73 = getelementptr i8, ptr %retbuf.0, i64 %j.0340, !dbg !649",
+				"store i8 %28, ptr %arrayidx73, align 1, !dbg !650, !tbaa !526",
+				"%29 = load ptr, ptr @Py_hexdigits, align 8, !dbg !651, !tbaa !466",
+				"%and = and i32 %conv71, 15, !dbg !652",
+				"%idxprom75 = zext i32 %and to i64",
+				"%arrayidx76 = getelementptr i8, ptr %29, i64 %idxprom75, !dbg !651",
+				"%30 = load i8, ptr %arrayidx76, align 1, !dbg !651, !tbaa !526",
+				"%inc77 = add nuw i64 %j.0340, 2, !dbg !653",
+				"%arrayidx78 = getelementptr i8, ptr %retbuf.0, i64 %inc, !dbg !654",
+				"store i8 %30, ptr %arrayidx78, align 1, !dbg !655, !tbaa !526",
+				"%inc79 = add nuw nsw i64 %i.0339, 1, !dbg !656",
+				"%exitcond350.not = icmp eq i64 %inc79, %arglen, !dbg !639",
+				"br i1 %exitcond350.not, label %cleanup193, label %for.body, !dbg !643, !llvm.loop !657"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 49,
+			"name": "if.else80",
+			"debug": [
+				{
+					"line": 96, "columns": [37, 44, 42]
+				},
+				{
+					"line": 100, "columns": [33, 13]
+				}
+			],
+			"successors": [56, 50],
+			"ir": [
+				"%sub81 = add i64 %arglen, -1, !dbg !660",
+				"%conv82 = zext i32 %spec.select281 to i64, !dbg !661",
+				"%div83 = sdiv i64 %sub81, %conv82, !dbg !662",
+				"%cmp84 = icmp slt i32 %spec.select, 0, !dbg !664",
+				"br i1 %cmp84, label %for.cond87.preheader, label %for.cond136.preheader, !dbg !666"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 50,
+			"name": "for.cond136.preheader",
+			"debug": [
+				{
+					"line": 120, "columns": [35, 13]
+				}
+			],
+			"successors": [51, 64],
+			"ir": [
+				"%j.4310 = add i64 %add, -1, !dbg !667",
+				"%cmp137311 = icmp sgt i64 %div83, 0, !dbg !669",
+				"br i1 %cmp137311, label %for.cond140.preheader.lr.ph, label %while.cond165.preheader, !dbg !672"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 51,
+			"name": "for.cond140.preheader.lr.ph",
+			"debug": [
+				{
+					"line": 121, "columns": [17]
+				}
+			],
+			"successors": [52, 53],
+			"ir": [
+				"%cmp141305.not = icmp eq i32 %spec.select281, 0",
+				"br i1 %cmp141305.not, label %for.cond140.preheader.preheader, label %for.cond140.preheader.us, !dbg !673"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 52,
+			"name": "for.cond140.preheader.preheader",
+			"debug": [
+				{
+					"line": 120, "columns": [13]
+				},
+				{
+					"line": 126, "columns": [29]
+				},
+				{
+					"line": 128, "columns": [22]
+				}
+			],
+			"successors": [64],
+			"ir": [
+				"%31 = sub i64 %add, %div83, !dbg !672",
+				"%scevgep = getelementptr i8, ptr %retbuf.0, i64 %31, !dbg !672",
+				"tail call void @llvm.memset.p0.i64(ptr align 1 %scevgep, i8 %sep_char.2300, i64 %div83, i1 false), !dbg !676, !tbaa !526",
+				"%32 = sub i64 %j.4310, %div83, !dbg !672",
+				"br label %while.cond165.preheader, !dbg !677"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 53,
+			"name": "for.cond140.preheader.us",
+			"debug": [
+				{
+					"line": 121, "columns": [17]
+				}
+			],
+			"successors": [54],
+			"ir": [
+				"%j.4314.us = phi i64 [ %j.4.us, %for.cond140.for.end159_crit_edge.us ], [ %j.4310, %for.cond140.preheader.lr.ph ]",
+				"%chunk.1313.us = phi i64 [ %inc163.us, %for.cond140.for.end159_crit_edge.us ], [ 0, %for.cond140.preheader.lr.ph ]",
+				"%i.4312.us = phi i64 [ %dec.us, %for.cond140.for.end159_crit_edge.us ], [ %sub81, %for.cond140.preheader.lr.ph ]",
+				"br label %for.body143.us, !dbg !673"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 54,
+			"name": "for.body143.us",
+			"debug": [
+				{
+					"line": 121, "columns": [53, 31, 17]
+				},
+				{
+					"line": 122, "columns": [33, 25]
+				},
+				{
+					"line": 123, "columns": [35, 48, 50, 29, 21, 33]
+				},
+				{
+					"line": 124, "columns": [35, 29, 21, 33]
+				}
+			],
+			"successors": [55, 54],
+			"ir": [
+				"%k.1308.us = phi i32 [ 0, %for.cond140.preheader.us ], [ %inc158.us, %for.body143.us ]",
+				"%j.5307.us = phi i64 [ %j.4314.us, %for.cond140.preheader.us ], [ %dec155.us, %for.body143.us ]",
+				"%i.5306.us = phi i64 [ %i.4312.us, %for.cond140.preheader.us ], [ %dec.us, %for.body143.us ]",
+				"%dec.us = add i64 %i.5306.us, -1, !dbg !678",
+				"%arrayidx144.us = getelementptr i8, ptr %argbuf, i64 %i.5306.us, !dbg !681",
+				"%33 = load i8, ptr %arrayidx144.us, align 1, !dbg !681, !tbaa !526",
+				"%34 = load ptr, ptr @Py_hexdigits, align 8, !dbg !682, !tbaa !466",
+				"%conv145.us = zext i8 %33 to i32, !dbg !683",
+				"%and146.us = and i32 %conv145.us, 15, !dbg !684",
+				"%idxprom147.us = zext i32 %and146.us to i64",
+				"%arrayidx148.us = getelementptr i8, ptr %34, i64 %idxprom147.us, !dbg !682",
+				"%35 = load i8, ptr %arrayidx148.us, align 1, !dbg !682, !tbaa !526",
+				"%dec149.us = add i64 %j.5307.us, -1, !dbg !685",
+				"%arrayidx150.us = getelementptr i8, ptr %retbuf.0, i64 %j.5307.us, !dbg !686",
+				"store i8 %35, ptr %arrayidx150.us, align 1, !dbg !687, !tbaa !526",
+				"%36 = load ptr, ptr @Py_hexdigits, align 8, !dbg !688, !tbaa !466",
+				"%shr152.us = lshr i32 %conv145.us, 4",
+				"%idxprom153.us = zext i32 %shr152.us to i64, !dbg !688",
+				"%arrayidx154.us = getelementptr i8, ptr %36, i64 %idxprom153.us, !dbg !688",
+				"%37 = load i8, ptr %arrayidx154.us, align 1, !dbg !688, !tbaa !526",
+				"%dec155.us = add i64 %j.5307.us, -2, !dbg !689",
+				"%arrayidx156.us = getelementptr i8, ptr %retbuf.0, i64 %dec149.us, !dbg !690",
+				"store i8 %37, ptr %arrayidx156.us, align 1, !dbg !691, !tbaa !526",
+				"%inc158.us = add nuw i32 %k.1308.us, 1, !dbg !692",
+				"%exitcond.not = icmp eq i32 %inc158.us, %spec.select281, !dbg !693",
+				"br i1 %exitcond.not, label %for.cond140.for.end159_crit_edge.us, label %for.body143.us, !dbg !673, !llvm.loop !694"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 55,
+			"name": "for.cond140.for.end159_crit_edge.us",
+			"debug": [
+				{
+					"line": 120, "columns": [50, 35, 13]
+				},
+				{
+					"line": 126, "columns": [17, 29]
+				}
+			],
+			"successors": [64, 53],
+			"ir": [
+				"%arrayidx161.us = getelementptr i8, ptr %retbuf.0, i64 %dec155.us, !dbg !696",
+				"store i8 %sep_char.2300, ptr %arrayidx161.us, align 1, !dbg !676, !tbaa !526",
+				"%inc163.us = add nuw nsw i64 %chunk.1313.us, 1, !dbg !697",
+				"%j.4.us = add i64 %j.5307.us, -3, !dbg !667",
+				"%exitcond346.not = icmp eq i64 %inc163.us, %div83, !dbg !669",
+				"br i1 %exitcond346.not, label %while.cond165.preheader, label %for.cond140.preheader.us, !dbg !672, !llvm.loop !698"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 56,
+			"name": "for.cond87.preheader",
+			"debug": [
+				{
+					"line": 102, "columns": [35, 13]
+				}
+			],
+			"successors": [57, 62],
+			"ir": [
+				"%cmp88326 = icmp sgt i64 %div83, 0, !dbg !700",
+				"br i1 %cmp88326, label %for.cond91.preheader.lr.ph, label %while.cond.preheader, !dbg !704"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 57,
+			"name": "for.cond91.preheader.lr.ph",
+			"debug": [
+				{
+					"line": 103, "columns": [17]
+				}
+			],
+			"successors": [58, 59],
+			"ir": [
+				"%cmp92321.not = icmp eq i32 %spec.select281, 0",
+				"br i1 %cmp92321.not, label %for.cond91.preheader.preheader, label %for.cond91.preheader.us, !dbg !705"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 58,
+			"name": "for.cond91.preheader.preheader",
+			"debug": [
+				{
+					"line": 108, "columns": [29]
+				},
+				{
+					"line": 110, "columns": [22]
+				}
+			],
+			"successors": [62],
+			"ir": [
+				"tail call void @llvm.memset.p0.i64(ptr align 1 %retbuf.0, i8 %sep_char.2300, i64 %div83, i1 false), !dbg !708, !tbaa !526",
+				"br label %while.cond.preheader, !dbg !709"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 59,
+			"name": "for.cond91.preheader.us",
+			"debug": [
+				{
+					"line": 103, "columns": [17]
+				}
+			],
+			"successors": [60],
+			"ir": [
+				"%chunk.0329.us = phi i64 [ %inc115.us, %for.cond91.for.end111_crit_edge.us ], [ 0, %for.cond91.preheader.lr.ph ]",
+				"%j.1328.us = phi i64 [ %inc112.us, %for.cond91.for.end111_crit_edge.us ], [ 0, %for.cond91.preheader.lr.ph ]",
+				"%i.1327.us = phi i64 [ %inc95.us, %for.cond91.for.end111_crit_edge.us ], [ 0, %for.cond91.preheader.lr.ph ]",
+				"%38 = trunc i64 %i.1327.us to i32, !dbg !705",
+				"%39 = add i32 %spec.select281, %38, !dbg !705",
+				"br label %for.body94.us, !dbg !705"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 60,
+			"name": "for.body94.us",
+			"debug": [
+				{
+					"line": 103, "columns": [31, 17]
+				},
+				{
+					"line": 104, "columns": [33, 25]
+				},
+				{
+					"line": 105, "columns": [35, 48, 29, 21, 33]
+				},
+				{
+					"line": 106, "columns": [35, 50, 29, 21, 33]
+				}
+			],
+			"successors": [61, 60],
+			"ir": [
+				"%j.2323.us = phi i64 [ %j.1328.us, %for.cond91.preheader.us ], [ %inc107.us, %for.body94.us ]",
+				"%i.2322.us = phi i64 [ %i.1327.us, %for.cond91.preheader.us ], [ %inc95.us, %for.body94.us ]",
+				"%inc95.us = add i64 %i.2322.us, 1, !dbg !710",
+				"%arrayidx96.us = getelementptr i8, ptr %argbuf, i64 %i.2322.us, !dbg !713",
+				"%40 = load i8, ptr %arrayidx96.us, align 1, !dbg !713, !tbaa !526",
+				"%41 = load ptr, ptr @Py_hexdigits, align 8, !dbg !714, !tbaa !466",
+				"%conv97.us = zext i8 %40 to i32, !dbg !715",
+				"%shr98.us = lshr i32 %conv97.us, 4",
+				"%idxprom99.us = zext i32 %shr98.us to i64, !dbg !714",
+				"%arrayidx100.us = getelementptr i8, ptr %41, i64 %idxprom99.us, !dbg !714",
+				"%42 = load i8, ptr %arrayidx100.us, align 1, !dbg !714, !tbaa !526",
+				"%inc101.us = add i64 %j.2323.us, 1, !dbg !716",
+				"%arrayidx102.us = getelementptr i8, ptr %retbuf.0, i64 %j.2323.us, !dbg !717",
+				"store i8 %42, ptr %arrayidx102.us, align 1, !dbg !718, !tbaa !526",
+				"%43 = load ptr, ptr @Py_hexdigits, align 8, !dbg !719, !tbaa !466",
+				"%and104.us = and i32 %conv97.us, 15, !dbg !720",
+				"%idxprom105.us = zext i32 %and104.us to i64",
+				"%arrayidx106.us = getelementptr i8, ptr %43, i64 %idxprom105.us, !dbg !719",
+				"%44 = load i8, ptr %arrayidx106.us, align 1, !dbg !719, !tbaa !526",
+				"%inc107.us = add i64 %j.2323.us, 2, !dbg !721",
+				"%arrayidx108.us = getelementptr i8, ptr %retbuf.0, i64 %inc101.us, !dbg !722",
+				"store i8 %44, ptr %arrayidx108.us, align 1, !dbg !723, !tbaa !526",
+				"%lftr.wideiv = trunc i64 %inc95.us to i32, !dbg !724",
+				"%exitcond347.not = icmp eq i32 %39, %lftr.wideiv, !dbg !724",
+				"br i1 %exitcond347.not, label %for.cond91.for.end111_crit_edge.us, label %for.body94.us, !dbg !705, !llvm.loop !725"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 61,
+			"name": "for.cond91.for.end111_crit_edge.us",
+			"debug": [
+				{
+					"line": 102, "columns": [50, 35, 13]
+				},
+				{
+					"line": 108, "columns": [25, 17, 29]
+				}
+			],
+			"successors": [62, 59],
+			"ir": [
+				"%inc112.us = add i64 %j.2323.us, 3, !dbg !727",
+				"%arrayidx113.us = getelementptr i8, ptr %retbuf.0, i64 %inc107.us, !dbg !728",
+				"store i8 %sep_char.2300, ptr %arrayidx113.us, align 1, !dbg !708, !tbaa !526",
+				"%inc115.us = add nuw nsw i64 %chunk.0329.us, 1, !dbg !729",
+				"%exitcond348.not = icmp eq i64 %inc115.us, %div83, !dbg !700",
+				"br i1 %exitcond348.not, label %while.cond.preheader, label %for.cond91.preheader.us, !dbg !704, !llvm.loop !730"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 62,
+			"name": "while.cond.preheader",
+			"debug": [
+				{
+					"line": 101, "columns": [15]
+				},
+				{
+					"line": 110, "columns": [22, 13]
+				}
+			],
+			"successors": [63, 66],
+			"ir": [
+				"%i.1.lcssa = phi i64 [ 0, %for.cond87.preheader ], [ 0, %for.cond91.preheader.preheader ], [ %inc95.us, %for.cond91.for.end111_crit_edge.us ], !dbg !732",
+				"%j.1.lcssa = phi i64 [ 0, %for.cond87.preheader ], [ %div83, %for.cond91.preheader.preheader ], [ %inc112.us, %for.cond91.for.end111_crit_edge.us ], !dbg !733",
+				"%cmp117335 = icmp slt i64 %i.1.lcssa, %arglen, !dbg !709",
+				"br i1 %cmp117335, label %while.body, label %cleanup193, !dbg !734"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 63,
+			"name": "while.body",
+			"debug": [
+				{
+					"line": 110, "columns": [22, 13]
+				},
+				{
+					"line": 111, "columns": [29, 21]
+				},
+				{
+					"line": 112, "columns": [31, 44, 25, 17, 29]
+				},
+				{
+					"line": 113, "columns": [31, 46, 25, 17, 29]
+				}
+			],
+			"successors": [66, 63],
+			"ir": [
+				"%j.3337 = phi i64 [ %inc131, %while.body ], [ %j.1.lcssa, %while.cond.preheader ]",
+				"%i.3336 = phi i64 [ %inc119, %while.body ], [ %i.1.lcssa, %while.cond.preheader ]",
+				"%inc119 = add nsw i64 %i.3336, 1, !dbg !735",
+				"%arrayidx120 = getelementptr i8, ptr %argbuf, i64 %i.3336, !dbg !737",
+				"%45 = load i8, ptr %arrayidx120, align 1, !dbg !737, !tbaa !526",
+				"%46 = load ptr, ptr @Py_hexdigits, align 8, !dbg !738, !tbaa !466",
+				"%conv121 = zext i8 %45 to i32, !dbg !739",
+				"%shr122 = lshr i32 %conv121, 4",
+				"%idxprom123 = zext i32 %shr122 to i64, !dbg !738",
+				"%arrayidx124 = getelementptr i8, ptr %46, i64 %idxprom123, !dbg !738",
+				"%47 = load i8, ptr %arrayidx124, align 1, !dbg !738, !tbaa !526",
+				"%inc125 = add i64 %j.3337, 1, !dbg !740",
+				"%arrayidx126 = getelementptr i8, ptr %retbuf.0, i64 %j.3337, !dbg !741",
+				"store i8 %47, ptr %arrayidx126, align 1, !dbg !742, !tbaa !526",
+				"%48 = load ptr, ptr @Py_hexdigits, align 8, !dbg !743, !tbaa !466",
+				"%and128 = and i32 %conv121, 15, !dbg !744",
+				"%idxprom129 = zext i32 %and128 to i64",
+				"%arrayidx130 = getelementptr i8, ptr %48, i64 %idxprom129, !dbg !743",
+				"%49 = load i8, ptr %arrayidx130, align 1, !dbg !743, !tbaa !526",
+				"%inc131 = add i64 %j.3337, 2, !dbg !745",
+				"%arrayidx132 = getelementptr i8, ptr %retbuf.0, i64 %inc125, !dbg !746",
+				"store i8 %49, ptr %arrayidx132, align 1, !dbg !747, !tbaa !526",
+				"%exitcond349.not = icmp eq i64 %inc119, %arglen, !dbg !709",
+				"br i1 %exitcond349.not, label %cleanup193, label %while.body, !dbg !734, !llvm.loop !748"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 64,
+			"name": "while.cond165.preheader",
+			"debug": [
+				{
+					"line": 118, "columns": [15]
+				},
+				{
+					"line": 128, "columns": [22, 13]
+				}
+			],
+			"successors": [65, 66],
+			"ir": [
+				"%i.4.lcssa = phi i64 [ %sub81, %for.cond136.preheader ], [ %sub81, %for.cond140.preheader.preheader ], [ %dec.us, %for.cond140.for.end159_crit_edge.us ], !dbg !750",
+				"%j.4.lcssa = phi i64 [ %j.4310, %for.cond136.preheader ], [ %32, %for.cond140.preheader.preheader ], [ %j.4.us, %for.cond140.for.end159_crit_edge.us ], !dbg !667",
+				"%cmp166318 = icmp sgt i64 %i.4.lcssa, -1, !dbg !677",
+				"br i1 %cmp166318, label %while.body168, label %cleanup193, !dbg !751"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 65,
+			"name": "while.body168",
+			"debug": [
+				{
+					"line": 128, "columns": [22, 13]
+				},
+				{
+					"line": 129, "columns": [29, 21]
+				},
+				{
+					"line": 130, "columns": [31, 44, 46, 25, 17, 29]
+				},
+				{
+					"line": 131, "columns": [31, 25, 17, 29]
+				}
+			],
+			"successors": [66, 65],
+			"ir": [
+				"%j.6320 = phi i64 [ %dec181, %while.body168 ], [ %j.4.lcssa, %while.cond165.preheader ]",
+				"%i.6319 = phi i64 [ %dec169, %while.body168 ], [ %i.4.lcssa, %while.cond165.preheader ]",
+				"%dec169 = add nsw i64 %i.6319, -1, !dbg !752",
+				"%arrayidx170 = getelementptr i8, ptr %argbuf, i64 %i.6319, !dbg !754",
+				"%50 = load i8, ptr %arrayidx170, align 1, !dbg !754, !tbaa !526",
+				"%51 = load ptr, ptr @Py_hexdigits, align 8, !dbg !755, !tbaa !466",
+				"%conv171 = zext i8 %50 to i32, !dbg !756",
+				"%and172 = and i32 %conv171, 15, !dbg !757",
+				"%idxprom173 = zext i32 %and172 to i64",
+				"%arrayidx174 = getelementptr i8, ptr %51, i64 %idxprom173, !dbg !755",
+				"%52 = load i8, ptr %arrayidx174, align 1, !dbg !755, !tbaa !526",
+				"%dec175 = add i64 %j.6320, -1, !dbg !758",
+				"%arrayidx176 = getelementptr i8, ptr %retbuf.0, i64 %j.6320, !dbg !759",
+				"store i8 %52, ptr %arrayidx176, align 1, !dbg !760, !tbaa !526",
+				"%53 = load ptr, ptr @Py_hexdigits, align 8, !dbg !761, !tbaa !466",
+				"%shr178 = lshr i32 %conv171, 4",
+				"%idxprom179 = zext i32 %shr178 to i64, !dbg !761",
+				"%arrayidx180 = getelementptr i8, ptr %53, i64 %idxprom179, !dbg !761",
+				"%54 = load i8, ptr %arrayidx180, align 1, !dbg !761, !tbaa !526",
+				"%dec181 = add i64 %j.6320, -2, !dbg !762",
+				"%arrayidx182 = getelementptr i8, ptr %retbuf.0, i64 %dec175, !dbg !763",
+				"store i8 %54, ptr %arrayidx182, align 1, !dbg !764, !tbaa !526",
+				"%cmp166.not = icmp eq i64 %i.6319, 0, !dbg !677",
+				"br i1 %cmp166.not, label %cleanup193, label %while.body168, !dbg !751, !llvm.loop !765"
+			]
+		},
+		{
+			"function": "_Py_strhex_impl",
+			"id": 66,
+			"name": "cleanup193",
+			"debug": [
+				{
+					"line": 144, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.3 = phi ptr [ %call43, %if.then42 ], [ null, %if.then52 ], [ null, %if.else58 ], [ null, %if.then3 ], [ null, %if.then10 ], [ null, %if.then25 ], [ null, %if.else18 ], [ null, %if.then ], [ %retval50.0, %for.cond.preheader ], [ %retval50.0, %while.cond.preheader ], [ %retval50.0, %while.cond165.preheader ], [ %retval50.0, %for.body ], [ %retval50.0, %while.body ], [ %retval50.0, %while.body168 ], !dbg !453",
+				"ret ptr %retval.3, !dbg !767"
+			]
+		},
+		{
+			"function": "_Py_strhex_bytes",
+			"id": 67,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 53, "columns": [16, 9]
+				}
+			],
+			"successors": [69, 68],
+			"ir": [
+				"%cmp40.not.i = icmp slt i64 %arglen, 4611686018427387903, !dbg !462",
+				"br i1 %cmp40.not.i, label %if.end44.i, label %if.then42.i, !dbg !464"
+			]
+		},
+		{
+			"function": "_Py_strhex_bytes",
+			"id": 68,
+			"name": "if.then42.i",
+			"debug": [
+				{
+					"line": 54, "columns": [16, 9]
+				}
+			],
+			"successors": [72],
+			"ir": [
+				"%call43.i = tail call ptr @PyErr_NoMemory() #4, !dbg !465",
+				"br label %_Py_strhex_impl.exit, !dbg !467"
+			]
+		},
+		{
+			"function": "_Py_strhex_bytes",
+			"id": 69,
+			"name": "if.end44.i",
+			"debug": [
+				{
+					"line": 56, "columns": [25]
+				},
+				{
+					"line": 67, "columns": [18]
+				},
+				{
+					"line": 68, "columns": [14, 13]
+				}
+			],
+			"successors": [72, 70],
+			"ir": [
+				"%mul.i = shl i64 %arglen, 1, !dbg !468",
+				"%call53.i = tail call ptr @PyBytes_FromStringAndSize(ptr noundef null, i64 noundef %mul.i) #4, !dbg !469",
+				"%tobool54.not.i = icmp eq ptr %call53.i, null, !dbg !472",
+				"br i1 %tobool54.not.i, label %_Py_strhex_impl.exit, label %if.end56.i, !dbg !474"
+			]
+		},
+		{
+			"function": "_Py_strhex_bytes",
+			"id": 70,
+			"name": "if.end56.i",
+			"debug": [
+				{
+					"line": 25, "columns": [31]
+				},
+				{
+					"line": 86, "columns": [27, 9]
+				}
+			],
+			"successors": [71, 72],
+			"ir": [
+				"%ob_sval.i287.i = getelementptr inbounds %struct.PyBytesObject, ptr %call53.i, i64 0, i32 2, !dbg !482",
+				"%cmp68338.i = icmp sgt i64 %arglen, 0, !dbg !483",
+				"br i1 %cmp68338.i, label %for.body.i, label %_Py_strhex_impl.exit, !dbg !487"
+			]
+		},
+		{
+			"function": "_Py_strhex_bytes",
+			"id": 71,
+			"name": "for.body.i",
+			"debug": [
+				{
+					"line": 86, "columns": [37, 27, 9]
+				},
+				{
+					"line": 88, "columns": [17]
+				},
+				{
+					"line": 89, "columns": [27, 40, 21, 13, 25]
+				},
+				{
+					"line": 90, "columns": [27, 42, 21, 13, 25]
+				}
+			],
+			"successors": [72, 71],
+			"ir": [
+				"%j.0340.i = phi i64 [ %inc77.i, %for.body.i ], [ 0, %if.end56.i ]",
+				"%i.0339.i = phi i64 [ %inc79.i, %for.body.i ], [ 0, %if.end56.i ]",
+				"%arrayidx70.i = getelementptr i8, ptr %argbuf, i64 %i.0339.i, !dbg !488",
+				"%0 = load i8, ptr %arrayidx70.i, align 1, !dbg !488, !tbaa !490",
+				"%1 = load ptr, ptr @Py_hexdigits, align 8, !dbg !493, !tbaa !494",
+				"%conv71.i = zext i8 %0 to i32, !dbg !496",
+				"%shr.i = lshr i32 %conv71.i, 4",
+				"%idxprom.i = zext i32 %shr.i to i64, !dbg !493",
+				"%arrayidx72.i = getelementptr i8, ptr %1, i64 %idxprom.i, !dbg !493",
+				"%2 = load i8, ptr %arrayidx72.i, align 1, !dbg !493, !tbaa !490",
+				"%inc.i = or i64 %j.0340.i, 1, !dbg !497",
+				"%arrayidx73.i = getelementptr i8, ptr %ob_sval.i287.i, i64 %j.0340.i, !dbg !498",
+				"store i8 %2, ptr %arrayidx73.i, align 1, !dbg !499, !tbaa !490",
+				"%3 = load ptr, ptr @Py_hexdigits, align 8, !dbg !500, !tbaa !494",
+				"%and.i = and i32 %conv71.i, 15, !dbg !501",
+				"%idxprom75.i = zext i32 %and.i to i64",
+				"%arrayidx76.i = getelementptr i8, ptr %3, i64 %idxprom75.i, !dbg !500",
+				"%4 = load i8, ptr %arrayidx76.i, align 1, !dbg !500, !tbaa !490",
+				"%inc77.i = add nuw nsw i64 %j.0340.i, 2, !dbg !502",
+				"%arrayidx78.i = getelementptr i8, ptr %ob_sval.i287.i, i64 %inc.i, !dbg !503",
+				"store i8 %4, ptr %arrayidx78.i, align 1, !dbg !504, !tbaa !490",
+				"%inc79.i = add nuw nsw i64 %i.0339.i, 1, !dbg !505",
+				"%exitcond350.not.i = icmp eq i64 %inc79.i, %arglen, !dbg !483",
+				"br i1 %exitcond350.not.i, label %_Py_strhex_impl.exit, label %for.body.i, !dbg !487, !llvm.loop !506"
+			]
+		},
+		{
+			"function": "_Py_strhex_bytes",
+			"id": 72,
+			"name": "_Py_strhex_impl.exit",
+			"debug": [
+				{
+					"line": 155, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.3.i = phi ptr [ %call43.i, %if.then42.i ], [ null, %if.end44.i ], [ %call53.i, %if.end56.i ], [ %call53.i, %for.body.i ], !dbg !460",
+				"ret ptr %retval.3.i, !dbg !509"
+			]
+		},
+		{
+			"function": "_Py_strhex_with_sep",
+			"id": 73,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 163, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call fastcc ptr @_Py_strhex_impl(ptr noundef %argbuf, i64 noundef %arglen, ptr noundef %sep, i32 noundef %bytes_per_group, i32 noundef 0), !dbg !437",
+				"ret ptr %call, !dbg !438"
+			]
+		},
+		{
+			"function": "_Py_strhex_bytes_with_sep",
+			"id": 74,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 171, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call fastcc ptr @_Py_strhex_impl(ptr noundef %argbuf, i64 noundef %arglen, ptr noundef %sep, i32 noundef %bytes_per_group, i32 noundef 1), !dbg !437",
+				"ret ptr %call, !dbg !438"
+			]
+		}
+	]
+}

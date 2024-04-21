@@ -1,0 +1,676 @@
+{
+	"blocks": [
+		{
+			"function": "_PyInstructionSequence_NewLabel",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 51, "columns": [38, 31]
+				},
+				{
+					"line": 52, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%s_next_free_label = getelementptr inbounds %struct._PyInstructionSequence, ptr %seq, i64 0, i32 3, !dbg !61",
+				"%0 = load i32, ptr %s_next_free_label, align 8, !dbg !62, !tbaa !63",
+				"%inc = add i32 %0, 1, !dbg !62",
+				"store i32 %inc, ptr %s_next_free_label, align 8, !dbg !62, !tbaa !63",
+				"ret i32 %inc, !dbg !69"
+			]
+		},
+		{
+			"function": "_PyInstructionSequence_UseLabel",
+			"id": 1,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 58, "columns": [25]
+				},
+				{
+					"line": 59, "columns": [5]
+				}
+			],
+			"successors": [6, 2],
+			"ir": [
+				"%s_labelmap_size = getelementptr inbounds %struct._PyInstructionSequence, ptr %seq, i64 0, i32 5, !dbg !60",
+				"%0 = load i32, ptr %s_labelmap_size, align 8, !dbg !60, !tbaa !61",
+				"%s_labelmap = getelementptr inbounds %struct._PyInstructionSequence, ptr %seq, i64 0, i32 4, !dbg !67",
+				"%call = tail call i32 @_PyCompile_EnsureArrayLargeEnough(i32 noundef %lbl, ptr noundef nonnull %s_labelmap, ptr noundef nonnull %s_labelmap_size, i32 noundef 10, i64 noundef 4) #5, !dbg !67",
+				"%cmp = icmp eq i32 %call, -1, !dbg !67",
+				"br i1 %cmp, label %cleanup, label %for.cond.preheader, !dbg !69"
+			]
+		},
+		{
+			"function": "_PyInstructionSequence_UseLabel",
+			"id": 2,
+			"name": "for.cond.preheader",
+			"debug": [
+				{
+					"line": 66, "columns": [36, 29, 5]
+				}
+			],
+			"successors": [3, 4],
+			"ir": [
+				"%1 = load i32, ptr %s_labelmap_size, align 8, !dbg !71, !tbaa !61",
+				"%cmp317 = icmp slt i32 %0, %1, !dbg !73",
+				"%2 = load ptr, ptr %s_labelmap, align 8, !tbaa !74",
+				"br i1 %cmp317, label %for.body.lr.ph, label %for.cond.cleanup, !dbg !75"
+			]
+		},
+		{
+			"function": "_PyInstructionSequence_UseLabel",
+			"id": 3,
+			"name": "for.body.lr.ph",
+			"debug": [
+				{
+					"line": 66, "columns": [5]
+				}
+			],
+			"successors": [5],
+			"ir": [
+				"%3 = sext i32 %0 to i64, !dbg !75",
+				"br label %for.body, !dbg !75"
+			]
+		},
+		{
+			"function": "_PyInstructionSequence_UseLabel",
+			"id": 4,
+			"name": "for.cond.cleanup",
+			"debug": [
+				{
+					"line": 69, "columns": [33, 5, 26]
+				},
+				{
+					"line": 70, "columns": [5]
+				}
+			],
+			"successors": [6],
+			"ir": [
+				"%s_used = getelementptr inbounds %struct._PyInstructionSequence, ptr %seq, i64 0, i32 2, !dbg !76",
+				"%4 = load i32, ptr %s_used, align 4, !dbg !76, !tbaa !77",
+				"%idxprom6 = sext i32 %lbl to i64, !dbg !78",
+				"%arrayidx7 = getelementptr i32, ptr %2, i64 %idxprom6, !dbg !78",
+				"store i32 %4, ptr %arrayidx7, align 4, !dbg !79, !tbaa !80",
+				"br label %cleanup, !dbg !81"
+			]
+		},
+		{
+			"function": "_PyInstructionSequence_UseLabel",
+			"id": 5,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 66, "columns": [54, 36, 29, 5]
+				},
+				{
+					"line": 67, "columns": [9, 28]
+				}
+			],
+			"successors": [5, 4],
+			"ir": [
+				"%indvars.iv = phi i64 [ %3, %for.body.lr.ph ], [ %indvars.iv.next, %for.body ]",
+				"%arrayidx = getelementptr i32, ptr %2, i64 %indvars.iv, !dbg !82",
+				"store i32 -111, ptr %arrayidx, align 4, !dbg !84, !tbaa !80",
+				"%indvars.iv.next = add nsw i64 %indvars.iv, 1, !dbg !85",
+				"%5 = load i32, ptr %s_labelmap_size, align 8, !dbg !71, !tbaa !61",
+				"%6 = sext i32 %5 to i64, !dbg !73",
+				"%cmp3 = icmp slt i64 %indvars.iv.next, %6, !dbg !73",
+				"br i1 %cmp3, label %for.body, label %for.cond.cleanup, !dbg !75, !llvm.loop !86"
+			]
+		},
+		{
+			"function": "_PyInstructionSequence_UseLabel",
+			"id": 6,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 71, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ 0, %for.cond.cleanup ], [ -1, %entry ], !dbg !59",
+				"ret i32 %retval.0, !dbg !89"
+			]
+		},
+		{
+			"function": "_PyInstructionSequence_ApplyLabelMap",
+			"id": 7,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 76, "columns": [17, 28, 9]
+				}
+			],
+			"successors": [16, 8],
+			"ir": [
+				"%s_labelmap = getelementptr inbounds %struct._PyInstructionSequence, ptr %instrs, i64 0, i32 4, !dbg !65",
+				"%0 = load ptr, ptr %s_labelmap, align 8, !dbg !65, !tbaa !67",
+				"%cmp = icmp eq ptr %0, null, !dbg !73",
+				"br i1 %cmp, label %return, label %for.cond.preheader, !dbg !74"
+			]
+		},
+		{
+			"function": "_PyInstructionSequence_ApplyLabelMap",
+			"id": 8,
+			"name": "for.cond.preheader",
+			"debug": [
+				{
+					"line": 81, "columns": [21, 5]
+				}
+			],
+			"successors": [9, 10],
+			"ir": [
+				"%s_used = getelementptr inbounds %struct._PyInstructionSequence, ptr %instrs, i64 0, i32 2",
+				"%1 = load i32, ptr %s_used, align 4, !tbaa !75",
+				"%cmp154 = icmp sgt i32 %1, 0, !dbg !77",
+				"br i1 %cmp154, label %for.body.lr.ph, label %for.cond.cleanup, !dbg !78"
+			]
+		},
+		{
+			"function": "_PyInstructionSequence_ApplyLabelMap",
+			"id": 9,
+			"name": "for.body.lr.ph",
+			"debug": [
+				{
+					"line": 81, "columns": [21, 5]
+				}
+			],
+			"successors": [11],
+			"ir": [
+				"%2 = load ptr, ptr %instrs, align 8, !tbaa !79",
+				"%wide.trip.count = zext i32 %1 to i64, !dbg !77",
+				"br label %for.body, !dbg !78"
+			]
+		},
+		{
+			"function": "_PyInstructionSequence_ApplyLabelMap",
+			"id": 10,
+			"name": "for.cond.cleanup",
+			"debug": [
+				{
+					"line": 94, "columns": [5]
+				},
+				{
+					"line": 95, "columns": [24]
+				},
+				{
+					"line": 96, "columns": [13, 29]
+				},
+				{
+					"line": 97, "columns": [5]
+				}
+			],
+			"successors": [16],
+			"ir": [
+				"tail call void @PyMem_Free(ptr noundef nonnull %0) #5, !dbg !80",
+				"store ptr null, ptr %s_labelmap, align 8, !dbg !81, !tbaa !67",
+				"%s_labelmap_size = getelementptr inbounds %struct._PyInstructionSequence, ptr %instrs, i64 0, i32 5, !dbg !82",
+				"store i32 0, ptr %s_labelmap_size, align 8, !dbg !83, !tbaa !84",
+				"br label %return, !dbg !85"
+			]
+		},
+		{
+			"function": "_PyInstructionSequence_ApplyLabelMap",
+			"id": 11,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 82, "columns": [31]
+				},
+				{
+					"line": 83, "columns": [13]
+				}
+			],
+			"successors": [12, 13],
+			"ir": [
+				"%indvars.iv = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next, %if.end29 ]",
+				"%arrayidx = getelementptr %struct._PyInstruction, ptr %2, i64 %indvars.iv, !dbg !86",
+				"%3 = load i32, ptr %arrayidx, align 4, !dbg !88, !tbaa !90",
+				"%idxprom2 = sext i32 %3 to i64, !dbg !88",
+				"%flags = getelementptr [268 x %struct.opcode_metadata], ptr @_PyOpcode_opcode_metadata, i64 0, i64 %idxprom2, i32 2, !dbg !88",
+				"%4 = load i16, ptr %flags, align 2, !dbg !88, !tbaa !94",
+				"%.fr53 = freeze i16 %4, !dbg !88",
+				"%5 = and i16 %.fr53, 8, !dbg !88",
+				"%tobool.not = icmp ne i16 %5, 0, !dbg !88",
+				"%.off = add i32 %3, -264, !dbg !88",
+				"%switch = icmp ult i32 %.off, 3, !dbg !88",
+				"%or.cond = or i1 %switch, %tobool.not, !dbg !88",
+				"br i1 %or.cond, label %if.then15, label %if.end20, !dbg !88"
+			]
+		},
+		{
+			"function": "_PyInstructionSequence_ApplyLabelMap",
+			"id": 12,
+			"name": "if.then15",
+			"debug": [
+				{
+					"line": 85, "columns": [56, 30, 28]
+				},
+				{
+					"line": 86, "columns": [9]
+				}
+			],
+			"successors": [13],
+			"ir": [
+				"%i_oparg = getelementptr %struct._PyInstruction, ptr %2, i64 %indvars.iv, i32 1, !dbg !97",
+				"%6 = load i32, ptr %i_oparg, align 4, !dbg !97, !tbaa !99",
+				"%idxprom17 = sext i32 %6 to i64, !dbg !100",
+				"%arrayidx18 = getelementptr i32, ptr %0, i64 %idxprom17, !dbg !100",
+				"%7 = load i32, ptr %arrayidx18, align 4, !dbg !100, !tbaa !101",
+				"store i32 %7, ptr %i_oparg, align 4, !dbg !102, !tbaa !99",
+				"br label %if.end20, !dbg !103"
+			]
+		},
+		{
+			"function": "_PyInstructionSequence_ApplyLabelMap",
+			"id": 13,
+			"name": "if.end20",
+			"debug": [
+				{
+					"line": 87, "columns": [44]
+				},
+				{
+					"line": 88, "columns": [17, 25, 13]
+				}
+			],
+			"successors": [14, 15],
+			"ir": [
+				"%i_except_handler_info = getelementptr %struct._PyInstruction, ptr %2, i64 %indvars.iv, i32 3, !dbg !104",
+				"%8 = load i32, ptr %i_except_handler_info, align 4, !dbg !105, !tbaa !107",
+				"%cmp21 = icmp sgt i32 %8, -1, !dbg !108",
+				"br i1 %cmp21, label %if.then23, label %if.end29, !dbg !109"
+			]
+		},
+		{
+			"function": "_PyInstructionSequence_ApplyLabelMap",
+			"id": 14,
+			"name": "if.then23",
+			"debug": [
+				{
+					"line": 90, "columns": [27, 25]
+				},
+				{
+					"line": 91, "columns": [9]
+				}
+			],
+			"successors": [15],
+			"ir": [
+				"%idxprom26 = zext i32 %8 to i64",
+				"%arrayidx27 = getelementptr i32, ptr %0, i64 %idxprom26, !dbg !110",
+				"%9 = load i32, ptr %arrayidx27, align 4, !dbg !110, !tbaa !101",
+				"store i32 %9, ptr %i_except_handler_info, align 4, !dbg !112, !tbaa !107",
+				"br label %if.end29, !dbg !113"
+			]
+		},
+		{
+			"function": "_PyInstructionSequence_ApplyLabelMap",
+			"id": 15,
+			"name": "if.end29",
+			"debug": [
+				{
+					"line": 81, "columns": [40, 21, 5]
+				}
+			],
+			"successors": [10, 11],
+			"ir": [
+				"%indvars.iv.next = add nuw nsw i64 %indvars.iv, 1, !dbg !114",
+				"%exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count, !dbg !77",
+				"br i1 %exitcond.not, label %for.cond.cleanup, label %for.body, !dbg !78, !llvm.loop !115"
+			]
+		},
+		{
+			"function": "_PyInstructionSequence_ApplyLabelMap",
+			"id": 16,
+			"name": "return",
+			"debug": [
+				{
+					"line": 98, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret i32 0, !dbg !118"
+			]
+		},
+		{
+			"function": "_PyInstructionSequence_Addop",
+			"id": 17,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 37, "columns": [5]
+				}
+			],
+			"successors": [20, 18],
+			"ir": [
+				"%s_used.i = getelementptr inbounds %struct._PyInstructionSequence, ptr %seq, i64 0, i32 2, !dbg !71",
+				"%0 = load i32, ptr %s_used.i, align 4, !dbg !71, !tbaa !73",
+				"%add.i = add i32 %0, 1, !dbg !71",
+				"%s_allocated.i = getelementptr inbounds %struct._PyInstructionSequence, ptr %seq, i64 0, i32 1, !dbg !71",
+				"%call.i = tail call i32 @_PyCompile_EnsureArrayLargeEnough(i32 noundef %add.i, ptr noundef %seq, ptr noundef nonnull %s_allocated.i, i32 noundef 100, i64 noundef 44) #5, !dbg !71",
+				"%cmp.i = icmp eq i32 %call.i, -1, !dbg !71",
+				"br i1 %cmp.i, label %cleanup, label %instr_sequence_next_inst.exit, !dbg !79"
+			]
+		},
+		{
+			"function": "_PyInstructionSequence_Addop",
+			"id": 18,
+			"name": "instr_sequence_next_inst.exit",
+			"debug": [
+				{
+					"line": 45, "columns": [23]
+				},
+				{
+					"line": 112, "columns": [5]
+				}
+			],
+			"successors": [20, 19],
+			"ir": [
+				"%1 = load i32, ptr %s_used.i, align 4, !dbg !80, !tbaa !73",
+				"%inc.i = add i32 %1, 1, !dbg !80",
+				"store i32 %inc.i, ptr %s_used.i, align 4, !dbg !80, !tbaa !73",
+				"%cmp = icmp eq i32 %1, -1, !dbg !81",
+				"br i1 %cmp, label %cleanup, label %if.end, !dbg !83"
+			]
+		},
+		{
+			"function": "_PyInstructionSequence_Addop",
+			"id": 19,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 113, "columns": [29, 24]
+				},
+				{
+					"line": 114, "columns": [18]
+				},
+				{
+					"line": 115, "columns": [9, 17]
+				},
+				{
+					"line": 116, "columns": [9, 17]
+				}
+			],
+			"successors": [20],
+			"ir": [
+				"%2 = load ptr, ptr %seq, align 8, !dbg !84, !tbaa !85",
+				"%idxprom = sext i32 %1 to i64, !dbg !86",
+				"%arrayidx = getelementptr %struct._PyInstruction, ptr %2, i64 %idxprom, !dbg !86",
+				"store i32 %opcode, ptr %arrayidx, align 4, !dbg !87, !tbaa !88",
+				"%i_oparg = getelementptr %struct._PyInstruction, ptr %2, i64 %idxprom, i32 1, !dbg !92",
+				"store i32 %oparg, ptr %i_oparg, align 4, !dbg !93, !tbaa !94",
+				"%i_loc = getelementptr %struct._PyInstruction, ptr %2, i64 %idxprom, i32 2, !dbg !95",
+				"store i64 %loc.coerce0, ptr %i_loc, align 4, !dbg !96, !tbaa.struct !97",
+				"%loc.sroa.2.0.i_loc.sroa_idx = getelementptr inbounds i8, ptr %i_loc, i64 8, !dbg !96",
+				"store i64 %loc.coerce1, ptr %loc.sroa.2.0.i_loc.sroa_idx, align 4, !dbg !96, !tbaa.struct !99",
+				"br label %cleanup"
+			]
+		},
+		{
+			"function": "_PyInstructionSequence_Addop",
+			"id": 20,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 118, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ 0, %if.end ], [ -1, %instr_sequence_next_inst.exit ], [ -1, %entry ], !dbg !63",
+				"ret i32 %retval.0, !dbg !100"
+			]
+		},
+		{
+			"function": "_PyInstructionSequence_InsertInstruction",
+			"id": 21,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 37, "columns": [5]
+				}
+			],
+			"successors": [30, 22],
+			"ir": [
+				"%s_used.i = getelementptr inbounds %struct._PyInstructionSequence, ptr %seq, i64 0, i32 2, !dbg !76",
+				"%0 = load i32, ptr %s_used.i, align 4, !dbg !76, !tbaa !78",
+				"%add.i = add i32 %0, 1, !dbg !76",
+				"%s_allocated.i = getelementptr inbounds %struct._PyInstructionSequence, ptr %seq, i64 0, i32 1, !dbg !76",
+				"%call.i = tail call i32 @_PyCompile_EnsureArrayLargeEnough(i32 noundef %add.i, ptr noundef %seq, ptr noundef nonnull %s_allocated.i, i32 noundef 100, i64 noundef 44) #5, !dbg !76",
+				"%cmp.i = icmp eq i32 %call.i, -1, !dbg !76",
+				"br i1 %cmp.i, label %cleanup, label %instr_sequence_next_inst.exit, !dbg !84"
+			]
+		},
+		{
+			"function": "_PyInstructionSequence_InsertInstruction",
+			"id": 22,
+			"name": "instr_sequence_next_inst.exit",
+			"debug": [
+				{
+					"line": 45, "columns": [23]
+				},
+				{
+					"line": 126, "columns": [5]
+				}
+			],
+			"successors": [30, 23],
+			"ir": [
+				"%1 = load i32, ptr %s_used.i, align 4, !dbg !85, !tbaa !78",
+				"%inc.i = add i32 %1, 1, !dbg !85",
+				"store i32 %inc.i, ptr %s_used.i, align 4, !dbg !85, !tbaa !78",
+				"%cmp = icmp eq i32 %1, -1, !dbg !86",
+				"br i1 %cmp, label %cleanup, label %for.cond.preheader, !dbg !88"
+			]
+		},
+		{
+			"function": "_PyInstructionSequence_InsertInstruction",
+			"id": 23,
+			"name": "for.cond.preheader",
+			"debug": [
+				{
+					"line": 127, "columns": [0, 30, 5]
+				}
+			],
+			"successors": [24, 26],
+			"ir": [
+				"%i.042 = add i32 %1, -1, !dbg !89",
+				"%cmp1.not43 = icmp slt i32 %i.042, %pos, !dbg !91",
+				"br i1 %cmp1.not43, label %for.cond.cleanup, label %for.body, !dbg !93"
+			]
+		},
+		{
+			"function": "_PyInstructionSequence_InsertInstruction",
+			"id": 24,
+			"name": "for.cond.cleanup",
+			"debug": [
+				{
+					"line": 130, "columns": [29, 24]
+				},
+				{
+					"line": 131, "columns": [18]
+				},
+				{
+					"line": 132, "columns": [9, 17]
+				},
+				{
+					"line": 133, "columns": [9, 17]
+				},
+				{
+					"line": 136, "columns": [31, 24, 5]
+				}
+			],
+			"successors": [25, 30],
+			"ir": [
+				"%2 = load ptr, ptr %seq, align 8, !dbg !94, !tbaa !95",
+				"%idxprom6 = sext i32 %pos to i64, !dbg !96",
+				"%arrayidx7 = getelementptr %struct._PyInstruction, ptr %2, i64 %idxprom6, !dbg !96",
+				"store i32 %opcode, ptr %arrayidx7, align 4, !dbg !97, !tbaa !98",
+				"%i_oparg = getelementptr %struct._PyInstruction, ptr %2, i64 %idxprom6, i32 1, !dbg !102",
+				"store i32 %oparg, ptr %i_oparg, align 4, !dbg !103, !tbaa !104",
+				"%i_loc = getelementptr %struct._PyInstruction, ptr %2, i64 %idxprom6, i32 2, !dbg !105",
+				"store i64 %loc.coerce0, ptr %i_loc, align 4, !dbg !106, !tbaa.struct !107",
+				"%loc.sroa.2.0.i_loc.sroa_idx = getelementptr inbounds i8, ptr %i_loc, i64 8, !dbg !106",
+				"store i64 %loc.coerce1, ptr %loc.sroa.2.0.i_loc.sroa_idx, align 4, !dbg !106, !tbaa.struct !109",
+				"%s_labelmap_size = getelementptr inbounds %struct._PyInstructionSequence, ptr %seq, i64 0, i32 5",
+				"%3 = load i32, ptr %s_labelmap_size, align 8, !dbg !111, !tbaa !113",
+				"%cmp946 = icmp sgt i32 %3, 0, !dbg !114",
+				"br i1 %cmp946, label %for.body11.lr.ph, label %cleanup, !dbg !115"
+			]
+		},
+		{
+			"function": "_PyInstructionSequence_InsertInstruction",
+			"id": 25,
+			"name": "for.body11.lr.ph",
+			"debug": [
+				{
+					"line": 136, "columns": [5]
+				}
+			],
+			"successors": [27],
+			"ir": [
+				"%s_labelmap = getelementptr inbounds %struct._PyInstructionSequence, ptr %seq, i64 0, i32 4",
+				"%4 = load ptr, ptr %s_labelmap, align 8, !tbaa !116",
+				"br label %for.body11, !dbg !115"
+			]
+		},
+		{
+			"function": "_PyInstructionSequence_InsertInstruction",
+			"id": 26,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 127, "columns": [0, 30, 5]
+				},
+				{
+					"line": 128, "columns": [14, 9, 30]
+				}
+			],
+			"successors": [24, 26],
+			"ir": [
+				"%i.045 = phi i32 [ %i.0, %for.body ], [ %i.042, %for.cond.preheader ]",
+				"%i.0.in44 = phi i32 [ %i.045, %for.body ], [ %1, %for.cond.preheader ]",
+				"%5 = load ptr, ptr %seq, align 8, !dbg !117, !tbaa !95",
+				"%idxprom = sext i32 %i.0.in44 to i64, !dbg !119",
+				"%arrayidx = getelementptr %struct._PyInstruction, ptr %5, i64 %idxprom, !dbg !119",
+				"%idxprom3 = sext i32 %i.045 to i64, !dbg !120",
+				"%arrayidx4 = getelementptr %struct._PyInstruction, ptr %5, i64 %idxprom3, !dbg !120",
+				"tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(44) %arrayidx, ptr noundef nonnull align 4 dereferenceable(44) %arrayidx4, i64 44, i1 false), !dbg !120, !tbaa.struct !121",
+				"%i.0 = add i32 %i.045, -1, !dbg !89",
+				"%cmp1.not = icmp slt i32 %i.0, %pos, !dbg !91",
+				"br i1 %cmp1.not, label %for.cond.cleanup, label %for.body, !dbg !93, !llvm.loop !122"
+			]
+		},
+		{
+			"function": "_PyInstructionSequence_InsertInstruction",
+			"id": 27,
+			"name": "for.body11",
+			"debug": [
+				{
+					"line": 137, "columns": [13, 34]
+				}
+			],
+			"successors": [29, 28],
+			"ir": [
+				"%6 = phi i32 [ %3, %for.body11.lr.ph ], [ %8, %for.inc20 ]",
+				"%indvars.iv = phi i64 [ 0, %for.body11.lr.ph ], [ %indvars.iv.next, %for.inc20 ]",
+				"%arrayidx13 = getelementptr i32, ptr %4, i64 %indvars.iv, !dbg !125",
+				"%7 = load i32, ptr %arrayidx13, align 4, !dbg !125, !tbaa !108",
+				"%cmp14.not = icmp slt i32 %7, %pos, !dbg !128",
+				"br i1 %cmp14.not, label %for.inc20, label %if.then15, !dbg !129"
+			]
+		},
+		{
+			"function": "_PyInstructionSequence_InsertInstruction",
+			"id": 28,
+			"name": "if.then15",
+			"debug": [
+				{
+					"line": 136, "columns": [31]
+				},
+				{
+					"line": 138, "columns": [33]
+				},
+				{
+					"line": 139, "columns": [9]
+				}
+			],
+			"successors": [29],
+			"ir": [
+				"%inc = add i32 %7, 1, !dbg !130",
+				"store i32 %inc, ptr %arrayidx13, align 4, !dbg !130, !tbaa !108",
+				"%.pre = load i32, ptr %s_labelmap_size, align 8, !dbg !111, !tbaa !113",
+				"br label %for.inc20, !dbg !132"
+			]
+		},
+		{
+			"function": "_PyInstructionSequence_InsertInstruction",
+			"id": 29,
+			"name": "for.inc20",
+			"debug": [
+				{
+					"line": 136, "columns": [31, 51, 24, 5]
+				}
+			],
+			"successors": [27, 30],
+			"ir": [
+				"%8 = phi i32 [ %6, %for.body11 ], [ %.pre, %if.then15 ], !dbg !111",
+				"%indvars.iv.next = add nuw nsw i64 %indvars.iv, 1, !dbg !133",
+				"%9 = sext i32 %8 to i64, !dbg !114",
+				"%cmp9 = icmp slt i64 %indvars.iv.next, %9, !dbg !114",
+				"br i1 %cmp9, label %for.body11, label %cleanup, !dbg !115, !llvm.loop !134"
+			]
+		},
+		{
+			"function": "_PyInstructionSequence_InsertInstruction",
+			"id": 30,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 142, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ -1, %instr_sequence_next_inst.exit ], [ -1, %entry ], [ 0, %for.cond.cleanup ], [ 0, %for.inc20 ], !dbg !68",
+				"ret i32 %retval.0, !dbg !136"
+			]
+		},
+		{
+			"function": "PyInstructionSequence_Fini",
+			"id": 31,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 146, "columns": [21, 5]
+				},
+				{
+					"line": 147, "columns": [21]
+				},
+				{
+					"line": 149, "columns": [21, 5]
+				},
+				{
+					"line": 150, "columns": [19]
+				},
+				{
+					"line": 151, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%s_labelmap = getelementptr inbounds %struct._PyInstructionSequence, ptr %seq, i64 0, i32 4, !dbg !56",
+				"%0 = load ptr, ptr %s_labelmap, align 8, !dbg !56, !tbaa !57",
+				"tail call void @PyMem_Free(ptr noundef %0) #5, !dbg !63",
+				"store ptr null, ptr %s_labelmap, align 8, !dbg !64, !tbaa !57",
+				"%1 = load ptr, ptr %seq, align 8, !dbg !65, !tbaa !66",
+				"tail call void @PyMem_Free(ptr noundef %1) #5, !dbg !67",
+				"store ptr null, ptr %seq, align 8, !dbg !68, !tbaa !66",
+				"ret void, !dbg !69"
+			]
+		}
+	]
+}

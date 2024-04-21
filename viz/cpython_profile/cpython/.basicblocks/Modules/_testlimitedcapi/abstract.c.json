@@ -1,0 +1,5630 @@
+{
+	"blocks": [
+		{
+			"function": "_PyTestLimitedCAPI_Init_Abstract",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 577, "columns": [9]
+				},
+				{
+					"line": 582, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call i32 @PyModule_AddFunctions(ptr noundef %m, ptr noundef nonnull @test_methods) #5, !dbg !305",
+				"%call.lobit = ashr i32 %call, 31, !dbg !304",
+				"ret i32 %call.lobit, !dbg !307"
+			]
+		},
+		{
+			"function": "object_repr",
+			"id": 1,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 8, "columns": [5]
+				},
+				{
+					"line": 9, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%cmp = icmp eq ptr %arg, @_Py_NoneStruct, !dbg !304",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %arg, !dbg !307",
+				"%call = tail call ptr @PyObject_Repr(ptr noundef %spec.store.select) #5, !dbg !308",
+				"ret ptr %call, !dbg !309"
+			]
+		},
+		{
+			"function": "object_ascii",
+			"id": 2,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 15, "columns": [5]
+				},
+				{
+					"line": 16, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%cmp = icmp eq ptr %arg, @_Py_NoneStruct, !dbg !304",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %arg, !dbg !307",
+				"%call = tail call ptr @PyObject_ASCII(ptr noundef %spec.store.select) #5, !dbg !308",
+				"ret ptr %call, !dbg !309"
+			]
+		},
+		{
+			"function": "object_str",
+			"id": 3,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 22, "columns": [5]
+				},
+				{
+					"line": 23, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%cmp = icmp eq ptr %arg, @_Py_NoneStruct, !dbg !304",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %arg, !dbg !307",
+				"%call = tail call ptr @PyObject_Str(ptr noundef %spec.store.select) #5, !dbg !308",
+				"ret ptr %call, !dbg !309"
+			]
+		},
+		{
+			"function": "object_bytes",
+			"id": 4,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 29, "columns": [5]
+				},
+				{
+					"line": 30, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%cmp = icmp eq ptr %arg, @_Py_NoneStruct, !dbg !304",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %arg, !dbg !307",
+				"%call = tail call ptr @PyObject_Bytes(ptr noundef %spec.store.select) #5, !dbg !308",
+				"ret ptr %call, !dbg !309"
+			]
+		},
+		{
+			"function": "object_getattr",
+			"id": 5,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 36, "columns": [5]
+				},
+				{
+					"line": 37, "columns": [10, 9]
+				}
+			],
+			"successors": [11, 6],
+			"ir": [
+				"%obj = alloca ptr, align 8",
+				"%attr_name = alloca ptr, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %obj) #5, !dbg !306",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %attr_name) #5, !dbg !306",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.47, ptr noundef nonnull %obj, ptr noundef nonnull %attr_name) #5, !dbg !307",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !307",
+				"br i1 %tobool.not, label %cleanup, label %do.body, !dbg !309"
+			]
+		},
+		{
+			"function": "object_getattr",
+			"id": 6,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 40, "columns": [5]
+				}
+			],
+			"successors": [7, 8],
+			"ir": [
+				"%0 = load ptr, ptr %obj, align 8, !dbg !310, !tbaa !313",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !310",
+				"br i1 %cmp, label %if.then1, label %do.body3, !dbg !317"
+			]
+		},
+		{
+			"function": "object_getattr",
+			"id": 7,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 40, "columns": [5]
+				}
+			],
+			"successors": [8],
+			"ir": [
+				"store ptr null, ptr %obj, align 8, !dbg !318, !tbaa !313",
+				"br label %do.body3, !dbg !318"
+			]
+		},
+		{
+			"function": "object_getattr",
+			"id": 8,
+			"name": "do.body3",
+			"debug": [
+				{
+					"line": 41, "columns": [5]
+				}
+			],
+			"successors": [9, 10],
+			"ir": [
+				"%1 = phi ptr [ %0, %do.body ], [ null, %if.then1 ]",
+				"%2 = load ptr, ptr %attr_name, align 8, !dbg !320, !tbaa !313",
+				"%cmp4 = icmp eq ptr %2, @_Py_NoneStruct, !dbg !320",
+				"br i1 %cmp4, label %if.then5, label %do.end8, !dbg !323"
+			]
+		},
+		{
+			"function": "object_getattr",
+			"id": 9,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 41, "columns": [5]
+				}
+			],
+			"successors": [10],
+			"ir": [
+				"store ptr null, ptr %attr_name, align 8, !dbg !324, !tbaa !313",
+				"br label %do.end8, !dbg !324"
+			]
+		},
+		{
+			"function": "object_getattr",
+			"id": 10,
+			"name": "do.end8",
+			"debug": [
+				{
+					"line": 42, "columns": [34, 12, 5]
+				}
+			],
+			"successors": [11],
+			"ir": [
+				"%3 = phi ptr [ null, %if.then5 ], [ %2, %do.body3 ], !dbg !326",
+				"%call9 = call ptr @PyObject_GetAttr(ptr noundef %1, ptr noundef %3) #5, !dbg !327",
+				"br label %cleanup, !dbg !328"
+			]
+		},
+		{
+			"function": "object_getattr",
+			"id": 11,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 43, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call9, %do.end8 ], [ null, %entry ], !dbg !305",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %attr_name) #5, !dbg !329",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %obj) #5, !dbg !329",
+				"ret ptr %retval.0, !dbg !329"
+			]
+		},
+		{
+			"function": "object_getattrstring",
+			"id": 12,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 48, "columns": [5]
+				},
+				{
+					"line": 49, "columns": [5]
+				},
+				{
+					"line": 50, "columns": [5]
+				},
+				{
+					"line": 51, "columns": [10, 9]
+				}
+			],
+			"successors": [16, 13],
+			"ir": [
+				"%obj = alloca ptr, align 8",
+				"%attr_name = alloca ptr, align 8",
+				"%size = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %obj) #5, !dbg !307",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %attr_name) #5, !dbg !308",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %size) #5, !dbg !309",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.48, ptr noundef nonnull %obj, ptr noundef nonnull %attr_name, ptr noundef nonnull %size) #5, !dbg !310",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !310",
+				"br i1 %tobool.not, label %cleanup, label %do.body, !dbg !312"
+			]
+		},
+		{
+			"function": "object_getattrstring",
+			"id": 13,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 54, "columns": [5]
+				}
+			],
+			"successors": [14, 15],
+			"ir": [
+				"%0 = load ptr, ptr %obj, align 8, !dbg !313, !tbaa !316",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !313",
+				"br i1 %cmp, label %if.then1, label %do.end, !dbg !320"
+			]
+		},
+		{
+			"function": "object_getattrstring",
+			"id": 14,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 54, "columns": [5]
+				}
+			],
+			"successors": [15],
+			"ir": [
+				"store ptr null, ptr %obj, align 8, !dbg !321, !tbaa !316",
+				"br label %do.end, !dbg !321"
+			]
+		},
+		{
+			"function": "object_getattrstring",
+			"id": 15,
+			"name": "do.end",
+			"debug": [
+				{
+					"line": 55, "columns": [35, 40, 12, 5]
+				}
+			],
+			"successors": [16],
+			"ir": [
+				"%1 = phi ptr [ null, %if.then1 ], [ %0, %do.body ], !dbg !323",
+				"%2 = load ptr, ptr %attr_name, align 8, !dbg !324, !tbaa !316",
+				"%call3 = call ptr @PyObject_GetAttrString(ptr noundef %1, ptr noundef %2) #5, !dbg !325",
+				"br label %cleanup, !dbg !326"
+			]
+		},
+		{
+			"function": "object_getattrstring",
+			"id": 16,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 56, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call3, %do.end ], [ null, %entry ], !dbg !306",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %size) #5, !dbg !327",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %attr_name) #5, !dbg !327",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %obj) #5, !dbg !327",
+				"ret ptr %retval.0, !dbg !327"
+			]
+		},
+		{
+			"function": "object_hasattr",
+			"id": 17,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 61, "columns": [5]
+				},
+				{
+					"line": 62, "columns": [10, 9]
+				}
+			],
+			"successors": [23, 18],
+			"ir": [
+				"%obj = alloca ptr, align 8",
+				"%attr_name = alloca ptr, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %obj) #5, !dbg !306",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %attr_name) #5, !dbg !306",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.47, ptr noundef nonnull %obj, ptr noundef nonnull %attr_name) #5, !dbg !307",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !307",
+				"br i1 %tobool.not, label %cleanup, label %do.body, !dbg !309"
+			]
+		},
+		{
+			"function": "object_hasattr",
+			"id": 18,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 65, "columns": [5]
+				}
+			],
+			"successors": [19, 20],
+			"ir": [
+				"%0 = load ptr, ptr %obj, align 8, !dbg !310, !tbaa !313",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !310",
+				"br i1 %cmp, label %if.then1, label %do.body3, !dbg !317"
+			]
+		},
+		{
+			"function": "object_hasattr",
+			"id": 19,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 65, "columns": [5]
+				}
+			],
+			"successors": [20],
+			"ir": [
+				"store ptr null, ptr %obj, align 8, !dbg !318, !tbaa !313",
+				"br label %do.body3, !dbg !318"
+			]
+		},
+		{
+			"function": "object_hasattr",
+			"id": 20,
+			"name": "do.body3",
+			"debug": [
+				{
+					"line": 66, "columns": [5]
+				}
+			],
+			"successors": [21, 22],
+			"ir": [
+				"%1 = phi ptr [ %0, %do.body ], [ null, %if.then1 ]",
+				"%2 = load ptr, ptr %attr_name, align 8, !dbg !320, !tbaa !313",
+				"%cmp4 = icmp eq ptr %2, @_Py_NoneStruct, !dbg !320",
+				"br i1 %cmp4, label %if.then5, label %do.end8, !dbg !323"
+			]
+		},
+		{
+			"function": "object_hasattr",
+			"id": 21,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 66, "columns": [5]
+				}
+			],
+			"successors": [22],
+			"ir": [
+				"store ptr null, ptr %attr_name, align 8, !dbg !324, !tbaa !313",
+				"br label %do.end8, !dbg !324"
+			]
+		},
+		{
+			"function": "object_hasattr",
+			"id": 22,
+			"name": "do.end8",
+			"debug": [
+				{
+					"line": 67, "columns": [50, 28, 12, 5]
+				}
+			],
+			"successors": [23],
+			"ir": [
+				"%3 = phi ptr [ null, %if.then5 ], [ %2, %do.body3 ], !dbg !326",
+				"%call9 = call i32 @PyObject_HasAttr(ptr noundef %1, ptr noundef %3) #5, !dbg !327",
+				"%conv = sext i32 %call9 to i64, !dbg !327",
+				"%call10 = call ptr @PyLong_FromLong(i64 noundef %conv) #5, !dbg !328",
+				"br label %cleanup, !dbg !329"
+			]
+		},
+		{
+			"function": "object_hasattr",
+			"id": 23,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 68, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call10, %do.end8 ], [ null, %entry ], !dbg !305",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %attr_name) #5, !dbg !330",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %obj) #5, !dbg !330",
+				"ret ptr %retval.0, !dbg !330"
+			]
+		},
+		{
+			"function": "object_hasattrstring",
+			"id": 24,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 73, "columns": [5]
+				},
+				{
+					"line": 74, "columns": [5]
+				},
+				{
+					"line": 75, "columns": [5]
+				},
+				{
+					"line": 76, "columns": [10, 9]
+				}
+			],
+			"successors": [28, 25],
+			"ir": [
+				"%obj = alloca ptr, align 8",
+				"%attr_name = alloca ptr, align 8",
+				"%size = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %obj) #5, !dbg !307",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %attr_name) #5, !dbg !308",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %size) #5, !dbg !309",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.48, ptr noundef nonnull %obj, ptr noundef nonnull %attr_name, ptr noundef nonnull %size) #5, !dbg !310",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !310",
+				"br i1 %tobool.not, label %cleanup, label %do.body, !dbg !312"
+			]
+		},
+		{
+			"function": "object_hasattrstring",
+			"id": 25,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 79, "columns": [5]
+				}
+			],
+			"successors": [26, 27],
+			"ir": [
+				"%0 = load ptr, ptr %obj, align 8, !dbg !313, !tbaa !316",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !313",
+				"br i1 %cmp, label %if.then1, label %do.end, !dbg !320"
+			]
+		},
+		{
+			"function": "object_hasattrstring",
+			"id": 26,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 79, "columns": [5]
+				}
+			],
+			"successors": [27],
+			"ir": [
+				"store ptr null, ptr %obj, align 8, !dbg !321, !tbaa !316",
+				"br label %do.end, !dbg !321"
+			]
+		},
+		{
+			"function": "object_hasattrstring",
+			"id": 27,
+			"name": "do.end",
+			"debug": [
+				{
+					"line": 80, "columns": [51, 56, 28, 12, 5]
+				}
+			],
+			"successors": [28],
+			"ir": [
+				"%1 = phi ptr [ null, %if.then1 ], [ %0, %do.body ], !dbg !323",
+				"%2 = load ptr, ptr %attr_name, align 8, !dbg !324, !tbaa !316",
+				"%call3 = call i32 @PyObject_HasAttrString(ptr noundef %1, ptr noundef %2) #5, !dbg !325",
+				"%conv = sext i32 %call3 to i64, !dbg !325",
+				"%call4 = call ptr @PyLong_FromLong(i64 noundef %conv) #5, !dbg !326",
+				"br label %cleanup, !dbg !327"
+			]
+		},
+		{
+			"function": "object_hasattrstring",
+			"id": 28,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 81, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call4, %do.end ], [ null, %entry ], !dbg !306",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %size) #5, !dbg !328",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %attr_name) #5, !dbg !328",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %obj) #5, !dbg !328",
+				"ret ptr %retval.0, !dbg !328"
+			]
+		},
+		{
+			"function": "object_setattr",
+			"id": 29,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 86, "columns": [5]
+				},
+				{
+					"line": 87, "columns": [10, 9]
+				}
+			],
+			"successors": [42, 30],
+			"ir": [
+				"%obj = alloca ptr, align 8",
+				"%attr_name = alloca ptr, align 8",
+				"%value = alloca ptr, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %obj) #5, !dbg !309",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %attr_name) #5, !dbg !309",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %value) #5, !dbg !309",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.49, ptr noundef nonnull %obj, ptr noundef nonnull %attr_name, ptr noundef nonnull %value) #5, !dbg !310",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !310",
+				"br i1 %tobool.not, label %cleanup30, label %do.body, !dbg !312"
+			]
+		},
+		{
+			"function": "object_setattr",
+			"id": 30,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 90, "columns": [5]
+				}
+			],
+			"successors": [31, 32],
+			"ir": [
+				"%0 = load ptr, ptr %obj, align 8, !dbg !313, !tbaa !316",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !313",
+				"br i1 %cmp, label %if.then1, label %do.body3, !dbg !320"
+			]
+		},
+		{
+			"function": "object_setattr",
+			"id": 31,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 90, "columns": [5]
+				}
+			],
+			"successors": [32],
+			"ir": [
+				"store ptr null, ptr %obj, align 8, !dbg !321, !tbaa !316",
+				"br label %do.body3, !dbg !321"
+			]
+		},
+		{
+			"function": "object_setattr",
+			"id": 32,
+			"name": "do.body3",
+			"debug": [
+				{
+					"line": 91, "columns": [5]
+				}
+			],
+			"successors": [33, 34],
+			"ir": [
+				"%1 = phi ptr [ %0, %do.body ], [ null, %if.then1 ]",
+				"%2 = load ptr, ptr %attr_name, align 8, !dbg !323, !tbaa !316",
+				"%cmp4 = icmp eq ptr %2, @_Py_NoneStruct, !dbg !323",
+				"br i1 %cmp4, label %if.then5, label %do.body9, !dbg !326"
+			]
+		},
+		{
+			"function": "object_setattr",
+			"id": 33,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 91, "columns": [5]
+				}
+			],
+			"successors": [34],
+			"ir": [
+				"store ptr null, ptr %attr_name, align 8, !dbg !327, !tbaa !316",
+				"br label %do.body9, !dbg !327"
+			]
+		},
+		{
+			"function": "object_setattr",
+			"id": 34,
+			"name": "do.body9",
+			"debug": [
+				{
+					"line": 92, "columns": [5]
+				}
+			],
+			"successors": [35, 36],
+			"ir": [
+				"%3 = phi ptr [ %2, %do.body3 ], [ null, %if.then5 ]",
+				"%4 = load ptr, ptr %value, align 8, !dbg !329, !tbaa !316",
+				"%cmp10 = icmp eq ptr %4, @_Py_NoneStruct, !dbg !329",
+				"br i1 %cmp10, label %if.then11, label %do.body15, !dbg !332"
+			]
+		},
+		{
+			"function": "object_setattr",
+			"id": 35,
+			"name": "if.then11",
+			"debug": [
+				{
+					"line": 92, "columns": [5]
+				}
+			],
+			"successors": [36],
+			"ir": [
+				"store ptr null, ptr %value, align 8, !dbg !333, !tbaa !316",
+				"br label %do.body15, !dbg !333"
+			]
+		},
+		{
+			"function": "object_setattr",
+			"id": 36,
+			"name": "do.body15",
+			"debug": [
+				{
+					"line": 93, "columns": [5]
+				}
+			],
+			"successors": [37, 39],
+			"ir": [
+				"%5 = phi ptr [ %4, %do.body9 ], [ null, %if.then11 ], !dbg !335",
+				"%call16 = call i32 @PyObject_SetAttr(ptr noundef %1, ptr noundef %3, ptr noundef %5) #5, !dbg !335",
+				"%cmp17 = icmp eq i32 %call16, -1, !dbg !337",
+				"%call19 = call ptr @PyErr_Occurred() #5, !dbg !335",
+				"%tobool20.not = icmp eq ptr %call19, null, !dbg !335",
+				"br i1 %cmp17, label %if.then18, label %if.end21, !dbg !335"
+			]
+		},
+		{
+			"function": "object_setattr",
+			"id": 37,
+			"name": "if.then18",
+			"debug": [
+				{
+					"line": 93, "columns": [5]
+				}
+			],
+			"successors": [38, 42],
+			"ir": [
+				"br i1 %tobool20.not, label %cond.false, label %cleanup30, !dbg !339"
+			]
+		},
+		{
+			"function": "object_setattr",
+			"id": 38,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 93, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.50, ptr noundef nonnull @.str.51, i32 noundef 93, ptr noundef nonnull @__PRETTY_FUNCTION__.object_setattr) #6, !dbg !339",
+				"unreachable, !dbg !339"
+			]
+		},
+		{
+			"function": "object_setattr",
+			"id": 39,
+			"name": "if.end21",
+			"debug": [
+				{
+					"line": 93, "columns": [5]
+				}
+			],
+			"successors": [41, 40],
+			"ir": [
+				"br i1 %tobool20.not, label %cond.end26, label %cond.false25, !dbg !335"
+			]
+		},
+		{
+			"function": "object_setattr",
+			"id": 40,
+			"name": "cond.false25",
+			"debug": [
+				{
+					"line": 93, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.52, ptr noundef nonnull @.str.51, i32 noundef 93, ptr noundef nonnull @__PRETTY_FUNCTION__.object_setattr) #6, !dbg !335",
+				"unreachable, !dbg !335"
+			]
+		},
+		{
+			"function": "object_setattr",
+			"id": 41,
+			"name": "cond.end26",
+			"debug": [
+				{
+					"line": 93, "columns": [5]
+				}
+			],
+			"successors": [42],
+			"ir": [
+				"%conv = sext i32 %call16 to i64, !dbg !335",
+				"%call27 = call ptr @PyLong_FromLong(i64 noundef %conv) #5, !dbg !335",
+				"br label %cleanup30, !dbg !335"
+			]
+		},
+		{
+			"function": "object_setattr",
+			"id": 42,
+			"name": "cleanup30",
+			"debug": [
+				{
+					"line": 94, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %entry ], [ %call27, %cond.end26 ], [ null, %if.then18 ], !dbg !308",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %value) #5, !dbg !341",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %attr_name) #5, !dbg !341",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %obj) #5, !dbg !341",
+				"ret ptr %retval.1, !dbg !341"
+			]
+		},
+		{
+			"function": "object_setattrstring",
+			"id": 43,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 99, "columns": [5]
+				},
+				{
+					"line": 100, "columns": [5]
+				},
+				{
+					"line": 101, "columns": [5]
+				},
+				{
+					"line": 102, "columns": [10, 9]
+				}
+			],
+			"successors": [54, 44],
+			"ir": [
+				"%obj = alloca ptr, align 8",
+				"%value = alloca ptr, align 8",
+				"%attr_name = alloca ptr, align 8",
+				"%size = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %obj) #5, !dbg !310",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %value) #5, !dbg !310",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %attr_name) #5, !dbg !311",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %size) #5, !dbg !312",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.53, ptr noundef nonnull %obj, ptr noundef nonnull %attr_name, ptr noundef nonnull %size, ptr noundef nonnull %value) #5, !dbg !313",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !313",
+				"br i1 %tobool.not, label %cleanup24, label %do.body, !dbg !315"
+			]
+		},
+		{
+			"function": "object_setattrstring",
+			"id": 44,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 105, "columns": [5]
+				}
+			],
+			"successors": [45, 46],
+			"ir": [
+				"%0 = load ptr, ptr %obj, align 8, !dbg !316, !tbaa !319",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !316",
+				"br i1 %cmp, label %if.then1, label %do.body3, !dbg !323"
+			]
+		},
+		{
+			"function": "object_setattrstring",
+			"id": 45,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 105, "columns": [5]
+				}
+			],
+			"successors": [46],
+			"ir": [
+				"store ptr null, ptr %obj, align 8, !dbg !324, !tbaa !319",
+				"br label %do.body3, !dbg !324"
+			]
+		},
+		{
+			"function": "object_setattrstring",
+			"id": 46,
+			"name": "do.body3",
+			"debug": [
+				{
+					"line": 106, "columns": [5]
+				}
+			],
+			"successors": [47, 48],
+			"ir": [
+				"%1 = phi ptr [ %0, %do.body ], [ null, %if.then1 ]",
+				"%2 = load ptr, ptr %value, align 8, !dbg !326, !tbaa !319",
+				"%cmp4 = icmp eq ptr %2, @_Py_NoneStruct, !dbg !326",
+				"br i1 %cmp4, label %if.then5, label %do.body9, !dbg !329"
+			]
+		},
+		{
+			"function": "object_setattrstring",
+			"id": 47,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 106, "columns": [5]
+				}
+			],
+			"successors": [48],
+			"ir": [
+				"store ptr null, ptr %value, align 8, !dbg !330, !tbaa !319",
+				"br label %do.body9, !dbg !330"
+			]
+		},
+		{
+			"function": "object_setattrstring",
+			"id": 48,
+			"name": "do.body9",
+			"debug": [
+				{
+					"line": 107, "columns": [5]
+				}
+			],
+			"successors": [49, 51],
+			"ir": [
+				"%3 = phi ptr [ %2, %do.body3 ], [ null, %if.then5 ], !dbg !332",
+				"%4 = load ptr, ptr %attr_name, align 8, !dbg !332, !tbaa !319",
+				"%call10 = call i32 @PyObject_SetAttrString(ptr noundef %1, ptr noundef %4, ptr noundef %3) #5, !dbg !332",
+				"%cmp11 = icmp eq i32 %call10, -1, !dbg !334",
+				"%call13 = call ptr @PyErr_Occurred() #5, !dbg !332",
+				"%tobool14.not = icmp eq ptr %call13, null, !dbg !332",
+				"br i1 %cmp11, label %if.then12, label %if.end15, !dbg !332"
+			]
+		},
+		{
+			"function": "object_setattrstring",
+			"id": 49,
+			"name": "if.then12",
+			"debug": [
+				{
+					"line": 107, "columns": [5]
+				}
+			],
+			"successors": [50, 54],
+			"ir": [
+				"br i1 %tobool14.not, label %cond.false, label %cleanup24, !dbg !336"
+			]
+		},
+		{
+			"function": "object_setattrstring",
+			"id": 50,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 107, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.50, ptr noundef nonnull @.str.51, i32 noundef 107, ptr noundef nonnull @__PRETTY_FUNCTION__.object_setattrstring) #6, !dbg !336",
+				"unreachable, !dbg !336"
+			]
+		},
+		{
+			"function": "object_setattrstring",
+			"id": 51,
+			"name": "if.end15",
+			"debug": [
+				{
+					"line": 107, "columns": [5]
+				}
+			],
+			"successors": [53, 52],
+			"ir": [
+				"br i1 %tobool14.not, label %cond.end20, label %cond.false19, !dbg !332"
+			]
+		},
+		{
+			"function": "object_setattrstring",
+			"id": 52,
+			"name": "cond.false19",
+			"debug": [
+				{
+					"line": 107, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.52, ptr noundef nonnull @.str.51, i32 noundef 107, ptr noundef nonnull @__PRETTY_FUNCTION__.object_setattrstring) #6, !dbg !332",
+				"unreachable, !dbg !332"
+			]
+		},
+		{
+			"function": "object_setattrstring",
+			"id": 53,
+			"name": "cond.end20",
+			"debug": [
+				{
+					"line": 107, "columns": [5]
+				}
+			],
+			"successors": [54],
+			"ir": [
+				"%conv = sext i32 %call10 to i64, !dbg !332",
+				"%call21 = call ptr @PyLong_FromLong(i64 noundef %conv) #5, !dbg !332",
+				"br label %cleanup24, !dbg !332"
+			]
+		},
+		{
+			"function": "object_setattrstring",
+			"id": 54,
+			"name": "cleanup24",
+			"debug": [
+				{
+					"line": 108, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %entry ], [ %call21, %cond.end20 ], [ null, %if.then12 ], !dbg !309",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %size) #5, !dbg !338",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %attr_name) #5, !dbg !338",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %value) #5, !dbg !338",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %obj) #5, !dbg !338",
+				"ret ptr %retval.1, !dbg !338"
+			]
+		},
+		{
+			"function": "object_delattr",
+			"id": 55,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 113, "columns": [5]
+				},
+				{
+					"line": 114, "columns": [6, 5]
+				}
+			],
+			"successors": [66, 56],
+			"ir": [
+				"%obj = alloca ptr, align 8",
+				"%attr_name = alloca ptr, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %obj) #5, !dbg !308",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %attr_name) #5, !dbg !308",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.47, ptr noundef nonnull %obj, ptr noundef nonnull %attr_name) #5, !dbg !309",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !309",
+				"br i1 %tobool.not, label %cleanup24, label %do.body, !dbg !311"
+			]
+		},
+		{
+			"function": "object_delattr",
+			"id": 56,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 117, "columns": [5]
+				}
+			],
+			"successors": [57, 58],
+			"ir": [
+				"%0 = load ptr, ptr %obj, align 8, !dbg !312, !tbaa !315",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !312",
+				"br i1 %cmp, label %if.then1, label %do.body3, !dbg !319"
+			]
+		},
+		{
+			"function": "object_delattr",
+			"id": 57,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 117, "columns": [5]
+				}
+			],
+			"successors": [58],
+			"ir": [
+				"store ptr null, ptr %obj, align 8, !dbg !320, !tbaa !315",
+				"br label %do.body3, !dbg !320"
+			]
+		},
+		{
+			"function": "object_delattr",
+			"id": 58,
+			"name": "do.body3",
+			"debug": [
+				{
+					"line": 118, "columns": [5]
+				}
+			],
+			"successors": [59, 60],
+			"ir": [
+				"%1 = phi ptr [ %0, %do.body ], [ null, %if.then1 ]",
+				"%2 = load ptr, ptr %attr_name, align 8, !dbg !322, !tbaa !315",
+				"%cmp4 = icmp eq ptr %2, @_Py_NoneStruct, !dbg !322",
+				"br i1 %cmp4, label %if.then5, label %do.body9, !dbg !325"
+			]
+		},
+		{
+			"function": "object_delattr",
+			"id": 59,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 118, "columns": [5]
+				}
+			],
+			"successors": [60],
+			"ir": [
+				"store ptr null, ptr %attr_name, align 8, !dbg !326, !tbaa !315",
+				"br label %do.body9, !dbg !326"
+			]
+		},
+		{
+			"function": "object_delattr",
+			"id": 60,
+			"name": "do.body9",
+			"debug": [
+				{
+					"line": 119, "columns": [5]
+				}
+			],
+			"successors": [61, 63],
+			"ir": [
+				"%3 = phi ptr [ %2, %do.body3 ], [ null, %if.then5 ], !dbg !328",
+				"%call10 = call i32 @PyObject_DelAttr(ptr noundef %1, ptr noundef %3) #5, !dbg !328",
+				"%cmp11 = icmp eq i32 %call10, -1, !dbg !330",
+				"%call13 = call ptr @PyErr_Occurred() #5, !dbg !328",
+				"%tobool14.not = icmp eq ptr %call13, null, !dbg !328",
+				"br i1 %cmp11, label %if.then12, label %if.end15, !dbg !328"
+			]
+		},
+		{
+			"function": "object_delattr",
+			"id": 61,
+			"name": "if.then12",
+			"debug": [
+				{
+					"line": 119, "columns": [5]
+				}
+			],
+			"successors": [62, 66],
+			"ir": [
+				"br i1 %tobool14.not, label %cond.false, label %cleanup24, !dbg !332"
+			]
+		},
+		{
+			"function": "object_delattr",
+			"id": 62,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 119, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.50, ptr noundef nonnull @.str.51, i32 noundef 119, ptr noundef nonnull @__PRETTY_FUNCTION__.object_delattr) #6, !dbg !332",
+				"unreachable, !dbg !332"
+			]
+		},
+		{
+			"function": "object_delattr",
+			"id": 63,
+			"name": "if.end15",
+			"debug": [
+				{
+					"line": 119, "columns": [5]
+				}
+			],
+			"successors": [65, 64],
+			"ir": [
+				"br i1 %tobool14.not, label %cond.end20, label %cond.false19, !dbg !328"
+			]
+		},
+		{
+			"function": "object_delattr",
+			"id": 64,
+			"name": "cond.false19",
+			"debug": [
+				{
+					"line": 119, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.52, ptr noundef nonnull @.str.51, i32 noundef 119, ptr noundef nonnull @__PRETTY_FUNCTION__.object_delattr) #6, !dbg !328",
+				"unreachable, !dbg !328"
+			]
+		},
+		{
+			"function": "object_delattr",
+			"id": 65,
+			"name": "cond.end20",
+			"debug": [
+				{
+					"line": 119, "columns": [5]
+				}
+			],
+			"successors": [66],
+			"ir": [
+				"%conv = sext i32 %call10 to i64, !dbg !328",
+				"%call21 = call ptr @PyLong_FromLong(i64 noundef %conv) #5, !dbg !328",
+				"br label %cleanup24, !dbg !328"
+			]
+		},
+		{
+			"function": "object_delattr",
+			"id": 66,
+			"name": "cleanup24",
+			"debug": [
+				{
+					"line": 120, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %entry ], [ %call21, %cond.end20 ], [ null, %if.then12 ], !dbg !307",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %attr_name) #5, !dbg !334",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %obj) #5, !dbg !334",
+				"ret ptr %retval.1, !dbg !334"
+			]
+		},
+		{
+			"function": "object_delattrstring",
+			"id": 67,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 125, "columns": [5]
+				},
+				{
+					"line": 126, "columns": [5]
+				},
+				{
+					"line": 127, "columns": [5]
+				},
+				{
+					"line": 128, "columns": [10, 9]
+				}
+			],
+			"successors": [76, 68],
+			"ir": [
+				"%obj = alloca ptr, align 8",
+				"%attr_name = alloca ptr, align 8",
+				"%size = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %obj) #5, !dbg !309",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %attr_name) #5, !dbg !310",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %size) #5, !dbg !311",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.48, ptr noundef nonnull %obj, ptr noundef nonnull %attr_name, ptr noundef nonnull %size) #5, !dbg !312",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !312",
+				"br i1 %tobool.not, label %cleanup18, label %do.body, !dbg !314"
+			]
+		},
+		{
+			"function": "object_delattrstring",
+			"id": 68,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 131, "columns": [5]
+				}
+			],
+			"successors": [69, 70],
+			"ir": [
+				"%0 = load ptr, ptr %obj, align 8, !dbg !315, !tbaa !318",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !315",
+				"br i1 %cmp, label %if.then1, label %do.body3, !dbg !322"
+			]
+		},
+		{
+			"function": "object_delattrstring",
+			"id": 69,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 131, "columns": [5]
+				}
+			],
+			"successors": [70],
+			"ir": [
+				"store ptr null, ptr %obj, align 8, !dbg !323, !tbaa !318",
+				"br label %do.body3, !dbg !323"
+			]
+		},
+		{
+			"function": "object_delattrstring",
+			"id": 70,
+			"name": "do.body3",
+			"debug": [
+				{
+					"line": 132, "columns": [5]
+				}
+			],
+			"successors": [71, 73],
+			"ir": [
+				"%1 = phi ptr [ %0, %do.body ], [ null, %if.then1 ], !dbg !325",
+				"%2 = load ptr, ptr %attr_name, align 8, !dbg !325, !tbaa !318",
+				"%call4 = call i32 @PyObject_DelAttrString(ptr noundef %1, ptr noundef %2) #5, !dbg !325",
+				"%cmp5 = icmp eq i32 %call4, -1, !dbg !327",
+				"%call7 = call ptr @PyErr_Occurred() #5, !dbg !325",
+				"%tobool8.not = icmp eq ptr %call7, null, !dbg !325",
+				"br i1 %cmp5, label %if.then6, label %if.end9, !dbg !325"
+			]
+		},
+		{
+			"function": "object_delattrstring",
+			"id": 71,
+			"name": "if.then6",
+			"debug": [
+				{
+					"line": 132, "columns": [5]
+				}
+			],
+			"successors": [72, 76],
+			"ir": [
+				"br i1 %tobool8.not, label %cond.false, label %cleanup18, !dbg !329"
+			]
+		},
+		{
+			"function": "object_delattrstring",
+			"id": 72,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 132, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.50, ptr noundef nonnull @.str.51, i32 noundef 132, ptr noundef nonnull @__PRETTY_FUNCTION__.object_delattrstring) #6, !dbg !329",
+				"unreachable, !dbg !329"
+			]
+		},
+		{
+			"function": "object_delattrstring",
+			"id": 73,
+			"name": "if.end9",
+			"debug": [
+				{
+					"line": 132, "columns": [5]
+				}
+			],
+			"successors": [75, 74],
+			"ir": [
+				"br i1 %tobool8.not, label %cond.end14, label %cond.false13, !dbg !325"
+			]
+		},
+		{
+			"function": "object_delattrstring",
+			"id": 74,
+			"name": "cond.false13",
+			"debug": [
+				{
+					"line": 132, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.52, ptr noundef nonnull @.str.51, i32 noundef 132, ptr noundef nonnull @__PRETTY_FUNCTION__.object_delattrstring) #6, !dbg !325",
+				"unreachable, !dbg !325"
+			]
+		},
+		{
+			"function": "object_delattrstring",
+			"id": 75,
+			"name": "cond.end14",
+			"debug": [
+				{
+					"line": 132, "columns": [5]
+				}
+			],
+			"successors": [76],
+			"ir": [
+				"%conv = sext i32 %call4 to i64, !dbg !325",
+				"%call15 = call ptr @PyLong_FromLong(i64 noundef %conv) #5, !dbg !325",
+				"br label %cleanup18, !dbg !325"
+			]
+		},
+		{
+			"function": "object_delattrstring",
+			"id": 76,
+			"name": "cleanup18",
+			"debug": [
+				{
+					"line": 133, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %entry ], [ %call15, %cond.end14 ], [ null, %if.then6 ], !dbg !308",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %size) #5, !dbg !331",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %attr_name) #5, !dbg !331",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %obj) #5, !dbg !331",
+				"ret ptr %retval.1, !dbg !331"
+			]
+		},
+		{
+			"function": "number_check",
+			"id": 77,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 138, "columns": [5]
+				},
+				{
+					"line": 139, "columns": [28, 12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !304",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !307",
+				"%call = tail call i32 @PyNumber_Check(ptr noundef %spec.store.select) #5, !dbg !308",
+				"%conv = sext i32 %call to i64, !dbg !308",
+				"%call1 = tail call ptr @PyBool_FromLong(i64 noundef %conv) #5, !dbg !309",
+				"ret ptr %call1, !dbg !310"
+			]
+		},
+		{
+			"function": "mapping_check",
+			"id": 78,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 145, "columns": [5]
+				},
+				{
+					"line": 146, "columns": [28, 12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !304",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !307",
+				"%call = tail call i32 @PyMapping_Check(ptr noundef %spec.store.select) #5, !dbg !308",
+				"%conv = sext i32 %call to i64, !dbg !308",
+				"%call1 = tail call ptr @PyLong_FromLong(i64 noundef %conv) #5, !dbg !309",
+				"ret ptr %call1, !dbg !310"
+			]
+		},
+		{
+			"function": "mapping_size",
+			"id": 79,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 152, "columns": [5]
+				},
+				{
+					"line": 153, "columns": [5]
+				}
+			],
+			"successors": [80, 82],
+			"ir": [
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !306",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !309",
+				"%call = tail call i64 @PyMapping_Size(ptr noundef %spec.store.select) #5, !dbg !310",
+				"%cmp2 = icmp eq i64 %call, -1, !dbg !312",
+				"%call4 = tail call ptr @PyErr_Occurred() #5, !dbg !310",
+				"%tobool.not = icmp eq ptr %call4, null, !dbg !310",
+				"br i1 %cmp2, label %if.then3, label %if.end5, !dbg !310"
+			]
+		},
+		{
+			"function": "mapping_size",
+			"id": 80,
+			"name": "if.then3",
+			"debug": [
+				{
+					"line": 153, "columns": [5]
+				}
+			],
+			"successors": [81, 85],
+			"ir": [
+				"br i1 %tobool.not, label %cond.false, label %cleanup, !dbg !314"
+			]
+		},
+		{
+			"function": "mapping_size",
+			"id": 81,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 153, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.50, ptr noundef nonnull @.str.51, i32 noundef 153, ptr noundef nonnull @__PRETTY_FUNCTION__.mapping_size) #6, !dbg !314",
+				"unreachable, !dbg !314"
+			]
+		},
+		{
+			"function": "mapping_size",
+			"id": 82,
+			"name": "if.end5",
+			"debug": [
+				{
+					"line": 153, "columns": [5]
+				}
+			],
+			"successors": [84, 83],
+			"ir": [
+				"br i1 %tobool.not, label %cond.end10, label %cond.false9, !dbg !310"
+			]
+		},
+		{
+			"function": "mapping_size",
+			"id": 83,
+			"name": "cond.false9",
+			"debug": [
+				{
+					"line": 153, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.52, ptr noundef nonnull @.str.51, i32 noundef 153, ptr noundef nonnull @__PRETTY_FUNCTION__.mapping_size) #6, !dbg !310",
+				"unreachable, !dbg !310"
+			]
+		},
+		{
+			"function": "mapping_size",
+			"id": 84,
+			"name": "cond.end10",
+			"debug": [
+				{
+					"line": 153, "columns": [5]
+				}
+			],
+			"successors": [85],
+			"ir": [
+				"%call11 = tail call ptr @PyLong_FromSsize_t(i64 noundef %call) #5, !dbg !310",
+				"br label %cleanup, !dbg !310"
+			]
+		},
+		{
+			"function": "mapping_size",
+			"id": 85,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 153, "columns": [5]
+				},
+				{
+					"line": 154, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call11, %cond.end10 ], [ null, %if.then3 ], !dbg !310",
+				"ret ptr %retval.0, !dbg !316"
+			]
+		},
+		{
+			"function": "mapping_length",
+			"id": 86,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 159, "columns": [5]
+				},
+				{
+					"line": 160, "columns": [5]
+				}
+			],
+			"successors": [87, 89],
+			"ir": [
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !306",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !309",
+				"%call = tail call i64 @PyMapping_Size(ptr noundef %spec.store.select) #5, !dbg !310",
+				"%cmp2 = icmp eq i64 %call, -1, !dbg !312",
+				"%call4 = tail call ptr @PyErr_Occurred() #5, !dbg !310",
+				"%tobool.not = icmp eq ptr %call4, null, !dbg !310",
+				"br i1 %cmp2, label %if.then3, label %if.end5, !dbg !310"
+			]
+		},
+		{
+			"function": "mapping_length",
+			"id": 87,
+			"name": "if.then3",
+			"debug": [
+				{
+					"line": 160, "columns": [5]
+				}
+			],
+			"successors": [88, 92],
+			"ir": [
+				"br i1 %tobool.not, label %cond.false, label %cleanup, !dbg !314"
+			]
+		},
+		{
+			"function": "mapping_length",
+			"id": 88,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 160, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.50, ptr noundef nonnull @.str.51, i32 noundef 160, ptr noundef nonnull @__PRETTY_FUNCTION__.mapping_length) #6, !dbg !314",
+				"unreachable, !dbg !314"
+			]
+		},
+		{
+			"function": "mapping_length",
+			"id": 89,
+			"name": "if.end5",
+			"debug": [
+				{
+					"line": 160, "columns": [5]
+				}
+			],
+			"successors": [91, 90],
+			"ir": [
+				"br i1 %tobool.not, label %cond.end10, label %cond.false9, !dbg !310"
+			]
+		},
+		{
+			"function": "mapping_length",
+			"id": 90,
+			"name": "cond.false9",
+			"debug": [
+				{
+					"line": 160, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.52, ptr noundef nonnull @.str.51, i32 noundef 160, ptr noundef nonnull @__PRETTY_FUNCTION__.mapping_length) #6, !dbg !310",
+				"unreachable, !dbg !310"
+			]
+		},
+		{
+			"function": "mapping_length",
+			"id": 91,
+			"name": "cond.end10",
+			"debug": [
+				{
+					"line": 160, "columns": [5]
+				}
+			],
+			"successors": [92],
+			"ir": [
+				"%call11 = tail call ptr @PyLong_FromSsize_t(i64 noundef %call) #5, !dbg !310",
+				"br label %cleanup, !dbg !310"
+			]
+		},
+		{
+			"function": "mapping_length",
+			"id": 92,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 160, "columns": [5]
+				},
+				{
+					"line": 161, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call11, %cond.end10 ], [ null, %if.then3 ], !dbg !310",
+				"ret ptr %retval.0, !dbg !316"
+			]
+		},
+		{
+			"function": "object_getitem",
+			"id": 93,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 166, "columns": [5]
+				},
+				{
+					"line": 167, "columns": [10, 9]
+				}
+			],
+			"successors": [99, 94],
+			"ir": [
+				"%mapping = alloca ptr, align 8",
+				"%key = alloca ptr, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %mapping) #5, !dbg !306",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %key) #5, !dbg !306",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.47, ptr noundef nonnull %mapping, ptr noundef nonnull %key) #5, !dbg !307",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !307",
+				"br i1 %tobool.not, label %cleanup, label %do.body, !dbg !309"
+			]
+		},
+		{
+			"function": "object_getitem",
+			"id": 94,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 170, "columns": [5]
+				}
+			],
+			"successors": [95, 96],
+			"ir": [
+				"%0 = load ptr, ptr %mapping, align 8, !dbg !310, !tbaa !313",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !310",
+				"br i1 %cmp, label %if.then1, label %do.body3, !dbg !317"
+			]
+		},
+		{
+			"function": "object_getitem",
+			"id": 95,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 170, "columns": [5]
+				}
+			],
+			"successors": [96],
+			"ir": [
+				"store ptr null, ptr %mapping, align 8, !dbg !318, !tbaa !313",
+				"br label %do.body3, !dbg !318"
+			]
+		},
+		{
+			"function": "object_getitem",
+			"id": 96,
+			"name": "do.body3",
+			"debug": [
+				{
+					"line": 171, "columns": [5]
+				}
+			],
+			"successors": [97, 98],
+			"ir": [
+				"%1 = phi ptr [ %0, %do.body ], [ null, %if.then1 ]",
+				"%2 = load ptr, ptr %key, align 8, !dbg !320, !tbaa !313",
+				"%cmp4 = icmp eq ptr %2, @_Py_NoneStruct, !dbg !320",
+				"br i1 %cmp4, label %if.then5, label %do.end8, !dbg !323"
+			]
+		},
+		{
+			"function": "object_getitem",
+			"id": 97,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 171, "columns": [5]
+				}
+			],
+			"successors": [98],
+			"ir": [
+				"store ptr null, ptr %key, align 8, !dbg !324, !tbaa !313",
+				"br label %do.end8, !dbg !324"
+			]
+		},
+		{
+			"function": "object_getitem",
+			"id": 98,
+			"name": "do.end8",
+			"debug": [
+				{
+					"line": 172, "columns": [38, 12, 5]
+				}
+			],
+			"successors": [99],
+			"ir": [
+				"%3 = phi ptr [ null, %if.then5 ], [ %2, %do.body3 ], !dbg !326",
+				"%call9 = call ptr @PyObject_GetItem(ptr noundef %1, ptr noundef %3) #5, !dbg !327",
+				"br label %cleanup, !dbg !328"
+			]
+		},
+		{
+			"function": "object_getitem",
+			"id": 99,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 173, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call9, %do.end8 ], [ null, %entry ], !dbg !305",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %key) #5, !dbg !329",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %mapping) #5, !dbg !329",
+				"ret ptr %retval.0, !dbg !329"
+			]
+		},
+		{
+			"function": "mapping_getitemstring",
+			"id": 100,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 178, "columns": [5]
+				},
+				{
+					"line": 179, "columns": [5]
+				},
+				{
+					"line": 180, "columns": [5]
+				},
+				{
+					"line": 181, "columns": [10, 9]
+				}
+			],
+			"successors": [104, 101],
+			"ir": [
+				"%mapping = alloca ptr, align 8",
+				"%key = alloca ptr, align 8",
+				"%size = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %mapping) #5, !dbg !307",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %key) #5, !dbg !308",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %size) #5, !dbg !309",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.48, ptr noundef nonnull %mapping, ptr noundef nonnull %key, ptr noundef nonnull %size) #5, !dbg !310",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !310",
+				"br i1 %tobool.not, label %cleanup, label %do.body, !dbg !312"
+			]
+		},
+		{
+			"function": "mapping_getitemstring",
+			"id": 101,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 184, "columns": [5]
+				}
+			],
+			"successors": [102, 103],
+			"ir": [
+				"%0 = load ptr, ptr %mapping, align 8, !dbg !313, !tbaa !316",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !313",
+				"br i1 %cmp, label %if.then1, label %do.end, !dbg !320"
+			]
+		},
+		{
+			"function": "mapping_getitemstring",
+			"id": 102,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 184, "columns": [5]
+				}
+			],
+			"successors": [103],
+			"ir": [
+				"store ptr null, ptr %mapping, align 8, !dbg !321, !tbaa !316",
+				"br label %do.end, !dbg !321"
+			]
+		},
+		{
+			"function": "mapping_getitemstring",
+			"id": 103,
+			"name": "do.end",
+			"debug": [
+				{
+					"line": 185, "columns": [36, 45, 12, 5]
+				}
+			],
+			"successors": [104],
+			"ir": [
+				"%1 = phi ptr [ null, %if.then1 ], [ %0, %do.body ], !dbg !323",
+				"%2 = load ptr, ptr %key, align 8, !dbg !324, !tbaa !316",
+				"%call3 = call ptr @PyMapping_GetItemString(ptr noundef %1, ptr noundef %2) #5, !dbg !325",
+				"br label %cleanup, !dbg !326"
+			]
+		},
+		{
+			"function": "mapping_getitemstring",
+			"id": 104,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 186, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call3, %do.end ], [ null, %entry ], !dbg !306",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %size) #5, !dbg !327",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %key) #5, !dbg !327",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %mapping) #5, !dbg !327",
+				"ret ptr %retval.0, !dbg !327"
+			]
+		},
+		{
+			"function": "mapping_haskey",
+			"id": 105,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 191, "columns": [5]
+				},
+				{
+					"line": 192, "columns": [10, 9]
+				}
+			],
+			"successors": [111, 106],
+			"ir": [
+				"%mapping = alloca ptr, align 8",
+				"%key = alloca ptr, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %mapping) #5, !dbg !306",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %key) #5, !dbg !306",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.47, ptr noundef nonnull %mapping, ptr noundef nonnull %key) #5, !dbg !307",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !307",
+				"br i1 %tobool.not, label %cleanup, label %do.body, !dbg !309"
+			]
+		},
+		{
+			"function": "mapping_haskey",
+			"id": 106,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 195, "columns": [5]
+				}
+			],
+			"successors": [107, 108],
+			"ir": [
+				"%0 = load ptr, ptr %mapping, align 8, !dbg !310, !tbaa !313",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !310",
+				"br i1 %cmp, label %if.then1, label %do.body3, !dbg !317"
+			]
+		},
+		{
+			"function": "mapping_haskey",
+			"id": 107,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 195, "columns": [5]
+				}
+			],
+			"successors": [108],
+			"ir": [
+				"store ptr null, ptr %mapping, align 8, !dbg !318, !tbaa !313",
+				"br label %do.body3, !dbg !318"
+			]
+		},
+		{
+			"function": "mapping_haskey",
+			"id": 108,
+			"name": "do.body3",
+			"debug": [
+				{
+					"line": 196, "columns": [5]
+				}
+			],
+			"successors": [109, 110],
+			"ir": [
+				"%1 = phi ptr [ %0, %do.body ], [ null, %if.then1 ]",
+				"%2 = load ptr, ptr %key, align 8, !dbg !320, !tbaa !313",
+				"%cmp4 = icmp eq ptr %2, @_Py_NoneStruct, !dbg !320",
+				"br i1 %cmp4, label %if.then5, label %do.end8, !dbg !323"
+			]
+		},
+		{
+			"function": "mapping_haskey",
+			"id": 109,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 196, "columns": [5]
+				}
+			],
+			"successors": [110],
+			"ir": [
+				"store ptr null, ptr %key, align 8, !dbg !324, !tbaa !313",
+				"br label %do.end8, !dbg !324"
+			]
+		},
+		{
+			"function": "mapping_haskey",
+			"id": 110,
+			"name": "do.end8",
+			"debug": [
+				{
+					"line": 197, "columns": [54, 28, 12, 5]
+				}
+			],
+			"successors": [111],
+			"ir": [
+				"%3 = phi ptr [ null, %if.then5 ], [ %2, %do.body3 ], !dbg !326",
+				"%call9 = call i32 @PyMapping_HasKey(ptr noundef %1, ptr noundef %3) #5, !dbg !327",
+				"%conv = sext i32 %call9 to i64, !dbg !327",
+				"%call10 = call ptr @PyLong_FromLong(i64 noundef %conv) #5, !dbg !328",
+				"br label %cleanup, !dbg !329"
+			]
+		},
+		{
+			"function": "mapping_haskey",
+			"id": 111,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 198, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call10, %do.end8 ], [ null, %entry ], !dbg !305",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %key) #5, !dbg !330",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %mapping) #5, !dbg !330",
+				"ret ptr %retval.0, !dbg !330"
+			]
+		},
+		{
+			"function": "mapping_haskeystring",
+			"id": 112,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 203, "columns": [5]
+				},
+				{
+					"line": 204, "columns": [5]
+				},
+				{
+					"line": 205, "columns": [5]
+				},
+				{
+					"line": 206, "columns": [10, 9]
+				}
+			],
+			"successors": [116, 113],
+			"ir": [
+				"%mapping = alloca ptr, align 8",
+				"%key = alloca ptr, align 8",
+				"%size = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %mapping) #5, !dbg !307",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %key) #5, !dbg !308",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %size) #5, !dbg !309",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.48, ptr noundef nonnull %mapping, ptr noundef nonnull %key, ptr noundef nonnull %size) #5, !dbg !310",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !310",
+				"br i1 %tobool.not, label %cleanup, label %do.body, !dbg !312"
+			]
+		},
+		{
+			"function": "mapping_haskeystring",
+			"id": 113,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 209, "columns": [5]
+				}
+			],
+			"successors": [114, 115],
+			"ir": [
+				"%0 = load ptr, ptr %mapping, align 8, !dbg !313, !tbaa !316",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !313",
+				"br i1 %cmp, label %if.then1, label %do.end, !dbg !320"
+			]
+		},
+		{
+			"function": "mapping_haskeystring",
+			"id": 114,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 209, "columns": [5]
+				}
+			],
+			"successors": [115],
+			"ir": [
+				"store ptr null, ptr %mapping, align 8, !dbg !321, !tbaa !316",
+				"br label %do.end, !dbg !321"
+			]
+		},
+		{
+			"function": "mapping_haskeystring",
+			"id": 115,
+			"name": "do.end",
+			"debug": [
+				{
+					"line": 210, "columns": [51, 60, 28, 12, 5]
+				}
+			],
+			"successors": [116],
+			"ir": [
+				"%1 = phi ptr [ null, %if.then1 ], [ %0, %do.body ], !dbg !323",
+				"%2 = load ptr, ptr %key, align 8, !dbg !324, !tbaa !316",
+				"%call3 = call i32 @PyMapping_HasKeyString(ptr noundef %1, ptr noundef %2) #5, !dbg !325",
+				"%conv = sext i32 %call3 to i64, !dbg !325",
+				"%call4 = call ptr @PyLong_FromLong(i64 noundef %conv) #5, !dbg !326",
+				"br label %cleanup, !dbg !327"
+			]
+		},
+		{
+			"function": "mapping_haskeystring",
+			"id": 116,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 211, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call4, %do.end ], [ null, %entry ], !dbg !306",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %size) #5, !dbg !328",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %key) #5, !dbg !328",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %mapping) #5, !dbg !328",
+				"ret ptr %retval.0, !dbg !328"
+			]
+		},
+		{
+			"function": "mapping_haskeywitherror",
+			"id": 117,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 216, "columns": [5]
+				},
+				{
+					"line": 217, "columns": [10, 9]
+				}
+			],
+			"successors": [128, 118],
+			"ir": [
+				"%mapping = alloca ptr, align 8",
+				"%key = alloca ptr, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %mapping) #5, !dbg !308",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %key) #5, !dbg !308",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.47, ptr noundef nonnull %mapping, ptr noundef nonnull %key) #5, !dbg !309",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !309",
+				"br i1 %tobool.not, label %cleanup24, label %do.body, !dbg !311"
+			]
+		},
+		{
+			"function": "mapping_haskeywitherror",
+			"id": 118,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 220, "columns": [5]
+				}
+			],
+			"successors": [119, 120],
+			"ir": [
+				"%0 = load ptr, ptr %mapping, align 8, !dbg !312, !tbaa !315",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !312",
+				"br i1 %cmp, label %if.then1, label %do.body3, !dbg !319"
+			]
+		},
+		{
+			"function": "mapping_haskeywitherror",
+			"id": 119,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 220, "columns": [5]
+				}
+			],
+			"successors": [120],
+			"ir": [
+				"store ptr null, ptr %mapping, align 8, !dbg !320, !tbaa !315",
+				"br label %do.body3, !dbg !320"
+			]
+		},
+		{
+			"function": "mapping_haskeywitherror",
+			"id": 120,
+			"name": "do.body3",
+			"debug": [
+				{
+					"line": 221, "columns": [5]
+				}
+			],
+			"successors": [121, 122],
+			"ir": [
+				"%1 = phi ptr [ %0, %do.body ], [ null, %if.then1 ]",
+				"%2 = load ptr, ptr %key, align 8, !dbg !322, !tbaa !315",
+				"%cmp4 = icmp eq ptr %2, @_Py_NoneStruct, !dbg !322",
+				"br i1 %cmp4, label %if.then5, label %do.body9, !dbg !325"
+			]
+		},
+		{
+			"function": "mapping_haskeywitherror",
+			"id": 121,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 221, "columns": [5]
+				}
+			],
+			"successors": [122],
+			"ir": [
+				"store ptr null, ptr %key, align 8, !dbg !326, !tbaa !315",
+				"br label %do.body9, !dbg !326"
+			]
+		},
+		{
+			"function": "mapping_haskeywitherror",
+			"id": 122,
+			"name": "do.body9",
+			"debug": [
+				{
+					"line": 222, "columns": [5]
+				}
+			],
+			"successors": [123, 125],
+			"ir": [
+				"%3 = phi ptr [ %2, %do.body3 ], [ null, %if.then5 ], !dbg !328",
+				"%call10 = call i32 @PyMapping_HasKeyWithError(ptr noundef %1, ptr noundef %3) #5, !dbg !328",
+				"%cmp11 = icmp eq i32 %call10, -1, !dbg !330",
+				"%call13 = call ptr @PyErr_Occurred() #5, !dbg !328",
+				"%tobool14.not = icmp eq ptr %call13, null, !dbg !328",
+				"br i1 %cmp11, label %if.then12, label %if.end15, !dbg !328"
+			]
+		},
+		{
+			"function": "mapping_haskeywitherror",
+			"id": 123,
+			"name": "if.then12",
+			"debug": [
+				{
+					"line": 222, "columns": [5]
+				}
+			],
+			"successors": [124, 128],
+			"ir": [
+				"br i1 %tobool14.not, label %cond.false, label %cleanup24, !dbg !332"
+			]
+		},
+		{
+			"function": "mapping_haskeywitherror",
+			"id": 124,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 222, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.50, ptr noundef nonnull @.str.51, i32 noundef 222, ptr noundef nonnull @__PRETTY_FUNCTION__.mapping_haskeywitherror) #6, !dbg !332",
+				"unreachable, !dbg !332"
+			]
+		},
+		{
+			"function": "mapping_haskeywitherror",
+			"id": 125,
+			"name": "if.end15",
+			"debug": [
+				{
+					"line": 222, "columns": [5]
+				}
+			],
+			"successors": [127, 126],
+			"ir": [
+				"br i1 %tobool14.not, label %cond.end20, label %cond.false19, !dbg !328"
+			]
+		},
+		{
+			"function": "mapping_haskeywitherror",
+			"id": 126,
+			"name": "cond.false19",
+			"debug": [
+				{
+					"line": 222, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.52, ptr noundef nonnull @.str.51, i32 noundef 222, ptr noundef nonnull @__PRETTY_FUNCTION__.mapping_haskeywitherror) #6, !dbg !328",
+				"unreachable, !dbg !328"
+			]
+		},
+		{
+			"function": "mapping_haskeywitherror",
+			"id": 127,
+			"name": "cond.end20",
+			"debug": [
+				{
+					"line": 222, "columns": [5]
+				}
+			],
+			"successors": [128],
+			"ir": [
+				"%conv = sext i32 %call10 to i64, !dbg !328",
+				"%call21 = call ptr @PyLong_FromLong(i64 noundef %conv) #5, !dbg !328",
+				"br label %cleanup24, !dbg !328"
+			]
+		},
+		{
+			"function": "mapping_haskeywitherror",
+			"id": 128,
+			"name": "cleanup24",
+			"debug": [
+				{
+					"line": 223, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %entry ], [ %call21, %cond.end20 ], [ null, %if.then12 ], !dbg !307",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %key) #5, !dbg !334",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %mapping) #5, !dbg !334",
+				"ret ptr %retval.1, !dbg !334"
+			]
+		},
+		{
+			"function": "mapping_haskeystringwitherror",
+			"id": 129,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 228, "columns": [5]
+				},
+				{
+					"line": 229, "columns": [5]
+				},
+				{
+					"line": 230, "columns": [5]
+				},
+				{
+					"line": 231, "columns": [10, 9]
+				}
+			],
+			"successors": [138, 130],
+			"ir": [
+				"%mapping = alloca ptr, align 8",
+				"%key = alloca ptr, align 8",
+				"%size = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %mapping) #5, !dbg !309",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %key) #5, !dbg !310",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %size) #5, !dbg !311",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.48, ptr noundef nonnull %mapping, ptr noundef nonnull %key, ptr noundef nonnull %size) #5, !dbg !312",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !312",
+				"br i1 %tobool.not, label %cleanup18, label %do.body, !dbg !314"
+			]
+		},
+		{
+			"function": "mapping_haskeystringwitherror",
+			"id": 130,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 234, "columns": [5]
+				}
+			],
+			"successors": [131, 132],
+			"ir": [
+				"%0 = load ptr, ptr %mapping, align 8, !dbg !315, !tbaa !318",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !315",
+				"br i1 %cmp, label %if.then1, label %do.body3, !dbg !322"
+			]
+		},
+		{
+			"function": "mapping_haskeystringwitherror",
+			"id": 131,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 234, "columns": [5]
+				}
+			],
+			"successors": [132],
+			"ir": [
+				"store ptr null, ptr %mapping, align 8, !dbg !323, !tbaa !318",
+				"br label %do.body3, !dbg !323"
+			]
+		},
+		{
+			"function": "mapping_haskeystringwitherror",
+			"id": 132,
+			"name": "do.body3",
+			"debug": [
+				{
+					"line": 235, "columns": [5]
+				}
+			],
+			"successors": [133, 135],
+			"ir": [
+				"%1 = phi ptr [ %0, %do.body ], [ null, %if.then1 ], !dbg !325",
+				"%2 = load ptr, ptr %key, align 8, !dbg !325, !tbaa !318",
+				"%call4 = call i32 @PyMapping_HasKeyStringWithError(ptr noundef %1, ptr noundef %2) #5, !dbg !325",
+				"%cmp5 = icmp eq i32 %call4, -1, !dbg !327",
+				"%call7 = call ptr @PyErr_Occurred() #5, !dbg !325",
+				"%tobool8.not = icmp eq ptr %call7, null, !dbg !325",
+				"br i1 %cmp5, label %if.then6, label %if.end9, !dbg !325"
+			]
+		},
+		{
+			"function": "mapping_haskeystringwitherror",
+			"id": 133,
+			"name": "if.then6",
+			"debug": [
+				{
+					"line": 235, "columns": [5]
+				}
+			],
+			"successors": [134, 138],
+			"ir": [
+				"br i1 %tobool8.not, label %cond.false, label %cleanup18, !dbg !329"
+			]
+		},
+		{
+			"function": "mapping_haskeystringwitherror",
+			"id": 134,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 235, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.50, ptr noundef nonnull @.str.51, i32 noundef 235, ptr noundef nonnull @__PRETTY_FUNCTION__.mapping_haskeystringwitherror) #6, !dbg !329",
+				"unreachable, !dbg !329"
+			]
+		},
+		{
+			"function": "mapping_haskeystringwitherror",
+			"id": 135,
+			"name": "if.end9",
+			"debug": [
+				{
+					"line": 235, "columns": [5]
+				}
+			],
+			"successors": [137, 136],
+			"ir": [
+				"br i1 %tobool8.not, label %cond.end14, label %cond.false13, !dbg !325"
+			]
+		},
+		{
+			"function": "mapping_haskeystringwitherror",
+			"id": 136,
+			"name": "cond.false13",
+			"debug": [
+				{
+					"line": 235, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.52, ptr noundef nonnull @.str.51, i32 noundef 235, ptr noundef nonnull @__PRETTY_FUNCTION__.mapping_haskeystringwitherror) #6, !dbg !325",
+				"unreachable, !dbg !325"
+			]
+		},
+		{
+			"function": "mapping_haskeystringwitherror",
+			"id": 137,
+			"name": "cond.end14",
+			"debug": [
+				{
+					"line": 235, "columns": [5]
+				}
+			],
+			"successors": [138],
+			"ir": [
+				"%conv = sext i32 %call4 to i64, !dbg !325",
+				"%call15 = call ptr @PyLong_FromLong(i64 noundef %conv) #5, !dbg !325",
+				"br label %cleanup18, !dbg !325"
+			]
+		},
+		{
+			"function": "mapping_haskeystringwitherror",
+			"id": 138,
+			"name": "cleanup18",
+			"debug": [
+				{
+					"line": 236, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %entry ], [ %call15, %cond.end14 ], [ null, %if.then6 ], !dbg !308",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %size) #5, !dbg !331",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %key) #5, !dbg !331",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %mapping) #5, !dbg !331",
+				"ret ptr %retval.1, !dbg !331"
+			]
+		},
+		{
+			"function": "object_setitem",
+			"id": 139,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 241, "columns": [5]
+				},
+				{
+					"line": 242, "columns": [10, 9]
+				}
+			],
+			"successors": [152, 140],
+			"ir": [
+				"%mapping = alloca ptr, align 8",
+				"%key = alloca ptr, align 8",
+				"%value = alloca ptr, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %mapping) #5, !dbg !309",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %key) #5, !dbg !309",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %value) #5, !dbg !309",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.49, ptr noundef nonnull %mapping, ptr noundef nonnull %key, ptr noundef nonnull %value) #5, !dbg !310",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !310",
+				"br i1 %tobool.not, label %cleanup30, label %do.body, !dbg !312"
+			]
+		},
+		{
+			"function": "object_setitem",
+			"id": 140,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 245, "columns": [5]
+				}
+			],
+			"successors": [141, 142],
+			"ir": [
+				"%0 = load ptr, ptr %mapping, align 8, !dbg !313, !tbaa !316",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !313",
+				"br i1 %cmp, label %if.then1, label %do.body3, !dbg !320"
+			]
+		},
+		{
+			"function": "object_setitem",
+			"id": 141,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 245, "columns": [5]
+				}
+			],
+			"successors": [142],
+			"ir": [
+				"store ptr null, ptr %mapping, align 8, !dbg !321, !tbaa !316",
+				"br label %do.body3, !dbg !321"
+			]
+		},
+		{
+			"function": "object_setitem",
+			"id": 142,
+			"name": "do.body3",
+			"debug": [
+				{
+					"line": 246, "columns": [5]
+				}
+			],
+			"successors": [143, 144],
+			"ir": [
+				"%1 = phi ptr [ %0, %do.body ], [ null, %if.then1 ]",
+				"%2 = load ptr, ptr %key, align 8, !dbg !323, !tbaa !316",
+				"%cmp4 = icmp eq ptr %2, @_Py_NoneStruct, !dbg !323",
+				"br i1 %cmp4, label %if.then5, label %do.body9, !dbg !326"
+			]
+		},
+		{
+			"function": "object_setitem",
+			"id": 143,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 246, "columns": [5]
+				}
+			],
+			"successors": [144],
+			"ir": [
+				"store ptr null, ptr %key, align 8, !dbg !327, !tbaa !316",
+				"br label %do.body9, !dbg !327"
+			]
+		},
+		{
+			"function": "object_setitem",
+			"id": 144,
+			"name": "do.body9",
+			"debug": [
+				{
+					"line": 247, "columns": [5]
+				}
+			],
+			"successors": [145, 146],
+			"ir": [
+				"%3 = phi ptr [ %2, %do.body3 ], [ null, %if.then5 ]",
+				"%4 = load ptr, ptr %value, align 8, !dbg !329, !tbaa !316",
+				"%cmp10 = icmp eq ptr %4, @_Py_NoneStruct, !dbg !329",
+				"br i1 %cmp10, label %if.then11, label %do.body15, !dbg !332"
+			]
+		},
+		{
+			"function": "object_setitem",
+			"id": 145,
+			"name": "if.then11",
+			"debug": [
+				{
+					"line": 247, "columns": [5]
+				}
+			],
+			"successors": [146],
+			"ir": [
+				"store ptr null, ptr %value, align 8, !dbg !333, !tbaa !316",
+				"br label %do.body15, !dbg !333"
+			]
+		},
+		{
+			"function": "object_setitem",
+			"id": 146,
+			"name": "do.body15",
+			"debug": [
+				{
+					"line": 248, "columns": [5]
+				}
+			],
+			"successors": [147, 149],
+			"ir": [
+				"%5 = phi ptr [ %4, %do.body9 ], [ null, %if.then11 ], !dbg !335",
+				"%call16 = call i32 @PyObject_SetItem(ptr noundef %1, ptr noundef %3, ptr noundef %5) #5, !dbg !335",
+				"%cmp17 = icmp eq i32 %call16, -1, !dbg !337",
+				"%call19 = call ptr @PyErr_Occurred() #5, !dbg !335",
+				"%tobool20.not = icmp eq ptr %call19, null, !dbg !335",
+				"br i1 %cmp17, label %if.then18, label %if.end21, !dbg !335"
+			]
+		},
+		{
+			"function": "object_setitem",
+			"id": 147,
+			"name": "if.then18",
+			"debug": [
+				{
+					"line": 248, "columns": [5]
+				}
+			],
+			"successors": [148, 152],
+			"ir": [
+				"br i1 %tobool20.not, label %cond.false, label %cleanup30, !dbg !339"
+			]
+		},
+		{
+			"function": "object_setitem",
+			"id": 148,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 248, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.50, ptr noundef nonnull @.str.51, i32 noundef 248, ptr noundef nonnull @__PRETTY_FUNCTION__.object_setitem) #6, !dbg !339",
+				"unreachable, !dbg !339"
+			]
+		},
+		{
+			"function": "object_setitem",
+			"id": 149,
+			"name": "if.end21",
+			"debug": [
+				{
+					"line": 248, "columns": [5]
+				}
+			],
+			"successors": [151, 150],
+			"ir": [
+				"br i1 %tobool20.not, label %cond.end26, label %cond.false25, !dbg !335"
+			]
+		},
+		{
+			"function": "object_setitem",
+			"id": 150,
+			"name": "cond.false25",
+			"debug": [
+				{
+					"line": 248, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.52, ptr noundef nonnull @.str.51, i32 noundef 248, ptr noundef nonnull @__PRETTY_FUNCTION__.object_setitem) #6, !dbg !335",
+				"unreachable, !dbg !335"
+			]
+		},
+		{
+			"function": "object_setitem",
+			"id": 151,
+			"name": "cond.end26",
+			"debug": [
+				{
+					"line": 248, "columns": [5]
+				}
+			],
+			"successors": [152],
+			"ir": [
+				"%conv = sext i32 %call16 to i64, !dbg !335",
+				"%call27 = call ptr @PyLong_FromLong(i64 noundef %conv) #5, !dbg !335",
+				"br label %cleanup30, !dbg !335"
+			]
+		},
+		{
+			"function": "object_setitem",
+			"id": 152,
+			"name": "cleanup30",
+			"debug": [
+				{
+					"line": 249, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %entry ], [ %call27, %cond.end26 ], [ null, %if.then18 ], !dbg !308",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %value) #5, !dbg !341",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %key) #5, !dbg !341",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %mapping) #5, !dbg !341",
+				"ret ptr %retval.1, !dbg !341"
+			]
+		},
+		{
+			"function": "mapping_setitemstring",
+			"id": 153,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 254, "columns": [5]
+				},
+				{
+					"line": 255, "columns": [5]
+				},
+				{
+					"line": 256, "columns": [5]
+				},
+				{
+					"line": 257, "columns": [10, 9]
+				}
+			],
+			"successors": [164, 154],
+			"ir": [
+				"%mapping = alloca ptr, align 8",
+				"%value = alloca ptr, align 8",
+				"%key = alloca ptr, align 8",
+				"%size = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %mapping) #5, !dbg !310",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %value) #5, !dbg !310",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %key) #5, !dbg !311",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %size) #5, !dbg !312",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.53, ptr noundef nonnull %mapping, ptr noundef nonnull %key, ptr noundef nonnull %size, ptr noundef nonnull %value) #5, !dbg !313",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !313",
+				"br i1 %tobool.not, label %cleanup24, label %do.body, !dbg !315"
+			]
+		},
+		{
+			"function": "mapping_setitemstring",
+			"id": 154,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 260, "columns": [5]
+				}
+			],
+			"successors": [155, 156],
+			"ir": [
+				"%0 = load ptr, ptr %mapping, align 8, !dbg !316, !tbaa !319",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !316",
+				"br i1 %cmp, label %if.then1, label %do.body3, !dbg !323"
+			]
+		},
+		{
+			"function": "mapping_setitemstring",
+			"id": 155,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 260, "columns": [5]
+				}
+			],
+			"successors": [156],
+			"ir": [
+				"store ptr null, ptr %mapping, align 8, !dbg !324, !tbaa !319",
+				"br label %do.body3, !dbg !324"
+			]
+		},
+		{
+			"function": "mapping_setitemstring",
+			"id": 156,
+			"name": "do.body3",
+			"debug": [
+				{
+					"line": 261, "columns": [5]
+				}
+			],
+			"successors": [157, 158],
+			"ir": [
+				"%1 = phi ptr [ %0, %do.body ], [ null, %if.then1 ]",
+				"%2 = load ptr, ptr %value, align 8, !dbg !326, !tbaa !319",
+				"%cmp4 = icmp eq ptr %2, @_Py_NoneStruct, !dbg !326",
+				"br i1 %cmp4, label %if.then5, label %do.body9, !dbg !329"
+			]
+		},
+		{
+			"function": "mapping_setitemstring",
+			"id": 157,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 261, "columns": [5]
+				}
+			],
+			"successors": [158],
+			"ir": [
+				"store ptr null, ptr %value, align 8, !dbg !330, !tbaa !319",
+				"br label %do.body9, !dbg !330"
+			]
+		},
+		{
+			"function": "mapping_setitemstring",
+			"id": 158,
+			"name": "do.body9",
+			"debug": [
+				{
+					"line": 262, "columns": [5]
+				}
+			],
+			"successors": [159, 161],
+			"ir": [
+				"%3 = phi ptr [ %2, %do.body3 ], [ null, %if.then5 ], !dbg !332",
+				"%4 = load ptr, ptr %key, align 8, !dbg !332, !tbaa !319",
+				"%call10 = call i32 @PyMapping_SetItemString(ptr noundef %1, ptr noundef %4, ptr noundef %3) #5, !dbg !332",
+				"%cmp11 = icmp eq i32 %call10, -1, !dbg !334",
+				"%call13 = call ptr @PyErr_Occurred() #5, !dbg !332",
+				"%tobool14.not = icmp eq ptr %call13, null, !dbg !332",
+				"br i1 %cmp11, label %if.then12, label %if.end15, !dbg !332"
+			]
+		},
+		{
+			"function": "mapping_setitemstring",
+			"id": 159,
+			"name": "if.then12",
+			"debug": [
+				{
+					"line": 262, "columns": [5]
+				}
+			],
+			"successors": [160, 164],
+			"ir": [
+				"br i1 %tobool14.not, label %cond.false, label %cleanup24, !dbg !336"
+			]
+		},
+		{
+			"function": "mapping_setitemstring",
+			"id": 160,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 262, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.50, ptr noundef nonnull @.str.51, i32 noundef 262, ptr noundef nonnull @__PRETTY_FUNCTION__.mapping_setitemstring) #6, !dbg !336",
+				"unreachable, !dbg !336"
+			]
+		},
+		{
+			"function": "mapping_setitemstring",
+			"id": 161,
+			"name": "if.end15",
+			"debug": [
+				{
+					"line": 262, "columns": [5]
+				}
+			],
+			"successors": [163, 162],
+			"ir": [
+				"br i1 %tobool14.not, label %cond.end20, label %cond.false19, !dbg !332"
+			]
+		},
+		{
+			"function": "mapping_setitemstring",
+			"id": 162,
+			"name": "cond.false19",
+			"debug": [
+				{
+					"line": 262, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.52, ptr noundef nonnull @.str.51, i32 noundef 262, ptr noundef nonnull @__PRETTY_FUNCTION__.mapping_setitemstring) #6, !dbg !332",
+				"unreachable, !dbg !332"
+			]
+		},
+		{
+			"function": "mapping_setitemstring",
+			"id": 163,
+			"name": "cond.end20",
+			"debug": [
+				{
+					"line": 262, "columns": [5]
+				}
+			],
+			"successors": [164],
+			"ir": [
+				"%conv = sext i32 %call10 to i64, !dbg !332",
+				"%call21 = call ptr @PyLong_FromLong(i64 noundef %conv) #5, !dbg !332",
+				"br label %cleanup24, !dbg !332"
+			]
+		},
+		{
+			"function": "mapping_setitemstring",
+			"id": 164,
+			"name": "cleanup24",
+			"debug": [
+				{
+					"line": 263, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %entry ], [ %call21, %cond.end20 ], [ null, %if.then12 ], !dbg !309",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %size) #5, !dbg !338",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %key) #5, !dbg !338",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %value) #5, !dbg !338",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %mapping) #5, !dbg !338",
+				"ret ptr %retval.1, !dbg !338"
+			]
+		},
+		{
+			"function": "object_delitem",
+			"id": 165,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 268, "columns": [5]
+				},
+				{
+					"line": 269, "columns": [10, 9]
+				}
+			],
+			"successors": [176, 166],
+			"ir": [
+				"%mapping = alloca ptr, align 8",
+				"%key = alloca ptr, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %mapping) #5, !dbg !308",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %key) #5, !dbg !308",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.47, ptr noundef nonnull %mapping, ptr noundef nonnull %key) #5, !dbg !309",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !309",
+				"br i1 %tobool.not, label %cleanup24, label %do.body, !dbg !311"
+			]
+		},
+		{
+			"function": "object_delitem",
+			"id": 166,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 272, "columns": [5]
+				}
+			],
+			"successors": [167, 168],
+			"ir": [
+				"%0 = load ptr, ptr %mapping, align 8, !dbg !312, !tbaa !315",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !312",
+				"br i1 %cmp, label %if.then1, label %do.body3, !dbg !319"
+			]
+		},
+		{
+			"function": "object_delitem",
+			"id": 167,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 272, "columns": [5]
+				}
+			],
+			"successors": [168],
+			"ir": [
+				"store ptr null, ptr %mapping, align 8, !dbg !320, !tbaa !315",
+				"br label %do.body3, !dbg !320"
+			]
+		},
+		{
+			"function": "object_delitem",
+			"id": 168,
+			"name": "do.body3",
+			"debug": [
+				{
+					"line": 273, "columns": [5]
+				}
+			],
+			"successors": [169, 170],
+			"ir": [
+				"%1 = phi ptr [ %0, %do.body ], [ null, %if.then1 ]",
+				"%2 = load ptr, ptr %key, align 8, !dbg !322, !tbaa !315",
+				"%cmp4 = icmp eq ptr %2, @_Py_NoneStruct, !dbg !322",
+				"br i1 %cmp4, label %if.then5, label %do.body9, !dbg !325"
+			]
+		},
+		{
+			"function": "object_delitem",
+			"id": 169,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 273, "columns": [5]
+				}
+			],
+			"successors": [170],
+			"ir": [
+				"store ptr null, ptr %key, align 8, !dbg !326, !tbaa !315",
+				"br label %do.body9, !dbg !326"
+			]
+		},
+		{
+			"function": "object_delitem",
+			"id": 170,
+			"name": "do.body9",
+			"debug": [
+				{
+					"line": 274, "columns": [5]
+				}
+			],
+			"successors": [171, 173],
+			"ir": [
+				"%3 = phi ptr [ %2, %do.body3 ], [ null, %if.then5 ], !dbg !328",
+				"%call10 = call i32 @PyObject_DelItem(ptr noundef %1, ptr noundef %3) #5, !dbg !328",
+				"%cmp11 = icmp eq i32 %call10, -1, !dbg !330",
+				"%call13 = call ptr @PyErr_Occurred() #5, !dbg !328",
+				"%tobool14.not = icmp eq ptr %call13, null, !dbg !328",
+				"br i1 %cmp11, label %if.then12, label %if.end15, !dbg !328"
+			]
+		},
+		{
+			"function": "object_delitem",
+			"id": 171,
+			"name": "if.then12",
+			"debug": [
+				{
+					"line": 274, "columns": [5]
+				}
+			],
+			"successors": [172, 176],
+			"ir": [
+				"br i1 %tobool14.not, label %cond.false, label %cleanup24, !dbg !332"
+			]
+		},
+		{
+			"function": "object_delitem",
+			"id": 172,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 274, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.50, ptr noundef nonnull @.str.51, i32 noundef 274, ptr noundef nonnull @__PRETTY_FUNCTION__.object_delitem) #6, !dbg !332",
+				"unreachable, !dbg !332"
+			]
+		},
+		{
+			"function": "object_delitem",
+			"id": 173,
+			"name": "if.end15",
+			"debug": [
+				{
+					"line": 274, "columns": [5]
+				}
+			],
+			"successors": [175, 174],
+			"ir": [
+				"br i1 %tobool14.not, label %cond.end20, label %cond.false19, !dbg !328"
+			]
+		},
+		{
+			"function": "object_delitem",
+			"id": 174,
+			"name": "cond.false19",
+			"debug": [
+				{
+					"line": 274, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.52, ptr noundef nonnull @.str.51, i32 noundef 274, ptr noundef nonnull @__PRETTY_FUNCTION__.object_delitem) #6, !dbg !328",
+				"unreachable, !dbg !328"
+			]
+		},
+		{
+			"function": "object_delitem",
+			"id": 175,
+			"name": "cond.end20",
+			"debug": [
+				{
+					"line": 274, "columns": [5]
+				}
+			],
+			"successors": [176],
+			"ir": [
+				"%conv = sext i32 %call10 to i64, !dbg !328",
+				"%call21 = call ptr @PyLong_FromLong(i64 noundef %conv) #5, !dbg !328",
+				"br label %cleanup24, !dbg !328"
+			]
+		},
+		{
+			"function": "object_delitem",
+			"id": 176,
+			"name": "cleanup24",
+			"debug": [
+				{
+					"line": 275, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %entry ], [ %call21, %cond.end20 ], [ null, %if.then12 ], !dbg !307",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %key) #5, !dbg !334",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %mapping) #5, !dbg !334",
+				"ret ptr %retval.1, !dbg !334"
+			]
+		},
+		{
+			"function": "mapping_delitem",
+			"id": 177,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 280, "columns": [5]
+				},
+				{
+					"line": 281, "columns": [10, 9]
+				}
+			],
+			"successors": [188, 178],
+			"ir": [
+				"%mapping = alloca ptr, align 8",
+				"%key = alloca ptr, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %mapping) #5, !dbg !308",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %key) #5, !dbg !308",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.47, ptr noundef nonnull %mapping, ptr noundef nonnull %key) #5, !dbg !309",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !309",
+				"br i1 %tobool.not, label %cleanup24, label %do.body, !dbg !311"
+			]
+		},
+		{
+			"function": "mapping_delitem",
+			"id": 178,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 284, "columns": [5]
+				}
+			],
+			"successors": [179, 180],
+			"ir": [
+				"%0 = load ptr, ptr %mapping, align 8, !dbg !312, !tbaa !315",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !312",
+				"br i1 %cmp, label %if.then1, label %do.body3, !dbg !319"
+			]
+		},
+		{
+			"function": "mapping_delitem",
+			"id": 179,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 284, "columns": [5]
+				}
+			],
+			"successors": [180],
+			"ir": [
+				"store ptr null, ptr %mapping, align 8, !dbg !320, !tbaa !315",
+				"br label %do.body3, !dbg !320"
+			]
+		},
+		{
+			"function": "mapping_delitem",
+			"id": 180,
+			"name": "do.body3",
+			"debug": [
+				{
+					"line": 285, "columns": [5]
+				}
+			],
+			"successors": [181, 182],
+			"ir": [
+				"%1 = phi ptr [ %0, %do.body ], [ null, %if.then1 ]",
+				"%2 = load ptr, ptr %key, align 8, !dbg !322, !tbaa !315",
+				"%cmp4 = icmp eq ptr %2, @_Py_NoneStruct, !dbg !322",
+				"br i1 %cmp4, label %if.then5, label %do.body9, !dbg !325"
+			]
+		},
+		{
+			"function": "mapping_delitem",
+			"id": 181,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 285, "columns": [5]
+				}
+			],
+			"successors": [182],
+			"ir": [
+				"store ptr null, ptr %key, align 8, !dbg !326, !tbaa !315",
+				"br label %do.body9, !dbg !326"
+			]
+		},
+		{
+			"function": "mapping_delitem",
+			"id": 182,
+			"name": "do.body9",
+			"debug": [
+				{
+					"line": 286, "columns": [5]
+				}
+			],
+			"successors": [183, 185],
+			"ir": [
+				"%3 = phi ptr [ %2, %do.body3 ], [ null, %if.then5 ], !dbg !328",
+				"%call10 = call i32 @PyObject_DelItem(ptr noundef %1, ptr noundef %3) #5, !dbg !328",
+				"%cmp11 = icmp eq i32 %call10, -1, !dbg !330",
+				"%call13 = call ptr @PyErr_Occurred() #5, !dbg !328",
+				"%tobool14.not = icmp eq ptr %call13, null, !dbg !328",
+				"br i1 %cmp11, label %if.then12, label %if.end15, !dbg !328"
+			]
+		},
+		{
+			"function": "mapping_delitem",
+			"id": 183,
+			"name": "if.then12",
+			"debug": [
+				{
+					"line": 286, "columns": [5]
+				}
+			],
+			"successors": [184, 188],
+			"ir": [
+				"br i1 %tobool14.not, label %cond.false, label %cleanup24, !dbg !332"
+			]
+		},
+		{
+			"function": "mapping_delitem",
+			"id": 184,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 286, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.50, ptr noundef nonnull @.str.51, i32 noundef 286, ptr noundef nonnull @__PRETTY_FUNCTION__.mapping_delitem) #6, !dbg !332",
+				"unreachable, !dbg !332"
+			]
+		},
+		{
+			"function": "mapping_delitem",
+			"id": 185,
+			"name": "if.end15",
+			"debug": [
+				{
+					"line": 286, "columns": [5]
+				}
+			],
+			"successors": [187, 186],
+			"ir": [
+				"br i1 %tobool14.not, label %cond.end20, label %cond.false19, !dbg !328"
+			]
+		},
+		{
+			"function": "mapping_delitem",
+			"id": 186,
+			"name": "cond.false19",
+			"debug": [
+				{
+					"line": 286, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.52, ptr noundef nonnull @.str.51, i32 noundef 286, ptr noundef nonnull @__PRETTY_FUNCTION__.mapping_delitem) #6, !dbg !328",
+				"unreachable, !dbg !328"
+			]
+		},
+		{
+			"function": "mapping_delitem",
+			"id": 187,
+			"name": "cond.end20",
+			"debug": [
+				{
+					"line": 286, "columns": [5]
+				}
+			],
+			"successors": [188],
+			"ir": [
+				"%conv = sext i32 %call10 to i64, !dbg !328",
+				"%call21 = call ptr @PyLong_FromLong(i64 noundef %conv) #5, !dbg !328",
+				"br label %cleanup24, !dbg !328"
+			]
+		},
+		{
+			"function": "mapping_delitem",
+			"id": 188,
+			"name": "cleanup24",
+			"debug": [
+				{
+					"line": 287, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %entry ], [ %call21, %cond.end20 ], [ null, %if.then12 ], !dbg !307",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %key) #5, !dbg !334",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %mapping) #5, !dbg !334",
+				"ret ptr %retval.1, !dbg !334"
+			]
+		},
+		{
+			"function": "mapping_delitemstring",
+			"id": 189,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 292, "columns": [5]
+				},
+				{
+					"line": 293, "columns": [5]
+				},
+				{
+					"line": 294, "columns": [5]
+				},
+				{
+					"line": 295, "columns": [10, 9]
+				}
+			],
+			"successors": [198, 190],
+			"ir": [
+				"%mapping = alloca ptr, align 8",
+				"%key = alloca ptr, align 8",
+				"%size = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %mapping) #5, !dbg !309",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %key) #5, !dbg !310",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %size) #5, !dbg !311",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.48, ptr noundef nonnull %mapping, ptr noundef nonnull %key, ptr noundef nonnull %size) #5, !dbg !312",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !312",
+				"br i1 %tobool.not, label %cleanup18, label %do.body, !dbg !314"
+			]
+		},
+		{
+			"function": "mapping_delitemstring",
+			"id": 190,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 298, "columns": [5]
+				}
+			],
+			"successors": [191, 192],
+			"ir": [
+				"%0 = load ptr, ptr %mapping, align 8, !dbg !315, !tbaa !318",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !315",
+				"br i1 %cmp, label %if.then1, label %do.body3, !dbg !322"
+			]
+		},
+		{
+			"function": "mapping_delitemstring",
+			"id": 191,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 298, "columns": [5]
+				}
+			],
+			"successors": [192],
+			"ir": [
+				"store ptr null, ptr %mapping, align 8, !dbg !323, !tbaa !318",
+				"br label %do.body3, !dbg !323"
+			]
+		},
+		{
+			"function": "mapping_delitemstring",
+			"id": 192,
+			"name": "do.body3",
+			"debug": [
+				{
+					"line": 299, "columns": [5]
+				}
+			],
+			"successors": [193, 195],
+			"ir": [
+				"%1 = phi ptr [ %0, %do.body ], [ null, %if.then1 ], !dbg !325",
+				"%2 = load ptr, ptr %key, align 8, !dbg !325, !tbaa !318",
+				"%call4 = call i32 @PyObject_DelItemString(ptr noundef %1, ptr noundef %2) #5, !dbg !325",
+				"%cmp5 = icmp eq i32 %call4, -1, !dbg !327",
+				"%call7 = call ptr @PyErr_Occurred() #5, !dbg !325",
+				"%tobool8.not = icmp eq ptr %call7, null, !dbg !325",
+				"br i1 %cmp5, label %if.then6, label %if.end9, !dbg !325"
+			]
+		},
+		{
+			"function": "mapping_delitemstring",
+			"id": 193,
+			"name": "if.then6",
+			"debug": [
+				{
+					"line": 299, "columns": [5]
+				}
+			],
+			"successors": [194, 198],
+			"ir": [
+				"br i1 %tobool8.not, label %cond.false, label %cleanup18, !dbg !329"
+			]
+		},
+		{
+			"function": "mapping_delitemstring",
+			"id": 194,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 299, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.50, ptr noundef nonnull @.str.51, i32 noundef 299, ptr noundef nonnull @__PRETTY_FUNCTION__.mapping_delitemstring) #6, !dbg !329",
+				"unreachable, !dbg !329"
+			]
+		},
+		{
+			"function": "mapping_delitemstring",
+			"id": 195,
+			"name": "if.end9",
+			"debug": [
+				{
+					"line": 299, "columns": [5]
+				}
+			],
+			"successors": [197, 196],
+			"ir": [
+				"br i1 %tobool8.not, label %cond.end14, label %cond.false13, !dbg !325"
+			]
+		},
+		{
+			"function": "mapping_delitemstring",
+			"id": 196,
+			"name": "cond.false13",
+			"debug": [
+				{
+					"line": 299, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.52, ptr noundef nonnull @.str.51, i32 noundef 299, ptr noundef nonnull @__PRETTY_FUNCTION__.mapping_delitemstring) #6, !dbg !325",
+				"unreachable, !dbg !325"
+			]
+		},
+		{
+			"function": "mapping_delitemstring",
+			"id": 197,
+			"name": "cond.end14",
+			"debug": [
+				{
+					"line": 299, "columns": [5]
+				}
+			],
+			"successors": [198],
+			"ir": [
+				"%conv = sext i32 %call4 to i64, !dbg !325",
+				"%call15 = call ptr @PyLong_FromLong(i64 noundef %conv) #5, !dbg !325",
+				"br label %cleanup18, !dbg !325"
+			]
+		},
+		{
+			"function": "mapping_delitemstring",
+			"id": 198,
+			"name": "cleanup18",
+			"debug": [
+				{
+					"line": 300, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %entry ], [ %call15, %cond.end14 ], [ null, %if.then6 ], !dbg !308",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %size) #5, !dbg !331",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %key) #5, !dbg !331",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %mapping) #5, !dbg !331",
+				"ret ptr %retval.1, !dbg !331"
+			]
+		},
+		{
+			"function": "mapping_keys",
+			"id": 199,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 305, "columns": [5]
+				},
+				{
+					"line": 306, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !304",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !307",
+				"%call = tail call ptr @PyMapping_Keys(ptr noundef %spec.store.select) #5, !dbg !308",
+				"ret ptr %call, !dbg !309"
+			]
+		},
+		{
+			"function": "mapping_values",
+			"id": 200,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 312, "columns": [5]
+				},
+				{
+					"line": 313, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !304",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !307",
+				"%call = tail call ptr @PyMapping_Values(ptr noundef %spec.store.select) #5, !dbg !308",
+				"ret ptr %call, !dbg !309"
+			]
+		},
+		{
+			"function": "mapping_items",
+			"id": 201,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 319, "columns": [5]
+				},
+				{
+					"line": 320, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !304",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !307",
+				"%call = tail call ptr @PyMapping_Items(ptr noundef %spec.store.select) #5, !dbg !308",
+				"ret ptr %call, !dbg !309"
+			]
+		},
+		{
+			"function": "sequence_check",
+			"id": 202,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 327, "columns": [5]
+				},
+				{
+					"line": 328, "columns": [28, 12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !304",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !307",
+				"%call = tail call i32 @PySequence_Check(ptr noundef %spec.store.select) #5, !dbg !308",
+				"%conv = sext i32 %call to i64, !dbg !308",
+				"%call1 = tail call ptr @PyLong_FromLong(i64 noundef %conv) #5, !dbg !309",
+				"ret ptr %call1, !dbg !310"
+			]
+		},
+		{
+			"function": "sequence_size",
+			"id": 203,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 334, "columns": [5]
+				},
+				{
+					"line": 335, "columns": [5]
+				}
+			],
+			"successors": [204, 206],
+			"ir": [
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !306",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !309",
+				"%call = tail call i64 @PySequence_Size(ptr noundef %spec.store.select) #5, !dbg !310",
+				"%cmp2 = icmp eq i64 %call, -1, !dbg !312",
+				"%call4 = tail call ptr @PyErr_Occurred() #5, !dbg !310",
+				"%tobool.not = icmp eq ptr %call4, null, !dbg !310",
+				"br i1 %cmp2, label %if.then3, label %if.end5, !dbg !310"
+			]
+		},
+		{
+			"function": "sequence_size",
+			"id": 204,
+			"name": "if.then3",
+			"debug": [
+				{
+					"line": 335, "columns": [5]
+				}
+			],
+			"successors": [205, 209],
+			"ir": [
+				"br i1 %tobool.not, label %cond.false, label %cleanup, !dbg !314"
+			]
+		},
+		{
+			"function": "sequence_size",
+			"id": 205,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 335, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.50, ptr noundef nonnull @.str.51, i32 noundef 335, ptr noundef nonnull @__PRETTY_FUNCTION__.sequence_size) #6, !dbg !314",
+				"unreachable, !dbg !314"
+			]
+		},
+		{
+			"function": "sequence_size",
+			"id": 206,
+			"name": "if.end5",
+			"debug": [
+				{
+					"line": 335, "columns": [5]
+				}
+			],
+			"successors": [208, 207],
+			"ir": [
+				"br i1 %tobool.not, label %cond.end10, label %cond.false9, !dbg !310"
+			]
+		},
+		{
+			"function": "sequence_size",
+			"id": 207,
+			"name": "cond.false9",
+			"debug": [
+				{
+					"line": 335, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.52, ptr noundef nonnull @.str.51, i32 noundef 335, ptr noundef nonnull @__PRETTY_FUNCTION__.sequence_size) #6, !dbg !310",
+				"unreachable, !dbg !310"
+			]
+		},
+		{
+			"function": "sequence_size",
+			"id": 208,
+			"name": "cond.end10",
+			"debug": [
+				{
+					"line": 335, "columns": [5]
+				}
+			],
+			"successors": [209],
+			"ir": [
+				"%call11 = tail call ptr @PyLong_FromSsize_t(i64 noundef %call) #5, !dbg !310",
+				"br label %cleanup, !dbg !310"
+			]
+		},
+		{
+			"function": "sequence_size",
+			"id": 209,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 335, "columns": [5]
+				},
+				{
+					"line": 336, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call11, %cond.end10 ], [ null, %if.then3 ], !dbg !310",
+				"ret ptr %retval.0, !dbg !316"
+			]
+		},
+		{
+			"function": "sequence_length",
+			"id": 210,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 341, "columns": [5]
+				},
+				{
+					"line": 342, "columns": [5]
+				}
+			],
+			"successors": [211, 213],
+			"ir": [
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !306",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !309",
+				"%call = tail call i64 @PySequence_Size(ptr noundef %spec.store.select) #5, !dbg !310",
+				"%cmp2 = icmp eq i64 %call, -1, !dbg !312",
+				"%call4 = tail call ptr @PyErr_Occurred() #5, !dbg !310",
+				"%tobool.not = icmp eq ptr %call4, null, !dbg !310",
+				"br i1 %cmp2, label %if.then3, label %if.end5, !dbg !310"
+			]
+		},
+		{
+			"function": "sequence_length",
+			"id": 211,
+			"name": "if.then3",
+			"debug": [
+				{
+					"line": 342, "columns": [5]
+				}
+			],
+			"successors": [212, 216],
+			"ir": [
+				"br i1 %tobool.not, label %cond.false, label %cleanup, !dbg !314"
+			]
+		},
+		{
+			"function": "sequence_length",
+			"id": 212,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 342, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.50, ptr noundef nonnull @.str.51, i32 noundef 342, ptr noundef nonnull @__PRETTY_FUNCTION__.sequence_length) #6, !dbg !314",
+				"unreachable, !dbg !314"
+			]
+		},
+		{
+			"function": "sequence_length",
+			"id": 213,
+			"name": "if.end5",
+			"debug": [
+				{
+					"line": 342, "columns": [5]
+				}
+			],
+			"successors": [215, 214],
+			"ir": [
+				"br i1 %tobool.not, label %cond.end10, label %cond.false9, !dbg !310"
+			]
+		},
+		{
+			"function": "sequence_length",
+			"id": 214,
+			"name": "cond.false9",
+			"debug": [
+				{
+					"line": 342, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.52, ptr noundef nonnull @.str.51, i32 noundef 342, ptr noundef nonnull @__PRETTY_FUNCTION__.sequence_length) #6, !dbg !310",
+				"unreachable, !dbg !310"
+			]
+		},
+		{
+			"function": "sequence_length",
+			"id": 215,
+			"name": "cond.end10",
+			"debug": [
+				{
+					"line": 342, "columns": [5]
+				}
+			],
+			"successors": [216],
+			"ir": [
+				"%call11 = tail call ptr @PyLong_FromSsize_t(i64 noundef %call) #5, !dbg !310",
+				"br label %cleanup, !dbg !310"
+			]
+		},
+		{
+			"function": "sequence_length",
+			"id": 216,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 342, "columns": [5]
+				},
+				{
+					"line": 343, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call11, %cond.end10 ], [ null, %if.then3 ], !dbg !310",
+				"ret ptr %retval.0, !dbg !316"
+			]
+		},
+		{
+			"function": "sequence_concat",
+			"id": 217,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 348, "columns": [5]
+				},
+				{
+					"line": 349, "columns": [10, 9]
+				}
+			],
+			"successors": [223, 218],
+			"ir": [
+				"%seq1 = alloca ptr, align 8",
+				"%seq2 = alloca ptr, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %seq1) #5, !dbg !306",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %seq2) #5, !dbg !306",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.47, ptr noundef nonnull %seq1, ptr noundef nonnull %seq2) #5, !dbg !307",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !307",
+				"br i1 %tobool.not, label %cleanup, label %do.body, !dbg !309"
+			]
+		},
+		{
+			"function": "sequence_concat",
+			"id": 218,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 352, "columns": [5]
+				}
+			],
+			"successors": [219, 220],
+			"ir": [
+				"%0 = load ptr, ptr %seq1, align 8, !dbg !310, !tbaa !313",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !310",
+				"br i1 %cmp, label %if.then1, label %do.body3, !dbg !317"
+			]
+		},
+		{
+			"function": "sequence_concat",
+			"id": 219,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 352, "columns": [5]
+				}
+			],
+			"successors": [220],
+			"ir": [
+				"store ptr null, ptr %seq1, align 8, !dbg !318, !tbaa !313",
+				"br label %do.body3, !dbg !318"
+			]
+		},
+		{
+			"function": "sequence_concat",
+			"id": 220,
+			"name": "do.body3",
+			"debug": [
+				{
+					"line": 353, "columns": [5]
+				}
+			],
+			"successors": [221, 222],
+			"ir": [
+				"%1 = phi ptr [ %0, %do.body ], [ null, %if.then1 ]",
+				"%2 = load ptr, ptr %seq2, align 8, !dbg !320, !tbaa !313",
+				"%cmp4 = icmp eq ptr %2, @_Py_NoneStruct, !dbg !320",
+				"br i1 %cmp4, label %if.then5, label %do.end8, !dbg !323"
+			]
+		},
+		{
+			"function": "sequence_concat",
+			"id": 221,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 353, "columns": [5]
+				}
+			],
+			"successors": [222],
+			"ir": [
+				"store ptr null, ptr %seq2, align 8, !dbg !324, !tbaa !313",
+				"br label %do.end8, !dbg !324"
+			]
+		},
+		{
+			"function": "sequence_concat",
+			"id": 222,
+			"name": "do.end8",
+			"debug": [
+				{
+					"line": 355, "columns": [36, 12, 5]
+				}
+			],
+			"successors": [223],
+			"ir": [
+				"%3 = phi ptr [ null, %if.then5 ], [ %2, %do.body3 ], !dbg !326",
+				"%call9 = call ptr @PySequence_Concat(ptr noundef %1, ptr noundef %3) #5, !dbg !327",
+				"br label %cleanup, !dbg !328"
+			]
+		},
+		{
+			"function": "sequence_concat",
+			"id": 223,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 356, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call9, %do.end8 ], [ null, %entry ], !dbg !305",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %seq2) #5, !dbg !329",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %seq1) #5, !dbg !329",
+				"ret ptr %retval.0, !dbg !329"
+			]
+		},
+		{
+			"function": "sequence_repeat",
+			"id": 224,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 361, "columns": [5]
+				},
+				{
+					"line": 362, "columns": [5]
+				},
+				{
+					"line": 363, "columns": [10, 9]
+				}
+			],
+			"successors": [228, 225],
+			"ir": [
+				"%seq = alloca ptr, align 8",
+				"%count = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %seq) #5, !dbg !306",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %count) #5, !dbg !307",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.54, ptr noundef nonnull %seq, ptr noundef nonnull %count) #5, !dbg !308",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !308",
+				"br i1 %tobool.not, label %cleanup, label %do.body, !dbg !310"
+			]
+		},
+		{
+			"function": "sequence_repeat",
+			"id": 225,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 366, "columns": [5]
+				}
+			],
+			"successors": [226, 227],
+			"ir": [
+				"%0 = load ptr, ptr %seq, align 8, !dbg !311, !tbaa !314",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !311",
+				"br i1 %cmp, label %if.then1, label %do.end, !dbg !318"
+			]
+		},
+		{
+			"function": "sequence_repeat",
+			"id": 226,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 366, "columns": [5]
+				}
+			],
+			"successors": [227],
+			"ir": [
+				"store ptr null, ptr %seq, align 8, !dbg !319, !tbaa !314",
+				"br label %do.end, !dbg !319"
+			]
+		},
+		{
+			"function": "sequence_repeat",
+			"id": 227,
+			"name": "do.end",
+			"debug": [
+				{
+					"line": 368, "columns": [30, 35, 12, 5]
+				}
+			],
+			"successors": [228],
+			"ir": [
+				"%1 = phi ptr [ null, %if.then1 ], [ %0, %do.body ], !dbg !321",
+				"%2 = load i64, ptr %count, align 8, !dbg !322, !tbaa !323",
+				"%call3 = call ptr @PySequence_Repeat(ptr noundef %1, i64 noundef %2) #5, !dbg !325",
+				"br label %cleanup, !dbg !326"
+			]
+		},
+		{
+			"function": "sequence_repeat",
+			"id": 228,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 369, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call3, %do.end ], [ null, %entry ], !dbg !305",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %count) #5, !dbg !327",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %seq) #5, !dbg !327",
+				"ret ptr %retval.0, !dbg !327"
+			]
+		},
+		{
+			"function": "sequence_inplaceconcat",
+			"id": 229,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 374, "columns": [5]
+				},
+				{
+					"line": 375, "columns": [10, 9]
+				}
+			],
+			"successors": [235, 230],
+			"ir": [
+				"%seq1 = alloca ptr, align 8",
+				"%seq2 = alloca ptr, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %seq1) #5, !dbg !306",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %seq2) #5, !dbg !306",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.47, ptr noundef nonnull %seq1, ptr noundef nonnull %seq2) #5, !dbg !307",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !307",
+				"br i1 %tobool.not, label %cleanup, label %do.body, !dbg !309"
+			]
+		},
+		{
+			"function": "sequence_inplaceconcat",
+			"id": 230,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 378, "columns": [5]
+				}
+			],
+			"successors": [231, 232],
+			"ir": [
+				"%0 = load ptr, ptr %seq1, align 8, !dbg !310, !tbaa !313",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !310",
+				"br i1 %cmp, label %if.then1, label %do.body3, !dbg !317"
+			]
+		},
+		{
+			"function": "sequence_inplaceconcat",
+			"id": 231,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 378, "columns": [5]
+				}
+			],
+			"successors": [232],
+			"ir": [
+				"store ptr null, ptr %seq1, align 8, !dbg !318, !tbaa !313",
+				"br label %do.body3, !dbg !318"
+			]
+		},
+		{
+			"function": "sequence_inplaceconcat",
+			"id": 232,
+			"name": "do.body3",
+			"debug": [
+				{
+					"line": 379, "columns": [5]
+				}
+			],
+			"successors": [233, 234],
+			"ir": [
+				"%1 = phi ptr [ %0, %do.body ], [ null, %if.then1 ]",
+				"%2 = load ptr, ptr %seq2, align 8, !dbg !320, !tbaa !313",
+				"%cmp4 = icmp eq ptr %2, @_Py_NoneStruct, !dbg !320",
+				"br i1 %cmp4, label %if.then5, label %do.end8, !dbg !323"
+			]
+		},
+		{
+			"function": "sequence_inplaceconcat",
+			"id": 233,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 379, "columns": [5]
+				}
+			],
+			"successors": [234],
+			"ir": [
+				"store ptr null, ptr %seq2, align 8, !dbg !324, !tbaa !313",
+				"br label %do.end8, !dbg !324"
+			]
+		},
+		{
+			"function": "sequence_inplaceconcat",
+			"id": 234,
+			"name": "do.end8",
+			"debug": [
+				{
+					"line": 381, "columns": [43, 12, 5]
+				}
+			],
+			"successors": [235],
+			"ir": [
+				"%3 = phi ptr [ null, %if.then5 ], [ %2, %do.body3 ], !dbg !326",
+				"%call9 = call ptr @PySequence_InPlaceConcat(ptr noundef %1, ptr noundef %3) #5, !dbg !327",
+				"br label %cleanup, !dbg !328"
+			]
+		},
+		{
+			"function": "sequence_inplaceconcat",
+			"id": 235,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 382, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call9, %do.end8 ], [ null, %entry ], !dbg !305",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %seq2) #5, !dbg !329",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %seq1) #5, !dbg !329",
+				"ret ptr %retval.0, !dbg !329"
+			]
+		},
+		{
+			"function": "sequence_inplacerepeat",
+			"id": 236,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 387, "columns": [5]
+				},
+				{
+					"line": 388, "columns": [5]
+				},
+				{
+					"line": 389, "columns": [10, 9]
+				}
+			],
+			"successors": [240, 237],
+			"ir": [
+				"%seq = alloca ptr, align 8",
+				"%count = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %seq) #5, !dbg !306",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %count) #5, !dbg !307",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.54, ptr noundef nonnull %seq, ptr noundef nonnull %count) #5, !dbg !308",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !308",
+				"br i1 %tobool.not, label %cleanup, label %do.body, !dbg !310"
+			]
+		},
+		{
+			"function": "sequence_inplacerepeat",
+			"id": 237,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 392, "columns": [5]
+				}
+			],
+			"successors": [238, 239],
+			"ir": [
+				"%0 = load ptr, ptr %seq, align 8, !dbg !311, !tbaa !314",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !311",
+				"br i1 %cmp, label %if.then1, label %do.end, !dbg !318"
+			]
+		},
+		{
+			"function": "sequence_inplacerepeat",
+			"id": 238,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 392, "columns": [5]
+				}
+			],
+			"successors": [239],
+			"ir": [
+				"store ptr null, ptr %seq, align 8, !dbg !319, !tbaa !314",
+				"br label %do.end, !dbg !319"
+			]
+		},
+		{
+			"function": "sequence_inplacerepeat",
+			"id": 239,
+			"name": "do.end",
+			"debug": [
+				{
+					"line": 394, "columns": [37, 42, 12, 5]
+				}
+			],
+			"successors": [240],
+			"ir": [
+				"%1 = phi ptr [ null, %if.then1 ], [ %0, %do.body ], !dbg !321",
+				"%2 = load i64, ptr %count, align 8, !dbg !322, !tbaa !323",
+				"%call3 = call ptr @PySequence_InPlaceRepeat(ptr noundef %1, i64 noundef %2) #5, !dbg !325",
+				"br label %cleanup, !dbg !326"
+			]
+		},
+		{
+			"function": "sequence_inplacerepeat",
+			"id": 240,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 395, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call3, %do.end ], [ null, %entry ], !dbg !305",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %count) #5, !dbg !327",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %seq) #5, !dbg !327",
+				"ret ptr %retval.0, !dbg !327"
+			]
+		},
+		{
+			"function": "sequence_getitem",
+			"id": 241,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 400, "columns": [5]
+				},
+				{
+					"line": 401, "columns": [5]
+				},
+				{
+					"line": 402, "columns": [10, 9]
+				}
+			],
+			"successors": [245, 242],
+			"ir": [
+				"%seq = alloca ptr, align 8",
+				"%i = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %seq) #5, !dbg !306",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %i) #5, !dbg !307",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.54, ptr noundef nonnull %seq, ptr noundef nonnull %i) #5, !dbg !308",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !308",
+				"br i1 %tobool.not, label %cleanup, label %do.body, !dbg !310"
+			]
+		},
+		{
+			"function": "sequence_getitem",
+			"id": 242,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 405, "columns": [5]
+				}
+			],
+			"successors": [243, 244],
+			"ir": [
+				"%0 = load ptr, ptr %seq, align 8, !dbg !311, !tbaa !314",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !311",
+				"br i1 %cmp, label %if.then1, label %do.end, !dbg !318"
+			]
+		},
+		{
+			"function": "sequence_getitem",
+			"id": 243,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 405, "columns": [5]
+				}
+			],
+			"successors": [244],
+			"ir": [
+				"store ptr null, ptr %seq, align 8, !dbg !319, !tbaa !314",
+				"br label %do.end, !dbg !319"
+			]
+		},
+		{
+			"function": "sequence_getitem",
+			"id": 244,
+			"name": "do.end",
+			"debug": [
+				{
+					"line": 407, "columns": [31, 36, 12, 5]
+				}
+			],
+			"successors": [245],
+			"ir": [
+				"%1 = phi ptr [ null, %if.then1 ], [ %0, %do.body ], !dbg !321",
+				"%2 = load i64, ptr %i, align 8, !dbg !322, !tbaa !323",
+				"%call3 = call ptr @PySequence_GetItem(ptr noundef %1, i64 noundef %2) #5, !dbg !325",
+				"br label %cleanup, !dbg !326"
+			]
+		},
+		{
+			"function": "sequence_getitem",
+			"id": 245,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 408, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call3, %do.end ], [ null, %entry ], !dbg !305",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %i) #5, !dbg !327",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %seq) #5, !dbg !327",
+				"ret ptr %retval.0, !dbg !327"
+			]
+		},
+		{
+			"function": "sequence_setitem",
+			"id": 246,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 413, "columns": [5]
+				},
+				{
+					"line": 414, "columns": [5]
+				},
+				{
+					"line": 415, "columns": [10, 9]
+				}
+			],
+			"successors": [257, 247],
+			"ir": [
+				"%i = alloca i64, align 8",
+				"%seq = alloca ptr, align 8",
+				"%val = alloca ptr, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %i) #5, !dbg !309",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %seq) #5, !dbg !310",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %val) #5, !dbg !310",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.55, ptr noundef nonnull %seq, ptr noundef nonnull %i, ptr noundef nonnull %val) #5, !dbg !311",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !311",
+				"br i1 %tobool.not, label %cleanup24, label %do.body, !dbg !313"
+			]
+		},
+		{
+			"function": "sequence_setitem",
+			"id": 247,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 418, "columns": [5]
+				}
+			],
+			"successors": [248, 249],
+			"ir": [
+				"%0 = load ptr, ptr %seq, align 8, !dbg !314, !tbaa !317",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !314",
+				"br i1 %cmp, label %if.then1, label %do.body3, !dbg !321"
+			]
+		},
+		{
+			"function": "sequence_setitem",
+			"id": 248,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 418, "columns": [5]
+				}
+			],
+			"successors": [249],
+			"ir": [
+				"store ptr null, ptr %seq, align 8, !dbg !322, !tbaa !317",
+				"br label %do.body3, !dbg !322"
+			]
+		},
+		{
+			"function": "sequence_setitem",
+			"id": 249,
+			"name": "do.body3",
+			"debug": [
+				{
+					"line": 419, "columns": [5]
+				}
+			],
+			"successors": [250, 251],
+			"ir": [
+				"%1 = phi ptr [ %0, %do.body ], [ null, %if.then1 ]",
+				"%2 = load ptr, ptr %val, align 8, !dbg !324, !tbaa !317",
+				"%cmp4 = icmp eq ptr %2, @_Py_NoneStruct, !dbg !324",
+				"br i1 %cmp4, label %if.then5, label %do.body9, !dbg !327"
+			]
+		},
+		{
+			"function": "sequence_setitem",
+			"id": 250,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 419, "columns": [5]
+				}
+			],
+			"successors": [251],
+			"ir": [
+				"store ptr null, ptr %val, align 8, !dbg !328, !tbaa !317",
+				"br label %do.body9, !dbg !328"
+			]
+		},
+		{
+			"function": "sequence_setitem",
+			"id": 251,
+			"name": "do.body9",
+			"debug": [
+				{
+					"line": 421, "columns": [5]
+				}
+			],
+			"successors": [252, 254],
+			"ir": [
+				"%3 = phi ptr [ %2, %do.body3 ], [ null, %if.then5 ], !dbg !330",
+				"%4 = load i64, ptr %i, align 8, !dbg !330, !tbaa !331",
+				"%call10 = call i32 @PySequence_SetItem(ptr noundef %1, i64 noundef %4, ptr noundef %3) #5, !dbg !330",
+				"%cmp11 = icmp eq i32 %call10, -1, !dbg !334",
+				"%call13 = call ptr @PyErr_Occurred() #5, !dbg !330",
+				"%tobool14.not = icmp eq ptr %call13, null, !dbg !330",
+				"br i1 %cmp11, label %if.then12, label %if.end15, !dbg !330"
+			]
+		},
+		{
+			"function": "sequence_setitem",
+			"id": 252,
+			"name": "if.then12",
+			"debug": [
+				{
+					"line": 421, "columns": [5]
+				}
+			],
+			"successors": [253, 257],
+			"ir": [
+				"br i1 %tobool14.not, label %cond.false, label %cleanup24, !dbg !336"
+			]
+		},
+		{
+			"function": "sequence_setitem",
+			"id": 253,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 421, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.50, ptr noundef nonnull @.str.51, i32 noundef 421, ptr noundef nonnull @__PRETTY_FUNCTION__.sequence_setitem) #6, !dbg !336",
+				"unreachable, !dbg !336"
+			]
+		},
+		{
+			"function": "sequence_setitem",
+			"id": 254,
+			"name": "if.end15",
+			"debug": [
+				{
+					"line": 421, "columns": [5]
+				}
+			],
+			"successors": [256, 255],
+			"ir": [
+				"br i1 %tobool14.not, label %cond.end20, label %cond.false19, !dbg !330"
+			]
+		},
+		{
+			"function": "sequence_setitem",
+			"id": 255,
+			"name": "cond.false19",
+			"debug": [
+				{
+					"line": 421, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.52, ptr noundef nonnull @.str.51, i32 noundef 421, ptr noundef nonnull @__PRETTY_FUNCTION__.sequence_setitem) #6, !dbg !330",
+				"unreachable, !dbg !330"
+			]
+		},
+		{
+			"function": "sequence_setitem",
+			"id": 256,
+			"name": "cond.end20",
+			"debug": [
+				{
+					"line": 421, "columns": [5]
+				}
+			],
+			"successors": [257],
+			"ir": [
+				"%conv = sext i32 %call10 to i64, !dbg !330",
+				"%call21 = call ptr @PyLong_FromLong(i64 noundef %conv) #5, !dbg !330",
+				"br label %cleanup24, !dbg !330"
+			]
+		},
+		{
+			"function": "sequence_setitem",
+			"id": 257,
+			"name": "cleanup24",
+			"debug": [
+				{
+					"line": 422, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %entry ], [ %call21, %cond.end20 ], [ null, %if.then12 ], !dbg !308",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %val) #5, !dbg !338",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %seq) #5, !dbg !338",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %i) #5, !dbg !338",
+				"ret ptr %retval.1, !dbg !338"
+			]
+		},
+		{
+			"function": "sequence_delitem",
+			"id": 258,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 428, "columns": [5]
+				},
+				{
+					"line": 429, "columns": [5]
+				},
+				{
+					"line": 430, "columns": [10, 9]
+				}
+			],
+			"successors": [267, 259],
+			"ir": [
+				"%i = alloca i64, align 8",
+				"%seq = alloca ptr, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %i) #5, !dbg !308",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %seq) #5, !dbg !309",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.54, ptr noundef nonnull %seq, ptr noundef nonnull %i) #5, !dbg !310",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !310",
+				"br i1 %tobool.not, label %cleanup18, label %do.body, !dbg !312"
+			]
+		},
+		{
+			"function": "sequence_delitem",
+			"id": 259,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 433, "columns": [5]
+				}
+			],
+			"successors": [260, 261],
+			"ir": [
+				"%0 = load ptr, ptr %seq, align 8, !dbg !313, !tbaa !316",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !313",
+				"br i1 %cmp, label %if.then1, label %do.body3, !dbg !320"
+			]
+		},
+		{
+			"function": "sequence_delitem",
+			"id": 260,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 433, "columns": [5]
+				}
+			],
+			"successors": [261],
+			"ir": [
+				"store ptr null, ptr %seq, align 8, !dbg !321, !tbaa !316",
+				"br label %do.body3, !dbg !321"
+			]
+		},
+		{
+			"function": "sequence_delitem",
+			"id": 261,
+			"name": "do.body3",
+			"debug": [
+				{
+					"line": 435, "columns": [5]
+				}
+			],
+			"successors": [262, 264],
+			"ir": [
+				"%1 = phi ptr [ %0, %do.body ], [ null, %if.then1 ], !dbg !323",
+				"%2 = load i64, ptr %i, align 8, !dbg !323, !tbaa !324",
+				"%call4 = call i32 @PySequence_DelItem(ptr noundef %1, i64 noundef %2) #5, !dbg !323",
+				"%cmp5 = icmp eq i32 %call4, -1, !dbg !327",
+				"%call7 = call ptr @PyErr_Occurred() #5, !dbg !323",
+				"%tobool8.not = icmp eq ptr %call7, null, !dbg !323",
+				"br i1 %cmp5, label %if.then6, label %if.end9, !dbg !323"
+			]
+		},
+		{
+			"function": "sequence_delitem",
+			"id": 262,
+			"name": "if.then6",
+			"debug": [
+				{
+					"line": 435, "columns": [5]
+				}
+			],
+			"successors": [263, 267],
+			"ir": [
+				"br i1 %tobool8.not, label %cond.false, label %cleanup18, !dbg !329"
+			]
+		},
+		{
+			"function": "sequence_delitem",
+			"id": 263,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 435, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.50, ptr noundef nonnull @.str.51, i32 noundef 435, ptr noundef nonnull @__PRETTY_FUNCTION__.sequence_delitem) #6, !dbg !329",
+				"unreachable, !dbg !329"
+			]
+		},
+		{
+			"function": "sequence_delitem",
+			"id": 264,
+			"name": "if.end9",
+			"debug": [
+				{
+					"line": 435, "columns": [5]
+				}
+			],
+			"successors": [266, 265],
+			"ir": [
+				"br i1 %tobool8.not, label %cond.end14, label %cond.false13, !dbg !323"
+			]
+		},
+		{
+			"function": "sequence_delitem",
+			"id": 265,
+			"name": "cond.false13",
+			"debug": [
+				{
+					"line": 435, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.52, ptr noundef nonnull @.str.51, i32 noundef 435, ptr noundef nonnull @__PRETTY_FUNCTION__.sequence_delitem) #6, !dbg !323",
+				"unreachable, !dbg !323"
+			]
+		},
+		{
+			"function": "sequence_delitem",
+			"id": 266,
+			"name": "cond.end14",
+			"debug": [
+				{
+					"line": 435, "columns": [5]
+				}
+			],
+			"successors": [267],
+			"ir": [
+				"%conv = sext i32 %call4 to i64, !dbg !323",
+				"%call15 = call ptr @PyLong_FromLong(i64 noundef %conv) #5, !dbg !323",
+				"br label %cleanup18, !dbg !323"
+			]
+		},
+		{
+			"function": "sequence_delitem",
+			"id": 267,
+			"name": "cleanup18",
+			"debug": [
+				{
+					"line": 436, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %entry ], [ %call15, %cond.end14 ], [ null, %if.then6 ], !dbg !307",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %seq) #5, !dbg !331",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %i) #5, !dbg !331",
+				"ret ptr %retval.1, !dbg !331"
+			]
+		},
+		{
+			"function": "sequence_setslice",
+			"id": 268,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 441, "columns": [5]
+				},
+				{
+					"line": 442, "columns": [5]
+				},
+				{
+					"line": 443, "columns": [10, 9]
+				}
+			],
+			"successors": [279, 269],
+			"ir": [
+				"%sequence = alloca ptr, align 8",
+				"%obj = alloca ptr, align 8",
+				"%i1 = alloca i64, align 8",
+				"%i2 = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %sequence) #5, !dbg !310",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %obj) #5, !dbg !310",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %i1) #5, !dbg !311",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %i2) #5, !dbg !311",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.56, ptr noundef nonnull %sequence, ptr noundef nonnull %i1, ptr noundef nonnull %i2, ptr noundef nonnull %obj) #5, !dbg !312",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !312",
+				"br i1 %tobool.not, label %cleanup24, label %do.body, !dbg !314"
+			]
+		},
+		{
+			"function": "sequence_setslice",
+			"id": 269,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 446, "columns": [5]
+				}
+			],
+			"successors": [270, 271],
+			"ir": [
+				"%0 = load ptr, ptr %sequence, align 8, !dbg !315, !tbaa !318",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !315",
+				"br i1 %cmp, label %if.then1, label %do.body3, !dbg !322"
+			]
+		},
+		{
+			"function": "sequence_setslice",
+			"id": 270,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 446, "columns": [5]
+				}
+			],
+			"successors": [271],
+			"ir": [
+				"store ptr null, ptr %sequence, align 8, !dbg !323, !tbaa !318",
+				"br label %do.body3, !dbg !323"
+			]
+		},
+		{
+			"function": "sequence_setslice",
+			"id": 271,
+			"name": "do.body3",
+			"debug": [
+				{
+					"line": 447, "columns": [5]
+				}
+			],
+			"successors": [272, 273],
+			"ir": [
+				"%1 = phi ptr [ %0, %do.body ], [ null, %if.then1 ]",
+				"%2 = load ptr, ptr %obj, align 8, !dbg !325, !tbaa !318",
+				"%cmp4 = icmp eq ptr %2, @_Py_NoneStruct, !dbg !325",
+				"br i1 %cmp4, label %if.then5, label %do.body9, !dbg !328"
+			]
+		},
+		{
+			"function": "sequence_setslice",
+			"id": 272,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 447, "columns": [5]
+				}
+			],
+			"successors": [273],
+			"ir": [
+				"store ptr null, ptr %obj, align 8, !dbg !329, !tbaa !318",
+				"br label %do.body9, !dbg !329"
+			]
+		},
+		{
+			"function": "sequence_setslice",
+			"id": 273,
+			"name": "do.body9",
+			"debug": [
+				{
+					"line": 449, "columns": [5]
+				}
+			],
+			"successors": [274, 276],
+			"ir": [
+				"%3 = phi ptr [ %2, %do.body3 ], [ null, %if.then5 ], !dbg !331",
+				"%4 = load i64, ptr %i1, align 8, !dbg !331, !tbaa !332",
+				"%5 = load i64, ptr %i2, align 8, !dbg !331, !tbaa !332",
+				"%call10 = call i32 @PySequence_SetSlice(ptr noundef %1, i64 noundef %4, i64 noundef %5, ptr noundef %3) #5, !dbg !331",
+				"%cmp11 = icmp eq i32 %call10, -1, !dbg !335",
+				"%call13 = call ptr @PyErr_Occurred() #5, !dbg !331",
+				"%tobool14.not = icmp eq ptr %call13, null, !dbg !331",
+				"br i1 %cmp11, label %if.then12, label %if.end15, !dbg !331"
+			]
+		},
+		{
+			"function": "sequence_setslice",
+			"id": 274,
+			"name": "if.then12",
+			"debug": [
+				{
+					"line": 449, "columns": [5]
+				}
+			],
+			"successors": [275, 279],
+			"ir": [
+				"br i1 %tobool14.not, label %cond.false, label %cleanup24, !dbg !337"
+			]
+		},
+		{
+			"function": "sequence_setslice",
+			"id": 275,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 449, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.50, ptr noundef nonnull @.str.51, i32 noundef 449, ptr noundef nonnull @__PRETTY_FUNCTION__.sequence_setslice) #6, !dbg !337",
+				"unreachable, !dbg !337"
+			]
+		},
+		{
+			"function": "sequence_setslice",
+			"id": 276,
+			"name": "if.end15",
+			"debug": [
+				{
+					"line": 449, "columns": [5]
+				}
+			],
+			"successors": [278, 277],
+			"ir": [
+				"br i1 %tobool14.not, label %cond.end20, label %cond.false19, !dbg !331"
+			]
+		},
+		{
+			"function": "sequence_setslice",
+			"id": 277,
+			"name": "cond.false19",
+			"debug": [
+				{
+					"line": 449, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.52, ptr noundef nonnull @.str.51, i32 noundef 449, ptr noundef nonnull @__PRETTY_FUNCTION__.sequence_setslice) #6, !dbg !331",
+				"unreachable, !dbg !331"
+			]
+		},
+		{
+			"function": "sequence_setslice",
+			"id": 278,
+			"name": "cond.end20",
+			"debug": [
+				{
+					"line": 449, "columns": [5]
+				}
+			],
+			"successors": [279],
+			"ir": [
+				"%conv = sext i32 %call10 to i64, !dbg !331",
+				"%call21 = call ptr @PyLong_FromLong(i64 noundef %conv) #5, !dbg !331",
+				"br label %cleanup24, !dbg !331"
+			]
+		},
+		{
+			"function": "sequence_setslice",
+			"id": 279,
+			"name": "cleanup24",
+			"debug": [
+				{
+					"line": 450, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %entry ], [ %call21, %cond.end20 ], [ null, %if.then12 ], !dbg !309",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %i2) #5, !dbg !339",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %i1) #5, !dbg !339",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %obj) #5, !dbg !339",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %sequence) #5, !dbg !339",
+				"ret ptr %retval.1, !dbg !339"
+			]
+		},
+		{
+			"function": "sequence_delslice",
+			"id": 280,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 455, "columns": [5]
+				},
+				{
+					"line": 456, "columns": [5]
+				},
+				{
+					"line": 457, "columns": [10, 9]
+				}
+			],
+			"successors": [289, 281],
+			"ir": [
+				"%sequence = alloca ptr, align 8",
+				"%i1 = alloca i64, align 8",
+				"%i2 = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %sequence) #5, !dbg !309",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %i1) #5, !dbg !310",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %i2) #5, !dbg !310",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.57, ptr noundef nonnull %sequence, ptr noundef nonnull %i1, ptr noundef nonnull %i2) #5, !dbg !311",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !311",
+				"br i1 %tobool.not, label %cleanup18, label %do.body, !dbg !313"
+			]
+		},
+		{
+			"function": "sequence_delslice",
+			"id": 281,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 460, "columns": [5]
+				}
+			],
+			"successors": [282, 283],
+			"ir": [
+				"%0 = load ptr, ptr %sequence, align 8, !dbg !314, !tbaa !317",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !314",
+				"br i1 %cmp, label %if.then1, label %do.body3, !dbg !321"
+			]
+		},
+		{
+			"function": "sequence_delslice",
+			"id": 282,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 460, "columns": [5]
+				}
+			],
+			"successors": [283],
+			"ir": [
+				"store ptr null, ptr %sequence, align 8, !dbg !322, !tbaa !317",
+				"br label %do.body3, !dbg !322"
+			]
+		},
+		{
+			"function": "sequence_delslice",
+			"id": 283,
+			"name": "do.body3",
+			"debug": [
+				{
+					"line": 462, "columns": [5]
+				}
+			],
+			"successors": [284, 286],
+			"ir": [
+				"%1 = phi ptr [ %0, %do.body ], [ null, %if.then1 ], !dbg !324",
+				"%2 = load i64, ptr %i1, align 8, !dbg !324, !tbaa !325",
+				"%3 = load i64, ptr %i2, align 8, !dbg !324, !tbaa !325",
+				"%call4 = call i32 @PySequence_DelSlice(ptr noundef %1, i64 noundef %2, i64 noundef %3) #5, !dbg !324",
+				"%cmp5 = icmp eq i32 %call4, -1, !dbg !328",
+				"%call7 = call ptr @PyErr_Occurred() #5, !dbg !324",
+				"%tobool8.not = icmp eq ptr %call7, null, !dbg !324",
+				"br i1 %cmp5, label %if.then6, label %if.end9, !dbg !324"
+			]
+		},
+		{
+			"function": "sequence_delslice",
+			"id": 284,
+			"name": "if.then6",
+			"debug": [
+				{
+					"line": 462, "columns": [5]
+				}
+			],
+			"successors": [285, 289],
+			"ir": [
+				"br i1 %tobool8.not, label %cond.false, label %cleanup18, !dbg !330"
+			]
+		},
+		{
+			"function": "sequence_delslice",
+			"id": 285,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 462, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.50, ptr noundef nonnull @.str.51, i32 noundef 462, ptr noundef nonnull @__PRETTY_FUNCTION__.sequence_delslice) #6, !dbg !330",
+				"unreachable, !dbg !330"
+			]
+		},
+		{
+			"function": "sequence_delslice",
+			"id": 286,
+			"name": "if.end9",
+			"debug": [
+				{
+					"line": 462, "columns": [5]
+				}
+			],
+			"successors": [288, 287],
+			"ir": [
+				"br i1 %tobool8.not, label %cond.end14, label %cond.false13, !dbg !324"
+			]
+		},
+		{
+			"function": "sequence_delslice",
+			"id": 287,
+			"name": "cond.false13",
+			"debug": [
+				{
+					"line": 462, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.52, ptr noundef nonnull @.str.51, i32 noundef 462, ptr noundef nonnull @__PRETTY_FUNCTION__.sequence_delslice) #6, !dbg !324",
+				"unreachable, !dbg !324"
+			]
+		},
+		{
+			"function": "sequence_delslice",
+			"id": 288,
+			"name": "cond.end14",
+			"debug": [
+				{
+					"line": 462, "columns": [5]
+				}
+			],
+			"successors": [289],
+			"ir": [
+				"%conv = sext i32 %call4 to i64, !dbg !324",
+				"%call15 = call ptr @PyLong_FromLong(i64 noundef %conv) #5, !dbg !324",
+				"br label %cleanup18, !dbg !324"
+			]
+		},
+		{
+			"function": "sequence_delslice",
+			"id": 289,
+			"name": "cleanup18",
+			"debug": [
+				{
+					"line": 463, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %entry ], [ %call15, %cond.end14 ], [ null, %if.then6 ], !dbg !308",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %i2) #5, !dbg !332",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %i1) #5, !dbg !332",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %sequence) #5, !dbg !332",
+				"ret ptr %retval.1, !dbg !332"
+			]
+		},
+		{
+			"function": "sequence_count",
+			"id": 290,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 468, "columns": [5]
+				},
+				{
+					"line": 469, "columns": [10, 9]
+				}
+			],
+			"successors": [301, 291],
+			"ir": [
+				"%seq = alloca ptr, align 8",
+				"%value = alloca ptr, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %seq) #5, !dbg !308",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %value) #5, !dbg !308",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.47, ptr noundef nonnull %seq, ptr noundef nonnull %value) #5, !dbg !309",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !309",
+				"br i1 %tobool.not, label %cleanup24, label %do.body, !dbg !311"
+			]
+		},
+		{
+			"function": "sequence_count",
+			"id": 291,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 472, "columns": [5]
+				}
+			],
+			"successors": [292, 293],
+			"ir": [
+				"%0 = load ptr, ptr %seq, align 8, !dbg !312, !tbaa !315",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !312",
+				"br i1 %cmp, label %if.then1, label %do.body3, !dbg !319"
+			]
+		},
+		{
+			"function": "sequence_count",
+			"id": 292,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 472, "columns": [5]
+				}
+			],
+			"successors": [293],
+			"ir": [
+				"store ptr null, ptr %seq, align 8, !dbg !320, !tbaa !315",
+				"br label %do.body3, !dbg !320"
+			]
+		},
+		{
+			"function": "sequence_count",
+			"id": 293,
+			"name": "do.body3",
+			"debug": [
+				{
+					"line": 473, "columns": [5]
+				}
+			],
+			"successors": [294, 295],
+			"ir": [
+				"%1 = phi ptr [ %0, %do.body ], [ null, %if.then1 ]",
+				"%2 = load ptr, ptr %value, align 8, !dbg !322, !tbaa !315",
+				"%cmp4 = icmp eq ptr %2, @_Py_NoneStruct, !dbg !322",
+				"br i1 %cmp4, label %if.then5, label %do.body9, !dbg !325"
+			]
+		},
+		{
+			"function": "sequence_count",
+			"id": 294,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 473, "columns": [5]
+				}
+			],
+			"successors": [295],
+			"ir": [
+				"store ptr null, ptr %value, align 8, !dbg !326, !tbaa !315",
+				"br label %do.body9, !dbg !326"
+			]
+		},
+		{
+			"function": "sequence_count",
+			"id": 295,
+			"name": "do.body9",
+			"debug": [
+				{
+					"line": 475, "columns": [5]
+				}
+			],
+			"successors": [296, 298],
+			"ir": [
+				"%3 = phi ptr [ %2, %do.body3 ], [ null, %if.then5 ], !dbg !328",
+				"%call10 = call i64 @PySequence_Count(ptr noundef %1, ptr noundef %3) #5, !dbg !328",
+				"%cmp11 = icmp eq i64 %call10, -1, !dbg !330",
+				"%call13 = call ptr @PyErr_Occurred() #5, !dbg !328",
+				"%tobool14.not = icmp eq ptr %call13, null, !dbg !328",
+				"br i1 %cmp11, label %if.then12, label %if.end15, !dbg !328"
+			]
+		},
+		{
+			"function": "sequence_count",
+			"id": 296,
+			"name": "if.then12",
+			"debug": [
+				{
+					"line": 475, "columns": [5]
+				}
+			],
+			"successors": [297, 301],
+			"ir": [
+				"br i1 %tobool14.not, label %cond.false, label %cleanup24, !dbg !332"
+			]
+		},
+		{
+			"function": "sequence_count",
+			"id": 297,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 475, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.50, ptr noundef nonnull @.str.51, i32 noundef 475, ptr noundef nonnull @__PRETTY_FUNCTION__.sequence_count) #6, !dbg !332",
+				"unreachable, !dbg !332"
+			]
+		},
+		{
+			"function": "sequence_count",
+			"id": 298,
+			"name": "if.end15",
+			"debug": [
+				{
+					"line": 475, "columns": [5]
+				}
+			],
+			"successors": [300, 299],
+			"ir": [
+				"br i1 %tobool14.not, label %cond.end20, label %cond.false19, !dbg !328"
+			]
+		},
+		{
+			"function": "sequence_count",
+			"id": 299,
+			"name": "cond.false19",
+			"debug": [
+				{
+					"line": 475, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.52, ptr noundef nonnull @.str.51, i32 noundef 475, ptr noundef nonnull @__PRETTY_FUNCTION__.sequence_count) #6, !dbg !328",
+				"unreachable, !dbg !328"
+			]
+		},
+		{
+			"function": "sequence_count",
+			"id": 300,
+			"name": "cond.end20",
+			"debug": [
+				{
+					"line": 475, "columns": [5]
+				}
+			],
+			"successors": [301],
+			"ir": [
+				"%call21 = call ptr @PyLong_FromSsize_t(i64 noundef %call10) #5, !dbg !328",
+				"br label %cleanup24, !dbg !328"
+			]
+		},
+		{
+			"function": "sequence_count",
+			"id": 301,
+			"name": "cleanup24",
+			"debug": [
+				{
+					"line": 476, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %entry ], [ %call21, %cond.end20 ], [ null, %if.then12 ], !dbg !307",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %value) #5, !dbg !334",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %seq) #5, !dbg !334",
+				"ret ptr %retval.1, !dbg !334"
+			]
+		},
+		{
+			"function": "sequence_contains",
+			"id": 302,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 481, "columns": [5]
+				},
+				{
+					"line": 482, "columns": [10, 9]
+				}
+			],
+			"successors": [313, 303],
+			"ir": [
+				"%seq = alloca ptr, align 8",
+				"%value = alloca ptr, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %seq) #5, !dbg !308",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %value) #5, !dbg !308",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.47, ptr noundef nonnull %seq, ptr noundef nonnull %value) #5, !dbg !309",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !309",
+				"br i1 %tobool.not, label %cleanup24, label %do.body, !dbg !311"
+			]
+		},
+		{
+			"function": "sequence_contains",
+			"id": 303,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 485, "columns": [5]
+				}
+			],
+			"successors": [304, 305],
+			"ir": [
+				"%0 = load ptr, ptr %seq, align 8, !dbg !312, !tbaa !315",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !312",
+				"br i1 %cmp, label %if.then1, label %do.body3, !dbg !319"
+			]
+		},
+		{
+			"function": "sequence_contains",
+			"id": 304,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 485, "columns": [5]
+				}
+			],
+			"successors": [305],
+			"ir": [
+				"store ptr null, ptr %seq, align 8, !dbg !320, !tbaa !315",
+				"br label %do.body3, !dbg !320"
+			]
+		},
+		{
+			"function": "sequence_contains",
+			"id": 305,
+			"name": "do.body3",
+			"debug": [
+				{
+					"line": 486, "columns": [5]
+				}
+			],
+			"successors": [306, 307],
+			"ir": [
+				"%1 = phi ptr [ %0, %do.body ], [ null, %if.then1 ]",
+				"%2 = load ptr, ptr %value, align 8, !dbg !322, !tbaa !315",
+				"%cmp4 = icmp eq ptr %2, @_Py_NoneStruct, !dbg !322",
+				"br i1 %cmp4, label %if.then5, label %do.body9, !dbg !325"
+			]
+		},
+		{
+			"function": "sequence_contains",
+			"id": 306,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 486, "columns": [5]
+				}
+			],
+			"successors": [307],
+			"ir": [
+				"store ptr null, ptr %value, align 8, !dbg !326, !tbaa !315",
+				"br label %do.body9, !dbg !326"
+			]
+		},
+		{
+			"function": "sequence_contains",
+			"id": 307,
+			"name": "do.body9",
+			"debug": [
+				{
+					"line": 488, "columns": [5]
+				}
+			],
+			"successors": [308, 310],
+			"ir": [
+				"%3 = phi ptr [ %2, %do.body3 ], [ null, %if.then5 ], !dbg !328",
+				"%call10 = call i32 @PySequence_Contains(ptr noundef %1, ptr noundef %3) #5, !dbg !328",
+				"%cmp11 = icmp eq i32 %call10, -1, !dbg !330",
+				"%call13 = call ptr @PyErr_Occurred() #5, !dbg !328",
+				"%tobool14.not = icmp eq ptr %call13, null, !dbg !328",
+				"br i1 %cmp11, label %if.then12, label %if.end15, !dbg !328"
+			]
+		},
+		{
+			"function": "sequence_contains",
+			"id": 308,
+			"name": "if.then12",
+			"debug": [
+				{
+					"line": 488, "columns": [5]
+				}
+			],
+			"successors": [309, 313],
+			"ir": [
+				"br i1 %tobool14.not, label %cond.false, label %cleanup24, !dbg !332"
+			]
+		},
+		{
+			"function": "sequence_contains",
+			"id": 309,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 488, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.50, ptr noundef nonnull @.str.51, i32 noundef 488, ptr noundef nonnull @__PRETTY_FUNCTION__.sequence_contains) #6, !dbg !332",
+				"unreachable, !dbg !332"
+			]
+		},
+		{
+			"function": "sequence_contains",
+			"id": 310,
+			"name": "if.end15",
+			"debug": [
+				{
+					"line": 488, "columns": [5]
+				}
+			],
+			"successors": [312, 311],
+			"ir": [
+				"br i1 %tobool14.not, label %cond.end20, label %cond.false19, !dbg !328"
+			]
+		},
+		{
+			"function": "sequence_contains",
+			"id": 311,
+			"name": "cond.false19",
+			"debug": [
+				{
+					"line": 488, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.52, ptr noundef nonnull @.str.51, i32 noundef 488, ptr noundef nonnull @__PRETTY_FUNCTION__.sequence_contains) #6, !dbg !328",
+				"unreachable, !dbg !328"
+			]
+		},
+		{
+			"function": "sequence_contains",
+			"id": 312,
+			"name": "cond.end20",
+			"debug": [
+				{
+					"line": 488, "columns": [5]
+				}
+			],
+			"successors": [313],
+			"ir": [
+				"%conv = sext i32 %call10 to i64, !dbg !328",
+				"%call21 = call ptr @PyLong_FromLong(i64 noundef %conv) #5, !dbg !328",
+				"br label %cleanup24, !dbg !328"
+			]
+		},
+		{
+			"function": "sequence_contains",
+			"id": 313,
+			"name": "cleanup24",
+			"debug": [
+				{
+					"line": 489, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %entry ], [ %call21, %cond.end20 ], [ null, %if.then12 ], !dbg !307",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %value) #5, !dbg !334",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %seq) #5, !dbg !334",
+				"ret ptr %retval.1, !dbg !334"
+			]
+		},
+		{
+			"function": "sequence_index",
+			"id": 314,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 494, "columns": [5]
+				},
+				{
+					"line": 495, "columns": [10, 9]
+				}
+			],
+			"successors": [325, 315],
+			"ir": [
+				"%seq = alloca ptr, align 8",
+				"%value = alloca ptr, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %seq) #5, !dbg !308",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %value) #5, !dbg !308",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.47, ptr noundef nonnull %seq, ptr noundef nonnull %value) #5, !dbg !309",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !309",
+				"br i1 %tobool.not, label %cleanup24, label %do.body, !dbg !311"
+			]
+		},
+		{
+			"function": "sequence_index",
+			"id": 315,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 498, "columns": [5]
+				}
+			],
+			"successors": [316, 317],
+			"ir": [
+				"%0 = load ptr, ptr %seq, align 8, !dbg !312, !tbaa !315",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !312",
+				"br i1 %cmp, label %if.then1, label %do.body3, !dbg !319"
+			]
+		},
+		{
+			"function": "sequence_index",
+			"id": 316,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 498, "columns": [5]
+				}
+			],
+			"successors": [317],
+			"ir": [
+				"store ptr null, ptr %seq, align 8, !dbg !320, !tbaa !315",
+				"br label %do.body3, !dbg !320"
+			]
+		},
+		{
+			"function": "sequence_index",
+			"id": 317,
+			"name": "do.body3",
+			"debug": [
+				{
+					"line": 499, "columns": [5]
+				}
+			],
+			"successors": [318, 319],
+			"ir": [
+				"%1 = phi ptr [ %0, %do.body ], [ null, %if.then1 ]",
+				"%2 = load ptr, ptr %value, align 8, !dbg !322, !tbaa !315",
+				"%cmp4 = icmp eq ptr %2, @_Py_NoneStruct, !dbg !322",
+				"br i1 %cmp4, label %if.then5, label %do.body9, !dbg !325"
+			]
+		},
+		{
+			"function": "sequence_index",
+			"id": 318,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 499, "columns": [5]
+				}
+			],
+			"successors": [319],
+			"ir": [
+				"store ptr null, ptr %value, align 8, !dbg !326, !tbaa !315",
+				"br label %do.body9, !dbg !326"
+			]
+		},
+		{
+			"function": "sequence_index",
+			"id": 319,
+			"name": "do.body9",
+			"debug": [
+				{
+					"line": 501, "columns": [5]
+				}
+			],
+			"successors": [320, 322],
+			"ir": [
+				"%3 = phi ptr [ %2, %do.body3 ], [ null, %if.then5 ], !dbg !328",
+				"%call10 = call i64 @PySequence_Index(ptr noundef %1, ptr noundef %3) #5, !dbg !328",
+				"%cmp11 = icmp eq i64 %call10, -1, !dbg !330",
+				"%call13 = call ptr @PyErr_Occurred() #5, !dbg !328",
+				"%tobool14.not = icmp eq ptr %call13, null, !dbg !328",
+				"br i1 %cmp11, label %if.then12, label %if.end15, !dbg !328"
+			]
+		},
+		{
+			"function": "sequence_index",
+			"id": 320,
+			"name": "if.then12",
+			"debug": [
+				{
+					"line": 501, "columns": [5]
+				}
+			],
+			"successors": [321, 325],
+			"ir": [
+				"br i1 %tobool14.not, label %cond.false, label %cleanup24, !dbg !332"
+			]
+		},
+		{
+			"function": "sequence_index",
+			"id": 321,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 501, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.50, ptr noundef nonnull @.str.51, i32 noundef 501, ptr noundef nonnull @__PRETTY_FUNCTION__.sequence_index) #6, !dbg !332",
+				"unreachable, !dbg !332"
+			]
+		},
+		{
+			"function": "sequence_index",
+			"id": 322,
+			"name": "if.end15",
+			"debug": [
+				{
+					"line": 501, "columns": [5]
+				}
+			],
+			"successors": [324, 323],
+			"ir": [
+				"br i1 %tobool14.not, label %cond.end20, label %cond.false19, !dbg !328"
+			]
+		},
+		{
+			"function": "sequence_index",
+			"id": 323,
+			"name": "cond.false19",
+			"debug": [
+				{
+					"line": 501, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.52, ptr noundef nonnull @.str.51, i32 noundef 501, ptr noundef nonnull @__PRETTY_FUNCTION__.sequence_index) #6, !dbg !328",
+				"unreachable, !dbg !328"
+			]
+		},
+		{
+			"function": "sequence_index",
+			"id": 324,
+			"name": "cond.end20",
+			"debug": [
+				{
+					"line": 501, "columns": [5]
+				}
+			],
+			"successors": [325],
+			"ir": [
+				"%call21 = call ptr @PyLong_FromSsize_t(i64 noundef %call10) #5, !dbg !328",
+				"br label %cleanup24, !dbg !328"
+			]
+		},
+		{
+			"function": "sequence_index",
+			"id": 325,
+			"name": "cleanup24",
+			"debug": [
+				{
+					"line": 502, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %entry ], [ %call21, %cond.end20 ], [ null, %if.then12 ], !dbg !307",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %value) #5, !dbg !334",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %seq) #5, !dbg !334",
+				"ret ptr %retval.1, !dbg !334"
+			]
+		},
+		{
+			"function": "sequence_list",
+			"id": 326,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 507, "columns": [5]
+				},
+				{
+					"line": 508, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !304",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !307",
+				"%call = tail call ptr @PySequence_List(ptr noundef %spec.store.select) #5, !dbg !308",
+				"ret ptr %call, !dbg !309"
+			]
+		},
+		{
+			"function": "sequence_tuple",
+			"id": 327,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 514, "columns": [5]
+				},
+				{
+					"line": 515, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !304",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !307",
+				"%call = tail call ptr @PySequence_Tuple(ptr noundef %spec.store.select) #5, !dbg !308",
+				"ret ptr %call, !dbg !309"
+			]
+		}
+	]
+}

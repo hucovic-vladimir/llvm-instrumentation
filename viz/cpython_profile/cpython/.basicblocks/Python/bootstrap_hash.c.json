@@ -1,0 +1,1525 @@
+{
+	"blocks": [
+		{
+			"function": "_PyOS_URandom",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 533, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call fastcc i32 @pyurandom(ptr noundef %buffer, i64 noundef %size, i32 noundef 1, i32 noundef 1), !dbg !6826, !range !6827",
+				"ret i32 %call, !dbg !6828"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 1,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 483, "columns": [14, 9]
+				}
+			],
+			"successors": [2, 4],
+			"ir": [
+				"%st.i = alloca %struct.stat, align 16",
+				"%cmp = icmp slt i64 %size, 0, !dbg !6827",
+				"br i1 %cmp, label %if.then, label %if.end2, !dbg !6829"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 2,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 484, "columns": [13]
+				}
+			],
+			"successors": [59, 3],
+			"ir": [
+				"%tobool.not = icmp eq i32 %raise, 0, !dbg !6830",
+				"br i1 %tobool.not, label %cleanup, label %if.then1, !dbg !6833"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 3,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 485, "columns": [26, 13]
+				},
+				{
+					"line": 487, "columns": [9]
+				}
+			],
+			"successors": [59],
+			"ir": [
+				"%0 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !6834, !tbaa !6836",
+				"%call = tail call ptr (ptr, ptr, ...) @PyErr_Format(ptr noundef %0, ptr noundef nonnull @.str.1) #8, !dbg !6840",
+				"br label %cleanup, !dbg !6841"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 4,
+			"name": "if.end2",
+			"debug": [
+				{
+					"line": 491, "columns": [14, 9]
+				}
+			],
+			"successors": [59, 5],
+			"ir": [
+				"%cmp3 = icmp eq i64 %size, 0, !dbg !6842",
+				"br i1 %cmp3, label %cleanup, label %if.end5, !dbg !6844"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 5,
+			"name": "if.end5",
+			"debug": [
+				{
+					"line": 101, "columns": [10, 9]
+				}
+			],
+			"successors": [29, 6],
+			"ir": [
+				"%.b.i = load i1, ptr @py_getrandom.getrandom_works, align 4, !dbg !6849",
+				"br i1 %.b.i, label %if.end12, label %while.body.lr.ph.lr.ph.i, !dbg !6851"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 6,
+			"name": "while.body.lr.ph.lr.ph.i",
+			"debug": [
+				{
+					"line": 105, "columns": [13]
+				},
+				{
+					"line": 119, "columns": [13]
+				}
+			],
+			"successors": [7, 16],
+			"ir": [
+				"%tobool1.not.i = icmp eq i32 %blocking, 0, !dbg !6852",
+				"%cond.i = zext i1 %tobool1.not.i to i32, !dbg !6852",
+				"%call.i = tail call ptr @__errno_location() #9, !dbg !6845",
+				"%tobool4.not.i = icmp eq i32 %raise, 0",
+				"%1 = or i32 %raise, %blocking",
+				"%.not.i = icmp eq i32 %1, 0",
+				"br i1 %tobool4.not.i, label %while.body.lr.ph.lr.ph.split.us.i, label %while.body.lr.ph.lr.ph.split.i, !dbg !6853"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 7,
+			"name": "while.body.lr.ph.lr.ph.split.us.i",
+			"debug": [
+			],
+			"successors": [13, 9],
+			"ir": [
+				"br i1 %.not.i, label %while.body.lr.ph.split.us.split.split.split.us.us.i, label %while.body.lr.ph.split.us.split.split.us.split.us.us.us.i"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 8,
+			"name": "if.end40.split.us.split.us.us.us.i",
+			"debug": [
+				{
+					"line": 107, "columns": [5]
+				},
+				{
+					"line": 181, "columns": [14]
+				},
+				{
+					"line": 182, "columns": [14]
+				}
+			],
+			"successors": [9, 59],
+			"ir": [
+				"%.us-phi184.us.us.i = phi i64 [ %call8.us.us.us203.us.us.i, %while.body.lr.ph.split.us.split.split.us.split.us.us.us.i ], [ %call8.us.us.us.us.us.i, %while.body.us.us.us.us.us.i ]",
+				"%add.ptr.us.us.i = getelementptr i8, ptr %dest.0.ph215.us.us.i, i64 %.us-phi184.us.us.i, !dbg !6854",
+				"%sub.us.us.i = sub nsw i64 %size.addr.0.ph207.us.us.i, %.us-phi184.us.us.i, !dbg !6855",
+				"%cmp.us.us.i = icmp sgt i64 %sub.us.us.i, 0",
+				"br i1 %cmp.us.us.i, label %while.body.lr.ph.split.us.split.split.us.split.us.us.us.i, label %cleanup, !dbg !6856, !llvm.loop !6857"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 9,
+			"name": "while.body.lr.ph.split.us.split.split.us.split.us.us.us.i",
+			"debug": [
+				{
+					"line": 117, "columns": [15]
+				},
+				{
+					"line": 125, "columns": [17]
+				},
+				{
+					"line": 146, "columns": [15, 13]
+				}
+			],
+			"successors": [11, 8],
+			"ir": [
+				"%dest.0.ph215.us.us.i = phi ptr [ %add.ptr.us.us.i, %if.end40.split.us.split.us.us.us.i ], [ %buffer, %while.body.lr.ph.lr.ph.split.us.i ]",
+				"%size.addr.0.ph207.us.us.i = phi i64 [ %sub.us.us.i, %if.end40.split.us.split.us.us.us.i ], [ %size, %while.body.lr.ph.lr.ph.split.us.i ]",
+				"store i32 0, ptr %call.i, align 4, !dbg !6860, !tbaa !6861",
+				"%call8.us.us.us203.us.us.i = tail call i64 @getrandom(ptr noundef %dest.0.ph215.us.us.i, i64 noundef %size.addr.0.ph207.us.us.i, i32 noundef %cond.i) #8, !dbg !6863",
+				"%cmp10.us.us.us204.us.us.i = icmp slt i64 %call8.us.us.us203.us.us.i, 0, !dbg !6865",
+				"br i1 %cmp10.us.us.us204.us.us.i, label %if.then11.us.us.us.us.us.i, label %if.end40.split.us.split.us.us.us.i, !dbg !6867"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 10,
+			"name": "while.body.us.us.us.us.us.i",
+			"debug": [
+				{
+					"line": 117, "columns": [15]
+				},
+				{
+					"line": 125, "columns": [17]
+				},
+				{
+					"line": 146, "columns": [15, 13]
+				}
+			],
+			"successors": [11, 8],
+			"ir": [
+				"store i32 0, ptr %call.i, align 4, !dbg !6860, !tbaa !6861",
+				"%call8.us.us.us.us.us.i = tail call i64 @getrandom(ptr noundef %dest.0.ph215.us.us.i, i64 noundef %size.addr.0.ph207.us.us.i, i32 noundef %cond.i) #8, !dbg !6863",
+				"%cmp10.us.us.us.us.us.i = icmp slt i64 %call8.us.us.us.us.us.i, 0, !dbg !6865",
+				"br i1 %cmp10.us.us.us.us.us.i, label %if.then11.us.us.us.us.us.i, label %if.end40.split.us.split.us.us.us.i, !dbg !6867"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 11,
+			"name": "if.then11.us.us.us.us.us.i",
+			"debug": [
+				{
+					"line": 150, "columns": [17, 33]
+				}
+			],
+			"successors": [59, 26, 26, 10],
+			"ir": [
+				"%2 = load i32, ptr %call.i, align 4, !dbg !6868, !tbaa !6861",
+				"switch i32 %2, label %cleanup [\n    i32 38, label %if.then16.i\n    i32 1, label %if.then16.i\n    i32 4, label %while.body.us.us.us.us.us.i\n  ], !dbg !6871"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 12,
+			"name": "if.end40.split.us.split.us231.i",
+			"debug": [
+				{
+					"line": 107, "columns": [5]
+				},
+				{
+					"line": 181, "columns": [14]
+				},
+				{
+					"line": 182, "columns": [14]
+				}
+			],
+			"successors": [13, 59],
+			"ir": [
+				"%.us-phi160.us.i = phi i64 [ %call8.us.us152181.us.i, %while.body.lr.ph.split.us.split.split.split.us.us.i ], [ %call8.us.us152.us.i, %while.body.us.us151.us.i ]",
+				"%add.ptr.us.i = getelementptr i8, ptr %dest.0.ph215.us.i, i64 %.us-phi160.us.i, !dbg !6854",
+				"%sub.us.i = sub nsw i64 %size.addr.0.ph207.us.i, %.us-phi160.us.i, !dbg !6855",
+				"%cmp.us.i = icmp sgt i64 %sub.us.i, 0",
+				"br i1 %cmp.us.i, label %while.body.lr.ph.split.us.split.split.split.us.us.i, label %cleanup, !dbg !6856, !llvm.loop !6872"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 13,
+			"name": "while.body.lr.ph.split.us.split.split.split.us.us.i",
+			"debug": [
+				{
+					"line": 117, "columns": [15]
+				},
+				{
+					"line": 125, "columns": [17]
+				},
+				{
+					"line": 146, "columns": [15, 13]
+				}
+			],
+			"successors": [15, 12],
+			"ir": [
+				"%dest.0.ph215.us.i = phi ptr [ %add.ptr.us.i, %if.end40.split.us.split.us231.i ], [ %buffer, %while.body.lr.ph.lr.ph.split.us.i ]",
+				"%size.addr.0.ph207.us.i = phi i64 [ %sub.us.i, %if.end40.split.us.split.us231.i ], [ %size, %while.body.lr.ph.lr.ph.split.us.i ]",
+				"store i32 0, ptr %call.i, align 4, !dbg !6860, !tbaa !6861",
+				"%call8.us.us152181.us.i = tail call i64 @getrandom(ptr noundef %dest.0.ph215.us.i, i64 noundef %size.addr.0.ph207.us.i, i32 noundef %cond.i) #8, !dbg !6863",
+				"%cmp10.us.us153182.us.i = icmp slt i64 %call8.us.us152181.us.i, 0, !dbg !6865",
+				"br i1 %cmp10.us.us153182.us.i, label %if.then11.us.us154.us.i, label %if.end40.split.us.split.us231.i, !dbg !6867"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 14,
+			"name": "while.body.us.us151.us.i",
+			"debug": [
+				{
+					"line": 117, "columns": [15]
+				},
+				{
+					"line": 125, "columns": [17]
+				},
+				{
+					"line": 146, "columns": [15, 13]
+				}
+			],
+			"successors": [15, 12],
+			"ir": [
+				"store i32 0, ptr %call.i, align 4, !dbg !6860, !tbaa !6861",
+				"%call8.us.us152.us.i = tail call i64 @getrandom(ptr noundef %dest.0.ph215.us.i, i64 noundef %size.addr.0.ph207.us.i, i32 noundef %cond.i) #8, !dbg !6863",
+				"%cmp10.us.us153.us.i = icmp slt i64 %call8.us.us152.us.i, 0, !dbg !6865",
+				"br i1 %cmp10.us.us153.us.i, label %if.then11.us.us154.us.i, label %if.end40.split.us.split.us231.i, !dbg !6867"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 15,
+			"name": "if.then11.us.us154.us.i",
+			"debug": [
+				{
+					"line": 150, "columns": [17, 33]
+				}
+			],
+			"successors": [59, 26, 26, 29, 14],
+			"ir": [
+				"%3 = load i32, ptr %call.i, align 4, !dbg !6868, !tbaa !6861",
+				"switch i32 %3, label %cleanup [\n    i32 38, label %if.then16.i\n    i32 1, label %if.then16.i\n    i32 11, label %if.end12\n    i32 4, label %while.body.us.us151.us.i\n  ], !dbg !6871"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 16,
+			"name": "while.body.lr.ph.lr.ph.split.i",
+			"debug": [
+			],
+			"successors": [22, 18],
+			"ir": [
+				"br i1 %.not.i, label %while.body.lr.ph.split.split.split.us.i, label %while.body.lr.ph.split.split.us.split.us.us.i"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 17,
+			"name": "if.end40.split.split.us.us.i",
+			"debug": [
+				{
+					"line": 107, "columns": [5]
+				},
+				{
+					"line": 181, "columns": [14]
+				},
+				{
+					"line": 182, "columns": [14]
+				}
+			],
+			"successors": [18, 59],
+			"ir": [
+				"%.us-phi127.us.i = phi i64 [ %call7.us.us145.us.i, %while.body.lr.ph.split.split.us.split.us.us.i ], [ %call7.us.us.us.i, %while.body.us69.us.us.i ]",
+				"%add.ptr.us245.i = getelementptr i8, ptr %dest.0.ph215.us243.i, i64 %.us-phi127.us.i, !dbg !6854",
+				"%sub.us246.i = sub nsw i64 %size.addr.0.ph207.us244.i, %.us-phi127.us.i, !dbg !6855",
+				"%cmp.us247.i = icmp sgt i64 %sub.us246.i, 0",
+				"br i1 %cmp.us247.i, label %while.body.lr.ph.split.split.us.split.us.us.i, label %cleanup, !dbg !6856, !llvm.loop !6873"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 18,
+			"name": "while.body.lr.ph.split.split.us.split.us.us.i",
+			"debug": [
+				{
+					"line": 117, "columns": [15]
+				},
+				{
+					"line": 120, "columns": [13]
+				},
+				{
+					"line": 121, "columns": [17]
+				},
+				{
+					"line": 122, "columns": [13]
+				},
+				{
+					"line": 146, "columns": [15, 13]
+				}
+			],
+			"successors": [20, 17],
+			"ir": [
+				"%dest.0.ph215.us243.i = phi ptr [ %add.ptr.us245.i, %if.end40.split.split.us.us.i ], [ %buffer, %while.body.lr.ph.lr.ph.split.i ]",
+				"%size.addr.0.ph207.us244.i = phi i64 [ %sub.us246.i, %if.end40.split.split.us.us.i ], [ %size, %while.body.lr.ph.lr.ph.split.i ]",
+				"store i32 0, ptr %call.i, align 4, !dbg !6860, !tbaa !6861",
+				"%call6.us.us144.us.i = tail call ptr @PyEval_SaveThread() #8, !dbg !6874",
+				"%call7.us.us145.us.i = tail call i64 @getrandom(ptr noundef %dest.0.ph215.us243.i, i64 noundef %size.addr.0.ph207.us244.i, i32 noundef %cond.i) #8, !dbg !6876",
+				"tail call void @PyEval_RestoreThread(ptr noundef %call6.us.us144.us.i) #8, !dbg !6877",
+				"%cmp10.us70.us146.us.i = icmp slt i64 %call7.us.us145.us.i, 0, !dbg !6865",
+				"br i1 %cmp10.us70.us146.us.i, label %if.then11.us71.us.us.i, label %if.end40.split.split.us.us.i, !dbg !6867"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 19,
+			"name": "while.body.us69.us.us.i",
+			"debug": [
+				{
+					"line": 117, "columns": [15]
+				},
+				{
+					"line": 120, "columns": [13]
+				},
+				{
+					"line": 121, "columns": [17]
+				},
+				{
+					"line": 122, "columns": [13]
+				},
+				{
+					"line": 146, "columns": [15, 13]
+				}
+			],
+			"successors": [20, 17],
+			"ir": [
+				"store i32 0, ptr %call.i, align 4, !dbg !6860, !tbaa !6861",
+				"%call6.us.us.us.i = tail call ptr @PyEval_SaveThread() #8, !dbg !6874",
+				"%call7.us.us.us.i = tail call i64 @getrandom(ptr noundef %dest.0.ph215.us243.i, i64 noundef %size.addr.0.ph207.us244.i, i32 noundef %cond.i) #8, !dbg !6876",
+				"tail call void @PyEval_RestoreThread(ptr noundef %call6.us.us.us.i) #8, !dbg !6877",
+				"%cmp10.us70.us.us.i = icmp slt i64 %call7.us.us.us.i, 0, !dbg !6865",
+				"br i1 %cmp10.us70.us.us.i, label %if.then11.us71.us.us.i, label %if.end40.split.split.us.us.i, !dbg !6867"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 20,
+			"name": "if.then11.us71.us.us.i",
+			"debug": [
+				{
+					"line": 150, "columns": [17, 33]
+				}
+			],
+			"successors": [27, 26, 26, 21],
+			"ir": [
+				"%4 = load i32, ptr %call.i, align 4, !dbg !6868, !tbaa !6861",
+				"switch i32 %4, label %if.then37.i [\n    i32 38, label %if.then16.i\n    i32 1, label %if.then16.i\n    i32 4, label %if.then27.us77.us.us.i\n  ], !dbg !6871"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 21,
+			"name": "if.then27.us77.us.us.i",
+			"debug": [
+				{
+					"line": 166, "columns": [25]
+				}
+			],
+			"successors": [19, 59],
+			"ir": [
+				"%call30.us78.us.us.i = tail call i32 @PyErr_CheckSignals() #8, !dbg !6878",
+				"%tobool31.not.us79.us.us.i = icmp eq i32 %call30.us78.us.us.i, 0, !dbg !6878",
+				"br i1 %tobool31.not.us79.us.us.i, label %while.body.us69.us.us.i, label %cleanup, !dbg !6884"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 22,
+			"name": "while.body.lr.ph.split.split.split.us.i",
+			"debug": [
+				{
+					"line": 117, "columns": [15]
+				},
+				{
+					"line": 120, "columns": [13]
+				},
+				{
+					"line": 121, "columns": [17]
+				},
+				{
+					"line": 122, "columns": [13]
+				},
+				{
+					"line": 146, "columns": [15, 13]
+				}
+			],
+			"successors": [24, 28],
+			"ir": [
+				"%dest.0.ph215.i = phi ptr [ %add.ptr.i, %if.end40.split.split.i ], [ %buffer, %while.body.lr.ph.lr.ph.split.i ]",
+				"%size.addr.0.ph207.i = phi i64 [ %sub.i, %if.end40.split.split.i ], [ %size, %while.body.lr.ph.lr.ph.split.i ]",
+				"store i32 0, ptr %call.i, align 4, !dbg !6860, !tbaa !6861",
+				"%call6.us90123.i = tail call ptr @PyEval_SaveThread() #8, !dbg !6874",
+				"%call7.us91124.i = tail call i64 @getrandom(ptr noundef %dest.0.ph215.i, i64 noundef %size.addr.0.ph207.i, i32 noundef %cond.i) #8, !dbg !6876",
+				"tail call void @PyEval_RestoreThread(ptr noundef %call6.us90123.i) #8, !dbg !6877",
+				"%cmp10.us92125.i = icmp slt i64 %call7.us91124.i, 0, !dbg !6865",
+				"br i1 %cmp10.us92125.i, label %if.then11.us93.i, label %if.end40.split.split.i, !dbg !6867"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 23,
+			"name": "while.body.us89.i",
+			"debug": [
+				{
+					"line": 117, "columns": [15]
+				},
+				{
+					"line": 120, "columns": [13]
+				},
+				{
+					"line": 121, "columns": [17]
+				},
+				{
+					"line": 122, "columns": [13]
+				},
+				{
+					"line": 146, "columns": [15, 13]
+				}
+			],
+			"successors": [24, 28],
+			"ir": [
+				"store i32 0, ptr %call.i, align 4, !dbg !6860, !tbaa !6861",
+				"%call6.us90.i = tail call ptr @PyEval_SaveThread() #8, !dbg !6874",
+				"%call7.us91.i = tail call i64 @getrandom(ptr noundef %dest.0.ph215.i, i64 noundef %size.addr.0.ph207.i, i32 noundef %cond.i) #8, !dbg !6876",
+				"tail call void @PyEval_RestoreThread(ptr noundef %call6.us90.i) #8, !dbg !6877",
+				"%cmp10.us92.i = icmp slt i64 %call7.us91.i, 0, !dbg !6865",
+				"br i1 %cmp10.us92.i, label %if.then11.us93.i, label %if.end40.split.split.i, !dbg !6867"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 24,
+			"name": "if.then11.us93.i",
+			"debug": [
+				{
+					"line": 150, "columns": [17, 33]
+				}
+			],
+			"successors": [27, 26, 26, 29, 25],
+			"ir": [
+				"%5 = load i32, ptr %call.i, align 4, !dbg !6868, !tbaa !6861",
+				"switch i32 %5, label %if.then37.i [\n    i32 38, label %if.then16.i\n    i32 1, label %if.then16.i\n    i32 11, label %if.end12\n    i32 4, label %if.then27.us98.i\n  ], !dbg !6871"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 25,
+			"name": "if.then27.us98.i",
+			"debug": [
+				{
+					"line": 166, "columns": [25]
+				}
+			],
+			"successors": [23, 59],
+			"ir": [
+				"%call30.us99.i = tail call i32 @PyErr_CheckSignals() #8, !dbg !6878",
+				"%tobool31.not.us100.i = icmp eq i32 %call30.us99.i, 0, !dbg !6878",
+				"br i1 %tobool31.not.us100.i, label %while.body.us89.i, label %cleanup, !dbg !6884"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 26,
+			"name": "if.then16.i",
+			"debug": [
+				{
+					"line": 151, "columns": [33]
+				},
+				{
+					"line": 152, "columns": [17]
+				}
+			],
+			"successors": [29],
+			"ir": [
+				"store i1 true, ptr @py_getrandom.getrandom_works, align 4, !dbg !6885",
+				"br label %if.end12, !dbg !6887"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 27,
+			"name": "if.then37.i",
+			"debug": [
+				{
+					"line": 176, "columns": [36, 17]
+				},
+				{
+					"line": 177, "columns": [13]
+				}
+			],
+			"successors": [59],
+			"ir": [
+				"%6 = load ptr, ptr @PyExc_OSError, align 8, !dbg !6888, !tbaa !6836",
+				"%call38.i = tail call ptr @PyErr_SetFromErrno(ptr noundef %6) #8, !dbg !6891",
+				"br label %cleanup, !dbg !6892"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 28,
+			"name": "if.end40.split.split.i",
+			"debug": [
+				{
+					"line": 107, "columns": [5]
+				},
+				{
+					"line": 181, "columns": [14]
+				},
+				{
+					"line": 182, "columns": [14]
+				}
+			],
+			"successors": [22, 59],
+			"ir": [
+				"%.us-phi103.i = phi i64 [ %call7.us91124.i, %while.body.lr.ph.split.split.split.us.i ], [ %call7.us91.i, %while.body.us89.i ]",
+				"%add.ptr.i = getelementptr i8, ptr %dest.0.ph215.i, i64 %.us-phi103.i, !dbg !6854",
+				"%sub.i = sub nsw i64 %size.addr.0.ph207.i, %.us-phi103.i, !dbg !6855",
+				"%cmp.i = icmp sgt i64 %sub.i, 0",
+				"br i1 %cmp.i, label %while.body.lr.ph.split.split.split.us.i, label %cleanup, !dbg !6856, !llvm.loop !6893"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 29,
+			"name": "if.end12",
+			"debug": [
+				{
+					"line": 306, "columns": [9]
+				}
+			],
+			"successors": [49, 30],
+			"ir": [
+				"%tobool.not.i = icmp eq i32 %raise, 0, !dbg !6945",
+				"br i1 %tobool.not.i, label %if.else52.i, label %if.then.i, !dbg !6946"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 30,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 307, "columns": [9, 32]
+				},
+				{
+					"line": 310, "columns": [27, 30, 13]
+				}
+			],
+			"successors": [31, 36],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 144, ptr nonnull %st.i) #8, !dbg !6947",
+				"%7 = load i32, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 14), align 8, !dbg !6949, !tbaa !6950",
+				"%cmp.i21 = icmp sgt i32 %7, -1, !dbg !7082",
+				"br i1 %cmp.i21, label %if.then1.i, label %if.else.i, !dbg !7083"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 31,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 311, "columns": [13]
+				},
+				{
+					"line": 312, "columns": [60, 28]
+				},
+				{
+					"line": 313, "columns": [13]
+				},
+				{
+					"line": 316, "columns": [17]
+				},
+				{
+					"line": 317, "columns": [17]
+				}
+			],
+			"successors": [32, 34],
+			"ir": [
+				"%call.i22 = tail call ptr @PyEval_SaveThread() #8, !dbg !7084",
+				"%8 = load i32, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 14), align 8, !dbg !7086, !tbaa !6950",
+				"%call2.i = call i32 @_Py_fstat_noraise(i32 noundef %8, ptr noundef nonnull %st.i) #8, !dbg !7087",
+				"call void @PyEval_RestoreThread(ptr noundef %call.i22) #8, !dbg !7089",
+				"%tobool3.not.i = icmp eq i32 %call2.i, 0, !dbg !7090",
+				"br i1 %tobool3.not.i, label %lor.lhs.false.i, label %if.then7.i, !dbg !7092"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 32,
+			"name": "lor.lhs.false.i",
+			"debug": [
+				{
+					"line": 317, "columns": [23, 47, 30]
+				},
+				{
+					"line": 318, "columns": [17]
+				}
+			],
+			"successors": [33, 34],
+			"ir": [
+				"%9 = load i64, ptr %st.i, align 16, !dbg !7093, !tbaa !7094",
+				"%10 = load i64, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 14, i32 0, i32 1), align 8, !dbg !7097, !tbaa !7098",
+				"%cmp4.not.i = icmp eq i64 %9, %10, !dbg !7099",
+				"br i1 %cmp4.not.i, label %lor.lhs.false5.i, label %if.then7.i, !dbg !7100"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 33,
+			"name": "lor.lhs.false5.i",
+			"debug": [
+				{
+					"line": 316, "columns": [17]
+				},
+				{
+					"line": 318, "columns": [23, 47, 30]
+				}
+			],
+			"successors": [35, 34],
+			"ir": [
+				"%st_ino.i = getelementptr inbounds %struct.stat, ptr %st.i, i64 0, i32 1, !dbg !7101",
+				"%11 = load i64, ptr %st_ino.i, align 8, !dbg !7101, !tbaa !7102",
+				"%12 = load i64, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 14, i32 0, i32 2), align 8, !dbg !7103, !tbaa !7104",
+				"%cmp6.not.i = icmp eq i64 %11, %12, !dbg !7105",
+				"br i1 %cmp6.not.i, label %if.end8.i, label %if.then7.i, !dbg !7106"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 34,
+			"name": "if.then7.i",
+			"debug": [
+				{
+					"line": 322, "columns": [34]
+				},
+				{
+					"line": 323, "columns": [13]
+				}
+			],
+			"successors": [36],
+			"ir": [
+				"store i32 -1, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 14), align 8, !dbg !7107, !tbaa !6950",
+				"br label %if.else.i, !dbg !7109"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 35,
+			"name": "if.end8.i",
+			"debug": [
+				{
+					"line": 325, "columns": [27, 30, 13]
+				}
+			],
+			"successors": [44, 36],
+			"ir": [
+				"%.pr.i = load i32, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 14), align 8, !dbg !7110, !tbaa !6950",
+				"%cmp9.i = icmp sgt i32 %.pr.i, -1, !dbg !7112",
+				"br i1 %cmp9.i, label %if.end41.i, label %if.else.i, !dbg !7113"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 36,
+			"name": "if.else.i",
+			"debug": [
+				{
+					"line": 328, "columns": [18]
+				},
+				{
+					"line": 329, "columns": [20, 17]
+				}
+			],
+			"successors": [37, 39],
+			"ir": [
+				"%call11.i = call i32 @_Py_open(ptr noundef nonnull @.str.2, i32 noundef 0) #8, !dbg !7114",
+				"%cmp12.i = icmp slt i32 %call11.i, 0, !dbg !7116",
+				"br i1 %cmp12.i, label %if.then13.i, label %if.end27.i, !dbg !7118"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 37,
+			"name": "if.then13.i",
+			"debug": [
+				{
+					"line": 330, "columns": [21, 37]
+				}
+			],
+			"successors": [58, 38, 38, 38, 38],
+			"ir": [
+				"%call14.i = tail call ptr @__errno_location() #9, !dbg !7119",
+				"%13 = load i32, ptr %call14.i, align 4, !dbg !7119, !tbaa !6861",
+				"switch i32 %13, label %cleanup73.critedge.i [\n    i32 2, label %if.then25.i\n    i32 6, label %if.then25.i\n    i32 19, label %if.then25.i\n    i32 13, label %if.then25.i\n  ], !dbg !7122"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 38,
+			"name": "if.then25.i",
+			"debug": [
+				{
+					"line": 332, "columns": [37, 21]
+				},
+				{
+					"line": 334, "columns": [17]
+				}
+			],
+			"successors": [58],
+			"ir": [
+				"%14 = load ptr, ptr @PyExc_NotImplementedError, align 8, !dbg !7123, !tbaa !6836",
+				"call void @PyErr_SetString(ptr noundef %14, ptr noundef nonnull @.str.3) #8, !dbg !7125",
+				"br label %cleanup73.critedge.i, !dbg !7126"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 39,
+			"name": "if.end27.i",
+			"debug": [
+				{
+					"line": 338, "columns": [31, 34, 17]
+				}
+			],
+			"successors": [40, 41],
+			"ir": [
+				"%15 = load i32, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 14), align 8, !dbg !7127, !tbaa !6950",
+				"%cmp28.i = icmp sgt i32 %15, -1, !dbg !7129",
+				"br i1 %cmp28.i, label %if.then29.i, label %if.else31.i, !dbg !7130"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 40,
+			"name": "if.then29.i",
+			"debug": [
+				{
+					"line": 341, "columns": [17]
+				},
+				{
+					"line": 342, "columns": [36]
+				},
+				{
+					"line": 343, "columns": [13]
+				}
+			],
+			"successors": [44],
+			"ir": [
+				"%call30.i = call i32 @close(i32 noundef %call11.i) #8, !dbg !7131",
+				"%16 = load i32, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 14), align 8, !dbg !7133, !tbaa !6950",
+				"br label %if.end41.i, !dbg !7134"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 41,
+			"name": "if.else31.i",
+			"debug": [
+				{
+					"line": 345, "columns": [21]
+				}
+			],
+			"successors": [43, 42],
+			"ir": [
+				"%call32.i = call i32 @_Py_fstat(i32 noundef %call11.i, ptr noundef nonnull %st.i) #8, !dbg !7135",
+				"%tobool33.not.i = icmp eq i32 %call32.i, 0, !dbg !7135",
+				"br i1 %tobool33.not.i, label %if.else36.i, label %if.then34.i, !dbg !7138"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 42,
+			"name": "if.then34.i",
+			"debug": [
+				{
+					"line": 346, "columns": [21]
+				},
+				{
+					"line": 347, "columns": [21]
+				}
+			],
+			"successors": [58],
+			"ir": [
+				"%call35.i = call i32 @close(i32 noundef %call11.i) #8, !dbg !7139",
+				"br label %cleanup73.critedge.i, !dbg !7141"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 43,
+			"name": "if.else36.i",
+			"debug": [
+				{
+					"line": 350, "columns": [38]
+				},
+				{
+					"line": 351, "columns": [47, 42]
+				}
+			],
+			"successors": [44],
+			"ir": [
+				"store i32 %call11.i, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 14), align 8, !dbg !7142, !tbaa !6950",
+				"%17 = load <2 x i64>, ptr %st.i, align 16, !dbg !7144, !tbaa !7145",
+				"store <2 x i64> %17, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 14, i32 0, i32 1), align 8, !dbg !7146, !tbaa !7145",
+				"br label %if.end41.i"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 44,
+			"name": "if.end41.i",
+			"debug": [
+				{
+					"line": 357, "columns": [9]
+				}
+			],
+			"successors": [45],
+			"ir": [
+				"%fd.0.i = phi i32 [ %16, %if.then29.i ], [ %call11.i, %if.else36.i ], [ %.pr.i, %if.end8.i ], !dbg !7147",
+				"br label %do.body.i, !dbg !7148"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 45,
+			"name": "do.body.i",
+			"debug": [
+				{
+					"line": 358, "columns": [17]
+				},
+				{
+					"line": 359, "columns": [17]
+				}
+			],
+			"successors": [47, 58, 46],
+			"ir": [
+				"%size.addr.0.i = phi i64 [ %size, %if.end41.i ], [ %sub.i24, %if.end49.i ]",
+				"%buffer.addr.0.i = phi ptr [ %buffer, %if.end41.i ], [ %add.ptr.i23, %if.end49.i ]",
+				"%call42.i = call i64 @_Py_read(i32 noundef %fd.0.i, ptr noundef %buffer.addr.0.i, i64 noundef %size.addr.0.i) #8, !dbg !7149",
+				"switch i64 %call42.i, label %if.end49.i [\n    i64 -1, label %cleanup73.critedge.i\n    i64 0, label %if.then47.i\n  ], !dbg !7151"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 46,
+			"name": "if.then47.i",
+			"debug": [
+				{
+					"line": 362, "columns": [30, 17]
+				},
+				{
+					"line": 365, "columns": [17]
+				}
+			],
+			"successors": [58],
+			"ir": [
+				"%18 = load ptr, ptr @PyExc_RuntimeError, align 8, !dbg !7152, !tbaa !6836",
+				"%call48.i = call ptr (ptr, ptr, ...) @PyErr_Format(ptr noundef %18, ptr noundef nonnull @.str.4, i64 noundef %size.addr.0.i) #8, !dbg !7155",
+				"br label %cleanup73.critedge.i, !dbg !7156"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 47,
+			"name": "if.end49.i",
+			"debug": [
+				{
+					"line": 368, "columns": [20]
+				},
+				{
+					"line": 369, "columns": [18]
+				},
+				{
+					"line": 370, "columns": [20, 9]
+				}
+			],
+			"successors": [45, 48],
+			"ir": [
+				"%add.ptr.i23 = getelementptr i8, ptr %buffer.addr.0.i, i64 %call42.i, !dbg !7157",
+				"%sub.i24 = sub i64 %size.addr.0.i, %call42.i, !dbg !7158",
+				"%cmp50.i = icmp sgt i64 %sub.i24, 0, !dbg !7159",
+				"br i1 %cmp50.i, label %do.body.i, label %cleanup.i, !dbg !7160, !llvm.loop !7161"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 48,
+			"name": "cleanup.i",
+			"debug": [
+				{
+					"line": 371, "columns": [5]
+				}
+			],
+			"successors": [59],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %st.i) #8, !dbg !7163",
+				"br label %cleanup"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 49,
+			"name": "if.else52.i",
+			"debug": [
+				{
+					"line": 373, "columns": [14]
+				},
+				{
+					"line": 374, "columns": [16, 13]
+				}
+			],
+			"successors": [59, 50],
+			"ir": [
+				"%call53.i = tail call i32 @_Py_open_noraise(ptr noundef nonnull @.str.2, i32 noundef 0) #8, !dbg !7164",
+				"%cmp54.i = icmp slt i32 %call53.i, 0, !dbg !7166",
+				"br i1 %cmp54.i, label %cleanup, label %while.cond.preheader.i, !dbg !7168"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 50,
+			"name": "while.cond.preheader.i",
+			"debug": [
+				{
+					"line": 378, "columns": [18, 9]
+				}
+			],
+			"successors": [51, 57],
+			"ir": [
+				"%cmp57107.i = icmp sgt i64 %size, 0, !dbg !7169",
+				"br i1 %cmp57107.i, label %do.body58.preheader.i, label %while.end.i, !dbg !7170"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 51,
+			"name": "do.body58.preheader.i",
+			"debug": [
+				{
+					"line": 380, "columns": [13]
+				}
+			],
+			"successors": [52],
+			"ir": [
+				"%buffer.addr.1109.i = phi ptr [ %add.ptr69.i, %if.end68.i ], [ %buffer, %while.cond.preheader.i ]",
+				"%size.addr.1108.i = phi i64 [ %sub70.i, %if.end68.i ], [ %size, %while.cond.preheader.i ]",
+				"br label %do.body58.i, !dbg !7171"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 52,
+			"name": "do.body58.i",
+			"debug": [
+				{
+					"line": 381, "columns": [21]
+				},
+				{
+					"line": 382, "columns": [24, 28]
+				}
+			],
+			"successors": [53, 54],
+			"ir": [
+				"%call59.i = tail call i64 @read(i32 noundef %call53.i, ptr noundef %buffer.addr.1109.i, i64 noundef %size.addr.1108.i) #8, !dbg !7173",
+				"%cmp61.i = icmp slt i64 %call59.i, 0, !dbg !7175",
+				"br i1 %cmp61.i, label %land.rhs.i, label %do.end64.i, !dbg !7176"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 53,
+			"name": "land.rhs.i",
+			"debug": [
+				{
+					"line": 382, "columns": [31, 37, 13]
+				}
+			],
+			"successors": [52, 55],
+			"ir": [
+				"%call62.i = tail call ptr @__errno_location() #9, !dbg !7177",
+				"%19 = load i32, ptr %call62.i, align 4, !dbg !7177, !tbaa !6861",
+				"%cmp63.i = icmp eq i32 %19, 4, !dbg !7178",
+				"br i1 %cmp63.i, label %do.body58.i, label %if.then66.i, !dbg !7179, !llvm.loop !7180"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 54,
+			"name": "do.end64.i",
+			"debug": [
+				{
+					"line": 384, "columns": [19, 17]
+				}
+			],
+			"successors": [55, 56],
+			"ir": [
+				"%cmp65.i = icmp eq i64 %call59.i, 0, !dbg !7182",
+				"br i1 %cmp65.i, label %if.then66.i, label %if.end68.i, !dbg !7184"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 55,
+			"name": "if.then66.i",
+			"debug": [
+				{
+					"line": 386, "columns": [17]
+				},
+				{
+					"line": 387, "columns": [17]
+				}
+			],
+			"successors": [59],
+			"ir": [
+				"%call67.i = tail call i32 @close(i32 noundef %call53.i) #8, !dbg !7185",
+				"br label %cleanup, !dbg !7187"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 56,
+			"name": "if.end68.i",
+			"debug": [
+				{
+					"line": 378, "columns": [18, 9]
+				},
+				{
+					"line": 390, "columns": [20]
+				},
+				{
+					"line": 391, "columns": [18]
+				}
+			],
+			"successors": [51, 57],
+			"ir": [
+				"%add.ptr69.i = getelementptr i8, ptr %buffer.addr.1109.i, i64 %call59.i, !dbg !7188",
+				"%sub70.i = sub i64 %size.addr.1108.i, %call59.i, !dbg !7189",
+				"%cmp57.i = icmp sgt i64 %sub70.i, 0, !dbg !7169",
+				"br i1 %cmp57.i, label %do.body58.preheader.i, label %while.end.i, !dbg !7170, !llvm.loop !7190"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 57,
+			"name": "while.end.i",
+			"debug": [
+				{
+					"line": 393, "columns": [9]
+				}
+			],
+			"successors": [59],
+			"ir": [
+				"%call71.i = tail call i32 @close(i32 noundef %call53.i) #8, !dbg !7192",
+				"br label %cleanup"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 58,
+			"name": "cleanup73.critedge.i",
+			"debug": [
+				{
+					"line": 371, "columns": [5]
+				}
+			],
+			"successors": [59],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %st.i) #8, !dbg !7163",
+				"br label %cleanup"
+			]
+		},
+		{
+			"function": "pyurandom",
+			"id": 59,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 519, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ -1, %if.then1 ], [ -1, %if.then ], [ 0, %if.end2 ], [ -1, %if.then37.i ], [ -1, %if.then66.i ], [ -1, %cleanup73.critedge.i ], [ -1, %if.else52.i ], [ 0, %cleanup.i ], [ 0, %while.end.i ], [ -1, %if.then11.us.us154.us.i ], [ 0, %if.end40.split.us.split.us231.i ], [ -1, %if.then11.us.us.us.us.us.i ], [ 0, %if.end40.split.us.split.us.us.us.i ], [ -1, %if.then27.us98.i ], [ 0, %if.end40.split.split.i ], [ -1, %if.then27.us77.us.us.i ], [ 0, %if.end40.split.split.us.us.i ], !dbg !6826",
+				"ret i32 %retval.0, !dbg !7193"
+			]
+		},
+		{
+			"function": "_PyOS_URandomNonblock",
+			"id": 60,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 547, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call fastcc i32 @pyurandom(ptr noundef %buffer, i64 noundef %size, i32 noundef 0, i32 noundef 1), !dbg !6826, !range !6827",
+				"ret i32 %call, !dbg !6828"
+			]
+		},
+		{
+			"function": "_Py_HashRandomization_Init",
+			"id": 61,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 557, "columns": [9]
+				}
+			],
+			"successors": [62, 63],
+			"ir": [
+				"%.b = load i1, ptr @_Py_HashSecret_Initialized, align 4, !dbg !6833",
+				"br i1 %.b, label %if.then, label %if.end, !dbg !6835"
+			]
+		},
+		{
+			"function": "_Py_HashRandomization_Init",
+			"id": 62,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 558, "columns": [16, 9]
+				}
+			],
+			"successors": [70],
+			"ir": [
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %agg.result, i8 0, i64 32, i1 false), !dbg !6836",
+				"br label %cleanup17, !dbg !6838"
+			]
+		},
+		{
+			"function": "_Py_HashRandomization_Init",
+			"id": 63,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 560, "columns": [32]
+				},
+				{
+					"line": 562, "columns": [17, 9]
+				}
+			],
+			"successors": [67, 64],
+			"ir": [
+				"store i1 true, ptr @_Py_HashSecret_Initialized, align 4, !dbg !6839",
+				"%use_hash_seed = getelementptr inbounds %struct.PyConfig, ptr %config, i64 0, i32 5, !dbg !6840",
+				"%0 = load i32, ptr %use_hash_seed, align 4, !dbg !6840, !tbaa !6841",
+				"%tobool1.not = icmp eq i32 %0, 0, !dbg !6849",
+				"br i1 %tobool1.not, label %if.else6, label %if.then2, !dbg !6850"
+			]
+		},
+		{
+			"function": "_Py_HashRandomization_Init",
+			"id": 64,
+			"name": "if.then2",
+			"debug": [
+				{
+					"line": 563, "columns": [21, 31, 13]
+				}
+			],
+			"successors": [65, 66],
+			"ir": [
+				"%hash_seed = getelementptr inbounds %struct.PyConfig, ptr %config, i64 0, i32 6, !dbg !6851",
+				"%1 = load i64, ptr %hash_seed, align 8, !dbg !6851, !tbaa !6854",
+				"%cmp = icmp eq i64 %1, 0, !dbg !6855",
+				"br i1 %cmp, label %if.then3, label %if.else, !dbg !6856"
+			]
+		},
+		{
+			"function": "_Py_HashRandomization_Init",
+			"id": 65,
+			"name": "if.then3",
+			"debug": [
+				{
+					"line": 565, "columns": [13]
+				},
+				{
+					"line": 566, "columns": [9]
+				}
+			],
+			"successors": [69],
+			"ir": [
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) @_Py_HashSecret, i8 0, i64 24, i1 false), !dbg !6857",
+				"br label %if.end12, !dbg !6859"
+			]
+		},
+		{
+			"function": "_Py_HashRandomization_Init",
+			"id": 66,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 426, "columns": [11]
+				},
+				{
+					"line": 427, "columns": [11]
+				},
+				{
+					"line": 429, "columns": [28, 25, 23]
+				},
+				{
+					"line": 569, "columns": [25]
+				}
+			],
+			"successors": [69],
+			"ir": [
+				"%conv = trunc i64 %1 to i32, !dbg !6860",
+				"%mul.i = mul i32 %conv, 214013, !dbg !6874",
+				"%add.i = add i32 %mul.i, 2531011, !dbg !6878",
+				"%shr.i = lshr i32 %add.i, 16, !dbg !6879",
+				"%conv.i = trunc i32 %shr.i to i8, !dbg !6880",
+				"store i8 %conv.i, ptr @_Py_HashSecret, align 8, !dbg !6881, !tbaa !6882",
+				"%mul.1.i = mul i32 %add.i, 214013, !dbg !6874",
+				"%add.1.i = add i32 %mul.1.i, 2531011, !dbg !6878",
+				"%shr.1.i = lshr i32 %add.1.i, 16, !dbg !6879",
+				"%conv.1.i = trunc i32 %shr.1.i to i8, !dbg !6880",
+				"store i8 %conv.1.i, ptr getelementptr inbounds (%union._Py_HashSecret_t, ptr @_Py_HashSecret, i64 0, i32 0, i32 0, i64 1), align 1, !dbg !6881, !tbaa !6882",
+				"%mul.2.i = mul i32 %add.1.i, 214013, !dbg !6874",
+				"%add.2.i = add i32 %mul.2.i, 2531011, !dbg !6878",
+				"%shr.2.i = lshr i32 %add.2.i, 16, !dbg !6879",
+				"%conv.2.i = trunc i32 %shr.2.i to i8, !dbg !6880",
+				"store i8 %conv.2.i, ptr getelementptr inbounds (%union._Py_HashSecret_t, ptr @_Py_HashSecret, i64 0, i32 0, i32 0, i64 2), align 2, !dbg !6881, !tbaa !6882",
+				"%mul.3.i = mul i32 %add.2.i, 214013, !dbg !6874",
+				"%add.3.i = add i32 %mul.3.i, 2531011, !dbg !6878",
+				"%shr.3.i = lshr i32 %add.3.i, 16, !dbg !6879",
+				"%conv.3.i = trunc i32 %shr.3.i to i8, !dbg !6880",
+				"store i8 %conv.3.i, ptr getelementptr inbounds (%union._Py_HashSecret_t, ptr @_Py_HashSecret, i64 0, i32 0, i32 0, i64 3), align 1, !dbg !6881, !tbaa !6882",
+				"%mul.4.i = mul i32 %add.3.i, 214013, !dbg !6874",
+				"%add.4.i = add i32 %mul.4.i, 2531011, !dbg !6878",
+				"%shr.4.i = lshr i32 %add.4.i, 16, !dbg !6879",
+				"%conv.4.i = trunc i32 %shr.4.i to i8, !dbg !6880",
+				"store i8 %conv.4.i, ptr getelementptr inbounds (%union._Py_HashSecret_t, ptr @_Py_HashSecret, i64 0, i32 0, i32 0, i64 4), align 4, !dbg !6881, !tbaa !6882",
+				"%mul.5.i = mul i32 %add.4.i, 214013, !dbg !6874",
+				"%add.5.i = add i32 %mul.5.i, 2531011, !dbg !6878",
+				"%shr.5.i = lshr i32 %add.5.i, 16, !dbg !6879",
+				"%conv.5.i = trunc i32 %shr.5.i to i8, !dbg !6880",
+				"store i8 %conv.5.i, ptr getelementptr inbounds (%union._Py_HashSecret_t, ptr @_Py_HashSecret, i64 0, i32 0, i32 0, i64 5), align 1, !dbg !6881, !tbaa !6882",
+				"%mul.6.i = mul i32 %add.5.i, 214013, !dbg !6874",
+				"%add.6.i = add i32 %mul.6.i, 2531011, !dbg !6878",
+				"%shr.6.i = lshr i32 %add.6.i, 16, !dbg !6879",
+				"%conv.6.i = trunc i32 %shr.6.i to i8, !dbg !6880",
+				"store i8 %conv.6.i, ptr getelementptr inbounds (%union._Py_HashSecret_t, ptr @_Py_HashSecret, i64 0, i32 0, i32 0, i64 6), align 2, !dbg !6881, !tbaa !6882",
+				"%mul.7.i = mul i32 %add.6.i, 214013, !dbg !6874",
+				"%add.7.i = add i32 %mul.7.i, 2531011, !dbg !6878",
+				"%shr.7.i = lshr i32 %add.7.i, 16, !dbg !6879",
+				"%conv.7.i = trunc i32 %shr.7.i to i8, !dbg !6880",
+				"store i8 %conv.7.i, ptr getelementptr inbounds (%union._Py_HashSecret_t, ptr @_Py_HashSecret, i64 0, i32 0, i32 0, i64 7), align 1, !dbg !6881, !tbaa !6882",
+				"%mul.8.i = mul i32 %add.7.i, 214013, !dbg !6874",
+				"%add.8.i = add i32 %mul.8.i, 2531011, !dbg !6878",
+				"%shr.8.i = lshr i32 %add.8.i, 16, !dbg !6879",
+				"%conv.8.i = trunc i32 %shr.8.i to i8, !dbg !6880",
+				"store i8 %conv.8.i, ptr getelementptr inbounds (%union._Py_HashSecret_t, ptr @_Py_HashSecret, i64 0, i32 0, i32 0, i64 8), align 8, !dbg !6881, !tbaa !6882",
+				"%mul.9.i = mul i32 %add.8.i, 214013, !dbg !6874",
+				"%add.9.i = add i32 %mul.9.i, 2531011, !dbg !6878",
+				"%shr.9.i = lshr i32 %add.9.i, 16, !dbg !6879",
+				"%conv.9.i = trunc i32 %shr.9.i to i8, !dbg !6880",
+				"store i8 %conv.9.i, ptr getelementptr inbounds (%union._Py_HashSecret_t, ptr @_Py_HashSecret, i64 0, i32 0, i32 0, i64 9), align 1, !dbg !6881, !tbaa !6882",
+				"%mul.10.i = mul i32 %add.9.i, 214013, !dbg !6874",
+				"%add.10.i = add i32 %mul.10.i, 2531011, !dbg !6878",
+				"%shr.10.i = lshr i32 %add.10.i, 16, !dbg !6879",
+				"%conv.10.i = trunc i32 %shr.10.i to i8, !dbg !6880",
+				"store i8 %conv.10.i, ptr getelementptr inbounds (%union._Py_HashSecret_t, ptr @_Py_HashSecret, i64 0, i32 0, i32 0, i64 10), align 2, !dbg !6881, !tbaa !6882",
+				"%mul.11.i = mul i32 %add.10.i, 214013, !dbg !6874",
+				"%add.11.i = add i32 %mul.11.i, 2531011, !dbg !6878",
+				"%shr.11.i = lshr i32 %add.11.i, 16, !dbg !6879",
+				"%conv.11.i = trunc i32 %shr.11.i to i8, !dbg !6880",
+				"store i8 %conv.11.i, ptr getelementptr inbounds (%union._Py_HashSecret_t, ptr @_Py_HashSecret, i64 0, i32 0, i32 0, i64 11), align 1, !dbg !6881, !tbaa !6882",
+				"%mul.12.i = mul i32 %add.11.i, 214013, !dbg !6874",
+				"%add.12.i = add i32 %mul.12.i, 2531011, !dbg !6878",
+				"%shr.12.i = lshr i32 %add.12.i, 16, !dbg !6879",
+				"%conv.12.i = trunc i32 %shr.12.i to i8, !dbg !6880",
+				"store i8 %conv.12.i, ptr getelementptr inbounds (%union._Py_HashSecret_t, ptr @_Py_HashSecret, i64 0, i32 0, i32 0, i64 12), align 4, !dbg !6881, !tbaa !6882",
+				"%mul.13.i = mul i32 %add.12.i, 214013, !dbg !6874",
+				"%add.13.i = add i32 %mul.13.i, 2531011, !dbg !6878",
+				"%shr.13.i = lshr i32 %add.13.i, 16, !dbg !6879",
+				"%conv.13.i = trunc i32 %shr.13.i to i8, !dbg !6880",
+				"store i8 %conv.13.i, ptr getelementptr inbounds (%union._Py_HashSecret_t, ptr @_Py_HashSecret, i64 0, i32 0, i32 0, i64 13), align 1, !dbg !6881, !tbaa !6882",
+				"%mul.14.i = mul i32 %add.13.i, 214013, !dbg !6874",
+				"%add.14.i = add i32 %mul.14.i, 2531011, !dbg !6878",
+				"%shr.14.i = lshr i32 %add.14.i, 16, !dbg !6879",
+				"%conv.14.i = trunc i32 %shr.14.i to i8, !dbg !6880",
+				"store i8 %conv.14.i, ptr getelementptr inbounds (%union._Py_HashSecret_t, ptr @_Py_HashSecret, i64 0, i32 0, i32 0, i64 14), align 2, !dbg !6881, !tbaa !6882",
+				"%mul.15.i = mul i32 %add.14.i, 214013, !dbg !6874",
+				"%add.15.i = add i32 %mul.15.i, 2531011, !dbg !6878",
+				"%shr.15.i = lshr i32 %add.15.i, 16, !dbg !6879",
+				"%conv.15.i = trunc i32 %shr.15.i to i8, !dbg !6880",
+				"store i8 %conv.15.i, ptr getelementptr inbounds (%union._Py_HashSecret_t, ptr @_Py_HashSecret, i64 0, i32 0, i32 0, i64 15), align 1, !dbg !6881, !tbaa !6882",
+				"%mul.16.i = mul i32 %add.15.i, 214013, !dbg !6874",
+				"%add.16.i = add i32 %mul.16.i, 2531011, !dbg !6878",
+				"%shr.16.i = lshr i32 %add.16.i, 16, !dbg !6879",
+				"%conv.16.i = trunc i32 %shr.16.i to i8, !dbg !6880",
+				"store i8 %conv.16.i, ptr getelementptr inbounds (%union._Py_HashSecret_t, ptr @_Py_HashSecret, i64 0, i32 0, i32 1), align 8, !dbg !6881, !tbaa !6882",
+				"%mul.17.i = mul i32 %add.16.i, 214013, !dbg !6874",
+				"%add.17.i = add i32 %mul.17.i, 2531011, !dbg !6878",
+				"%shr.17.i = lshr i32 %add.17.i, 16, !dbg !6879",
+				"%conv.17.i = trunc i32 %shr.17.i to i8, !dbg !6880",
+				"store i8 %conv.17.i, ptr getelementptr (i8, ptr @_Py_HashSecret, i64 17), align 1, !dbg !6881, !tbaa !6882",
+				"%mul.18.i = mul i32 %add.17.i, 214013, !dbg !6874",
+				"%add.18.i = add i32 %mul.18.i, 2531011, !dbg !6878",
+				"%shr.18.i = lshr i32 %add.18.i, 16, !dbg !6879",
+				"%conv.18.i = trunc i32 %shr.18.i to i8, !dbg !6880",
+				"store i8 %conv.18.i, ptr getelementptr (i8, ptr @_Py_HashSecret, i64 18), align 2, !dbg !6881, !tbaa !6882",
+				"%mul.19.i = mul i32 %add.18.i, 214013, !dbg !6874",
+				"%add.19.i = add i32 %mul.19.i, 2531011, !dbg !6878",
+				"%shr.19.i = lshr i32 %add.19.i, 16, !dbg !6879",
+				"%conv.19.i = trunc i32 %shr.19.i to i8, !dbg !6880",
+				"store i8 %conv.19.i, ptr getelementptr (i8, ptr @_Py_HashSecret, i64 19), align 1, !dbg !6881, !tbaa !6882",
+				"%mul.20.i = mul i32 %add.19.i, 214013, !dbg !6874",
+				"%add.20.i = add i32 %mul.20.i, 2531011, !dbg !6878",
+				"%shr.20.i = lshr i32 %add.20.i, 16, !dbg !6879",
+				"%conv.20.i = trunc i32 %shr.20.i to i8, !dbg !6880",
+				"store i8 %conv.20.i, ptr getelementptr (i8, ptr @_Py_HashSecret, i64 20), align 4, !dbg !6881, !tbaa !6882",
+				"%mul.21.i = mul i32 %add.20.i, 214013, !dbg !6874",
+				"%add.21.i = add i32 %mul.21.i, 2531011, !dbg !6878",
+				"%shr.21.i = lshr i32 %add.21.i, 16, !dbg !6879",
+				"%conv.21.i = trunc i32 %shr.21.i to i8, !dbg !6880",
+				"store i8 %conv.21.i, ptr getelementptr (i8, ptr @_Py_HashSecret, i64 21), align 1, !dbg !6881, !tbaa !6882",
+				"%mul.22.i = mul i32 %add.21.i, 214013, !dbg !6874",
+				"%add.22.i = add i32 %mul.22.i, 2531011, !dbg !6878",
+				"%shr.22.i = lshr i32 %add.22.i, 16, !dbg !6879",
+				"%conv.22.i = trunc i32 %shr.22.i to i8, !dbg !6880",
+				"store i8 %conv.22.i, ptr getelementptr (i8, ptr @_Py_HashSecret, i64 22), align 2, !dbg !6881, !tbaa !6882",
+				"%mul.23.i = mul i32 %add.22.i, 214013, !dbg !6874",
+				"%add.23.i = add i32 %mul.23.i, 2531011, !dbg !6878",
+				"%shr.23.i = lshr i32 %add.23.i, 16, !dbg !6879",
+				"%conv.23.i = trunc i32 %shr.23.i to i8, !dbg !6880",
+				"store i8 %conv.23.i, ptr getelementptr (i8, ptr @_Py_HashSecret, i64 23), align 1, !dbg !6881, !tbaa !6882",
+				"br label %if.end12"
+			]
+		},
+		{
+			"function": "_Py_HashRandomization_Init",
+			"id": 67,
+			"name": "if.else6",
+			"debug": [
+				{
+					"line": 581, "columns": [15]
+				},
+				{
+					"line": 582, "columns": [17, 13]
+				}
+			],
+			"successors": [69, 68],
+			"ir": [
+				"%call = tail call fastcc i32 @pyurandom(ptr noundef nonnull @_Py_HashSecret, i64 noundef 24, i32 noundef 0, i32 noundef 0), !dbg !6883, !range !6884",
+				"%cmp7 = icmp sgt i32 %call, -1, !dbg !6886",
+				"br i1 %cmp7, label %if.end12, label %if.then9, !dbg !6888"
+			]
+		},
+		{
+			"function": "_Py_HashRandomization_Init",
+			"id": 68,
+			"name": "if.then9",
+			"debug": [
+				{
+					"line": 583, "columns": [20]
+				}
+			],
+			"successors": [70],
+			"ir": [
+				"store i32 1, ptr %agg.result, align 8, !dbg !6889, !tbaa !6891",
+				"%func = getelementptr inbounds %struct.PyStatus, ptr %agg.result, i64 0, i32 1, !dbg !6889",
+				"store ptr @__func__._Py_HashRandomization_Init, ptr %func, align 8, !dbg !6889, !tbaa !6893",
+				"%err_msg = getelementptr inbounds %struct.PyStatus, ptr %agg.result, i64 0, i32 2, !dbg !6889",
+				"store ptr @.str, ptr %err_msg, align 8, !dbg !6889, !tbaa !6894",
+				"%exitcode = getelementptr inbounds %struct.PyStatus, ptr %agg.result, i64 0, i32 3, !dbg !6889",
+				"store i32 0, ptr %exitcode, align 8, !dbg !6889, !tbaa !6895",
+				"br label %cleanup17"
+			]
+		},
+		{
+			"function": "_Py_HashRandomization_Init",
+			"id": 69,
+			"name": "if.end12",
+			"debug": [
+				{
+					"line": 587, "columns": [12, 5]
+				}
+			],
+			"successors": [70],
+			"ir": [
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %agg.result, i8 0, i64 32, i1 false), !dbg !6896",
+				"br label %cleanup17, !dbg !6897"
+			]
+		},
+		{
+			"function": "_Py_HashRandomization_Init",
+			"id": 70,
+			"name": "cleanup17",
+			"debug": [
+				{
+					"line": 588, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !6898"
+			]
+		},
+		{
+			"function": "_Py_HashRandomization_Fini",
+			"id": 71,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 401, "columns": [23, 26, 9]
+				}
+			],
+			"successors": [72, 73],
+			"ir": [
+				"%0 = load i32, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 14), align 8, !dbg !6821, !tbaa !6825",
+				"%cmp.i = icmp sgt i32 %0, -1, !dbg !6961",
+				"br i1 %cmp.i, label %if.then.i, label %dev_urandom_close.exit, !dbg !6962"
+			]
+		},
+		{
+			"function": "_Py_HashRandomization_Fini",
+			"id": 72,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 402, "columns": [9]
+				},
+				{
+					"line": 403, "columns": [26]
+				},
+				{
+					"line": 404, "columns": [5]
+				}
+			],
+			"successors": [73],
+			"ir": [
+				"%call.i = tail call i32 @close(i32 noundef %0) #8, !dbg !6963",
+				"store i32 -1, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 14), align 8, !dbg !6965, !tbaa !6825",
+				"br label %dev_urandom_close.exit, !dbg !6966"
+			]
+		},
+		{
+			"function": "_Py_HashRandomization_Fini",
+			"id": 73,
+			"name": "dev_urandom_close.exit",
+			"debug": [
+				{
+					"line": 597, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !6967"
+			]
+		}
+	]
+}

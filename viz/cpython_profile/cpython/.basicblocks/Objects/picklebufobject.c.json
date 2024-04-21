@@ -1,0 +1,874 @@
+{
+	"blocks": [
+		{
+			"function": "PyPickleBuffer_FromObject",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 21, "columns": [43, 37]
+				},
+				{
+					"line": 22, "columns": [14, 9]
+				}
+			],
+			"successors": [5, 1],
+			"ir": [
+				"%0 = load ptr, ptr getelementptr inbounds (%struct._typeobject, ptr @PyPickleBuffer_Type, i64 0, i32 36), align 8, !dbg !456, !tbaa !457",
+				"%call = tail call ptr %0(ptr noundef nonnull @PyPickleBuffer_Type, i64 noundef 0) #7, !dbg !467",
+				"%cmp = icmp eq ptr %call, null, !dbg !468",
+				"br i1 %cmp, label %cleanup, label %if.end, !dbg !470"
+			]
+		},
+		{
+			"function": "PyPickleBuffer_FromObject",
+			"id": 1,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 25, "columns": [11, 16, 20]
+				},
+				{
+					"line": 26, "columns": [11, 23]
+				},
+				{
+					"line": 27, "columns": [9, 62]
+				}
+			],
+			"successors": [2, 5],
+			"ir": [
+				"%view = getelementptr inbounds %struct.PyPickleBufferObject, ptr %call, i64 0, i32 1, !dbg !471",
+				"%obj = getelementptr inbounds %struct.PyPickleBufferObject, ptr %call, i64 0, i32 1, i32 1, !dbg !472",
+				"store ptr null, ptr %obj, align 8, !dbg !473, !tbaa !474",
+				"%weakreflist = getelementptr inbounds %struct.PyPickleBufferObject, ptr %call, i64 0, i32 2, !dbg !477",
+				"store ptr null, ptr %weakreflist, align 8, !dbg !478, !tbaa !479",
+				"%call2 = tail call i32 @PyObject_GetBuffer(ptr noundef %base, ptr noundef nonnull %view, i32 noundef 284) #7, !dbg !480",
+				"%cmp3 = icmp slt i32 %call2, 0, !dbg !482",
+				"br i1 %cmp3, label %if.then4, label %cleanup, !dbg !483"
+			]
+		},
+		{
+			"function": "PyPickleBuffer_FromObject",
+			"id": 2,
+			"name": "if.then4",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [3, 5],
+			"ir": [
+				"%op.val.i = load i64, ptr %call, align 8, !dbg !490, !tbaa !492",
+				"%1 = and i64 %op.val.i, 2147483648, !dbg !498",
+				"%cmp.i.not.i = icmp eq i64 %1, 0, !dbg !498",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %cleanup, !dbg !499"
+			]
+		},
+		{
+			"function": "PyPickleBuffer_FromObject",
+			"id": 3,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [4, 5],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !500",
+				"store i64 %dec.i, ptr %call, align 8, !dbg !500, !tbaa !492",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !502",
+				"br i1 %cmp.i, label %if.then1.i, label %cleanup, !dbg !503"
+			]
+		},
+		{
+			"function": "PyPickleBuffer_FromObject",
+			"id": 4,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [5],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call) #7, !dbg !504",
+				"br label %cleanup, !dbg !506"
+			]
+		},
+		{
+			"function": "PyPickleBuffer_FromObject",
+			"id": 5,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 32, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ null, %entry ], [ %call, %if.end ], [ null, %if.then4 ], [ null, %if.end.i ], [ null, %if.then1.i ], !dbg !455",
+				"ret ptr %retval.0, !dbg !507"
+			]
+		},
+		{
+			"function": "PyPickleBuffer_GetBuffer",
+			"id": 6,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 39, "columns": [10, 9]
+				},
+				{
+					"line": 365, "columns": [24]
+				}
+			],
+			"successors": [8, 7],
+			"ir": [
+				"%0 = getelementptr i8, ptr %obj, i64 8, !dbg !459",
+				"%obj.val10 = load ptr, ptr %0, align 8, !dbg !459, !tbaa !461",
+				"%cmp.i.not = icmp eq ptr %obj.val10, @PyPickleBuffer_Type, !dbg !474",
+				"br i1 %cmp.i.not, label %if.end, label %if.then, !dbg !475"
+			]
+		},
+		{
+			"function": "PyPickleBuffer_GetBuffer",
+			"id": 7,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 40, "columns": [22, 9]
+				},
+				{
+					"line": 42, "columns": [36]
+				},
+				{
+					"line": 43, "columns": [9]
+				}
+			],
+			"successors": [11],
+			"ir": [
+				"%1 = load ptr, ptr @PyExc_TypeError, align 8, !dbg !476, !tbaa !478",
+				"%tp_name = getelementptr inbounds %struct._typeobject, ptr %obj.val10, i64 0, i32 1, !dbg !479",
+				"%2 = load ptr, ptr %tp_name, align 8, !dbg !479, !tbaa !480",
+				"%call2 = tail call ptr (ptr, ptr, ...) @PyErr_Format(ptr noundef %1, ptr noundef nonnull @.str, ptr noundef %2) #7, !dbg !486",
+				"br label %cleanup, !dbg !487"
+			]
+		},
+		{
+			"function": "PyPickleBuffer_GetBuffer",
+			"id": 8,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 45, "columns": [20, 24, 9]
+				}
+			],
+			"successors": [9, 10],
+			"ir": [
+				"%obj3 = getelementptr inbounds %struct.PyPickleBufferObject, ptr %obj, i64 0, i32 1, i32 1, !dbg !488",
+				"%3 = load ptr, ptr %obj3, align 8, !dbg !488, !tbaa !490",
+				"%cmp = icmp eq ptr %3, null, !dbg !493",
+				"br i1 %cmp, label %if.then4, label %if.end5, !dbg !494"
+			]
+		},
+		{
+			"function": "PyPickleBuffer_GetBuffer",
+			"id": 9,
+			"name": "if.then4",
+			"debug": [
+				{
+					"line": 46, "columns": [25, 9]
+				},
+				{
+					"line": 48, "columns": [9]
+				}
+			],
+			"successors": [11],
+			"ir": [
+				"%4 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !495, !tbaa !478",
+				"tail call void @PyErr_SetString(ptr noundef %4, ptr noundef nonnull @.str.1) #7, !dbg !497",
+				"br label %cleanup, !dbg !498"
+			]
+		},
+		{
+			"function": "PyPickleBuffer_GetBuffer",
+			"id": 10,
+			"name": "if.end5",
+			"debug": [
+				{
+					"line": 45, "columns": [15]
+				},
+				{
+					"line": 50, "columns": [5]
+				}
+			],
+			"successors": [11],
+			"ir": [
+				"%view = getelementptr inbounds %struct.PyPickleBufferObject, ptr %obj, i64 0, i32 1, !dbg !499",
+				"br label %cleanup, !dbg !500"
+			]
+		},
+		{
+			"function": "PyPickleBuffer_GetBuffer",
+			"id": 11,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 51, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ null, %if.then4 ], [ %view, %if.end5 ], [ null, %if.then ], !dbg !458",
+				"ret ptr %retval.0, !dbg !501"
+			]
+		},
+		{
+			"function": "PyPickleBuffer_Release",
+			"id": 12,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 58, "columns": [10, 9]
+				},
+				{
+					"line": 365, "columns": [24]
+				}
+			],
+			"successors": [14, 13],
+			"ir": [
+				"%0 = getelementptr i8, ptr %obj, i64 8, !dbg !455",
+				"%obj.val5 = load ptr, ptr %0, align 8, !dbg !455, !tbaa !457",
+				"%cmp.i.not = icmp eq ptr %obj.val5, @PyPickleBuffer_Type, !dbg !470",
+				"br i1 %cmp.i.not, label %if.end, label %if.then, !dbg !471"
+			]
+		},
+		{
+			"function": "PyPickleBuffer_Release",
+			"id": 13,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 59, "columns": [22, 9]
+				},
+				{
+					"line": 61, "columns": [36]
+				},
+				{
+					"line": 62, "columns": [9]
+				}
+			],
+			"successors": [15],
+			"ir": [
+				"%1 = load ptr, ptr @PyExc_TypeError, align 8, !dbg !472, !tbaa !474",
+				"%tp_name = getelementptr inbounds %struct._typeobject, ptr %obj.val5, i64 0, i32 1, !dbg !475",
+				"%2 = load ptr, ptr %tp_name, align 8, !dbg !475, !tbaa !476",
+				"%call2 = tail call ptr (ptr, ptr, ...) @PyErr_Format(ptr noundef %1, ptr noundef nonnull @.str, ptr noundef %2) #7, !dbg !482",
+				"br label %cleanup, !dbg !483"
+			]
+		},
+		{
+			"function": "PyPickleBuffer_Release",
+			"id": 14,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 64, "columns": [29, 5]
+				},
+				{
+					"line": 65, "columns": [5]
+				}
+			],
+			"successors": [15],
+			"ir": [
+				"%view = getelementptr inbounds %struct.PyPickleBufferObject, ptr %obj, i64 0, i32 1, !dbg !484",
+				"tail call void @PyBuffer_Release(ptr noundef nonnull %view) #7, !dbg !485",
+				"br label %cleanup, !dbg !486"
+			]
+		},
+		{
+			"function": "PyPickleBuffer_Release",
+			"id": 15,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 66, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ 0, %if.end ], [ -1, %if.then ], !dbg !454",
+				"ret i32 %retval.0, !dbg !487"
+			]
+		},
+		{
+			"function": "picklebuf_dealloc",
+			"id": 16,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 110, "columns": [5]
+				},
+				{
+					"line": 111, "columns": [15, 27, 9]
+				}
+			],
+			"successors": [18, 17],
+			"ir": [
+				"tail call void @PyObject_GC_UnTrack(ptr noundef %self) #7, !dbg !456",
+				"%weakreflist = getelementptr inbounds %struct.PyPickleBufferObject, ptr %self, i64 0, i32 2, !dbg !457",
+				"%0 = load ptr, ptr %weakreflist, align 8, !dbg !457, !tbaa !459",
+				"%cmp.not = icmp eq ptr %0, null, !dbg !468",
+				"br i1 %cmp.not, label %if.end, label %if.then, !dbg !469"
+			]
+		},
+		{
+			"function": "picklebuf_dealloc",
+			"id": 17,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 112, "columns": [9]
+				}
+			],
+			"successors": [18],
+			"ir": [
+				"tail call void @PyObject_ClearWeakRefs(ptr noundef nonnull %self) #7, !dbg !470",
+				"br label %if.end, !dbg !470"
+			]
+		},
+		{
+			"function": "picklebuf_dealloc",
+			"id": 18,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 113, "columns": [29, 5]
+				},
+				{
+					"line": 114, "columns": [5, 20]
+				},
+				{
+					"line": 115, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%view = getelementptr inbounds %struct.PyPickleBufferObject, ptr %self, i64 0, i32 1, !dbg !471",
+				"tail call void @PyBuffer_Release(ptr noundef nonnull %view) #7, !dbg !472",
+				"%1 = getelementptr i8, ptr %self, i64 8, !dbg !473",
+				"%self.val = load ptr, ptr %1, align 8, !dbg !473, !tbaa !474",
+				"%tp_free = getelementptr inbounds %struct._typeobject, ptr %self.val, i64 0, i32 38, !dbg !475",
+				"%2 = load ptr, ptr %tp_free, align 8, !dbg !475, !tbaa !476",
+				"tail call void %2(ptr noundef nonnull %self) #7, !dbg !473",
+				"ret void, !dbg !480"
+			]
+		},
+		{
+			"function": "picklebuf_traverse",
+			"id": 19,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 96, "columns": [5]
+				}
+			],
+			"successors": [21, 20],
+			"ir": [
+				"%obj = getelementptr inbounds %struct.PyPickleBufferObject, ptr %self, i64 0, i32 1, i32 1, !dbg !462",
+				"%0 = load ptr, ptr %obj, align 8, !dbg !462, !tbaa !463",
+				"%tobool.not = icmp eq ptr %0, null, !dbg !462",
+				"br i1 %tobool.not, label %do.end, label %if.then, !dbg !472"
+			]
+		},
+		{
+			"function": "picklebuf_traverse",
+			"id": 20,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 96, "columns": [5]
+				}
+			],
+			"successors": [21, 22],
+			"ir": [
+				"%call = tail call i32 %visit(ptr noundef nonnull %0, ptr noundef %arg) #7, !dbg !473",
+				"%tobool3.not.not = icmp eq i32 %call, 0, !dbg !475",
+				"br i1 %tobool3.not.not, label %do.end, label %return"
+			]
+		},
+		{
+			"function": "picklebuf_traverse",
+			"id": 21,
+			"name": "do.end",
+			"debug": [
+				{
+					"line": 97, "columns": [5]
+				}
+			],
+			"successors": [22],
+			"ir": [
+				"br label %return, !dbg !477"
+			]
+		},
+		{
+			"function": "picklebuf_traverse",
+			"id": 22,
+			"name": "return",
+			"debug": [
+				{
+					"line": 98, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi i32 [ %call, %if.then ], [ 0, %do.end ], !dbg !461",
+				"ret i32 %retval.1, !dbg !478"
+			]
+		},
+		{
+			"function": "picklebuf_clear",
+			"id": 23,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 103, "columns": [29, 5]
+				},
+				{
+					"line": 104, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%view = getelementptr inbounds %struct.PyPickleBufferObject, ptr %self, i64 0, i32 1, !dbg !456",
+				"tail call void @PyBuffer_Release(ptr noundef nonnull %view) #7, !dbg !457",
+				"ret i32 0, !dbg !458"
+			]
+		},
+		{
+			"function": "picklebuf_new",
+			"id": 24,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 72, "columns": [5]
+				},
+				{
+					"line": 73, "columns": [5, 11]
+				},
+				{
+					"line": 75, "columns": [10, 9]
+				}
+			],
+			"successors": [30, 25],
+			"ir": [
+				"%base = alloca ptr, align 8",
+				"%keywords = alloca [2 x ptr], align 16",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %base) #7, !dbg !460",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %keywords) #7, !dbg !461",
+				"call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(16) %keywords, ptr noundef nonnull align 16 dereferenceable(16) @__const.picklebuf_new.keywords, i64 16, i1 false), !dbg !462",
+				"%call = call i32 (ptr, ptr, ptr, ptr, ...) @PyArg_ParseTupleAndKeywords(ptr noundef %args, ptr noundef %kwds, ptr noundef nonnull @.str.9, ptr noundef nonnull %keywords, ptr noundef nonnull %base) #7, !dbg !463",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !463",
+				"br i1 %tobool.not, label %cleanup, label %if.end, !dbg !465"
+			]
+		},
+		{
+			"function": "picklebuf_new",
+			"id": 25,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 80, "columns": [43, 37]
+				},
+				{
+					"line": 81, "columns": [14, 9]
+				}
+			],
+			"successors": [30, 26],
+			"ir": [
+				"%tp_alloc = getelementptr inbounds %struct._typeobject, ptr %type, i64 0, i32 36, !dbg !466",
+				"%0 = load ptr, ptr %tp_alloc, align 8, !dbg !466, !tbaa !467",
+				"%call1 = call ptr %0(ptr noundef %type, i64 noundef 0) #7, !dbg !477",
+				"%cmp = icmp eq ptr %call1, null, !dbg !478",
+				"br i1 %cmp, label %cleanup, label %if.end3, !dbg !480"
+			]
+		},
+		{
+			"function": "picklebuf_new",
+			"id": 26,
+			"name": "if.end3",
+			"debug": [
+				{
+					"line": 84, "columns": [11, 16, 20]
+				},
+				{
+					"line": 85, "columns": [11, 23]
+				},
+				{
+					"line": 86, "columns": [28, 9, 62]
+				}
+			],
+			"successors": [27, 30],
+			"ir": [
+				"%view = getelementptr inbounds %struct.PyPickleBufferObject, ptr %call1, i64 0, i32 1, !dbg !481",
+				"%obj = getelementptr inbounds %struct.PyPickleBufferObject, ptr %call1, i64 0, i32 1, i32 1, !dbg !482",
+				"store ptr null, ptr %obj, align 8, !dbg !483, !tbaa !484",
+				"%weakreflist = getelementptr inbounds %struct.PyPickleBufferObject, ptr %call1, i64 0, i32 2, !dbg !487",
+				"store ptr null, ptr %weakreflist, align 8, !dbg !488, !tbaa !489",
+				"%1 = load ptr, ptr %base, align 8, !dbg !490, !tbaa !492",
+				"%call5 = call i32 @PyObject_GetBuffer(ptr noundef %1, ptr noundef nonnull %view, i32 noundef 284) #7, !dbg !493",
+				"%cmp6 = icmp slt i32 %call5, 0, !dbg !494",
+				"br i1 %cmp6, label %if.then7, label %cleanup, !dbg !495"
+			]
+		},
+		{
+			"function": "picklebuf_new",
+			"id": 27,
+			"name": "if.then7",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [28, 30],
+			"ir": [
+				"%op.val.i = load i64, ptr %call1, align 8, !dbg !502, !tbaa !504",
+				"%2 = and i64 %op.val.i, 2147483648, !dbg !510",
+				"%cmp.i.not.i = icmp eq i64 %2, 0, !dbg !510",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %cleanup, !dbg !511"
+			]
+		},
+		{
+			"function": "picklebuf_new",
+			"id": 28,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [29, 30],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !512",
+				"store i64 %dec.i, ptr %call1, align 8, !dbg !512, !tbaa !504",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !514",
+				"br i1 %cmp.i, label %if.then1.i, label %cleanup, !dbg !515"
+			]
+		},
+		{
+			"function": "picklebuf_new",
+			"id": 29,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [30],
+			"ir": [
+				"call void @_Py_Dealloc(ptr noundef nonnull %call1) #7, !dbg !516",
+				"br label %cleanup, !dbg !518"
+			]
+		},
+		{
+			"function": "picklebuf_new",
+			"id": 30,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 91, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ null, %entry ], [ null, %if.end ], [ %call1, %if.end3 ], [ null, %if.then7 ], [ null, %if.end.i ], [ null, %if.then1.i ], !dbg !459",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %keywords) #7, !dbg !519",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %base) #7, !dbg !519",
+				"ret ptr %retval.0, !dbg !519"
+			]
+		},
+		{
+			"function": "picklebuf_getbuf",
+			"id": 31,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 122, "columns": [20, 24, 9]
+				}
+			],
+			"successors": [32, 33],
+			"ir": [
+				"%obj = getelementptr inbounds %struct.PyPickleBufferObject, ptr %self, i64 0, i32 1, i32 1, !dbg !458",
+				"%0 = load ptr, ptr %obj, align 8, !dbg !458, !tbaa !460",
+				"%cmp = icmp eq ptr %0, null, !dbg !469",
+				"br i1 %cmp, label %if.then, label %if.end, !dbg !470"
+			]
+		},
+		{
+			"function": "picklebuf_getbuf",
+			"id": 32,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 123, "columns": [25, 9]
+				},
+				{
+					"line": 125, "columns": [9]
+				}
+			],
+			"successors": [34],
+			"ir": [
+				"%1 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !471, !tbaa !473",
+				"tail call void @PyErr_SetString(ptr noundef %1, ptr noundef nonnull @.str.1) #7, !dbg !474",
+				"br label %return, !dbg !475"
+			]
+		},
+		{
+			"function": "picklebuf_getbuf",
+			"id": 33,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 127, "columns": [12, 5]
+				}
+			],
+			"successors": [34],
+			"ir": [
+				"%call = tail call i32 @PyObject_GetBuffer(ptr noundef nonnull %0, ptr noundef %view, i32 noundef %flags) #7, !dbg !476",
+				"br label %return, !dbg !477"
+			]
+		},
+		{
+			"function": "picklebuf_getbuf",
+			"id": 34,
+			"name": "return",
+			"debug": [
+				{
+					"line": 128, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ -1, %if.then ], [ %call, %if.end ], !dbg !457",
+				"ret i32 %retval.0, !dbg !478"
+			]
+		},
+		{
+			"function": "picklebuf_releasebuf",
+			"id": 35,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 138, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !457"
+			]
+		},
+		{
+			"function": "picklebuf_raw",
+			"id": 36,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 150, "columns": [15, 20, 24, 9]
+				}
+			],
+			"successors": [37, 38],
+			"ir": [
+				"%view = getelementptr inbounds %struct.PyPickleBufferObject, ptr %self, i64 0, i32 1, !dbg !459",
+				"%obj = getelementptr inbounds %struct.PyPickleBufferObject, ptr %self, i64 0, i32 1, i32 1, !dbg !461",
+				"%0 = load ptr, ptr %obj, align 8, !dbg !461, !tbaa !462",
+				"%cmp = icmp eq ptr %0, null, !dbg !471",
+				"br i1 %cmp, label %if.then, label %if.end, !dbg !472"
+			]
+		},
+		{
+			"function": "picklebuf_raw",
+			"id": 37,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 151, "columns": [25, 9]
+				},
+				{
+					"line": 153, "columns": [9]
+				}
+			],
+			"successors": [43],
+			"ir": [
+				"%1 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !473, !tbaa !475",
+				"tail call void @PyErr_SetString(ptr noundef %1, ptr noundef nonnull @.str.1) #7, !dbg !476",
+				"br label %return, !dbg !477"
+			]
+		},
+		{
+			"function": "picklebuf_raw",
+			"id": 38,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 155, "columns": [20, 31]
+				},
+				{
+					"line": 156, "columns": [9]
+				}
+			],
+			"successors": [39, 40],
+			"ir": [
+				"%suboffsets = getelementptr inbounds %struct.PyPickleBufferObject, ptr %self, i64 0, i32 1, i32 9, !dbg !478",
+				"%2 = load ptr, ptr %suboffsets, align 8, !dbg !478, !tbaa !480",
+				"%cmp2.not = icmp eq ptr %2, null, !dbg !481",
+				"br i1 %cmp2.not, label %lor.lhs.false, label %if.then4, !dbg !482"
+			]
+		},
+		{
+			"function": "picklebuf_raw",
+			"id": 39,
+			"name": "lor.lhs.false",
+			"debug": [
+				{
+					"line": 155, "columns": [9]
+				},
+				{
+					"line": 156, "columns": [13]
+				}
+			],
+			"successors": [40, 41],
+			"ir": [
+				"%call = tail call i32 @PyBuffer_IsContiguous(ptr noundef nonnull %view, i8 noundef signext 65) #7, !dbg !483",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !483",
+				"br i1 %tobool.not, label %if.then4, label %if.end5, !dbg !484"
+			]
+		},
+		{
+			"function": "picklebuf_raw",
+			"id": 40,
+			"name": "if.then4",
+			"debug": [
+				{
+					"line": 157, "columns": [25, 9]
+				},
+				{
+					"line": 159, "columns": [9]
+				}
+			],
+			"successors": [43],
+			"ir": [
+				"%3 = load ptr, ptr @PyExc_BufferError, align 8, !dbg !485, !tbaa !475",
+				"tail call void @PyErr_SetString(ptr noundef %3, ptr noundef nonnull @.str.6) #7, !dbg !487",
+				"br label %return, !dbg !488"
+			]
+		},
+		{
+			"function": "picklebuf_raw",
+			"id": 41,
+			"name": "if.end5",
+			"debug": [
+				{
+					"line": 161, "columns": [19]
+				},
+				{
+					"line": 162, "columns": [11, 9]
+				}
+			],
+			"successors": [43, 42],
+			"ir": [
+				"%call6 = tail call ptr @PyMemoryView_FromObject(ptr noundef nonnull %self) #7, !dbg !489",
+				"%cmp7 = icmp eq ptr %call6, null, !dbg !490",
+				"br i1 %cmp7, label %return, label %if.end9, !dbg !492"
+			]
+		},
+		{
+			"function": "picklebuf_raw",
+			"id": 42,
+			"name": "if.end9",
+			"debug": [
+				{
+					"line": 168, "columns": [14, 21]
+				},
+				{
+					"line": 169, "columns": [14, 19]
+				},
+				{
+					"line": 170, "columns": [14, 23]
+				},
+				{
+					"line": 172, "columns": [32, 14, 20]
+				},
+				{
+					"line": 174, "columns": [14, 22]
+				},
+				{
+					"line": 177, "columns": [9, 15]
+				}
+			],
+			"successors": [43],
+			"ir": [
+				"%format = getelementptr inbounds %struct.PyMemoryViewObject, ptr %call6, i64 0, i32 5, i32 6, !dbg !493",
+				"store ptr @.str.7, ptr %format, align 8, !dbg !494, !tbaa !495",
+				"%ndim = getelementptr inbounds %struct.PyMemoryViewObject, ptr %call6, i64 0, i32 5, i32 5, !dbg !498",
+				"store i32 1, ptr %ndim, align 4, !dbg !499, !tbaa !500",
+				"%itemsize = getelementptr inbounds %struct.PyMemoryViewObject, ptr %call6, i64 0, i32 5, i32 3, !dbg !501",
+				"store i64 1, ptr %itemsize, align 8, !dbg !502, !tbaa !503",
+				"%len = getelementptr inbounds %struct.PyMemoryViewObject, ptr %call6, i64 0, i32 5, i32 2, !dbg !504",
+				"%shape = getelementptr inbounds %struct.PyMemoryViewObject, ptr %call6, i64 0, i32 5, i32 7, !dbg !505",
+				"store ptr %len, ptr %shape, align 8, !dbg !506, !tbaa !507",
+				"%strides = getelementptr inbounds %struct.PyMemoryViewObject, ptr %call6, i64 0, i32 5, i32 8, !dbg !508",
+				"store ptr %itemsize, ptr %strides, align 8, !dbg !509, !tbaa !510",
+				"%flags = getelementptr inbounds %struct.PyMemoryViewObject, ptr %call6, i64 0, i32 3, !dbg !511",
+				"store i32 6, ptr %flags, align 8, !dbg !512, !tbaa !513",
+				"br label %return"
+			]
+		},
+		{
+			"function": "picklebuf_raw",
+			"id": 43,
+			"name": "return",
+			"debug": [
+				{
+					"line": 179, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %if.then ], [ null, %if.then4 ], [ %call6, %if.end9 ], [ null, %if.end5 ], !dbg !458",
+				"ret ptr %retval.1, !dbg !514"
+			]
+		},
+		{
+			"function": "picklebuf_release",
+			"id": 44,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 190, "columns": [29, 5]
+				},
+				{
+					"line": 191, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%view = getelementptr inbounds %struct.PyPickleBufferObject, ptr %self, i64 0, i32 1, !dbg !457",
+				"tail call void @PyBuffer_Release(ptr noundef nonnull %view) #7, !dbg !458",
+				"ret ptr @_Py_NoneStruct, !dbg !459"
+			]
+		}
+	]
+}

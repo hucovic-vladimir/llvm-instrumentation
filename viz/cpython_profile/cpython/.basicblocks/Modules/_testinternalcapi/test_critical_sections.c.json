@@ -1,0 +1,973 @@
+{
+	"blocks": [
+		{
+			"function": "_PyTestInternalCapi_Init_CriticalSection",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 222, "columns": [9]
+				},
+				{
+					"line": 226, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call i32 @PyModule_AddFunctions(ptr noundef %mod, ptr noundef nonnull @test_methods) #6, !dbg !549",
+				"%call.lobit = ashr i32 %call, 31, !dbg !548",
+				"ret i32 %call.lobit, !dbg !551"
+			]
+		},
+		{
+			"function": "test_critical_sections",
+			"id": 1,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 21, "columns": [20]
+				},
+				{
+					"line": 22, "columns": [5]
+				}
+			],
+			"successors": [2, 3],
+			"ir": [
+				"%call = tail call ptr @PyDict_New() #6, !dbg !552",
+				"%cmp.not = icmp eq ptr %call, null, !dbg !553",
+				"br i1 %cmp.not, label %cond.false, label %cond.end, !dbg !553"
+			]
+		},
+		{
+			"function": "test_critical_sections",
+			"id": 2,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 22, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.4, ptr noundef nonnull @.str.5, i32 noundef 22, ptr noundef nonnull @__PRETTY_FUNCTION__.test_critical_sections) #7, !dbg !553",
+				"unreachable, !dbg !553"
+			]
+		},
+		{
+			"function": "test_critical_sections",
+			"id": 3,
+			"name": "cond.end",
+			"debug": [
+				{
+					"line": 24, "columns": [20]
+				},
+				{
+					"line": 25, "columns": [5]
+				}
+			],
+			"successors": [4, 5],
+			"ir": [
+				"%call1 = tail call ptr @PyDict_New() #6, !dbg !554",
+				"%cmp2.not = icmp eq ptr %call1, null, !dbg !555",
+				"br i1 %cmp2.not, label %cond.false4, label %cond.end5, !dbg !555"
+			]
+		},
+		{
+			"function": "test_critical_sections",
+			"id": 4,
+			"name": "cond.false4",
+			"debug": [
+				{
+					"line": 25, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.6, ptr noundef nonnull @.str.5, i32 noundef 25, ptr noundef nonnull @__PRETTY_FUNCTION__.test_critical_sections) #7, !dbg !555",
+				"unreachable, !dbg !555"
+			]
+		},
+		{
+			"function": "test_critical_sections",
+			"id": 5,
+			"name": "cond.end5",
+			"debug": [
+				{
+					"line": 32, "columns": [5]
+				}
+			],
+			"successors": [7, 6],
+			"ir": [
+				"%call6 = tail call ptr @PyThreadState_Get() #6, !dbg !556",
+				"%critical_section = getelementptr inbounds %struct._ts, ptr %call6, i64 0, i32 26, !dbg !556",
+				"%0 = load i64, ptr %critical_section, align 8, !dbg !556, !tbaa !557",
+				"%cmp7 = icmp eq i64 %0, 0, !dbg !556",
+				"br i1 %cmp7, label %cond.end10, label %cond.false9, !dbg !556"
+			]
+		},
+		{
+			"function": "test_critical_sections",
+			"id": 6,
+			"name": "cond.false9",
+			"debug": [
+				{
+					"line": 32, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.7, ptr noundef nonnull @.str.5, i32 noundef 32, ptr noundef nonnull @__PRETTY_FUNCTION__.test_critical_sections) #7, !dbg !556",
+				"unreachable, !dbg !556"
+			]
+		},
+		{
+			"function": "test_critical_sections",
+			"id": 7,
+			"name": "cond.end10",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [8, 10],
+			"ir": [
+				"%op.val.i = load i64, ptr %call1, align 8, !dbg !572, !tbaa !574",
+				"%1 = and i64 %op.val.i, 2147483648, !dbg !580",
+				"%cmp.i.not.i = icmp eq i64 %1, 0, !dbg !580",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %Py_DECREF.exit, !dbg !581"
+			]
+		},
+		{
+			"function": "test_critical_sections",
+			"id": 8,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [9, 10],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !582",
+				"store i64 %dec.i, ptr %call1, align 8, !dbg !582, !tbaa !574",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !584",
+				"br i1 %cmp.i, label %if.then1.i, label %Py_DECREF.exit, !dbg !585"
+			]
+		},
+		{
+			"function": "test_critical_sections",
+			"id": 9,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [10],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call1) #6, !dbg !586",
+				"br label %Py_DECREF.exit, !dbg !588"
+			]
+		},
+		{
+			"function": "test_critical_sections",
+			"id": 10,
+			"name": "Py_DECREF.exit",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [11, 13],
+			"ir": [
+				"%op.val.i13 = load i64, ptr %call, align 8, !dbg !591, !tbaa !574",
+				"%2 = and i64 %op.val.i13, 2147483648, !dbg !594",
+				"%cmp.i.not.i14 = icmp eq i64 %2, 0, !dbg !594",
+				"br i1 %cmp.i.not.i14, label %if.end.i17, label %Py_DECREF.exit19, !dbg !595"
+			]
+		},
+		{
+			"function": "test_critical_sections",
+			"id": 11,
+			"name": "if.end.i17",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [12, 13],
+			"ir": [
+				"%dec.i15 = add i64 %op.val.i13, -1, !dbg !596",
+				"store i64 %dec.i15, ptr %call, align 8, !dbg !596, !tbaa !574",
+				"%cmp.i16 = icmp eq i64 %dec.i15, 0, !dbg !597",
+				"br i1 %cmp.i16, label %if.then1.i18, label %Py_DECREF.exit19, !dbg !598"
+			]
+		},
+		{
+			"function": "test_critical_sections",
+			"id": 12,
+			"name": "if.then1.i18",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [13],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call) #6, !dbg !599",
+				"br label %Py_DECREF.exit19, !dbg !600"
+			]
+		},
+		{
+			"function": "test_critical_sections",
+			"id": 13,
+			"name": "Py_DECREF.exit19",
+			"debug": [
+				{
+					"line": 63, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret ptr @_Py_NoneStruct, !dbg !601"
+			]
+		},
+		{
+			"function": "test_critical_sections_nest",
+			"id": 14,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 92, "columns": [19]
+				},
+				{
+					"line": 93, "columns": [5]
+				}
+			],
+			"successors": [15, 16],
+			"ir": [
+				"%call = tail call ptr @PyDict_New() #6, !dbg !552",
+				"%cmp.not = icmp eq ptr %call, null, !dbg !553",
+				"br i1 %cmp.not, label %cond.false, label %cond.end, !dbg !553"
+			]
+		},
+		{
+			"function": "test_critical_sections_nest",
+			"id": 15,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 93, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.5, i32 noundef 93, ptr noundef nonnull @__PRETTY_FUNCTION__.test_critical_sections_nest) #7, !dbg !553",
+				"unreachable, !dbg !553"
+			]
+		},
+		{
+			"function": "test_critical_sections_nest",
+			"id": 16,
+			"name": "cond.end",
+			"debug": [
+				{
+					"line": 94, "columns": [19]
+				},
+				{
+					"line": 95, "columns": [5]
+				}
+			],
+			"successors": [17, 18],
+			"ir": [
+				"%call1 = tail call ptr @PyDict_New() #6, !dbg !554",
+				"%cmp2.not = icmp eq ptr %call1, null, !dbg !555",
+				"br i1 %cmp2.not, label %cond.false4, label %cond.end5, !dbg !555"
+			]
+		},
+		{
+			"function": "test_critical_sections_nest",
+			"id": 17,
+			"name": "cond.false4",
+			"debug": [
+				{
+					"line": 95, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.9, ptr noundef nonnull @.str.5, i32 noundef 95, ptr noundef nonnull @__PRETTY_FUNCTION__.test_critical_sections_nest) #7, !dbg !555",
+				"unreachable, !dbg !555"
+			]
+		},
+		{
+			"function": "test_critical_sections_nest",
+			"id": 18,
+			"name": "cond.end5",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [19, 21],
+			"ir": [
+				"%op.val.i = load i64, ptr %call1, align 8, !dbg !561, !tbaa !563",
+				"%0 = and i64 %op.val.i, 2147483648, !dbg !571",
+				"%cmp.i.not.i = icmp eq i64 %0, 0, !dbg !571",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %Py_DECREF.exit, !dbg !572"
+			]
+		},
+		{
+			"function": "test_critical_sections_nest",
+			"id": 19,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [20, 21],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !573",
+				"store i64 %dec.i, ptr %call1, align 8, !dbg !573, !tbaa !563",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !575",
+				"br i1 %cmp.i, label %if.then1.i, label %Py_DECREF.exit, !dbg !576"
+			]
+		},
+		{
+			"function": "test_critical_sections_nest",
+			"id": 20,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [21],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call1) #6, !dbg !577",
+				"br label %Py_DECREF.exit, !dbg !579"
+			]
+		},
+		{
+			"function": "test_critical_sections_nest",
+			"id": 21,
+			"name": "Py_DECREF.exit",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [22, 24],
+			"ir": [
+				"%op.val.i11 = load i64, ptr %call, align 8, !dbg !582, !tbaa !563",
+				"%1 = and i64 %op.val.i11, 2147483648, !dbg !585",
+				"%cmp.i.not.i12 = icmp eq i64 %1, 0, !dbg !585",
+				"br i1 %cmp.i.not.i12, label %if.end.i15, label %Py_DECREF.exit17, !dbg !586"
+			]
+		},
+		{
+			"function": "test_critical_sections_nest",
+			"id": 22,
+			"name": "if.end.i15",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [23, 24],
+			"ir": [
+				"%dec.i13 = add i64 %op.val.i11, -1, !dbg !587",
+				"store i64 %dec.i13, ptr %call, align 8, !dbg !587, !tbaa !563",
+				"%cmp.i14 = icmp eq i64 %dec.i13, 0, !dbg !588",
+				"br i1 %cmp.i14, label %if.then1.i16, label %Py_DECREF.exit17, !dbg !589"
+			]
+		},
+		{
+			"function": "test_critical_sections_nest",
+			"id": 23,
+			"name": "if.then1.i16",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [24],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call) #6, !dbg !590",
+				"br label %Py_DECREF.exit17, !dbg !591"
+			]
+		},
+		{
+			"function": "test_critical_sections_nest",
+			"id": 24,
+			"name": "Py_DECREF.exit17",
+			"debug": [
+				{
+					"line": 115, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret ptr @_Py_NoneStruct, !dbg !592"
+			]
+		},
+		{
+			"function": "test_critical_sections_suspend",
+			"id": 25,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 123, "columns": [19]
+				},
+				{
+					"line": 124, "columns": [5]
+				}
+			],
+			"successors": [26, 27],
+			"ir": [
+				"%call = tail call ptr @PyDict_New() #6, !dbg !6826",
+				"%cmp.not = icmp eq ptr %call, null, !dbg !6827",
+				"br i1 %cmp.not, label %cond.false, label %cond.end, !dbg !6827"
+			]
+		},
+		{
+			"function": "test_critical_sections_suspend",
+			"id": 26,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 124, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.5, i32 noundef 124, ptr noundef nonnull @__PRETTY_FUNCTION__.test_critical_sections_suspend) #7, !dbg !6827",
+				"unreachable, !dbg !6827"
+			]
+		},
+		{
+			"function": "test_critical_sections_suspend",
+			"id": 27,
+			"name": "cond.end",
+			"debug": [
+				{
+					"line": 130, "columns": [5]
+				},
+				{
+					"line": 132, "columns": [5]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [28, 30],
+			"ir": [
+				"%call1 = tail call ptr @PyEval_SaveThread() #6, !dbg !6828",
+				"tail call void @PyEval_RestoreThread(ptr noundef %call1) #6, !dbg !6830",
+				"%op.val.i = load i64, ptr %call, align 8, !dbg !6836, !tbaa !6838",
+				"%0 = and i64 %op.val.i, 2147483648, !dbg !6846",
+				"%cmp.i.not.i = icmp eq i64 %0, 0, !dbg !6846",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %Py_DECREF.exit, !dbg !6847"
+			]
+		},
+		{
+			"function": "test_critical_sections_suspend",
+			"id": 28,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [29, 30],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !6848",
+				"store i64 %dec.i, ptr %call, align 8, !dbg !6848, !tbaa !6838",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !6850",
+				"br i1 %cmp.i, label %if.then1.i, label %Py_DECREF.exit, !dbg !6851"
+			]
+		},
+		{
+			"function": "test_critical_sections_suspend",
+			"id": 29,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [30],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call) #6, !dbg !6852",
+				"br label %Py_DECREF.exit, !dbg !6854"
+			]
+		},
+		{
+			"function": "test_critical_sections_suspend",
+			"id": 30,
+			"name": "Py_DECREF.exit",
+			"debug": [
+				{
+					"line": 139, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret ptr @_Py_NoneStruct, !dbg !6855"
+			]
+		},
+		{
+			"function": "test_critical_sections_threads",
+			"id": 31,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 187, "columns": [5, 22, 34]
+				},
+				{
+					"line": 188, "columns": [17]
+				},
+				{
+					"line": 189, "columns": [17]
+				},
+				{
+					"line": 190, "columns": [17]
+				},
+				{
+					"line": 193, "columns": [5]
+				}
+			],
+			"successors": [32, 33],
+			"ir": [
+				"%test_data = alloca %struct.test_data, align 8",
+				"call void @llvm.lifetime.start.p0(i64 40, ptr nonnull %test_data) #6, !dbg !569",
+				"%call = tail call ptr @PyDict_New() #6, !dbg !571",
+				"store ptr %call, ptr %test_data, align 8, !dbg !572, !tbaa !573",
+				"%obj2 = getelementptr inbounds %struct.test_data, ptr %test_data, i64 0, i32 1, !dbg !572",
+				"%call1 = tail call ptr @PyDict_New() #6, !dbg !580",
+				"store ptr %call1, ptr %obj2, align 8, !dbg !572, !tbaa !581",
+				"%obj3 = getelementptr inbounds %struct.test_data, ptr %test_data, i64 0, i32 2, !dbg !572",
+				"%call2 = tail call ptr @PyDict_New() #6, !dbg !582",
+				"store ptr %call2, ptr %obj3, align 8, !dbg !572, !tbaa !583",
+				"%countdown = getelementptr inbounds %struct.test_data, ptr %test_data, i64 0, i32 3, !dbg !572",
+				"store i64 4, ptr %countdown, align 8, !dbg !572, !tbaa !584",
+				"%done_event = getelementptr inbounds %struct.test_data, ptr %test_data, i64 0, i32 4, !dbg !572",
+				"store i8 0, ptr %done_event, align 8, !dbg !572",
+				"%cmp.not = icmp eq ptr %call, null, !dbg !585",
+				"br i1 %cmp.not, label %cond.false, label %cond.end, !dbg !585"
+			]
+		},
+		{
+			"function": "test_critical_sections_threads",
+			"id": 32,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 193, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.10, ptr noundef nonnull @.str.5, i32 noundef 193, ptr noundef nonnull @__PRETTY_FUNCTION__.test_critical_sections_threads) #7, !dbg !585",
+				"unreachable, !dbg !585"
+			]
+		},
+		{
+			"function": "test_critical_sections_threads",
+			"id": 33,
+			"name": "cond.end",
+			"debug": [
+				{
+					"line": 194, "columns": [5]
+				}
+			],
+			"successors": [34, 35],
+			"ir": [
+				"%cmp5.not = icmp eq ptr %call1, null, !dbg !586",
+				"br i1 %cmp5.not, label %cond.false7, label %cond.end8, !dbg !586"
+			]
+		},
+		{
+			"function": "test_critical_sections_threads",
+			"id": 34,
+			"name": "cond.false7",
+			"debug": [
+				{
+					"line": 194, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.11, ptr noundef nonnull @.str.5, i32 noundef 194, ptr noundef nonnull @__PRETTY_FUNCTION__.test_critical_sections_threads) #7, !dbg !586",
+				"unreachable, !dbg !586"
+			]
+		},
+		{
+			"function": "test_critical_sections_threads",
+			"id": 35,
+			"name": "cond.end8",
+			"debug": [
+				{
+					"line": 195, "columns": [5]
+				}
+			],
+			"successors": [37, 36],
+			"ir": [
+				"%cmp10.not = icmp eq ptr %call2, null, !dbg !587",
+				"br i1 %cmp10.not, label %cond.false12, label %for.body.preheader, !dbg !587"
+			]
+		},
+		{
+			"function": "test_critical_sections_threads",
+			"id": 36,
+			"name": "for.body.preheader",
+			"debug": [
+				{
+					"line": 198, "columns": [9]
+				},
+				{
+					"line": 200, "columns": [5]
+				},
+				{
+					"line": 202, "columns": [5]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [38, 40],
+			"ir": [
+				"%call16 = call i64 @PyThread_start_new_thread(ptr noundef nonnull @thread_critical_sections, ptr noundef nonnull %test_data) #6, !dbg !589",
+				"%call16.1 = call i64 @PyThread_start_new_thread(ptr noundef nonnull @thread_critical_sections, ptr noundef nonnull %test_data) #6, !dbg !589",
+				"%call16.2 = call i64 @PyThread_start_new_thread(ptr noundef nonnull @thread_critical_sections, ptr noundef nonnull %test_data) #6, !dbg !589",
+				"%call16.3 = call i64 @PyThread_start_new_thread(ptr noundef nonnull @thread_critical_sections, ptr noundef nonnull %test_data) #6, !dbg !589",
+				"call void @PyEvent_Wait(ptr noundef nonnull %done_event) #6, !dbg !592",
+				"%0 = load ptr, ptr %obj3, align 8, !dbg !593, !tbaa !583",
+				"%op.val.i = load i64, ptr %0, align 8, !dbg !599, !tbaa !601",
+				"%1 = and i64 %op.val.i, 2147483648, !dbg !607",
+				"%cmp.i.not.i = icmp eq i64 %1, 0, !dbg !607",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %Py_DECREF.exit, !dbg !608"
+			]
+		},
+		{
+			"function": "test_critical_sections_threads",
+			"id": 37,
+			"name": "cond.false12",
+			"debug": [
+				{
+					"line": 195, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.12, ptr noundef nonnull @.str.5, i32 noundef 195, ptr noundef nonnull @__PRETTY_FUNCTION__.test_critical_sections_threads) #7, !dbg !587",
+				"unreachable, !dbg !587"
+			]
+		},
+		{
+			"function": "test_critical_sections_threads",
+			"id": 38,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [39, 40],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !609",
+				"store i64 %dec.i, ptr %0, align 8, !dbg !609, !tbaa !601",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !611",
+				"br i1 %cmp.i, label %if.then1.i, label %Py_DECREF.exit, !dbg !612"
+			]
+		},
+		{
+			"function": "test_critical_sections_threads",
+			"id": 39,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [40],
+			"ir": [
+				"call void @_Py_Dealloc(ptr noundef nonnull %0) #6, !dbg !613",
+				"br label %Py_DECREF.exit, !dbg !615"
+			]
+		},
+		{
+			"function": "test_critical_sections_threads",
+			"id": 40,
+			"name": "Py_DECREF.exit",
+			"debug": [
+				{
+					"line": 203, "columns": [5]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [41, 43],
+			"ir": [
+				"%2 = load ptr, ptr %obj2, align 8, !dbg !616, !tbaa !581",
+				"%op.val.i22 = load i64, ptr %2, align 8, !dbg !619, !tbaa !601",
+				"%3 = and i64 %op.val.i22, 2147483648, !dbg !622",
+				"%cmp.i.not.i23 = icmp eq i64 %3, 0, !dbg !622",
+				"br i1 %cmp.i.not.i23, label %if.end.i26, label %Py_DECREF.exit28, !dbg !623"
+			]
+		},
+		{
+			"function": "test_critical_sections_threads",
+			"id": 41,
+			"name": "if.end.i26",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [42, 43],
+			"ir": [
+				"%dec.i24 = add i64 %op.val.i22, -1, !dbg !624",
+				"store i64 %dec.i24, ptr %2, align 8, !dbg !624, !tbaa !601",
+				"%cmp.i25 = icmp eq i64 %dec.i24, 0, !dbg !625",
+				"br i1 %cmp.i25, label %if.then1.i27, label %Py_DECREF.exit28, !dbg !626"
+			]
+		},
+		{
+			"function": "test_critical_sections_threads",
+			"id": 42,
+			"name": "if.then1.i27",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [43],
+			"ir": [
+				"call void @_Py_Dealloc(ptr noundef nonnull %2) #6, !dbg !627",
+				"br label %Py_DECREF.exit28, !dbg !628"
+			]
+		},
+		{
+			"function": "test_critical_sections_threads",
+			"id": 43,
+			"name": "Py_DECREF.exit28",
+			"debug": [
+				{
+					"line": 204, "columns": [5]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [44, 46],
+			"ir": [
+				"%4 = load ptr, ptr %test_data, align 8, !dbg !629, !tbaa !573",
+				"%op.val.i29 = load i64, ptr %4, align 8, !dbg !632, !tbaa !601",
+				"%5 = and i64 %op.val.i29, 2147483648, !dbg !635",
+				"%cmp.i.not.i30 = icmp eq i64 %5, 0, !dbg !635",
+				"br i1 %cmp.i.not.i30, label %if.end.i33, label %Py_DECREF.exit35, !dbg !636"
+			]
+		},
+		{
+			"function": "test_critical_sections_threads",
+			"id": 44,
+			"name": "if.end.i33",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [45, 46],
+			"ir": [
+				"%dec.i31 = add i64 %op.val.i29, -1, !dbg !637",
+				"store i64 %dec.i31, ptr %4, align 8, !dbg !637, !tbaa !601",
+				"%cmp.i32 = icmp eq i64 %dec.i31, 0, !dbg !638",
+				"br i1 %cmp.i32, label %if.then1.i34, label %Py_DECREF.exit35, !dbg !639"
+			]
+		},
+		{
+			"function": "test_critical_sections_threads",
+			"id": 45,
+			"name": "if.then1.i34",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [46],
+			"ir": [
+				"call void @_Py_Dealloc(ptr noundef nonnull %4) #6, !dbg !640",
+				"br label %Py_DECREF.exit35, !dbg !641"
+			]
+		},
+		{
+			"function": "test_critical_sections_threads",
+			"id": 46,
+			"name": "Py_DECREF.exit35",
+			"debug": [
+				{
+					"line": 205, "columns": [5]
+				},
+				{
+					"line": 206, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %test_data) #6, !dbg !642",
+				"ret ptr @_Py_NoneStruct, !dbg !643"
+			]
+		},
+		{
+			"function": "thread_critical_sections",
+			"id": 47,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 155, "columns": [28]
+				},
+				{
+					"line": 157, "columns": [5]
+				}
+			],
+			"successors": [49],
+			"ir": [
+				"%call = tail call i32 @PyGILState_Ensure() #6, !dbg !6841",
+				"br label %for.body, !dbg !6843"
+			]
+		},
+		{
+			"function": "thread_critical_sections",
+			"id": 48,
+			"name": "for.cond.cleanup",
+			"debug": [
+				{
+					"line": 63, "columns": [10]
+				},
+				{
+					"line": 175, "columns": [5]
+				},
+				{
+					"line": 176, "columns": [42, 57, 9]
+				}
+			],
+			"successors": [50, 51],
+			"ir": [
+				"tail call void @PyGILState_Release(i32 noundef %call) #6, !dbg !6844",
+				"%countdown = getelementptr inbounds %struct.test_data, ptr %arg, i64 0, i32 3, !dbg !6845",
+				"%0 = atomicrmw add ptr %countdown, i64 -1 seq_cst, align 8, !dbg !6856",
+				"%cmp3 = icmp eq i64 %0, 1, !dbg !6857",
+				"br i1 %cmp3, label %if.then, label %if.end, !dbg !6858"
+			]
+		},
+		{
+			"function": "thread_critical_sections",
+			"id": 49,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 157, "columns": [44, 30, 5]
+				},
+				{
+					"line": 170, "columns": [9]
+				},
+				{
+					"line": 171, "columns": [9]
+				}
+			],
+			"successors": [48, 49],
+			"ir": [
+				"%i.08 = phi i64 [ 0, %entry ], [ %inc, %for.body ]",
+				"%call1 = tail call ptr @PyEval_SaveThread() #6, !dbg !6859",
+				"tail call void @PyEval_RestoreThread(ptr noundef %call1) #6, !dbg !6861",
+				"%inc = add nuw nsw i64 %i.08, 1, !dbg !6862",
+				"%exitcond.not = icmp eq i64 %inc, 200, !dbg !6863",
+				"br i1 %exitcond.not, label %for.cond.cleanup, label %for.body, !dbg !6843, !llvm.loop !6864"
+			]
+		},
+		{
+			"function": "thread_critical_sections",
+			"id": 50,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 178, "columns": [37, 9]
+				},
+				{
+					"line": 179, "columns": [5]
+				}
+			],
+			"successors": [51],
+			"ir": [
+				"%done_event = getelementptr inbounds %struct.test_data, ptr %arg, i64 0, i32 4, !dbg !6867",
+				"tail call void @_PyEvent_Notify(ptr noundef nonnull %done_event) #6, !dbg !6869",
+				"br label %if.end, !dbg !6870"
+			]
+		},
+		{
+			"function": "thread_critical_sections",
+			"id": 51,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 180, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !6871"
+			]
+		}
+	]
+}

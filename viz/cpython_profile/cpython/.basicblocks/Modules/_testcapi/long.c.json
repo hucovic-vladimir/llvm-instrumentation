@@ -1,0 +1,618 @@
+{
+	"blocks": [
+		{
+			"function": "_PyTestCapi_Init_Long",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 119, "columns": [9]
+				},
+				{
+					"line": 123, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call i32 @PyModule_AddFunctions(ptr noundef %mod, ptr noundef nonnull @test_methods) #6, !dbg !468",
+				"%call.lobit = ashr i32 %call, 31, !dbg !467",
+				"ret i32 %call.lobit, !dbg !470"
+			]
+		},
+		{
+			"function": "_testcapi_call_long_compact_api",
+			"id": 1,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 26, "columns": [5]
+				}
+			],
+			"successors": [2, 3],
+			"ir": [
+				"%0 = getelementptr i8, ptr %arg, i64 8, !dbg !471",
+				"%arg.val = load ptr, ptr %0, align 8, !dbg !471, !tbaa !472",
+				"%1 = getelementptr i8, ptr %arg.val, i64 168, !dbg !471",
+				"%call.val = load i64, ptr %1, align 8, !dbg !471, !tbaa !477",
+				"%2 = and i64 %call.val, 16777216, !dbg !471",
+				"%tobool.not = icmp eq i64 %2, 0, !dbg !471",
+				"br i1 %tobool.not, label %cond.false, label %_PyLong_IsCompact.exit, !dbg !471"
+			]
+		},
+		{
+			"function": "_testcapi_call_long_compact_api",
+			"id": 2,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 26, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.5, ptr noundef nonnull @.str.6, i32 noundef 26, ptr noundef nonnull @__PRETTY_FUNCTION__._testcapi_call_long_compact_api) #6, !dbg !471",
+				"unreachable, !dbg !471"
+			]
+		},
+		{
+			"function": "_testcapi_call_long_compact_api",
+			"id": 3,
+			"name": "_PyLong_IsCompact.exit",
+			"debug": [
+				{
+					"line": 29, "columns": [9]
+				},
+				{
+					"line": 124, "columns": [16, 27, 34]
+				}
+			],
+			"successors": [4, 5],
+			"ir": [
+				"%long_value.i = getelementptr inbounds %struct._longobject, ptr %arg, i64 0, i32 1, !dbg !492",
+				"%3 = load i64, ptr %long_value.i, align 8, !dbg !493, !tbaa !494",
+				"%cmp.i = icmp ult i64 %3, 16, !dbg !497",
+				"br i1 %cmp.i, label %_PyLong_CompactValue.exit, label %if.end, !dbg !498"
+			]
+		},
+		{
+			"function": "_testcapi_call_long_compact_api",
+			"id": 4,
+			"name": "_PyLong_CompactValue.exit",
+			"debug": [
+				{
+					"line": 31, "columns": [5]
+				},
+				{
+					"line": 135, "columns": [39, 14]
+				},
+				{
+					"line": 136, "columns": [46, 31, 19, 17]
+				}
+			],
+			"successors": [5],
+			"ir": [
+				"%and.i = and i64 %3, 3, !dbg !511",
+				"%sub.i = sub nsw i64 1, %and.i, !dbg !512",
+				"%ob_digit.i = getelementptr inbounds %struct._longobject, ptr %arg, i64 0, i32 1, i32 1, !dbg !513",
+				"%4 = load i32, ptr %ob_digit.i, align 8, !dbg !514, !tbaa !515",
+				"%conv.i14 = zext i32 %4 to i64, !dbg !516",
+				"%mul.i = mul nsw i64 %sub.i, %conv.i14, !dbg !517",
+				"br label %if.end, !dbg !518"
+			]
+		},
+		{
+			"function": "_testcapi_call_long_compact_api",
+			"id": 5,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 32, "columns": [12, 5]
+				},
+				{
+					"line": 124, "columns": [34]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%value.0 = phi i64 [ %mul.i, %_PyLong_CompactValue.exit ], [ -1, %_PyLong_IsCompact.exit ], !dbg !470",
+				"%conv.i9 = zext i1 %cmp.i to i32, !dbg !497",
+				"%call5 = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.7, i32 noundef %conv.i9, i64 noundef %value.0) #7, !dbg !519",
+				"ret ptr %call5, !dbg !520"
+			]
+		},
+		{
+			"function": "pylong_fromunicodeobject",
+			"id": 6,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 39, "columns": [5]
+				},
+				{
+					"line": 40, "columns": [5]
+				},
+				{
+					"line": 41, "columns": [10, 9]
+				}
+			],
+			"successors": [10, 7],
+			"ir": [
+				"%unicode = alloca ptr, align 8",
+				"%base = alloca i32, align 4",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %unicode) #6, !dbg !471",
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %base) #6, !dbg !472",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.11, ptr noundef nonnull %unicode, ptr noundef nonnull %base) #6, !dbg !473",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !473",
+				"br i1 %tobool.not, label %cleanup, label %do.body, !dbg !475"
+			]
+		},
+		{
+			"function": "pylong_fromunicodeobject",
+			"id": 7,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 45, "columns": [5]
+				}
+			],
+			"successors": [8, 9],
+			"ir": [
+				"%0 = load ptr, ptr %unicode, align 8, !dbg !476, !tbaa !479",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !476",
+				"br i1 %cmp, label %if.then1, label %do.end, !dbg !483"
+			]
+		},
+		{
+			"function": "pylong_fromunicodeobject",
+			"id": 8,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 45, "columns": [5]
+				}
+			],
+			"successors": [9],
+			"ir": [
+				"store ptr null, ptr %unicode, align 8, !dbg !484, !tbaa !479",
+				"br label %do.end, !dbg !484"
+			]
+		},
+		{
+			"function": "pylong_fromunicodeobject",
+			"id": 9,
+			"name": "do.end",
+			"debug": [
+				{
+					"line": 46, "columns": [37, 46, 12, 5]
+				}
+			],
+			"successors": [10],
+			"ir": [
+				"%1 = phi ptr [ null, %if.then1 ], [ %0, %do.body ], !dbg !486",
+				"%2 = load i32, ptr %base, align 4, !dbg !487, !tbaa !488",
+				"%call3 = call ptr @PyLong_FromUnicodeObject(ptr noundef %1, i32 noundef %2) #6, !dbg !490",
+				"br label %cleanup, !dbg !491"
+			]
+		},
+		{
+			"function": "pylong_fromunicodeobject",
+			"id": 10,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 47, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call3, %do.end ], [ null, %entry ], !dbg !470",
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %base) #6, !dbg !492",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %unicode) #6, !dbg !492",
+				"ret ptr %retval.0, !dbg !492"
+			]
+		},
+		{
+			"function": "pylong_asnativebytes",
+			"id": 11,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 53, "columns": [5]
+				},
+				{
+					"line": 54, "columns": [5, 15]
+				},
+				{
+					"line": 55, "columns": [5]
+				},
+				{
+					"line": 56, "columns": [10, 9]
+				}
+			],
+			"successors": [18, 12],
+			"ir": [
+				"%v = alloca ptr, align 8",
+				"%buffer = alloca %struct.Py_buffer, align 8",
+				"%n = alloca i64, align 8",
+				"%flags = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %v) #6, !dbg !474",
+				"call void @llvm.lifetime.start.p0(i64 80, ptr nonnull %buffer) #6, !dbg !475",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %n) #6, !dbg !477",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %flags) #6, !dbg !477",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.12, ptr noundef nonnull %v, ptr noundef nonnull %buffer, ptr noundef nonnull %n, ptr noundef nonnull %flags) #6, !dbg !478",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !478",
+				"br i1 %tobool.not, label %cleanup, label %if.end, !dbg !480"
+			]
+		},
+		{
+			"function": "pylong_asnativebytes",
+			"id": 12,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 59, "columns": [16, 9]
+				}
+			],
+			"successors": [14, 13],
+			"ir": [
+				"%readonly = getelementptr inbounds %struct.Py_buffer, ptr %buffer, i64 0, i32 4, !dbg !481",
+				"%0 = load i32, ptr %readonly, align 8, !dbg !481, !tbaa !483",
+				"%tobool1.not = icmp eq i32 %0, 0, !dbg !490",
+				"br i1 %tobool1.not, label %if.end3, label %if.then2, !dbg !491"
+			]
+		},
+		{
+			"function": "pylong_asnativebytes",
+			"id": 13,
+			"name": "if.then2",
+			"debug": [
+				{
+					"line": 60, "columns": [25, 9]
+				},
+				{
+					"line": 61, "columns": [9]
+				},
+				{
+					"line": 62, "columns": [9]
+				}
+			],
+			"successors": [18],
+			"ir": [
+				"%1 = load ptr, ptr @PyExc_TypeError, align 8, !dbg !492, !tbaa !494",
+				"call void @PyErr_SetString(ptr noundef %1, ptr noundef nonnull @.str.13) #6, !dbg !495",
+				"call void @PyBuffer_Release(ptr noundef nonnull %buffer) #6, !dbg !496",
+				"br label %cleanup, !dbg !497"
+			]
+		},
+		{
+			"function": "pylong_asnativebytes",
+			"id": 14,
+			"name": "if.end3",
+			"debug": [
+				{
+					"line": 64, "columns": [16, 22, 20, 9]
+				}
+			],
+			"successors": [15, 16],
+			"ir": [
+				"%len = getelementptr inbounds %struct.Py_buffer, ptr %buffer, i64 0, i32 2, !dbg !498",
+				"%2 = load i64, ptr %len, align 8, !dbg !498, !tbaa !500",
+				"%3 = load i64, ptr %n, align 8, !dbg !501, !tbaa !502",
+				"%cmp = icmp slt i64 %2, %3, !dbg !503",
+				"br i1 %cmp, label %if.then4, label %if.end5, !dbg !504"
+			]
+		},
+		{
+			"function": "pylong_asnativebytes",
+			"id": 15,
+			"name": "if.then4",
+			"debug": [
+				{
+					"line": 65, "columns": [25, 9]
+				},
+				{
+					"line": 66, "columns": [9]
+				},
+				{
+					"line": 67, "columns": [9]
+				}
+			],
+			"successors": [18],
+			"ir": [
+				"%4 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !505, !tbaa !494",
+				"call void @PyErr_SetString(ptr noundef %4, ptr noundef nonnull @.str.14) #6, !dbg !507",
+				"call void @PyBuffer_Release(ptr noundef nonnull %buffer) #6, !dbg !508",
+				"br label %cleanup, !dbg !509"
+			]
+		},
+		{
+			"function": "pylong_asnativebytes",
+			"id": 16,
+			"name": "if.end5",
+			"debug": [
+				{
+					"line": 69, "columns": [43, 53, 66, 61, 22]
+				},
+				{
+					"line": 70, "columns": [5]
+				},
+				{
+					"line": 71, "columns": [16, 12]
+				}
+			],
+			"successors": [17, 18],
+			"ir": [
+				"%5 = load ptr, ptr %v, align 8, !dbg !510, !tbaa !494",
+				"%6 = load ptr, ptr %buffer, align 8, !dbg !511, !tbaa !512",
+				"%7 = load i64, ptr %flags, align 8, !dbg !513, !tbaa !502",
+				"%conv = trunc i64 %7 to i32, !dbg !514",
+				"%call6 = call i64 @PyLong_AsNativeBytes(ptr noundef %5, ptr noundef %6, i64 noundef %3, i32 noundef %conv) #6, !dbg !515",
+				"call void @PyBuffer_Release(ptr noundef nonnull %buffer) #6, !dbg !516",
+				"%cmp7 = icmp sgt i64 %call6, -1, !dbg !517",
+				"br i1 %cmp7, label %cond.true, label %cleanup, !dbg !518"
+			]
+		},
+		{
+			"function": "pylong_asnativebytes",
+			"id": 17,
+			"name": "cond.true",
+			"debug": [
+				{
+					"line": 71, "columns": [23, 12]
+				}
+			],
+			"successors": [18],
+			"ir": [
+				"%call9 = call ptr @PyLong_FromSsize_t(i64 noundef %call6) #6, !dbg !519",
+				"br label %cleanup, !dbg !518"
+			]
+		},
+		{
+			"function": "pylong_asnativebytes",
+			"id": 18,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 72, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ null, %if.then2 ], [ null, %if.then4 ], [ null, %entry ], [ %call9, %cond.true ], [ null, %if.end5 ], !dbg !473",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %flags) #6, !dbg !520",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %n) #6, !dbg !520",
+				"call void @llvm.lifetime.end.p0(i64 80, ptr nonnull %buffer) #6, !dbg !520",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %v) #6, !dbg !520",
+				"ret ptr %retval.0, !dbg !520"
+			]
+		},
+		{
+			"function": "pylong_fromnativebytes",
+			"id": 19,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 78, "columns": [5, 15]
+				},
+				{
+					"line": 79, "columns": [5]
+				},
+				{
+					"line": 80, "columns": [10, 9]
+				}
+			],
+			"successors": [26, 20],
+			"ir": [
+				"%buffer = alloca %struct.Py_buffer, align 8",
+				"%n = alloca i64, align 8",
+				"%flags = alloca i64, align 8",
+				"%signed_ = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 80, ptr nonnull %buffer) #6, !dbg !474",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %n) #6, !dbg !476",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %flags) #6, !dbg !476",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %signed_) #6, !dbg !476",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.15, ptr noundef nonnull %buffer, ptr noundef nonnull %n, ptr noundef nonnull %flags, ptr noundef nonnull %signed_) #6, !dbg !477",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !477",
+				"br i1 %tobool.not, label %cleanup, label %if.end, !dbg !479"
+			]
+		},
+		{
+			"function": "pylong_fromnativebytes",
+			"id": 20,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 83, "columns": [16, 22, 20, 9]
+				}
+			],
+			"successors": [21, 22],
+			"ir": [
+				"%len = getelementptr inbounds %struct.Py_buffer, ptr %buffer, i64 0, i32 2, !dbg !480",
+				"%0 = load i64, ptr %len, align 8, !dbg !480, !tbaa !482",
+				"%1 = load i64, ptr %n, align 8, !dbg !489, !tbaa !490",
+				"%cmp = icmp slt i64 %0, %1, !dbg !491",
+				"br i1 %cmp, label %if.then1, label %if.end2, !dbg !492"
+			]
+		},
+		{
+			"function": "pylong_fromnativebytes",
+			"id": 21,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 84, "columns": [25, 9]
+				},
+				{
+					"line": 86, "columns": [9]
+				}
+			],
+			"successors": [25],
+			"ir": [
+				"%2 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !493, !tbaa !495",
+				"call void @PyErr_SetString(ptr noundef %2, ptr noundef nonnull @.str.14) #6, !dbg !496",
+				"br label %cleanup.sink.split, !dbg !497"
+			]
+		},
+		{
+			"function": "pylong_fromnativebytes",
+			"id": 22,
+			"name": "if.end2",
+			"debug": [
+				{
+					"line": 88, "columns": [21]
+				}
+			],
+			"successors": [24, 23],
+			"ir": [
+				"%3 = load i64, ptr %signed_, align 8, !dbg !498, !tbaa !490",
+				"%tobool3.not = icmp eq i64 %3, 0, !dbg !498",
+				"%4 = load ptr, ptr %buffer, align 8, !dbg !473, !tbaa !499",
+				"%5 = load i64, ptr %flags, align 8, !dbg !473, !tbaa !490",
+				"%conv6 = trunc i64 %5 to i32, !dbg !473",
+				"br i1 %tobool3.not, label %cond.false, label %cond.true, !dbg !498"
+			]
+		},
+		{
+			"function": "pylong_fromnativebytes",
+			"id": 23,
+			"name": "cond.true",
+			"debug": [
+				{
+					"line": 88, "columns": [21]
+				},
+				{
+					"line": 89, "columns": [11]
+				}
+			],
+			"successors": [25],
+			"ir": [
+				"%call4 = call ptr @PyLong_FromNativeBytes(ptr noundef %4, i64 noundef %1, i32 noundef %conv6) #6, !dbg !500",
+				"br label %cleanup.sink.split, !dbg !498"
+			]
+		},
+		{
+			"function": "pylong_fromnativebytes",
+			"id": 24,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 88, "columns": [21]
+				},
+				{
+					"line": 90, "columns": [11]
+				}
+			],
+			"successors": [25],
+			"ir": [
+				"%call7 = call ptr @PyLong_FromUnsignedNativeBytes(ptr noundef %4, i64 noundef %1, i32 noundef %conv6) #6, !dbg !501",
+				"br label %cleanup.sink.split, !dbg !498"
+			]
+		},
+		{
+			"function": "pylong_fromnativebytes",
+			"id": 25,
+			"name": "cleanup.sink.split",
+			"debug": [
+				{
+					"line": 93, "columns": [1]
+				}
+			],
+			"successors": [26],
+			"ir": [
+				"%retval.0.ph = phi ptr [ null, %if.then1 ], [ %call4, %cond.true ], [ %call7, %cond.false ]",
+				"call void @PyBuffer_Release(ptr noundef nonnull %buffer) #6, !dbg !473",
+				"br label %cleanup, !dbg !502"
+			]
+		},
+		{
+			"function": "pylong_fromnativebytes",
+			"id": 26,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 93, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ null, %entry ], [ %retval.0.ph, %cleanup.sink.split ], !dbg !473",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %signed_) #6, !dbg !502",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %flags) #6, !dbg !502",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %n) #6, !dbg !502",
+				"call void @llvm.lifetime.end.p0(i64 80, ptr nonnull %buffer) #6, !dbg !502",
+				"ret ptr %retval.0, !dbg !502"
+			]
+		},
+		{
+			"function": "pylong_aspid",
+			"id": 27,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 98, "columns": [5]
+				},
+				{
+					"line": 99, "columns": [19]
+				},
+				{
+					"line": 100, "columns": [15, 21]
+				}
+			],
+			"successors": [28, 29],
+			"ir": [
+				"%cmp = icmp eq ptr %arg, @_Py_NoneStruct, !dbg !472",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %arg, !dbg !475",
+				"%call = tail call i32 @PyLong_AsInt(ptr noundef %spec.store.select) #6, !dbg !476",
+				"%cmp1 = icmp eq i32 %call, -1, !dbg !477",
+				"br i1 %cmp1, label %land.lhs.true, label %if.end4, !dbg !479"
+			]
+		},
+		{
+			"function": "pylong_aspid",
+			"id": 28,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 100, "columns": [24, 9]
+				}
+			],
+			"successors": [29, 30],
+			"ir": [
+				"%call2 = tail call ptr @PyErr_Occurred() #6, !dbg !480",
+				"%tobool.not = icmp eq ptr %call2, null, !dbg !480",
+				"br i1 %tobool.not, label %if.end4, label %cleanup, !dbg !481"
+			]
+		},
+		{
+			"function": "pylong_aspid",
+			"id": 29,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 103, "columns": [27, 12, 5]
+				}
+			],
+			"successors": [30],
+			"ir": [
+				"%conv = sext i32 %call to i64, !dbg !482",
+				"%call5 = tail call ptr @PyLong_FromLong(i64 noundef %conv) #6, !dbg !483",
+				"br label %cleanup, !dbg !484"
+			]
+		},
+		{
+			"function": "pylong_aspid",
+			"id": 30,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 104, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call5, %if.end4 ], [ null, %land.lhs.true ], !dbg !471",
+				"ret ptr %retval.0, !dbg !485"
+			]
+		}
+	]
+}

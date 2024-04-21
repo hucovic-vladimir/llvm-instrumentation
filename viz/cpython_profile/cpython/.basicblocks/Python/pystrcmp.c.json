@@ -1,0 +1,273 @@
+{
+	"blocks": [
+		{
+			"function": "PyOS_mystrnicmp",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 10, "columns": [14, 9]
+				}
+			],
+			"successors": [8, 1],
+			"ir": [
+				"%cmp = icmp eq i64 %size, 0, !dbg !34",
+				"br i1 %cmp, label %cleanup, label %for.cond.preheader, !dbg !36"
+			]
+		},
+		{
+			"function": "PyOS_mystrnicmp",
+			"id": 1,
+			"name": "for.cond.preheader",
+			"debug": [
+				{
+					"line": 14, "columns": [13, 20, 25]
+				}
+			],
+			"successors": [2, 7],
+			"ir": [
+				"%dec37 = add i64 %size, -1, !dbg !37",
+				"%cmp138 = icmp sgt i64 %dec37, 0, !dbg !40",
+				"br i1 %cmp138, label %land.lhs.true.preheader, label %for.end, !dbg !41"
+			]
+		},
+		{
+			"function": "PyOS_mystrnicmp",
+			"id": 2,
+			"name": "land.lhs.true.preheader",
+			"debug": [
+				{
+					"line": 14, "columns": [5]
+				}
+			],
+			"successors": [3],
+			"ir": [
+				"%scevgep = getelementptr i8, ptr %s1, i64 %dec37, !dbg !42",
+				"%scevgep49 = getelementptr i8, ptr %s2, i64 %dec37, !dbg !42",
+				"br label %land.lhs.true, !dbg !42"
+			]
+		},
+		{
+			"function": "PyOS_mystrnicmp",
+			"id": 3,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 14, "columns": [28, 32]
+				}
+			],
+			"successors": [7, 4],
+			"ir": [
+				"%dec41 = phi i64 [ %dec, %for.inc ], [ %dec37, %land.lhs.true.preheader ]",
+				"%p2.040 = phi ptr [ %incdec.ptr16, %for.inc ], [ %s2, %land.lhs.true.preheader ]",
+				"%p1.039 = phi ptr [ %incdec.ptr, %for.inc ], [ %s1, %land.lhs.true.preheader ]",
+				"%0 = load i8, ptr %p1.039, align 1, !dbg !43, !tbaa !44",
+				"%tobool.not = icmp eq i8 %0, 0, !dbg !43",
+				"br i1 %tobool.not, label %for.end, label %land.lhs.true2, !dbg !47"
+			]
+		},
+		{
+			"function": "PyOS_mystrnicmp",
+			"id": 4,
+			"name": "land.lhs.true2",
+			"debug": [
+				{
+					"line": 14, "columns": [35, 39]
+				}
+			],
+			"successors": [7, 5],
+			"ir": [
+				"%1 = load i8, ptr %p2.040, align 1, !dbg !48, !tbaa !44",
+				"%tobool4.not = icmp eq i8 %1, 0, !dbg !48",
+				"br i1 %tobool4.not, label %for.end, label %land.rhs, !dbg !49"
+			]
+		},
+		{
+			"function": "PyOS_mystrnicmp",
+			"id": 5,
+			"name": "land.rhs",
+			"debug": [
+				{
+					"line": 14, "columns": [43, 62, 59, 5]
+				}
+			],
+			"successors": [6, 7],
+			"ir": [
+				"%idxprom = zext i8 %0 to i64, !dbg !50",
+				"%arrayidx = getelementptr [256 x i8], ptr @_Py_ctype_tolower, i64 0, i64 %idxprom, !dbg !50",
+				"%2 = load i8, ptr %arrayidx, align 1, !dbg !50, !tbaa !44",
+				"%idxprom11 = zext i8 %1 to i64, !dbg !51",
+				"%arrayidx12 = getelementptr [256 x i8], ptr @_Py_ctype_tolower, i64 0, i64 %idxprom11, !dbg !51",
+				"%3 = load i8, ptr %arrayidx12, align 1, !dbg !51, !tbaa !44",
+				"%cmp14 = icmp eq i8 %2, %3, !dbg !52",
+				"br i1 %cmp14, label %for.inc, label %for.end, !dbg !42"
+			]
+		},
+		{
+			"function": "PyOS_mystrnicmp",
+			"id": 6,
+			"name": "for.inc",
+			"debug": [
+				{
+					"line": 14, "columns": [13, 20, 25]
+				},
+				{
+					"line": 15, "columns": [12, 18]
+				}
+			],
+			"successors": [3, 7],
+			"ir": [
+				"%incdec.ptr = getelementptr i8, ptr %p1.039, i64 1, !dbg !53",
+				"%incdec.ptr16 = getelementptr i8, ptr %p2.040, i64 1, !dbg !54",
+				"%dec = add nsw i64 %dec41, -1, !dbg !37",
+				"%cmp1 = icmp sgt i64 %dec41, 1, !dbg !40",
+				"br i1 %cmp1, label %land.lhs.true, label %for.end, !dbg !41, !llvm.loop !55"
+			]
+		},
+		{
+			"function": "PyOS_mystrnicmp",
+			"id": 7,
+			"name": "for.end",
+			"debug": [
+				{
+					"line": 18, "columns": [12, 30, 28, 5]
+				}
+			],
+			"successors": [8],
+			"ir": [
+				"%p1.0.lcssa = phi ptr [ %s1, %for.cond.preheader ], [ %p1.039, %land.lhs.true2 ], [ %p1.039, %land.lhs.true ], [ %scevgep, %for.inc ], [ %p1.039, %land.rhs ], !dbg !33",
+				"%p2.0.lcssa = phi ptr [ %s2, %for.cond.preheader ], [ %p2.040, %land.lhs.true2 ], [ %p2.040, %land.lhs.true ], [ %scevgep49, %for.inc ], [ %p2.040, %land.rhs ], !dbg !33",
+				"%4 = load i8, ptr %p1.0.lcssa, align 1, !dbg !58, !tbaa !44",
+				"%idxprom20 = zext i8 %4 to i64, !dbg !58",
+				"%arrayidx21 = getelementptr [256 x i8], ptr @_Py_ctype_tolower, i64 0, i64 %idxprom20, !dbg !58",
+				"%5 = load i8, ptr %arrayidx21, align 1, !dbg !58, !tbaa !44",
+				"%conv22 = zext i8 %5 to i32, !dbg !58",
+				"%6 = load i8, ptr %p2.0.lcssa, align 1, !dbg !59, !tbaa !44",
+				"%idxprom26 = zext i8 %6 to i64, !dbg !59",
+				"%arrayidx27 = getelementptr [256 x i8], ptr @_Py_ctype_tolower, i64 0, i64 %idxprom26, !dbg !59",
+				"%7 = load i8, ptr %arrayidx27, align 1, !dbg !59, !tbaa !44",
+				"%conv28 = zext i8 %7 to i32, !dbg !59",
+				"%sub = sub nsw i32 %conv22, %conv28, !dbg !60",
+				"br label %cleanup, !dbg !61"
+			]
+		},
+		{
+			"function": "PyOS_mystrnicmp",
+			"id": 8,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 19, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ %sub, %for.end ], [ 0, %entry ], !dbg !33",
+				"ret i32 %retval.0, !dbg !62"
+			]
+		},
+		{
+			"function": "PyOS_mystricmp",
+			"id": 9,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 26, "columns": [12, 16]
+				}
+			],
+			"successors": [13, 10],
+			"ir": [
+				"%0 = load i8, ptr %s1, align 1, !dbg !26, !tbaa !29",
+				"%tobool.not32 = icmp eq i8 %0, 0, !dbg !26",
+				"br i1 %tobool.not32, label %for.end, label %land.lhs.true, !dbg !32"
+			]
+		},
+		{
+			"function": "PyOS_mystricmp",
+			"id": 10,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 26, "columns": [19, 23]
+				}
+			],
+			"successors": [13, 11],
+			"ir": [
+				"%1 = phi i8 [ %5, %for.inc ], [ %0, %entry ]",
+				"%p2.034 = phi ptr [ %incdec.ptr13, %for.inc ], [ %s2, %entry ]",
+				"%p1.033 = phi ptr [ %incdec.ptr, %for.inc ], [ %s1, %entry ]",
+				"%2 = load i8, ptr %p2.034, align 1, !dbg !33, !tbaa !29",
+				"%tobool2.not = icmp eq i8 %2, 0, !dbg !33",
+				"br i1 %tobool2.not, label %for.end, label %land.rhs, !dbg !34"
+			]
+		},
+		{
+			"function": "PyOS_mystricmp",
+			"id": 11,
+			"name": "land.rhs",
+			"debug": [
+				{
+					"line": 26, "columns": [27, 46, 43, 5]
+				}
+			],
+			"successors": [12, 13],
+			"ir": [
+				"%idxprom = zext i8 %1 to i64, !dbg !35",
+				"%arrayidx = getelementptr [256 x i8], ptr @_Py_ctype_tolower, i64 0, i64 %idxprom, !dbg !35",
+				"%3 = load i8, ptr %arrayidx, align 1, !dbg !35, !tbaa !29",
+				"%idxprom9 = zext i8 %2 to i64, !dbg !36",
+				"%arrayidx10 = getelementptr [256 x i8], ptr @_Py_ctype_tolower, i64 0, i64 %idxprom9, !dbg !36",
+				"%4 = load i8, ptr %arrayidx10, align 1, !dbg !36, !tbaa !29",
+				"%cmp = icmp eq i8 %3, %4, !dbg !37",
+				"br i1 %cmp, label %for.inc, label %for.end, !dbg !38"
+			]
+		},
+		{
+			"function": "PyOS_mystricmp",
+			"id": 12,
+			"name": "for.inc",
+			"debug": [
+				{
+					"line": 26, "columns": [66, 72, 12, 16]
+				}
+			],
+			"successors": [13, 10],
+			"ir": [
+				"%incdec.ptr = getelementptr i8, ptr %p1.033, i64 1, !dbg !39",
+				"%incdec.ptr13 = getelementptr i8, ptr %p2.034, i64 1, !dbg !40",
+				"%5 = load i8, ptr %incdec.ptr, align 1, !dbg !26, !tbaa !29",
+				"%tobool.not = icmp eq i8 %5, 0, !dbg !26",
+				"br i1 %tobool.not, label %for.end, label %land.lhs.true, !dbg !32, !llvm.loop !41"
+			]
+		},
+		{
+			"function": "PyOS_mystricmp",
+			"id": 13,
+			"name": "for.end",
+			"debug": [
+				{
+					"line": 26, "columns": [12]
+				},
+				{
+					"line": 29, "columns": [13, 31, 29, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%p2.0.lcssa = phi ptr [ %s2, %entry ], [ %p2.034, %land.lhs.true ], [ %incdec.ptr13, %for.inc ], [ %p2.034, %land.rhs ], !dbg !25",
+				"%.lcssa = phi i8 [ 0, %entry ], [ %1, %land.lhs.true ], [ 0, %for.inc ], [ %1, %land.rhs ], !dbg !26",
+				"%idxprom17 = zext i8 %.lcssa to i64, !dbg !44",
+				"%arrayidx18 = getelementptr [256 x i8], ptr @_Py_ctype_tolower, i64 0, i64 %idxprom17, !dbg !44",
+				"%6 = load i8, ptr %arrayidx18, align 1, !dbg !44, !tbaa !29",
+				"%conv19 = zext i8 %6 to i32, !dbg !44",
+				"%7 = load i8, ptr %p2.0.lcssa, align 1, !dbg !45, !tbaa !29",
+				"%idxprom23 = zext i8 %7 to i64, !dbg !45",
+				"%arrayidx24 = getelementptr [256 x i8], ptr @_Py_ctype_tolower, i64 0, i64 %idxprom23, !dbg !45",
+				"%8 = load i8, ptr %arrayidx24, align 1, !dbg !45, !tbaa !29",
+				"%conv25 = zext i8 %8 to i32, !dbg !45",
+				"%sub = sub nsw i32 %conv19, %conv25, !dbg !46",
+				"ret i32 %sub, !dbg !47"
+			]
+		}
+	]
+}

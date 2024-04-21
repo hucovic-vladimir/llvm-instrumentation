@@ -1,0 +1,761 @@
+{
+	"blocks": [
+		{
+			"function": "_PyTestCapi_Init_Code",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 117, "columns": [9]
+				},
+				{
+					"line": 122, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call i32 @PyModule_AddFunctions(ptr noundef %m, ptr noundef nonnull @TestMethods) #6, !dbg !435",
+				"%call.lobit = ashr i32 %call, 31, !dbg !434",
+				"ret i32 %call.lobit, !dbg !437"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 1,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 54, "columns": [34]
+				},
+				{
+					"line": 55, "columns": [10, 9]
+				}
+			],
+			"successors": [40, 2],
+			"ir": [
+				"%index_obj.i = alloca ptr, align 8",
+				"%extra = alloca ptr, align 8",
+				"%call = tail call ptr @PyInterpreterState_Get() #6, !dbg !445",
+				"%tobool.not = icmp eq ptr %call, null, !dbg !446",
+				"br i1 %tobool.not, label %cleanup, label %if.end, !dbg !448"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 2,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 10, "columns": [29]
+				},
+				{
+					"line": 11, "columns": [5]
+				}
+			],
+			"successors": [3, 4],
+			"ir": [
+				"%call.i = tail call ptr @PyInterpreterState_GetDict(ptr noundef nonnull %call) #6, !dbg !451",
+				"%tobool.not.i = icmp eq ptr %call.i, null, !dbg !452",
+				"br i1 %tobool.not.i, label %cond.false.i, label %cond.end.i, !dbg !452"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 3,
+			"name": "cond.false.i",
+			"debug": [
+				{
+					"line": 11, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.7, ptr noundef nonnull @.str.4, i32 noundef 11, ptr noundef nonnull @__PRETTY_FUNCTION__.get_code_extra_index) #7, !dbg !452",
+				"unreachable, !dbg !452"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 4,
+			"name": "cond.end.i",
+			"debug": [
+				{
+					"line": 13, "columns": [5]
+				},
+				{
+					"line": 14, "columns": [9, 63]
+				}
+			],
+			"successors": [19, 5],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %index_obj.i) #6, !dbg !453",
+				"%call1.i = call i32 @PyDict_GetItemStringRef(ptr noundef nonnull %call.i, ptr noundef nonnull @.str.6, ptr noundef nonnull %index_obj.i) #6, !dbg !454",
+				"%cmp.i = icmp slt i32 %call1.i, 0, !dbg !456",
+				"br i1 %cmp.i, label %get_code_extra_index.exit, label %if.end.i, !dbg !457"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 5,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 18, "columns": [10, 9]
+				}
+			],
+			"successors": [6, 13],
+			"ir": [
+				"%0 = load ptr, ptr %index_obj.i, align 8, !dbg !458, !tbaa !459",
+				"%tobool2.not.i = icmp eq ptr %0, null, !dbg !458",
+				"br i1 %tobool2.not.i, label %if.then3.i, label %if.else.i, !dbg !463"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 6,
+			"name": "if.then3.i",
+			"debug": [
+				{
+					"line": 19, "columns": [17]
+				},
+				{
+					"line": 20, "columns": [19, 23]
+				}
+			],
+			"successors": [19, 7],
+			"ir": [
+				"%call4.i = call i64 @PyUnstable_Eval_RequestCodeExtraIndex(ptr noundef null) #6, !dbg !464",
+				"%cmp5.i = icmp slt i64 %call4.i, 0, !dbg !465",
+				"br i1 %cmp5.i, label %get_code_extra_index.exit, label %lor.lhs.false.i, !dbg !467"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 7,
+			"name": "lor.lhs.false.i",
+			"debug": [
+				{
+					"line": 20, "columns": [26, 13]
+				}
+			],
+			"successors": [8, 19],
+			"ir": [
+				"%call6.i = call ptr @PyErr_Occurred() #6, !dbg !468",
+				"%tobool7.not.i = icmp eq ptr %call6.i, null, !dbg !468",
+				"br i1 %tobool7.not.i, label %if.end9.i, label %get_code_extra_index.exit, !dbg !469"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 8,
+			"name": "if.end9.i",
+			"debug": [
+				{
+					"line": 23, "columns": [21, 19]
+				},
+				{
+					"line": 24, "columns": [14, 13]
+				}
+			],
+			"successors": [19, 9],
+			"ir": [
+				"%call10.i = call ptr @PyLong_FromSsize_t(i64 noundef %call4.i) #6, !dbg !470",
+				"store ptr %call10.i, ptr %index_obj.i, align 8, !dbg !471, !tbaa !459",
+				"%tobool11.not.i = icmp eq ptr %call10.i, null, !dbg !472",
+				"br i1 %tobool11.not.i, label %get_code_extra_index.exit, label %if.end13.i, !dbg !474"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 9,
+			"name": "if.end13.i",
+			"debug": [
+				{
+					"line": 27, "columns": [19]
+				},
+				{
+					"line": 28, "columns": [9]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [10, 12],
+			"ir": [
+				"%call14.i = call i32 @PyDict_SetItemString(ptr noundef nonnull %call.i, ptr noundef nonnull @.str.6, ptr noundef nonnull %call10.i) #6, !dbg !475",
+				"%1 = load ptr, ptr %index_obj.i, align 8, !dbg !477, !tbaa !459",
+				"%op.val.i.i = load i64, ptr %1, align 8, !dbg !483, !tbaa !485",
+				"%2 = and i64 %op.val.i.i, 2147483648, !dbg !491",
+				"%cmp.i.not.i.i = icmp eq i64 %2, 0, !dbg !491",
+				"br i1 %cmp.i.not.i.i, label %if.end.i.i, label %Py_DECREF.exit.i, !dbg !492"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 10,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [11, 12],
+			"ir": [
+				"%dec.i.i = add i64 %op.val.i.i, -1, !dbg !493",
+				"store i64 %dec.i.i, ptr %1, align 8, !dbg !493, !tbaa !485",
+				"%cmp.i.i = icmp eq i64 %dec.i.i, 0, !dbg !495",
+				"br i1 %cmp.i.i, label %if.then1.i.i, label %Py_DECREF.exit.i, !dbg !496"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 11,
+			"name": "if.then1.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [12],
+			"ir": [
+				"call void @_Py_Dealloc(ptr noundef nonnull %1) #6, !dbg !497",
+				"br label %Py_DECREF.exit.i, !dbg !499"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 12,
+			"name": "Py_DECREF.exit.i",
+			"debug": [
+			],
+			"successors": [18, 19],
+			"ir": [
+				"%cond.i = icmp sgt i32 %call14.i, -1",
+				"br i1 %cond.i, label %if.end24.i, label %get_code_extra_index.exit"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 13,
+			"name": "if.else.i",
+			"debug": [
+				{
+					"line": 34, "columns": [17]
+				},
+				{
+					"line": 35, "columns": [9]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [14, 16],
+			"ir": [
+				"%call18.i = call i64 @PyLong_AsSsize_t(ptr noundef nonnull %0) #6, !dbg !500",
+				"%3 = load ptr, ptr %index_obj.i, align 8, !dbg !502, !tbaa !459",
+				"%op.val.i33.i = load i64, ptr %3, align 8, !dbg !505, !tbaa !485",
+				"%4 = and i64 %op.val.i33.i, 2147483648, !dbg !508",
+				"%cmp.i.not.i34.i = icmp eq i64 %4, 0, !dbg !508",
+				"br i1 %cmp.i.not.i34.i, label %if.end.i37.i, label %Py_DECREF.exit39.i, !dbg !509"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 14,
+			"name": "if.end.i37.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [15, 16],
+			"ir": [
+				"%dec.i35.i = add i64 %op.val.i33.i, -1, !dbg !510",
+				"store i64 %dec.i35.i, ptr %3, align 8, !dbg !510, !tbaa !485",
+				"%cmp.i36.i = icmp eq i64 %dec.i35.i, 0, !dbg !511",
+				"br i1 %cmp.i36.i, label %if.then1.i38.i, label %Py_DECREF.exit39.i, !dbg !512"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 15,
+			"name": "if.then1.i38.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [16],
+			"ir": [
+				"call void @_Py_Dealloc(ptr noundef nonnull %3) #6, !dbg !513",
+				"br label %Py_DECREF.exit39.i, !dbg !514"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 16,
+			"name": "Py_DECREF.exit39.i",
+			"debug": [
+				{
+					"line": 36, "columns": [19, 25]
+				}
+			],
+			"successors": [17, 18],
+			"ir": [
+				"%cmp19.i = icmp eq i64 %call18.i, -1, !dbg !515",
+				"br i1 %cmp19.i, label %land.lhs.true.i, label %if.end24.i, !dbg !517"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 17,
+			"name": "land.lhs.true.i",
+			"debug": [
+				{
+					"line": 36, "columns": [28, 13]
+				}
+			],
+			"successors": [18, 19],
+			"ir": [
+				"%call20.i = call ptr @PyErr_Occurred() #6, !dbg !518",
+				"%tobool21.not.i = icmp eq ptr %call20.i, null, !dbg !518",
+				"br i1 %tobool21.not.i, label %if.end24.i, label %get_code_extra_index.exit, !dbg !519"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 18,
+			"name": "if.end24.i",
+			"debug": [
+				{
+					"line": 41, "columns": [5]
+				}
+			],
+			"successors": [19],
+			"ir": [
+				"%index.0.i = phi i64 [ -1, %land.lhs.true.i ], [ %call18.i, %Py_DECREF.exit39.i ], [ %call4.i, %Py_DECREF.exit.i ], !dbg !520",
+				"br label %get_code_extra_index.exit, !dbg !521"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 19,
+			"name": "get_code_extra_index.exit",
+			"debug": [
+				{
+					"line": 44, "columns": [1]
+				},
+				{
+					"line": 59, "columns": [9]
+				}
+			],
+			"successors": [20, 40],
+			"ir": [
+				"%retval.0.i = phi i64 [ -1, %cond.end.i ], [ -1, %land.lhs.true.i ], [ %index.0.i, %if.end24.i ], [ -1, %if.then3.i ], [ -1, %lor.lhs.false.i ], [ -1, %Py_DECREF.exit.i ], [ -1, %if.end9.i ]",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %index_obj.i) #6, !dbg !522",
+				"%call2 = call ptr @PyErr_Occurred() #6, !dbg !523",
+				"%tobool3.not = icmp eq ptr %call2, null, !dbg !523",
+				"br i1 %tobool3.not, label %if.end5, label %cleanup, !dbg !525"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 20,
+			"name": "if.end5",
+			"debug": [
+				{
+					"line": 65, "columns": [19]
+				},
+				{
+					"line": 66, "columns": [10, 9]
+				}
+			],
+			"successors": [40, 21],
+			"ir": [
+				"%call6 = call ptr @PyImport_ImportModule(ptr noundef nonnull @.str.1) #6, !dbg !526",
+				"%tobool7.not = icmp eq ptr %call6, null, !dbg !527",
+				"br i1 %tobool7.not, label %cleanup, label %if.end9, !dbg !529"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 21,
+			"name": "if.end9",
+			"debug": [
+				{
+					"line": 69, "columns": [17]
+				},
+				{
+					"line": 70, "columns": [10, 9]
+				}
+			],
+			"successors": [33, 22],
+			"ir": [
+				"%call10 = call ptr @PyObject_GetAttrString(ptr noundef nonnull %call6, ptr noundef nonnull @.str.2) #6, !dbg !530",
+				"%tobool11.not = icmp eq ptr %call10, null, !dbg !531",
+				"br i1 %tobool11.not, label %if.then.i, label %if.end13, !dbg !533"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 22,
+			"name": "if.end13",
+			"debug": [
+				{
+					"line": 73, "columns": [32]
+				},
+				{
+					"line": 74, "columns": [10, 9]
+				}
+			],
+			"successors": [33, 23],
+			"ir": [
+				"%call14 = call ptr @PyFunction_GetCode(ptr noundef nonnull %call10) #6, !dbg !534",
+				"%tobool15.not = icmp eq ptr %call14, null, !dbg !535",
+				"br i1 %tobool15.not, label %if.then.i, label %if.end17, !dbg !537"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 23,
+			"name": "if.end17",
+			"debug": [
+				{
+					"line": 79, "columns": [11]
+				},
+				{
+					"line": 80, "columns": [15]
+				},
+				{
+					"line": 81, "columns": [13, 9]
+				}
+			],
+			"successors": [33, 24],
+			"ir": [
+				"store ptr @uninitialized, ptr %extra, align 8, !dbg !538, !tbaa !459",
+				"%call18 = call i32 @PyUnstable_Code_GetExtra(ptr noundef nonnull %call14, i64 noundef %retval.0.i, ptr noundef nonnull %extra) #6, !dbg !539",
+				"%cmp = icmp slt i32 %call18, 0, !dbg !540",
+				"br i1 %cmp, label %if.then.i, label %if.end20, !dbg !542"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 24,
+			"name": "if.end20",
+			"debug": [
+				{
+					"line": 84, "columns": [5]
+				}
+			],
+			"successors": [26, 25],
+			"ir": [
+				"%5 = load ptr, ptr %extra, align 8, !dbg !543, !tbaa !459",
+				"%cmp21 = icmp eq ptr %5, null, !dbg !543",
+				"br i1 %cmp21, label %cond.end, label %cond.false, !dbg !543"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 25,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 84, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.3, ptr noundef nonnull @.str.4, i32 noundef 84, ptr noundef nonnull @__PRETTY_FUNCTION__.test_code_extra) #7, !dbg !543",
+				"unreachable, !dbg !543"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 26,
+			"name": "cond.end",
+			"debug": [
+				{
+					"line": 87, "columns": [11]
+				},
+				{
+					"line": 88, "columns": [13, 9]
+				}
+			],
+			"successors": [33, 27],
+			"ir": [
+				"%call22 = call i32 @PyUnstable_Code_SetExtra(ptr noundef nonnull %call14, i64 noundef %retval.0.i, ptr noundef nonnull inttoptr (i64 77 to ptr)) #6, !dbg !544",
+				"%cmp23 = icmp slt i32 %call22, 0, !dbg !545",
+				"br i1 %cmp23, label %if.then.i, label %if.end25, !dbg !547"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 27,
+			"name": "if.end25",
+			"debug": [
+				{
+					"line": 92, "columns": [11]
+				},
+				{
+					"line": 93, "columns": [11]
+				},
+				{
+					"line": 94, "columns": [13, 9]
+				}
+			],
+			"successors": [33, 28],
+			"ir": [
+				"store ptr @uninitialized, ptr %extra, align 8, !dbg !548, !tbaa !459",
+				"%call26 = call i32 @PyUnstable_Code_GetExtra(ptr noundef nonnull %call14, i64 noundef %retval.0.i, ptr noundef nonnull %extra) #6, !dbg !549",
+				"%cmp27 = icmp slt i32 %call26, 0, !dbg !550",
+				"br i1 %cmp27, label %if.then.i, label %if.end29, !dbg !552"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 28,
+			"name": "if.end29",
+			"debug": [
+				{
+					"line": 97, "columns": [5]
+				}
+			],
+			"successors": [30, 29],
+			"ir": [
+				"%6 = load ptr, ptr %extra, align 8, !dbg !553, !tbaa !459",
+				"%cmp30 = icmp eq ptr %6, inttoptr (i64 77 to ptr), !dbg !553",
+				"br i1 %cmp30, label %cond.end33, label %cond.false32, !dbg !553"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 29,
+			"name": "cond.false32",
+			"debug": [
+				{
+					"line": 97, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.5, ptr noundef nonnull @.str.4, i32 noundef 97, ptr noundef nonnull @__PRETTY_FUNCTION__.test_code_extra) #7, !dbg !553",
+				"unreachable, !dbg !553"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 30,
+			"name": "cond.end33",
+			"debug": [
+				{
+					"line": 99, "columns": [11]
+				},
+				{
+					"line": 100, "columns": [13, 9]
+				}
+			],
+			"successors": [33, 31],
+			"ir": [
+				"%call34 = call i32 @PyUnstable_Code_SetExtra(ptr noundef nonnull %call14, i64 noundef %retval.0.i, ptr noundef null) #6, !dbg !554",
+				"%cmp35 = icmp slt i32 %call34, 0, !dbg !555",
+				"br i1 %cmp35, label %if.then.i, label %if.end37, !dbg !557"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 31,
+			"name": "if.end37",
+			"debug": [
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [33, 32],
+			"ir": [
+				"%7 = load i32, ptr @_Py_NoneStruct, align 8, !dbg !570, !tbaa !485",
+				"%add.i.i = add i32 %7, 1, !dbg !571",
+				"%cmp.i.i57 = icmp eq i32 %add.i.i, 0, !dbg !572",
+				"br i1 %cmp.i.i57, label %if.then.i, label %if.end.i.i58, !dbg !574"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 32,
+			"name": "if.end.i.i58",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [33],
+			"ir": [
+				"store i32 %add.i.i, ptr @_Py_NoneStruct, align 8, !dbg !575, !tbaa !485",
+				"br label %if.then.i, !dbg !576"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 33,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 104, "columns": [1]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [34, 36],
+			"ir": [
+				"%result.0.ph = phi ptr [ @_Py_NoneStruct, %if.end.i.i58 ], [ @_Py_NoneStruct, %if.end37 ], [ null, %if.end9 ], [ null, %if.end13 ], [ null, %cond.end33 ], [ null, %if.end25 ], [ null, %cond.end ], [ null, %if.end17 ]",
+				"%op.val.i.i59 = load i64, ptr %call6, align 8, !dbg !587, !tbaa !485",
+				"%8 = and i64 %op.val.i.i59, 2147483648, !dbg !590",
+				"%cmp.i.not.i.i60 = icmp eq i64 %8, 0, !dbg !590",
+				"br i1 %cmp.i.not.i.i60, label %if.end.i.i63, label %Py_XDECREF.exit, !dbg !591"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 34,
+			"name": "if.end.i.i63",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [35, 36],
+			"ir": [
+				"%dec.i.i61 = add i64 %op.val.i.i59, -1, !dbg !592",
+				"store i64 %dec.i.i61, ptr %call6, align 8, !dbg !592, !tbaa !485",
+				"%cmp.i.i62 = icmp eq i64 %dec.i.i61, 0, !dbg !593",
+				"br i1 %cmp.i.i62, label %if.then1.i.i64, label %Py_XDECREF.exit, !dbg !594"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 35,
+			"name": "if.then1.i.i64",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [36],
+			"ir": [
+				"call void @_Py_Dealloc(ptr noundef nonnull %call6) #6, !dbg !595",
+				"br label %Py_XDECREF.exit, !dbg !596"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 36,
+			"name": "Py_XDECREF.exit",
+			"debug": [
+				{
+					"line": 1037, "columns": [9]
+				}
+			],
+			"successors": [40, 37],
+			"ir": [
+				"br i1 %tobool11.not, label %cleanup, label %if.then.i69, !dbg !599"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 37,
+			"name": "if.then.i69",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [38, 40],
+			"ir": [
+				"%op.val.i.i67 = load i64, ptr %call10, align 8, !dbg !602, !tbaa !485",
+				"%9 = and i64 %op.val.i.i67, 2147483648, !dbg !605",
+				"%cmp.i.not.i.i68 = icmp eq i64 %9, 0, !dbg !605",
+				"br i1 %cmp.i.not.i.i68, label %if.end.i.i72, label %cleanup, !dbg !606"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 38,
+			"name": "if.end.i.i72",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [39, 40],
+			"ir": [
+				"%dec.i.i70 = add i64 %op.val.i.i67, -1, !dbg !607",
+				"store i64 %dec.i.i70, ptr %call10, align 8, !dbg !607, !tbaa !485",
+				"%cmp.i.i71 = icmp eq i64 %dec.i.i70, 0, !dbg !608",
+				"br i1 %cmp.i.i71, label %if.then1.i.i73, label %cleanup, !dbg !609"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 39,
+			"name": "if.then1.i.i73",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [40],
+			"ir": [
+				"call void @_Py_Dealloc(ptr noundef nonnull %call10) #6, !dbg !610",
+				"br label %cleanup, !dbg !611"
+			]
+		},
+		{
+			"function": "test_code_extra",
+			"id": 40,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 108, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ null, %entry ], [ %result.0.ph, %Py_XDECREF.exit ], [ %result.0.ph, %if.then.i69 ], [ %result.0.ph, %if.end.i.i72 ], [ %result.0.ph, %if.then1.i.i73 ], [ null, %get_code_extra_index.exit ], [ null, %if.end5 ], !dbg !444",
+				"ret ptr %retval.0, !dbg !612"
+			]
+		}
+	]
+}

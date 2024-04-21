@@ -1,0 +1,301 @@
+{
+	"blocks": [
+		{
+			"function": "_PyTestLimitedCAPI_Init_Float",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 86, "columns": [9]
+				},
+				{
+					"line": 91, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call i32 @PyModule_AddFunctions(ptr noundef %mod, ptr noundef nonnull @test_methods) #4, !dbg !101",
+				"%call.lobit = ashr i32 %call, 31, !dbg !100",
+				"ret i32 %call.lobit, !dbg !103"
+			]
+		},
+		{
+			"function": "float_check",
+			"id": 1,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 8, "columns": [5]
+				},
+				{
+					"line": 9, "columns": [28]
+				},
+				{
+					"line": 365, "columns": [24]
+				},
+				{
+					"line": 538, "columns": [33]
+				}
+			],
+			"successors": [3, 2],
+			"ir": [
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !100",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !103",
+				"%0 = getelementptr i8, ptr %spec.store.select, i64 8, !dbg !104",
+				"%spec.store.select.val = load ptr, ptr %0, align 8, !dbg !104, !tbaa !105",
+				"%cmp.i.not.i = icmp eq ptr %spec.store.select.val, @PyFloat_Type, !dbg !124",
+				"br i1 %cmp.i.not.i, label %PyObject_TypeCheck.exit, label %lor.rhs.i, !dbg !125"
+			]
+		},
+		{
+			"function": "float_check",
+			"id": 2,
+			"name": "lor.rhs.i",
+			"debug": [
+				{
+					"line": 538, "columns": [36, 33]
+				}
+			],
+			"successors": [3],
+			"ir": [
+				"%call2.i = tail call i32 @PyType_IsSubtype(ptr noundef %spec.store.select.val, ptr noundef nonnull @PyFloat_Type) #4, !dbg !126",
+				"%tobool3.i = icmp ne i32 %call2.i, 0, !dbg !125",
+				"%1 = zext i1 %tobool3.i to i64",
+				"br label %PyObject_TypeCheck.exit, !dbg !125"
+			]
+		},
+		{
+			"function": "float_check",
+			"id": 3,
+			"name": "PyObject_TypeCheck.exit",
+			"debug": [
+				{
+					"line": 9, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%lor.ext.i = phi i64 [ 1, %entry ], [ %1, %lor.rhs.i ]",
+				"%call1 = tail call ptr @PyLong_FromLong(i64 noundef %lor.ext.i) #4, !dbg !127",
+				"ret ptr %call1, !dbg !128"
+			]
+		},
+		{
+			"function": "float_checkexact",
+			"id": 4,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 15, "columns": [5]
+				},
+				{
+					"line": 16, "columns": [28, 12, 5]
+				},
+				{
+					"line": 365, "columns": [24]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !100",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !103",
+				"%0 = getelementptr i8, ptr %spec.store.select, i64 8, !dbg !104",
+				"%spec.store.select.val = load ptr, ptr %0, align 8, !dbg !104, !tbaa !105",
+				"%cmp.i = icmp eq ptr %spec.store.select.val, @PyFloat_Type, !dbg !118",
+				"%conv = zext i1 %cmp.i to i64",
+				"%call1 = tail call ptr @PyLong_FromLong(i64 noundef %conv) #4, !dbg !119",
+				"ret ptr %call1, !dbg !120"
+			]
+		},
+		{
+			"function": "float_fromstring",
+			"id": 5,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 22, "columns": [5]
+				},
+				{
+					"line": 23, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !100",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !103",
+				"%call = tail call ptr @PyFloat_FromString(ptr noundef %spec.store.select) #4, !dbg !104",
+				"ret ptr %call, !dbg !105"
+			]
+		},
+		{
+			"function": "float_fromdouble",
+			"id": 6,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 29, "columns": [5]
+				},
+				{
+					"line": 31, "columns": [10, 9]
+				}
+			],
+			"successors": [8, 7],
+			"ir": [
+				"%d = alloca double, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %d) #4, !dbg !102",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_Parse(ptr noundef %obj, ptr noundef nonnull @.str.8, ptr noundef nonnull %d) #4, !dbg !103",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !103",
+				"br i1 %tobool.not, label %cleanup, label %if.end, !dbg !105"
+			]
+		},
+		{
+			"function": "float_fromdouble",
+			"id": 7,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 35, "columns": [31, 12, 5]
+				}
+			],
+			"successors": [8],
+			"ir": [
+				"%0 = load double, ptr %d, align 8, !dbg !106, !tbaa !107",
+				"%call1 = call ptr @PyFloat_FromDouble(double noundef %0) #4, !dbg !111",
+				"br label %cleanup, !dbg !112"
+			]
+		},
+		{
+			"function": "float_fromdouble",
+			"id": 8,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 36, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call1, %if.end ], [ null, %entry ], !dbg !101",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %d) #4, !dbg !113",
+				"ret ptr %retval.0, !dbg !113"
+			]
+		},
+		{
+			"function": "float_asdouble",
+			"id": 9,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 43, "columns": [5]
+				},
+				{
+					"line": 44, "columns": [9]
+				},
+				{
+					"line": 45, "columns": [11, 18]
+				}
+			],
+			"successors": [10, 11],
+			"ir": [
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !102",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !105",
+				"%call = tail call double @PyFloat_AsDouble(ptr noundef %spec.store.select) #4, !dbg !106",
+				"%cmp1 = fcmp oeq double %call, -1.000000e+00, !dbg !107",
+				"br i1 %cmp1, label %land.lhs.true, label %if.end4, !dbg !109"
+			]
+		},
+		{
+			"function": "float_asdouble",
+			"id": 10,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 45, "columns": [21, 9]
+				}
+			],
+			"successors": [11, 12],
+			"ir": [
+				"%call2 = tail call ptr @PyErr_Occurred() #4, !dbg !110",
+				"%tobool.not = icmp eq ptr %call2, null, !dbg !110",
+				"br i1 %tobool.not, label %if.end4, label %cleanup, !dbg !111"
+			]
+		},
+		{
+			"function": "float_asdouble",
+			"id": 11,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 49, "columns": [12, 5]
+				}
+			],
+			"successors": [12],
+			"ir": [
+				"%call5 = tail call ptr @PyFloat_FromDouble(double noundef %call) #4, !dbg !112",
+				"br label %cleanup, !dbg !113"
+			]
+		},
+		{
+			"function": "float_asdouble",
+			"id": 12,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 50, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call5, %if.end4 ], [ null, %land.lhs.true ], !dbg !101",
+				"ret ptr %retval.0, !dbg !114"
+			]
+		},
+		{
+			"function": "float_getinfo",
+			"id": 13,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 55, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call ptr @PyFloat_GetInfo() #4, !dbg !100",
+				"ret ptr %call, !dbg !101"
+			]
+		},
+		{
+			"function": "float_getmax",
+			"id": 14,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 61, "columns": [31, 12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call double @PyFloat_GetMax() #4, !dbg !100",
+				"%call1 = tail call ptr @PyFloat_FromDouble(double noundef %call) #4, !dbg !101",
+				"ret ptr %call1, !dbg !102"
+			]
+		},
+		{
+			"function": "float_getmin",
+			"id": 15,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 67, "columns": [31, 12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call double @PyFloat_GetMin() #4, !dbg !100",
+				"%call1 = tail call ptr @PyFloat_FromDouble(double noundef %call) #4, !dbg !101",
+				"ret ptr %call1, !dbg !102"
+			]
+		}
+	]
+}

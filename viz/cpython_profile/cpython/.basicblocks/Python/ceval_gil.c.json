@@ -1,0 +1,4425 @@
+{
+	"blocks": [
+		{
+			"function": "_PyEval_SetSwitchInterval",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 137, "columns": [12]
+				},
+				{
+					"line": 211, "columns": [20]
+				},
+				{
+					"line": 395, "columns": [52]
+				},
+				{
+					"line": 397, "columns": [19]
+				},
+				{
+					"line": 398, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6872",
+				"%1 = load ptr, ptr %0, align 8, !dbg !6872, !tbaa !6884",
+				"%interp.i = getelementptr inbounds %struct._ts, ptr %1, i64 0, i32 2, !dbg !6889",
+				"%2 = load ptr, ptr %interp.i, align 8, !dbg !6889, !tbaa !6890",
+				"%gil1 = getelementptr inbounds %struct._ceval_state, ptr %2, i64 0, i32 2, !dbg !6897",
+				"%3 = load ptr, ptr %gil1, align 8, !dbg !6897, !tbaa !6898",
+				"store i64 %microseconds, ptr %3, align 8, !dbg !6956, !tbaa !6957",
+				"ret void, !dbg !6958"
+			]
+		},
+		{
+			"function": "_PyEval_GetSwitchInterval",
+			"id": 1,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 137, "columns": [12]
+				},
+				{
+					"line": 211, "columns": [20]
+				},
+				{
+					"line": 403, "columns": [52]
+				},
+				{
+					"line": 405, "columns": [17, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6870",
+				"%1 = load ptr, ptr %0, align 8, !dbg !6870, !tbaa !6882",
+				"%interp.i = getelementptr inbounds %struct._ts, ptr %1, i64 0, i32 2, !dbg !6887",
+				"%2 = load ptr, ptr %interp.i, align 8, !dbg !6887, !tbaa !6888",
+				"%gil1 = getelementptr inbounds %struct._ceval_state, ptr %2, i64 0, i32 2, !dbg !6896",
+				"%3 = load ptr, ptr %gil1, align 8, !dbg !6896, !tbaa !6897",
+				"%4 = load i64, ptr %3, align 8, !dbg !6955, !tbaa !6956",
+				"ret i64 %4, !dbg !6957"
+			]
+		},
+		{
+			"function": "_PyEval_ThreadsInitialized",
+			"id": 2,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 60, "columns": [36]
+				},
+				{
+					"line": 416, "columns": [16, 9]
+				}
+			],
+			"successors": [5, 3],
+			"ir": [
+				"%0 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 8, i32 2), align 8, !dbg !6870, !tbaa !6876",
+				"%cmp = icmp eq ptr %0, null, !dbg !7013",
+				"br i1 %cmp, label %cleanup, label %if.end, !dbg !7015"
+			]
+		},
+		{
+			"function": "_PyEval_ThreadsInitialized",
+			"id": 3,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 163, "columns": [13, 9]
+				},
+				{
+					"line": 419, "columns": [52]
+				}
+			],
+			"successors": [5, 4],
+			"ir": [
+				"%gil1 = getelementptr inbounds %struct._ceval_state, ptr %0, i64 0, i32 2, !dbg !7016",
+				"%1 = load ptr, ptr %gil1, align 8, !dbg !7016, !tbaa !7017",
+				"%cmp.i = icmp eq ptr %1, null, !dbg !7025",
+				"br i1 %cmp.i, label %cleanup, label %if.end.i, !dbg !7027"
+			]
+		},
+		{
+			"function": "_PyEval_ThreadsInitialized",
+			"id": 4,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 166, "columns": [47, 55, 5]
+				},
+				{
+					"line": 509, "columns": [10]
+				}
+			],
+			"successors": [5],
+			"ir": [
+				"%locked.i = getelementptr inbounds %struct._gil_runtime_state, ptr %1, i64 0, i32 2, !dbg !7028",
+				"%2 = load atomic i32, ptr %locked.i acquire, align 4, !dbg !7039",
+				"%cmp1.i = icmp sgt i32 %2, -1, !dbg !7040",
+				"%conv.i = zext i1 %cmp1.i to i32, !dbg !7040",
+				"br label %cleanup, !dbg !7041"
+			]
+		},
+		{
+			"function": "_PyEval_ThreadsInitialized",
+			"id": 5,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 421, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ 0, %entry ], [ %conv.i, %if.end.i ], [ 0, %if.end ], !dbg !7012",
+				"ret i32 %retval.0, !dbg !7042"
+			]
+		},
+		{
+			"function": "PyEval_ThreadsInitialized",
+			"id": 6,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 60, "columns": [36]
+				},
+				{
+					"line": 416, "columns": [16, 9]
+				}
+			],
+			"successors": [9, 7],
+			"ir": [
+				"%0 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 8, i32 2), align 8, !dbg !6868, !tbaa !6878",
+				"%cmp.i = icmp eq ptr %0, null, !dbg !7015",
+				"br i1 %cmp.i, label %_PyEval_ThreadsInitialized.exit, label %if.end.i, !dbg !7017"
+			]
+		},
+		{
+			"function": "PyEval_ThreadsInitialized",
+			"id": 7,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 163, "columns": [13, 9]
+				},
+				{
+					"line": 419, "columns": [52]
+				}
+			],
+			"successors": [9, 8],
+			"ir": [
+				"%gil1.i = getelementptr inbounds %struct._ceval_state, ptr %0, i64 0, i32 2, !dbg !7018",
+				"%1 = load ptr, ptr %gil1.i, align 8, !dbg !7018, !tbaa !7019",
+				"%cmp.i.i = icmp eq ptr %1, null, !dbg !7027",
+				"br i1 %cmp.i.i, label %_PyEval_ThreadsInitialized.exit, label %if.end.i.i, !dbg !7029"
+			]
+		},
+		{
+			"function": "PyEval_ThreadsInitialized",
+			"id": 8,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 166, "columns": [47, 55, 5]
+				},
+				{
+					"line": 509, "columns": [10]
+				}
+			],
+			"successors": [9],
+			"ir": [
+				"%locked.i.i = getelementptr inbounds %struct._gil_runtime_state, ptr %1, i64 0, i32 2, !dbg !7030",
+				"%2 = load atomic i32, ptr %locked.i.i acquire, align 4, !dbg !7041",
+				"%cmp1.i.i = icmp sgt i32 %2, -1, !dbg !7042",
+				"%conv.i.i = zext i1 %cmp1.i.i to i32, !dbg !7042",
+				"br label %_PyEval_ThreadsInitialized.exit, !dbg !7043"
+			]
+		},
+		{
+			"function": "PyEval_ThreadsInitialized",
+			"id": 9,
+			"name": "_PyEval_ThreadsInitialized.exit",
+			"debug": [
+				{
+					"line": 427, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0.i = phi i32 [ 0, %entry ], [ %conv.i.i, %if.end.i.i ], [ 0, %if.end.i ], !dbg !7014",
+				"ret i32 %retval.0.i, !dbg !7044"
+			]
+		},
+		{
+			"function": "_PyEval_InitGIL",
+			"id": 10,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 468, "columns": [10, 9]
+				}
+			],
+			"successors": [11, 12],
+			"ir": [
+				"%tobool.not = icmp eq i32 %own_gil, 0, !dbg !6875",
+				"br i1 %tobool.not, label %if.then, label %if.else, !dbg !6876"
+			]
+		},
+		{
+			"function": "_PyEval_InitGIL",
+			"id": 11,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 60, "columns": [36]
+				},
+				{
+					"line": 472, "columns": [61]
+				},
+				{
+					"line": 473, "columns": [33]
+				},
+				{
+					"line": 475, "columns": [5]
+				}
+			],
+			"successors": [13],
+			"ir": [
+				"%0 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 8, i32 2), align 8, !dbg !6877, !tbaa !6883",
+				"%gil1 = getelementptr inbounds %struct._ceval_state, ptr %0, i64 0, i32 2, !dbg !7020",
+				"%1 = load ptr, ptr %gil1, align 8, !dbg !7020, !tbaa !7021",
+				"%interp = getelementptr inbounds %struct._ts, ptr %tstate, i64 0, i32 2, !dbg !7022",
+				"%2 = load ptr, ptr %interp, align 8, !dbg !7022, !tbaa !7023",
+				"br label %if.end, !dbg !7032"
+			]
+		},
+		{
+			"function": "_PyEval_InitGIL",
+			"id": 12,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 458, "columns": [5]
+				},
+				{
+					"line": 477, "columns": [9]
+				},
+				{
+					"line": 478, "columns": [30, 55]
+				}
+			],
+			"successors": [13],
+			"ir": [
+				"tail call void @PyThread_init_thread() #14, !dbg !7033",
+				"%interp2 = getelementptr inbounds %struct._ts, ptr %tstate, i64 0, i32 2, !dbg !7035",
+				"%3 = load ptr, ptr %interp2, align 8, !dbg !7035, !tbaa !7023",
+				"%_gil = getelementptr inbounds %struct._is, ptr %3, i64 0, i32 17, !dbg !7036",
+				"tail call fastcc void @create_gil(ptr noundef nonnull %_gil), !dbg !7043",
+				"br label %if.end"
+			]
+		},
+		{
+			"function": "_PyEval_InitGIL",
+			"id": 13,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 482, "columns": [5]
+				},
+				{
+					"line": 483, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%.sink10 = phi ptr [ %3, %if.else ], [ %2, %if.then ]",
+				"%_gil.sink = phi ptr [ %_gil, %if.else ], [ %1, %if.then ]",
+				"%.sink = phi i32 [ 1, %if.else ], [ 0, %if.then ]",
+				"%gil1.i7 = getelementptr inbounds %struct._ceval_state, ptr %.sink10, i64 0, i32 2, !dbg !7044",
+				"store ptr %_gil.sink, ptr %gil1.i7, align 8, !dbg !7044, !tbaa !7021",
+				"%own_gil.i8 = getelementptr inbounds %struct._ceval_state, ptr %.sink10, i64 0, i32 3, !dbg !7044",
+				"store i32 %.sink, ptr %own_gil.i8, align 8, !dbg !7044, !tbaa !7045",
+				"tail call void @_PyThreadState_Attach(ptr noundef nonnull %tstate) #14, !dbg !7046",
+				"ret void, !dbg !7047"
+			]
+		},
+		{
+			"function": "_PyEval_FiniGIL",
+			"id": 14,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 488, "columns": [52]
+				},
+				{
+					"line": 489, "columns": [13, 9]
+				}
+			],
+			"successors": [27, 15],
+			"ir": [
+				"%gil1 = getelementptr inbounds %struct._ceval_state, ptr %interp, i64 0, i32 2, !dbg !6871",
+				"%0 = load ptr, ptr %gil1, align 8, !dbg !6871, !tbaa !6872",
+				"%cmp = icmp eq ptr %0, null, !dbg !6939",
+				"br i1 %cmp, label %cleanup, label %if.else, !dbg !6941"
+			]
+		},
+		{
+			"function": "_PyEval_FiniGIL",
+			"id": 15,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 494, "columns": [29, 15, 14]
+				}
+			],
+			"successors": [26, 16],
+			"ir": [
+				"%own_gil = getelementptr inbounds %struct._ceval_state, ptr %interp, i64 0, i32 3, !dbg !6942",
+				"%1 = load i32, ptr %own_gil, align 8, !dbg !6942, !tbaa !6944",
+				"%tobool.not = icmp eq i32 %1, 0, !dbg !6945",
+				"br i1 %tobool.not, label %cleanup.sink.split, label %gil_created.exit, !dbg !6946"
+			]
+		},
+		{
+			"function": "_PyEval_FiniGIL",
+			"id": 16,
+			"name": "gil_created.exit",
+			"debug": [
+				{
+					"line": 166, "columns": [47, 55]
+				},
+				{
+					"line": 504, "columns": [9]
+				},
+				{
+					"line": 509, "columns": [10]
+				}
+			],
+			"successors": [27, 17],
+			"ir": [
+				"%locked.i = getelementptr inbounds %struct._gil_runtime_state, ptr %0, i64 0, i32 2, !dbg !6955",
+				"%2 = load atomic i32, ptr %locked.i acquire, align 4, !dbg !6966",
+				"%cmp1.i = icmp slt i32 %2, 0, !dbg !6967",
+				"br i1 %cmp1.i, label %cleanup, label %if.end9, !dbg !6968"
+			]
+		},
+		{
+			"function": "_PyEval_FiniGIL",
+			"id": 17,
+			"name": "if.end9",
+			"debug": [
+				{
+					"line": 189, "columns": [5]
+				}
+			],
+			"successors": [19, 18],
+			"ir": [
+				"%cond.i = getelementptr inbounds %struct._gil_runtime_state, ptr %0, i64 0, i32 4, !dbg !6976",
+				"%call.i = tail call i32 @pthread_cond_destroy(ptr noundef nonnull %cond.i) #14, !dbg !6976",
+				"%tobool.not.i = icmp eq i32 %call.i, 0, !dbg !6976",
+				"br i1 %tobool.not.i, label %if.end.i17, label %if.then.i, !dbg !6978"
+			]
+		},
+		{
+			"function": "_PyEval_FiniGIL",
+			"id": 18,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 189, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @_Py_FatalErrorFunc(ptr noundef nonnull @__func__.destroy_gil, ptr noundef nonnull @.str.5) #15, !dbg !6979",
+				"unreachable, !dbg !6979"
+			]
+		},
+		{
+			"function": "_PyEval_FiniGIL",
+			"id": 19,
+			"name": "if.end.i17",
+			"debug": [
+				{
+					"line": 190, "columns": [5]
+				}
+			],
+			"successors": [21, 20],
+			"ir": [
+				"%mutex.i = getelementptr inbounds %struct._gil_runtime_state, ptr %0, i64 0, i32 5, !dbg !6981",
+				"%call1.i = tail call i32 @pthread_mutex_destroy(ptr noundef nonnull %mutex.i) #14, !dbg !6981",
+				"%tobool2.not.i = icmp eq i32 %call1.i, 0, !dbg !6981",
+				"br i1 %tobool2.not.i, label %if.end4.i, label %if.then3.i, !dbg !6983"
+			]
+		},
+		{
+			"function": "_PyEval_FiniGIL",
+			"id": 20,
+			"name": "if.then3.i",
+			"debug": [
+				{
+					"line": 190, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @_Py_FatalErrorFunc(ptr noundef nonnull @__func__.destroy_gil, ptr noundef nonnull @.str.6) #15, !dbg !6984",
+				"unreachable, !dbg !6984"
+			]
+		},
+		{
+			"function": "_PyEval_FiniGIL",
+			"id": 21,
+			"name": "if.end4.i",
+			"debug": [
+				{
+					"line": 192, "columns": [5]
+				}
+			],
+			"successors": [23, 22],
+			"ir": [
+				"%switch_cond.i = getelementptr inbounds %struct._gil_runtime_state, ptr %0, i64 0, i32 6, !dbg !6986",
+				"%call5.i = tail call i32 @pthread_cond_destroy(ptr noundef nonnull %switch_cond.i) #14, !dbg !6986",
+				"%tobool6.not.i = icmp eq i32 %call5.i, 0, !dbg !6986",
+				"br i1 %tobool6.not.i, label %if.end8.i, label %if.then7.i, !dbg !6988"
+			]
+		},
+		{
+			"function": "_PyEval_FiniGIL",
+			"id": 22,
+			"name": "if.then7.i",
+			"debug": [
+				{
+					"line": 192, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @_Py_FatalErrorFunc(ptr noundef nonnull @__func__.destroy_gil, ptr noundef nonnull @.str.7) #15, !dbg !6989",
+				"unreachable, !dbg !6989"
+			]
+		},
+		{
+			"function": "_PyEval_FiniGIL",
+			"id": 23,
+			"name": "if.end8.i",
+			"debug": [
+				{
+					"line": 193, "columns": [5]
+				}
+			],
+			"successors": [25, 24],
+			"ir": [
+				"%switch_mutex.i = getelementptr inbounds %struct._gil_runtime_state, ptr %0, i64 0, i32 7, !dbg !6991",
+				"%call9.i = tail call i32 @pthread_mutex_destroy(ptr noundef nonnull %switch_mutex.i) #14, !dbg !6991",
+				"%tobool10.not.i = icmp eq i32 %call9.i, 0, !dbg !6991",
+				"br i1 %tobool10.not.i, label %destroy_gil.exit, label %if.then11.i, !dbg !6993"
+			]
+		},
+		{
+			"function": "_PyEval_FiniGIL",
+			"id": 24,
+			"name": "if.then11.i",
+			"debug": [
+				{
+					"line": 193, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @_Py_FatalErrorFunc(ptr noundef nonnull @__func__.destroy_gil, ptr noundef nonnull @.str.8) #15, !dbg !6994",
+				"unreachable, !dbg !6994"
+			]
+		},
+		{
+			"function": "_PyEval_FiniGIL",
+			"id": 25,
+			"name": "destroy_gil.exit",
+			"debug": [
+				{
+					"line": 501, "columns": [3]
+				},
+				{
+					"line": 513, "columns": [1]
+				}
+			],
+			"successors": [26],
+			"ir": [
+				"store atomic i32 -1, ptr %locked.i release, align 4, !dbg !7005",
+				"br label %cleanup.sink.split, !dbg !7006"
+			]
+		},
+		{
+			"function": "_PyEval_FiniGIL",
+			"id": 26,
+			"name": "cleanup.sink.split",
+			"debug": [
+				{
+					"line": 513, "columns": [1]
+				}
+			],
+			"successors": [27],
+			"ir": [
+				"store ptr null, ptr %gil1, align 8, !dbg !6870, !tbaa !6872",
+				"br label %cleanup, !dbg !7006"
+			]
+		},
+		{
+			"function": "_PyEval_FiniGIL",
+			"id": 27,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 513, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !7006"
+			]
+		},
+		{
+			"function": "PyEval_InitThreads",
+			"id": 28,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 520, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !6866"
+			]
+		},
+		{
+			"function": "_PyEval_Fini",
+			"id": 29,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 528, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !6866"
+			]
+		},
+		{
+			"function": "PyEval_AcquireLock",
+			"id": 30,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 137, "columns": [12]
+				},
+				{
+					"line": 185, "columns": [16, 9]
+				}
+			],
+			"successors": [31, 32],
+			"ir": [
+				"%0 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6867",
+				"%1 = load ptr, ptr %0, align 8, !dbg !6867, !tbaa !6873",
+				"%cmp.i = icmp eq ptr %1, null, !dbg !6886",
+				"br i1 %cmp.i, label %if.then.i, label %_Py_EnsureFuncTstateNotNULL.exit, !dbg !6888"
+			]
+		},
+		{
+			"function": "PyEval_AcquireLock",
+			"id": 31,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 186, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @_Py_FatalErrorFunc(ptr noundef nonnull @__func__.PyEval_AcquireLock, ptr noundef nonnull @.str.9) #14, !dbg !6889",
+				"unreachable, !dbg !6889"
+			]
+		},
+		{
+			"function": "PyEval_AcquireLock",
+			"id": 32,
+			"name": "_Py_EnsureFuncTstateNotNULL.exit",
+			"debug": [
+				{
+					"line": 537, "columns": [5]
+				},
+				{
+					"line": 538, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call fastcc void @take_gil(ptr noundef nonnull %1), !dbg !6891",
+				"ret void, !dbg !6892"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 33,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 282, "columns": [15]
+				},
+				{
+					"line": 289, "columns": [9]
+				}
+			],
+			"successors": [35, 34],
+			"ir": [
+				"%abs_timeout.i = alloca %struct.timespec, align 8",
+				"%call = tail call ptr @__errno_location() #14, !dbg !6883",
+				"%0 = load i32, ptr %call, align 4, !dbg !6883, !tbaa !6884",
+				"%call1 = tail call i32 @_PyThreadState_MustExit(ptr noundef %tstate) #15, !dbg !6888",
+				"%tobool.not = icmp eq i32 %call1, 0, !dbg !6888",
+				"br i1 %tobool.not, label %if.end, label %if.then, !dbg !6890"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 34,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 296, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @PyThread_exit_thread() #16, !dbg !6891",
+				"unreachable, !dbg !6891"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 35,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 300, "columns": [42]
+				},
+				{
+					"line": 301, "columns": [52]
+				},
+				{
+					"line": 311, "columns": [5]
+				}
+			],
+			"successors": [36, 38],
+			"ir": [
+				"%interp2 = getelementptr inbounds %struct._ts, ptr %tstate, i64 0, i32 2, !dbg !6893",
+				"%1 = load ptr, ptr %interp2, align 8, !dbg !6893, !tbaa !6894",
+				"%gil3 = getelementptr inbounds %struct._ceval_state, ptr %1, i64 0, i32 2, !dbg !6901",
+				"%2 = load ptr, ptr %gil3, align 8, !dbg !6901, !tbaa !6902",
+				"%mutex = getelementptr inbounds %struct._gil_runtime_state, ptr %2, i64 0, i32 5, !dbg !6960",
+				"%call4 = tail call i32 @pthread_mutex_lock(ptr noundef nonnull %mutex) #15, !dbg !6960",
+				"%tobool5.not = icmp eq i32 %call4, 0, !dbg !6960",
+				"br i1 %tobool5.not, label %while.cond.preheader, label %if.then6, !dbg !6962"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 36,
+			"name": "while.cond.preheader",
+			"debug": [
+				{
+					"line": 307, "columns": [10]
+				},
+				{
+					"line": 314, "columns": [5]
+				}
+			],
+			"successors": [51, 37],
+			"ir": [
+				"%locked = getelementptr inbounds %struct._gil_runtime_state, ptr %2, i64 0, i32 2",
+				"%3 = load atomic i32, ptr %locked monotonic, align 4, !dbg !6973",
+				"%tobool9.not117 = icmp eq i32 %3, 0, !dbg !6974",
+				"br i1 %tobool9.not117, label %while.end, label %while.body.lr.ph, !dbg !6974"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 37,
+			"name": "while.body.lr.ph",
+			"debug": [
+				{
+					"line": 314, "columns": [5]
+				}
+			],
+			"successors": [39],
+			"ir": [
+				"%switch_number = getelementptr inbounds %struct._gil_runtime_state, ptr %2, i64 0, i32 3",
+				"%cond12 = getelementptr inbounds %struct._gil_runtime_state, ptr %2, i64 0, i32 4",
+				"%last_holder = getelementptr inbounds %struct._gil_runtime_state, ptr %2, i64 0, i32 1",
+				"br label %while.body, !dbg !6974"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 38,
+			"name": "if.then6",
+			"debug": [
+				{
+					"line": 311, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @_Py_FatalErrorFunc(ptr noundef nonnull @__func__.take_gil, ptr noundef nonnull @.str.10) #16, !dbg !6975",
+				"unreachable, !dbg !6975"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 39,
+			"name": "while.body",
+			"debug": [
+				{
+					"line": 72, "columns": [5, 21]
+				},
+				{
+					"line": 73, "columns": [5]
+				},
+				{
+					"line": 74, "columns": [15]
+				},
+				{
+					"line": 82, "columns": [1]
+				},
+				{
+					"line": 315, "columns": [46]
+				},
+				{
+					"line": 317, "columns": [40, 35]
+				},
+				{
+					"line": 319, "columns": [9]
+				}
+			],
+			"successors": [40, 50, 41],
+			"ir": [
+				"%drop_requested.0118 = phi i32 [ 0, %while.body.lr.ph ], [ %drop_requested.1, %if.end42 ]",
+				"%4 = load i64, ptr %switch_number, align 8, !dbg !6977, !tbaa !6978",
+				"%5 = load i64, ptr %2, align 8, !dbg !6980, !tbaa !6981",
+				"%spec.select = call i64 @llvm.umax.i64(i64 %5, i64 1), !dbg !6982",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %abs_timeout.i) #15, !dbg !7004",
+				"call void @_PyThread_cond_after(i64 noundef %spec.select, ptr noundef nonnull %abs_timeout.i) #15, !dbg !7006",
+				"%call.i = call i32 @pthread_cond_timedwait(ptr noundef nonnull %cond12, ptr noundef nonnull %mutex, ptr noundef nonnull %abs_timeout.i) #15, !dbg !7007",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %abs_timeout.i) #15, !dbg !7008",
+				"switch i32 %call.i, label %if.then16 [\n    i32 0, label %if.end42\n    i32 110, label %land.lhs.true\n  ], !dbg !7010"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 40,
+			"name": "if.then16",
+			"debug": [
+				{
+					"line": 319, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @_Py_FatalErrorFunc(ptr noundef nonnull @__func__.take_gil, ptr noundef nonnull @.str.11) #16, !dbg !7011",
+				"unreachable, !dbg !7011"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 41,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 307, "columns": [10]
+				},
+				{
+					"line": 324, "columns": [13, 55]
+				}
+			],
+			"successors": [50, 42],
+			"ir": [
+				"%6 = load atomic i32, ptr %locked monotonic, align 4, !dbg !7015",
+				"%tobool24.not = icmp eq i32 %6, 0, !dbg !7016",
+				"br i1 %tobool24.not, label %if.end42, label %land.lhs.true25, !dbg !7017"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 42,
+			"name": "land.lhs.true25",
+			"debug": [
+				{
+					"line": 323, "columns": [13]
+				},
+				{
+					"line": 325, "columns": [18, 32]
+				}
+			],
+			"successors": [43, 50],
+			"ir": [
+				"%7 = load i64, ptr %switch_number, align 8, !dbg !7018, !tbaa !6978",
+				"%cmp27 = icmp eq i64 %7, %4, !dbg !7019",
+				"br i1 %cmp27, label %if.then28, label %if.end42, !dbg !7020"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 43,
+			"name": "if.then28",
+			"debug": [
+				{
+					"line": 329, "columns": [17]
+				},
+				{
+					"line": 359, "columns": [18]
+				}
+			],
+			"successors": [49, 44],
+			"ir": [
+				"%8 = load atomic i64, ptr %last_holder monotonic, align 8, !dbg !7028",
+				"%9 = inttoptr i64 %8 to ptr, !dbg !7028",
+				"%call30 = call i32 @_PyThreadState_MustExit(ptr noundef %tstate) #15, !dbg !7030",
+				"%tobool31.not = icmp eq i32 %call30, 0, !dbg !7030",
+				"br i1 %tobool31.not, label %if.end41, label %if.then32, !dbg !7032"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 44,
+			"name": "if.then32",
+			"debug": [
+				{
+					"line": 330, "columns": [17]
+				}
+			],
+			"successors": [46, 45],
+			"ir": [
+				"%call34 = call i32 @pthread_mutex_unlock(ptr noundef nonnull %mutex) #15, !dbg !7033",
+				"%tobool35.not = icmp eq i32 %call34, 0, !dbg !7033",
+				"br i1 %tobool35.not, label %if.end37, label %if.then36, !dbg !7036"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 45,
+			"name": "if.then36",
+			"debug": [
+				{
+					"line": 330, "columns": [17]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @_Py_FatalErrorFunc(ptr noundef nonnull @__func__.take_gil, ptr noundef nonnull @.str.12) #16, !dbg !7037",
+				"unreachable, !dbg !7037"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 46,
+			"name": "if.end37",
+			"debug": [
+				{
+					"line": 337, "columns": [21]
+				}
+			],
+			"successors": [48, 47],
+			"ir": [
+				"%tobool38.not = icmp eq i32 %drop_requested.0118, 0, !dbg !7039",
+				"br i1 %tobool38.not, label %if.end40, label %if.then39, !dbg !7041"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 47,
+			"name": "if.then39",
+			"debug": [
+				{
+					"line": 218, "columns": [10]
+				},
+				{
+					"line": 233, "columns": [37]
+				},
+				{
+					"line": 339, "columns": [17]
+				}
+			],
+			"successors": [48],
+			"ir": [
+				"%eval_breaker.i = getelementptr inbounds %struct._ts, ptr %9, i64 0, i32 3, !dbg !7052",
+				"%10 = atomicrmw and ptr %eval_breaker.i, i64 -2 seq_cst, align 8, !dbg !7062",
+				"br label %if.end40, !dbg !7063"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 48,
+			"name": "if.end40",
+			"debug": [
+				{
+					"line": 340, "columns": [17]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @PyThread_exit_thread() #16, !dbg !7064",
+				"unreachable, !dbg !7064"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 49,
+			"name": "if.end41",
+			"debug": [
+				{
+					"line": 227, "columns": [36]
+				},
+				{
+					"line": 241, "columns": [10]
+				},
+				{
+					"line": 346, "columns": [9]
+				}
+			],
+			"successors": [50],
+			"ir": [
+				"%eval_breaker.i109 = getelementptr inbounds %struct._ts, ptr %9, i64 0, i32 3, !dbg !7071",
+				"%11 = atomicrmw or ptr %eval_breaker.i109, i64 1 seq_cst, align 8, !dbg !7078",
+				"br label %if.end42, !dbg !7079"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 50,
+			"name": "if.end42",
+			"debug": [
+				{
+					"line": 307, "columns": [10]
+				},
+				{
+					"line": 314, "columns": [5]
+				}
+			],
+			"successors": [51, 39],
+			"ir": [
+				"%drop_requested.1 = phi i32 [ 1, %if.end41 ], [ %drop_requested.0118, %land.lhs.true25 ], [ %drop_requested.0118, %land.lhs.true ], [ %drop_requested.0118, %while.body ], !dbg !6882",
+				"%12 = load atomic i32, ptr %locked monotonic, align 4, !dbg !6973",
+				"%tobool9.not = icmp eq i32 %12, 0, !dbg !6974",
+				"br i1 %tobool9.not, label %while.end, label %while.body, !dbg !6974, !llvm.loop !7080"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 51,
+			"name": "while.end",
+			"debug": [
+				{
+					"line": 352, "columns": [5]
+				}
+			],
+			"successors": [53, 52],
+			"ir": [
+				"%switch_mutex = getelementptr inbounds %struct._gil_runtime_state, ptr %2, i64 0, i32 7, !dbg !7083",
+				"%call43 = call i32 @pthread_mutex_lock(ptr noundef nonnull %switch_mutex) #15, !dbg !7083",
+				"%tobool44.not = icmp eq i32 %call43, 0, !dbg !7083",
+				"br i1 %tobool44.not, label %if.end46, label %if.then45, !dbg !7085"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 52,
+			"name": "if.then45",
+			"debug": [
+				{
+					"line": 352, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @_Py_FatalErrorFunc(ptr noundef nonnull @__func__.take_gil, ptr noundef nonnull @.str.13) #16, !dbg !7086",
+				"unreachable, !dbg !7086"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 53,
+			"name": "if.end46",
+			"debug": [
+				{
+					"line": 358, "columns": [69, 16, 9]
+				},
+				{
+					"line": 359, "columns": [18]
+				},
+				{
+					"line": 429, "columns": [3]
+				}
+			],
+			"successors": [55, 54],
+			"ir": [
+				"store atomic i32 1, ptr %locked monotonic, align 4, !dbg !7097",
+				"%last_holder48 = getelementptr inbounds %struct._gil_runtime_state, ptr %2, i64 0, i32 1, !dbg !7098",
+				"%13 = load atomic i64, ptr %last_holder48 monotonic, align 8, !dbg !7102",
+				"%14 = inttoptr i64 %13 to ptr, !dbg !7102",
+				"%cmp50.not = icmp eq ptr %14, %tstate, !dbg !7103",
+				"br i1 %cmp50.not, label %if.end54, label %if.then51, !dbg !7104"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 54,
+			"name": "if.then51",
+			"debug": [
+				{
+					"line": 360, "columns": [16, 9]
+				},
+				{
+					"line": 361, "columns": [5]
+				},
+				{
+					"line": 477, "columns": [3]
+				}
+			],
+			"successors": [55],
+			"ir": [
+				"%15 = ptrtoint ptr %tstate to i64, !dbg !7112",
+				"store atomic i64 %15, ptr %last_holder48 monotonic, align 8, !dbg !7112",
+				"%switch_number53 = getelementptr inbounds %struct._gil_runtime_state, ptr %2, i64 0, i32 3, !dbg !7113",
+				"%16 = load i64, ptr %switch_number53, align 8, !dbg !7114, !tbaa !6978",
+				"%inc = add i64 %16, 1, !dbg !7114",
+				"store i64 %inc, ptr %switch_number53, align 8, !dbg !7114, !tbaa !6978",
+				"br label %if.end54, !dbg !7115"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 55,
+			"name": "if.end54",
+			"debug": [
+				{
+					"line": 364, "columns": [5]
+				}
+			],
+			"successors": [57, 56],
+			"ir": [
+				"%switch_cond = getelementptr inbounds %struct._gil_runtime_state, ptr %2, i64 0, i32 6, !dbg !7116",
+				"%call55 = call i32 @pthread_cond_signal(ptr noundef nonnull %switch_cond) #15, !dbg !7116",
+				"%tobool56.not = icmp eq i32 %call55, 0, !dbg !7116",
+				"br i1 %tobool56.not, label %if.end58, label %if.then57, !dbg !7118"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 56,
+			"name": "if.then57",
+			"debug": [
+				{
+					"line": 364, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @_Py_FatalErrorFunc(ptr noundef nonnull @__func__.take_gil, ptr noundef nonnull @.str.14) #16, !dbg !7119",
+				"unreachable, !dbg !7119"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 57,
+			"name": "if.end58",
+			"debug": [
+				{
+					"line": 365, "columns": [5]
+				}
+			],
+			"successors": [59, 58],
+			"ir": [
+				"%call60 = call i32 @pthread_mutex_unlock(ptr noundef nonnull %switch_mutex) #15, !dbg !7121",
+				"%tobool61.not = icmp eq i32 %call60, 0, !dbg !7121",
+				"br i1 %tobool61.not, label %if.end63, label %if.then62, !dbg !7123"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 58,
+			"name": "if.then62",
+			"debug": [
+				{
+					"line": 365, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @_Py_FatalErrorFunc(ptr noundef nonnull @__func__.take_gil, ptr noundef nonnull @.str.15) #16, !dbg !7124",
+				"unreachable, !dbg !7124"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 59,
+			"name": "if.end63",
+			"debug": [
+				{
+					"line": 368, "columns": [9]
+				}
+			],
+			"successors": [63, 60],
+			"ir": [
+				"%call64 = call i32 @_PyThreadState_MustExit(ptr noundef %tstate) #15, !dbg !7126",
+				"%tobool65.not = icmp eq i32 %call64, 0, !dbg !7126",
+				"br i1 %tobool65.not, label %if.end72, label %if.then66, !dbg !7128"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 60,
+			"name": "if.then66",
+			"debug": [
+				{
+					"line": 376, "columns": [9]
+				}
+			],
+			"successors": [62, 61],
+			"ir": [
+				"%call68 = call i32 @pthread_mutex_unlock(ptr noundef nonnull %mutex) #15, !dbg !7129",
+				"%tobool69.not = icmp eq i32 %call68, 0, !dbg !7129",
+				"br i1 %tobool69.not, label %if.end71, label %if.then70, !dbg !7132"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 61,
+			"name": "if.then70",
+			"debug": [
+				{
+					"line": 376, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @_Py_FatalErrorFunc(ptr noundef nonnull @__func__.take_gil, ptr noundef nonnull @.str.12) #16, !dbg !7133",
+				"unreachable, !dbg !7133"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 62,
+			"name": "if.end71",
+			"debug": [
+				{
+					"line": 379, "columns": [9]
+				},
+				{
+					"line": 380, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call fastcc void @drop_gil(ptr noundef %1, ptr noundef null), !dbg !7135",
+				"call void @PyThread_exit_thread() #16, !dbg !7136",
+				"unreachable, !dbg !7136"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 63,
+			"name": "if.end72",
+			"debug": [
+				{
+					"line": 88, "columns": [32]
+				},
+				{
+					"line": 89, "columns": [9]
+				},
+				{
+					"line": 218, "columns": [10]
+				},
+				{
+					"line": 233, "columns": [37]
+				},
+				{
+					"line": 319, "columns": [10]
+				}
+			],
+			"successors": [64, 66],
+			"ir": [
+				"%eval_breaker.i110 = getelementptr inbounds %struct._ts, ptr %tstate, i64 0, i32 3, !dbg !7139",
+				"%17 = atomicrmw and ptr %eval_breaker.i110, i64 -2 seq_cst, align 8, !dbg !7142",
+				"%calls_to_do1.i = getelementptr inbounds %struct._ceval_state, ptr %1, i64 0, i32 4, i32 2, !dbg !7152",
+				"%18 = load atomic i32, ptr %calls_to_do1.i monotonic, align 4, !dbg !7162",
+				"%tobool.not.i = icmp eq i32 %18, 0, !dbg !7163",
+				"br i1 %tobool.not.i, label %if.else.i, label %if.end9.sink.split.i, !dbg !7165"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 64,
+			"name": "if.else.i",
+			"debug": [
+				{
+					"line": 52, "columns": [28]
+				},
+				{
+					"line": 53, "columns": [34, 20]
+				},
+				{
+					"line": 92, "columns": [14]
+				}
+			],
+			"successors": [65, 67],
+			"ir": [
+				"%call.i.i = call i64 @PyThread_get_thread_ident() #15, !dbg !7166",
+				"%19 = load i64, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 9), align 8, !dbg !7175, !tbaa !7176",
+				"%cmp.i.not.i = icmp eq i64 %call.i.i, %19, !dbg !7246",
+				"br i1 %cmp.i.not.i, label %if.then4.i, label %if.end9.i, !dbg !7247"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 65,
+			"name": "if.then4.i",
+			"debug": [
+				{
+					"line": 95, "columns": [13]
+				},
+				{
+					"line": 319, "columns": [10]
+				}
+			],
+			"successors": [67, 66],
+			"ir": [
+				"%20 = load atomic i32, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 1, i32 2) monotonic, align 8, !dbg !7251",
+				"%tobool6.not.i = icmp eq i32 %20, 0, !dbg !7252",
+				"br i1 %tobool6.not.i, label %if.end9.i, label %if.end9.sink.split.i, !dbg !7254"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 66,
+			"name": "if.end9.sink.split.i",
+			"debug": [
+				{
+					"line": 103, "columns": [37]
+				},
+				{
+					"line": 241, "columns": [10]
+				}
+			],
+			"successors": [67],
+			"ir": [
+				"%21 = atomicrmw or ptr %eval_breaker.i110, i64 4 seq_cst, align 8, !dbg !7255",
+				"br label %if.end9.i, !dbg !7258"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 67,
+			"name": "if.end9.i",
+			"debug": [
+				{
+					"line": 63, "columns": [65]
+				},
+				{
+					"line": 65, "columns": [35]
+				},
+				{
+					"line": 66, "columns": [19, 9]
+				},
+				{
+					"line": 347, "columns": [10]
+				}
+			],
+			"successors": [70, 68],
+			"ir": [
+				"%22 = load atomic i64, ptr %1 monotonic, align 8, !dbg !7281",
+				"%and.i.i = and i64 %22, -256, !dbg !7282",
+				"%23 = load atomic i64, ptr %eval_breaker.i110 monotonic, align 8, !dbg !7285",
+				"%and2.i.i = and i64 %23, -256, !dbg !7286",
+				"%cmp.i16.i = icmp eq i64 %and.i.i, %and2.i.i, !dbg !7287",
+				"br i1 %cmp.i16.i, label %update_eval_breaker_for_thread.exit, label %do.body.preheader.i.i, !dbg !7289"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 68,
+			"name": "do.body.preheader.i.i",
+			"debug": [
+				{
+					"line": 72, "columns": [32, 41]
+				},
+				{
+					"line": 125, "columns": [10]
+				}
+			],
+			"successors": [70, 69],
+			"ir": [
+				"%and315.i.i = and i64 %23, 255, !dbg !7290",
+				"%or16.i.i = or i64 %and315.i.i, %and.i.i, !dbg !7292",
+				"%24 = cmpxchg ptr %eval_breaker.i110, i64 %23, i64 %or16.i.i seq_cst seq_cst, align 8, !dbg !7302",
+				"%25 = extractvalue { i64, i1 } %24, 1, !dbg !7302",
+				"br i1 %25, label %update_eval_breaker_for_thread.exit, label %_Py_atomic_compare_exchange_uintptr.exit.i.i, !dbg !7302"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 69,
+			"name": "_Py_atomic_compare_exchange_uintptr.exit.i.i",
+			"debug": [
+				{
+					"line": 72, "columns": [32, 41]
+				},
+				{
+					"line": 125, "columns": [10]
+				}
+			],
+			"successors": [70, 69],
+			"ir": [
+				"%26 = phi { i64, i1 } [ %28, %_Py_atomic_compare_exchange_uintptr.exit.i.i ], [ %24, %do.body.preheader.i.i ]",
+				"%27 = extractvalue { i64, i1 } %26, 0, !dbg !7302",
+				"%and3.i.i = and i64 %27, 255, !dbg !7290",
+				"%or.i.i = or i64 %and3.i.i, %and.i.i, !dbg !7292",
+				"%28 = cmpxchg ptr %eval_breaker.i110, i64 %27, i64 %or.i.i seq_cst seq_cst, align 8, !dbg !7302",
+				"%29 = extractvalue { i64, i1 } %28, 1, !dbg !7302",
+				"br i1 %29, label %update_eval_breaker_for_thread.exit, label %_Py_atomic_compare_exchange_uintptr.exit.i.i, !dbg !7302"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 70,
+			"name": "update_eval_breaker_for_thread.exit",
+			"debug": [
+				{
+					"line": 387, "columns": [5]
+				}
+			],
+			"successors": [72, 71],
+			"ir": [
+				"%call74 = call i32 @pthread_mutex_unlock(ptr noundef nonnull %mutex) #15, !dbg !7303",
+				"%tobool75.not = icmp eq i32 %call74, 0, !dbg !7303",
+				"br i1 %tobool75.not, label %if.end77, label %if.then76, !dbg !7305"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 71,
+			"name": "if.then76",
+			"debug": [
+				{
+					"line": 387, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @_Py_FatalErrorFunc(ptr noundef nonnull @__func__.take_gil, ptr noundef nonnull @.str.12) #16, !dbg !7306",
+				"unreachable, !dbg !7306"
+			]
+		},
+		{
+			"function": "take_gil",
+			"id": 72,
+			"name": "if.end77",
+			"debug": [
+				{
+					"line": 389, "columns": [11]
+				},
+				{
+					"line": 390, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"store i32 %0, ptr %call, align 4, !dbg !7308, !tbaa !6884",
+				"ret void, !dbg !7309"
+			]
+		},
+		{
+			"function": "PyEval_ReleaseLock",
+			"id": 73,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 137, "columns": [12]
+				},
+				{
+					"line": 548, "columns": [22, 5]
+				},
+				{
+					"line": 549, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6867",
+				"%1 = load ptr, ptr %0, align 8, !dbg !6867, !tbaa !6873",
+				"%interp = getelementptr inbounds %struct._ts, ptr %1, i64 0, i32 2, !dbg !6878",
+				"%2 = load ptr, ptr %interp, align 8, !dbg !6878, !tbaa !6879",
+				"tail call fastcc void @drop_gil(ptr noundef %2, ptr noundef %1), !dbg !6886",
+				"ret void, !dbg !6887"
+			]
+		},
+		{
+			"function": "drop_gil",
+			"id": 74,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 221, "columns": [45]
+				},
+				{
+					"line": 227, "columns": [44, 10, 9]
+				},
+				{
+					"line": 359, "columns": [18]
+				}
+			],
+			"successors": [75, 76],
+			"ir": [
+				"%gil2 = getelementptr inbounds %struct._ceval_state, ptr %interp, i64 0, i32 2, !dbg !6874",
+				"%0 = load ptr, ptr %gil2, align 8, !dbg !6874, !tbaa !6875",
+				"%locked = getelementptr inbounds %struct._gil_runtime_state, ptr %0, i64 0, i32 2, !dbg !6884",
+				"%1 = load atomic i64, ptr %locked monotonic, align 8, !dbg !6894",
+				"%tobool.not = icmp eq i64 %1, 0, !dbg !6895",
+				"br i1 %tobool.not, label %if.then, label %if.end, !dbg !6896"
+			]
+		},
+		{
+			"function": "drop_gil",
+			"id": 75,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 228, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @_Py_FatalErrorFunc(ptr noundef nonnull @__func__.drop_gil, ptr noundef nonnull @.str.16) #14, !dbg !6897",
+				"unreachable, !dbg !6897"
+			]
+		},
+		{
+			"function": "drop_gil",
+			"id": 76,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 232, "columns": [16, 9]
+				}
+			],
+			"successors": [78, 77],
+			"ir": [
+				"%cmp.not = icmp eq ptr %tstate, null, !dbg !6899",
+				"br i1 %cmp.not, label %if.end4, label %if.then3, !dbg !6901"
+			]
+		},
+		{
+			"function": "drop_gil",
+			"id": 77,
+			"name": "if.then3",
+			"debug": [
+				{
+					"line": 236, "columns": [44]
+				},
+				{
+					"line": 237, "columns": [5]
+				},
+				{
+					"line": 477, "columns": [3]
+				}
+			],
+			"successors": [78],
+			"ir": [
+				"%last_holder = getelementptr inbounds %struct._gil_runtime_state, ptr %0, i64 0, i32 1, !dbg !6902",
+				"%2 = ptrtoint ptr %tstate to i64, !dbg !6910",
+				"store atomic i64 %2, ptr %last_holder monotonic, align 8, !dbg !6910",
+				"br label %if.end4, !dbg !6911"
+			]
+		},
+		{
+			"function": "drop_gil",
+			"id": 78,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 239, "columns": [5]
+				}
+			],
+			"successors": [80, 79],
+			"ir": [
+				"%mutex = getelementptr inbounds %struct._gil_runtime_state, ptr %0, i64 0, i32 5, !dbg !6912",
+				"%call5 = tail call i32 @pthread_mutex_lock(ptr noundef nonnull %mutex) #15, !dbg !6912",
+				"%tobool6.not = icmp eq i32 %call5, 0, !dbg !6912",
+				"br i1 %tobool6.not, label %if.end8, label %if.then7, !dbg !6914"
+			]
+		},
+		{
+			"function": "drop_gil",
+			"id": 79,
+			"name": "if.then7",
+			"debug": [
+				{
+					"line": 239, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @_Py_FatalErrorFunc(ptr noundef nonnull @__func__.drop_gil, ptr noundef nonnull @.str.10) #14, !dbg !6915",
+				"unreachable, !dbg !6915"
+			]
+		},
+		{
+			"function": "drop_gil",
+			"id": 80,
+			"name": "if.end8",
+			"debug": [
+				{
+					"line": 242, "columns": [5]
+				},
+				{
+					"line": 429, "columns": [3]
+				}
+			],
+			"successors": [82, 81],
+			"ir": [
+				"store atomic i32 0, ptr %locked monotonic, align 4, !dbg !6926",
+				"%cond = getelementptr inbounds %struct._gil_runtime_state, ptr %0, i64 0, i32 4, !dbg !6927",
+				"%call10 = tail call i32 @pthread_cond_signal(ptr noundef nonnull %cond) #15, !dbg !6927",
+				"%tobool11.not = icmp eq i32 %call10, 0, !dbg !6927",
+				"br i1 %tobool11.not, label %if.end13, label %if.then12, !dbg !6929"
+			]
+		},
+		{
+			"function": "drop_gil",
+			"id": 81,
+			"name": "if.then12",
+			"debug": [
+				{
+					"line": 242, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @_Py_FatalErrorFunc(ptr noundef nonnull @__func__.drop_gil, ptr noundef nonnull @.str.17) #14, !dbg !6930",
+				"unreachable, !dbg !6930"
+			]
+		},
+		{
+			"function": "drop_gil",
+			"id": 82,
+			"name": "if.end13",
+			"debug": [
+				{
+					"line": 243, "columns": [5]
+				}
+			],
+			"successors": [84, 83],
+			"ir": [
+				"%call15 = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %mutex) #15, !dbg !6932",
+				"%tobool16.not = icmp eq i32 %call15, 0, !dbg !6932",
+				"br i1 %tobool16.not, label %if.end18, label %if.then17, !dbg !6934"
+			]
+		},
+		{
+			"function": "drop_gil",
+			"id": 83,
+			"name": "if.then17",
+			"debug": [
+				{
+					"line": 243, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @_Py_FatalErrorFunc(ptr noundef nonnull @__func__.drop_gil, ptr noundef nonnull @.str.12) #14, !dbg !6935",
+				"unreachable, !dbg !6935"
+			]
+		},
+		{
+			"function": "drop_gil",
+			"id": 84,
+			"name": "if.end18",
+			"debug": [
+				{
+					"line": 254, "columns": [24]
+				}
+			],
+			"successors": [93, 85],
+			"ir": [
+				"br i1 %cmp.not, label %if.end42, label %land.lhs.true, !dbg !6937"
+			]
+		},
+		{
+			"function": "drop_gil",
+			"id": 85,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 239, "columns": [60]
+				},
+				{
+					"line": 254, "columns": [9]
+				},
+				{
+					"line": 255, "columns": [9]
+				},
+				{
+					"line": 347, "columns": [10]
+				}
+			],
+			"successors": [93, 86],
+			"ir": [
+				"%eval_breaker.i = getelementptr inbounds %struct._ts, ptr %tstate, i64 0, i32 3, !dbg !6949",
+				"%3 = load atomic i64, ptr %eval_breaker.i monotonic, align 8, !dbg !6959",
+				"%conv.i59 = and i64 %3, 1, !dbg !6960",
+				"%tobool21.not = icmp eq i64 %conv.i59, 0, !dbg !6960",
+				"br i1 %tobool21.not, label %if.end42, label %if.then22, !dbg !6961"
+			]
+		},
+		{
+			"function": "drop_gil",
+			"id": 86,
+			"name": "if.then22",
+			"debug": [
+				{
+					"line": 256, "columns": [9]
+				}
+			],
+			"successors": [88, 87],
+			"ir": [
+				"%switch_mutex = getelementptr inbounds %struct._gil_runtime_state, ptr %0, i64 0, i32 7, !dbg !6962",
+				"%call23 = tail call i32 @pthread_mutex_lock(ptr noundef nonnull %switch_mutex) #15, !dbg !6962",
+				"%tobool24.not = icmp eq i32 %call23, 0, !dbg !6962",
+				"br i1 %tobool24.not, label %if.end26, label %if.then25, !dbg !6965"
+			]
+		},
+		{
+			"function": "drop_gil",
+			"id": 87,
+			"name": "if.then25",
+			"debug": [
+				{
+					"line": 256, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @_Py_FatalErrorFunc(ptr noundef nonnull @__func__.drop_gil, ptr noundef nonnull @.str.13) #14, !dbg !6966",
+				"unreachable, !dbg !6966"
+			]
+		},
+		{
+			"function": "drop_gil",
+			"id": 88,
+			"name": "if.end26",
+			"debug": [
+				{
+					"line": 258, "columns": [64, 78, 13]
+				},
+				{
+					"line": 359, "columns": [18]
+				}
+			],
+			"successors": [89, 91],
+			"ir": [
+				"%last_holder27 = getelementptr inbounds %struct._gil_runtime_state, ptr %0, i64 0, i32 1, !dbg !6968",
+				"%4 = load atomic i64, ptr %last_holder27 monotonic, align 8, !dbg !6972",
+				"%5 = inttoptr i64 %4 to ptr, !dbg !6972",
+				"%cmp29 = icmp eq ptr %5, %tstate, !dbg !6973",
+				"br i1 %cmp29, label %if.then30, label %if.end36, !dbg !6974"
+			]
+		},
+		{
+			"function": "drop_gil",
+			"id": 89,
+			"name": "if.then30",
+			"debug": [
+				{
+					"line": 218, "columns": [10]
+				},
+				{
+					"line": 266, "columns": [13]
+				}
+			],
+			"successors": [91, 90],
+			"ir": [
+				"%6 = atomicrmw and ptr %eval_breaker.i, i64 -2 seq_cst, align 8, !dbg !6993",
+				"%switch_cond = getelementptr inbounds %struct._gil_runtime_state, ptr %0, i64 0, i32 6, !dbg !6994",
+				"%call32 = tail call i32 @pthread_cond_wait(ptr noundef nonnull %switch_cond, ptr noundef nonnull %switch_mutex) #15, !dbg !6994",
+				"%tobool33.not = icmp eq i32 %call32, 0, !dbg !6994",
+				"br i1 %tobool33.not, label %if.end36, label %if.then34, !dbg !6996"
+			]
+		},
+		{
+			"function": "drop_gil",
+			"id": 90,
+			"name": "if.then34",
+			"debug": [
+				{
+					"line": 266, "columns": [13]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @_Py_FatalErrorFunc(ptr noundef nonnull @__func__.drop_gil, ptr noundef nonnull @.str.18) #14, !dbg !6997",
+				"unreachable, !dbg !6997"
+			]
+		},
+		{
+			"function": "drop_gil",
+			"id": 91,
+			"name": "if.end36",
+			"debug": [
+				{
+					"line": 268, "columns": [9]
+				}
+			],
+			"successors": [93, 92],
+			"ir": [
+				"%call38 = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %switch_mutex) #15, !dbg !6999",
+				"%tobool39.not = icmp eq i32 %call38, 0, !dbg !6999",
+				"br i1 %tobool39.not, label %if.end42, label %if.then40, !dbg !7001"
+			]
+		},
+		{
+			"function": "drop_gil",
+			"id": 92,
+			"name": "if.then40",
+			"debug": [
+				{
+					"line": 268, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @_Py_FatalErrorFunc(ptr noundef nonnull @__func__.drop_gil, ptr noundef nonnull @.str.15) #14, !dbg !7002",
+				"unreachable, !dbg !7002"
+			]
+		},
+		{
+			"function": "drop_gil",
+			"id": 93,
+			"name": "if.end42",
+			"debug": [
+				{
+					"line": 271, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !7004"
+			]
+		},
+		{
+			"function": "_PyEval_AcquireLock",
+			"id": 94,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 185, "columns": [16, 9]
+				}
+			],
+			"successors": [95, 96],
+			"ir": [
+				"%cmp.i = icmp eq ptr %tstate, null, !dbg !6878",
+				"br i1 %cmp.i, label %if.then.i, label %_Py_EnsureFuncTstateNotNULL.exit, !dbg !6880"
+			]
+		},
+		{
+			"function": "_PyEval_AcquireLock",
+			"id": 95,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 186, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @_Py_FatalErrorFunc(ptr noundef nonnull @__func__._PyEval_AcquireLock, ptr noundef nonnull @.str.9) #14, !dbg !6881",
+				"unreachable, !dbg !6881"
+			]
+		},
+		{
+			"function": "_PyEval_AcquireLock",
+			"id": 96,
+			"name": "_Py_EnsureFuncTstateNotNULL.exit",
+			"debug": [
+				{
+					"line": 555, "columns": [5]
+				},
+				{
+					"line": 556, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call fastcc void @take_gil(ptr noundef nonnull %tstate), !dbg !6883",
+				"ret void, !dbg !6884"
+			]
+		},
+		{
+			"function": "_PyEval_ReleaseLock",
+			"id": 97,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 564, "columns": [5]
+				},
+				{
+					"line": 565, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call fastcc void @drop_gil(ptr noundef %interp, ptr noundef %tstate), !dbg !6871",
+				"ret void, !dbg !6872"
+			]
+		},
+		{
+			"function": "PyEval_AcquireThread",
+			"id": 98,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 185, "columns": [16, 9]
+				}
+			],
+			"successors": [99, 100],
+			"ir": [
+				"%cmp.i = icmp eq ptr %tstate, null, !dbg !6878",
+				"br i1 %cmp.i, label %if.then.i, label %_Py_EnsureFuncTstateNotNULL.exit, !dbg !6880"
+			]
+		},
+		{
+			"function": "PyEval_AcquireThread",
+			"id": 99,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 186, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @_Py_FatalErrorFunc(ptr noundef nonnull @__func__.PyEval_AcquireThread, ptr noundef nonnull @.str.9) #14, !dbg !6881",
+				"unreachable, !dbg !6881"
+			]
+		},
+		{
+			"function": "PyEval_AcquireThread",
+			"id": 100,
+			"name": "_Py_EnsureFuncTstateNotNULL.exit",
+			"debug": [
+				{
+					"line": 571, "columns": [5]
+				},
+				{
+					"line": 572, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @_PyThreadState_Attach(ptr noundef nonnull %tstate) #15, !dbg !6883",
+				"ret void, !dbg !6884"
+			]
+		},
+		{
+			"function": "PyEval_ReleaseThread",
+			"id": 101,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 578, "columns": [5]
+				},
+				{
+					"line": 579, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @_PyThreadState_Detach(ptr noundef %tstate) #14, !dbg !6870",
+				"ret void, !dbg !6871"
+			]
+		},
+		{
+			"function": "_PyEval_ReInitThreads",
+			"id": 102,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 163, "columns": [13, 9]
+				},
+				{
+					"line": 589, "columns": [46, 60]
+				}
+			],
+			"successors": [105, 103],
+			"ir": [
+				"%interp = getelementptr inbounds %struct._ts, ptr %tstate, i64 0, i32 2, !dbg !6874",
+				"%0 = load ptr, ptr %interp, align 8, !dbg !6874, !tbaa !6875",
+				"%gil1 = getelementptr inbounds %struct._ceval_state, ptr %0, i64 0, i32 2, !dbg !6885",
+				"%1 = load ptr, ptr %gil1, align 8, !dbg !6885, !tbaa !6886",
+				"%cmp.i = icmp eq ptr %1, null, !dbg !6952",
+				"br i1 %cmp.i, label %cleanup, label %gil_created.exit, !dbg !6954"
+			]
+		},
+		{
+			"function": "_PyEval_ReInitThreads",
+			"id": 103,
+			"name": "gil_created.exit",
+			"debug": [
+				{
+					"line": 166, "columns": [47, 55]
+				},
+				{
+					"line": 509, "columns": [10]
+				},
+				{
+					"line": 590, "columns": [9]
+				}
+			],
+			"successors": [105, 104],
+			"ir": [
+				"%locked.i = getelementptr inbounds %struct._gil_runtime_state, ptr %1, i64 0, i32 2, !dbg !6955",
+				"%2 = load atomic i32, ptr %locked.i acquire, align 4, !dbg !6966",
+				"%cmp1.i = icmp slt i32 %2, 0, !dbg !6967",
+				"br i1 %cmp1.i, label %cleanup, label %if.end, !dbg !6968"
+			]
+		},
+		{
+			"function": "_PyEval_ReInitThreads",
+			"id": 104,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 100, "columns": [5]
+				},
+				{
+					"line": 204, "columns": [5]
+				},
+				{
+					"line": 595, "columns": [5]
+				},
+				{
+					"line": 597, "columns": [47]
+				},
+				{
+					"line": 598, "columns": [39]
+				}
+			],
+			"successors": [105],
+			"ir": [
+				"tail call fastcc void @create_gil(ptr noundef nonnull %1), !dbg !6976",
+				"tail call fastcc void @take_gil(ptr noundef nonnull %tstate), !dbg !6977",
+				"%3 = load ptr, ptr %interp, align 8, !dbg !6978, !tbaa !6875",
+				"%mutex = getelementptr inbounds %struct._ceval_state, ptr %3, i64 0, i32 4, i32 1, !dbg !6979",
+				"store i8 0, ptr %mutex, align 1, !dbg !6988",
+				"br label %cleanup"
+			]
+		},
+		{
+			"function": "_PyEval_ReInitThreads",
+			"id": 105,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 601, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %agg.result, i8 0, i64 32, i1 false), !dbg !6873",
+				"store i32 0, ptr %agg.result, align 8, !dbg !6873, !tbaa !6989",
+				"ret void, !dbg !6991"
+			]
+		},
+		{
+			"function": "PyEval_SaveThread",
+			"id": 106,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 137, "columns": [12]
+				},
+				{
+					"line": 608, "columns": [5]
+				},
+				{
+					"line": 609, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6869",
+				"%1 = load ptr, ptr %0, align 8, !dbg !6869, !tbaa !6873",
+				"tail call void @_PyThreadState_Detach(ptr noundef %1) #14, !dbg !6878",
+				"ret ptr %1, !dbg !6879"
+			]
+		},
+		{
+			"function": "PyEval_RestoreThread",
+			"id": 107,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 185, "columns": [16, 9]
+				}
+			],
+			"successors": [108, 109],
+			"ir": [
+				"%cmp.i = icmp eq ptr %tstate, null, !dbg !6878",
+				"br i1 %cmp.i, label %if.then.i, label %_Py_EnsureFuncTstateNotNULL.exit, !dbg !6880"
+			]
+		},
+		{
+			"function": "PyEval_RestoreThread",
+			"id": 108,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 186, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @_Py_FatalErrorFunc(ptr noundef nonnull @__func__.PyEval_RestoreThread, ptr noundef nonnull @.str.9) #14, !dbg !6881",
+				"unreachable, !dbg !6881"
+			]
+		},
+		{
+			"function": "PyEval_RestoreThread",
+			"id": 109,
+			"name": "_Py_EnsureFuncTstateNotNULL.exit",
+			"debug": [
+				{
+					"line": 620, "columns": [5]
+				},
+				{
+					"line": 625, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @_PyThreadState_Attach(ptr noundef nonnull %tstate) #15, !dbg !6883",
+				"ret void, !dbg !6884"
+			]
+		},
+		{
+			"function": "_PyEval_SignalReceived",
+			"id": 110,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 227, "columns": [36]
+				},
+				{
+					"line": 241, "columns": [10]
+				},
+				{
+					"line": 653, "columns": [41]
+				},
+				{
+					"line": 654, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 10), align 8, !dbg !6866, !tbaa !6867",
+				"%eval_breaker.i = getelementptr inbounds %struct._ts, ptr %0, i64 0, i32 3, !dbg !7012",
+				"%1 = atomicrmw or ptr %eval_breaker.i, i64 2 seq_cst, align 8, !dbg !7023",
+				"ret void, !dbg !7024"
+			]
+		},
+		{
+			"function": "_PyEval_AddPendingCall",
+			"id": 111,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 74, "columns": [9]
+				},
+				{
+					"line": 105, "columns": [10]
+				},
+				{
+					"line": 734, "columns": [53]
+				},
+				{
+					"line": 735, "columns": [28, 58]
+				},
+				{
+					"line": 736, "columns": [9]
+				},
+				{
+					"line": 742, "columns": [28]
+				}
+			],
+			"successors": [113, 112],
+			"ir": [
+				"%pending1 = getelementptr inbounds %struct._ceval_state, ptr %interp, i64 0, i32 4, !dbg !6877",
+				"%and = and i32 %flags, 1, !dbg !6878",
+				"%cmp.not = icmp eq i32 %and, 0, !dbg !6879",
+				"%spec.select = select i1 %cmp.not, ptr %pending1, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 1), !dbg !6880",
+				"%mutex = getelementptr inbounds %struct._pending_calls, ptr %spec.select, i64 0, i32 1, !dbg !6881",
+				"%0 = cmpxchg ptr %mutex, i8 0, i8 1 seq_cst seq_cst, align 1, !dbg !6902",
+				"%1 = extractvalue { i8, i1 } %0, 1, !dbg !6902",
+				"br i1 %1, label %PyMutex_Lock.exit, label %if.then.i, !dbg !6903"
+			]
+		},
+		{
+			"function": "_PyEval_AddPendingCall",
+			"id": 112,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 75, "columns": [9]
+				},
+				{
+					"line": 76, "columns": [5]
+				}
+			],
+			"successors": [113],
+			"ir": [
+				"tail call void @_PyMutex_LockSlow(ptr noundef nonnull %mutex) #14, !dbg !6904",
+				"br label %PyMutex_Lock.exit, !dbg !6906"
+			]
+		},
+		{
+			"function": "_PyEval_AddPendingCall",
+			"id": 113,
+			"name": "PyMutex_Lock.exit",
+			"debug": [
+				{
+					"line": 661, "columns": [22]
+				},
+				{
+					"line": 662, "columns": [16, 21]
+				},
+				{
+					"line": 663, "columns": [23, 11, 9]
+				}
+			],
+			"successors": [115, 114],
+			"ir": [
+				"%last.i = getelementptr inbounds %struct._pending_calls, ptr %spec.select, i64 0, i32 5, !dbg !6919",
+				"%2 = load i32, ptr %last.i, align 4, !dbg !6919, !tbaa !6920",
+				"%add.i = add i32 %2, 1, !dbg !6926",
+				"%rem.i = srem i32 %add.i, 32, !dbg !6927",
+				"%first.i = getelementptr inbounds %struct._pending_calls, ptr %spec.select, i64 0, i32 4, !dbg !6928",
+				"%3 = load i32, ptr %first.i, align 8, !dbg !6928, !tbaa !6930",
+				"%cmp.i = icmp eq i32 %rem.i, %3, !dbg !6931",
+				"br i1 %cmp.i, label %_push_pending_call.exit, label %if.end.i, !dbg !6932"
+			]
+		},
+		{
+			"function": "_PyEval_AddPendingCall",
+			"id": 114,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 27, "columns": [10]
+				},
+				{
+					"line": 666, "columns": [5, 28]
+				},
+				{
+					"line": 667, "columns": [23, 27]
+				},
+				{
+					"line": 668, "columns": [23, 29]
+				},
+				{
+					"line": 669, "columns": [19]
+				},
+				{
+					"line": 671, "columns": [36]
+				},
+				{
+					"line": 672, "columns": [5]
+				}
+			],
+			"successors": [115],
+			"ir": [
+				"%idxprom.i = sext i32 %2 to i64, !dbg !6933",
+				"%arrayidx.i = getelementptr %struct._pending_calls, ptr %spec.select, i64 0, i32 3, i64 %idxprom.i, !dbg !6933",
+				"store ptr %func, ptr %arrayidx.i, align 8, !dbg !6934, !tbaa !6935",
+				"%arg5.i = getelementptr %struct._pending_calls, ptr %spec.select, i64 0, i32 3, i64 %idxprom.i, i32 1, !dbg !6938",
+				"store ptr %arg, ptr %arg5.i, align 8, !dbg !6939, !tbaa !6940",
+				"%flags9.i = getelementptr %struct._pending_calls, ptr %spec.select, i64 0, i32 3, i64 %idxprom.i, i32 2, !dbg !6941",
+				"store i32 %flags, ptr %flags9.i, align 8, !dbg !6942, !tbaa !6943",
+				"store i32 %rem.i, ptr %last.i, align 4, !dbg !6944, !tbaa !6920",
+				"%calls_to_do.i = getelementptr inbounds %struct._pending_calls, ptr %spec.select, i64 0, i32 2, !dbg !6945",
+				"%4 = atomicrmw add ptr %calls_to_do.i, i32 1 seq_cst, align 4, !dbg !6955",
+				"br label %_push_pending_call.exit, !dbg !6956"
+			]
+		},
+		{
+			"function": "_PyEval_AddPendingCall",
+			"id": 115,
+			"name": "_push_pending_call.exit",
+			"debug": [
+				{
+					"line": 84, "columns": [9]
+				},
+				{
+					"line": 105, "columns": [10]
+				}
+			],
+			"successors": [117, 116],
+			"ir": [
+				"%retval.0.i = phi i32 [ 0, %if.end.i ], [ -1, %PyMutex_Lock.exit ], !dbg !6917",
+				"%5 = cmpxchg ptr %mutex, i8 1, i8 0 seq_cst seq_cst, align 1, !dbg !6966",
+				"%6 = extractvalue { i8, i1 } %5, 1, !dbg !6966",
+				"br i1 %6, label %PyMutex_Unlock.exit, label %if.then.i11, !dbg !6967"
+			]
+		},
+		{
+			"function": "_PyEval_AddPendingCall",
+			"id": 116,
+			"name": "if.then.i11",
+			"debug": [
+				{
+					"line": 85, "columns": [9]
+				},
+				{
+					"line": 86, "columns": [5]
+				}
+			],
+			"successors": [117],
+			"ir": [
+				"tail call void @_PyMutex_UnlockSlow(ptr noundef nonnull %mutex) #14, !dbg !6968",
+				"br label %PyMutex_Unlock.exit, !dbg !6970"
+			]
+		},
+		{
+			"function": "_PyEval_AddPendingCall",
+			"id": 117,
+			"name": "PyMutex_Unlock.exit",
+			"debug": [
+				{
+					"line": 746, "columns": [9]
+				}
+			],
+			"successors": [119, 118],
+			"ir": [
+				"br i1 %cmp.not, label %if.else, label %if.then4, !dbg !6971"
+			]
+		},
+		{
+			"function": "_PyEval_AddPendingCall",
+			"id": 118,
+			"name": "if.then4",
+			"debug": [
+				{
+					"line": 227, "columns": [36]
+				},
+				{
+					"line": 241, "columns": [10]
+				},
+				{
+					"line": 747, "columns": [45]
+				},
+				{
+					"line": 748, "columns": [5]
+				}
+			],
+			"successors": [126],
+			"ir": [
+				"%7 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 10), align 8, !dbg !6972, !tbaa !6975",
+				"%eval_breaker.i = getelementptr inbounds %struct._ts, ptr %7, i64 0, i32 3, !dbg !7114",
+				"%8 = atomicrmw or ptr %eval_breaker.i, i64 4 seq_cst, align 8, !dbg !7124",
+				"br label %if.end5, !dbg !7125"
+			]
+		},
+		{
+			"function": "_PyEval_AddPendingCall",
+			"id": 119,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 709, "columns": [52]
+				},
+				{
+					"line": 714, "columns": [5]
+				}
+			],
+			"successors": [121, 120],
+			"ir": [
+				"%gil1.i = getelementptr inbounds %struct._ceval_state, ptr %interp, i64 0, i32 2, !dbg !7139",
+				"%9 = load ptr, ptr %gil1.i, align 8, !dbg !7139, !tbaa !7140",
+				"%mutex.i = getelementptr inbounds %struct._gil_runtime_state, ptr %9, i64 0, i32 5, !dbg !7141",
+				"%call.i = tail call i32 @pthread_mutex_lock(ptr noundef nonnull %mutex.i) #14, !dbg !7141",
+				"%tobool.not.i = icmp eq i32 %call.i, 0, !dbg !7141",
+				"br i1 %tobool.not.i, label %if.end.i14, label %if.then.i13, !dbg !7143"
+			]
+		},
+		{
+			"function": "_PyEval_AddPendingCall",
+			"id": 120,
+			"name": "if.then.i13",
+			"debug": [
+				{
+					"line": 714, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @_Py_FatalErrorFunc(ptr noundef nonnull @__func__.signal_active_thread, ptr noundef nonnull @.str.10) #15, !dbg !7144",
+				"unreachable, !dbg !7144"
+			]
+		},
+		{
+			"function": "_PyEval_AddPendingCall",
+			"id": 121,
+			"name": "if.end.i14",
+			"debug": [
+				{
+					"line": 307, "columns": [10]
+				},
+				{
+					"line": 715, "columns": [43, 9]
+				}
+			],
+			"successors": [124, 122],
+			"ir": [
+				"%locked.i = getelementptr inbounds %struct._gil_runtime_state, ptr %9, i64 0, i32 2, !dbg !7146",
+				"%10 = load atomic i32, ptr %locked.i monotonic, align 4, !dbg !7156",
+				"%tobool3.not.i = icmp eq i32 %10, 0, !dbg !7157",
+				"br i1 %tobool3.not.i, label %if.end9.i, label %if.then4.i, !dbg !7158"
+			]
+		},
+		{
+			"function": "_PyEval_AddPendingCall",
+			"id": 122,
+			"name": "if.then4.i",
+			"debug": [
+				{
+					"line": 359, "columns": [18]
+				},
+				{
+					"line": 716, "columns": [83]
+				},
+				{
+					"line": 717, "columns": [21, 28, 13]
+				}
+			],
+			"successors": [123, 124],
+			"ir": [
+				"%last_holder.i = getelementptr inbounds %struct._gil_runtime_state, ptr %9, i64 0, i32 1, !dbg !7159",
+				"%11 = load atomic i64, ptr %last_holder.i monotonic, align 8, !dbg !7167",
+				"%12 = inttoptr i64 %11 to ptr, !dbg !7167",
+				"%interp6.i = getelementptr inbounds %struct._ts, ptr %12, i64 0, i32 2, !dbg !7169",
+				"%13 = load ptr, ptr %interp6.i, align 8, !dbg !7169, !tbaa !7171",
+				"%cmp.i15 = icmp eq ptr %13, %interp, !dbg !7172",
+				"br i1 %cmp.i15, label %if.then7.i, label %if.end9.i, !dbg !7173"
+			]
+		},
+		{
+			"function": "_PyEval_AddPendingCall",
+			"id": 123,
+			"name": "if.then7.i",
+			"debug": [
+				{
+					"line": 227, "columns": [36]
+				},
+				{
+					"line": 241, "columns": [10]
+				},
+				{
+					"line": 719, "columns": [9]
+				}
+			],
+			"successors": [124],
+			"ir": [
+				"%eval_breaker.i.i = getelementptr inbounds %struct._ts, ptr %12, i64 0, i32 3, !dbg !7177",
+				"%14 = atomicrmw or ptr %eval_breaker.i.i, i64 4 seq_cst, align 8, !dbg !7180",
+				"br label %if.end9.i, !dbg !7181"
+			]
+		},
+		{
+			"function": "_PyEval_AddPendingCall",
+			"id": 124,
+			"name": "if.end9.i",
+			"debug": [
+				{
+					"line": 721, "columns": [5]
+				}
+			],
+			"successors": [126, 125],
+			"ir": [
+				"%call11.i = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %mutex.i) #14, !dbg !7182",
+				"%tobool12.not.i = icmp eq i32 %call11.i, 0, !dbg !7182",
+				"br i1 %tobool12.not.i, label %if.end5, label %if.then13.i, !dbg !7184"
+			]
+		},
+		{
+			"function": "_PyEval_AddPendingCall",
+			"id": 125,
+			"name": "if.then13.i",
+			"debug": [
+				{
+					"line": 721, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @_Py_FatalErrorFunc(ptr noundef nonnull @__func__.signal_active_thread, ptr noundef nonnull @.str.12) #15, !dbg !7185",
+				"unreachable, !dbg !7185"
+			]
+		},
+		{
+			"function": "_PyEval_AddPendingCall",
+			"id": 126,
+			"name": "if.end5",
+			"debug": [
+				{
+					"line": 757, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret i32 %retval.0.i, !dbg !7187"
+			]
+		},
+		{
+			"function": "Py_AddPendingCall",
+			"id": 127,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 74, "columns": [9]
+				},
+				{
+					"line": 105, "columns": [10]
+				}
+			],
+			"successors": [129, 128],
+			"ir": [
+				"%0 = cmpxchg ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 1, i32 1), i8 0, i8 1 seq_cst seq_cst, align 1, !dbg !6906",
+				"%1 = extractvalue { i8, i1 } %0, 1, !dbg !6906",
+				"br i1 %1, label %PyMutex_Lock.exit.i, label %if.then.i.i, !dbg !6907"
+			]
+		},
+		{
+			"function": "Py_AddPendingCall",
+			"id": 128,
+			"name": "if.then.i.i",
+			"debug": [
+				{
+					"line": 75, "columns": [9]
+				},
+				{
+					"line": 76, "columns": [5]
+				}
+			],
+			"successors": [129],
+			"ir": [
+				"tail call void @_PyMutex_LockSlow(ptr noundef nonnull getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 1, i32 1)) #14, !dbg !6908",
+				"br label %PyMutex_Lock.exit.i, !dbg !6910"
+			]
+		},
+		{
+			"function": "Py_AddPendingCall",
+			"id": 129,
+			"name": "PyMutex_Lock.exit.i",
+			"debug": [
+				{
+					"line": 661, "columns": [22]
+				},
+				{
+					"line": 662, "columns": [16, 21]
+				},
+				{
+					"line": 663, "columns": [23, 11, 9]
+				}
+			],
+			"successors": [131, 130],
+			"ir": [
+				"%2 = load i32, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 1, i32 5), align 4, !dbg !6923, !tbaa !6924",
+				"%add.i.i = add i32 %2, 1, !dbg !6930",
+				"%rem.i.i = srem i32 %add.i.i, 32, !dbg !6931",
+				"%3 = load i32, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 1, i32 4), align 8, !dbg !6932, !tbaa !6934",
+				"%cmp.i.i = icmp eq i32 %rem.i.i, %3, !dbg !6935",
+				"br i1 %cmp.i.i, label %_push_pending_call.exit.i, label %if.end.i.i, !dbg !6936"
+			]
+		},
+		{
+			"function": "Py_AddPendingCall",
+			"id": 130,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 27, "columns": [10]
+				},
+				{
+					"line": 666, "columns": [5, 28]
+				},
+				{
+					"line": 667, "columns": [23, 27]
+				},
+				{
+					"line": 668, "columns": [23, 29]
+				},
+				{
+					"line": 669, "columns": [19]
+				},
+				{
+					"line": 672, "columns": [5]
+				}
+			],
+			"successors": [131],
+			"ir": [
+				"%idxprom.i.i = sext i32 %2 to i64, !dbg !6937",
+				"%arrayidx.i.i = getelementptr %struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 1, i32 3, i64 %idxprom.i.i, !dbg !6937",
+				"store ptr %func, ptr %arrayidx.i.i, align 8, !dbg !6938, !tbaa !6939",
+				"%arg5.i.i = getelementptr %struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 1, i32 3, i64 %idxprom.i.i, i32 1, !dbg !6942",
+				"store ptr %arg, ptr %arg5.i.i, align 8, !dbg !6943, !tbaa !6944",
+				"%flags9.i.i = getelementptr %struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 1, i32 3, i64 %idxprom.i.i, i32 2, !dbg !6945",
+				"store i32 1, ptr %flags9.i.i, align 8, !dbg !6946, !tbaa !6947",
+				"store i32 %rem.i.i, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 1, i32 5), align 4, !dbg !6948, !tbaa !6924",
+				"%4 = atomicrmw add ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 1, i32 2), i32 1 seq_cst, align 4, !dbg !6958",
+				"br label %_push_pending_call.exit.i, !dbg !6959"
+			]
+		},
+		{
+			"function": "Py_AddPendingCall",
+			"id": 131,
+			"name": "_push_pending_call.exit.i",
+			"debug": [
+				{
+					"line": 84, "columns": [9]
+				},
+				{
+					"line": 105, "columns": [10]
+				}
+			],
+			"successors": [133, 132],
+			"ir": [
+				"%retval.0.i.i = phi i32 [ 0, %if.end.i.i ], [ -1, %PyMutex_Lock.exit.i ], !dbg !6921",
+				"%5 = cmpxchg ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 1, i32 1), i8 1, i8 0 seq_cst seq_cst, align 1, !dbg !6969",
+				"%6 = extractvalue { i8, i1 } %5, 1, !dbg !6969",
+				"br i1 %6, label %_PyEval_AddPendingCall.exit, label %if.then.i11.i, !dbg !6970"
+			]
+		},
+		{
+			"function": "Py_AddPendingCall",
+			"id": 132,
+			"name": "if.then.i11.i",
+			"debug": [
+				{
+					"line": 85, "columns": [9]
+				},
+				{
+					"line": 86, "columns": [5]
+				}
+			],
+			"successors": [133],
+			"ir": [
+				"tail call void @_PyMutex_UnlockSlow(ptr noundef nonnull getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 1, i32 1)) #14, !dbg !6971",
+				"br label %_PyEval_AddPendingCall.exit, !dbg !6973"
+			]
+		},
+		{
+			"function": "Py_AddPendingCall",
+			"id": 133,
+			"name": "_PyEval_AddPendingCall.exit",
+			"debug": [
+				{
+					"line": 227, "columns": [36]
+				},
+				{
+					"line": 241, "columns": [10]
+				},
+				{
+					"line": 747, "columns": [45]
+				},
+				{
+					"line": 766, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%7 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 10), align 8, !dbg !6974, !tbaa !6977",
+				"%eval_breaker.i.i = getelementptr inbounds %struct._ts, ptr %7, i64 0, i32 3, !dbg !7116",
+				"%8 = atomicrmw or ptr %eval_breaker.i.i, i64 4 seq_cst, align 8, !dbg !7126",
+				"ret i32 %retval.0.i.i, !dbg !7127"
+			]
+		},
+		{
+			"function": "_Py_set_eval_breaker_bit_all",
+			"id": 134,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 105, "columns": [10]
+				},
+				{
+					"line": 124, "columns": [9]
+				}
+			],
+			"successors": [136, 135],
+			"ir": [
+				"%0 = cmpxchg ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 8), i8 0, i8 1 seq_cst seq_cst, align 1, !dbg !6898",
+				"%1 = extractvalue { i8, i1 } %0, 1, !dbg !6898",
+				"br i1 %1, label %PyMutex_LockFlags.exit, label %if.then.i, !dbg !6899"
+			]
+		},
+		{
+			"function": "_Py_set_eval_breaker_bit_all",
+			"id": 135,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 125, "columns": [9]
+				},
+				{
+					"line": 126, "columns": [5]
+				}
+			],
+			"successors": [136],
+			"ir": [
+				"%call1.i = tail call i32 @_PyMutex_LockTimed(ptr noundef nonnull getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 8), i64 noundef -1, i32 noundef 0) #14, !dbg !6900",
+				"br label %PyMutex_LockFlags.exit, !dbg !6902"
+			]
+		},
+		{
+			"function": "_Py_set_eval_breaker_bit_all",
+			"id": 136,
+			"name": "PyMutex_LockFlags.exit",
+			"debug": [
+				{
+					"line": 891, "columns": [50, 0, 63, 5]
+				}
+			],
+			"successors": [137, 140],
+			"ir": [
+				"%head = getelementptr inbounds %struct._is, ptr %interp, i64 0, i32 9, i32 1, !dbg !6903",
+				"%tstate.07 = load ptr, ptr %head, align 8, !dbg !6905, !tbaa !6906",
+				"%cmp.not8 = icmp eq ptr %tstate.07, null, !dbg !6910",
+				"br i1 %cmp.not8, label %for.cond.cleanup, label %for.body, !dbg !6912"
+			]
+		},
+		{
+			"function": "_Py_set_eval_breaker_bit_all",
+			"id": 137,
+			"name": "for.cond.cleanup",
+			"debug": [
+				{
+					"line": 84, "columns": [9]
+				},
+				{
+					"line": 105, "columns": [10]
+				}
+			],
+			"successors": [139, 138],
+			"ir": [
+				"%2 = cmpxchg ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 8), i8 1, i8 0 seq_cst seq_cst, align 1, !dbg !6924",
+				"%3 = extractvalue { i8, i1 } %2, 1, !dbg !6924",
+				"br i1 %3, label %PyMutex_Unlock.exit, label %if.then.i6, !dbg !6925"
+			]
+		},
+		{
+			"function": "_Py_set_eval_breaker_bit_all",
+			"id": 138,
+			"name": "if.then.i6",
+			"debug": [
+				{
+					"line": 85, "columns": [9]
+				},
+				{
+					"line": 86, "columns": [5]
+				}
+			],
+			"successors": [139],
+			"ir": [
+				"tail call void @_PyMutex_UnlockSlow(ptr noundef nonnull getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 8)) #14, !dbg !6926",
+				"br label %PyMutex_Unlock.exit, !dbg !6928"
+			]
+		},
+		{
+			"function": "_Py_set_eval_breaker_bit_all",
+			"id": 139,
+			"name": "PyMutex_Unlock.exit",
+			"debug": [
+				{
+					"line": 895, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !6929"
+			]
+		},
+		{
+			"function": "_Py_set_eval_breaker_bit_all",
+			"id": 140,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 227, "columns": [36]
+				},
+				{
+					"line": 241, "columns": [10]
+				},
+				{
+					"line": 891, "columns": [89, 0, 63, 5]
+				}
+			],
+			"successors": [137, 140],
+			"ir": [
+				"%tstate.09 = phi ptr [ %tstate.0, %for.body ], [ %tstate.07, %PyMutex_LockFlags.exit ]",
+				"%eval_breaker.i = getelementptr inbounds %struct._ts, ptr %tstate.09, i64 0, i32 3, !dbg !6940",
+				"%4 = atomicrmw or ptr %eval_breaker.i, i64 %bit seq_cst, align 8, !dbg !6950",
+				"%next = getelementptr inbounds %struct._ts, ptr %tstate.09, i64 0, i32 1, !dbg !6951",
+				"%tstate.0 = load ptr, ptr %next, align 8, !dbg !6905, !tbaa !6906",
+				"%cmp.not = icmp eq ptr %tstate.0, null, !dbg !6910",
+				"br i1 %cmp.not, label %for.cond.cleanup, label %for.body, !dbg !6912, !llvm.loop !6952"
+			]
+		},
+		{
+			"function": "_Py_unset_eval_breaker_bit_all",
+			"id": 141,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 105, "columns": [10]
+				},
+				{
+					"line": 124, "columns": [9]
+				}
+			],
+			"successors": [143, 142],
+			"ir": [
+				"%0 = cmpxchg ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 8), i8 0, i8 1 seq_cst seq_cst, align 1, !dbg !6898",
+				"%1 = extractvalue { i8, i1 } %0, 1, !dbg !6898",
+				"br i1 %1, label %PyMutex_LockFlags.exit, label %if.then.i, !dbg !6899"
+			]
+		},
+		{
+			"function": "_Py_unset_eval_breaker_bit_all",
+			"id": 142,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 125, "columns": [9]
+				},
+				{
+					"line": 126, "columns": [5]
+				}
+			],
+			"successors": [143],
+			"ir": [
+				"%call1.i = tail call i32 @_PyMutex_LockTimed(ptr noundef nonnull getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 8), i64 noundef -1, i32 noundef 0) #14, !dbg !6900",
+				"br label %PyMutex_LockFlags.exit, !dbg !6902"
+			]
+		},
+		{
+			"function": "_Py_unset_eval_breaker_bit_all",
+			"id": 143,
+			"name": "PyMutex_LockFlags.exit",
+			"debug": [
+				{
+					"line": 903, "columns": [50, 0, 63, 5]
+				}
+			],
+			"successors": [145, 144],
+			"ir": [
+				"%head = getelementptr inbounds %struct._is, ptr %interp, i64 0, i32 9, i32 1, !dbg !6903",
+				"%tstate.07 = load ptr, ptr %head, align 8, !dbg !6905, !tbaa !6906",
+				"%cmp.not8 = icmp eq ptr %tstate.07, null, !dbg !6910",
+				"br i1 %cmp.not8, label %for.cond.cleanup, label %for.body.lr.ph, !dbg !6912"
+			]
+		},
+		{
+			"function": "_Py_unset_eval_breaker_bit_all",
+			"id": 144,
+			"name": "for.body.lr.ph",
+			"debug": [
+				{
+					"line": 903, "columns": [5]
+				}
+			],
+			"successors": [148],
+			"ir": [
+				"%not.i = xor i64 %bit, -1",
+				"br label %for.body, !dbg !6912"
+			]
+		},
+		{
+			"function": "_Py_unset_eval_breaker_bit_all",
+			"id": 145,
+			"name": "for.cond.cleanup",
+			"debug": [
+				{
+					"line": 84, "columns": [9]
+				},
+				{
+					"line": 105, "columns": [10]
+				}
+			],
+			"successors": [147, 146],
+			"ir": [
+				"%2 = cmpxchg ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 8), i8 1, i8 0 seq_cst seq_cst, align 1, !dbg !6924",
+				"%3 = extractvalue { i8, i1 } %2, 1, !dbg !6924",
+				"br i1 %3, label %PyMutex_Unlock.exit, label %if.then.i6, !dbg !6925"
+			]
+		},
+		{
+			"function": "_Py_unset_eval_breaker_bit_all",
+			"id": 146,
+			"name": "if.then.i6",
+			"debug": [
+				{
+					"line": 85, "columns": [9]
+				},
+				{
+					"line": 86, "columns": [5]
+				}
+			],
+			"successors": [147],
+			"ir": [
+				"tail call void @_PyMutex_UnlockSlow(ptr noundef nonnull getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 8)) #14, !dbg !6926",
+				"br label %PyMutex_Unlock.exit, !dbg !6928"
+			]
+		},
+		{
+			"function": "_Py_unset_eval_breaker_bit_all",
+			"id": 147,
+			"name": "PyMutex_Unlock.exit",
+			"debug": [
+				{
+					"line": 907, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !6929"
+			]
+		},
+		{
+			"function": "_Py_unset_eval_breaker_bit_all",
+			"id": 148,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 218, "columns": [10]
+				},
+				{
+					"line": 233, "columns": [37]
+				},
+				{
+					"line": 903, "columns": [89, 0, 63, 5]
+				}
+			],
+			"successors": [145, 148],
+			"ir": [
+				"%tstate.09 = phi ptr [ %tstate.07, %for.body.lr.ph ], [ %tstate.0, %for.body ]",
+				"%eval_breaker.i = getelementptr inbounds %struct._ts, ptr %tstate.09, i64 0, i32 3, !dbg !6940",
+				"%4 = atomicrmw and ptr %eval_breaker.i, i64 %not.i seq_cst, align 8, !dbg !6950",
+				"%next = getelementptr inbounds %struct._ts, ptr %tstate.09, i64 0, i32 1, !dbg !6951",
+				"%tstate.0 = load ptr, ptr %next, align 8, !dbg !6905, !tbaa !6906",
+				"%cmp.not = icmp eq ptr %tstate.0, null, !dbg !6910",
+				"br i1 %cmp.not, label %for.cond.cleanup, label %for.body, !dbg !6912, !llvm.loop !6952"
+			]
+		},
+		{
+			"function": "_Py_FinishPendingCalls",
+			"id": 149,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 915, "columns": [9, 36]
+				}
+			],
+			"successors": [150, 151],
+			"ir": [
+				"%call = tail call fastcc i32 @make_pending_calls(ptr noundef %tstate), !dbg !6873, !range !6874",
+				"%cmp = icmp slt i32 %call, 0, !dbg !6875",
+				"br i1 %cmp, label %if.then, label %if.end, !dbg !6876"
+			]
+		},
+		{
+			"function": "_Py_FinishPendingCalls",
+			"id": 150,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 916, "columns": [25]
+				},
+				{
+					"line": 917, "columns": [9]
+				},
+				{
+					"line": 918, "columns": [9]
+				},
+				{
+					"line": 919, "columns": [9]
+				},
+				{
+					"line": 920, "columns": [5]
+				}
+			],
+			"successors": [151],
+			"ir": [
+				"%call1 = tail call ptr @_PyErr_GetRaisedException(ptr noundef %tstate) #14, !dbg !6877",
+				"tail call void @_PyErr_BadInternalCall(ptr noundef nonnull @.str, i32 noundef 917) #14, !dbg !6879",
+				"tail call void @_PyErr_ChainExceptions1(ptr noundef %call1) #14, !dbg !6880",
+				"tail call void @_PyErr_Print(ptr noundef %tstate) #14, !dbg !6881",
+				"br label %if.end, !dbg !6882"
+			]
+		},
+		{
+			"function": "_Py_FinishPendingCalls",
+			"id": 151,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 921, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !6883"
+			]
+		},
+		{
+			"function": "make_pending_calls",
+			"id": 152,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 74, "columns": [9]
+				},
+				{
+					"line": 105, "columns": [10]
+				},
+				{
+					"line": 837, "columns": [42]
+				},
+				{
+					"line": 838, "columns": [53]
+				},
+				{
+					"line": 843, "columns": [28]
+				}
+			],
+			"successors": [154, 153],
+			"ir": [
+				"%interp1 = getelementptr inbounds %struct._ts, ptr %tstate, i64 0, i32 2, !dbg !6874",
+				"%0 = load ptr, ptr %interp1, align 8, !dbg !6874, !tbaa !6875",
+				"%pending2 = getelementptr inbounds %struct._ceval_state, ptr %0, i64 0, i32 4, !dbg !6885",
+				"%mutex = getelementptr inbounds %struct._ceval_state, ptr %0, i64 0, i32 4, i32 1, !dbg !6887",
+				"%1 = cmpxchg ptr %mutex, i8 0, i8 1 seq_cst seq_cst, align 1, !dbg !6908",
+				"%2 = extractvalue { i8, i1 } %1, 1, !dbg !6908",
+				"br i1 %2, label %PyMutex_Lock.exit, label %if.then.i, !dbg !6909"
+			]
+		},
+		{
+			"function": "make_pending_calls",
+			"id": 153,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 75, "columns": [9]
+				},
+				{
+					"line": 76, "columns": [5]
+				}
+			],
+			"successors": [154],
+			"ir": [
+				"tail call void @_PyMutex_LockSlow(ptr noundef nonnull %mutex) #14, !dbg !6910",
+				"br label %PyMutex_Lock.exit, !dbg !6912"
+			]
+		},
+		{
+			"function": "make_pending_calls",
+			"id": 154,
+			"name": "PyMutex_Lock.exit",
+			"debug": [
+				{
+					"line": 844, "columns": [18, 9]
+				}
+			],
+			"successors": [157, 155],
+			"ir": [
+				"%3 = load i32, ptr %pending2, align 8, !dbg !6913, !tbaa !6915",
+				"%tobool.not = icmp eq i32 %3, 0, !dbg !6918",
+				"br i1 %tobool.not, label %if.end, label %if.then, !dbg !6919"
+			]
+		},
+		{
+			"function": "make_pending_calls",
+			"id": 155,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 84, "columns": [9]
+				},
+				{
+					"line": 105, "columns": [10]
+				}
+			],
+			"successors": [165, 156],
+			"ir": [
+				"%4 = cmpxchg ptr %mutex, i8 1, i8 0 seq_cst seq_cst, align 1, !dbg !6930",
+				"%5 = extractvalue { i8, i1 } %4, 1, !dbg !6930",
+				"br i1 %5, label %cleanup, label %if.then.i38, !dbg !6931"
+			]
+		},
+		{
+			"function": "make_pending_calls",
+			"id": 156,
+			"name": "if.then.i38",
+			"debug": [
+				{
+					"line": 85, "columns": [9]
+				},
+				{
+					"line": 86, "columns": [5]
+				}
+			],
+			"successors": [165],
+			"ir": [
+				"tail call void @_PyMutex_UnlockSlow(ptr noundef nonnull %mutex) #14, !dbg !6932",
+				"br label %cleanup, !dbg !6934"
+			]
+		},
+		{
+			"function": "make_pending_calls",
+			"id": 157,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 84, "columns": [9]
+				},
+				{
+					"line": 105, "columns": [10]
+				},
+				{
+					"line": 858, "columns": [19]
+				}
+			],
+			"successors": [159, 158],
+			"ir": [
+				"store i32 1, ptr %pending2, align 8, !dbg !6935, !tbaa !6915",
+				"%6 = cmpxchg ptr %mutex, i8 1, i8 0 seq_cst seq_cst, align 1, !dbg !6940",
+				"%7 = extractvalue { i8, i1 } %6, 1, !dbg !6940",
+				"br i1 %7, label %PyMutex_Unlock.exit40, label %if.then.i39, !dbg !6941"
+			]
+		},
+		{
+			"function": "make_pending_calls",
+			"id": 158,
+			"name": "if.then.i39",
+			"debug": [
+				{
+					"line": 85, "columns": [9]
+				},
+				{
+					"line": 86, "columns": [5]
+				}
+			],
+			"successors": [159],
+			"ir": [
+				"tail call void @_PyMutex_UnlockSlow(ptr noundef nonnull %mutex) #14, !dbg !6942",
+				"br label %PyMutex_Unlock.exit40, !dbg !6943"
+			]
+		},
+		{
+			"function": "make_pending_calls",
+			"id": 159,
+			"name": "PyMutex_Unlock.exit40",
+			"debug": [
+				{
+					"line": 218, "columns": [10]
+				},
+				{
+					"line": 233, "columns": [37]
+				},
+				{
+					"line": 865, "columns": [9, 38]
+				}
+			],
+			"successors": [161, 160],
+			"ir": [
+				"%eval_breaker.i.i = getelementptr inbounds %struct._ts, ptr %tstate, i64 0, i32 3, !dbg !6961",
+				"%8 = atomicrmw and ptr %eval_breaker.i.i, i64 -5 seq_cst, align 8, !dbg !6971",
+				"%call = tail call fastcc i32 @_make_pending_calls(ptr noundef nonnull %pending2), !dbg !6972",
+				"%cmp.not = icmp eq i32 %call, 0, !dbg !6974",
+				"br i1 %cmp.not, label %if.end8, label %if.then6, !dbg !6975"
+			]
+		},
+		{
+			"function": "make_pending_calls",
+			"id": 160,
+			"name": "if.then6",
+			"debug": [
+				{
+					"line": 241, "columns": [10]
+				},
+				{
+					"line": 866, "columns": [23]
+				},
+				{
+					"line": 869, "columns": [9]
+				}
+			],
+			"successors": [165],
+			"ir": [
+				"store i32 0, ptr %pending2, align 8, !dbg !6976, !tbaa !6915",
+				"%9 = atomicrmw or ptr %eval_breaker.i.i, i64 4 seq_cst, align 8, !dbg !6996",
+				"br label %cleanup, !dbg !6997"
+			]
+		},
+		{
+			"function": "make_pending_calls",
+			"id": 161,
+			"name": "if.end8",
+			"debug": [
+				{
+					"line": 52, "columns": [28]
+				},
+				{
+					"line": 53, "columns": [34, 20]
+				},
+				{
+					"line": 872, "columns": [28]
+				}
+			],
+			"successors": [162, 164],
+			"ir": [
+				"%call.i = tail call i64 @PyThread_get_thread_ident() #14, !dbg !6998",
+				"%10 = load i64, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 9), align 8, !dbg !7007, !tbaa !7008",
+				"%cmp.i.not = icmp eq i64 %call.i, %10, !dbg !7133",
+				"%11 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 8, i32 2), align 8",
+				"%cmp.i42.not = icmp eq ptr %11, %0",
+				"%or.cond = select i1 %cmp.i.not, i1 %cmp.i42.not, i1 false, !dbg !7134",
+				"br i1 %or.cond, label %if.then13, label %if.end19, !dbg !7134"
+			]
+		},
+		{
+			"function": "make_pending_calls",
+			"id": 162,
+			"name": "if.then13",
+			"debug": [
+				{
+					"line": 873, "columns": [13, 47]
+				}
+			],
+			"successors": [164, 163],
+			"ir": [
+				"%call14 = tail call fastcc i32 @_make_pending_calls(ptr noundef nonnull getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 1)), !dbg !7135",
+				"%cmp15.not = icmp eq i32 %call14, 0, !dbg !7138",
+				"br i1 %cmp15.not, label %if.end19, label %if.then16, !dbg !7139"
+			]
+		},
+		{
+			"function": "make_pending_calls",
+			"id": 163,
+			"name": "if.then16",
+			"debug": [
+				{
+					"line": 241, "columns": [10]
+				},
+				{
+					"line": 874, "columns": [27]
+				},
+				{
+					"line": 877, "columns": [13]
+				}
+			],
+			"successors": [165],
+			"ir": [
+				"store i32 0, ptr %pending2, align 8, !dbg !7140, !tbaa !6915",
+				"%12 = atomicrmw or ptr %eval_breaker.i.i, i64 4 seq_cst, align 8, !dbg !7148",
+				"br label %cleanup, !dbg !7149"
+			]
+		},
+		{
+			"function": "make_pending_calls",
+			"id": 164,
+			"name": "if.end19",
+			"debug": [
+				{
+					"line": 881, "columns": [19]
+				},
+				{
+					"line": 882, "columns": [5]
+				}
+			],
+			"successors": [165],
+			"ir": [
+				"store i32 0, ptr %pending2, align 8, !dbg !7150, !tbaa !6915",
+				"br label %cleanup, !dbg !7151"
+			]
+		},
+		{
+			"function": "make_pending_calls",
+			"id": 165,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 883, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ -1, %if.then6 ], [ -1, %if.then16 ], [ 0, %if.end19 ], [ 0, %if.then ], [ 0, %if.then.i38 ], !dbg !6873",
+				"ret i32 %retval.0, !dbg !7152"
+			]
+		},
+		{
+			"function": "_PyEval_MakePendingCalls",
+			"id": 166,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 52, "columns": [28]
+				},
+				{
+					"line": 53, "columns": [34, 20]
+				},
+				{
+					"line": 928, "columns": [28]
+				}
+			],
+			"successors": [167, 171],
+			"ir": [
+				"%call.i = tail call i64 @PyThread_get_thread_ident() #14, !dbg !6871",
+				"%0 = load i64, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 9), align 8, !dbg !6880, !tbaa !6881",
+				"%cmp.i.not = icmp eq i64 %call.i, %0, !dbg !7017",
+				"br i1 %cmp.i.not, label %land.lhs.true, label %if.end5, !dbg !7018"
+			]
+		},
+		{
+			"function": "_PyEval_MakePendingCalls",
+			"id": 167,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 60, "columns": [36]
+				},
+				{
+					"line": 66, "columns": [20]
+				},
+				{
+					"line": 928, "columns": [61, 9]
+				}
+			],
+			"successors": [168, 171],
+			"ir": [
+				"%interp = getelementptr inbounds %struct._ts, ptr %tstate, i64 0, i32 2, !dbg !7019",
+				"%1 = load ptr, ptr %interp, align 8, !dbg !7019, !tbaa !7020",
+				"%2 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 8, i32 2), align 8, !dbg !7028, !tbaa !7034",
+				"%cmp.i15.not = icmp eq ptr %2, %1, !dbg !7035",
+				"br i1 %cmp.i15.not, label %if.then, label %if.end5, !dbg !7036"
+			]
+		},
+		{
+			"function": "_PyEval_MakePendingCalls",
+			"id": 168,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 52, "columns": [28]
+				},
+				{
+					"line": 53, "columns": [34, 20]
+				},
+				{
+					"line": 105, "columns": [32]
+				},
+				{
+					"line": 218, "columns": [10]
+				},
+				{
+					"line": 233, "columns": [37]
+				},
+				{
+					"line": 774, "columns": [45, 10, 9]
+				}
+			],
+			"successors": [171, 169],
+			"ir": [
+				"%eval_breaker.i.i = getelementptr inbounds %struct._ts, ptr %tstate, i64 0, i32 3, !dbg !7052",
+				"%3 = atomicrmw and ptr %eval_breaker.i.i, i64 -3 seq_cst, align 8, !dbg !7063",
+				"%4 = load ptr, ptr %interp, align 8, !dbg !7064, !tbaa !7020",
+				"%call.i.i.i = tail call i64 @PyThread_get_thread_ident() #14, !dbg !7071",
+				"%5 = load i64, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 9), align 8, !dbg !7074, !tbaa !6881",
+				"%cmp.i.not.i.i = icmp ne i64 %call.i.i.i, %5, !dbg !7075",
+				"%6 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 8, i32 2), align 8, !dbg !7076",
+				"%cmp.i3.i.i = icmp ne ptr %6, %4, !dbg !7076",
+				"%narrow.i.not.i = select i1 %cmp.i.not.i.i, i1 true, i1 %cmp.i3.i.i, !dbg !7077",
+				"br i1 %narrow.i.not.i, label %if.end5, label %if.end.i, !dbg !7078"
+			]
+		},
+		{
+			"function": "_PyEval_MakePendingCalls",
+			"id": 169,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 777, "columns": [9, 43]
+				}
+			],
+			"successors": [170, 171],
+			"ir": [
+				"%call1.i = tail call i32 @_PyErr_CheckSignalsTstate(ptr noundef nonnull %tstate) #14, !dbg !7079",
+				"%cmp.i17 = icmp slt i32 %call1.i, 0, !dbg !7081",
+				"br i1 %cmp.i17, label %handle_signals.exit, label %if.end5, !dbg !7082"
+			]
+		},
+		{
+			"function": "_PyEval_MakePendingCalls",
+			"id": 170,
+			"name": "handle_signals.exit",
+			"debug": [
+				{
+					"line": 241, "columns": [10]
+				},
+				{
+					"line": 933, "columns": [13]
+				}
+			],
+			"successors": [172],
+			"ir": [
+				"%7 = atomicrmw or ptr %eval_breaker.i.i, i64 2 seq_cst, align 8, !dbg !7096",
+				"br label %cleanup, !dbg !7097"
+			]
+		},
+		{
+			"function": "_PyEval_MakePendingCalls",
+			"id": 171,
+			"name": "if.end5",
+			"debug": [
+				{
+					"line": 938, "columns": [11]
+				},
+				{
+					"line": 939, "columns": [13]
+				}
+			],
+			"successors": [172],
+			"ir": [
+				"%call6 = tail call fastcc i32 @make_pending_calls(ptr noundef %tstate), !dbg !7098, !range !7099",
+				"%cmp7.not = icmp ne i32 %call6, 0, !dbg !7100",
+				"%. = sext i1 %cmp7.not to i32, !dbg !6870",
+				"br label %cleanup, !dbg !6870"
+			]
+		},
+		{
+			"function": "_PyEval_MakePendingCalls",
+			"id": 172,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 944, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ -1, %handle_signals.exit ], [ %., %if.end5 ], !dbg !6870",
+				"ret i32 %retval.0, !dbg !7102"
+			]
+		},
+		{
+			"function": "Py_MakePendingCalls",
+			"id": 173,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 52, "columns": [28]
+				},
+				{
+					"line": 53, "columns": [34, 20]
+				},
+				{
+					"line": 137, "columns": [12]
+				},
+				{
+					"line": 957, "columns": [29]
+				}
+			],
+			"successors": [174, 181],
+			"ir": [
+				"%0 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6869",
+				"%1 = load ptr, ptr %0, align 8, !dbg !6869, !tbaa !6875",
+				"%call.i = tail call i64 @PyThread_get_thread_ident() #14, !dbg !6880",
+				"%2 = load i64, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 9), align 8, !dbg !6887, !tbaa !6888",
+				"%cmp.i.not = icmp eq i64 %call.i, %2, !dbg !7021",
+				"br i1 %cmp.i.not, label %lor.lhs.false, label %cleanup, !dbg !7022"
+			]
+		},
+		{
+			"function": "Py_MakePendingCalls",
+			"id": 174,
+			"name": "lor.lhs.false",
+			"debug": [
+				{
+					"line": 60, "columns": [36]
+				},
+				{
+					"line": 66, "columns": [20]
+				},
+				{
+					"line": 957, "columns": [63, 9]
+				}
+			],
+			"successors": [175, 181],
+			"ir": [
+				"%interp = getelementptr inbounds %struct._ts, ptr %1, i64 0, i32 2, !dbg !7023",
+				"%3 = load ptr, ptr %interp, align 8, !dbg !7023, !tbaa !7024",
+				"%4 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 8, i32 2), align 8, !dbg !7032, !tbaa !7037",
+				"%cmp.i6.not = icmp eq ptr %4, %3, !dbg !7038",
+				"br i1 %cmp.i6.not, label %if.end, label %cleanup, !dbg !7039"
+			]
+		},
+		{
+			"function": "Py_MakePendingCalls",
+			"id": 175,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 52, "columns": [28]
+				},
+				{
+					"line": 53, "columns": [34, 20]
+				},
+				{
+					"line": 928, "columns": [28]
+				}
+			],
+			"successors": [176, 180],
+			"ir": [
+				"%call.i.i = tail call i64 @PyThread_get_thread_ident() #14, !dbg !7048",
+				"%5 = load i64, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 9), align 8, !dbg !7052, !tbaa !6888",
+				"%cmp.i.not.i = icmp eq i64 %call.i.i, %5, !dbg !7053",
+				"br i1 %cmp.i.not.i, label %land.lhs.true.i, label %if.end5.i, !dbg !7054"
+			]
+		},
+		{
+			"function": "Py_MakePendingCalls",
+			"id": 176,
+			"name": "land.lhs.true.i",
+			"debug": [
+				{
+					"line": 60, "columns": [36]
+				},
+				{
+					"line": 66, "columns": [20]
+				},
+				{
+					"line": 928, "columns": [61, 9]
+				}
+			],
+			"successors": [177, 180],
+			"ir": [
+				"%6 = load ptr, ptr %interp, align 8, !dbg !7055, !tbaa !7024",
+				"%7 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 8, i32 2), align 8, !dbg !7058, !tbaa !7037",
+				"%cmp.i15.not.i = icmp eq ptr %7, %6, !dbg !7060",
+				"br i1 %cmp.i15.not.i, label %if.then.i, label %if.end5.i, !dbg !7061"
+			]
+		},
+		{
+			"function": "Py_MakePendingCalls",
+			"id": 177,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 52, "columns": [28]
+				},
+				{
+					"line": 53, "columns": [34, 20]
+				},
+				{
+					"line": 105, "columns": [32]
+				},
+				{
+					"line": 218, "columns": [10]
+				},
+				{
+					"line": 233, "columns": [37]
+				},
+				{
+					"line": 774, "columns": [45, 10, 9]
+				}
+			],
+			"successors": [180, 178],
+			"ir": [
+				"%eval_breaker.i.i.i = getelementptr inbounds %struct._ts, ptr %1, i64 0, i32 3, !dbg !7077",
+				"%8 = atomicrmw and ptr %eval_breaker.i.i.i, i64 -3 seq_cst, align 8, !dbg !7088",
+				"%9 = load ptr, ptr %interp, align 8, !dbg !7089, !tbaa !7024",
+				"%call.i.i.i.i = tail call i64 @PyThread_get_thread_ident() #14, !dbg !7096",
+				"%10 = load i64, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 9), align 8, !dbg !7099, !tbaa !6888",
+				"%cmp.i.not.i.i.i = icmp ne i64 %call.i.i.i.i, %10, !dbg !7100",
+				"%11 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 8, i32 2), align 8, !dbg !7101",
+				"%cmp.i3.i.i.i = icmp ne ptr %11, %9, !dbg !7101",
+				"%narrow.i.not.i.i = select i1 %cmp.i.not.i.i.i, i1 true, i1 %cmp.i3.i.i.i, !dbg !7102",
+				"br i1 %narrow.i.not.i.i, label %if.end5.i, label %if.end.i.i, !dbg !7103"
+			]
+		},
+		{
+			"function": "Py_MakePendingCalls",
+			"id": 178,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 777, "columns": [9, 43]
+				}
+			],
+			"successors": [179, 180],
+			"ir": [
+				"%call1.i.i = tail call i32 @_PyErr_CheckSignalsTstate(ptr noundef nonnull %1) #14, !dbg !7104",
+				"%cmp.i17.i = icmp slt i32 %call1.i.i, 0, !dbg !7106",
+				"br i1 %cmp.i17.i, label %handle_signals.exit.i, label %if.end5.i, !dbg !7107"
+			]
+		},
+		{
+			"function": "Py_MakePendingCalls",
+			"id": 179,
+			"name": "handle_signals.exit.i",
+			"debug": [
+				{
+					"line": 241, "columns": [10]
+				},
+				{
+					"line": 933, "columns": [13]
+				}
+			],
+			"successors": [181],
+			"ir": [
+				"%12 = atomicrmw or ptr %eval_breaker.i.i.i, i64 2 seq_cst, align 8, !dbg !7121",
+				"br label %cleanup, !dbg !7122"
+			]
+		},
+		{
+			"function": "Py_MakePendingCalls",
+			"id": 180,
+			"name": "if.end5.i",
+			"debug": [
+				{
+					"line": 938, "columns": [11]
+				},
+				{
+					"line": 939, "columns": [13]
+				}
+			],
+			"successors": [181],
+			"ir": [
+				"%call6.i = tail call fastcc i32 @make_pending_calls(ptr noundef nonnull %1), !dbg !7123, !range !7124",
+				"%cmp7.not.i = icmp ne i32 %call6.i, 0, !dbg !7125",
+				"%..i = sext i1 %cmp7.not.i to i32, !dbg !7046",
+				"br label %cleanup, !dbg !7046"
+			]
+		},
+		{
+			"function": "Py_MakePendingCalls",
+			"id": 181,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 961, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ 0, %lor.lhs.false ], [ 0, %entry ], [ -1, %handle_signals.exit.i ], [ %..i, %if.end5.i ], !dbg !6879",
+				"ret i32 %retval.0, !dbg !7127"
+			]
+		},
+		{
+			"function": "_PyEval_InitState",
+			"id": 182,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 157, "columns": [10, 17]
+				},
+				{
+					"line": 158, "columns": [19]
+				},
+				{
+					"line": 966, "columns": [30]
+				},
+				{
+					"line": 967, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%_gil = getelementptr inbounds %struct._is, ptr %interp, i64 0, i32 17, !dbg !6870",
+				"%locked.i = getelementptr inbounds %struct._is, ptr %interp, i64 0, i32 17, i32 2, !dbg !6878",
+				"store i32 -1, ptr %locked.i, align 8, !dbg !6879, !tbaa !6880",
+				"store i64 5000, ptr %_gil, align 8, !dbg !6887, !tbaa !6888",
+				"ret void, !dbg !6889"
+			]
+		},
+		{
+			"function": "_Py_HandlePending",
+			"id": 183,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 347, "columns": [10]
+				},
+				{
+					"line": 1031, "columns": [66]
+				},
+				{
+					"line": 1034, "columns": [18, 46, 9]
+				}
+			],
+			"successors": [185, 184],
+			"ir": [
+				"%eval_breaker = getelementptr inbounds %struct._ts, ptr %tstate, i64 0, i32 3, !dbg !6874",
+				"%0 = load atomic i64, ptr %eval_breaker monotonic, align 8, !dbg !6885",
+				"%and = and i64 %0, 32, !dbg !6886",
+				"%cmp.not = icmp eq i64 %and, 0, !dbg !6888",
+				"br i1 %cmp.not, label %if.end, label %if.then, !dbg !6889"
+			]
+		},
+		{
+			"function": "_Py_HandlePending",
+			"id": 184,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 218, "columns": [10]
+				},
+				{
+					"line": 1036, "columns": [9]
+				},
+				{
+					"line": 1039, "columns": [9]
+				},
+				{
+					"line": 1040, "columns": [5]
+				}
+			],
+			"successors": [185],
+			"ir": [
+				"%1 = atomicrmw and ptr %eval_breaker, i64 -33 seq_cst, align 8, !dbg !6909",
+				"tail call void @_PyThreadState_Suspend(ptr noundef nonnull %tstate) #14, !dbg !6910",
+				"tail call void @_PyThreadState_Attach(ptr noundef nonnull %tstate) #14, !dbg !6911",
+				"br label %if.end, !dbg !6912"
+			]
+		},
+		{
+			"function": "_Py_HandlePending",
+			"id": 185,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 1043, "columns": [18, 45, 9]
+				}
+			],
+			"successors": [189, 186],
+			"ir": [
+				"%and1 = and i64 %0, 2, !dbg !6913",
+				"%cmp2.not = icmp eq i64 %and1, 0, !dbg !6915",
+				"br i1 %cmp2.not, label %if.end8, label %if.then3, !dbg !6916"
+			]
+		},
+		{
+			"function": "_Py_HandlePending",
+			"id": 186,
+			"name": "if.then3",
+			"debug": [
+				{
+					"line": 52, "columns": [28]
+				},
+				{
+					"line": 53, "columns": [34, 20]
+				},
+				{
+					"line": 105, "columns": [32]
+				},
+				{
+					"line": 218, "columns": [10]
+				},
+				{
+					"line": 774, "columns": [45, 10, 9]
+				}
+			],
+			"successors": [189, 187],
+			"ir": [
+				"%2 = atomicrmw and ptr %eval_breaker, i64 -3 seq_cst, align 8, !dbg !6928",
+				"%interp.i = getelementptr inbounds %struct._ts, ptr %tstate, i64 0, i32 2, !dbg !6929",
+				"%3 = load ptr, ptr %interp.i, align 8, !dbg !6929, !tbaa !6931",
+				"%call.i.i.i = tail call i64 @PyThread_get_thread_ident() #14, !dbg !6948",
+				"%4 = load i64, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 9), align 8, !dbg !6956, !tbaa !6957",
+				"%cmp.i.not.i.i = icmp ne i64 %call.i.i.i, %4, !dbg !7084",
+				"%5 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 8, i32 2), align 8, !dbg !7085",
+				"%cmp.i3.i.i = icmp ne ptr %5, %3, !dbg !7085",
+				"%narrow.i.not.i = select i1 %cmp.i.not.i.i, i1 true, i1 %cmp.i3.i.i, !dbg !7086",
+				"br i1 %narrow.i.not.i, label %if.end8, label %if.end.i54, !dbg !7087"
+			]
+		},
+		{
+			"function": "_Py_HandlePending",
+			"id": 187,
+			"name": "if.end.i54",
+			"debug": [
+				{
+					"line": 777, "columns": [9, 43]
+				}
+			],
+			"successors": [188, 189],
+			"ir": [
+				"%call1.i = tail call i32 @_PyErr_CheckSignalsTstate(ptr noundef nonnull %tstate) #14, !dbg !7088",
+				"%cmp.i53 = icmp slt i32 %call1.i, 0, !dbg !7090",
+				"br i1 %cmp.i53, label %handle_signals.exit, label %if.end8, !dbg !7091"
+			]
+		},
+		{
+			"function": "_Py_HandlePending",
+			"id": 188,
+			"name": "handle_signals.exit",
+			"debug": [
+				{
+					"line": 241, "columns": [10]
+				},
+				{
+					"line": 1044, "columns": [13]
+				}
+			],
+			"successors": [200],
+			"ir": [
+				"%6 = atomicrmw or ptr %eval_breaker, i64 2 seq_cst, align 8, !dbg !7105",
+				"br label %cleanup33, !dbg !7106"
+			]
+		},
+		{
+			"function": "_Py_HandlePending",
+			"id": 189,
+			"name": "if.end8",
+			"debug": [
+				{
+					"line": 1050, "columns": [18, 41, 9]
+				}
+			],
+			"successors": [191, 190],
+			"ir": [
+				"%and9 = and i64 %0, 4, !dbg !7107",
+				"%cmp10.not = icmp eq i64 %and9, 0, !dbg !7109",
+				"br i1 %cmp10.not, label %if.end16, label %if.then11, !dbg !7110"
+			]
+		},
+		{
+			"function": "_Py_HandlePending",
+			"id": 190,
+			"name": "if.then11",
+			"debug": [
+				{
+					"line": 1051, "columns": [13, 40]
+				}
+			],
+			"successors": [191, 200],
+			"ir": [
+				"%call12 = tail call fastcc i32 @make_pending_calls(ptr noundef nonnull %tstate), !dbg !7111, !range !7114",
+				"%cmp13.not = icmp eq i32 %call12, 0, !dbg !7115",
+				"br i1 %cmp13.not, label %if.end16, label %cleanup33, !dbg !7116"
+			]
+		},
+		{
+			"function": "_Py_HandlePending",
+			"id": 191,
+			"name": "if.end16",
+			"debug": [
+				{
+					"line": 1065, "columns": [18, 42, 9]
+				}
+			],
+			"successors": [193, 192],
+			"ir": [
+				"%and17 = and i64 %0, 16, !dbg !7117",
+				"%cmp18.not = icmp eq i64 %and17, 0, !dbg !7119",
+				"br i1 %cmp18.not, label %if.end20, label %if.then19, !dbg !7120"
+			]
+		},
+		{
+			"function": "_Py_HandlePending",
+			"id": 192,
+			"name": "if.then19",
+			"debug": [
+				{
+					"line": 218, "columns": [10]
+				},
+				{
+					"line": 1067, "columns": [9]
+				},
+				{
+					"line": 1068, "columns": [5]
+				}
+			],
+			"successors": [193],
+			"ir": [
+				"%7 = atomicrmw and ptr %eval_breaker, i64 -17 seq_cst, align 8, !dbg !7126",
+				"tail call void @_Py_RunGC(ptr noundef nonnull %tstate) #14, !dbg !7127",
+				"br label %if.end20, !dbg !7128"
+			]
+		},
+		{
+			"function": "_Py_HandlePending",
+			"id": 193,
+			"name": "if.end20",
+			"debug": [
+				{
+					"line": 1071, "columns": [18, 46, 9]
+				}
+			],
+			"successors": [195, 194],
+			"ir": [
+				"%and21 = and i64 %0, 1, !dbg !7129",
+				"%cmp22.not = icmp eq i64 %and21, 0, !dbg !7131",
+				"br i1 %cmp22.not, label %if.end24, label %if.then23, !dbg !7132"
+			]
+		},
+		{
+			"function": "_Py_HandlePending",
+			"id": 194,
+			"name": "if.then23",
+			"debug": [
+				{
+					"line": 1073, "columns": [9]
+				},
+				{
+					"line": 1077, "columns": [9]
+				},
+				{
+					"line": 1078, "columns": [5]
+				}
+			],
+			"successors": [195],
+			"ir": [
+				"tail call void @_PyThreadState_Detach(ptr noundef nonnull %tstate) #14, !dbg !7133",
+				"tail call void @_PyThreadState_Attach(ptr noundef nonnull %tstate) #14, !dbg !7135",
+				"br label %if.end24, !dbg !7136"
+			]
+		},
+		{
+			"function": "_Py_HandlePending",
+			"id": 195,
+			"name": "if.end24",
+			"debug": [
+				{
+					"line": 1081, "columns": [18, 45, 9]
+				}
+			],
+			"successors": [200, 196],
+			"ir": [
+				"%and25 = and i64 %0, 8, !dbg !7137",
+				"%cmp26.not = icmp eq i64 %and25, 0, !dbg !7138",
+				"br i1 %cmp26.not, label %cleanup33, label %if.then27, !dbg !7139"
+			]
+		},
+		{
+			"function": "_Py_HandlePending",
+			"id": 196,
+			"name": "if.then27",
+			"debug": [
+				{
+					"line": 195, "columns": [10]
+				},
+				{
+					"line": 218, "columns": [10]
+				},
+				{
+					"line": 1083, "columns": [58]
+				},
+				{
+					"line": 1084, "columns": [17, 13]
+				}
+			],
+			"successors": [200, 197],
+			"ir": [
+				"%8 = atomicrmw and ptr %eval_breaker, i64 -9 seq_cst, align 8, !dbg !7144",
+				"%async_exc = getelementptr inbounds %struct._ts, ptr %tstate, i64 0, i32 22, !dbg !7145",
+				"%9 = atomicrmw xchg ptr %async_exc, i64 0 seq_cst, align 8, !dbg !7154",
+				"%10 = inttoptr i64 %9 to ptr, !dbg !7154",
+				"%cmp29.not = icmp eq i64 %9, 0, !dbg !7156",
+				"br i1 %cmp29.not, label %cleanup33, label %if.then30, !dbg !7158"
+			]
+		},
+		{
+			"function": "_Py_HandlePending",
+			"id": 197,
+			"name": "if.then30",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				},
+				{
+					"line": 1085, "columns": [13]
+				}
+			],
+			"successors": [198, 200],
+			"ir": [
+				"tail call void @_PyErr_SetNone(ptr noundef nonnull %tstate, ptr noundef nonnull %10) #14, !dbg !7159",
+				"%op.val.i = load i64, ptr %10, align 8, !dbg !7166, !tbaa !7168",
+				"%11 = and i64 %op.val.i, 2147483648, !dbg !7174",
+				"%cmp.i.not.i = icmp eq i64 %11, 0, !dbg !7174",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %cleanup33, !dbg !7175"
+			]
+		},
+		{
+			"function": "_Py_HandlePending",
+			"id": 198,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [199, 200],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !7176",
+				"store i64 %dec.i, ptr %10, align 8, !dbg !7176, !tbaa !7168",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !7178",
+				"br i1 %cmp.i, label %if.then1.i, label %cleanup33, !dbg !7179"
+			]
+		},
+		{
+			"function": "_Py_HandlePending",
+			"id": 199,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [200],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %10) #14, !dbg !7180",
+				"br label %cleanup33, !dbg !7182"
+			]
+		},
+		{
+			"function": "_Py_HandlePending",
+			"id": 200,
+			"name": "cleanup33",
+			"debug": [
+				{
+					"line": 1091, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi i32 [ -1, %handle_signals.exit ], [ -1, %if.then11 ], [ 0, %if.then27 ], [ 0, %if.end24 ], [ -1, %if.then30 ], [ -1, %if.end.i ], [ -1, %if.then1.i ], !dbg !6873",
+				"ret i32 %retval.1, !dbg !7183"
+			]
+		},
+		{
+			"function": "create_gil",
+			"id": 201,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 171, "columns": [5]
+				}
+			],
+			"successors": [203, 202],
+			"ir": [
+				"%mutex = getelementptr inbounds %struct._gil_runtime_state, ptr %gil, i64 0, i32 5, !dbg !6870",
+				"%call = tail call i32 @pthread_mutex_init(ptr noundef nonnull %mutex, ptr noundef null) #14, !dbg !6870",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !6870",
+				"br i1 %tobool.not, label %if.end, label %if.then, !dbg !6872"
+			]
+		},
+		{
+			"function": "create_gil",
+			"id": 202,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 171, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @_Py_FatalErrorFunc(ptr noundef nonnull @__func__.create_gil, ptr noundef nonnull @.str.1) #15, !dbg !6873",
+				"unreachable, !dbg !6873"
+			]
+		},
+		{
+			"function": "create_gil",
+			"id": 203,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 173, "columns": [5]
+				}
+			],
+			"successors": [205, 204],
+			"ir": [
+				"%switch_mutex = getelementptr inbounds %struct._gil_runtime_state, ptr %gil, i64 0, i32 7, !dbg !6875",
+				"%call1 = tail call i32 @pthread_mutex_init(ptr noundef nonnull %switch_mutex, ptr noundef null) #14, !dbg !6875",
+				"%tobool2.not = icmp eq i32 %call1, 0, !dbg !6875",
+				"br i1 %tobool2.not, label %if.end4, label %if.then3, !dbg !6877"
+			]
+		},
+		{
+			"function": "create_gil",
+			"id": 204,
+			"name": "if.then3",
+			"debug": [
+				{
+					"line": 173, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @_Py_FatalErrorFunc(ptr noundef nonnull @__func__.create_gil, ptr noundef nonnull @.str.2) #15, !dbg !6878",
+				"unreachable, !dbg !6878"
+			]
+		},
+		{
+			"function": "create_gil",
+			"id": 205,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 175, "columns": [5]
+				}
+			],
+			"successors": [207, 206],
+			"ir": [
+				"%cond = getelementptr inbounds %struct._gil_runtime_state, ptr %gil, i64 0, i32 4, !dbg !6880",
+				"%call5 = tail call i32 @_PyThread_cond_init(ptr noundef nonnull %cond) #14, !dbg !6880",
+				"%tobool6.not = icmp eq i32 %call5, 0, !dbg !6880",
+				"br i1 %tobool6.not, label %if.end8, label %if.then7, !dbg !6882"
+			]
+		},
+		{
+			"function": "create_gil",
+			"id": 206,
+			"name": "if.then7",
+			"debug": [
+				{
+					"line": 175, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @_Py_FatalErrorFunc(ptr noundef nonnull @__func__.create_gil, ptr noundef nonnull @.str.3) #15, !dbg !6883",
+				"unreachable, !dbg !6883"
+			]
+		},
+		{
+			"function": "create_gil",
+			"id": 207,
+			"name": "if.end8",
+			"debug": [
+				{
+					"line": 177, "columns": [5]
+				}
+			],
+			"successors": [209, 208],
+			"ir": [
+				"%switch_cond = getelementptr inbounds %struct._gil_runtime_state, ptr %gil, i64 0, i32 6, !dbg !6885",
+				"%call9 = tail call i32 @_PyThread_cond_init(ptr noundef nonnull %switch_cond) #14, !dbg !6885",
+				"%tobool10.not = icmp eq i32 %call9, 0, !dbg !6885",
+				"br i1 %tobool10.not, label %if.end12, label %if.then11, !dbg !6887"
+			]
+		},
+		{
+			"function": "create_gil",
+			"id": 208,
+			"name": "if.then11",
+			"debug": [
+				{
+					"line": 177, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @_Py_FatalErrorFunc(ptr noundef nonnull @__func__.create_gil, ptr noundef nonnull @.str.4) #15, !dbg !6888",
+				"unreachable, !dbg !6888"
+			]
+		},
+		{
+			"function": "create_gil",
+			"id": 209,
+			"name": "if.end12",
+			"debug": [
+				{
+					"line": 179, "columns": [40]
+				},
+				{
+					"line": 181, "columns": [40]
+				},
+				{
+					"line": 182, "columns": [1]
+				},
+				{
+					"line": 477, "columns": [3]
+				},
+				{
+					"line": 501, "columns": [3]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%last_holder = getelementptr inbounds %struct._gil_runtime_state, ptr %gil, i64 0, i32 1, !dbg !6890",
+				"store atomic i64 0, ptr %last_holder monotonic, align 8, !dbg !6898",
+				"%locked = getelementptr inbounds %struct._gil_runtime_state, ptr %gil, i64 0, i32 2, !dbg !6899",
+				"store atomic i32 0, ptr %locked release, align 4, !dbg !6909",
+				"ret void, !dbg !6910"
+			]
+		},
+		{
+			"function": "_make_pending_calls",
+			"id": 210,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 789, "columns": [5]
+				}
+			],
+			"successors": [212],
+			"ir": [
+				"%mutex = getelementptr inbounds %struct._pending_calls, ptr %pending, i64 0, i32 1",
+				"%first.i.i = getelementptr inbounds %struct._pending_calls, ptr %pending, i64 0, i32 4",
+				"%last.i.i = getelementptr inbounds %struct._pending_calls, ptr %pending, i64 0, i32 5",
+				"%calls_to_do.i = getelementptr inbounds %struct._pending_calls, ptr %pending, i64 0, i32 2",
+				"br label %for.body, !dbg !6880"
+			]
+		},
+		{
+			"function": "_make_pending_calls",
+			"id": 211,
+			"name": "for.cond",
+			"debug": [
+				{
+					"line": 789, "columns": [37, 20, 5]
+				}
+			],
+			"successors": [223, 212],
+			"ir": [
+				"%inc = add nuw nsw i32 %i.024, 1, !dbg !6881",
+				"%exitcond.not = icmp eq i32 %inc, 32, !dbg !6882",
+				"br i1 %exitcond.not, label %cleanup12, label %for.body, !dbg !6880, !llvm.loop !6883"
+			]
+		},
+		{
+			"function": "_make_pending_calls",
+			"id": 212,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 74, "columns": [9]
+				},
+				{
+					"line": 105, "columns": [10]
+				}
+			],
+			"successors": [214, 213],
+			"ir": [
+				"%i.024 = phi i32 [ 0, %entry ], [ %inc, %for.cond ]",
+				"%0 = cmpxchg ptr %mutex, i8 0, i8 1 seq_cst seq_cst, align 1, !dbg !6907",
+				"%1 = extractvalue { i8, i1 } %0, 1, !dbg !6907",
+				"br i1 %1, label %PyMutex_Lock.exit, label %if.then.i, !dbg !6908"
+			]
+		},
+		{
+			"function": "_make_pending_calls",
+			"id": 213,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 75, "columns": [9]
+				},
+				{
+					"line": 76, "columns": [5]
+				}
+			],
+			"successors": [214],
+			"ir": [
+				"tail call void @_PyMutex_LockSlow(ptr noundef nonnull %mutex) #14, !dbg !6909",
+				"br label %PyMutex_Lock.exit, !dbg !6911"
+			]
+		},
+		{
+			"function": "_make_pending_calls",
+			"id": 214,
+			"name": "PyMutex_Lock.exit",
+			"debug": [
+				{
+					"line": 679, "columns": [22]
+				},
+				{
+					"line": 680, "columns": [23, 11, 9]
+				}
+			],
+			"successors": [217, 215],
+			"ir": [
+				"%2 = load i32, ptr %first.i.i, align 8, !dbg !6936, !tbaa !6937",
+				"%3 = load i32, ptr %last.i.i, align 4, !dbg !6943, !tbaa !6945",
+				"%cmp.i.i = icmp eq i32 %2, %3, !dbg !6946",
+				"br i1 %cmp.i.i, label %_pop_pending_call.exit, label %_next_pending_call.exit.i, !dbg !6947"
+			]
+		},
+		{
+			"function": "_make_pending_calls",
+			"id": 215,
+			"name": "_next_pending_call.exit.i",
+			"debug": [
+				{
+					"line": 685, "columns": [13, 31]
+				},
+				{
+					"line": 686, "columns": [30]
+				},
+				{
+					"line": 687, "columns": [32]
+				},
+				{
+					"line": 697, "columns": [11, 9]
+				}
+			],
+			"successors": [216, 217],
+			"ir": [
+				"%idxprom.i.i = sext i32 %2 to i64, !dbg !6948",
+				"%arrayidx.i.i = getelementptr %struct._pending_calls, ptr %pending, i64 0, i32 3, i64 %idxprom.i.i, !dbg !6948",
+				"%4 = load ptr, ptr %arrayidx.i.i, align 8, !dbg !6949, !tbaa !6950",
+				"%arg5.i.i = getelementptr %struct._pending_calls, ptr %pending, i64 0, i32 3, i64 %idxprom.i.i, i32 1, !dbg !6953",
+				"%5 = load ptr, ptr %arg5.i.i, align 8, !dbg !6953, !tbaa !6954",
+				"%flags9.i.i = getelementptr %struct._pending_calls, ptr %pending, i64 0, i32 3, i64 %idxprom.i.i, i32 2, !dbg !6955",
+				"%6 = load i32, ptr %flags9.i.i, align 8, !dbg !6955, !tbaa !6956",
+				"%cmp.i = icmp sgt i32 %2, -1, !dbg !6957",
+				"br i1 %cmp.i, label %if.then.i19, label %_pop_pending_call.exit, !dbg !6959"
+			]
+		},
+		{
+			"function": "_make_pending_calls",
+			"id": 216,
+			"name": "if.then.i19",
+			"debug": [
+				{
+					"line": 27, "columns": [10]
+				},
+				{
+					"line": 698, "columns": [9, 29]
+				},
+				{
+					"line": 699, "columns": [29, 34, 24]
+				},
+				{
+					"line": 702, "columns": [5]
+				}
+			],
+			"successors": [217],
+			"ir": [
+				"%idxprom.i = zext i32 %2 to i64",
+				"%arrayidx.i = getelementptr %struct._pending_calls, ptr %pending, i64 0, i32 3, i64 %idxprom.i, !dbg !6960",
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %arrayidx.i, i8 0, i64 24, i1 false), !dbg !6962",
+				"%add.i = add nuw i32 %2, 1, !dbg !6963",
+				"%rem.i = srem i32 %add.i, 32, !dbg !6964",
+				"store i32 %rem.i, ptr %first.i.i, align 8, !dbg !6965, !tbaa !6937",
+				"%7 = atomicrmw add ptr %calls_to_do.i, i32 -1 seq_cst, align 4, !dbg !6975",
+				"br label %_pop_pending_call.exit, !dbg !6976"
+			]
+		},
+		{
+			"function": "_make_pending_calls",
+			"id": 217,
+			"name": "_pop_pending_call.exit",
+			"debug": [
+				{
+					"line": 84, "columns": [9]
+				},
+				{
+					"line": 105, "columns": [10]
+				}
+			],
+			"successors": [219, 218],
+			"ir": [
+				"%func.0 = phi ptr [ null, %PyMutex_Lock.exit ], [ %4, %if.then.i19 ], [ %4, %_next_pending_call.exit.i ], !dbg !6886",
+				"%arg.0 = phi ptr [ null, %PyMutex_Lock.exit ], [ %5, %if.then.i19 ], [ %5, %_next_pending_call.exit.i ], !dbg !6886",
+				"%flags.0 = phi i32 [ 0, %PyMutex_Lock.exit ], [ %6, %if.then.i19 ], [ %6, %_next_pending_call.exit.i ], !dbg !6886",
+				"%8 = cmpxchg ptr %mutex, i8 1, i8 0 seq_cst seq_cst, align 1, !dbg !6986",
+				"%9 = extractvalue { i8, i1 } %8, 1, !dbg !6986",
+				"br i1 %9, label %PyMutex_Unlock.exit, label %if.then.i20, !dbg !6987"
+			]
+		},
+		{
+			"function": "_make_pending_calls",
+			"id": 218,
+			"name": "if.then.i20",
+			"debug": [
+				{
+					"line": 85, "columns": [9]
+				},
+				{
+					"line": 86, "columns": [5]
+				}
+			],
+			"successors": [219],
+			"ir": [
+				"tail call void @_PyMutex_UnlockSlow(ptr noundef nonnull %mutex) #14, !dbg !6988",
+				"br label %PyMutex_Unlock.exit, !dbg !6990"
+			]
+		},
+		{
+			"function": "_make_pending_calls",
+			"id": 219,
+			"name": "PyMutex_Unlock.exit",
+			"debug": [
+				{
+					"line": 800, "columns": [18, 13]
+				}
+			],
+			"successors": [223, 220],
+			"ir": [
+				"%cmp2 = icmp eq ptr %func.0, null, !dbg !6991",
+				"br i1 %cmp2, label %cleanup12, label %if.end, !dbg !6993"
+			]
+		},
+		{
+			"function": "_make_pending_calls",
+			"id": 220,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 803, "columns": [19]
+				},
+				{
+					"line": 804, "columns": [20, 43]
+				}
+			],
+			"successors": [221, 222],
+			"ir": [
+				"%call = tail call i32 %func.0(ptr noundef %arg.0) #14, !dbg !6994",
+				"%and = and i32 %flags.0, 2, !dbg !6995",
+				"%tobool = icmp ne i32 %and, 0, !dbg !6995",
+				"%cmp3 = icmp ne ptr %arg.0, null",
+				"%or.cond = select i1 %tobool, i1 %cmp3, i1 false, !dbg !6997",
+				"br i1 %or.cond, label %if.then4, label %if.end5, !dbg !6997"
+			]
+		},
+		{
+			"function": "_make_pending_calls",
+			"id": 221,
+			"name": "if.then4",
+			"debug": [
+				{
+					"line": 805, "columns": [13]
+				},
+				{
+					"line": 806, "columns": [9]
+				}
+			],
+			"successors": [222],
+			"ir": [
+				"tail call void @PyMem_RawFree(ptr noundef nonnull %arg.0) #14, !dbg !6998",
+				"br label %if.end5, !dbg !7000"
+			]
+		},
+		{
+			"function": "_make_pending_calls",
+			"id": 222,
+			"name": "if.end5",
+			"debug": [
+				{
+					"line": 807, "columns": [17]
+				}
+			],
+			"successors": [211, 223],
+			"ir": [
+				"%cmp6.not = icmp eq i32 %call, 0, !dbg !7001",
+				"br i1 %cmp6.not, label %for.cond, label %cleanup12"
+			]
+		},
+		{
+			"function": "_make_pending_calls",
+			"id": 223,
+			"name": "cleanup12",
+			"debug": [
+				{
+					"line": 812, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%switch = phi i32 [ 0, %PyMutex_Unlock.exit ], [ -1, %if.end5 ], [ 0, %for.cond ]",
+				"ret i32 %switch, !dbg !7003"
+			]
+		}
+	]
+}

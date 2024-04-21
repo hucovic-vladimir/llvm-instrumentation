@@ -1,0 +1,612 @@
+{
+	"blocks": [
+		{
+			"function": "_PyCriticalSection_BeginSlow",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 13, "columns": [8, 14]
+				},
+				{
+					"line": 14, "columns": [34, 13]
+				},
+				{
+					"line": 15, "columns": [32, 30]
+				},
+				{
+					"line": 17, "columns": [5]
+				},
+				{
+					"line": 18, "columns": [14]
+				},
+				{
+					"line": 19, "columns": [1]
+				},
+				{
+					"line": 137, "columns": [12]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6779",
+				"%1 = load ptr, ptr %0, align 8, !dbg !6779, !tbaa !6786",
+				"%mutex = getelementptr inbounds %struct._PyCriticalSection, ptr %c, i64 0, i32 1, !dbg !6790",
+				"store ptr null, ptr %mutex, align 8, !dbg !6791, !tbaa !6792",
+				"%critical_section = getelementptr inbounds %struct._ts, ptr %1, i64 0, i32 26, !dbg !6795",
+				"%2 = load i64, ptr %critical_section, align 8, !dbg !6795, !tbaa !6796",
+				"store i64 %2, ptr %c, align 8, !dbg !6802, !tbaa !6803",
+				"%3 = ptrtoint ptr %c to i64, !dbg !6804",
+				"store i64 %3, ptr %critical_section, align 8, !dbg !6805, !tbaa !6796",
+				"tail call void @_PyMutex_LockSlow(ptr noundef %m) #5, !dbg !6806",
+				"store ptr %m, ptr %mutex, align 8, !dbg !6807, !tbaa !6792",
+				"ret void, !dbg !6808"
+			]
+		},
+		{
+			"function": "_PyCriticalSection2_BeginSlow",
+			"id": 1,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 26, "columns": [13]
+				},
+				{
+					"line": 27, "columns": [15]
+				},
+				{
+					"line": 28, "columns": [28, 18]
+				},
+				{
+					"line": 29, "columns": [32, 45, 30]
+				},
+				{
+					"line": 31, "columns": [10, 9]
+				},
+				{
+					"line": 137, "columns": [12]
+				}
+			],
+			"successors": [2, 4],
+			"ir": [
+				"%0 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6781",
+				"%1 = load ptr, ptr %0, align 8, !dbg !6781, !tbaa !6788",
+				"%mutex = getelementptr inbounds %struct._PyCriticalSection, ptr %c, i64 0, i32 1, !dbg !6792",
+				"%critical_section = getelementptr inbounds %struct._ts, ptr %1, i64 0, i32 26, !dbg !6793",
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %mutex, i8 0, i64 16, i1 false), !dbg !6794",
+				"%2 = load i64, ptr %critical_section, align 8, !dbg !6793, !tbaa !6795",
+				"store i64 %2, ptr %c, align 8, !dbg !6802, !tbaa !6803",
+				"%3 = ptrtoint ptr %c to i64, !dbg !6806",
+				"%or = or i64 %3, 2, !dbg !6807",
+				"store i64 %or, ptr %critical_section, align 8, !dbg !6808, !tbaa !6795",
+				"%tobool.not = icmp eq i32 %is_m1_locked, 0, !dbg !6809",
+				"br i1 %tobool.not, label %if.then, label %if.end, !dbg !6811"
+			]
+		},
+		{
+			"function": "_PyCriticalSection2_BeginSlow",
+			"id": 2,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 74, "columns": [9]
+				},
+				{
+					"line": 105, "columns": [10]
+				}
+			],
+			"successors": [4, 3],
+			"ir": [
+				"%4 = cmpxchg ptr %m1, i8 0, i8 1 seq_cst seq_cst, align 1, !dbg !6832",
+				"%5 = extractvalue { i8, i1 } %4, 1, !dbg !6832",
+				"br i1 %5, label %if.end, label %if.then.i, !dbg !6833"
+			]
+		},
+		{
+			"function": "_PyCriticalSection2_BeginSlow",
+			"id": 3,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 75, "columns": [9]
+				},
+				{
+					"line": 76, "columns": [5]
+				}
+			],
+			"successors": [4],
+			"ir": [
+				"tail call void @_PyMutex_LockSlow(ptr noundef %m1) #5, !dbg !6834",
+				"br label %if.end, !dbg !6836"
+			]
+		},
+		{
+			"function": "_PyCriticalSection2_BeginSlow",
+			"id": 4,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 74, "columns": [9]
+				},
+				{
+					"line": 105, "columns": [10]
+				}
+			],
+			"successors": [6, 5],
+			"ir": [
+				"%6 = cmpxchg ptr %m2, i8 0, i8 1 seq_cst seq_cst, align 1, !dbg !6841",
+				"%7 = extractvalue { i8, i1 } %6, 1, !dbg !6841",
+				"br i1 %7, label %PyMutex_Lock.exit15, label %if.then.i14, !dbg !6842"
+			]
+		},
+		{
+			"function": "_PyCriticalSection2_BeginSlow",
+			"id": 5,
+			"name": "if.then.i14",
+			"debug": [
+				{
+					"line": 75, "columns": [9]
+				},
+				{
+					"line": 76, "columns": [5]
+				}
+			],
+			"successors": [6],
+			"ir": [
+				"tail call void @_PyMutex_LockSlow(ptr noundef %m2) #5, !dbg !6843",
+				"br label %PyMutex_Lock.exit15, !dbg !6844"
+			]
+		},
+		{
+			"function": "_PyCriticalSection2_BeginSlow",
+			"id": 6,
+			"name": "PyMutex_Lock.exit15",
+			"debug": [
+				{
+					"line": 27, "columns": [8]
+				},
+				{
+					"line": 35, "columns": [19]
+				},
+				{
+					"line": 36, "columns": [15]
+				},
+				{
+					"line": 37, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%mutex2 = getelementptr inbounds %struct._PyCriticalSection2, ptr %c, i64 0, i32 1, !dbg !6845",
+				"store ptr %m1, ptr %mutex, align 8, !dbg !6846, !tbaa !6847",
+				"store ptr %m2, ptr %mutex2, align 8, !dbg !6848, !tbaa !6849",
+				"ret void, !dbg !6850"
+			]
+		},
+		{
+			"function": "_PyCriticalSection_SuspendAll",
+			"id": 7,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 50, "columns": [34]
+				},
+				{
+					"line": 51, "columns": [40, 5]
+				},
+				{
+					"line": 176, "columns": [16, 21]
+				}
+			],
+			"successors": [16, 8],
+			"ir": [
+				"%critical_section = getelementptr inbounds %struct._ts, ptr %tstate, i64 0, i32 26, !dbg !6786",
+				"%0 = load i64, ptr %critical_section, align 8, !dbg !6787, !tbaa !6788",
+				"%cmp.i22 = icmp eq i64 %0, 0, !dbg !6799",
+				"%and.i23 = and i64 %0, 1, !dbg !6800",
+				"%cmp1.i24 = icmp ne i64 %and.i23, 0, !dbg !6800",
+				"%.not25 = or i1 %cmp.i22, %cmp1.i24, !dbg !6801",
+				"br i1 %.not25, label %while.end, label %while.body, !dbg !6801"
+			]
+		},
+		{
+			"function": "_PyCriticalSection_SuspendAll",
+			"id": 8,
+			"name": "while.body",
+			"debug": [
+				{
+					"line": 42, "columns": [39, 12]
+				},
+				{
+					"line": 54, "columns": [16, 13]
+				}
+			],
+			"successors": [15, 9],
+			"ir": [
+				"%1 = phi i64 [ %11, %if.end10 ], [ %0, %entry ]",
+				"%tagptr.026 = phi ptr [ %2, %if.end10 ], [ %critical_section, %entry ]",
+				"%and.i19 = and i64 %1, -4, !dbg !6809",
+				"%2 = inttoptr i64 %and.i19 to ptr, !dbg !6810",
+				"%mutex = getelementptr inbounds %struct._PyCriticalSection, ptr %2, i64 0, i32 1, !dbg !6812",
+				"%3 = load ptr, ptr %mutex, align 8, !dbg !6812, !tbaa !6813",
+				"%tobool2.not = icmp eq ptr %3, null, !dbg !6816",
+				"br i1 %tobool2.not, label %if.end10, label %if.then, !dbg !6817"
+			]
+		},
+		{
+			"function": "_PyCriticalSection_SuspendAll",
+			"id": 9,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 84, "columns": [9]
+				},
+				{
+					"line": 105, "columns": [10]
+				}
+			],
+			"successors": [11, 10],
+			"ir": [
+				"%4 = cmpxchg ptr %3, i8 1, i8 0 seq_cst seq_cst, align 1, !dbg !6837",
+				"%5 = extractvalue { i8, i1 } %4, 1, !dbg !6837",
+				"br i1 %5, label %PyMutex_Unlock.exit, label %if.then.i, !dbg !6838"
+			]
+		},
+		{
+			"function": "_PyCriticalSection_SuspendAll",
+			"id": 10,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 85, "columns": [9]
+				},
+				{
+					"line": 86, "columns": [5]
+				}
+			],
+			"successors": [11],
+			"ir": [
+				"tail call void @_PyMutex_UnlockSlow(ptr noundef nonnull %3) #5, !dbg !6839",
+				"br label %PyMutex_Unlock.exit, !dbg !6841"
+			]
+		},
+		{
+			"function": "_PyCriticalSection_SuspendAll",
+			"id": 11,
+			"name": "PyMutex_Unlock.exit",
+			"debug": [
+				{
+					"line": 56, "columns": [18, 26, 17]
+				}
+			],
+			"successors": [15, 12],
+			"ir": [
+				"%6 = load i64, ptr %tagptr.026, align 8, !dbg !6842, !tbaa !6788",
+				"%and = and i64 %6, 2, !dbg !6843",
+				"%tobool4.not = icmp eq i64 %and, 0, !dbg !6843",
+				"br i1 %tobool4.not, label %if.end10, label %if.then5, !dbg !6844"
+			]
+		},
+		{
+			"function": "_PyCriticalSection_SuspendAll",
+			"id": 12,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 58, "columns": [25, 21]
+				}
+			],
+			"successors": [15, 13],
+			"ir": [
+				"%mutex2 = getelementptr inbounds %struct._PyCriticalSection2, ptr %2, i64 0, i32 1, !dbg !6846",
+				"%7 = load ptr, ptr %mutex2, align 8, !dbg !6846, !tbaa !6848",
+				"%tobool6.not = icmp eq ptr %7, null, !dbg !6850",
+				"br i1 %tobool6.not, label %if.end10, label %if.then7, !dbg !6851"
+			]
+		},
+		{
+			"function": "_PyCriticalSection_SuspendAll",
+			"id": 13,
+			"name": "if.then7",
+			"debug": [
+				{
+					"line": 84, "columns": [9]
+				},
+				{
+					"line": 105, "columns": [10]
+				}
+			],
+			"successors": [15, 14],
+			"ir": [
+				"%8 = cmpxchg ptr %7, i8 1, i8 0 seq_cst seq_cst, align 1, !dbg !6857",
+				"%9 = extractvalue { i8, i1 } %8, 1, !dbg !6857",
+				"br i1 %9, label %if.end10, label %if.then.i20, !dbg !6858"
+			]
+		},
+		{
+			"function": "_PyCriticalSection_SuspendAll",
+			"id": 14,
+			"name": "if.then.i20",
+			"debug": [
+				{
+					"line": 85, "columns": [9]
+				},
+				{
+					"line": 86, "columns": [5]
+				}
+			],
+			"successors": [15],
+			"ir": [
+				"tail call void @_PyMutex_UnlockSlow(ptr noundef nonnull %7) #5, !dbg !6859",
+				"br label %if.end10, !dbg !6860"
+			]
+		},
+		{
+			"function": "_PyCriticalSection_SuspendAll",
+			"id": 15,
+			"name": "if.end10",
+			"debug": [
+				{
+					"line": 51, "columns": [40, 5]
+				},
+				{
+					"line": 64, "columns": [17]
+				},
+				{
+					"line": 176, "columns": [16, 21]
+				}
+			],
+			"successors": [16, 8],
+			"ir": [
+				"%10 = load i64, ptr %tagptr.026, align 8, !dbg !6861, !tbaa !6788",
+				"%or = or i64 %10, 1, !dbg !6861",
+				"store i64 %or, ptr %tagptr.026, align 8, !dbg !6861, !tbaa !6788",
+				"%11 = load i64, ptr %2, align 8, !dbg !6787, !tbaa !6788",
+				"%cmp.i = icmp eq i64 %11, 0, !dbg !6799",
+				"%and.i = and i64 %11, 1, !dbg !6800",
+				"%cmp1.i = icmp ne i64 %and.i, 0, !dbg !6800",
+				"%.not = or i1 %cmp.i, %cmp1.i, !dbg !6801",
+				"br i1 %.not, label %while.end, label %while.body, !dbg !6801, !llvm.loop !6862"
+			]
+		},
+		{
+			"function": "_PyCriticalSection_SuspendAll",
+			"id": 16,
+			"name": "while.end",
+			"debug": [
+				{
+					"line": 67, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !6865"
+			]
+		},
+		{
+			"function": "_PyCriticalSection_Resume",
+			"id": 17,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 42, "columns": [39, 12]
+				},
+				{
+					"line": 72, "columns": [27]
+				},
+				{
+					"line": 76, "columns": [22]
+				},
+				{
+					"line": 77, "columns": [14]
+				},
+				{
+					"line": 81, "columns": [12, 9]
+				}
+			],
+			"successors": [19, 18],
+			"ir": [
+				"%critical_section = getelementptr inbounds %struct._ts, ptr %tstate, i64 0, i32 26, !dbg !6782",
+				"%0 = load i64, ptr %critical_section, align 8, !dbg !6782, !tbaa !6783",
+				"%and.i = and i64 %0, -4, !dbg !6800",
+				"%1 = inttoptr i64 %and.i to ptr, !dbg !6801",
+				"%mutex = getelementptr inbounds %struct._PyCriticalSection, ptr %1, i64 0, i32 1, !dbg !6802",
+				"%2 = load ptr, ptr %mutex, align 8, !dbg !6802, !tbaa !6803",
+				"store ptr null, ptr %mutex, align 8, !dbg !6805, !tbaa !6803",
+				"%and = and i64 %0, 2, !dbg !6806",
+				"%tobool.not = icmp eq i64 %and, 0, !dbg !6806",
+				"br i1 %tobool.not, label %if.end, label %if.then, !dbg !6808"
+			]
+		},
+		{
+			"function": "_PyCriticalSection_Resume",
+			"id": 18,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 83, "columns": [18]
+				},
+				{
+					"line": 84, "columns": [20]
+				},
+				{
+					"line": 85, "columns": [5]
+				}
+			],
+			"successors": [19],
+			"ir": [
+				"%mutex2 = getelementptr inbounds %struct._PyCriticalSection2, ptr %1, i64 0, i32 1, !dbg !6809",
+				"%3 = load ptr, ptr %mutex2, align 8, !dbg !6809, !tbaa !6811",
+				"store ptr null, ptr %mutex2, align 8, !dbg !6813, !tbaa !6811",
+				"br label %if.end, !dbg !6814"
+			]
+		},
+		{
+			"function": "_PyCriticalSection_Resume",
+			"id": 19,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 87, "columns": [9]
+				}
+			],
+			"successors": [22, 20],
+			"ir": [
+				"%m2.0 = phi ptr [ %3, %if.then ], [ null, %entry ], !dbg !6781",
+				"%c2.0 = phi ptr [ %1, %if.then ], [ null, %entry ], !dbg !6781",
+				"%tobool3.not = icmp eq ptr %2, null, !dbg !6815",
+				"br i1 %tobool3.not, label %if.end5, label %if.then4, !dbg !6817"
+			]
+		},
+		{
+			"function": "_PyCriticalSection_Resume",
+			"id": 20,
+			"name": "if.then4",
+			"debug": [
+				{
+					"line": 74, "columns": [9]
+				},
+				{
+					"line": 105, "columns": [10]
+				}
+			],
+			"successors": [22, 21],
+			"ir": [
+				"%4 = cmpxchg ptr %2, i8 0, i8 1 seq_cst seq_cst, align 1, !dbg !6838",
+				"%5 = extractvalue { i8, i1 } %4, 1, !dbg !6838",
+				"br i1 %5, label %if.end5, label %if.then.i, !dbg !6839"
+			]
+		},
+		{
+			"function": "_PyCriticalSection_Resume",
+			"id": 21,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 75, "columns": [9]
+				},
+				{
+					"line": 76, "columns": [5]
+				}
+			],
+			"successors": [22],
+			"ir": [
+				"tail call void @_PyMutex_LockSlow(ptr noundef nonnull %2) #5, !dbg !6840",
+				"br label %if.end5, !dbg !6842"
+			]
+		},
+		{
+			"function": "_PyCriticalSection_Resume",
+			"id": 22,
+			"name": "if.end5",
+			"debug": [
+				{
+					"line": 90, "columns": [9]
+				}
+			],
+			"successors": [26, 23],
+			"ir": [
+				"%tobool6.not = icmp eq ptr %m2.0, null, !dbg !6843",
+				"br i1 %tobool6.not, label %if.end13.critedge, label %if.then7, !dbg !6845"
+			]
+		},
+		{
+			"function": "_PyCriticalSection_Resume",
+			"id": 23,
+			"name": "if.then7",
+			"debug": [
+				{
+					"line": 74, "columns": [9]
+				},
+				{
+					"line": 105, "columns": [10]
+				}
+			],
+			"successors": [25, 24],
+			"ir": [
+				"%6 = cmpxchg ptr %m2.0, i8 0, i8 1 seq_cst seq_cst, align 1, !dbg !6851",
+				"%7 = extractvalue { i8, i1 } %6, 1, !dbg !6851",
+				"br i1 %7, label %PyMutex_Lock.exit29, label %if.then.i28, !dbg !6852"
+			]
+		},
+		{
+			"function": "_PyCriticalSection_Resume",
+			"id": 24,
+			"name": "if.then.i28",
+			"debug": [
+				{
+					"line": 75, "columns": [9]
+				},
+				{
+					"line": 76, "columns": [5]
+				}
+			],
+			"successors": [25],
+			"ir": [
+				"tail call void @_PyMutex_LockSlow(ptr noundef nonnull %m2.0) #5, !dbg !6853",
+				"br label %PyMutex_Lock.exit29, !dbg !6854"
+			]
+		},
+		{
+			"function": "_PyCriticalSection_Resume",
+			"id": 25,
+			"name": "PyMutex_Lock.exit29",
+			"debug": [
+				{
+					"line": 94, "columns": [14]
+				},
+				{
+					"line": 96, "columns": [13, 20]
+				},
+				{
+					"line": 97, "columns": [5]
+				}
+			],
+			"successors": [27],
+			"ir": [
+				"store ptr %2, ptr %mutex, align 8, !dbg !6855, !tbaa !6803",
+				"%mutex212 = getelementptr inbounds %struct._PyCriticalSection2, ptr %c2.0, i64 0, i32 1, !dbg !6856",
+				"store ptr %m2.0, ptr %mutex212, align 8, !dbg !6859, !tbaa !6811",
+				"br label %if.end13, !dbg !6860"
+			]
+		},
+		{
+			"function": "_PyCriticalSection_Resume",
+			"id": 26,
+			"name": "if.end13.critedge",
+			"debug": [
+				{
+					"line": 94, "columns": [14]
+				},
+				{
+					"line": 95, "columns": [9]
+				}
+			],
+			"successors": [27],
+			"ir": [
+				"store ptr %2, ptr %mutex, align 8, !dbg !6855, !tbaa !6803",
+				"br label %if.end13, !dbg !6861"
+			]
+		},
+		{
+			"function": "_PyCriticalSection_Resume",
+			"id": 27,
+			"name": "if.end13",
+			"debug": [
+				{
+					"line": 99, "columns": [30]
+				},
+				{
+					"line": 100, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%8 = load i64, ptr %critical_section, align 8, !dbg !6862, !tbaa !6783",
+				"%and15 = and i64 %8, -2, !dbg !6862",
+				"store i64 %and15, ptr %critical_section, align 8, !dbg !6862, !tbaa !6783",
+				"ret void, !dbg !6863"
+			]
+		}
+	]
+}

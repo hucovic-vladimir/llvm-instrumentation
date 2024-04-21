@@ -1,0 +1,6691 @@
+{
+	"blocks": [
+		{
+			"function": "_PyTimeFraction_Set",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 85, "columns": [15, 19]
+				}
+			],
+			"successors": [3, 1],
+			"ir": [
+				"%cmp = icmp slt i64 %numer, 1, !dbg !414",
+				"%cmp1 = icmp slt i64 %denom, 1",
+				"%or.cond = or i1 %cmp, %cmp1, !dbg !416",
+				"br i1 %or.cond, label %return, label %while.body.i, !dbg !416"
+			]
+		},
+		{
+			"function": "_PyTimeFraction_Set",
+			"id": 1,
+			"name": "while.body.i",
+			"debug": [
+				{
+					"line": 72, "columns": [14, 5]
+				}
+			],
+			"successors": [2, 1],
+			"ir": [
+				"%x.addr.06.i = phi i64 [ %y.addr.05.i, %while.body.i ], [ %numer, %entry ]",
+				"%y.addr.05.i = phi i64 [ %rem.i, %while.body.i ], [ %denom, %entry ]",
+				"%rem.i = urem i64 %x.addr.06.i, %y.addr.05.i",
+				"%cmp.not.i = icmp eq i64 %rem.i, 0, !dbg !427",
+				"br i1 %cmp.not.i, label %_PyTime_GCD.exit, label %while.body.i, !dbg !428, !llvm.loop !429"
+			]
+		},
+		{
+			"function": "_PyTimeFraction_Set",
+			"id": 2,
+			"name": "_PyTime_GCD.exit",
+			"debug": [
+				{
+					"line": 90, "columns": [17]
+				},
+				{
+					"line": 91, "columns": [11, 17]
+				}
+			],
+			"successors": [3],
+			"ir": [
+				"%div = udiv i64 %numer, %y.addr.05.i",
+				"store i64 %div, ptr %frac, align 8, !dbg !432, !tbaa !433",
+				"%div3 = udiv i64 %denom, %y.addr.05.i",
+				"%denom4 = getelementptr inbounds %struct._PyTimeFraction, ptr %frac, i64 0, i32 1, !dbg !438",
+				"store i64 %div3, ptr %denom4, align 8, !dbg !439, !tbaa !440",
+				"br label %return"
+			]
+		},
+		{
+			"function": "_PyTimeFraction_Set",
+			"id": 3,
+			"name": "return",
+			"debug": [
+				{
+					"line": 93, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ 0, %_PyTime_GCD.exit ], [ -1, %entry ], !dbg !413",
+				"ret i32 %retval.0, !dbg !441"
+			]
+		},
+		{
+			"function": "_PyTimeFraction_Resolution",
+			"id": 4,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 99, "columns": [26, 12, 48, 34, 32, 54, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = load i64, ptr %frac, align 8, !dbg !412, !tbaa !413",
+				"%conv = sitofp i64 %0 to double, !dbg !418",
+				"%denom = getelementptr inbounds %struct._PyTimeFraction, ptr %frac, i64 0, i32 1, !dbg !419",
+				"%1 = load i64, ptr %denom, align 8, !dbg !419, !tbaa !420",
+				"%conv1 = sitofp i64 %1 to double, !dbg !421",
+				"%div = fdiv double %conv, %conv1, !dbg !422",
+				"%div2 = fdiv double %div, 1.000000e+09, !dbg !423",
+				"ret double %div2, !dbg !424"
+			]
+		},
+		{
+			"function": "_PyTime_Add",
+			"id": 5,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 123, "columns": [12, 16]
+				}
+			],
+			"successors": [6, 7],
+			"ir": [
+				"%cmp.i = icmp sgt i64 %t2, 0, !dbg !415",
+				"br i1 %cmp.i, label %land.lhs.true.i, label %if.else.i, !dbg !417"
+			]
+		},
+		{
+			"function": "_PyTime_Add",
+			"id": 6,
+			"name": "land.lhs.true.i",
+			"debug": [
+				{
+					"line": 123, "columns": [36, 23, 9]
+				}
+			],
+			"successors": [9, 8],
+			"ir": [
+				"%sub.i = sub nuw nsw i64 9223372036854775807, %t2, !dbg !418",
+				"%cmp1.i = icmp slt i64 %sub.i, %t1, !dbg !419",
+				"br i1 %cmp1.i, label %pytime_add.exit, label %if.else7.i, !dbg !420"
+			]
+		},
+		{
+			"function": "_PyTime_Add",
+			"id": 7,
+			"name": "if.else.i",
+			"debug": [
+				{
+					"line": 127, "columns": [17, 21]
+				}
+			],
+			"successors": [9, 8],
+			"ir": [
+				"%cmp2.i = icmp ne i64 %t2, 0, !dbg !421",
+				"%sub4.i = sub nsw i64 -9223372036854775808, %t2",
+				"%cmp5.i = icmp sgt i64 %sub4.i, %t1",
+				"%or.cond.i = and i1 %cmp2.i, %cmp5.i, !dbg !423",
+				"br i1 %or.cond.i, label %pytime_add.exit, label %if.else7.i, !dbg !423"
+			]
+		},
+		{
+			"function": "_PyTime_Add",
+			"id": 8,
+			"name": "if.else7.i",
+			"debug": [
+				{
+					"line": 132, "columns": [13]
+				},
+				{
+					"line": 133, "columns": [9]
+				}
+			],
+			"successors": [9],
+			"ir": [
+				"%add.i = add i64 %t2, %t1, !dbg !424",
+				"br label %pytime_add.exit, !dbg !426"
+			]
+		},
+		{
+			"function": "_PyTime_Add",
+			"id": 9,
+			"name": "pytime_add.exit",
+			"debug": [
+				{
+					"line": 142, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%add.sink.i = phi i64 [ %add.i, %if.else7.i ], [ 9223372036854775807, %land.lhs.true.i ], [ -9223372036854775808, %if.else.i ]",
+				"ret i64 %add.sink.i, !dbg !427"
+			]
+		},
+		{
+			"function": "_PyTimeFraction_Mul",
+			"id": 10,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 187, "columns": [32]
+				},
+				{
+					"line": 188, "columns": [32]
+				},
+				{
+					"line": 190, "columns": [13, 9]
+				}
+			],
+			"successors": [11, 16],
+			"ir": [
+				"%0 = load i64, ptr %frac, align 8, !dbg !418, !tbaa !419",
+				"%denom = getelementptr inbounds %struct._PyTimeFraction, ptr %frac, i64 0, i32 1, !dbg !424",
+				"%1 = load i64, ptr %denom, align 8, !dbg !424, !tbaa !425",
+				"%cmp = icmp eq i64 %1, 1, !dbg !426",
+				"br i1 %cmp, label %if.then, label %if.end, !dbg !428"
+			]
+		},
+		{
+			"function": "_PyTimeFraction_Mul",
+			"id": 11,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 149, "columns": [11, 9]
+				}
+			],
+			"successors": [15, 12],
+			"ir": [
+				"%cmp.not.i.i.i = icmp eq i64 %0, 0, !dbg !456",
+				"br i1 %cmp.not.i.i.i, label %if.else.i.i, label %if.then.i.i.i, !dbg !458"
+			]
+		},
+		{
+			"function": "_PyTimeFraction_Mul",
+			"id": 12,
+			"name": "if.then.i.i.i",
+			"debug": [
+				{
+					"line": 151, "columns": [33, 20, 38]
+				}
+			],
+			"successors": [14, 13],
+			"ir": [
+				"%div.i.i.i = sdiv i64 -9223372036854775808, %0, !dbg !459",
+				"%cmp1.i.i.i = icmp sgt i64 %div.i.i.i, %ticks, !dbg !461",
+				"br i1 %cmp1.i.i.i, label %if.then.i.i, label %pytime_mul_check_overflow.exit.i.i, !dbg !462"
+			]
+		},
+		{
+			"function": "_PyTimeFraction_Mul",
+			"id": 13,
+			"name": "pytime_mul_check_overflow.exit.i.i",
+			"debug": [
+				{
+					"line": 151, "columns": [53, 57]
+				},
+				{
+					"line": 164, "columns": [9]
+				}
+			],
+			"successors": [14, 15],
+			"ir": [
+				"%div2.i.i.i = sdiv i64 9223372036854775807, %0, !dbg !463",
+				"%cmp3.i.not.i.i = icmp slt i64 %div2.i.i.i, %ticks, !dbg !464",
+				"br i1 %cmp3.i.not.i.i, label %if.then.i.i, label %if.else.i.i, !dbg !465"
+			]
+		},
+		{
+			"function": "_PyTimeFraction_Mul",
+			"id": 14,
+			"name": "if.then.i.i",
+			"debug": [
+				{
+					"line": 165, "columns": [18, 14]
+				},
+				{
+					"line": 166, "columns": [9]
+				}
+			],
+			"successors": [29],
+			"ir": [
+				"%cmp.i.i = icmp sgt i64 %ticks, -1, !dbg !466",
+				"%cond.i.i = select i1 %cmp.i.i, i64 9223372036854775807, i64 -9223372036854775808, !dbg !468",
+				"br label %cleanup, !dbg !469"
+			]
+		},
+		{
+			"function": "_PyTimeFraction_Mul",
+			"id": 15,
+			"name": "if.else.i.i",
+			"debug": [
+				{
+					"line": 169, "columns": [12]
+				},
+				{
+					"line": 170, "columns": [9]
+				}
+			],
+			"successors": [29],
+			"ir": [
+				"%mul.i.i = mul i64 %0, %ticks, !dbg !470",
+				"br label %cleanup, !dbg !472"
+			]
+		},
+		{
+			"function": "_PyTimeFraction_Mul",
+			"id": 16,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 149, "columns": [11, 9]
+				},
+				{
+					"line": 201, "columns": [21]
+				},
+				{
+					"line": 202, "columns": [11]
+				}
+			],
+			"successors": [24, 17],
+			"ir": [
+				"%div1 = sdiv i64 %ticks, %1, !dbg !473",
+				"%rem = srem i64 %ticks, %1, !dbg !474",
+				"%cmp.not.i.i.i16 = icmp eq i64 %0, 0, !dbg !481",
+				"br i1 %cmp.not.i.i.i16, label %if.else.i.i41, label %if.then.i.i.i19, !dbg !482"
+			]
+		},
+		{
+			"function": "_PyTimeFraction_Mul",
+			"id": 17,
+			"name": "if.then.i.i.i19",
+			"debug": [
+				{
+					"line": 151, "columns": [33, 20, 38]
+				}
+			],
+			"successors": [19, 18],
+			"ir": [
+				"%div.i.i.i17 = sdiv i64 -9223372036854775808, %0, !dbg !483",
+				"%cmp1.i.i.i18 = icmp sgt i64 %div.i.i.i17, %rem, !dbg !484",
+				"br i1 %cmp1.i.i.i18, label %_PyTime_Mul.exit29.thread, label %pytime_mul_check_overflow.exit.i.i22, !dbg !485"
+			]
+		},
+		{
+			"function": "_PyTimeFraction_Mul",
+			"id": 18,
+			"name": "pytime_mul_check_overflow.exit.i.i22",
+			"debug": [
+				{
+					"line": 151, "columns": [53, 57]
+				},
+				{
+					"line": 164, "columns": [9]
+				}
+			],
+			"successors": [19, 20],
+			"ir": [
+				"%div2.i.i.i20 = sdiv i64 9223372036854775807, %0, !dbg !486",
+				"%cmp3.i.not.i.i21 = icmp slt i64 %div2.i.i.i20, %rem, !dbg !487",
+				"br i1 %cmp3.i.not.i.i21, label %_PyTime_Mul.exit29.thread, label %_PyTime_Mul.exit29, !dbg !488"
+			]
+		},
+		{
+			"function": "_PyTimeFraction_Mul",
+			"id": 19,
+			"name": "_PyTime_Mul.exit29.thread",
+			"debug": [
+				{
+					"line": 149, "columns": [9]
+				},
+				{
+					"line": 165, "columns": [18, 14]
+				}
+			],
+			"successors": [21],
+			"ir": [
+				"%cmp.i.i23 = icmp sgt i64 %rem, -1, !dbg !489",
+				"%cond.i.i24 = select i1 %cmp.i.i23, i64 9223372036854775807, i64 -9223372036854775808, !dbg !490",
+				"br label %if.then.i.i.i33, !dbg !497"
+			]
+		},
+		{
+			"function": "_PyTimeFraction_Mul",
+			"id": 20,
+			"name": "_PyTime_Mul.exit29",
+			"debug": [
+				{
+					"line": 149, "columns": [9]
+				},
+				{
+					"line": 169, "columns": [12]
+				}
+			],
+			"successors": [21],
+			"ir": [
+				"%mul.i.i26 = mul i64 %rem, %0, !dbg !498",
+				"br label %if.then.i.i.i33, !dbg !497"
+			]
+		},
+		{
+			"function": "_PyTimeFraction_Mul",
+			"id": 21,
+			"name": "if.then.i.i.i33",
+			"debug": [
+				{
+					"line": 151, "columns": [20, 38]
+				},
+				{
+					"line": 203, "columns": [41]
+				}
+			],
+			"successors": [23, 22],
+			"ir": [
+				"%cond.i.i24.pn = phi i64 [ %cond.i.i24, %_PyTime_Mul.exit29.thread ], [ %mul.i.i26, %_PyTime_Mul.exit29 ]",
+				"%div350 = sdiv i64 %cond.i.i24.pn, %1, !dbg !499",
+				"%cmp1.i.i.i32 = icmp sgt i64 %div.i.i.i17, %div1, !dbg !500",
+				"br i1 %cmp1.i.i.i32, label %if.then.i.i39, label %pytime_mul_check_overflow.exit.i.i36, !dbg !501"
+			]
+		},
+		{
+			"function": "_PyTimeFraction_Mul",
+			"id": 22,
+			"name": "pytime_mul_check_overflow.exit.i.i36",
+			"debug": [
+				{
+					"line": 151, "columns": [53, 57]
+				},
+				{
+					"line": 164, "columns": [9]
+				}
+			],
+			"successors": [23, 24],
+			"ir": [
+				"%div2.i.i.i34 = sdiv i64 9223372036854775807, %0, !dbg !502",
+				"%cmp3.i.not.i.i35 = icmp slt i64 %div2.i.i.i34, %div1, !dbg !503",
+				"br i1 %cmp3.i.not.i.i35, label %if.then.i.i39, label %if.else.i.i41, !dbg !504"
+			]
+		},
+		{
+			"function": "_PyTimeFraction_Mul",
+			"id": 23,
+			"name": "if.then.i.i39",
+			"debug": [
+				{
+					"line": 165, "columns": [18, 14]
+				},
+				{
+					"line": 166, "columns": [9]
+				}
+			],
+			"successors": [25],
+			"ir": [
+				"%cmp.i.i37 = icmp sgt i64 %div1, -1, !dbg !505",
+				"%cond.i.i38 = select i1 %cmp.i.i37, i64 9223372036854775807, i64 -9223372036854775808, !dbg !506",
+				"br label %_PyTime_Mul.exit43, !dbg !507"
+			]
+		},
+		{
+			"function": "_PyTimeFraction_Mul",
+			"id": 24,
+			"name": "if.else.i.i41",
+			"debug": [
+				{
+					"line": 169, "columns": [12]
+				},
+				{
+					"line": 170, "columns": [9]
+				}
+			],
+			"successors": [25],
+			"ir": [
+				"%div349 = phi i64 [ %div350, %pytime_mul_check_overflow.exit.i.i36 ], [ 0, %if.end ]",
+				"%mul.i.i40 = mul i64 %div1, %0, !dbg !508",
+				"br label %_PyTime_Mul.exit43, !dbg !509"
+			]
+		},
+		{
+			"function": "_PyTimeFraction_Mul",
+			"id": 25,
+			"name": "_PyTime_Mul.exit43",
+			"debug": [
+				{
+					"line": 123, "columns": [12, 16]
+				}
+			],
+			"successors": [26, 27],
+			"ir": [
+				"%div348 = phi i64 [ %div349, %if.else.i.i41 ], [ %div350, %if.then.i.i39 ]",
+				"%storemerge.i.i42 = phi i64 [ %mul.i.i40, %if.else.i.i41 ], [ %cond.i.i38, %if.then.i.i39 ], !dbg !510",
+				"%cmp.i.i44 = icmp sgt i64 %div348, 0, !dbg !523",
+				"br i1 %cmp.i.i44, label %land.lhs.true.i.i, label %if.else.i.i45, !dbg !525"
+			]
+		},
+		{
+			"function": "_PyTimeFraction_Mul",
+			"id": 26,
+			"name": "land.lhs.true.i.i",
+			"debug": [
+				{
+					"line": 123, "columns": [36, 23, 9]
+				}
+			],
+			"successors": [29, 28],
+			"ir": [
+				"%sub.i.i = sub nuw nsw i64 9223372036854775807, %div348, !dbg !526",
+				"%cmp1.i.i = icmp slt i64 %sub.i.i, %storemerge.i.i42, !dbg !527",
+				"br i1 %cmp1.i.i, label %cleanup, label %if.else7.i.i, !dbg !528"
+			]
+		},
+		{
+			"function": "_PyTimeFraction_Mul",
+			"id": 27,
+			"name": "if.else.i.i45",
+			"debug": [
+				{
+					"line": 127, "columns": [17, 21]
+				}
+			],
+			"successors": [29, 28],
+			"ir": [
+				"%cmp2.i.i = icmp ne i64 %div348, 0, !dbg !529",
+				"%sub4.i.i = sub nsw i64 -9223372036854775808, %div348",
+				"%cmp5.i.i = icmp sgt i64 %sub4.i.i, %storemerge.i.i42",
+				"%or.cond.i.i = and i1 %cmp2.i.i, %cmp5.i.i, !dbg !531",
+				"br i1 %or.cond.i.i, label %cleanup, label %if.else7.i.i, !dbg !531"
+			]
+		},
+		{
+			"function": "_PyTimeFraction_Mul",
+			"id": 28,
+			"name": "if.else7.i.i",
+			"debug": [
+				{
+					"line": 132, "columns": [13]
+				},
+				{
+					"line": 133, "columns": [9]
+				}
+			],
+			"successors": [29],
+			"ir": [
+				"%add.i.i = add i64 %storemerge.i.i42, %div348, !dbg !532",
+				"br label %cleanup, !dbg !534"
+			]
+		},
+		{
+			"function": "_PyTimeFraction_Mul",
+			"id": 29,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 206, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i64 [ %mul.i.i, %if.else.i.i ], [ %cond.i.i, %if.then.i.i ], [ %add.i.i, %if.else7.i.i ], [ 9223372036854775807, %land.lhs.true.i.i ], [ -9223372036854775808, %if.else.i.i45 ], !dbg !417",
+				"ret i64 %retval.0, !dbg !535"
+			]
+		},
+		{
+			"function": "_PyLong_AsTime_t",
+			"id": 30,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 213, "columns": [21]
+				},
+				{
+					"line": 219, "columns": [13, 19]
+				}
+			],
+			"successors": [31, 34],
+			"ir": [
+				"%call = tail call i64 @PyLong_AsLongLong(ptr noundef %obj) #15, !dbg !406",
+				"%cmp = icmp eq i64 %call, -1, !dbg !407",
+				"br i1 %cmp, label %land.lhs.true, label %cleanup, !dbg !409"
+			]
+		},
+		{
+			"function": "_PyLong_AsTime_t",
+			"id": 31,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 219, "columns": [22, 9]
+				}
+			],
+			"successors": [34, 32],
+			"ir": [
+				"%call1 = tail call ptr @PyErr_Occurred() #15, !dbg !410",
+				"%tobool.not = icmp eq ptr %call1, null, !dbg !410",
+				"br i1 %tobool.not, label %cleanup, label %if.then, !dbg !411"
+			]
+		},
+		{
+			"function": "_PyLong_AsTime_t",
+			"id": 32,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 220, "columns": [36, 13]
+				}
+			],
+			"successors": [34, 33],
+			"ir": [
+				"%0 = load ptr, ptr @PyExc_OverflowError, align 8, !dbg !412, !tbaa !415",
+				"%call2 = tail call i32 @PyErr_ExceptionMatches(ptr noundef %0) #15, !dbg !419",
+				"%tobool3.not = icmp eq i32 %call2, 0, !dbg !419",
+				"br i1 %tobool3.not, label %cleanup, label %if.then4, !dbg !420"
+			]
+		},
+		{
+			"function": "_PyLong_AsTime_t",
+			"id": 33,
+			"name": "if.then4",
+			"debug": [
+				{
+					"line": 106, "columns": [21, 5]
+				},
+				{
+					"line": 222, "columns": [9]
+				}
+			],
+			"successors": [34],
+			"ir": [
+				"%1 = load ptr, ptr @PyExc_OverflowError, align 8, !dbg !421, !tbaa !415",
+				"tail call void @PyErr_SetString(ptr noundef %1, ptr noundef nonnull @.str.2) #15, !dbg !428",
+				"br label %cleanup, !dbg !429"
+			]
+		},
+		{
+			"function": "_PyLong_AsTime_t",
+			"id": 34,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 226, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret i64 %call, !dbg !430"
+			]
+		},
+		{
+			"function": "_PyLong_FromTime_t",
+			"id": 35,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 233, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call ptr @PyLong_FromLongLong(i64 noundef %t) #15, !dbg !405",
+				"ret ptr %call, !dbg !406"
+			]
+		},
+		{
+			"function": "_PyTime_ObjectToTime_t",
+			"id": 36,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 365, "columns": [24]
+				},
+				{
+					"line": 400, "columns": [9]
+				},
+				{
+					"line": 538, "columns": [33]
+				}
+			],
+			"successors": [38, 37],
+			"ir": [
+				"%d.i = alloca double, align 8",
+				"%intpart = alloca double, align 8",
+				"%d = alloca double, align 8",
+				"%0 = getelementptr i8, ptr %obj, i64 8, !dbg !414",
+				"%obj.val = load ptr, ptr %0, align 8, !dbg !414, !tbaa !415",
+				"%cmp.i.not.i = icmp eq ptr %obj.val, @PyFloat_Type, !dbg !434",
+				"br i1 %cmp.i.not.i, label %if.then, label %PyObject_TypeCheck.exit, !dbg !435"
+			]
+		},
+		{
+			"function": "_PyTime_ObjectToTime_t",
+			"id": 37,
+			"name": "PyObject_TypeCheck.exit",
+			"debug": [
+				{
+					"line": 400, "columns": [9]
+				},
+				{
+					"line": 538, "columns": [36, 33]
+				}
+			],
+			"successors": [54, 38],
+			"ir": [
+				"%call2.i = tail call i32 @PyType_IsSubtype(ptr noundef %obj.val, ptr noundef nonnull @PyFloat_Type) #15, !dbg !436",
+				"%tobool3.i.not = icmp eq i32 %call2.i, 0, !dbg !435",
+				"br i1 %tobool3.i.not, label %if.else, label %if.then, !dbg !437"
+			]
+		},
+		{
+			"function": "_PyTime_ObjectToTime_t",
+			"id": 38,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 401, "columns": [9]
+				},
+				{
+					"line": 403, "columns": [9, 25]
+				},
+				{
+					"line": 405, "columns": [13, 11]
+				},
+				{
+					"line": 406, "columns": [13]
+				}
+			],
+			"successors": [39, 40],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %intpart) #15, !dbg !438",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %d), !dbg !439",
+				"%call1 = tail call double @PyFloat_AsDouble(ptr noundef nonnull %obj) #15, !dbg !441",
+				"store volatile double %call1, ptr %d, align 8, !dbg !442, !tbaa !443",
+				"%d.0.d.0.d.0.d.0. = load volatile double, ptr %d, align 8, !dbg !445, !tbaa !443",
+				"%cmp = fcmp uno double %d.0.d.0.d.0.d.0., 0.000000e+00, !dbg !445",
+				"br i1 %cmp, label %if.then2, label %if.end, !dbg !447"
+			]
+		},
+		{
+			"function": "_PyTime_ObjectToTime_t",
+			"id": 39,
+			"name": "if.then2",
+			"debug": [
+				{
+					"line": 407, "columns": [29, 13]
+				},
+				{
+					"line": 408, "columns": [13]
+				}
+			],
+			"successors": [53],
+			"ir": [
+				"%1 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !448, !tbaa !450",
+				"tail call void @PyErr_SetString(ptr noundef %1, ptr noundef nonnull @.str) #15, !dbg !451",
+				"br label %cleanup, !dbg !452"
+			]
+		},
+		{
+			"function": "_PyTime_ObjectToTime_t",
+			"id": 40,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 302, "columns": [5, 21]
+				},
+				{
+					"line": 304, "columns": [7]
+				},
+				{
+					"line": 305, "columns": [9]
+				},
+				{
+					"line": 411, "columns": [26]
+				}
+			],
+			"successors": [46, 41, 44, 45],
+			"ir": [
+				"%d.0.d.0.d.0.d.0.18 = load volatile double, ptr %d, align 8, !dbg !453, !tbaa !443",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %d.i), !dbg !463",
+				"store volatile double %d.0.d.0.d.0.d.0.18, ptr %d.i, align 8, !dbg !465, !tbaa !443",
+				"switch i32 %round, label %if.else6.i [\n    i32 2, label %if.then.i\n    i32 1, label %if.then2.i\n    i32 0, label %if.then5.i\n  ], !dbg !466"
+			]
+		},
+		{
+			"function": "_PyTime_ObjectToTime_t",
+			"id": 41,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 289, "columns": [22]
+				},
+				{
+					"line": 290, "columns": [15, 9, 25]
+				},
+				{
+					"line": 306, "columns": [36]
+				}
+			],
+			"successors": [42, 43],
+			"ir": [
+				"%d.i.0.d.i.0.d.i.0.d.0.d.0.d.0..i = load volatile double, ptr %d.i, align 8, !dbg !467, !tbaa !443",
+				"%2 = tail call double @llvm.round.f64(double %d.i.0.d.i.0.d.i.0.d.0.d.0.d.0..i), !dbg !478",
+				"%sub.i.i = fsub double %d.i.0.d.i.0.d.i.0.d.0.d.0.d.0..i, %2, !dbg !479",
+				"%3 = tail call double @llvm.fabs.f64(double %sub.i.i), !dbg !481",
+				"%cmp.i.i = fcmp oeq double %3, 5.000000e-01, !dbg !482",
+				"br i1 %cmp.i.i, label %if.then.i.i, label %pytime_round_half_even.exit.i, !dbg !483"
+			]
+		},
+		{
+			"function": "_PyTime_ObjectToTime_t",
+			"id": 42,
+			"name": "if.then.i.i",
+			"debug": [
+				{
+					"line": 292, "columns": [33, 25, 23]
+				},
+				{
+					"line": 293, "columns": [5]
+				}
+			],
+			"successors": [43],
+			"ir": [
+				"%div.i.i = fmul double %d.i.0.d.i.0.d.i.0.d.0.d.0.d.0..i, 5.000000e-01, !dbg !484",
+				"%4 = tail call double @llvm.round.f64(double %div.i.i), !dbg !486",
+				"%mul.i.i = fmul double %4, 2.000000e+00, !dbg !487",
+				"br label %pytime_round_half_even.exit.i, !dbg !488"
+			]
+		},
+		{
+			"function": "_PyTime_ObjectToTime_t",
+			"id": 43,
+			"name": "pytime_round_half_even.exit.i",
+			"debug": [
+				{
+					"line": 306, "columns": [11]
+				},
+				{
+					"line": 307, "columns": [5]
+				}
+			],
+			"successors": [50],
+			"ir": [
+				"%rounded.0.i.i = phi double [ %mul.i.i, %if.then.i.i ], [ %2, %if.then.i ], !dbg !476",
+				"store volatile double %rounded.0.i.i, ptr %d.i, align 8, !dbg !489, !tbaa !443",
+				"br label %pytime_round.exit, !dbg !490"
+			]
+		},
+		{
+			"function": "_PyTime_ObjectToTime_t",
+			"id": 44,
+			"name": "if.then2.i",
+			"debug": [
+				{
+					"line": 309, "columns": [18, 13, 11]
+				},
+				{
+					"line": 310, "columns": [5]
+				}
+			],
+			"successors": [50],
+			"ir": [
+				"%d.i.0.d.i.0.d.i.0.d.0.d.0.d.0.10.i = load volatile double, ptr %d.i, align 8, !dbg !491, !tbaa !443",
+				"%5 = tail call double @llvm.ceil.f64(double %d.i.0.d.i.0.d.i.0.d.0.d.0.d.0.10.i), !dbg !494",
+				"store volatile double %5, ptr %d.i, align 8, !dbg !495, !tbaa !443",
+				"br label %pytime_round.exit, !dbg !496"
+			]
+		},
+		{
+			"function": "_PyTime_ObjectToTime_t",
+			"id": 45,
+			"name": "if.then5.i",
+			"debug": [
+				{
+					"line": 312, "columns": [19, 13, 11]
+				},
+				{
+					"line": 313, "columns": [5]
+				}
+			],
+			"successors": [50],
+			"ir": [
+				"%d.i.0.d.i.0.d.i.0.d.0.d.0.d.0.11.i = load volatile double, ptr %d.i, align 8, !dbg !497, !tbaa !443",
+				"%6 = tail call double @llvm.floor.f64(double %d.i.0.d.i.0.d.i.0.d.0.d.0.d.0.11.i), !dbg !500",
+				"store volatile double %6, ptr %d.i, align 8, !dbg !501, !tbaa !443",
+				"br label %pytime_round.exit, !dbg !502"
+			]
+		},
+		{
+			"function": "_PyTime_ObjectToTime_t",
+			"id": 46,
+			"name": "if.else6.i",
+			"debug": [
+				{
+					"line": 316, "columns": [14, 16, 0, 13]
+				}
+			],
+			"successors": [48, 47],
+			"ir": [
+				"%d.i.0.d.i.0.d.i.0.d.0.d.0.d.0.12.i = load volatile double, ptr %d.i, align 8, !dbg !503, !tbaa !443",
+				"%cmp7.i = fcmp ult double %d.i.0.d.i.0.d.i.0.d.0.d.0.d.0.12.i, 0.000000e+00, !dbg !505",
+				"%d.i.0.d.i.0.d.i.0.d.0.d.0.d.0.14.i = load volatile double, ptr %d.i, align 8, !dbg !506, !tbaa !443",
+				"br i1 %cmp7.i, label %cond.false.i, label %cond.true.i, !dbg !507"
+			]
+		},
+		{
+			"function": "_PyTime_ObjectToTime_t",
+			"id": 47,
+			"name": "cond.true.i",
+			"debug": [
+				{
+					"line": 316, "columns": [26, 13]
+				}
+			],
+			"successors": [49],
+			"ir": [
+				"%7 = tail call double @llvm.ceil.f64(double %d.i.0.d.i.0.d.i.0.d.0.d.0.d.0.14.i), !dbg !508",
+				"br label %cond.end.i, !dbg !507"
+			]
+		},
+		{
+			"function": "_PyTime_ObjectToTime_t",
+			"id": 48,
+			"name": "cond.false.i",
+			"debug": [
+				{
+					"line": 316, "columns": [36, 13]
+				}
+			],
+			"successors": [49],
+			"ir": [
+				"%8 = tail call double @llvm.floor.f64(double %d.i.0.d.i.0.d.i.0.d.0.d.0.d.0.14.i), !dbg !509",
+				"br label %cond.end.i, !dbg !507"
+			]
+		},
+		{
+			"function": "_PyTime_ObjectToTime_t",
+			"id": 49,
+			"name": "cond.end.i",
+			"debug": [
+				{
+					"line": 316, "columns": [13, 11]
+				}
+			],
+			"successors": [50],
+			"ir": [
+				"%cond.i = phi double [ %7, %cond.true.i ], [ %8, %cond.false.i ], !dbg !507",
+				"store volatile double %cond.i, ptr %d.i, align 8, !dbg !510, !tbaa !443",
+				"br label %pytime_round.exit"
+			]
+		},
+		{
+			"function": "_PyTime_ObjectToTime_t",
+			"id": 50,
+			"name": "pytime_round.exit",
+			"debug": [
+				{
+					"line": 318, "columns": [12]
+				},
+				{
+					"line": 319, "columns": [1]
+				},
+				{
+					"line": 411, "columns": [11]
+				},
+				{
+					"line": 412, "columns": [20, 15]
+				},
+				{
+					"line": 415, "columns": [40, 37, 48]
+				}
+			],
+			"successors": [52, 51],
+			"ir": [
+				"%d.i.0.d.i.0.d.i.0.d.0.d.0.d.0.15.i = load volatile double, ptr %d.i, align 8, !dbg !511, !tbaa !443",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %d.i), !dbg !512",
+				"store volatile double %d.i.0.d.i.0.d.i.0.d.0.d.0.d.0.15.i, ptr %d, align 8, !dbg !513, !tbaa !443",
+				"%d.0.d.0.d.0.d.0.19 = load volatile double, ptr %d, align 8, !dbg !514, !tbaa !443",
+				"%call4 = call double @modf(double noundef %d.0.d.0.d.0.d.0.19, ptr noundef nonnull %intpart) #15, !dbg !516",
+				"%9 = load double, ptr %intpart, align 8, !dbg !517",
+				"%cmp5 = fcmp oge double %9, 0xC3E0000000000000, !dbg !519",
+				"%cmp6 = fcmp olt double %9, 0x43E0000000000000",
+				"%or.cond = and i1 %cmp5, %cmp6, !dbg !520",
+				"br i1 %or.cond, label %if.end8, label %if.then7, !dbg !520"
+			]
+		},
+		{
+			"function": "_PyTime_ObjectToTime_t",
+			"id": 51,
+			"name": "if.then7",
+			"debug": [
+				{
+					"line": 106, "columns": [21, 5]
+				},
+				{
+					"line": 417, "columns": [13]
+				}
+			],
+			"successors": [53],
+			"ir": [
+				"%10 = load ptr, ptr @PyExc_OverflowError, align 8, !dbg !521, !tbaa !450",
+				"tail call void @PyErr_SetString(ptr noundef %10, ptr noundef nonnull @.str.2) #15, !dbg !528",
+				"br label %cleanup, !dbg !529"
+			]
+		},
+		{
+			"function": "_PyTime_ObjectToTime_t",
+			"id": 52,
+			"name": "if.end8",
+			"debug": [
+				{
+					"line": 419, "columns": [16, 14]
+				},
+				{
+					"line": 420, "columns": [9]
+				}
+			],
+			"successors": [53],
+			"ir": [
+				"%conv = fptosi double %9 to i64, !dbg !530",
+				"store i64 %conv, ptr %sec, align 8, !dbg !531, !tbaa !532",
+				"br label %cleanup, !dbg !534"
+			]
+		},
+		{
+			"function": "_PyTime_ObjectToTime_t",
+			"id": 53,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 421, "columns": [5]
+				}
+			],
+			"successors": [61],
+			"ir": [
+				"%retval.0 = phi i32 [ -1, %if.then2 ], [ 0, %if.end8 ], [ -1, %if.then7 ], !dbg !515",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %d), !dbg !535",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %intpart) #15, !dbg !535",
+				"br label %return"
+			]
+		},
+		{
+			"function": "_PyTime_ObjectToTime_t",
+			"id": 54,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 213, "columns": [21]
+				},
+				{
+					"line": 219, "columns": [13, 19]
+				}
+			],
+			"successors": [55, 58],
+			"ir": [
+				"%call.i = tail call i64 @PyLong_AsLongLong(ptr noundef nonnull %obj) #15, !dbg !545",
+				"%cmp.i = icmp eq i64 %call.i, -1, !dbg !546",
+				"br i1 %cmp.i, label %land.lhs.true.i, label %_PyLong_AsTime_t.exit, !dbg !548"
+			]
+		},
+		{
+			"function": "_PyTime_ObjectToTime_t",
+			"id": 55,
+			"name": "land.lhs.true.i",
+			"debug": [
+				{
+					"line": 219, "columns": [22, 9]
+				}
+			],
+			"successors": [59, 56],
+			"ir": [
+				"%call1.i = tail call ptr @PyErr_Occurred() #15, !dbg !549",
+				"%tobool.not.i = icmp eq ptr %call1.i, null, !dbg !549",
+				"br i1 %tobool.not.i, label %land.lhs.true13, label %if.then.i25, !dbg !550"
+			]
+		},
+		{
+			"function": "_PyTime_ObjectToTime_t",
+			"id": 56,
+			"name": "if.then.i25",
+			"debug": [
+				{
+					"line": 220, "columns": [36, 13]
+				}
+			],
+			"successors": [59, 57],
+			"ir": [
+				"%11 = load ptr, ptr @PyExc_OverflowError, align 8, !dbg !551, !tbaa !450",
+				"%call2.i24 = tail call i32 @PyErr_ExceptionMatches(ptr noundef %11) #15, !dbg !554",
+				"%tobool3.not.i = icmp eq i32 %call2.i24, 0, !dbg !554",
+				"br i1 %tobool3.not.i, label %land.lhs.true13, label %if.then4.i, !dbg !555"
+			]
+		},
+		{
+			"function": "_PyTime_ObjectToTime_t",
+			"id": 57,
+			"name": "if.then4.i",
+			"debug": [
+				{
+					"line": 106, "columns": [21, 5]
+				},
+				{
+					"line": 222, "columns": [9]
+				}
+			],
+			"successors": [59],
+			"ir": [
+				"%12 = load ptr, ptr @PyExc_OverflowError, align 8, !dbg !556, !tbaa !450",
+				"tail call void @PyErr_SetString(ptr noundef %12, ptr noundef nonnull @.str.2) #15, !dbg !559",
+				"br label %land.lhs.true13, !dbg !560"
+			]
+		},
+		{
+			"function": "_PyTime_ObjectToTime_t",
+			"id": 58,
+			"name": "_PyLong_AsTime_t.exit",
+			"debug": [
+				{
+					"line": 423, "columns": [14]
+				},
+				{
+					"line": 424, "columns": [32]
+				}
+			],
+			"successors": [60],
+			"ir": [
+				"store i64 %call.i, ptr %sec, align 8, !dbg !561, !tbaa !532",
+				"br label %if.end17, !dbg !562"
+			]
+		},
+		{
+			"function": "_PyTime_ObjectToTime_t",
+			"id": 59,
+			"name": "land.lhs.true13",
+			"debug": [
+				{
+					"line": 423, "columns": [14]
+				},
+				{
+					"line": 424, "columns": [35, 13]
+				}
+			],
+			"successors": [60, 61],
+			"ir": [
+				"store i64 -1, ptr %sec, align 8, !dbg !561, !tbaa !532",
+				"%call14 = tail call ptr @PyErr_Occurred() #15, !dbg !564",
+				"%tobool15.not = icmp eq ptr %call14, null, !dbg !564",
+				"br i1 %tobool15.not, label %if.end17, label %return, !dbg !565"
+			]
+		},
+		{
+			"function": "_PyTime_ObjectToTime_t",
+			"id": 60,
+			"name": "if.end17",
+			"debug": [
+				{
+					"line": 427, "columns": [9]
+				}
+			],
+			"successors": [61],
+			"ir": [
+				"br label %return, !dbg !566"
+			]
+		},
+		{
+			"function": "_PyTime_ObjectToTime_t",
+			"id": 61,
+			"name": "return",
+			"debug": [
+				{
+					"line": 429, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi i32 [ %retval.0, %cleanup ], [ 0, %if.end17 ], [ -1, %land.lhs.true13 ], !dbg !567",
+				"ret i32 %retval.1, !dbg !568"
+			]
+		},
+		{
+			"function": "_PyTime_ObjectToTimespec",
+			"id": 62,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 436, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call fastcc i32 @pytime_object_to_denominator(ptr noundef %obj, ptr noundef %sec, ptr noundef %nsec, i64 noundef 1000000000, i32 noundef %round), !dbg !411, !range !412",
+				"ret i32 %call, !dbg !413"
+			]
+		},
+		{
+			"function": "pytime_object_to_denominator",
+			"id": 63,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 365, "columns": [24]
+				},
+				{
+					"line": 376, "columns": [9]
+				},
+				{
+					"line": 538, "columns": [33]
+				}
+			],
+			"successors": [65, 64],
+			"ir": [
+				"%d.i.i = alloca double, align 8",
+				"%intpart.i = alloca double, align 8",
+				"%floatpart.i = alloca double, align 8",
+				"%0 = getelementptr i8, ptr %obj, i64 8, !dbg !415",
+				"%obj.val = load ptr, ptr %0, align 8, !dbg !415, !tbaa !416",
+				"%cmp.i.not.i = icmp eq ptr %obj.val, @PyFloat_Type, !dbg !435",
+				"br i1 %cmp.i.not.i, label %if.then, label %PyObject_TypeCheck.exit, !dbg !436"
+			]
+		},
+		{
+			"function": "pytime_object_to_denominator",
+			"id": 64,
+			"name": "PyObject_TypeCheck.exit",
+			"debug": [
+				{
+					"line": 376, "columns": [9]
+				},
+				{
+					"line": 538, "columns": [36, 33]
+				}
+			],
+			"successors": [86, 65],
+			"ir": [
+				"%call2.i = tail call i32 @PyType_IsSubtype(ptr noundef %obj.val, ptr noundef nonnull @PyFloat_Type) #15, !dbg !437",
+				"%tobool3.i.not = icmp eq i32 %call2.i, 0, !dbg !436",
+				"br i1 %tobool3.i.not, label %if.else, label %if.then, !dbg !438"
+			]
+		},
+		{
+			"function": "pytime_object_to_denominator",
+			"id": 65,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 377, "columns": [20]
+				},
+				{
+					"line": 378, "columns": [13]
+				}
+			],
+			"successors": [66, 67],
+			"ir": [
+				"%call1 = tail call double @PyFloat_AsDouble(ptr noundef nonnull %obj) #15, !dbg !439",
+				"%cmp = fcmp uno double %call1, 0.000000e+00, !dbg !441",
+				"br i1 %cmp, label %if.then2, label %if.end, !dbg !443"
+			]
+		},
+		{
+			"function": "pytime_object_to_denominator",
+			"id": 66,
+			"name": "if.then2",
+			"debug": [
+				{
+					"line": 379, "columns": [24]
+				},
+				{
+					"line": 380, "columns": [29, 13]
+				},
+				{
+					"line": 381, "columns": [13]
+				}
+			],
+			"successors": [93],
+			"ir": [
+				"store i64 0, ptr %numerator, align 8, !dbg !444, !tbaa !446",
+				"%1 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !448, !tbaa !449",
+				"tail call void @PyErr_SetString(ptr noundef %1, ptr noundef nonnull @.str) #15, !dbg !450",
+				"br label %return, !dbg !451"
+			]
+		},
+		{
+			"function": "pytime_object_to_denominator",
+			"id": 67,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 302, "columns": [5, 21]
+				},
+				{
+					"line": 304, "columns": [7]
+				},
+				{
+					"line": 305, "columns": [9]
+				},
+				{
+					"line": 326, "columns": [26]
+				},
+				{
+					"line": 327, "columns": [5]
+				},
+				{
+					"line": 329, "columns": [5, 21]
+				},
+				{
+					"line": 331, "columns": [17, 15]
+				},
+				{
+					"line": 333, "columns": [15]
+				},
+				{
+					"line": 334, "columns": [30]
+				}
+			],
+			"successors": [73, 68, 71, 72],
+			"ir": [
+				"%conv.i = sitofp i64 %denominator to double, !dbg !467",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %intpart.i) #15, !dbg !468",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %floatpart.i), !dbg !469",
+				"%call.i = call double @modf(double noundef %call1, ptr noundef nonnull %intpart.i) #15, !dbg !471",
+				"store volatile double %call.i, ptr %floatpart.i, align 8, !dbg !472, !tbaa !473",
+				"%floatpart.i.0.floatpart.i.0.floatpart.i.0.floatpart.0.floatpart.0.floatpart.0..i = load volatile double, ptr %floatpart.i, align 8, !dbg !475, !tbaa !473",
+				"%mul.i = fmul double %floatpart.i.0.floatpart.i.0.floatpart.i.0.floatpart.0.floatpart.0.floatpart.0..i, %conv.i, !dbg !475",
+				"store volatile double %mul.i, ptr %floatpart.i, align 8, !dbg !475, !tbaa !473",
+				"%floatpart.i.0.floatpart.i.0.floatpart.i.0.floatpart.0.floatpart.0.floatpart.0.19.i = load volatile double, ptr %floatpart.i, align 8, !dbg !476, !tbaa !473",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %d.i.i), !dbg !486",
+				"store volatile double %floatpart.i.0.floatpart.i.0.floatpart.i.0.floatpart.0.floatpart.0.floatpart.0.19.i, ptr %d.i.i, align 8, !dbg !488, !tbaa !473",
+				"switch i32 %round, label %if.else6.i.i [\n    i32 2, label %if.then.i.i\n    i32 1, label %if.then2.i.i\n    i32 0, label %if.then5.i.i\n  ], !dbg !489"
+			]
+		},
+		{
+			"function": "pytime_object_to_denominator",
+			"id": 68,
+			"name": "if.then.i.i",
+			"debug": [
+				{
+					"line": 289, "columns": [22]
+				},
+				{
+					"line": 290, "columns": [15, 9, 25]
+				},
+				{
+					"line": 306, "columns": [36]
+				}
+			],
+			"successors": [69, 70],
+			"ir": [
+				"%d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0..i.i = load volatile double, ptr %d.i.i, align 8, !dbg !490, !tbaa !473",
+				"%2 = tail call double @llvm.round.f64(double %d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0..i.i), !dbg !501",
+				"%sub.i.i.i = fsub double %d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0..i.i, %2, !dbg !502",
+				"%3 = tail call double @llvm.fabs.f64(double %sub.i.i.i), !dbg !504",
+				"%cmp.i.i.i = fcmp oeq double %3, 5.000000e-01, !dbg !505",
+				"br i1 %cmp.i.i.i, label %if.then.i.i.i, label %pytime_round_half_even.exit.i.i, !dbg !506"
+			]
+		},
+		{
+			"function": "pytime_object_to_denominator",
+			"id": 69,
+			"name": "if.then.i.i.i",
+			"debug": [
+				{
+					"line": 292, "columns": [33, 25, 23]
+				},
+				{
+					"line": 293, "columns": [5]
+				}
+			],
+			"successors": [70],
+			"ir": [
+				"%div.i.i.i = fmul double %d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0..i.i, 5.000000e-01, !dbg !507",
+				"%4 = tail call double @llvm.round.f64(double %div.i.i.i), !dbg !509",
+				"%mul.i.i.i = fmul double %4, 2.000000e+00, !dbg !510",
+				"br label %pytime_round_half_even.exit.i.i, !dbg !511"
+			]
+		},
+		{
+			"function": "pytime_object_to_denominator",
+			"id": 70,
+			"name": "pytime_round_half_even.exit.i.i",
+			"debug": [
+				{
+					"line": 306, "columns": [11]
+				},
+				{
+					"line": 307, "columns": [5]
+				}
+			],
+			"successors": [77],
+			"ir": [
+				"%rounded.0.i.i.i = phi double [ %mul.i.i.i, %if.then.i.i.i ], [ %2, %if.then.i.i ], !dbg !499",
+				"store volatile double %rounded.0.i.i.i, ptr %d.i.i, align 8, !dbg !512, !tbaa !473",
+				"br label %pytime_round.exit.i, !dbg !513"
+			]
+		},
+		{
+			"function": "pytime_object_to_denominator",
+			"id": 71,
+			"name": "if.then2.i.i",
+			"debug": [
+				{
+					"line": 309, "columns": [18, 13, 11]
+				},
+				{
+					"line": 310, "columns": [5]
+				}
+			],
+			"successors": [77],
+			"ir": [
+				"%d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0.10.i.i = load volatile double, ptr %d.i.i, align 8, !dbg !514, !tbaa !473",
+				"%5 = tail call double @llvm.ceil.f64(double %d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0.10.i.i), !dbg !517",
+				"store volatile double %5, ptr %d.i.i, align 8, !dbg !518, !tbaa !473",
+				"br label %pytime_round.exit.i, !dbg !519"
+			]
+		},
+		{
+			"function": "pytime_object_to_denominator",
+			"id": 72,
+			"name": "if.then5.i.i",
+			"debug": [
+				{
+					"line": 312, "columns": [19, 13, 11]
+				},
+				{
+					"line": 313, "columns": [5]
+				}
+			],
+			"successors": [77],
+			"ir": [
+				"%d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0.11.i.i = load volatile double, ptr %d.i.i, align 8, !dbg !520, !tbaa !473",
+				"%6 = tail call double @llvm.floor.f64(double %d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0.11.i.i), !dbg !523",
+				"store volatile double %6, ptr %d.i.i, align 8, !dbg !524, !tbaa !473",
+				"br label %pytime_round.exit.i, !dbg !525"
+			]
+		},
+		{
+			"function": "pytime_object_to_denominator",
+			"id": 73,
+			"name": "if.else6.i.i",
+			"debug": [
+				{
+					"line": 316, "columns": [14, 16, 0, 13]
+				}
+			],
+			"successors": [75, 74],
+			"ir": [
+				"%d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0.12.i.i = load volatile double, ptr %d.i.i, align 8, !dbg !526, !tbaa !473",
+				"%cmp7.i.i = fcmp ult double %d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0.12.i.i, 0.000000e+00, !dbg !528",
+				"%d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0.14.i.i = load volatile double, ptr %d.i.i, align 8, !dbg !529, !tbaa !473",
+				"br i1 %cmp7.i.i, label %cond.false.i.i, label %cond.true.i.i, !dbg !530"
+			]
+		},
+		{
+			"function": "pytime_object_to_denominator",
+			"id": 74,
+			"name": "cond.true.i.i",
+			"debug": [
+				{
+					"line": 316, "columns": [26, 13]
+				}
+			],
+			"successors": [76],
+			"ir": [
+				"%7 = tail call double @llvm.ceil.f64(double %d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0.14.i.i), !dbg !531",
+				"br label %cond.end.i.i, !dbg !530"
+			]
+		},
+		{
+			"function": "pytime_object_to_denominator",
+			"id": 75,
+			"name": "cond.false.i.i",
+			"debug": [
+				{
+					"line": 316, "columns": [36, 13]
+				}
+			],
+			"successors": [76],
+			"ir": [
+				"%8 = tail call double @llvm.floor.f64(double %d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0.14.i.i), !dbg !532",
+				"br label %cond.end.i.i, !dbg !530"
+			]
+		},
+		{
+			"function": "pytime_object_to_denominator",
+			"id": 76,
+			"name": "cond.end.i.i",
+			"debug": [
+				{
+					"line": 316, "columns": [13, 11]
+				}
+			],
+			"successors": [77],
+			"ir": [
+				"%cond.i.i = phi double [ %7, %cond.true.i.i ], [ %8, %cond.false.i.i ], !dbg !530",
+				"store volatile double %cond.i.i, ptr %d.i.i, align 8, !dbg !533, !tbaa !473",
+				"br label %pytime_round.exit.i"
+			]
+		},
+		{
+			"function": "pytime_object_to_denominator",
+			"id": 77,
+			"name": "pytime_round.exit.i",
+			"debug": [
+				{
+					"line": 318, "columns": [12]
+				},
+				{
+					"line": 319, "columns": [1]
+				},
+				{
+					"line": 334, "columns": [15]
+				},
+				{
+					"line": 335, "columns": [9, 19]
+				}
+			],
+			"successors": [79, 78],
+			"ir": [
+				"%d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0.15.i.i = load volatile double, ptr %d.i.i, align 8, !dbg !534, !tbaa !473",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %d.i.i), !dbg !535",
+				"store volatile double %d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0.15.i.i, ptr %floatpart.i, align 8, !dbg !536, !tbaa !473",
+				"%floatpart.i.0.floatpart.i.0.floatpart.i.0.floatpart.0.floatpart.0.floatpart.0.20.i = load volatile double, ptr %floatpart.i, align 8, !dbg !537, !tbaa !473",
+				"%cmp.i = fcmp ult double %floatpart.i.0.floatpart.i.0.floatpart.i.0.floatpart.0.floatpart.0.floatpart.0.20.i, %conv.i, !dbg !539",
+				"%floatpart.i.0.floatpart.i.0.floatpart.i.0.floatpart.0.floatpart.0.floatpart.0.22.i = load volatile double, ptr %floatpart.i, align 8, !dbg !540, !tbaa !473",
+				"br i1 %cmp.i, label %if.else.i, label %if.then.i, !dbg !541"
+			]
+		},
+		{
+			"function": "pytime_object_to_denominator",
+			"id": 78,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 336, "columns": [19]
+				},
+				{
+					"line": 337, "columns": [17]
+				},
+				{
+					"line": 338, "columns": [5]
+				}
+			],
+			"successors": [82],
+			"ir": [
+				"%sub.i = fsub double %floatpart.i.0.floatpart.i.0.floatpart.i.0.floatpart.0.floatpart.0.floatpart.0.22.i, %conv.i, !dbg !542",
+				"store volatile double %sub.i, ptr %floatpart.i, align 8, !dbg !542, !tbaa !473",
+				"%9 = load double, ptr %intpart.i, align 8, !dbg !544, !tbaa !473",
+				"%add.i = fadd double %9, 1.000000e+00, !dbg !544",
+				"br label %if.end8.i, !dbg !545"
+			]
+		},
+		{
+			"function": "pytime_object_to_denominator",
+			"id": 79,
+			"name": "if.else.i",
+			"debug": [
+				{
+					"line": 339, "columns": [24, 14]
+				}
+			],
+			"successors": [81, 80],
+			"ir": [
+				"%cmp3.i = fcmp olt double %floatpart.i.0.floatpart.i.0.floatpart.i.0.floatpart.0.floatpart.0.floatpart.0.22.i, 0.000000e+00, !dbg !546",
+				"br i1 %cmp3.i, label %if.then5.i, label %if.else.if.end8_crit_edge.i, !dbg !548"
+			]
+		},
+		{
+			"function": "pytime_object_to_denominator",
+			"id": 80,
+			"name": "if.else.if.end8_crit_edge.i",
+			"debug": [
+				{
+					"line": 339, "columns": [14]
+				},
+				{
+					"line": 359, "columns": [36]
+				}
+			],
+			"successors": [82],
+			"ir": [
+				"%.pre.i = load double, ptr %intpart.i, align 8, !dbg !549",
+				"br label %if.end8.i, !dbg !548"
+			]
+		},
+		{
+			"function": "pytime_object_to_denominator",
+			"id": 81,
+			"name": "if.then5.i",
+			"debug": [
+				{
+					"line": 340, "columns": [19]
+				},
+				{
+					"line": 341, "columns": [17]
+				},
+				{
+					"line": 342, "columns": [5]
+				}
+			],
+			"successors": [82],
+			"ir": [
+				"%floatpart.i.0.floatpart.i.0.floatpart.i.0.floatpart.0.floatpart.0.floatpart.0.23.i = load volatile double, ptr %floatpart.i, align 8, !dbg !551, !tbaa !473",
+				"%add6.i = fadd double %floatpart.i.0.floatpart.i.0.floatpart.i.0.floatpart.0.floatpart.0.floatpart.0.23.i, %conv.i, !dbg !551",
+				"store volatile double %add6.i, ptr %floatpart.i, align 8, !dbg !551, !tbaa !473",
+				"%10 = load double, ptr %intpart.i, align 8, !dbg !553, !tbaa !473",
+				"%sub7.i = fadd double %10, -1.000000e+00, !dbg !553",
+				"br label %if.end8.i, !dbg !554"
+			]
+		},
+		{
+			"function": "pytime_object_to_denominator",
+			"id": 82,
+			"name": "if.end8.i",
+			"debug": [
+				{
+					"line": 359, "columns": [36, 33, 44]
+				}
+			],
+			"successors": [84, 83],
+			"ir": [
+				"%11 = phi double [ %.pre.i, %if.else.if.end8_crit_edge.i ], [ %sub7.i, %if.then5.i ], [ %add.i, %if.then.i ], !dbg !549",
+				"%cmp9.i = fcmp oge double %11, 0xC3E0000000000000, !dbg !555",
+				"%cmp11.i = fcmp olt double %11, 0x43E0000000000000",
+				"%or.cond.i = and i1 %cmp9.i, %cmp11.i, !dbg !556",
+				"br i1 %or.cond.i, label %if.end14.i, label %if.then13.i, !dbg !556"
+			]
+		},
+		{
+			"function": "pytime_object_to_denominator",
+			"id": 83,
+			"name": "if.then13.i",
+			"debug": [
+				{
+					"line": 106, "columns": [21, 5]
+				},
+				{
+					"line": 361, "columns": [9]
+				}
+			],
+			"successors": [85],
+			"ir": [
+				"%12 = load ptr, ptr @PyExc_OverflowError, align 8, !dbg !557, !tbaa !449",
+				"tail call void @PyErr_SetString(ptr noundef %12, ptr noundef nonnull @.str.2) #15, !dbg !564",
+				"br label %pytime_double_to_denominator.exit, !dbg !565"
+			]
+		},
+		{
+			"function": "pytime_object_to_denominator",
+			"id": 84,
+			"name": "if.end14.i",
+			"debug": [
+				{
+					"line": 363, "columns": [12, 10]
+				},
+				{
+					"line": 364, "columns": [24, 18, 16]
+				},
+				{
+					"line": 366, "columns": [5]
+				}
+			],
+			"successors": [85],
+			"ir": [
+				"%conv15.i = fptosi double %11 to i64, !dbg !566",
+				"store i64 %conv15.i, ptr %sec, align 8, !dbg !567, !tbaa !446",
+				"%floatpart.i.0.floatpart.i.0.floatpart.i.0.floatpart.0.floatpart.0.floatpart.0.24.i = load volatile double, ptr %floatpart.i, align 8, !dbg !568, !tbaa !473",
+				"%conv16.i = fptosi double %floatpart.i.0.floatpart.i.0.floatpart.i.0.floatpart.0.floatpart.0.floatpart.0.24.i to i64, !dbg !569",
+				"store i64 %conv16.i, ptr %numerator, align 8, !dbg !570, !tbaa !446",
+				"br label %pytime_double_to_denominator.exit, !dbg !571"
+			]
+		},
+		{
+			"function": "pytime_object_to_denominator",
+			"id": 85,
+			"name": "pytime_double_to_denominator.exit",
+			"debug": [
+				{
+					"line": 367, "columns": [1]
+				},
+				{
+					"line": 383, "columns": [9]
+				}
+			],
+			"successors": [93],
+			"ir": [
+				"%retval.0.i = phi i32 [ 0, %if.end14.i ], [ -1, %if.then13.i ], !dbg !465",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %floatpart.i), !dbg !572",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %intpart.i) #15, !dbg !572",
+				"br label %return, !dbg !573"
+			]
+		},
+		{
+			"function": "pytime_object_to_denominator",
+			"id": 86,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 213, "columns": [21]
+				},
+				{
+					"line": 219, "columns": [13, 19]
+				}
+			],
+			"successors": [87, 90],
+			"ir": [
+				"%call.i17 = tail call i64 @PyLong_AsLongLong(ptr noundef nonnull %obj) #15, !dbg !583",
+				"%cmp.i18 = icmp eq i64 %call.i17, -1, !dbg !584",
+				"br i1 %cmp.i18, label %land.lhs.true.i, label %_PyLong_AsTime_t.exit, !dbg !586"
+			]
+		},
+		{
+			"function": "pytime_object_to_denominator",
+			"id": 87,
+			"name": "land.lhs.true.i",
+			"debug": [
+				{
+					"line": 219, "columns": [22, 9]
+				}
+			],
+			"successors": [90, 88],
+			"ir": [
+				"%call1.i = tail call ptr @PyErr_Occurred() #15, !dbg !587",
+				"%tobool.not.i = icmp eq ptr %call1.i, null, !dbg !587",
+				"br i1 %tobool.not.i, label %_PyLong_AsTime_t.exit, label %if.then.i20, !dbg !588"
+			]
+		},
+		{
+			"function": "pytime_object_to_denominator",
+			"id": 88,
+			"name": "if.then.i20",
+			"debug": [
+				{
+					"line": 220, "columns": [36, 13]
+				}
+			],
+			"successors": [90, 89],
+			"ir": [
+				"%13 = load ptr, ptr @PyExc_OverflowError, align 8, !dbg !589, !tbaa !449",
+				"%call2.i19 = tail call i32 @PyErr_ExceptionMatches(ptr noundef %13) #15, !dbg !592",
+				"%tobool3.not.i = icmp eq i32 %call2.i19, 0, !dbg !592",
+				"br i1 %tobool3.not.i, label %_PyLong_AsTime_t.exit, label %if.then4.i, !dbg !593"
+			]
+		},
+		{
+			"function": "pytime_object_to_denominator",
+			"id": 89,
+			"name": "if.then4.i",
+			"debug": [
+				{
+					"line": 106, "columns": [21, 5]
+				},
+				{
+					"line": 222, "columns": [9]
+				}
+			],
+			"successors": [90],
+			"ir": [
+				"%14 = load ptr, ptr @PyExc_OverflowError, align 8, !dbg !594, !tbaa !449",
+				"tail call void @PyErr_SetString(ptr noundef %14, ptr noundef nonnull @.str.2) #15, !dbg !597",
+				"br label %_PyLong_AsTime_t.exit, !dbg !598"
+			]
+		},
+		{
+			"function": "pytime_object_to_denominator",
+			"id": 90,
+			"name": "_PyLong_AsTime_t.exit",
+			"debug": [
+				{
+					"line": 387, "columns": [14]
+				},
+				{
+					"line": 388, "columns": [20]
+				},
+				{
+					"line": 389, "columns": [13, 18, 32]
+				}
+			],
+			"successors": [91, 92],
+			"ir": [
+				"store i64 %call.i17, ptr %sec, align 8, !dbg !599, !tbaa !446",
+				"store i64 0, ptr %numerator, align 8, !dbg !600, !tbaa !446",
+				"%15 = load i64, ptr %sec, align 8, !dbg !601, !tbaa !446",
+				"%cmp5 = icmp eq i64 %15, -1, !dbg !603",
+				"br i1 %cmp5, label %land.lhs.true, label %if.end9, !dbg !604"
+			]
+		},
+		{
+			"function": "pytime_object_to_denominator",
+			"id": 91,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 389, "columns": [35, 13]
+				}
+			],
+			"successors": [92, 93],
+			"ir": [
+				"%call6 = tail call ptr @PyErr_Occurred() #15, !dbg !605",
+				"%tobool7.not = icmp eq ptr %call6, null, !dbg !605",
+				"br i1 %tobool7.not, label %if.end9, label %return, !dbg !606"
+			]
+		},
+		{
+			"function": "pytime_object_to_denominator",
+			"id": 92,
+			"name": "if.end9",
+			"debug": [
+				{
+					"line": 392, "columns": [9]
+				}
+			],
+			"successors": [93],
+			"ir": [
+				"br label %return, !dbg !607"
+			]
+		},
+		{
+			"function": "pytime_object_to_denominator",
+			"id": 93,
+			"name": "return",
+			"debug": [
+				{
+					"line": 394, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi i32 [ 0, %if.end9 ], [ -1, %if.then2 ], [ %retval.0.i, %pytime_double_to_denominator.exit ], [ -1, %land.lhs.true ], !dbg !608",
+				"ret i32 %retval.1, !dbg !609"
+			]
+		},
+		{
+			"function": "_PyTime_ObjectToTimeval",
+			"id": 94,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 444, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call fastcc i32 @pytime_object_to_denominator(ptr noundef %obj, ptr noundef %sec, ptr noundef %usec, i64 noundef 1000000, i32 noundef %round), !dbg !411, !range !412",
+				"ret i32 %call, !dbg !413"
+			]
+		},
+		{
+			"function": "_PyTime_FromSeconds",
+			"id": 95,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 457, "columns": [18]
+				},
+				{
+					"line": 460, "columns": [7]
+				},
+				{
+					"line": 461, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%conv = sext i32 %seconds to i64, !dbg !406",
+				"%mul = mul nsw i64 %conv, 1000000000, !dbg !407",
+				"ret i64 %mul, !dbg !408"
+			]
+		},
+		{
+			"function": "_PyTime_FromMicrosecondsClamp",
+			"id": 96,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 151, "columns": [38]
+				},
+				{
+					"line": 469, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = add i64 %us, -9223372036854776, !dbg !432",
+				"%or.cond = icmp ult i64 %0, -18446744073709551, !dbg !432",
+				"%mul.i.i = mul nsw i64 %us, 1000, !dbg !432",
+				"%cmp.i.i = icmp sgt i64 %us, -1, !dbg !432",
+				"%cond.i.i = select i1 %cmp.i.i, i64 9223372036854775807, i64 -9223372036854775808, !dbg !432",
+				"%storemerge.i.i = select i1 %or.cond, i64 %cond.i.i, i64 %mul.i.i, !dbg !432",
+				"ret i64 %storemerge.i.i, !dbg !435"
+			]
+		},
+		{
+			"function": "_PyTime_FromLong",
+			"id": 97,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 476, "columns": [10, 9]
+				}
+			],
+			"successors": [98, 99],
+			"ir": [
+				"%0 = getelementptr i8, ptr %obj, i64 8, !dbg !409",
+				"%obj.val16 = load ptr, ptr %0, align 8, !dbg !409, !tbaa !411",
+				"%1 = getelementptr i8, ptr %obj.val16, i64 168, !dbg !409",
+				"%call.val = load i64, ptr %1, align 8, !dbg !409, !tbaa !416",
+				"%2 = and i64 %call.val, 16777216, !dbg !409",
+				"%tobool.not = icmp eq i64 %2, 0, !dbg !409",
+				"br i1 %tobool.not, label %if.then, label %if.end, !dbg !422"
+			]
+		},
+		{
+			"function": "_PyTime_FromLong",
+			"id": 98,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 477, "columns": [22, 9]
+				},
+				{
+					"line": 478, "columns": [36]
+				},
+				{
+					"line": 479, "columns": [9]
+				}
+			],
+			"successors": [104],
+			"ir": [
+				"%3 = load ptr, ptr @PyExc_TypeError, align 8, !dbg !423, !tbaa !425",
+				"%tp_name = getelementptr inbounds %struct._typeobject, ptr %obj.val16, i64 0, i32 1, !dbg !426",
+				"%4 = load ptr, ptr %tp_name, align 8, !dbg !426, !tbaa !427",
+				"%call3 = tail call ptr (ptr, ptr, ...) @PyErr_Format(ptr noundef %3, ptr noundef nonnull @.str.1, ptr noundef %4) #15, !dbg !428",
+				"br label %return, !dbg !429"
+			]
+		},
+		{
+			"function": "_PyTime_FromLong",
+			"id": 99,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 484, "columns": [22]
+				},
+				{
+					"line": 485, "columns": [14, 20]
+				}
+			],
+			"successors": [100, 103],
+			"ir": [
+				"%call4 = tail call i64 @PyLong_AsLongLong(ptr noundef nonnull %obj) #15, !dbg !430",
+				"%cmp = icmp eq i64 %call4, -1, !dbg !431",
+				"br i1 %cmp, label %land.lhs.true, label %if.end12, !dbg !433"
+			]
+		},
+		{
+			"function": "_PyTime_FromLong",
+			"id": 100,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 485, "columns": [23, 9]
+				}
+			],
+			"successors": [103, 101],
+			"ir": [
+				"%call5 = tail call ptr @PyErr_Occurred() #15, !dbg !434",
+				"%tobool6.not = icmp eq ptr %call5, null, !dbg !434",
+				"br i1 %tobool6.not, label %if.end12, label %if.then7, !dbg !435"
+			]
+		},
+		{
+			"function": "_PyTime_FromLong",
+			"id": 101,
+			"name": "if.then7",
+			"debug": [
+				{
+					"line": 486, "columns": [36, 13]
+				}
+			],
+			"successors": [104, 102],
+			"ir": [
+				"%5 = load ptr, ptr @PyExc_OverflowError, align 8, !dbg !436, !tbaa !425",
+				"%call8 = tail call i32 @PyErr_ExceptionMatches(ptr noundef %5) #15, !dbg !439",
+				"%tobool9.not = icmp eq i32 %call8, 0, !dbg !439",
+				"br i1 %tobool9.not, label %return, label %if.then10, !dbg !440"
+			]
+		},
+		{
+			"function": "_PyTime_FromLong",
+			"id": 102,
+			"name": "if.then10",
+			"debug": [
+				{
+					"line": 114, "columns": [21, 5]
+				},
+				{
+					"line": 488, "columns": [9]
+				}
+			],
+			"successors": [104],
+			"ir": [
+				"%6 = load ptr, ptr @PyExc_OverflowError, align 8, !dbg !441, !tbaa !425",
+				"tail call void @PyErr_SetString(ptr noundef %6, ptr noundef nonnull @.str.3) #15, !dbg !448",
+				"br label %return, !dbg !449"
+			]
+		},
+		{
+			"function": "_PyTime_FromLong",
+			"id": 103,
+			"name": "if.end12",
+			"debug": [
+				{
+					"line": 493, "columns": [9]
+				}
+			],
+			"successors": [104],
+			"ir": [
+				"store i64 %call4, ptr %tp, align 8, !dbg !450, !tbaa !451",
+				"br label %return"
+			]
+		},
+		{
+			"function": "_PyTime_FromLong",
+			"id": 104,
+			"name": "return",
+			"debug": [
+				{
+					"line": 495, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi i32 [ -1, %if.then ], [ 0, %if.end12 ], [ -1, %if.then10 ], [ -1, %if.then7 ], !dbg !408",
+				"ret i32 %retval.1, !dbg !452"
+			]
+		},
+		{
+			"function": "_PyTime_FromTimespec",
+			"id": 105,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 123, "columns": [12, 16]
+				},
+				{
+					"line": 151, "columns": [38]
+				},
+				{
+					"line": 506, "columns": [23]
+				},
+				{
+					"line": 510, "columns": [19]
+				}
+			],
+			"successors": [106, 107],
+			"ir": [
+				"%0 = load i64, ptr %ts, align 8, !dbg !428, !tbaa !429",
+				"%1 = add i64 %0, -9223372037, !dbg !451",
+				"%or.cond14.i = icmp ult i64 %1, -18446744073, !dbg !451",
+				"%mul.i.i = mul nsw i64 %0, 1000000000, !dbg !451",
+				"%cmp.i.i = icmp sgt i64 %0, -1, !dbg !451",
+				"%cond.i.i = select i1 %cmp.i.i, i64 9223372036854775807, i64 -9223372036854775808, !dbg !451",
+				"%storemerge.i.i = select i1 %or.cond14.i, i64 %cond.i.i, i64 %mul.i.i, !dbg !451",
+				"%tv_nsec1.i = getelementptr inbounds %struct.timespec, ptr %ts, i64 0, i32 1, !dbg !454",
+				"%2 = load i64, ptr %tv_nsec1.i, align 8, !dbg !454, !tbaa !455",
+				"%cmp.i8.i = icmp sgt i64 %2, 0, !dbg !462",
+				"br i1 %cmp.i8.i, label %land.lhs.true.i.i, label %if.else.i9.i, !dbg !464"
+			]
+		},
+		{
+			"function": "_PyTime_FromTimespec",
+			"id": 106,
+			"name": "land.lhs.true.i.i",
+			"debug": [
+				{
+					"line": 123, "columns": [36, 23, 9]
+				}
+			],
+			"successors": [108, 109],
+			"ir": [
+				"%sub.i.i = sub nuw nsw i64 9223372036854775807, %2, !dbg !465",
+				"%cmp1.i.i = icmp sgt i64 %storemerge.i.i, %sub.i.i, !dbg !466",
+				"br i1 %cmp1.i.i, label %pytime_add.exit.i.thread, label %pytime_add.exit.i, !dbg !467"
+			]
+		},
+		{
+			"function": "_PyTime_FromTimespec",
+			"id": 107,
+			"name": "if.else.i9.i",
+			"debug": [
+				{
+					"line": 127, "columns": [17, 21]
+				}
+			],
+			"successors": [108, 109],
+			"ir": [
+				"%cmp2.i.i = icmp ne i64 %2, 0, !dbg !468",
+				"%sub4.i.i = sub nsw i64 -9223372036854775808, %2",
+				"%cmp5.i.i = icmp slt i64 %storemerge.i.i, %sub4.i.i",
+				"%or.cond.i.i = select i1 %cmp2.i.i, i1 %cmp5.i.i, i1 false, !dbg !470",
+				"br i1 %or.cond.i.i, label %pytime_add.exit.i.thread, label %pytime_add.exit.i, !dbg !470"
+			]
+		},
+		{
+			"function": "_PyTime_FromTimespec",
+			"id": 108,
+			"name": "pytime_add.exit.i.thread",
+			"debug": [
+				{
+					"line": 513, "columns": [9]
+				},
+				{
+					"line": 515, "columns": [19]
+				}
+			],
+			"successors": [110],
+			"ir": [
+				"%add.sink.i.i.ph = phi i64 [ -9223372036854775808, %if.else.i9.i ], [ 9223372036854775807, %land.lhs.true.i.i ]",
+				"store i64 %add.sink.i.i.ph, ptr %tp, align 8, !dbg !471, !tbaa !472",
+				"br label %if.then.i, !dbg !473"
+			]
+		},
+		{
+			"function": "_PyTime_FromTimespec",
+			"id": 109,
+			"name": "pytime_add.exit.i",
+			"debug": [
+				{
+					"line": 132, "columns": [13]
+				},
+				{
+					"line": 513, "columns": [9]
+				},
+				{
+					"line": 515, "columns": [19]
+				}
+			],
+			"successors": [110, 111],
+			"ir": [
+				"%add.i.i = add i64 %storemerge.i.i, %2, !dbg !475",
+				"store i64 %add.i.i, ptr %tp, align 8, !dbg !471, !tbaa !472",
+				"br i1 %or.cond14.i, label %if.then.i, label %pytime_fromtimespec.exit, !dbg !473"
+			]
+		},
+		{
+			"function": "_PyTime_FromTimespec",
+			"id": 110,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 114, "columns": [21, 5]
+				},
+				{
+					"line": 517, "columns": [9]
+				}
+			],
+			"successors": [111],
+			"ir": [
+				"%3 = load ptr, ptr @PyExc_OverflowError, align 8, !dbg !477, !tbaa !484",
+				"tail call void @PyErr_SetString(ptr noundef %3, ptr noundef nonnull @.str.3) #15, !dbg !486",
+				"br label %pytime_fromtimespec.exit, !dbg !487"
+			]
+		},
+		{
+			"function": "_PyTime_FromTimespec",
+			"id": 111,
+			"name": "pytime_fromtimespec.exit",
+			"debug": [
+				{
+					"line": 525, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0.i = phi i32 [ -1, %if.then.i ], [ 0, %pytime_add.exit.i ], !dbg !426",
+				"ret i32 %retval.0.i, !dbg !488"
+			]
+		},
+		{
+			"function": "_PyTime_FromTimeval",
+			"id": 112,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 123, "columns": [12, 16]
+				},
+				{
+					"line": 151, "columns": [38]
+				},
+				{
+					"line": 536, "columns": [32]
+				},
+				{
+					"line": 540, "columns": [35, 43]
+				}
+			],
+			"successors": [113, 114],
+			"ir": [
+				"%0 = load i64, ptr %tv, align 8, !dbg !427, !tbaa !428",
+				"%1 = add i64 %0, -9223372037, !dbg !450",
+				"%or.cond18.i = icmp ult i64 %1, -18446744073, !dbg !450",
+				"%mul.i.i = mul nsw i64 %0, 1000000000, !dbg !450",
+				"%cmp.i.i = icmp sgt i64 %0, -1, !dbg !450",
+				"%cond.i.i = select i1 %cmp.i.i, i64 9223372036854775807, i64 -9223372036854775808, !dbg !450",
+				"%storemerge.i.i = select i1 %or.cond18.i, i64 %cond.i.i, i64 %mul.i.i, !dbg !450",
+				"%tv_usec.i = getelementptr inbounds %struct.timeval, ptr %tv, i64 0, i32 1, !dbg !453",
+				"%2 = load i64, ptr %tv_usec.i, align 8, !dbg !453, !tbaa !454",
+				"%mul.i = mul i64 %2, 1000, !dbg !455",
+				"%cmp.i7.i = icmp sgt i64 %mul.i, 0, !dbg !462",
+				"br i1 %cmp.i7.i, label %land.lhs.true.i.i, label %if.else.i8.i, !dbg !464"
+			]
+		},
+		{
+			"function": "_PyTime_FromTimeval",
+			"id": 113,
+			"name": "land.lhs.true.i.i",
+			"debug": [
+				{
+					"line": 123, "columns": [36, 23, 9]
+				}
+			],
+			"successors": [115, 116],
+			"ir": [
+				"%sub.i.i = sub nuw nsw i64 9223372036854775807, %mul.i, !dbg !465",
+				"%cmp1.i.i = icmp sgt i64 %storemerge.i.i, %sub.i.i, !dbg !466",
+				"br i1 %cmp1.i.i, label %pytime_add.exit.thread.i, label %pytime_add.exit.i, !dbg !467"
+			]
+		},
+		{
+			"function": "_PyTime_FromTimeval",
+			"id": 114,
+			"name": "if.else.i8.i",
+			"debug": [
+				{
+					"line": 127, "columns": [17, 21]
+				}
+			],
+			"successors": [115, 116],
+			"ir": [
+				"%cmp2.i.i = icmp ne i64 %mul.i, 0, !dbg !468",
+				"%sub4.i.i = sub nsw i64 -9223372036854775808, %mul.i",
+				"%cmp5.i.i = icmp slt i64 %storemerge.i.i, %sub4.i.i",
+				"%or.cond.i.i = select i1 %cmp2.i.i, i1 %cmp5.i.i, i1 false, !dbg !470",
+				"br i1 %or.cond.i.i, label %pytime_add.exit.thread.i, label %pytime_add.exit.i, !dbg !470"
+			]
+		},
+		{
+			"function": "_PyTime_FromTimeval",
+			"id": 115,
+			"name": "pytime_add.exit.thread.i",
+			"debug": [
+				{
+					"line": 543, "columns": [9]
+				},
+				{
+					"line": 545, "columns": [32]
+				}
+			],
+			"successors": [117],
+			"ir": [
+				"%add.sink.i.ph.i = phi i64 [ -9223372036854775808, %if.else.i8.i ], [ 9223372036854775807, %land.lhs.true.i.i ]",
+				"store i64 %add.sink.i.ph.i, ptr %tp, align 8, !dbg !471, !tbaa !472",
+				"br label %if.then.i, !dbg !473"
+			]
+		},
+		{
+			"function": "_PyTime_FromTimeval",
+			"id": 116,
+			"name": "pytime_add.exit.i",
+			"debug": [
+				{
+					"line": 132, "columns": [13]
+				},
+				{
+					"line": 543, "columns": [9]
+				},
+				{
+					"line": 545, "columns": [32]
+				}
+			],
+			"successors": [117, 118],
+			"ir": [
+				"%add.i.i = add i64 %storemerge.i.i, %mul.i, !dbg !475",
+				"store i64 %add.i.i, ptr %tp, align 8, !dbg !471, !tbaa !472",
+				"br i1 %or.cond18.i, label %if.then.i, label %pytime_fromtimeval.exit, !dbg !473"
+			]
+		},
+		{
+			"function": "_PyTime_FromTimeval",
+			"id": 117,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 114, "columns": [21, 5]
+				},
+				{
+					"line": 547, "columns": [9]
+				}
+			],
+			"successors": [118],
+			"ir": [
+				"%3 = load ptr, ptr @PyExc_OverflowError, align 8, !dbg !477, !tbaa !484",
+				"tail call void @PyErr_SetString(ptr noundef %3, ptr noundef nonnull @.str.3) #15, !dbg !486",
+				"br label %pytime_fromtimeval.exit, !dbg !487"
+			]
+		},
+		{
+			"function": "_PyTime_FromTimeval",
+			"id": 118,
+			"name": "pytime_fromtimeval.exit",
+			"debug": [
+				{
+					"line": 556, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0.i = phi i32 [ -1, %if.then.i ], [ 0, %pytime_add.exit.i ], !dbg !425",
+				"ret i32 %retval.0.i, !dbg !488"
+			]
+		},
+		{
+			"function": "_PyTime_FromSecondsObject",
+			"id": 119,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 625, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call fastcc i32 @pytime_from_object(ptr noundef %tp, ptr noundef %obj, i32 noundef %round, i64 noundef 1000000000), !dbg !409, !range !410",
+				"ret i32 %call, !dbg !411"
+			]
+		},
+		{
+			"function": "pytime_from_object",
+			"id": 120,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 365, "columns": [24]
+				},
+				{
+					"line": 538, "columns": [33]
+				},
+				{
+					"line": 590, "columns": [9]
+				}
+			],
+			"successors": [122, 121],
+			"ir": [
+				"%d.i.i = alloca double, align 8",
+				"%d.i = alloca double, align 8",
+				"%0 = getelementptr i8, ptr %obj, i64 8, !dbg !416",
+				"%obj.val = load ptr, ptr %0, align 8, !dbg !416, !tbaa !417",
+				"%cmp.i.not.i = icmp eq ptr %obj.val, @PyFloat_Type, !dbg !436",
+				"br i1 %cmp.i.not.i, label %if.then, label %PyObject_TypeCheck.exit, !dbg !437"
+			]
+		},
+		{
+			"function": "pytime_from_object",
+			"id": 121,
+			"name": "PyObject_TypeCheck.exit",
+			"debug": [
+				{
+					"line": 538, "columns": [36, 33]
+				},
+				{
+					"line": 590, "columns": [9]
+				}
+			],
+			"successors": [139, 122],
+			"ir": [
+				"%call2.i = tail call i32 @PyType_IsSubtype(ptr noundef %obj.val, ptr noundef nonnull @PyFloat_Type) #15, !dbg !438",
+				"%tobool3.i.not = icmp eq i32 %call2.i, 0, !dbg !437",
+				"br i1 %tobool3.i.not, label %if.else, label %if.then, !dbg !439"
+			]
+		},
+		{
+			"function": "pytime_from_object",
+			"id": 122,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 592, "columns": [13]
+				},
+				{
+					"line": 593, "columns": [13]
+				}
+			],
+			"successors": [123, 124],
+			"ir": [
+				"%call1 = tail call double @PyFloat_AsDouble(ptr noundef nonnull %obj) #15, !dbg !440",
+				"%cmp = fcmp uno double %call1, 0.000000e+00, !dbg !442",
+				"br i1 %cmp, label %if.then2, label %if.end, !dbg !444"
+			]
+		},
+		{
+			"function": "pytime_from_object",
+			"id": 123,
+			"name": "if.then2",
+			"debug": [
+				{
+					"line": 594, "columns": [29, 13]
+				},
+				{
+					"line": 595, "columns": [13]
+				}
+			],
+			"successors": [148],
+			"ir": [
+				"%1 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !445, !tbaa !447",
+				"tail call void @PyErr_SetString(ptr noundef %1, ptr noundef nonnull @.str) #15, !dbg !448",
+				"br label %return, !dbg !449"
+			]
+		},
+		{
+			"function": "pytime_from_object",
+			"id": 124,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 302, "columns": [5, 21]
+				},
+				{
+					"line": 304, "columns": [7]
+				},
+				{
+					"line": 305, "columns": [9]
+				},
+				{
+					"line": 566, "columns": [5, 21]
+				},
+				{
+					"line": 569, "columns": [7]
+				},
+				{
+					"line": 570, "columns": [10, 7]
+				},
+				{
+					"line": 571, "columns": [22]
+				}
+			],
+			"successors": [130, 125, 128, 129],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %d.i), !dbg !463",
+				"store volatile double %call1, ptr %d.i, align 8, !dbg !465, !tbaa !466",
+				"%conv.i = sitofp i64 %unit_to_ns to double, !dbg !468",
+				"%d.i.0.d.i.0.d.i.0.d.0.d.0.d.0..i = load volatile double, ptr %d.i, align 8, !dbg !469, !tbaa !466",
+				"%mul.i = fmul double %d.i.0.d.i.0.d.i.0.d.0.d.0.d.0..i, %conv.i, !dbg !469",
+				"store volatile double %mul.i, ptr %d.i, align 8, !dbg !469, !tbaa !466",
+				"%d.i.0.d.i.0.d.i.0.d.0.d.0.d.0.5.i = load volatile double, ptr %d.i, align 8, !dbg !470, !tbaa !466",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %d.i.i), !dbg !480",
+				"store volatile double %d.i.0.d.i.0.d.i.0.d.0.d.0.d.0.5.i, ptr %d.i.i, align 8, !dbg !482, !tbaa !466",
+				"switch i32 %round, label %if.else6.i.i [\n    i32 2, label %if.then.i.i\n    i32 1, label %if.then2.i.i\n    i32 0, label %if.then5.i.i\n  ], !dbg !483"
+			]
+		},
+		{
+			"function": "pytime_from_object",
+			"id": 125,
+			"name": "if.then.i.i",
+			"debug": [
+				{
+					"line": 289, "columns": [22]
+				},
+				{
+					"line": 290, "columns": [15, 9, 25]
+				},
+				{
+					"line": 306, "columns": [36]
+				}
+			],
+			"successors": [126, 127],
+			"ir": [
+				"%d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0..i.i = load volatile double, ptr %d.i.i, align 8, !dbg !484, !tbaa !466",
+				"%2 = tail call double @llvm.round.f64(double %d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0..i.i), !dbg !495",
+				"%sub.i.i.i = fsub double %d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0..i.i, %2, !dbg !496",
+				"%3 = tail call double @llvm.fabs.f64(double %sub.i.i.i), !dbg !498",
+				"%cmp.i.i.i = fcmp oeq double %3, 5.000000e-01, !dbg !499",
+				"br i1 %cmp.i.i.i, label %if.then.i.i.i, label %pytime_round_half_even.exit.i.i, !dbg !500"
+			]
+		},
+		{
+			"function": "pytime_from_object",
+			"id": 126,
+			"name": "if.then.i.i.i",
+			"debug": [
+				{
+					"line": 292, "columns": [33, 25, 23]
+				},
+				{
+					"line": 293, "columns": [5]
+				}
+			],
+			"successors": [127],
+			"ir": [
+				"%div.i.i.i = fmul double %d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0..i.i, 5.000000e-01, !dbg !501",
+				"%4 = tail call double @llvm.round.f64(double %div.i.i.i), !dbg !503",
+				"%mul.i.i.i = fmul double %4, 2.000000e+00, !dbg !504",
+				"br label %pytime_round_half_even.exit.i.i, !dbg !505"
+			]
+		},
+		{
+			"function": "pytime_from_object",
+			"id": 127,
+			"name": "pytime_round_half_even.exit.i.i",
+			"debug": [
+				{
+					"line": 306, "columns": [11]
+				},
+				{
+					"line": 307, "columns": [5]
+				}
+			],
+			"successors": [134],
+			"ir": [
+				"%rounded.0.i.i.i = phi double [ %mul.i.i.i, %if.then.i.i.i ], [ %2, %if.then.i.i ], !dbg !493",
+				"store volatile double %rounded.0.i.i.i, ptr %d.i.i, align 8, !dbg !506, !tbaa !466",
+				"br label %pytime_round.exit.i, !dbg !507"
+			]
+		},
+		{
+			"function": "pytime_from_object",
+			"id": 128,
+			"name": "if.then2.i.i",
+			"debug": [
+				{
+					"line": 309, "columns": [18, 13, 11]
+				},
+				{
+					"line": 310, "columns": [5]
+				}
+			],
+			"successors": [134],
+			"ir": [
+				"%d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0.10.i.i = load volatile double, ptr %d.i.i, align 8, !dbg !508, !tbaa !466",
+				"%5 = tail call double @llvm.ceil.f64(double %d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0.10.i.i), !dbg !511",
+				"store volatile double %5, ptr %d.i.i, align 8, !dbg !512, !tbaa !466",
+				"br label %pytime_round.exit.i, !dbg !513"
+			]
+		},
+		{
+			"function": "pytime_from_object",
+			"id": 129,
+			"name": "if.then5.i.i",
+			"debug": [
+				{
+					"line": 312, "columns": [19, 13, 11]
+				},
+				{
+					"line": 313, "columns": [5]
+				}
+			],
+			"successors": [134],
+			"ir": [
+				"%d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0.11.i.i = load volatile double, ptr %d.i.i, align 8, !dbg !514, !tbaa !466",
+				"%6 = tail call double @llvm.floor.f64(double %d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0.11.i.i), !dbg !517",
+				"store volatile double %6, ptr %d.i.i, align 8, !dbg !518, !tbaa !466",
+				"br label %pytime_round.exit.i, !dbg !519"
+			]
+		},
+		{
+			"function": "pytime_from_object",
+			"id": 130,
+			"name": "if.else6.i.i",
+			"debug": [
+				{
+					"line": 316, "columns": [14, 16, 0, 13]
+				}
+			],
+			"successors": [132, 131],
+			"ir": [
+				"%d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0.12.i.i = load volatile double, ptr %d.i.i, align 8, !dbg !520, !tbaa !466",
+				"%cmp7.i.i = fcmp ult double %d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0.12.i.i, 0.000000e+00, !dbg !522",
+				"%d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0.14.i.i = load volatile double, ptr %d.i.i, align 8, !dbg !523, !tbaa !466",
+				"br i1 %cmp7.i.i, label %cond.false.i.i, label %cond.true.i.i, !dbg !524"
+			]
+		},
+		{
+			"function": "pytime_from_object",
+			"id": 131,
+			"name": "cond.true.i.i",
+			"debug": [
+				{
+					"line": 316, "columns": [26, 13]
+				}
+			],
+			"successors": [133],
+			"ir": [
+				"%7 = tail call double @llvm.ceil.f64(double %d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0.14.i.i), !dbg !525",
+				"br label %cond.end.i.i, !dbg !524"
+			]
+		},
+		{
+			"function": "pytime_from_object",
+			"id": 132,
+			"name": "cond.false.i.i",
+			"debug": [
+				{
+					"line": 316, "columns": [36, 13]
+				}
+			],
+			"successors": [133],
+			"ir": [
+				"%8 = tail call double @llvm.floor.f64(double %d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0.14.i.i), !dbg !526",
+				"br label %cond.end.i.i, !dbg !524"
+			]
+		},
+		{
+			"function": "pytime_from_object",
+			"id": 133,
+			"name": "cond.end.i.i",
+			"debug": [
+				{
+					"line": 316, "columns": [13, 11]
+				}
+			],
+			"successors": [134],
+			"ir": [
+				"%cond.i.i = phi double [ %7, %cond.true.i.i ], [ %8, %cond.false.i.i ], !dbg !524",
+				"store volatile double %cond.i.i, ptr %d.i.i, align 8, !dbg !527, !tbaa !466",
+				"br label %pytime_round.exit.i"
+			]
+		},
+		{
+			"function": "pytime_from_object",
+			"id": 134,
+			"name": "pytime_round.exit.i",
+			"debug": [
+				{
+					"line": 318, "columns": [12]
+				},
+				{
+					"line": 319, "columns": [1]
+				},
+				{
+					"line": 571, "columns": [7]
+				},
+				{
+					"line": 574, "columns": [33, 30, 35]
+				}
+			],
+			"successors": [136, 135],
+			"ir": [
+				"%d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0.15.i.i = load volatile double, ptr %d.i.i, align 8, !dbg !528, !tbaa !466",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %d.i.i), !dbg !529",
+				"store volatile double %d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0.15.i.i, ptr %d.i, align 8, !dbg !530, !tbaa !466",
+				"%d.i.0.d.i.0.d.i.0.d.0.d.0.d.0.6.i = load volatile double, ptr %d.i, align 8, !dbg !531, !tbaa !466",
+				"%cmp.i = fcmp ult double %d.i.0.d.i.0.d.i.0.d.0.d.0.d.0.6.i, 0xC3E0000000000000, !dbg !533",
+				"br i1 %cmp.i, label %if.then.i, label %land.lhs.true.i, !dbg !534"
+			]
+		},
+		{
+			"function": "pytime_from_object",
+			"id": 135,
+			"name": "land.lhs.true.i",
+			"debug": [
+				{
+					"line": 574, "columns": [38, 40, 9]
+				}
+			],
+			"successors": [137, 136],
+			"ir": [
+				"%d.i.0.d.i.0.d.i.0.d.0.d.0.d.0.7.i = load volatile double, ptr %d.i, align 8, !dbg !535, !tbaa !466",
+				"%cmp2.i = fcmp olt double %d.i.0.d.i.0.d.i.0.d.0.d.0.d.0.7.i, 0x43E0000000000000, !dbg !536",
+				"br i1 %cmp2.i, label %if.end.i, label %if.then.i, !dbg !537"
+			]
+		},
+		{
+			"function": "pytime_from_object",
+			"id": 136,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 106, "columns": [21, 5]
+				},
+				{
+					"line": 577, "columns": [9]
+				}
+			],
+			"successors": [138],
+			"ir": [
+				"%9 = load ptr, ptr @PyExc_OverflowError, align 8, !dbg !538, !tbaa !447",
+				"tail call void @PyErr_SetString(ptr noundef %9, ptr noundef nonnull @.str.2) #15, !dbg !545",
+				"br label %pytime_from_double.exit, !dbg !546"
+			]
+		},
+		{
+			"function": "pytime_from_object",
+			"id": 137,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 579, "columns": [29, 19]
+				}
+			],
+			"successors": [138],
+			"ir": [
+				"%d.i.0.d.i.0.d.i.0.d.0.d.0.d.0.8.i = load volatile double, ptr %d.i, align 8, !dbg !547, !tbaa !466",
+				"%conv4.i = fptosi double %d.i.0.d.i.0.d.i.0.d.0.d.0.d.0.8.i to i64, !dbg !548",
+				"br label %pytime_from_double.exit"
+			]
+		},
+		{
+			"function": "pytime_from_object",
+			"id": 138,
+			"name": "pytime_from_double.exit",
+			"debug": [
+				{
+					"line": 583, "columns": [1]
+				},
+				{
+					"line": 597, "columns": [9]
+				}
+			],
+			"successors": [148],
+			"ir": [
+				"%storemerge.i = phi i64 [ 0, %if.then.i ], [ %conv4.i, %if.end.i ], !dbg !461",
+				"%retval.0.i = phi i32 [ -1, %if.then.i ], [ 0, %if.end.i ], !dbg !461",
+				"store i64 %storemerge.i, ptr %tp, align 8, !dbg !461, !tbaa !549",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %d.i), !dbg !551",
+				"br label %return, !dbg !552"
+			]
+		},
+		{
+			"function": "pytime_from_object",
+			"id": 139,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 600, "columns": [25]
+				},
+				{
+					"line": 601, "columns": [17, 23]
+				}
+			],
+			"successors": [140, 143],
+			"ir": [
+				"%call4 = tail call i64 @PyLong_AsLongLong(ptr noundef nonnull %obj) #15, !dbg !553",
+				"%cmp5 = icmp eq i64 %call4, -1, !dbg !555",
+				"br i1 %cmp5, label %land.lhs.true, label %if.end13, !dbg !557"
+			]
+		},
+		{
+			"function": "pytime_from_object",
+			"id": 140,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 601, "columns": [26, 13]
+				}
+			],
+			"successors": [143, 141],
+			"ir": [
+				"%call6 = tail call ptr @PyErr_Occurred() #15, !dbg !558",
+				"%tobool7.not = icmp eq ptr %call6, null, !dbg !558",
+				"br i1 %tobool7.not, label %if.end13, label %if.then8, !dbg !559"
+			]
+		},
+		{
+			"function": "pytime_from_object",
+			"id": 141,
+			"name": "if.then8",
+			"debug": [
+				{
+					"line": 602, "columns": [40, 17]
+				}
+			],
+			"successors": [148, 142],
+			"ir": [
+				"%10 = load ptr, ptr @PyExc_OverflowError, align 8, !dbg !560, !tbaa !447",
+				"%call9 = tail call i32 @PyErr_ExceptionMatches(ptr noundef %10) #15, !dbg !563",
+				"%tobool10.not = icmp eq i32 %call9, 0, !dbg !563",
+				"br i1 %tobool10.not, label %return, label %if.then11, !dbg !564"
+			]
+		},
+		{
+			"function": "pytime_from_object",
+			"id": 142,
+			"name": "if.then11",
+			"debug": [
+				{
+					"line": 114, "columns": [21, 5]
+				},
+				{
+					"line": 604, "columns": [13]
+				}
+			],
+			"successors": [148],
+			"ir": [
+				"%11 = load ptr, ptr @PyExc_OverflowError, align 8, !dbg !565, !tbaa !447",
+				"tail call void @PyErr_SetString(ptr noundef %11, ptr noundef nonnull @.str.3) #15, !dbg !569",
+				"br label %return, !dbg !570"
+			]
+		},
+		{
+			"function": "pytime_from_object",
+			"id": 143,
+			"name": "if.end13",
+			"debug": [
+				{
+					"line": 149, "columns": [11, 9]
+				}
+			],
+			"successors": [147, 144],
+			"ir": [
+				"%cmp.not.i.i = icmp eq i64 %unit_to_ns, 0, !dbg !589",
+				"br i1 %cmp.not.i.i, label %if.end17, label %if.then.i.i26, !dbg !591"
+			]
+		},
+		{
+			"function": "pytime_from_object",
+			"id": 144,
+			"name": "if.then.i.i26",
+			"debug": [
+				{
+					"line": 151, "columns": [33, 20, 38]
+				}
+			],
+			"successors": [146, 145],
+			"ir": [
+				"%div.i.i = sdiv i64 -9223372036854775808, %unit_to_ns, !dbg !592",
+				"%cmp1.i.i = icmp sgt i64 %div.i.i, %call4, !dbg !594",
+				"br i1 %cmp1.i.i, label %if.then16, label %pytime_mul_check_overflow.exit.i, !dbg !595"
+			]
+		},
+		{
+			"function": "pytime_from_object",
+			"id": 145,
+			"name": "pytime_mul_check_overflow.exit.i",
+			"debug": [
+				{
+					"line": 151, "columns": [53, 57]
+				},
+				{
+					"line": 164, "columns": [9]
+				}
+			],
+			"successors": [146, 147],
+			"ir": [
+				"%div2.i.i = sdiv i64 9223372036854775807, %unit_to_ns, !dbg !596",
+				"%cmp3.i.not.i = icmp slt i64 %div2.i.i, %call4, !dbg !597",
+				"br i1 %cmp3.i.not.i, label %if.then16, label %if.end17, !dbg !598"
+			]
+		},
+		{
+			"function": "pytime_from_object",
+			"id": 146,
+			"name": "if.then16",
+			"debug": [
+				{
+					"line": 114, "columns": [21, 5]
+				},
+				{
+					"line": 613, "columns": [13]
+				}
+			],
+			"successors": [148],
+			"ir": [
+				"%12 = load ptr, ptr @PyExc_OverflowError, align 8, !dbg !599, !tbaa !447",
+				"tail call void @PyErr_SetString(ptr noundef %12, ptr noundef nonnull @.str.3) #15, !dbg !602",
+				"br label %return, !dbg !603"
+			]
+		},
+		{
+			"function": "pytime_from_object",
+			"id": 147,
+			"name": "if.end17",
+			"debug": [
+				{
+					"line": 169, "columns": [12]
+				},
+				{
+					"line": 616, "columns": [13]
+				},
+				{
+					"line": 617, "columns": [9]
+				}
+			],
+			"successors": [148],
+			"ir": [
+				"%mul.i29 = mul i64 %call4, %unit_to_ns, !dbg !604",
+				"store i64 %mul.i29, ptr %tp, align 8, !dbg !606, !tbaa !549",
+				"br label %return, !dbg !607"
+			]
+		},
+		{
+			"function": "pytime_from_object",
+			"id": 148,
+			"name": "return",
+			"debug": [
+				{
+					"line": 619, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.3 = phi i32 [ -1, %if.then2 ], [ %retval.0.i, %pytime_from_double.exit ], [ -1, %if.then11 ], [ -1, %if.then8 ], [ -1, %if.then16 ], [ 0, %if.end17 ], !dbg !608",
+				"ret i32 %retval.3, !dbg !609"
+			]
+		},
+		{
+			"function": "_PyTime_FromMillisecondsObject",
+			"id": 149,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 632, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call fastcc i32 @pytime_from_object(ptr noundef %tp, ptr noundef %obj, i32 noundef %round, i64 noundef 1000000), !dbg !409, !range !410",
+				"ret i32 %call, !dbg !411"
+			]
+		},
+		{
+			"function": "PyTime_AsSecondsDouble",
+			"id": 150,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 640, "columns": [5, 21]
+				},
+				{
+					"line": 642, "columns": [12, 24, 9]
+				},
+				{
+					"line": 645, "columns": [28]
+				}
+			],
+			"successors": [151, 152],
+			"ir": [
+				"%d = alloca double, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %d), !dbg !410",
+				"%rem = srem i64 %ns, 1000000000, !dbg !412",
+				"%div = sdiv i64 %ns, 1000000000, !dbg !413",
+				"%cmp = icmp eq i64 %rem, 0, !dbg !414",
+				"br i1 %cmp, label %if.then, label %if.else, !dbg !415"
+			]
+		},
+		{
+			"function": "PyTime_AsSecondsDouble",
+			"id": 151,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 646, "columns": [13, 11]
+				},
+				{
+					"line": 647, "columns": [5]
+				}
+			],
+			"successors": [153],
+			"ir": [
+				"%conv = sitofp i64 %div to double, !dbg !417",
+				"store volatile double %conv, ptr %d, align 8, !dbg !418, !tbaa !419",
+				"br label %if.end, !dbg !423"
+			]
+		},
+		{
+			"function": "PyTime_AsSecondsDouble",
+			"id": 152,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 649, "columns": [13, 11]
+				},
+				{
+					"line": 650, "columns": [11]
+				}
+			],
+			"successors": [153],
+			"ir": [
+				"%conv1 = sitofp i64 %ns to double, !dbg !424",
+				"store volatile double %conv1, ptr %d, align 8, !dbg !426, !tbaa !419",
+				"%d.0.d.0.d.0.d.0. = load volatile double, ptr %d, align 8, !dbg !427, !tbaa !419",
+				"%div2 = fdiv double %d.0.d.0.d.0.d.0., 1.000000e+09, !dbg !427",
+				"store volatile double %div2, ptr %d, align 8, !dbg !427, !tbaa !419",
+				"br label %if.end"
+			]
+		},
+		{
+			"function": "PyTime_AsSecondsDouble",
+			"id": 153,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 652, "columns": [12, 5]
+				},
+				{
+					"line": 653, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%d.0.d.0.d.0.d.0.3 = load volatile double, ptr %d, align 8, !dbg !428, !tbaa !419",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %d), !dbg !429",
+				"ret double %d.0.d.0.d.0.d.0.3, !dbg !430"
+			]
+		},
+		{
+			"function": "_PyTime_AsLong",
+			"id": 154,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 661, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call ptr @PyLong_FromLongLong(i64 noundef %ns) #15, !dbg !405",
+				"ret ptr %call, !dbg !406"
+			]
+		},
+		{
+			"function": "_PyTime_FromSecondsDouble",
+			"id": 155,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 302, "columns": [5, 21]
+				},
+				{
+					"line": 304, "columns": [7]
+				},
+				{
+					"line": 305, "columns": [9]
+				},
+				{
+					"line": 566, "columns": [5, 21]
+				},
+				{
+					"line": 569, "columns": [7]
+				},
+				{
+					"line": 570, "columns": [7]
+				},
+				{
+					"line": 571, "columns": [22]
+				}
+			],
+			"successors": [161, 156, 159, 160],
+			"ir": [
+				"%d.i.i = alloca double, align 8",
+				"%d.i = alloca double, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %d.i), !dbg !422",
+				"store volatile double %seconds, ptr %d.i, align 8, !dbg !424, !tbaa !425",
+				"%d.i.0.d.i.0.d.i.0.d.0.d.0.d.0..i = load volatile double, ptr %d.i, align 8, !dbg !429, !tbaa !425",
+				"%mul.i = fmul double %d.i.0.d.i.0.d.i.0.d.0.d.0.d.0..i, 1.000000e+09, !dbg !429",
+				"store volatile double %mul.i, ptr %d.i, align 8, !dbg !429, !tbaa !425",
+				"%d.i.0.d.i.0.d.i.0.d.0.d.0.d.0.5.i = load volatile double, ptr %d.i, align 8, !dbg !430, !tbaa !425",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %d.i.i), !dbg !440",
+				"store volatile double %d.i.0.d.i.0.d.i.0.d.0.d.0.d.0.5.i, ptr %d.i.i, align 8, !dbg !442, !tbaa !425",
+				"switch i32 %round, label %if.else6.i.i [\n    i32 2, label %if.then.i.i\n    i32 1, label %if.then2.i.i\n    i32 0, label %if.then5.i.i\n  ], !dbg !443"
+			]
+		},
+		{
+			"function": "_PyTime_FromSecondsDouble",
+			"id": 156,
+			"name": "if.then.i.i",
+			"debug": [
+				{
+					"line": 289, "columns": [22]
+				},
+				{
+					"line": 290, "columns": [15, 9, 25]
+				},
+				{
+					"line": 306, "columns": [36]
+				}
+			],
+			"successors": [157, 158],
+			"ir": [
+				"%d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0..i.i = load volatile double, ptr %d.i.i, align 8, !dbg !444, !tbaa !425",
+				"%0 = tail call double @llvm.round.f64(double %d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0..i.i), !dbg !455",
+				"%sub.i.i.i = fsub double %d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0..i.i, %0, !dbg !456",
+				"%1 = tail call double @llvm.fabs.f64(double %sub.i.i.i), !dbg !458",
+				"%cmp.i.i.i = fcmp oeq double %1, 5.000000e-01, !dbg !459",
+				"br i1 %cmp.i.i.i, label %if.then.i.i.i, label %pytime_round_half_even.exit.i.i, !dbg !460"
+			]
+		},
+		{
+			"function": "_PyTime_FromSecondsDouble",
+			"id": 157,
+			"name": "if.then.i.i.i",
+			"debug": [
+				{
+					"line": 292, "columns": [33, 25, 23]
+				},
+				{
+					"line": 293, "columns": [5]
+				}
+			],
+			"successors": [158],
+			"ir": [
+				"%div.i.i.i = fmul double %d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0..i.i, 5.000000e-01, !dbg !461",
+				"%2 = tail call double @llvm.round.f64(double %div.i.i.i), !dbg !463",
+				"%mul.i.i.i = fmul double %2, 2.000000e+00, !dbg !464",
+				"br label %pytime_round_half_even.exit.i.i, !dbg !465"
+			]
+		},
+		{
+			"function": "_PyTime_FromSecondsDouble",
+			"id": 158,
+			"name": "pytime_round_half_even.exit.i.i",
+			"debug": [
+				{
+					"line": 306, "columns": [11]
+				},
+				{
+					"line": 307, "columns": [5]
+				}
+			],
+			"successors": [165],
+			"ir": [
+				"%rounded.0.i.i.i = phi double [ %mul.i.i.i, %if.then.i.i.i ], [ %0, %if.then.i.i ], !dbg !453",
+				"store volatile double %rounded.0.i.i.i, ptr %d.i.i, align 8, !dbg !466, !tbaa !425",
+				"br label %pytime_round.exit.i, !dbg !467"
+			]
+		},
+		{
+			"function": "_PyTime_FromSecondsDouble",
+			"id": 159,
+			"name": "if.then2.i.i",
+			"debug": [
+				{
+					"line": 309, "columns": [18, 13, 11]
+				},
+				{
+					"line": 310, "columns": [5]
+				}
+			],
+			"successors": [165],
+			"ir": [
+				"%d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0.10.i.i = load volatile double, ptr %d.i.i, align 8, !dbg !468, !tbaa !425",
+				"%3 = tail call double @llvm.ceil.f64(double %d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0.10.i.i), !dbg !471",
+				"store volatile double %3, ptr %d.i.i, align 8, !dbg !472, !tbaa !425",
+				"br label %pytime_round.exit.i, !dbg !473"
+			]
+		},
+		{
+			"function": "_PyTime_FromSecondsDouble",
+			"id": 160,
+			"name": "if.then5.i.i",
+			"debug": [
+				{
+					"line": 312, "columns": [19, 13, 11]
+				},
+				{
+					"line": 313, "columns": [5]
+				}
+			],
+			"successors": [165],
+			"ir": [
+				"%d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0.11.i.i = load volatile double, ptr %d.i.i, align 8, !dbg !474, !tbaa !425",
+				"%4 = tail call double @llvm.floor.f64(double %d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0.11.i.i), !dbg !477",
+				"store volatile double %4, ptr %d.i.i, align 8, !dbg !478, !tbaa !425",
+				"br label %pytime_round.exit.i, !dbg !479"
+			]
+		},
+		{
+			"function": "_PyTime_FromSecondsDouble",
+			"id": 161,
+			"name": "if.else6.i.i",
+			"debug": [
+				{
+					"line": 316, "columns": [14, 16, 0, 13]
+				}
+			],
+			"successors": [163, 162],
+			"ir": [
+				"%d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0.12.i.i = load volatile double, ptr %d.i.i, align 8, !dbg !480, !tbaa !425",
+				"%cmp7.i.i = fcmp ult double %d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0.12.i.i, 0.000000e+00, !dbg !482",
+				"%d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0.14.i.i = load volatile double, ptr %d.i.i, align 8, !dbg !483, !tbaa !425",
+				"br i1 %cmp7.i.i, label %cond.false.i.i, label %cond.true.i.i, !dbg !484"
+			]
+		},
+		{
+			"function": "_PyTime_FromSecondsDouble",
+			"id": 162,
+			"name": "cond.true.i.i",
+			"debug": [
+				{
+					"line": 316, "columns": [26, 13]
+				}
+			],
+			"successors": [164],
+			"ir": [
+				"%5 = tail call double @llvm.ceil.f64(double %d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0.14.i.i), !dbg !485",
+				"br label %cond.end.i.i, !dbg !484"
+			]
+		},
+		{
+			"function": "_PyTime_FromSecondsDouble",
+			"id": 163,
+			"name": "cond.false.i.i",
+			"debug": [
+				{
+					"line": 316, "columns": [36, 13]
+				}
+			],
+			"successors": [164],
+			"ir": [
+				"%6 = tail call double @llvm.floor.f64(double %d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0.14.i.i), !dbg !486",
+				"br label %cond.end.i.i, !dbg !484"
+			]
+		},
+		{
+			"function": "_PyTime_FromSecondsDouble",
+			"id": 164,
+			"name": "cond.end.i.i",
+			"debug": [
+				{
+					"line": 316, "columns": [13, 11]
+				}
+			],
+			"successors": [165],
+			"ir": [
+				"%cond.i.i = phi double [ %5, %cond.true.i.i ], [ %6, %cond.false.i.i ], !dbg !484",
+				"store volatile double %cond.i.i, ptr %d.i.i, align 8, !dbg !487, !tbaa !425",
+				"br label %pytime_round.exit.i"
+			]
+		},
+		{
+			"function": "_PyTime_FromSecondsDouble",
+			"id": 165,
+			"name": "pytime_round.exit.i",
+			"debug": [
+				{
+					"line": 318, "columns": [12]
+				},
+				{
+					"line": 319, "columns": [1]
+				},
+				{
+					"line": 571, "columns": [7]
+				},
+				{
+					"line": 574, "columns": [33, 30, 35]
+				}
+			],
+			"successors": [167, 166],
+			"ir": [
+				"%d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0.15.i.i = load volatile double, ptr %d.i.i, align 8, !dbg !488, !tbaa !425",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %d.i.i), !dbg !489",
+				"store volatile double %d.i.i.0.d.i.i.0.d.i.i.0.d.i.0.d.i.0.d.0.d.0.d.0.15.i.i, ptr %d.i, align 8, !dbg !490, !tbaa !425",
+				"%d.i.0.d.i.0.d.i.0.d.0.d.0.d.0.6.i = load volatile double, ptr %d.i, align 8, !dbg !491, !tbaa !425",
+				"%cmp.i = fcmp ult double %d.i.0.d.i.0.d.i.0.d.0.d.0.d.0.6.i, 0xC3E0000000000000, !dbg !493",
+				"br i1 %cmp.i, label %if.then.i, label %land.lhs.true.i, !dbg !494"
+			]
+		},
+		{
+			"function": "_PyTime_FromSecondsDouble",
+			"id": 166,
+			"name": "land.lhs.true.i",
+			"debug": [
+				{
+					"line": 574, "columns": [38, 40, 9]
+				}
+			],
+			"successors": [168, 167],
+			"ir": [
+				"%d.i.0.d.i.0.d.i.0.d.0.d.0.d.0.7.i = load volatile double, ptr %d.i, align 8, !dbg !495, !tbaa !425",
+				"%cmp2.i = fcmp olt double %d.i.0.d.i.0.d.i.0.d.0.d.0.d.0.7.i, 0x43E0000000000000, !dbg !496",
+				"br i1 %cmp2.i, label %if.end.i, label %if.then.i, !dbg !497"
+			]
+		},
+		{
+			"function": "_PyTime_FromSecondsDouble",
+			"id": 167,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 106, "columns": [21, 5]
+				},
+				{
+					"line": 577, "columns": [9]
+				}
+			],
+			"successors": [169],
+			"ir": [
+				"%7 = load ptr, ptr @PyExc_OverflowError, align 8, !dbg !498, !tbaa !505",
+				"tail call void @PyErr_SetString(ptr noundef %7, ptr noundef nonnull @.str.2) #15, !dbg !507",
+				"br label %pytime_from_double.exit, !dbg !508"
+			]
+		},
+		{
+			"function": "_PyTime_FromSecondsDouble",
+			"id": 168,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 579, "columns": [29, 19]
+				}
+			],
+			"successors": [169],
+			"ir": [
+				"%d.i.0.d.i.0.d.i.0.d.0.d.0.d.0.8.i = load volatile double, ptr %d.i, align 8, !dbg !509, !tbaa !425",
+				"%conv4.i = fptosi double %d.i.0.d.i.0.d.i.0.d.0.d.0.d.0.8.i to i64, !dbg !510",
+				"br label %pytime_from_double.exit"
+			]
+		},
+		{
+			"function": "_PyTime_FromSecondsDouble",
+			"id": 169,
+			"name": "pytime_from_double.exit",
+			"debug": [
+				{
+					"line": 583, "columns": [1]
+				},
+				{
+					"line": 667, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%storemerge.i = phi i64 [ 0, %if.then.i ], [ %conv4.i, %if.end.i ], !dbg !420",
+				"%retval.0.i = phi i32 [ -1, %if.then.i ], [ 0, %if.end.i ], !dbg !420",
+				"store i64 %storemerge.i, ptr %result, align 8, !dbg !420, !tbaa !511",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %d.i), !dbg !513",
+				"ret i32 %retval.0.i, !dbg !514"
+			]
+		},
+		{
+			"function": "_PyTime_AsMicroseconds",
+			"id": 170,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 701, "columns": [9]
+				}
+			],
+			"successors": [182, 171, 176, 179],
+			"ir": [
+				"switch i32 %round, label %if.else31.i [\n    i32 2, label %if.then.i\n    i32 1, label %if.then18.i\n    i32 0, label %if.then25.i\n  ], !dbg !423"
+			]
+		},
+		{
+			"function": "_PyTime_AsMicroseconds",
+			"id": 171,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 702, "columns": [24]
+				},
+				{
+					"line": 703, "columns": [24]
+				},
+				{
+					"line": 704, "columns": [26]
+				},
+				{
+					"line": 705, "columns": [19, 27]
+				}
+			],
+			"successors": [173, 172],
+			"ir": [
+				"%div.i = sdiv i64 %ns, 1000, !dbg !424",
+				"%rem.i = srem i64 %ns, 1000, !dbg !426",
+				"%cond.i = tail call i64 @llvm.abs.i64(i64 %rem.i, i1 true), !dbg !427",
+				"%cmp3.i = icmp ugt i64 %cond.i, 500, !dbg !428",
+				"br i1 %cmp3.i, label %if.then12.i, label %lor.lhs.false.i, !dbg !430"
+			]
+		},
+		{
+			"function": "_PyTime_AsMicroseconds",
+			"id": 172,
+			"name": "lor.lhs.false.i",
+			"debug": [
+				{
+					"line": 705, "columns": [37, 46]
+				}
+			],
+			"successors": [185, 173],
+			"ir": [
+				"%cmp5.i = icmp ne i64 %cond.i, 500, !dbg !431",
+				"%and.i = and i64 %div.i, 1",
+				"%tobool.not.i = icmp eq i64 %and.i, 0",
+				"%or.cond.i = or i1 %tobool.not.i, %cmp5.i, !dbg !432",
+				"br i1 %or.cond.i, label %pytime_divide.exit, label %if.then12.i, !dbg !432"
+			]
+		},
+		{
+			"function": "_PyTime_AsMicroseconds",
+			"id": 173,
+			"name": "if.then12.i",
+			"debug": [
+				{
+					"line": 706, "columns": [19, 17]
+				}
+			],
+			"successors": [174, 175],
+			"ir": [
+				"%cmp13.i = icmp sgt i64 %ns, -1, !dbg !433",
+				"br i1 %cmp13.i, label %if.then14.i, label %if.else.i, !dbg !436"
+			]
+		},
+		{
+			"function": "_PyTime_AsMicroseconds",
+			"id": 174,
+			"name": "if.then14.i",
+			"debug": [
+				{
+					"line": 707, "columns": [18]
+				},
+				{
+					"line": 708, "columns": [13]
+				}
+			],
+			"successors": [185],
+			"ir": [
+				"%inc.i = add nsw i64 %div.i, 1, !dbg !437",
+				"br label %pytime_divide.exit, !dbg !439"
+			]
+		},
+		{
+			"function": "_PyTime_AsMicroseconds",
+			"id": 175,
+			"name": "if.else.i",
+			"debug": [
+				{
+					"line": 710, "columns": [18]
+				}
+			],
+			"successors": [185],
+			"ir": [
+				"%dec.i = add nsw i64 %div.i, -1, !dbg !440",
+				"br label %pytime_divide.exit"
+			]
+		},
+		{
+			"function": "_PyTime_AsMicroseconds",
+			"id": 176,
+			"name": "if.then18.i",
+			"debug": [
+				{
+					"line": 716, "columns": [15, 13]
+				}
+			],
+			"successors": [177, 178],
+			"ir": [
+				"%cmp19.i = icmp sgt i64 %ns, -1, !dbg !442",
+				"br i1 %cmp19.i, label %pytime_divide_round_up.exit.i, label %if.else21.i, !dbg !446"
+			]
+		},
+		{
+			"function": "_PyTime_AsMicroseconds",
+			"id": 177,
+			"name": "pytime_divide_round_up.exit.i",
+			"debug": [
+				{
+					"line": 679, "columns": [15, 13]
+				},
+				{
+					"line": 717, "columns": [13]
+				}
+			],
+			"successors": [185],
+			"ir": [
+				"%div.i.i = udiv i64 %ns, 1000",
+				"%rem.i.i = urem i64 %ns, 1000",
+				"%tobool.not.i.i = icmp ne i64 %rem.i.i, 0, !dbg !462",
+				"%add.i.i = zext i1 %tobool.not.i.i to i64, !dbg !464",
+				"%spec.select.i.i = add nuw nsw i64 %div.i.i, %add.i.i, !dbg !464",
+				"br label %pytime_divide.exit, !dbg !465"
+			]
+		},
+		{
+			"function": "_PyTime_AsMicroseconds",
+			"id": 178,
+			"name": "if.else21.i",
+			"debug": [
+				{
+					"line": 720, "columns": [22, 13]
+				}
+			],
+			"successors": [185],
+			"ir": [
+				"%ns.nonneg4 = sub i64 0, %ns, !dbg !466",
+				"%div22.i5 = udiv i64 %ns.nonneg4, 1000, !dbg !466",
+				"%div22.i5.neg = sub nsw i64 0, %div22.i5",
+				"br label %pytime_divide.exit, !dbg !468"
+			]
+		},
+		{
+			"function": "_PyTime_AsMicroseconds",
+			"id": 179,
+			"name": "if.then25.i",
+			"debug": [
+				{
+					"line": 724, "columns": [15, 13]
+				}
+			],
+			"successors": [180, 181],
+			"ir": [
+				"%cmp26.i = icmp sgt i64 %ns, -1, !dbg !469",
+				"br i1 %cmp26.i, label %if.then27.i, label %pytime_divide_round_up.exit75.i, !dbg !473"
+			]
+		},
+		{
+			"function": "_PyTime_AsMicroseconds",
+			"id": 180,
+			"name": "if.then27.i",
+			"debug": [
+				{
+					"line": 725, "columns": [13]
+				}
+			],
+			"successors": [185],
+			"ir": [
+				"%div28.i = udiv i64 %ns, 1000",
+				"br label %pytime_divide.exit, !dbg !474"
+			]
+		},
+		{
+			"function": "_PyTime_AsMicroseconds",
+			"id": 181,
+			"name": "pytime_divide_round_up.exit75.i",
+			"debug": [
+				{
+					"line": 687, "columns": [24]
+				},
+				{
+					"line": 688, "columns": [15, 13]
+				},
+				{
+					"line": 728, "columns": [13]
+				}
+			],
+			"successors": [185],
+			"ir": [
+				"%ns.nonneg6 = sub i64 0, %ns, !dbg !479",
+				"%div3.i68.i7 = udiv i64 %ns.nonneg6, 1000, !dbg !479",
+				"%rem4.i69.i9 = urem i64 %ns.nonneg6, 1000, !dbg !481",
+				"%tobool5.not.i70.i = icmp ne i64 %rem4.i69.i9, 0, !dbg !481",
+				"%sub.i71.i = sext i1 %tobool5.not.i70.i to i64, !dbg !483",
+				"%spec.select17.i72.i = sub nsw i64 %sub.i71.i, %div3.i68.i7, !dbg !483",
+				"br label %pytime_divide.exit, !dbg !484"
+			]
+		},
+		{
+			"function": "_PyTime_AsMicroseconds",
+			"id": 182,
+			"name": "if.else31.i",
+			"debug": [
+				{
+					"line": 675, "columns": [11, 9]
+				}
+			],
+			"successors": [183, 184],
+			"ir": [
+				"%cmp.i76.i = icmp sgt i64 %ns, -1, !dbg !488",
+				"br i1 %cmp.i76.i, label %if.then.i82.i, label %if.else.i88.i, !dbg !489"
+			]
+		},
+		{
+			"function": "_PyTime_AsMicroseconds",
+			"id": 183,
+			"name": "if.then.i82.i",
+			"debug": [
+				{
+					"line": 679, "columns": [15, 13]
+				}
+			],
+			"successors": [185],
+			"ir": [
+				"%div.i77.i = udiv i64 %ns, 1000",
+				"%rem.i78.i = urem i64 %ns, 1000",
+				"%tobool.not.i79.i = icmp ne i64 %rem.i78.i, 0, !dbg !491",
+				"%add.i80.i = zext i1 %tobool.not.i79.i to i64, !dbg !492",
+				"%spec.select.i81.i = add nuw nsw i64 %div.i77.i, %add.i80.i, !dbg !492",
+				"br label %pytime_divide.exit"
+			]
+		},
+		{
+			"function": "_PyTime_AsMicroseconds",
+			"id": 184,
+			"name": "if.else.i88.i",
+			"debug": [
+				{
+					"line": 687, "columns": [24]
+				},
+				{
+					"line": 688, "columns": [15, 13]
+				}
+			],
+			"successors": [185],
+			"ir": [
+				"%ns.nonneg = sub i64 0, %ns, !dbg !493",
+				"%div3.i83.i1 = udiv i64 %ns.nonneg, 1000, !dbg !493",
+				"%rem4.i84.i3 = urem i64 %ns.nonneg, 1000, !dbg !495",
+				"%tobool5.not.i85.i = icmp ne i64 %rem4.i84.i3, 0, !dbg !495",
+				"%sub.i86.i = sext i1 %tobool5.not.i85.i to i64, !dbg !496",
+				"%spec.select17.i87.i = sub nsw i64 %sub.i86.i, %div3.i83.i1, !dbg !496",
+				"br label %pytime_divide.exit"
+			]
+		},
+		{
+			"function": "_PyTime_AsMicroseconds",
+			"id": 185,
+			"name": "pytime_divide.exit",
+			"debug": [
+				{
+					"line": 778, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0.i = phi i64 [ %spec.select.i.i, %pytime_divide_round_up.exit.i ], [ %div22.i5.neg, %if.else21.i ], [ %div28.i, %if.then27.i ], [ %spec.select17.i72.i, %pytime_divide_round_up.exit75.i ], [ %inc.i, %if.then14.i ], [ %dec.i, %if.else.i ], [ %div.i, %lor.lhs.false.i ], [ %spec.select.i81.i, %if.then.i82.i ], [ %spec.select17.i87.i, %if.else.i88.i ], !dbg !497",
+				"ret i64 %retval.0.i, !dbg !498"
+			]
+		},
+		{
+			"function": "_PyTime_AsMilliseconds",
+			"id": 186,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 701, "columns": [9]
+				}
+			],
+			"successors": [198, 187, 192, 195],
+			"ir": [
+				"switch i32 %round, label %if.else31.i [\n    i32 2, label %if.then.i\n    i32 1, label %if.then18.i\n    i32 0, label %if.then25.i\n  ], !dbg !423"
+			]
+		},
+		{
+			"function": "_PyTime_AsMilliseconds",
+			"id": 187,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 702, "columns": [24]
+				},
+				{
+					"line": 703, "columns": [24]
+				},
+				{
+					"line": 704, "columns": [26]
+				},
+				{
+					"line": 705, "columns": [19, 27]
+				}
+			],
+			"successors": [189, 188],
+			"ir": [
+				"%div.i = sdiv i64 %ns, 1000000, !dbg !424",
+				"%rem.i = srem i64 %ns, 1000000, !dbg !426",
+				"%cond.i = tail call i64 @llvm.abs.i64(i64 %rem.i, i1 true), !dbg !427",
+				"%cmp3.i = icmp ugt i64 %cond.i, 500000, !dbg !428",
+				"br i1 %cmp3.i, label %if.then12.i, label %lor.lhs.false.i, !dbg !430"
+			]
+		},
+		{
+			"function": "_PyTime_AsMilliseconds",
+			"id": 188,
+			"name": "lor.lhs.false.i",
+			"debug": [
+				{
+					"line": 705, "columns": [37, 46]
+				}
+			],
+			"successors": [201, 189],
+			"ir": [
+				"%cmp5.i = icmp ne i64 %cond.i, 500000, !dbg !431",
+				"%and.i = and i64 %div.i, 1",
+				"%tobool.not.i = icmp eq i64 %and.i, 0",
+				"%or.cond.i = or i1 %tobool.not.i, %cmp5.i, !dbg !432",
+				"br i1 %or.cond.i, label %pytime_divide.exit, label %if.then12.i, !dbg !432"
+			]
+		},
+		{
+			"function": "_PyTime_AsMilliseconds",
+			"id": 189,
+			"name": "if.then12.i",
+			"debug": [
+				{
+					"line": 706, "columns": [19, 17]
+				}
+			],
+			"successors": [190, 191],
+			"ir": [
+				"%cmp13.i = icmp sgt i64 %ns, -1, !dbg !433",
+				"br i1 %cmp13.i, label %if.then14.i, label %if.else.i, !dbg !436"
+			]
+		},
+		{
+			"function": "_PyTime_AsMilliseconds",
+			"id": 190,
+			"name": "if.then14.i",
+			"debug": [
+				{
+					"line": 707, "columns": [18]
+				},
+				{
+					"line": 708, "columns": [13]
+				}
+			],
+			"successors": [201],
+			"ir": [
+				"%inc.i = add nsw i64 %div.i, 1, !dbg !437",
+				"br label %pytime_divide.exit, !dbg !439"
+			]
+		},
+		{
+			"function": "_PyTime_AsMilliseconds",
+			"id": 191,
+			"name": "if.else.i",
+			"debug": [
+				{
+					"line": 710, "columns": [18]
+				}
+			],
+			"successors": [201],
+			"ir": [
+				"%dec.i = add nsw i64 %div.i, -1, !dbg !440",
+				"br label %pytime_divide.exit"
+			]
+		},
+		{
+			"function": "_PyTime_AsMilliseconds",
+			"id": 192,
+			"name": "if.then18.i",
+			"debug": [
+				{
+					"line": 716, "columns": [15, 13]
+				}
+			],
+			"successors": [193, 194],
+			"ir": [
+				"%cmp19.i = icmp sgt i64 %ns, -1, !dbg !442",
+				"br i1 %cmp19.i, label %pytime_divide_round_up.exit.i, label %if.else21.i, !dbg !446"
+			]
+		},
+		{
+			"function": "_PyTime_AsMilliseconds",
+			"id": 193,
+			"name": "pytime_divide_round_up.exit.i",
+			"debug": [
+				{
+					"line": 679, "columns": [15, 13]
+				},
+				{
+					"line": 717, "columns": [13]
+				}
+			],
+			"successors": [201],
+			"ir": [
+				"%div.i.i = udiv i64 %ns, 1000000",
+				"%rem.i.i = urem i64 %ns, 1000000",
+				"%tobool.not.i.i = icmp ne i64 %rem.i.i, 0, !dbg !462",
+				"%add.i.i = zext i1 %tobool.not.i.i to i64, !dbg !464",
+				"%spec.select.i.i = add nuw nsw i64 %div.i.i, %add.i.i, !dbg !464",
+				"br label %pytime_divide.exit, !dbg !465"
+			]
+		},
+		{
+			"function": "_PyTime_AsMilliseconds",
+			"id": 194,
+			"name": "if.else21.i",
+			"debug": [
+				{
+					"line": 720, "columns": [22, 13]
+				}
+			],
+			"successors": [201],
+			"ir": [
+				"%ns.nonneg4 = sub i64 0, %ns, !dbg !466",
+				"%div22.i5 = udiv i64 %ns.nonneg4, 1000000, !dbg !466",
+				"%div22.i5.neg = sub nsw i64 0, %div22.i5",
+				"br label %pytime_divide.exit, !dbg !468"
+			]
+		},
+		{
+			"function": "_PyTime_AsMilliseconds",
+			"id": 195,
+			"name": "if.then25.i",
+			"debug": [
+				{
+					"line": 724, "columns": [15, 13]
+				}
+			],
+			"successors": [196, 197],
+			"ir": [
+				"%cmp26.i = icmp sgt i64 %ns, -1, !dbg !469",
+				"br i1 %cmp26.i, label %if.then27.i, label %pytime_divide_round_up.exit75.i, !dbg !473"
+			]
+		},
+		{
+			"function": "_PyTime_AsMilliseconds",
+			"id": 196,
+			"name": "if.then27.i",
+			"debug": [
+				{
+					"line": 725, "columns": [13]
+				}
+			],
+			"successors": [201],
+			"ir": [
+				"%div28.i = udiv i64 %ns, 1000000",
+				"br label %pytime_divide.exit, !dbg !474"
+			]
+		},
+		{
+			"function": "_PyTime_AsMilliseconds",
+			"id": 197,
+			"name": "pytime_divide_round_up.exit75.i",
+			"debug": [
+				{
+					"line": 687, "columns": [24]
+				},
+				{
+					"line": 688, "columns": [15, 13]
+				},
+				{
+					"line": 728, "columns": [13]
+				}
+			],
+			"successors": [201],
+			"ir": [
+				"%ns.nonneg6 = sub i64 0, %ns, !dbg !479",
+				"%div3.i68.i7 = udiv i64 %ns.nonneg6, 1000000, !dbg !479",
+				"%rem4.i69.i9 = urem i64 %ns.nonneg6, 1000000, !dbg !481",
+				"%tobool5.not.i70.i = icmp ne i64 %rem4.i69.i9, 0, !dbg !481",
+				"%sub.i71.i = sext i1 %tobool5.not.i70.i to i64, !dbg !483",
+				"%spec.select17.i72.i = sub nsw i64 %sub.i71.i, %div3.i68.i7, !dbg !483",
+				"br label %pytime_divide.exit, !dbg !484"
+			]
+		},
+		{
+			"function": "_PyTime_AsMilliseconds",
+			"id": 198,
+			"name": "if.else31.i",
+			"debug": [
+				{
+					"line": 675, "columns": [11, 9]
+				}
+			],
+			"successors": [199, 200],
+			"ir": [
+				"%cmp.i76.i = icmp sgt i64 %ns, -1, !dbg !488",
+				"br i1 %cmp.i76.i, label %if.then.i82.i, label %if.else.i88.i, !dbg !489"
+			]
+		},
+		{
+			"function": "_PyTime_AsMilliseconds",
+			"id": 199,
+			"name": "if.then.i82.i",
+			"debug": [
+				{
+					"line": 679, "columns": [15, 13]
+				}
+			],
+			"successors": [201],
+			"ir": [
+				"%div.i77.i = udiv i64 %ns, 1000000",
+				"%rem.i78.i = urem i64 %ns, 1000000",
+				"%tobool.not.i79.i = icmp ne i64 %rem.i78.i, 0, !dbg !491",
+				"%add.i80.i = zext i1 %tobool.not.i79.i to i64, !dbg !492",
+				"%spec.select.i81.i = add nuw nsw i64 %div.i77.i, %add.i80.i, !dbg !492",
+				"br label %pytime_divide.exit"
+			]
+		},
+		{
+			"function": "_PyTime_AsMilliseconds",
+			"id": 200,
+			"name": "if.else.i88.i",
+			"debug": [
+				{
+					"line": 687, "columns": [24]
+				},
+				{
+					"line": 688, "columns": [15, 13]
+				}
+			],
+			"successors": [201],
+			"ir": [
+				"%ns.nonneg = sub i64 0, %ns, !dbg !493",
+				"%div3.i83.i1 = udiv i64 %ns.nonneg, 1000000, !dbg !493",
+				"%rem4.i84.i3 = urem i64 %ns.nonneg, 1000000, !dbg !495",
+				"%tobool5.not.i85.i = icmp ne i64 %rem4.i84.i3, 0, !dbg !495",
+				"%sub.i86.i = sext i1 %tobool5.not.i85.i to i64, !dbg !496",
+				"%spec.select17.i87.i = sub nsw i64 %sub.i86.i, %div3.i83.i1, !dbg !496",
+				"br label %pytime_divide.exit"
+			]
+		},
+		{
+			"function": "_PyTime_AsMilliseconds",
+			"id": 201,
+			"name": "pytime_divide.exit",
+			"debug": [
+				{
+					"line": 785, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0.i = phi i64 [ %spec.select.i.i, %pytime_divide_round_up.exit.i ], [ %div22.i5.neg, %if.else21.i ], [ %div28.i, %if.then27.i ], [ %spec.select17.i72.i, %pytime_divide_round_up.exit75.i ], [ %inc.i, %if.then14.i ], [ %dec.i, %if.else.i ], [ %div.i, %lor.lhs.false.i ], [ %spec.select.i81.i, %if.then.i82.i ], [ %spec.select17.i87.i, %if.else.i88.i ], !dbg !497",
+				"ret i64 %retval.0.i, !dbg !498"
+			]
+		},
+		{
+			"function": "_PyTime_AsTimeval",
+			"id": 202,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 257, "columns": [9]
+				},
+				{
+					"line": 807, "columns": [5]
+				},
+				{
+					"line": 808, "columns": [5]
+				},
+				{
+					"line": 809, "columns": [15]
+				},
+				{
+					"line": 815, "columns": [29]
+				},
+				{
+					"line": 820, "columns": [19, 9, 17]
+				},
+				{
+					"line": 827, "columns": [1]
+				},
+				{
+					"line": 833, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%tv_sec.i = alloca i64, align 8",
+				"%tv_usec.i = alloca i32, align 4",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %tv_sec.i) #15, !dbg !429",
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %tv_usec.i) #15, !dbg !430",
+				"call fastcc void @pytime_as_timeval(i64 noundef %t, ptr noundef nonnull %tv_sec.i, ptr noundef nonnull %tv_usec.i, i32 noundef %round), !dbg !431",
+				"%0 = load i64, ptr %tv_sec.i, align 8, !dbg !432, !tbaa !433",
+				"store i64 %0, ptr %tv, align 8, !dbg !446, !tbaa !433",
+				"%1 = load i32, ptr %tv_usec.i, align 4, !dbg !447, !tbaa !448",
+				"%conv.i = sext i32 %1 to i64, !dbg !447",
+				"%tv_usec3.i = getelementptr inbounds %struct.timeval, ptr %tv, i64 0, i32 1, !dbg !450",
+				"store i64 %conv.i, ptr %tv_usec3.i, align 8, !dbg !451, !tbaa !452",
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %tv_usec.i) #15, !dbg !454",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %tv_sec.i) #15, !dbg !454",
+				"ret i32 0, !dbg !455"
+			]
+		},
+		{
+			"function": "_PyTime_AsTimeval_clamp",
+			"id": 203,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 257, "columns": [9]
+				},
+				{
+					"line": 807, "columns": [5]
+				},
+				{
+					"line": 808, "columns": [5]
+				},
+				{
+					"line": 809, "columns": [15]
+				},
+				{
+					"line": 815, "columns": [29]
+				},
+				{
+					"line": 820, "columns": [19, 9, 17]
+				},
+				{
+					"line": 827, "columns": [1]
+				},
+				{
+					"line": 841, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%tv_sec.i = alloca i64, align 8",
+				"%tv_usec.i = alloca i32, align 4",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %tv_sec.i) #15, !dbg !429",
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %tv_usec.i) #15, !dbg !430",
+				"call fastcc void @pytime_as_timeval(i64 noundef %t, ptr noundef nonnull %tv_sec.i, ptr noundef nonnull %tv_usec.i, i32 noundef %round), !dbg !431",
+				"%0 = load i64, ptr %tv_sec.i, align 8, !dbg !432, !tbaa !433",
+				"store i64 %0, ptr %tv, align 8, !dbg !446, !tbaa !433",
+				"%1 = load i32, ptr %tv_usec.i, align 4, !dbg !447, !tbaa !448",
+				"%conv.i = sext i32 %1 to i64, !dbg !447",
+				"%tv_usec3.i = getelementptr inbounds %struct.timeval, ptr %tv, i64 0, i32 1, !dbg !450",
+				"store i64 %conv.i, ptr %tv_usec3.i, align 8, !dbg !451, !tbaa !452",
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %tv_usec.i) #15, !dbg !454",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %tv_sec.i) #15, !dbg !454",
+				"ret void, !dbg !455"
+			]
+		},
+		{
+			"function": "_PyTime_AsTimevalTime_t",
+			"id": 204,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 257, "columns": [9]
+				},
+				{
+					"line": 848, "columns": [5]
+				},
+				{
+					"line": 849, "columns": [9]
+				},
+				{
+					"line": 854, "columns": [26]
+				},
+				{
+					"line": 859, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%secs = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %secs) #15, !dbg !412",
+				"call fastcc void @pytime_as_timeval(i64 noundef %t, ptr noundef nonnull %secs, ptr noundef %us, i32 noundef %round), !dbg !413",
+				"%0 = load i64, ptr %secs, align 8, !dbg !415, !tbaa !417",
+				"store i64 %0, ptr %p_secs, align 8, !dbg !429, !tbaa !417",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %secs) #15, !dbg !430",
+				"ret i32 0, !dbg !430"
+			]
+		},
+		{
+			"function": "pytime_as_timeval",
+			"id": 205,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 701, "columns": [9]
+				}
+			],
+			"successors": [217, 206, 211, 214],
+			"ir": [
+				"switch i32 %round, label %if.else31.i [\n    i32 2, label %if.then.i\n    i32 1, label %if.then18.i\n    i32 0, label %if.then25.i\n  ], !dbg !431"
+			]
+		},
+		{
+			"function": "pytime_as_timeval",
+			"id": 206,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 702, "columns": [24]
+				},
+				{
+					"line": 703, "columns": [24]
+				},
+				{
+					"line": 704, "columns": [26]
+				},
+				{
+					"line": 705, "columns": [19, 27]
+				}
+			],
+			"successors": [208, 207],
+			"ir": [
+				"%div.i = sdiv i64 %ns, 1000, !dbg !432",
+				"%rem.i = srem i64 %ns, 1000, !dbg !434",
+				"%cond.i = tail call i64 @llvm.abs.i64(i64 %rem.i, i1 true), !dbg !435",
+				"%cmp3.i = icmp ugt i64 %cond.i, 500, !dbg !436",
+				"br i1 %cmp3.i, label %if.then12.i, label %lor.lhs.false.i, !dbg !438"
+			]
+		},
+		{
+			"function": "pytime_as_timeval",
+			"id": 207,
+			"name": "lor.lhs.false.i",
+			"debug": [
+				{
+					"line": 705, "columns": [37, 46]
+				}
+			],
+			"successors": [220, 208],
+			"ir": [
+				"%cmp5.i = icmp ne i64 %cond.i, 500, !dbg !439",
+				"%and.i = and i64 %div.i, 1",
+				"%tobool.not.i = icmp eq i64 %and.i, 0",
+				"%or.cond.i = or i1 %tobool.not.i, %cmp5.i, !dbg !440",
+				"br i1 %or.cond.i, label %pytime_divide.exit, label %if.then12.i, !dbg !440"
+			]
+		},
+		{
+			"function": "pytime_as_timeval",
+			"id": 208,
+			"name": "if.then12.i",
+			"debug": [
+				{
+					"line": 706, "columns": [19, 17]
+				}
+			],
+			"successors": [209, 210],
+			"ir": [
+				"%cmp13.i = icmp sgt i64 %ns, -1, !dbg !441",
+				"br i1 %cmp13.i, label %if.then14.i, label %if.else.i, !dbg !444"
+			]
+		},
+		{
+			"function": "pytime_as_timeval",
+			"id": 209,
+			"name": "if.then14.i",
+			"debug": [
+				{
+					"line": 707, "columns": [18]
+				},
+				{
+					"line": 708, "columns": [13]
+				}
+			],
+			"successors": [220],
+			"ir": [
+				"%inc.i = add nsw i64 %div.i, 1, !dbg !445",
+				"br label %pytime_divide.exit, !dbg !447"
+			]
+		},
+		{
+			"function": "pytime_as_timeval",
+			"id": 210,
+			"name": "if.else.i",
+			"debug": [
+				{
+					"line": 710, "columns": [18]
+				}
+			],
+			"successors": [220],
+			"ir": [
+				"%dec.i = add nsw i64 %div.i, -1, !dbg !448",
+				"br label %pytime_divide.exit"
+			]
+		},
+		{
+			"function": "pytime_as_timeval",
+			"id": 211,
+			"name": "if.then18.i",
+			"debug": [
+				{
+					"line": 716, "columns": [15, 13]
+				}
+			],
+			"successors": [212, 213],
+			"ir": [
+				"%cmp19.i = icmp sgt i64 %ns, -1, !dbg !450",
+				"br i1 %cmp19.i, label %pytime_divide_round_up.exit.i, label %if.else21.i, !dbg !454"
+			]
+		},
+		{
+			"function": "pytime_as_timeval",
+			"id": 212,
+			"name": "pytime_divide_round_up.exit.i",
+			"debug": [
+				{
+					"line": 679, "columns": [15, 13]
+				},
+				{
+					"line": 717, "columns": [13]
+				}
+			],
+			"successors": [220],
+			"ir": [
+				"%div.i.i = udiv i64 %ns, 1000",
+				"%rem.i.i = urem i64 %ns, 1000",
+				"%tobool.not.i.i = icmp ne i64 %rem.i.i, 0, !dbg !470",
+				"%add.i.i = zext i1 %tobool.not.i.i to i64, !dbg !472",
+				"%spec.select.i.i = add nuw nsw i64 %div.i.i, %add.i.i, !dbg !472",
+				"br label %pytime_divide.exit, !dbg !473"
+			]
+		},
+		{
+			"function": "pytime_as_timeval",
+			"id": 213,
+			"name": "if.else21.i",
+			"debug": [
+				{
+					"line": 720, "columns": [22, 13]
+				}
+			],
+			"successors": [220],
+			"ir": [
+				"%ns.nonneg7 = sub i64 0, %ns, !dbg !474",
+				"%div22.i8 = udiv i64 %ns.nonneg7, 1000, !dbg !474",
+				"%div22.i8.neg = sub nsw i64 0, %div22.i8",
+				"br label %pytime_divide.exit, !dbg !476"
+			]
+		},
+		{
+			"function": "pytime_as_timeval",
+			"id": 214,
+			"name": "if.then25.i",
+			"debug": [
+				{
+					"line": 724, "columns": [15, 13]
+				}
+			],
+			"successors": [215, 216],
+			"ir": [
+				"%cmp26.i = icmp sgt i64 %ns, -1, !dbg !477",
+				"br i1 %cmp26.i, label %if.then27.i, label %pytime_divide_round_up.exit75.i, !dbg !481"
+			]
+		},
+		{
+			"function": "pytime_as_timeval",
+			"id": 215,
+			"name": "if.then27.i",
+			"debug": [
+				{
+					"line": 725, "columns": [13]
+				}
+			],
+			"successors": [220],
+			"ir": [
+				"%div28.i = udiv i64 %ns, 1000",
+				"br label %pytime_divide.exit, !dbg !482"
+			]
+		},
+		{
+			"function": "pytime_as_timeval",
+			"id": 216,
+			"name": "pytime_divide_round_up.exit75.i",
+			"debug": [
+				{
+					"line": 687, "columns": [24]
+				},
+				{
+					"line": 688, "columns": [15, 13]
+				},
+				{
+					"line": 728, "columns": [13]
+				}
+			],
+			"successors": [220],
+			"ir": [
+				"%ns.nonneg9 = sub i64 0, %ns, !dbg !487",
+				"%div3.i68.i10 = udiv i64 %ns.nonneg9, 1000, !dbg !487",
+				"%rem4.i69.i12 = urem i64 %ns.nonneg9, 1000, !dbg !489",
+				"%tobool5.not.i70.i = icmp ne i64 %rem4.i69.i12, 0, !dbg !489",
+				"%sub.i71.i = sext i1 %tobool5.not.i70.i to i64, !dbg !491",
+				"%spec.select17.i72.i = sub nsw i64 %sub.i71.i, %div3.i68.i10, !dbg !491",
+				"br label %pytime_divide.exit, !dbg !492"
+			]
+		},
+		{
+			"function": "pytime_as_timeval",
+			"id": 217,
+			"name": "if.else31.i",
+			"debug": [
+				{
+					"line": 675, "columns": [11, 9]
+				}
+			],
+			"successors": [218, 219],
+			"ir": [
+				"%cmp.i76.i = icmp sgt i64 %ns, -1, !dbg !496",
+				"br i1 %cmp.i76.i, label %if.then.i82.i, label %if.else.i88.i, !dbg !497"
+			]
+		},
+		{
+			"function": "pytime_as_timeval",
+			"id": 218,
+			"name": "if.then.i82.i",
+			"debug": [
+				{
+					"line": 679, "columns": [15, 13]
+				}
+			],
+			"successors": [220],
+			"ir": [
+				"%div.i77.i = udiv i64 %ns, 1000",
+				"%rem.i78.i = urem i64 %ns, 1000",
+				"%tobool.not.i79.i = icmp ne i64 %rem.i78.i, 0, !dbg !499",
+				"%add.i80.i = zext i1 %tobool.not.i79.i to i64, !dbg !500",
+				"%spec.select.i81.i = add nuw nsw i64 %div.i77.i, %add.i80.i, !dbg !500",
+				"br label %pytime_divide.exit"
+			]
+		},
+		{
+			"function": "pytime_as_timeval",
+			"id": 219,
+			"name": "if.else.i88.i",
+			"debug": [
+				{
+					"line": 687, "columns": [24]
+				},
+				{
+					"line": 688, "columns": [15, 13]
+				}
+			],
+			"successors": [220],
+			"ir": [
+				"%ns.nonneg = sub i64 0, %ns, !dbg !501",
+				"%div3.i83.i4 = udiv i64 %ns.nonneg, 1000, !dbg !501",
+				"%rem4.i84.i6 = urem i64 %ns.nonneg, 1000, !dbg !503",
+				"%tobool5.not.i85.i = icmp ne i64 %rem4.i84.i6, 0, !dbg !503",
+				"%sub.i86.i = sext i1 %tobool5.not.i85.i to i64, !dbg !504",
+				"%spec.select17.i87.i = sub nsw i64 %sub.i86.i, %div3.i83.i4, !dbg !504",
+				"br label %pytime_divide.exit"
+			]
+		},
+		{
+			"function": "pytime_as_timeval",
+			"id": 220,
+			"name": "pytime_divide.exit",
+			"debug": [
+				{
+					"line": 747, "columns": [20]
+				},
+				{
+					"line": 748, "columns": [20]
+				},
+				{
+					"line": 749, "columns": [11, 9]
+				},
+				{
+					"line": 797, "columns": [14]
+				},
+				{
+					"line": 798, "columns": [17, 15]
+				},
+				{
+					"line": 799, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0.i = phi i64 [ %spec.select.i.i, %pytime_divide_round_up.exit.i ], [ %div22.i8.neg, %if.else21.i ], [ %div28.i, %if.then27.i ], [ %spec.select17.i72.i, %pytime_divide_round_up.exit75.i ], [ %inc.i, %if.then14.i ], [ %dec.i, %if.else.i ], [ %div.i, %lor.lhs.false.i ], [ %spec.select.i81.i, %if.then.i82.i ], [ %spec.select17.i87.i, %if.else.i88.i ], !dbg !505",
+				"%div.i2 = sdiv i64 %retval.0.i, 1000000, !dbg !518",
+				"%rem.i3 = srem i64 %retval.0.i, 1000000, !dbg !519",
+				"%cmp.i = icmp slt i64 %rem.i3, 0, !dbg !520",
+				"%rem.lobit.i = ashr i64 %rem.i3, 63, !dbg !522",
+				"%q.0.i = add nsw i64 %rem.lobit.i, %div.i2, !dbg !522",
+				"%add.i = select i1 %cmp.i, i64 1000000, i64 0, !dbg !522",
+				"%r.0.i = add nsw i64 %add.i, %rem.i3, !dbg !522",
+				"store i64 %q.0.i, ptr %ptv_sec, align 8, !dbg !523, !tbaa !524",
+				"%conv = trunc i64 %r.0.i to i32, !dbg !528",
+				"store i32 %conv, ptr %ptv_usec, align 4, !dbg !529, !tbaa !530",
+				"ret void, !dbg !532"
+			]
+		},
+		{
+			"function": "_PyTime_AsTimespec_clamp",
+			"id": 221,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 257, "columns": [9]
+				},
+				{
+					"line": 747, "columns": [20]
+				},
+				{
+					"line": 748, "columns": [20]
+				},
+				{
+					"line": 749, "columns": [11, 9]
+				},
+				{
+					"line": 873, "columns": [9, 17]
+				},
+				{
+					"line": 886, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%div.i.i = sdiv i64 %t, 1000000000, !dbg !440",
+				"%rem.i.i = srem i64 %t, 1000000000, !dbg !441",
+				"%cmp.i.i = icmp slt i64 %rem.i.i, 0, !dbg !442",
+				"%rem.lobit.i.i = ashr i64 %rem.i.i, 63, !dbg !444",
+				"%q.0.i.i = add nsw i64 %rem.lobit.i.i, %div.i.i, !dbg !444",
+				"%add.i.i = select i1 %cmp.i.i, i64 1000000000, i64 0, !dbg !444",
+				"%r.0.i.i = add nsw i64 %add.i.i, %rem.i.i, !dbg !444",
+				"store i64 %q.0.i.i, ptr %ts, align 8, !dbg !454, !tbaa !455",
+				"%tv_nsec3.i = getelementptr inbounds %struct.timespec, ptr %ts, i64 0, i32 1, !dbg !459",
+				"store i64 %r.0.i.i, ptr %tv_nsec3.i, align 8, !dbg !460, !tbaa !461",
+				"ret void, !dbg !463"
+			]
+		},
+		{
+			"function": "_PyTime_AsTimespec",
+			"id": 222,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 257, "columns": [9]
+				},
+				{
+					"line": 747, "columns": [20]
+				},
+				{
+					"line": 748, "columns": [20]
+				},
+				{
+					"line": 749, "columns": [11, 9]
+				},
+				{
+					"line": 873, "columns": [9, 17]
+				},
+				{
+					"line": 891, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%div.i.i = sdiv i64 %t, 1000000000, !dbg !440",
+				"%rem.i.i = srem i64 %t, 1000000000, !dbg !441",
+				"%cmp.i.i = icmp slt i64 %rem.i.i, 0, !dbg !442",
+				"%rem.lobit.i.i = ashr i64 %rem.i.i, 63, !dbg !444",
+				"%q.0.i.i = add nsw i64 %rem.lobit.i.i, %div.i.i, !dbg !444",
+				"%add.i.i = select i1 %cmp.i.i, i64 1000000000, i64 0, !dbg !444",
+				"%r.0.i.i = add nsw i64 %add.i.i, %rem.i.i, !dbg !444",
+				"store i64 %q.0.i.i, ptr %ts, align 8, !dbg !454, !tbaa !455",
+				"%tv_nsec3.i = getelementptr inbounds %struct.timespec, ptr %ts, i64 0, i32 1, !dbg !459",
+				"store i64 %r.0.i.i, ptr %tv_nsec3.i, align 8, !dbg !460, !tbaa !461",
+				"ret i32 0, !dbg !463"
+			]
+		},
+		{
+			"function": "_PyTime_TimeUnchecked",
+			"id": 223,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 932, "columns": [5, 21]
+				},
+				{
+					"line": 945, "columns": [11]
+				},
+				{
+					"line": 946, "columns": [9]
+				}
+			],
+			"successors": [224, 229],
+			"ir": [
+				"%ts.i = alloca %struct.timespec, align 8",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %ts.i) #15, !dbg !434",
+				"%call.i = call i32 @clock_gettime(i32 noundef 0, ptr noundef nonnull %ts.i) #15, !dbg !436",
+				"%tobool.not.i = icmp eq i32 %call.i, 0, !dbg !437",
+				"br i1 %tobool.not.i, label %if.end4.i, label %if.then, !dbg !439"
+			]
+		},
+		{
+			"function": "_PyTime_TimeUnchecked",
+			"id": 224,
+			"name": "if.end4.i",
+			"debug": [
+				{
+					"line": 123, "columns": [12, 16]
+				},
+				{
+					"line": 151, "columns": [38]
+				},
+				{
+					"line": 506, "columns": [23]
+				},
+				{
+					"line": 510, "columns": [19]
+				}
+			],
+			"successors": [225, 226],
+			"ir": [
+				"%0 = load i64, ptr %ts.i, align 8, !dbg !456, !tbaa !457",
+				"%1 = add i64 %0, -9223372037, !dbg !479",
+				"%or.cond14.i.i = icmp ult i64 %1, -18446744073, !dbg !479",
+				"%mul.i.i.i = mul nsw i64 %0, 1000000000, !dbg !479",
+				"%cmp.i.i.i = icmp sgt i64 %0, -1, !dbg !479",
+				"%cond.i.i.i = select i1 %cmp.i.i.i, i64 9223372036854775807, i64 -9223372036854775808, !dbg !479",
+				"%storemerge.i.i.i = select i1 %or.cond14.i.i, i64 %cond.i.i.i, i64 %mul.i.i.i, !dbg !479",
+				"%tv_nsec1.i.i = getelementptr inbounds %struct.timespec, ptr %ts.i, i64 0, i32 1, !dbg !482",
+				"%2 = load i64, ptr %tv_nsec1.i.i, align 8, !dbg !482, !tbaa !483",
+				"%cmp.i8.i.i = icmp sgt i64 %2, 0, !dbg !490",
+				"br i1 %cmp.i8.i.i, label %land.lhs.true.i.i.i, label %if.else.i9.i.i, !dbg !492"
+			]
+		},
+		{
+			"function": "_PyTime_TimeUnchecked",
+			"id": 225,
+			"name": "land.lhs.true.i.i.i",
+			"debug": [
+				{
+					"line": 123, "columns": [36, 23, 9]
+				}
+			],
+			"successors": [228, 227],
+			"ir": [
+				"%sub.i.i.i = sub nuw nsw i64 9223372036854775807, %2, !dbg !493",
+				"%cmp1.i.i.i = icmp sgt i64 %storemerge.i.i.i, %sub.i.i.i, !dbg !494",
+				"br i1 %cmp1.i.i.i, label %py_get_system_clock.exit.thread, label %if.else7.i.i.i, !dbg !495"
+			]
+		},
+		{
+			"function": "_PyTime_TimeUnchecked",
+			"id": 226,
+			"name": "if.else.i9.i.i",
+			"debug": [
+				{
+					"line": 127, "columns": [17, 21]
+				}
+			],
+			"successors": [228, 227],
+			"ir": [
+				"%cmp2.i.i.i = icmp ne i64 %2, 0, !dbg !496",
+				"%sub4.i.i.i = sub nsw i64 -9223372036854775808, %2",
+				"%cmp5.i.i.i = icmp slt i64 %storemerge.i.i.i, %sub4.i.i.i",
+				"%or.cond.i.i.i = select i1 %cmp2.i.i.i, i1 %cmp5.i.i.i, i1 false, !dbg !498",
+				"br i1 %or.cond.i.i.i, label %py_get_system_clock.exit.thread, label %if.else7.i.i.i, !dbg !498"
+			]
+		},
+		{
+			"function": "_PyTime_TimeUnchecked",
+			"id": 227,
+			"name": "if.else7.i.i.i",
+			"debug": [
+				{
+					"line": 132, "columns": [13]
+				},
+				{
+					"line": 133, "columns": [9]
+				}
+			],
+			"successors": [228],
+			"ir": [
+				"%add.i.i.i = add i64 %storemerge.i.i.i, %2, !dbg !499",
+				"br label %py_get_system_clock.exit.thread, !dbg !501"
+			]
+		},
+		{
+			"function": "_PyTime_TimeUnchecked",
+			"id": 228,
+			"name": "py_get_system_clock.exit.thread",
+			"debug": [
+				{
+					"line": 1004, "columns": [1]
+				},
+				{
+					"line": 1011, "columns": [9]
+				}
+			],
+			"successors": [230],
+			"ir": [
+				"%t.0.ph = phi i64 [ -9223372036854775808, %if.else.i9.i.i ], [ 9223372036854775807, %land.lhs.true.i.i.i ], [ %add.i.i.i, %if.else7.i.i.i ]",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ts.i) #15, !dbg !502",
+				"br label %if.end, !dbg !503"
+			]
+		},
+		{
+			"function": "_PyTime_TimeUnchecked",
+			"id": 229,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 1004, "columns": [1]
+				},
+				{
+					"line": 1015, "columns": [5]
+				}
+			],
+			"successors": [230],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ts.i) #15, !dbg !502",
+				"br label %if.end, !dbg !505"
+			]
+		},
+		{
+			"function": "_PyTime_TimeUnchecked",
+			"id": 230,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 1016, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%t.1 = phi i64 [ 0, %if.then ], [ %t.0.ph, %py_get_system_clock.exit.thread ], !dbg !507",
+				"ret i64 %t.1, !dbg !508"
+			]
+		},
+		{
+			"function": "PyTime_Time",
+			"id": 231,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 932, "columns": [5, 21]
+				},
+				{
+					"line": 945, "columns": [11]
+				},
+				{
+					"line": 946, "columns": [9]
+				}
+			],
+			"successors": [233, 232],
+			"ir": [
+				"%ts.i = alloca %struct.timespec, align 8",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %ts.i) #15, !dbg !435",
+				"%call.i = call i32 @clock_gettime(i32 noundef 0, ptr noundef nonnull %ts.i) #15, !dbg !437",
+				"%tobool.not.i = icmp eq i32 %call.i, 0, !dbg !438",
+				"br i1 %tobool.not.i, label %if.end4.i, label %if.then.i, !dbg !440"
+			]
+		},
+		{
+			"function": "PyTime_Time",
+			"id": 232,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 948, "columns": [32, 13]
+				},
+				{
+					"line": 949, "columns": [9]
+				}
+			],
+			"successors": [240],
+			"ir": [
+				"%0 = load ptr, ptr @PyExc_OSError, align 8, !dbg !441, !tbaa !445",
+				"%call3.i = call ptr @PyErr_SetFromErrno(ptr noundef %0) #15, !dbg !449",
+				"br label %if.then, !dbg !450"
+			]
+		},
+		{
+			"function": "PyTime_Time",
+			"id": 233,
+			"name": "if.end4.i",
+			"debug": [
+				{
+					"line": 123, "columns": [12, 16]
+				},
+				{
+					"line": 151, "columns": [38]
+				},
+				{
+					"line": 506, "columns": [23]
+				},
+				{
+					"line": 510, "columns": [19]
+				}
+			],
+			"successors": [234, 235],
+			"ir": [
+				"%1 = load i64, ptr %ts.i, align 8, !dbg !467, !tbaa !468",
+				"%2 = add i64 %1, -9223372037, !dbg !488",
+				"%or.cond14.i.i = icmp ult i64 %2, -18446744073, !dbg !488",
+				"%mul.i.i.i = mul nsw i64 %1, 1000000000, !dbg !488",
+				"%cmp.i.i.i = icmp sgt i64 %1, -1, !dbg !488",
+				"%cond.i.i.i = select i1 %cmp.i.i.i, i64 9223372036854775807, i64 -9223372036854775808, !dbg !488",
+				"%storemerge.i.i.i = select i1 %or.cond14.i.i, i64 %cond.i.i.i, i64 %mul.i.i.i, !dbg !488",
+				"%tv_nsec1.i.i = getelementptr inbounds %struct.timespec, ptr %ts.i, i64 0, i32 1, !dbg !491",
+				"%3 = load i64, ptr %tv_nsec1.i.i, align 8, !dbg !491, !tbaa !492",
+				"%cmp.i8.i.i = icmp sgt i64 %3, 0, !dbg !499",
+				"br i1 %cmp.i8.i.i, label %land.lhs.true.i.i.i, label %if.else.i9.i.i, !dbg !501"
+			]
+		},
+		{
+			"function": "PyTime_Time",
+			"id": 234,
+			"name": "land.lhs.true.i.i.i",
+			"debug": [
+				{
+					"line": 123, "columns": [36, 23, 9]
+				}
+			],
+			"successors": [236, 237],
+			"ir": [
+				"%sub.i.i.i = sub nuw nsw i64 9223372036854775807, %3, !dbg !502",
+				"%cmp1.i.i.i = icmp sgt i64 %storemerge.i.i.i, %sub.i.i.i, !dbg !503",
+				"br i1 %cmp1.i.i.i, label %pytime_add.exit.i.i.thread, label %pytime_add.exit.i.i, !dbg !504"
+			]
+		},
+		{
+			"function": "PyTime_Time",
+			"id": 235,
+			"name": "if.else.i9.i.i",
+			"debug": [
+				{
+					"line": 127, "columns": [17, 21]
+				}
+			],
+			"successors": [236, 237],
+			"ir": [
+				"%cmp2.i.i.i = icmp ne i64 %3, 0, !dbg !505",
+				"%sub4.i.i.i = sub nsw i64 -9223372036854775808, %3",
+				"%cmp5.i.i.i = icmp slt i64 %storemerge.i.i.i, %sub4.i.i.i",
+				"%or.cond.i.i.i = select i1 %cmp2.i.i.i, i1 %cmp5.i.i.i, i1 false, !dbg !507",
+				"br i1 %or.cond.i.i.i, label %pytime_add.exit.i.i.thread, label %pytime_add.exit.i.i, !dbg !507"
+			]
+		},
+		{
+			"function": "PyTime_Time",
+			"id": 236,
+			"name": "pytime_add.exit.i.i.thread",
+			"debug": [
+				{
+					"line": 513, "columns": [9]
+				},
+				{
+					"line": 515, "columns": [19]
+				}
+			],
+			"successors": [238],
+			"ir": [
+				"%add.sink.i.i.i.ph = phi i64 [ -9223372036854775808, %if.else.i9.i.i ], [ 9223372036854775807, %land.lhs.true.i.i.i ]",
+				"store i64 %add.sink.i.i.i.ph, ptr %result, align 8, !dbg !508, !tbaa !509",
+				"br label %pytime_fromtimespec.exit.thread.i, !dbg !510"
+			]
+		},
+		{
+			"function": "PyTime_Time",
+			"id": 237,
+			"name": "pytime_add.exit.i.i",
+			"debug": [
+				{
+					"line": 132, "columns": [13]
+				},
+				{
+					"line": 513, "columns": [9]
+				},
+				{
+					"line": 515, "columns": [19]
+				}
+			],
+			"successors": [238, 239],
+			"ir": [
+				"%add.i.i.i = add i64 %storemerge.i.i.i, %3, !dbg !512",
+				"store i64 %add.i.i.i, ptr %result, align 8, !dbg !508, !tbaa !509",
+				"br i1 %or.cond14.i.i, label %pytime_fromtimespec.exit.thread.i, label %py_get_system_clock.exit, !dbg !510"
+			]
+		},
+		{
+			"function": "PyTime_Time",
+			"id": 238,
+			"name": "pytime_fromtimespec.exit.thread.i",
+			"debug": [
+				{
+					"line": 114, "columns": [21, 5]
+				},
+				{
+					"line": 952, "columns": [9]
+				}
+			],
+			"successors": [240],
+			"ir": [
+				"%4 = load ptr, ptr @PyExc_OverflowError, align 8, !dbg !514, !tbaa !445",
+				"call void @PyErr_SetString(ptr noundef %4, ptr noundef nonnull @.str.3) #15, !dbg !521",
+				"br label %if.then, !dbg !522"
+			]
+		},
+		{
+			"function": "PyTime_Time",
+			"id": 239,
+			"name": "py_get_system_clock.exit",
+			"debug": [
+				{
+					"line": 1004, "columns": [1]
+				},
+				{
+					"line": 1023, "columns": [9]
+				}
+			],
+			"successors": [241],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ts.i) #15, !dbg !523",
+				"br label %return, !dbg !524"
+			]
+		},
+		{
+			"function": "PyTime_Time",
+			"id": 240,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 1004, "columns": [1]
+				},
+				{
+					"line": 1024, "columns": [17]
+				},
+				{
+					"line": 1025, "columns": [9]
+				}
+			],
+			"successors": [241],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ts.i) #15, !dbg !523",
+				"store i64 0, ptr %result, align 8, !dbg !525, !tbaa !509",
+				"br label %return, !dbg !527"
+			]
+		},
+		{
+			"function": "PyTime_Time",
+			"id": 241,
+			"name": "return",
+			"debug": [
+				{
+					"line": 1028, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ -1, %if.then ], [ 0, %py_get_system_clock.exit ], !dbg !405",
+				"ret i32 %retval.0, !dbg !528"
+			]
+		},
+		{
+			"function": "_PyTime_TimeWithInfo",
+			"id": 242,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 932, "columns": [5, 21]
+				},
+				{
+					"line": 945, "columns": [11]
+				},
+				{
+					"line": 946, "columns": [9]
+				}
+			],
+			"successors": [244, 243],
+			"ir": [
+				"%ts.i = alloca %struct.timespec, align 8",
+				"%res.i = alloca %struct.timespec, align 8",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %ts.i) #15, !dbg !435",
+				"%call.i = call i32 @clock_gettime(i32 noundef 0, ptr noundef nonnull %ts.i) #15, !dbg !437",
+				"%tobool.not.i = icmp eq i32 %call.i, 0, !dbg !438",
+				"br i1 %tobool.not.i, label %if.end4.i, label %if.then.i, !dbg !440"
+			]
+		},
+		{
+			"function": "_PyTime_TimeWithInfo",
+			"id": 243,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 948, "columns": [32, 13]
+				},
+				{
+					"line": 949, "columns": [9]
+				}
+			],
+			"successors": [254],
+			"ir": [
+				"%0 = load ptr, ptr @PyExc_OSError, align 8, !dbg !441, !tbaa !445",
+				"%call3.i = call ptr @PyErr_SetFromErrno(ptr noundef %0) #15, !dbg !449",
+				"br label %py_get_system_clock.exit, !dbg !450"
+			]
+		},
+		{
+			"function": "_PyTime_TimeWithInfo",
+			"id": 244,
+			"name": "if.end4.i",
+			"debug": [
+				{
+					"line": 123, "columns": [12, 16]
+				},
+				{
+					"line": 151, "columns": [38]
+				},
+				{
+					"line": 506, "columns": [23]
+				},
+				{
+					"line": 510, "columns": [19]
+				}
+			],
+			"successors": [245, 246],
+			"ir": [
+				"%1 = load i64, ptr %ts.i, align 8, !dbg !467, !tbaa !468",
+				"%2 = add i64 %1, -9223372037, !dbg !488",
+				"%or.cond14.i.i = icmp ult i64 %2, -18446744073, !dbg !488",
+				"%mul.i.i.i = mul nsw i64 %1, 1000000000, !dbg !488",
+				"%cmp.i.i.i = icmp sgt i64 %1, -1, !dbg !488",
+				"%cond.i.i.i = select i1 %cmp.i.i.i, i64 9223372036854775807, i64 -9223372036854775808, !dbg !488",
+				"%storemerge.i.i.i = select i1 %or.cond14.i.i, i64 %cond.i.i.i, i64 %mul.i.i.i, !dbg !488",
+				"%tv_nsec1.i.i = getelementptr inbounds %struct.timespec, ptr %ts.i, i64 0, i32 1, !dbg !491",
+				"%3 = load i64, ptr %tv_nsec1.i.i, align 8, !dbg !491, !tbaa !492",
+				"%cmp.i8.i.i = icmp sgt i64 %3, 0, !dbg !499",
+				"br i1 %cmp.i8.i.i, label %land.lhs.true.i.i.i, label %if.else.i9.i.i, !dbg !501"
+			]
+		},
+		{
+			"function": "_PyTime_TimeWithInfo",
+			"id": 245,
+			"name": "land.lhs.true.i.i.i",
+			"debug": [
+				{
+					"line": 123, "columns": [36, 23, 9]
+				}
+			],
+			"successors": [247, 248],
+			"ir": [
+				"%sub.i.i.i = sub nuw nsw i64 9223372036854775807, %3, !dbg !502",
+				"%cmp1.i.i.i = icmp sgt i64 %storemerge.i.i.i, %sub.i.i.i, !dbg !503",
+				"br i1 %cmp1.i.i.i, label %pytime_add.exit.i.i.thread, label %pytime_add.exit.i.i, !dbg !504"
+			]
+		},
+		{
+			"function": "_PyTime_TimeWithInfo",
+			"id": 246,
+			"name": "if.else.i9.i.i",
+			"debug": [
+				{
+					"line": 127, "columns": [17, 21]
+				}
+			],
+			"successors": [247, 248],
+			"ir": [
+				"%cmp2.i.i.i = icmp ne i64 %3, 0, !dbg !505",
+				"%sub4.i.i.i = sub nsw i64 -9223372036854775808, %3",
+				"%cmp5.i.i.i = icmp slt i64 %storemerge.i.i.i, %sub4.i.i.i",
+				"%or.cond.i.i.i = select i1 %cmp2.i.i.i, i1 %cmp5.i.i.i, i1 false, !dbg !507",
+				"br i1 %or.cond.i.i.i, label %pytime_add.exit.i.i.thread, label %pytime_add.exit.i.i, !dbg !507"
+			]
+		},
+		{
+			"function": "_PyTime_TimeWithInfo",
+			"id": 247,
+			"name": "pytime_add.exit.i.i.thread",
+			"debug": [
+				{
+					"line": 513, "columns": [9]
+				},
+				{
+					"line": 515, "columns": [19]
+				}
+			],
+			"successors": [249],
+			"ir": [
+				"%add.sink.i.i.i.ph = phi i64 [ -9223372036854775808, %if.else.i9.i.i ], [ 9223372036854775807, %land.lhs.true.i.i.i ]",
+				"store i64 %add.sink.i.i.i.ph, ptr %t, align 8, !dbg !508, !tbaa !509",
+				"br label %pytime_fromtimespec.exit.thread.i, !dbg !510"
+			]
+		},
+		{
+			"function": "_PyTime_TimeWithInfo",
+			"id": 248,
+			"name": "pytime_add.exit.i.i",
+			"debug": [
+				{
+					"line": 132, "columns": [13]
+				},
+				{
+					"line": 513, "columns": [9]
+				},
+				{
+					"line": 515, "columns": [19]
+				}
+			],
+			"successors": [249, 250],
+			"ir": [
+				"%add.i.i.i = add i64 %storemerge.i.i.i, %3, !dbg !512",
+				"store i64 %add.i.i.i, ptr %t, align 8, !dbg !508, !tbaa !509",
+				"br i1 %or.cond14.i.i, label %pytime_fromtimespec.exit.thread.i, label %if.end7.i, !dbg !510"
+			]
+		},
+		{
+			"function": "_PyTime_TimeWithInfo",
+			"id": 249,
+			"name": "pytime_fromtimespec.exit.thread.i",
+			"debug": [
+				{
+					"line": 114, "columns": [21, 5]
+				},
+				{
+					"line": 952, "columns": [9]
+				}
+			],
+			"successors": [254],
+			"ir": [
+				"%4 = load ptr, ptr @PyExc_OverflowError, align 8, !dbg !514, !tbaa !445",
+				"call void @PyErr_SetString(ptr noundef %4, ptr noundef nonnull @.str.3) #15, !dbg !521",
+				"br label %py_get_system_clock.exit, !dbg !522"
+			]
+		},
+		{
+			"function": "_PyTime_TimeWithInfo",
+			"id": 250,
+			"name": "if.end7.i",
+			"debug": [
+				{
+					"line": 956, "columns": [9]
+				}
+			],
+			"successors": [254, 251],
+			"ir": [
+				"%tobool8.not.i = icmp eq ptr %info, null, !dbg !523",
+				"br i1 %tobool8.not.i, label %py_get_system_clock.exit, label %if.then9.i, !dbg !524"
+			]
+		},
+		{
+			"function": "_PyTime_TimeWithInfo",
+			"id": 251,
+			"name": "if.then9.i",
+			"debug": [
+				{
+					"line": 957, "columns": [9, 25]
+				},
+				{
+					"line": 958, "columns": [30]
+				},
+				{
+					"line": 959, "columns": [15, 25]
+				},
+				{
+					"line": 960, "columns": [15, 26]
+				},
+				{
+					"line": 961, "columns": [13, 48]
+				}
+			],
+			"successors": [252, 253],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %res.i) #15, !dbg !525",
+				"store ptr @.str.4, ptr %info, align 8, !dbg !527, !tbaa !528",
+				"%monotonic.i = getelementptr inbounds %struct._Py_clock_info_t, ptr %info, i64 0, i32 1, !dbg !532",
+				"store i32 0, ptr %monotonic.i, align 8, !dbg !533, !tbaa !534",
+				"%adjustable.i = getelementptr inbounds %struct._Py_clock_info_t, ptr %info, i64 0, i32 2, !dbg !535",
+				"store i32 1, ptr %adjustable.i, align 4, !dbg !536, !tbaa !537",
+				"%call10.i = call i32 @clock_getres(i32 noundef 0, ptr noundef nonnull %res.i) #15, !dbg !538",
+				"%cmp11.i = icmp eq i32 %call10.i, 0, !dbg !540",
+				"br i1 %cmp11.i, label %if.then12.i, label %if.end15.i, !dbg !541"
+			]
+		},
+		{
+			"function": "_PyTime_TimeWithInfo",
+			"id": 252,
+			"name": "if.then12.i",
+			"debug": [
+				{
+					"line": 962, "columns": [44, 32, 65, 53, 51]
+				},
+				{
+					"line": 963, "columns": [9]
+				}
+			],
+			"successors": [253],
+			"ir": [
+				"%5 = load i64, ptr %res.i, align 8, !dbg !542, !tbaa !468",
+				"%conv.i = sitofp i64 %5 to double, !dbg !544",
+				"%tv_nsec.i = getelementptr inbounds %struct.timespec, ptr %res.i, i64 0, i32 1, !dbg !545",
+				"%6 = load i64, ptr %tv_nsec.i, align 8, !dbg !545, !tbaa !492",
+				"%conv13.i = sitofp i64 %6 to double, !dbg !546",
+				"%7 = call double @llvm.fmuladd.f64(double %conv13.i, double 1.000000e-09, double %conv.i), !dbg !547",
+				"br label %if.end15.i, !dbg !548"
+			]
+		},
+		{
+			"function": "_PyTime_TimeWithInfo",
+			"id": 253,
+			"name": "if.end15.i",
+			"debug": [
+				{
+					"line": 967, "columns": [5]
+				}
+			],
+			"successors": [254],
+			"ir": [
+				"%.sink.i = phi double [ %7, %if.then12.i ], [ 1.000000e-09, %if.then9.i ], !dbg !549",
+				"%8 = getelementptr inbounds %struct._Py_clock_info_t, ptr %info, i64 0, i32 3, !dbg !549",
+				"store double %.sink.i, ptr %8, align 8, !dbg !549",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %res.i) #15, !dbg !550",
+				"br label %py_get_system_clock.exit, !dbg !551"
+			]
+		},
+		{
+			"function": "_PyTime_TimeWithInfo",
+			"id": 254,
+			"name": "py_get_system_clock.exit",
+			"debug": [
+				{
+					"line": 1004, "columns": [1]
+				},
+				{
+					"line": 1033, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0.i = phi i32 [ -1, %if.then.i ], [ 0, %if.end15.i ], [ 0, %if.end7.i ], [ -1, %pytime_fromtimespec.exit.thread.i ], !dbg !433",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ts.i) #15, !dbg !552",
+				"ret i32 %retval.0.i, !dbg !553"
+			]
+		},
+		{
+			"function": "_PyTime_MonotonicUnchecked",
+			"id": 255,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 1199, "columns": [5, 21]
+				},
+				{
+					"line": 1200, "columns": [9, 36]
+				}
+			],
+			"successors": [256, 261],
+			"ir": [
+				"%ts.i = alloca %struct.timespec, align 8",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %ts.i) #15, !dbg !439",
+				"%call.i = call i32 @clock_gettime(i32 noundef 1, ptr noundef nonnull %ts.i) #15, !dbg !441",
+				"%cmp.not.i = icmp eq i32 %call.i, 0, !dbg !443",
+				"br i1 %cmp.not.i, label %if.end3.i, label %if.then, !dbg !444"
+			]
+		},
+		{
+			"function": "_PyTime_MonotonicUnchecked",
+			"id": 256,
+			"name": "if.end3.i",
+			"debug": [
+				{
+					"line": 123, "columns": [12, 16]
+				},
+				{
+					"line": 151, "columns": [38]
+				},
+				{
+					"line": 506, "columns": [23]
+				},
+				{
+					"line": 510, "columns": [19]
+				}
+			],
+			"successors": [257, 258],
+			"ir": [
+				"%0 = load i64, ptr %ts.i, align 8, !dbg !461, !tbaa !462",
+				"%1 = add i64 %0, -9223372037, !dbg !484",
+				"%or.cond14.i.i = icmp ult i64 %1, -18446744073, !dbg !484",
+				"%mul.i.i.i = mul nsw i64 %0, 1000000000, !dbg !484",
+				"%cmp.i.i.i = icmp sgt i64 %0, -1, !dbg !484",
+				"%cond.i.i.i = select i1 %cmp.i.i.i, i64 9223372036854775807, i64 -9223372036854775808, !dbg !484",
+				"%storemerge.i.i.i = select i1 %or.cond14.i.i, i64 %cond.i.i.i, i64 %mul.i.i.i, !dbg !484",
+				"%tv_nsec1.i.i = getelementptr inbounds %struct.timespec, ptr %ts.i, i64 0, i32 1, !dbg !487",
+				"%2 = load i64, ptr %tv_nsec1.i.i, align 8, !dbg !487, !tbaa !488",
+				"%cmp.i8.i.i = icmp sgt i64 %2, 0, !dbg !495",
+				"br i1 %cmp.i8.i.i, label %land.lhs.true.i.i.i, label %if.else.i9.i.i, !dbg !497"
+			]
+		},
+		{
+			"function": "_PyTime_MonotonicUnchecked",
+			"id": 257,
+			"name": "land.lhs.true.i.i.i",
+			"debug": [
+				{
+					"line": 123, "columns": [36, 23, 9]
+				}
+			],
+			"successors": [260, 259],
+			"ir": [
+				"%sub.i.i.i = sub nuw nsw i64 9223372036854775807, %2, !dbg !498",
+				"%cmp1.i.i.i = icmp sgt i64 %storemerge.i.i.i, %sub.i.i.i, !dbg !499",
+				"br i1 %cmp1.i.i.i, label %py_get_monotonic_clock.exit.thread, label %if.else7.i.i.i, !dbg !500"
+			]
+		},
+		{
+			"function": "_PyTime_MonotonicUnchecked",
+			"id": 258,
+			"name": "if.else.i9.i.i",
+			"debug": [
+				{
+					"line": 127, "columns": [17, 21]
+				}
+			],
+			"successors": [260, 259],
+			"ir": [
+				"%cmp2.i.i.i = icmp ne i64 %2, 0, !dbg !501",
+				"%sub4.i.i.i = sub nsw i64 -9223372036854775808, %2",
+				"%cmp5.i.i.i = icmp slt i64 %storemerge.i.i.i, %sub4.i.i.i",
+				"%or.cond.i.i.i = select i1 %cmp2.i.i.i, i1 %cmp5.i.i.i, i1 false, !dbg !503",
+				"br i1 %or.cond.i.i.i, label %py_get_monotonic_clock.exit.thread, label %if.else7.i.i.i, !dbg !503"
+			]
+		},
+		{
+			"function": "_PyTime_MonotonicUnchecked",
+			"id": 259,
+			"name": "if.else7.i.i.i",
+			"debug": [
+				{
+					"line": 132, "columns": [13]
+				},
+				{
+					"line": 133, "columns": [9]
+				}
+			],
+			"successors": [260],
+			"ir": [
+				"%add.i.i.i = add i64 %storemerge.i.i.i, %2, !dbg !504",
+				"br label %py_get_monotonic_clock.exit.thread, !dbg !506"
+			]
+		},
+		{
+			"function": "_PyTime_MonotonicUnchecked",
+			"id": 260,
+			"name": "py_get_monotonic_clock.exit.thread",
+			"debug": [
+				{
+					"line": 1225, "columns": [1]
+				},
+				{
+					"line": 1232, "columns": [9]
+				}
+			],
+			"successors": [262],
+			"ir": [
+				"%t.0.ph = phi i64 [ -9223372036854775808, %if.else.i9.i.i ], [ 9223372036854775807, %land.lhs.true.i.i.i ], [ %add.i.i.i, %if.else7.i.i.i ]",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ts.i) #15, !dbg !507",
+				"br label %if.end, !dbg !508"
+			]
+		},
+		{
+			"function": "_PyTime_MonotonicUnchecked",
+			"id": 261,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 1225, "columns": [1]
+				},
+				{
+					"line": 1235, "columns": [5]
+				}
+			],
+			"successors": [262],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ts.i) #15, !dbg !507",
+				"br label %if.end, !dbg !510"
+			]
+		},
+		{
+			"function": "_PyTime_MonotonicUnchecked",
+			"id": 262,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 1236, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%t.1 = phi i64 [ 0, %if.then ], [ %t.0.ph, %py_get_monotonic_clock.exit.thread ], !dbg !512",
+				"ret i64 %t.1, !dbg !513"
+			]
+		},
+		{
+			"function": "PyTime_Monotonic",
+			"id": 263,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 1199, "columns": [5, 21]
+				},
+				{
+					"line": 1200, "columns": [9, 36]
+				}
+			],
+			"successors": [265, 264],
+			"ir": [
+				"%ts.i = alloca %struct.timespec, align 8",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %ts.i) #15, !dbg !440",
+				"%call.i = call i32 @clock_gettime(i32 noundef 1, ptr noundef nonnull %ts.i) #15, !dbg !442",
+				"%cmp.not.i = icmp eq i32 %call.i, 0, !dbg !444",
+				"br i1 %cmp.not.i, label %if.end3.i, label %if.then.i, !dbg !445"
+			]
+		},
+		{
+			"function": "PyTime_Monotonic",
+			"id": 264,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 1202, "columns": [32, 13]
+				},
+				{
+					"line": 1203, "columns": [13]
+				}
+			],
+			"successors": [272],
+			"ir": [
+				"%0 = load ptr, ptr @PyExc_OSError, align 8, !dbg !446, !tbaa !450",
+				"%call2.i = call ptr @PyErr_SetFromErrno(ptr noundef %0) #15, !dbg !454",
+				"br label %if.then, !dbg !455"
+			]
+		},
+		{
+			"function": "PyTime_Monotonic",
+			"id": 265,
+			"name": "if.end3.i",
+			"debug": [
+				{
+					"line": 123, "columns": [12, 16]
+				},
+				{
+					"line": 151, "columns": [38]
+				},
+				{
+					"line": 506, "columns": [23]
+				},
+				{
+					"line": 510, "columns": [19]
+				}
+			],
+			"successors": [266, 267],
+			"ir": [
+				"%1 = load i64, ptr %ts.i, align 8, !dbg !472, !tbaa !473",
+				"%2 = add i64 %1, -9223372037, !dbg !493",
+				"%or.cond14.i.i = icmp ult i64 %2, -18446744073, !dbg !493",
+				"%mul.i.i.i = mul nsw i64 %1, 1000000000, !dbg !493",
+				"%cmp.i.i.i = icmp sgt i64 %1, -1, !dbg !493",
+				"%cond.i.i.i = select i1 %cmp.i.i.i, i64 9223372036854775807, i64 -9223372036854775808, !dbg !493",
+				"%storemerge.i.i.i = select i1 %or.cond14.i.i, i64 %cond.i.i.i, i64 %mul.i.i.i, !dbg !493",
+				"%tv_nsec1.i.i = getelementptr inbounds %struct.timespec, ptr %ts.i, i64 0, i32 1, !dbg !496",
+				"%3 = load i64, ptr %tv_nsec1.i.i, align 8, !dbg !496, !tbaa !497",
+				"%cmp.i8.i.i = icmp sgt i64 %3, 0, !dbg !504",
+				"br i1 %cmp.i8.i.i, label %land.lhs.true.i.i.i, label %if.else.i9.i.i, !dbg !506"
+			]
+		},
+		{
+			"function": "PyTime_Monotonic",
+			"id": 266,
+			"name": "land.lhs.true.i.i.i",
+			"debug": [
+				{
+					"line": 123, "columns": [36, 23, 9]
+				}
+			],
+			"successors": [268, 269],
+			"ir": [
+				"%sub.i.i.i = sub nuw nsw i64 9223372036854775807, %3, !dbg !507",
+				"%cmp1.i.i.i = icmp sgt i64 %storemerge.i.i.i, %sub.i.i.i, !dbg !508",
+				"br i1 %cmp1.i.i.i, label %pytime_add.exit.i.i.thread, label %pytime_add.exit.i.i, !dbg !509"
+			]
+		},
+		{
+			"function": "PyTime_Monotonic",
+			"id": 267,
+			"name": "if.else.i9.i.i",
+			"debug": [
+				{
+					"line": 127, "columns": [17, 21]
+				}
+			],
+			"successors": [268, 269],
+			"ir": [
+				"%cmp2.i.i.i = icmp ne i64 %3, 0, !dbg !510",
+				"%sub4.i.i.i = sub nsw i64 -9223372036854775808, %3",
+				"%cmp5.i.i.i = icmp slt i64 %storemerge.i.i.i, %sub4.i.i.i",
+				"%or.cond.i.i.i = select i1 %cmp2.i.i.i, i1 %cmp5.i.i.i, i1 false, !dbg !512",
+				"br i1 %or.cond.i.i.i, label %pytime_add.exit.i.i.thread, label %pytime_add.exit.i.i, !dbg !512"
+			]
+		},
+		{
+			"function": "PyTime_Monotonic",
+			"id": 268,
+			"name": "pytime_add.exit.i.i.thread",
+			"debug": [
+				{
+					"line": 513, "columns": [9]
+				},
+				{
+					"line": 515, "columns": [19]
+				}
+			],
+			"successors": [270],
+			"ir": [
+				"%add.sink.i.i.i.ph = phi i64 [ -9223372036854775808, %if.else.i9.i.i ], [ 9223372036854775807, %land.lhs.true.i.i.i ]",
+				"store i64 %add.sink.i.i.i.ph, ptr %result, align 8, !dbg !513, !tbaa !514",
+				"br label %pytime_fromtimespec.exit.thread.i, !dbg !515"
+			]
+		},
+		{
+			"function": "PyTime_Monotonic",
+			"id": 269,
+			"name": "pytime_add.exit.i.i",
+			"debug": [
+				{
+					"line": 132, "columns": [13]
+				},
+				{
+					"line": 513, "columns": [9]
+				},
+				{
+					"line": 515, "columns": [19]
+				}
+			],
+			"successors": [270, 271],
+			"ir": [
+				"%add.i.i.i = add i64 %storemerge.i.i.i, %3, !dbg !517",
+				"store i64 %add.i.i.i, ptr %result, align 8, !dbg !513, !tbaa !514",
+				"br i1 %or.cond14.i.i, label %pytime_fromtimespec.exit.thread.i, label %py_get_monotonic_clock.exit, !dbg !515"
+			]
+		},
+		{
+			"function": "PyTime_Monotonic",
+			"id": 270,
+			"name": "pytime_fromtimespec.exit.thread.i",
+			"debug": [
+				{
+					"line": 114, "columns": [21, 5]
+				},
+				{
+					"line": 1208, "columns": [9]
+				}
+			],
+			"successors": [272],
+			"ir": [
+				"%4 = load ptr, ptr @PyExc_OverflowError, align 8, !dbg !519, !tbaa !450",
+				"call void @PyErr_SetString(ptr noundef %4, ptr noundef nonnull @.str.3) #15, !dbg !526",
+				"br label %if.then, !dbg !527"
+			]
+		},
+		{
+			"function": "PyTime_Monotonic",
+			"id": 271,
+			"name": "py_get_monotonic_clock.exit",
+			"debug": [
+				{
+					"line": 1225, "columns": [1]
+				},
+				{
+					"line": 1243, "columns": [9]
+				}
+			],
+			"successors": [273],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ts.i) #15, !dbg !528",
+				"br label %return, !dbg !529"
+			]
+		},
+		{
+			"function": "PyTime_Monotonic",
+			"id": 272,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 1225, "columns": [1]
+				},
+				{
+					"line": 1244, "columns": [17]
+				},
+				{
+					"line": 1245, "columns": [9]
+				}
+			],
+			"successors": [273],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ts.i) #15, !dbg !528",
+				"store i64 0, ptr %result, align 8, !dbg !530, !tbaa !514",
+				"br label %return, !dbg !532"
+			]
+		},
+		{
+			"function": "PyTime_Monotonic",
+			"id": 273,
+			"name": "return",
+			"debug": [
+				{
+					"line": 1248, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ -1, %if.then ], [ 0, %py_get_monotonic_clock.exit ], !dbg !405",
+				"ret i32 %retval.0, !dbg !533"
+			]
+		},
+		{
+			"function": "_PyTime_MonotonicWithInfo",
+			"id": 274,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 1199, "columns": [5, 21]
+				},
+				{
+					"line": 1200, "columns": [9, 36]
+				}
+			],
+			"successors": [276, 275],
+			"ir": [
+				"%ts.i = alloca %struct.timespec, align 8",
+				"%res.i = alloca %struct.timespec, align 8",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %ts.i) #15, !dbg !440",
+				"%call.i = call i32 @clock_gettime(i32 noundef 1, ptr noundef nonnull %ts.i) #15, !dbg !442",
+				"%cmp.not.i = icmp eq i32 %call.i, 0, !dbg !444",
+				"br i1 %cmp.not.i, label %if.end3.i, label %if.then.i, !dbg !445"
+			]
+		},
+		{
+			"function": "_PyTime_MonotonicWithInfo",
+			"id": 275,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 1202, "columns": [32, 13]
+				},
+				{
+					"line": 1203, "columns": [13]
+				}
+			],
+			"successors": [286],
+			"ir": [
+				"%0 = load ptr, ptr @PyExc_OSError, align 8, !dbg !446, !tbaa !450",
+				"%call2.i = call ptr @PyErr_SetFromErrno(ptr noundef %0) #15, !dbg !454",
+				"br label %py_get_monotonic_clock.exit, !dbg !455"
+			]
+		},
+		{
+			"function": "_PyTime_MonotonicWithInfo",
+			"id": 276,
+			"name": "if.end3.i",
+			"debug": [
+				{
+					"line": 123, "columns": [12, 16]
+				},
+				{
+					"line": 151, "columns": [38]
+				},
+				{
+					"line": 506, "columns": [23]
+				},
+				{
+					"line": 510, "columns": [19]
+				}
+			],
+			"successors": [277, 278],
+			"ir": [
+				"%1 = load i64, ptr %ts.i, align 8, !dbg !472, !tbaa !473",
+				"%2 = add i64 %1, -9223372037, !dbg !493",
+				"%or.cond14.i.i = icmp ult i64 %2, -18446744073, !dbg !493",
+				"%mul.i.i.i = mul nsw i64 %1, 1000000000, !dbg !493",
+				"%cmp.i.i.i = icmp sgt i64 %1, -1, !dbg !493",
+				"%cond.i.i.i = select i1 %cmp.i.i.i, i64 9223372036854775807, i64 -9223372036854775808, !dbg !493",
+				"%storemerge.i.i.i = select i1 %or.cond14.i.i, i64 %cond.i.i.i, i64 %mul.i.i.i, !dbg !493",
+				"%tv_nsec1.i.i = getelementptr inbounds %struct.timespec, ptr %ts.i, i64 0, i32 1, !dbg !496",
+				"%3 = load i64, ptr %tv_nsec1.i.i, align 8, !dbg !496, !tbaa !497",
+				"%cmp.i8.i.i = icmp sgt i64 %3, 0, !dbg !504",
+				"br i1 %cmp.i8.i.i, label %land.lhs.true.i.i.i, label %if.else.i9.i.i, !dbg !506"
+			]
+		},
+		{
+			"function": "_PyTime_MonotonicWithInfo",
+			"id": 277,
+			"name": "land.lhs.true.i.i.i",
+			"debug": [
+				{
+					"line": 123, "columns": [36, 23, 9]
+				}
+			],
+			"successors": [279, 280],
+			"ir": [
+				"%sub.i.i.i = sub nuw nsw i64 9223372036854775807, %3, !dbg !507",
+				"%cmp1.i.i.i = icmp sgt i64 %storemerge.i.i.i, %sub.i.i.i, !dbg !508",
+				"br i1 %cmp1.i.i.i, label %pytime_add.exit.i.i.thread, label %pytime_add.exit.i.i, !dbg !509"
+			]
+		},
+		{
+			"function": "_PyTime_MonotonicWithInfo",
+			"id": 278,
+			"name": "if.else.i9.i.i",
+			"debug": [
+				{
+					"line": 127, "columns": [17, 21]
+				}
+			],
+			"successors": [279, 280],
+			"ir": [
+				"%cmp2.i.i.i = icmp ne i64 %3, 0, !dbg !510",
+				"%sub4.i.i.i = sub nsw i64 -9223372036854775808, %3",
+				"%cmp5.i.i.i = icmp slt i64 %storemerge.i.i.i, %sub4.i.i.i",
+				"%or.cond.i.i.i = select i1 %cmp2.i.i.i, i1 %cmp5.i.i.i, i1 false, !dbg !512",
+				"br i1 %or.cond.i.i.i, label %pytime_add.exit.i.i.thread, label %pytime_add.exit.i.i, !dbg !512"
+			]
+		},
+		{
+			"function": "_PyTime_MonotonicWithInfo",
+			"id": 279,
+			"name": "pytime_add.exit.i.i.thread",
+			"debug": [
+				{
+					"line": 513, "columns": [9]
+				},
+				{
+					"line": 515, "columns": [19]
+				}
+			],
+			"successors": [281],
+			"ir": [
+				"%add.sink.i.i.i.ph = phi i64 [ -9223372036854775808, %if.else.i9.i.i ], [ 9223372036854775807, %land.lhs.true.i.i.i ]",
+				"store i64 %add.sink.i.i.i.ph, ptr %tp, align 8, !dbg !513, !tbaa !514",
+				"br label %pytime_fromtimespec.exit.thread.i, !dbg !515"
+			]
+		},
+		{
+			"function": "_PyTime_MonotonicWithInfo",
+			"id": 280,
+			"name": "pytime_add.exit.i.i",
+			"debug": [
+				{
+					"line": 132, "columns": [13]
+				},
+				{
+					"line": 513, "columns": [9]
+				},
+				{
+					"line": 515, "columns": [19]
+				}
+			],
+			"successors": [281, 282],
+			"ir": [
+				"%add.i.i.i = add i64 %storemerge.i.i.i, %3, !dbg !517",
+				"store i64 %add.i.i.i, ptr %tp, align 8, !dbg !513, !tbaa !514",
+				"br i1 %or.cond14.i.i, label %pytime_fromtimespec.exit.thread.i, label %if.end7.i, !dbg !515"
+			]
+		},
+		{
+			"function": "_PyTime_MonotonicWithInfo",
+			"id": 281,
+			"name": "pytime_fromtimespec.exit.thread.i",
+			"debug": [
+				{
+					"line": 114, "columns": [21, 5]
+				},
+				{
+					"line": 1208, "columns": [9]
+				}
+			],
+			"successors": [286],
+			"ir": [
+				"%4 = load ptr, ptr @PyExc_OverflowError, align 8, !dbg !519, !tbaa !450",
+				"call void @PyErr_SetString(ptr noundef %4, ptr noundef nonnull @.str.3) #15, !dbg !526",
+				"br label %py_get_monotonic_clock.exit, !dbg !527"
+			]
+		},
+		{
+			"function": "_PyTime_MonotonicWithInfo",
+			"id": 282,
+			"name": "if.end7.i",
+			"debug": [
+				{
+					"line": 1212, "columns": [9]
+				}
+			],
+			"successors": [286, 283],
+			"ir": [
+				"%tobool8.not.i = icmp eq ptr %info, null, !dbg !528",
+				"br i1 %tobool8.not.i, label %py_get_monotonic_clock.exit, label %if.then9.i, !dbg !529"
+			]
+		},
+		{
+			"function": "_PyTime_MonotonicWithInfo",
+			"id": 283,
+			"name": "if.then9.i",
+			"debug": [
+				{
+					"line": 1213, "columns": [15, 25]
+				},
+				{
+					"line": 1214, "columns": [30]
+				},
+				{
+					"line": 1215, "columns": [15, 26]
+				},
+				{
+					"line": 1216, "columns": [9, 25]
+				},
+				{
+					"line": 1217, "columns": [13, 40]
+				}
+			],
+			"successors": [284, 285],
+			"ir": [
+				"%monotonic.i = getelementptr inbounds %struct._Py_clock_info_t, ptr %info, i64 0, i32 1, !dbg !530",
+				"store i32 1, ptr %monotonic.i, align 8, !dbg !531, !tbaa !532",
+				"store ptr @.str.5, ptr %info, align 8, !dbg !536, !tbaa !537",
+				"%adjustable.i = getelementptr inbounds %struct._Py_clock_info_t, ptr %info, i64 0, i32 2, !dbg !538",
+				"store i32 0, ptr %adjustable.i, align 4, !dbg !539, !tbaa !540",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %res.i) #15, !dbg !541",
+				"%call11.i = call i32 @clock_getres(i32 noundef 1, ptr noundef nonnull %res.i) #15, !dbg !543",
+				"%cmp12.not.i = icmp eq i32 %call11.i, 0, !dbg !545",
+				"br i1 %cmp12.not.i, label %cleanup.thread.i, label %cleanup.i, !dbg !546"
+			]
+		},
+		{
+			"function": "_PyTime_MonotonicWithInfo",
+			"id": 284,
+			"name": "cleanup.thread.i",
+			"debug": [
+				{
+					"line": 1221, "columns": [32, 28, 45, 41, 39, 15, 26]
+				},
+				{
+					"line": 1222, "columns": [5]
+				}
+			],
+			"successors": [286],
+			"ir": [
+				"%5 = load i64, ptr %res.i, align 8, !dbg !547, !tbaa !473",
+				"%conv.i = sitofp i64 %5 to double, !dbg !548",
+				"%tv_nsec.i = getelementptr inbounds %struct.timespec, ptr %res.i, i64 0, i32 1, !dbg !549",
+				"%6 = load i64, ptr %tv_nsec.i, align 8, !dbg !549, !tbaa !497",
+				"%conv16.i = sitofp i64 %6 to double, !dbg !550",
+				"%7 = call double @llvm.fmuladd.f64(double %conv16.i, double 1.000000e-09, double %conv.i), !dbg !551",
+				"%resolution.i = getelementptr inbounds %struct._Py_clock_info_t, ptr %info, i64 0, i32 3, !dbg !552",
+				"store double %7, ptr %resolution.i, align 8, !dbg !553, !tbaa !554",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %res.i) #15, !dbg !555",
+				"br label %py_get_monotonic_clock.exit"
+			]
+		},
+		{
+			"function": "_PyTime_MonotonicWithInfo",
+			"id": 285,
+			"name": "cleanup.i",
+			"debug": [
+				{
+					"line": 1218, "columns": [32, 13]
+				},
+				{
+					"line": 1222, "columns": [5]
+				}
+			],
+			"successors": [286],
+			"ir": [
+				"%8 = load ptr, ptr @PyExc_OSError, align 8, !dbg !556, !tbaa !450",
+				"%call14.i = call ptr @PyErr_SetFromErrno(ptr noundef %8) #15, !dbg !558",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %res.i) #15, !dbg !555",
+				"br label %py_get_monotonic_clock.exit"
+			]
+		},
+		{
+			"function": "_PyTime_MonotonicWithInfo",
+			"id": 286,
+			"name": "py_get_monotonic_clock.exit",
+			"debug": [
+				{
+					"line": 1225, "columns": [1]
+				},
+				{
+					"line": 1254, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1.i = phi i32 [ -1, %if.then.i ], [ -1, %cleanup.i ], [ -1, %pytime_fromtimespec.exit.thread.i ], [ 0, %cleanup.thread.i ], [ 0, %if.end7.i ], !dbg !438",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ts.i) #15, !dbg !559",
+				"ret i32 %retval.1.i, !dbg !560"
+			]
+		},
+		{
+			"function": "_PyTime_PerfCounterWithInfo",
+			"id": 287,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 1261, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call i32 @_PyTime_MonotonicWithInfo(ptr noundef %t, ptr noundef %info), !dbg !415, !range !416",
+				"ret i32 %call, !dbg !417"
+			]
+		},
+		{
+			"function": "_PyTime_PerfCounterUnchecked",
+			"id": 288,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 1199, "columns": [5, 21]
+				},
+				{
+					"line": 1200, "columns": [9, 36]
+				}
+			],
+			"successors": [289, 294],
+			"ir": [
+				"%ts.i.i = alloca %struct.timespec, align 8",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %ts.i.i) #15, !dbg !442",
+				"%call.i.i = call i32 @clock_gettime(i32 noundef 1, ptr noundef nonnull %ts.i.i) #15, !dbg !444",
+				"%cmp.not.i.i = icmp eq i32 %call.i.i, 0, !dbg !446",
+				"br i1 %cmp.not.i.i, label %if.end3.i.i, label %if.then.i, !dbg !447"
+			]
+		},
+		{
+			"function": "_PyTime_PerfCounterUnchecked",
+			"id": 289,
+			"name": "if.end3.i.i",
+			"debug": [
+				{
+					"line": 123, "columns": [12, 16]
+				},
+				{
+					"line": 151, "columns": [38]
+				},
+				{
+					"line": 506, "columns": [23]
+				},
+				{
+					"line": 510, "columns": [19]
+				}
+			],
+			"successors": [290, 291],
+			"ir": [
+				"%0 = load i64, ptr %ts.i.i, align 8, !dbg !464, !tbaa !465",
+				"%1 = add i64 %0, -9223372037, !dbg !487",
+				"%or.cond14.i.i.i = icmp ult i64 %1, -18446744073, !dbg !487",
+				"%mul.i.i.i.i = mul nsw i64 %0, 1000000000, !dbg !487",
+				"%cmp.i.i.i.i = icmp sgt i64 %0, -1, !dbg !487",
+				"%cond.i.i.i.i = select i1 %cmp.i.i.i.i, i64 9223372036854775807, i64 -9223372036854775808, !dbg !487",
+				"%storemerge.i.i.i.i = select i1 %or.cond14.i.i.i, i64 %cond.i.i.i.i, i64 %mul.i.i.i.i, !dbg !487",
+				"%tv_nsec1.i.i.i = getelementptr inbounds %struct.timespec, ptr %ts.i.i, i64 0, i32 1, !dbg !490",
+				"%2 = load i64, ptr %tv_nsec1.i.i.i, align 8, !dbg !490, !tbaa !491",
+				"%cmp.i8.i.i.i = icmp sgt i64 %2, 0, !dbg !498",
+				"br i1 %cmp.i8.i.i.i, label %land.lhs.true.i.i.i.i, label %if.else.i9.i.i.i, !dbg !500"
+			]
+		},
+		{
+			"function": "_PyTime_PerfCounterUnchecked",
+			"id": 290,
+			"name": "land.lhs.true.i.i.i.i",
+			"debug": [
+				{
+					"line": 123, "columns": [36, 23, 9]
+				}
+			],
+			"successors": [293, 292],
+			"ir": [
+				"%sub.i.i.i.i = sub nuw nsw i64 9223372036854775807, %2, !dbg !501",
+				"%cmp1.i.i.i.i = icmp sgt i64 %storemerge.i.i.i.i, %sub.i.i.i.i, !dbg !502",
+				"br i1 %cmp1.i.i.i.i, label %py_get_monotonic_clock.exit.thread.i, label %if.else7.i.i.i.i, !dbg !503"
+			]
+		},
+		{
+			"function": "_PyTime_PerfCounterUnchecked",
+			"id": 291,
+			"name": "if.else.i9.i.i.i",
+			"debug": [
+				{
+					"line": 127, "columns": [17, 21]
+				}
+			],
+			"successors": [293, 292],
+			"ir": [
+				"%cmp2.i.i.i.i = icmp ne i64 %2, 0, !dbg !504",
+				"%sub4.i.i.i.i = sub nsw i64 -9223372036854775808, %2",
+				"%cmp5.i.i.i.i = icmp slt i64 %storemerge.i.i.i.i, %sub4.i.i.i.i",
+				"%or.cond.i.i.i.i = select i1 %cmp2.i.i.i.i, i1 %cmp5.i.i.i.i, i1 false, !dbg !506",
+				"br i1 %or.cond.i.i.i.i, label %py_get_monotonic_clock.exit.thread.i, label %if.else7.i.i.i.i, !dbg !506"
+			]
+		},
+		{
+			"function": "_PyTime_PerfCounterUnchecked",
+			"id": 292,
+			"name": "if.else7.i.i.i.i",
+			"debug": [
+				{
+					"line": 132, "columns": [13]
+				},
+				{
+					"line": 133, "columns": [9]
+				}
+			],
+			"successors": [293],
+			"ir": [
+				"%add.i.i.i.i = add i64 %storemerge.i.i.i.i, %2, !dbg !507",
+				"br label %py_get_monotonic_clock.exit.thread.i, !dbg !509"
+			]
+		},
+		{
+			"function": "_PyTime_PerfCounterUnchecked",
+			"id": 293,
+			"name": "py_get_monotonic_clock.exit.thread.i",
+			"debug": [
+				{
+					"line": 1225, "columns": [1]
+				},
+				{
+					"line": 1232, "columns": [9]
+				}
+			],
+			"successors": [295],
+			"ir": [
+				"%t.0.ph.i = phi i64 [ -9223372036854775808, %if.else.i9.i.i.i ], [ 9223372036854775807, %land.lhs.true.i.i.i.i ], [ %add.i.i.i.i, %if.else7.i.i.i.i ]",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ts.i.i) #15, !dbg !510",
+				"br label %_PyTime_MonotonicUnchecked.exit, !dbg !511"
+			]
+		},
+		{
+			"function": "_PyTime_PerfCounterUnchecked",
+			"id": 294,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 1225, "columns": [1]
+				},
+				{
+					"line": 1235, "columns": [5]
+				}
+			],
+			"successors": [295],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ts.i.i) #15, !dbg !510",
+				"br label %_PyTime_MonotonicUnchecked.exit, !dbg !513"
+			]
+		},
+		{
+			"function": "_PyTime_PerfCounterUnchecked",
+			"id": 295,
+			"name": "_PyTime_MonotonicUnchecked.exit",
+			"debug": [
+				{
+					"line": 1268, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%t.1.i = phi i64 [ 0, %if.then.i ], [ %t.0.ph.i, %py_get_monotonic_clock.exit.thread.i ], !dbg !515",
+				"ret i64 %t.1.i, !dbg !516"
+			]
+		},
+		{
+			"function": "PyTime_PerfCounter",
+			"id": 296,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 1199, "columns": [5, 21]
+				},
+				{
+					"line": 1200, "columns": [9, 36]
+				}
+			],
+			"successors": [298, 297],
+			"ir": [
+				"%ts.i.i = alloca %struct.timespec, align 8",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %ts.i.i) #15, !dbg !445",
+				"%call.i.i = call i32 @clock_gettime(i32 noundef 1, ptr noundef nonnull %ts.i.i) #15, !dbg !447",
+				"%cmp.not.i.i = icmp eq i32 %call.i.i, 0, !dbg !449",
+				"br i1 %cmp.not.i.i, label %if.end3.i.i, label %if.then.i.i, !dbg !450"
+			]
+		},
+		{
+			"function": "PyTime_PerfCounter",
+			"id": 297,
+			"name": "if.then.i.i",
+			"debug": [
+				{
+					"line": 1202, "columns": [32, 13]
+				},
+				{
+					"line": 1203, "columns": [13]
+				}
+			],
+			"successors": [305],
+			"ir": [
+				"%0 = load ptr, ptr @PyExc_OSError, align 8, !dbg !451, !tbaa !455",
+				"%call2.i.i = call ptr @PyErr_SetFromErrno(ptr noundef %0) #15, !dbg !459",
+				"br label %if.then.i, !dbg !460"
+			]
+		},
+		{
+			"function": "PyTime_PerfCounter",
+			"id": 298,
+			"name": "if.end3.i.i",
+			"debug": [
+				{
+					"line": 123, "columns": [12, 16]
+				},
+				{
+					"line": 151, "columns": [38]
+				},
+				{
+					"line": 506, "columns": [23]
+				},
+				{
+					"line": 510, "columns": [19]
+				}
+			],
+			"successors": [299, 300],
+			"ir": [
+				"%1 = load i64, ptr %ts.i.i, align 8, !dbg !477, !tbaa !478",
+				"%2 = add i64 %1, -9223372037, !dbg !498",
+				"%or.cond14.i.i.i = icmp ult i64 %2, -18446744073, !dbg !498",
+				"%mul.i.i.i.i = mul nsw i64 %1, 1000000000, !dbg !498",
+				"%cmp.i.i.i.i = icmp sgt i64 %1, -1, !dbg !498",
+				"%cond.i.i.i.i = select i1 %cmp.i.i.i.i, i64 9223372036854775807, i64 -9223372036854775808, !dbg !498",
+				"%storemerge.i.i.i.i = select i1 %or.cond14.i.i.i, i64 %cond.i.i.i.i, i64 %mul.i.i.i.i, !dbg !498",
+				"%tv_nsec1.i.i.i = getelementptr inbounds %struct.timespec, ptr %ts.i.i, i64 0, i32 1, !dbg !501",
+				"%3 = load i64, ptr %tv_nsec1.i.i.i, align 8, !dbg !501, !tbaa !502",
+				"%cmp.i8.i.i.i = icmp sgt i64 %3, 0, !dbg !509",
+				"br i1 %cmp.i8.i.i.i, label %land.lhs.true.i.i.i.i, label %if.else.i9.i.i.i, !dbg !511"
+			]
+		},
+		{
+			"function": "PyTime_PerfCounter",
+			"id": 299,
+			"name": "land.lhs.true.i.i.i.i",
+			"debug": [
+				{
+					"line": 123, "columns": [36, 23, 9]
+				}
+			],
+			"successors": [301, 302],
+			"ir": [
+				"%sub.i.i.i.i = sub nuw nsw i64 9223372036854775807, %3, !dbg !512",
+				"%cmp1.i.i.i.i = icmp sgt i64 %storemerge.i.i.i.i, %sub.i.i.i.i, !dbg !513",
+				"br i1 %cmp1.i.i.i.i, label %pytime_add.exit.i.i.thread.i, label %pytime_add.exit.i.i.i, !dbg !514"
+			]
+		},
+		{
+			"function": "PyTime_PerfCounter",
+			"id": 300,
+			"name": "if.else.i9.i.i.i",
+			"debug": [
+				{
+					"line": 127, "columns": [17, 21]
+				}
+			],
+			"successors": [301, 302],
+			"ir": [
+				"%cmp2.i.i.i.i = icmp ne i64 %3, 0, !dbg !515",
+				"%sub4.i.i.i.i = sub nsw i64 -9223372036854775808, %3",
+				"%cmp5.i.i.i.i = icmp slt i64 %storemerge.i.i.i.i, %sub4.i.i.i.i",
+				"%or.cond.i.i.i.i = select i1 %cmp2.i.i.i.i, i1 %cmp5.i.i.i.i, i1 false, !dbg !517",
+				"br i1 %or.cond.i.i.i.i, label %pytime_add.exit.i.i.thread.i, label %pytime_add.exit.i.i.i, !dbg !517"
+			]
+		},
+		{
+			"function": "PyTime_PerfCounter",
+			"id": 301,
+			"name": "pytime_add.exit.i.i.thread.i",
+			"debug": [
+				{
+					"line": 513, "columns": [9]
+				},
+				{
+					"line": 515, "columns": [19]
+				}
+			],
+			"successors": [303],
+			"ir": [
+				"%add.sink.i.i.i.ph.i = phi i64 [ -9223372036854775808, %if.else.i9.i.i.i ], [ 9223372036854775807, %land.lhs.true.i.i.i.i ]",
+				"store i64 %add.sink.i.i.i.ph.i, ptr %result, align 8, !dbg !518, !tbaa !519",
+				"br label %pytime_fromtimespec.exit.thread.i.i, !dbg !520"
+			]
+		},
+		{
+			"function": "PyTime_PerfCounter",
+			"id": 302,
+			"name": "pytime_add.exit.i.i.i",
+			"debug": [
+				{
+					"line": 132, "columns": [13]
+				},
+				{
+					"line": 513, "columns": [9]
+				},
+				{
+					"line": 515, "columns": [19]
+				}
+			],
+			"successors": [303, 304],
+			"ir": [
+				"%add.i.i.i.i = add i64 %storemerge.i.i.i.i, %3, !dbg !522",
+				"store i64 %add.i.i.i.i, ptr %result, align 8, !dbg !518, !tbaa !519",
+				"br i1 %or.cond14.i.i.i, label %pytime_fromtimespec.exit.thread.i.i, label %py_get_monotonic_clock.exit.i, !dbg !520"
+			]
+		},
+		{
+			"function": "PyTime_PerfCounter",
+			"id": 303,
+			"name": "pytime_fromtimespec.exit.thread.i.i",
+			"debug": [
+				{
+					"line": 114, "columns": [21, 5]
+				},
+				{
+					"line": 1208, "columns": [9]
+				}
+			],
+			"successors": [305],
+			"ir": [
+				"%4 = load ptr, ptr @PyExc_OverflowError, align 8, !dbg !524, !tbaa !455",
+				"call void @PyErr_SetString(ptr noundef %4, ptr noundef nonnull @.str.3) #15, !dbg !531",
+				"br label %if.then.i, !dbg !532"
+			]
+		},
+		{
+			"function": "PyTime_PerfCounter",
+			"id": 304,
+			"name": "py_get_monotonic_clock.exit.i",
+			"debug": [
+				{
+					"line": 1225, "columns": [1]
+				},
+				{
+					"line": 1243, "columns": [9]
+				}
+			],
+			"successors": [306],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ts.i.i) #15, !dbg !533",
+				"br label %PyTime_Monotonic.exit, !dbg !534"
+			]
+		},
+		{
+			"function": "PyTime_PerfCounter",
+			"id": 305,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 1225, "columns": [1]
+				},
+				{
+					"line": 1244, "columns": [17]
+				},
+				{
+					"line": 1245, "columns": [9]
+				}
+			],
+			"successors": [306],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ts.i.i) #15, !dbg !533",
+				"store i64 0, ptr %result, align 8, !dbg !535, !tbaa !519",
+				"br label %PyTime_Monotonic.exit, !dbg !537"
+			]
+		},
+		{
+			"function": "PyTime_PerfCounter",
+			"id": 306,
+			"name": "PyTime_Monotonic.exit",
+			"debug": [
+				{
+					"line": 1275, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0.i = phi i32 [ -1, %if.then.i ], [ 0, %py_get_monotonic_clock.exit.i ], !dbg !409",
+				"ret i32 %retval.0.i, !dbg !538"
+			]
+		},
+		{
+			"function": "_PyTime_localtime",
+			"id": 307,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 1305, "columns": [5, 11]
+				},
+				{
+					"line": 1306, "columns": [9, 29]
+				}
+			],
+			"successors": [308, 311],
+			"ir": [
+				"%t.addr = alloca i64, align 8",
+				"store i64 %t, ptr %t.addr, align 8, !tbaa !421",
+				"%call = tail call ptr @__errno_location() #15, !dbg !425",
+				"store i32 0, ptr %call, align 4, !dbg !426, !tbaa !427",
+				"%call1 = call ptr @localtime_r(ptr noundef nonnull %t.addr, ptr noundef %tm) #16, !dbg !429",
+				"%cmp = icmp eq ptr %call1, null, !dbg !431",
+				"br i1 %cmp, label %if.then, label %return, !dbg !432"
+			]
+		},
+		{
+			"function": "_PyTime_localtime",
+			"id": 308,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 1307, "columns": [13, 19]
+				}
+			],
+			"successors": [309, 310],
+			"ir": [
+				"%0 = load i32, ptr %call, align 4, !dbg !433, !tbaa !427",
+				"%cmp3 = icmp eq i32 %0, 0, !dbg !436",
+				"br i1 %cmp3, label %if.then4, label %if.end, !dbg !437"
+			]
+		},
+		{
+			"function": "_PyTime_localtime",
+			"id": 309,
+			"name": "if.then4",
+			"debug": [
+				{
+					"line": 1308, "columns": [19]
+				},
+				{
+					"line": 1309, "columns": [9]
+				}
+			],
+			"successors": [310],
+			"ir": [
+				"store i32 22, ptr %call, align 4, !dbg !438, !tbaa !427",
+				"br label %if.end, !dbg !440"
+			]
+		},
+		{
+			"function": "_PyTime_localtime",
+			"id": 310,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 1310, "columns": [28, 9]
+				},
+				{
+					"line": 1311, "columns": [9]
+				}
+			],
+			"successors": [311],
+			"ir": [
+				"%1 = load ptr, ptr @PyExc_OSError, align 8, !dbg !441, !tbaa !442",
+				"%call6 = call ptr @PyErr_SetFromErrno(ptr noundef %1) #16, !dbg !444",
+				"br label %return, !dbg !445"
+			]
+		},
+		{
+			"function": "_PyTime_localtime",
+			"id": 311,
+			"name": "return",
+			"debug": [
+				{
+					"line": 1315, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ -1, %if.end ], [ 0, %entry ], !dbg !420",
+				"ret i32 %retval.0, !dbg !446"
+			]
+		},
+		{
+			"function": "_PyTime_gmtime",
+			"id": 312,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 1332, "columns": [9, 26]
+				}
+			],
+			"successors": [313, 316],
+			"ir": [
+				"%t.addr = alloca i64, align 8",
+				"store i64 %t, ptr %t.addr, align 8, !tbaa !421",
+				"%call = call ptr @gmtime_r(ptr noundef nonnull %t.addr, ptr noundef %tm) #15, !dbg !425",
+				"%cmp = icmp eq ptr %call, null, !dbg !427",
+				"br i1 %cmp, label %if.then, label %return, !dbg !428"
+			]
+		},
+		{
+			"function": "_PyTime_gmtime",
+			"id": 313,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 1334, "columns": [13, 19]
+				}
+			],
+			"successors": [314, 315],
+			"ir": [
+				"%call1 = tail call ptr @__errno_location() #16, !dbg !429",
+				"%0 = load i32, ptr %call1, align 4, !dbg !429, !tbaa !432",
+				"%cmp2 = icmp eq i32 %0, 0, !dbg !434",
+				"br i1 %cmp2, label %if.then3, label %if.end, !dbg !435"
+			]
+		},
+		{
+			"function": "_PyTime_gmtime",
+			"id": 314,
+			"name": "if.then3",
+			"debug": [
+				{
+					"line": 1335, "columns": [19]
+				},
+				{
+					"line": 1336, "columns": [9]
+				}
+			],
+			"successors": [315],
+			"ir": [
+				"store i32 22, ptr %call1, align 4, !dbg !436, !tbaa !432",
+				"br label %if.end, !dbg !438"
+			]
+		},
+		{
+			"function": "_PyTime_gmtime",
+			"id": 315,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 1338, "columns": [28, 9]
+				},
+				{
+					"line": 1339, "columns": [9]
+				}
+			],
+			"successors": [316],
+			"ir": [
+				"%1 = load ptr, ptr @PyExc_OSError, align 8, !dbg !439, !tbaa !440",
+				"%call5 = call ptr @PyErr_SetFromErrno(ptr noundef %1) #15, !dbg !442",
+				"br label %return, !dbg !443"
+			]
+		},
+		{
+			"function": "_PyTime_gmtime",
+			"id": 316,
+			"name": "return",
+			"debug": [
+				{
+					"line": 1343, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ -1, %if.end ], [ 0, %entry ], !dbg !420",
+				"ret i32 %retval.0, !dbg !444"
+			]
+		},
+		{
+			"function": "_PyDeadline_Init",
+			"id": 317,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 1199, "columns": [5, 21]
+				},
+				{
+					"line": 1200, "columns": [9, 36]
+				}
+			],
+			"successors": [318, 323],
+			"ir": [
+				"%ts.i.i = alloca %struct.timespec, align 8",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %ts.i.i) #15, !dbg !447",
+				"%call.i.i = call i32 @clock_gettime(i32 noundef 1, ptr noundef nonnull %ts.i.i) #15, !dbg !449",
+				"%cmp.not.i.i = icmp eq i32 %call.i.i, 0, !dbg !451",
+				"br i1 %cmp.not.i.i, label %if.end3.i.i, label %if.then.i, !dbg !452"
+			]
+		},
+		{
+			"function": "_PyDeadline_Init",
+			"id": 318,
+			"name": "if.end3.i.i",
+			"debug": [
+				{
+					"line": 123, "columns": [12, 16]
+				},
+				{
+					"line": 151, "columns": [38]
+				},
+				{
+					"line": 506, "columns": [23]
+				},
+				{
+					"line": 510, "columns": [19]
+				}
+			],
+			"successors": [319, 320],
+			"ir": [
+				"%0 = load i64, ptr %ts.i.i, align 8, !dbg !469, !tbaa !470",
+				"%1 = add i64 %0, -9223372037, !dbg !492",
+				"%or.cond14.i.i.i = icmp ult i64 %1, -18446744073, !dbg !492",
+				"%mul.i.i.i.i = mul nsw i64 %0, 1000000000, !dbg !492",
+				"%cmp.i.i.i.i = icmp sgt i64 %0, -1, !dbg !492",
+				"%cond.i.i.i.i = select i1 %cmp.i.i.i.i, i64 9223372036854775807, i64 -9223372036854775808, !dbg !492",
+				"%storemerge.i.i.i.i = select i1 %or.cond14.i.i.i, i64 %cond.i.i.i.i, i64 %mul.i.i.i.i, !dbg !492",
+				"%tv_nsec1.i.i.i = getelementptr inbounds %struct.timespec, ptr %ts.i.i, i64 0, i32 1, !dbg !495",
+				"%2 = load i64, ptr %tv_nsec1.i.i.i, align 8, !dbg !495, !tbaa !496",
+				"%cmp.i8.i.i.i = icmp sgt i64 %2, 0, !dbg !503",
+				"br i1 %cmp.i8.i.i.i, label %land.lhs.true.i.i.i.i, label %if.else.i9.i.i.i, !dbg !505"
+			]
+		},
+		{
+			"function": "_PyDeadline_Init",
+			"id": 319,
+			"name": "land.lhs.true.i.i.i.i",
+			"debug": [
+				{
+					"line": 123, "columns": [36, 23, 9]
+				}
+			],
+			"successors": [322, 321],
+			"ir": [
+				"%sub.i.i.i.i = sub nuw nsw i64 9223372036854775807, %2, !dbg !506",
+				"%cmp1.i.i.i.i = icmp sgt i64 %storemerge.i.i.i.i, %sub.i.i.i.i, !dbg !507",
+				"br i1 %cmp1.i.i.i.i, label %py_get_monotonic_clock.exit.thread.i, label %if.else7.i.i.i.i, !dbg !508"
+			]
+		},
+		{
+			"function": "_PyDeadline_Init",
+			"id": 320,
+			"name": "if.else.i9.i.i.i",
+			"debug": [
+				{
+					"line": 127, "columns": [17, 21]
+				}
+			],
+			"successors": [322, 321],
+			"ir": [
+				"%cmp2.i.i.i.i = icmp ne i64 %2, 0, !dbg !509",
+				"%sub4.i.i.i.i = sub nsw i64 -9223372036854775808, %2",
+				"%cmp5.i.i.i.i = icmp slt i64 %storemerge.i.i.i.i, %sub4.i.i.i.i",
+				"%or.cond.i.i.i.i = select i1 %cmp2.i.i.i.i, i1 %cmp5.i.i.i.i, i1 false, !dbg !511",
+				"br i1 %or.cond.i.i.i.i, label %py_get_monotonic_clock.exit.thread.i, label %if.else7.i.i.i.i, !dbg !511"
+			]
+		},
+		{
+			"function": "_PyDeadline_Init",
+			"id": 321,
+			"name": "if.else7.i.i.i.i",
+			"debug": [
+				{
+					"line": 132, "columns": [13]
+				},
+				{
+					"line": 133, "columns": [9]
+				}
+			],
+			"successors": [322],
+			"ir": [
+				"%add.i.i.i.i = add i64 %storemerge.i.i.i.i, %2, !dbg !512",
+				"br label %py_get_monotonic_clock.exit.thread.i, !dbg !514"
+			]
+		},
+		{
+			"function": "_PyDeadline_Init",
+			"id": 322,
+			"name": "py_get_monotonic_clock.exit.thread.i",
+			"debug": [
+				{
+					"line": 1225, "columns": [1]
+				},
+				{
+					"line": 1232, "columns": [9]
+				}
+			],
+			"successors": [324],
+			"ir": [
+				"%t.0.ph.i = phi i64 [ -9223372036854775808, %if.else.i9.i.i.i ], [ 9223372036854775807, %land.lhs.true.i.i.i.i ], [ %add.i.i.i.i, %if.else7.i.i.i.i ]",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ts.i.i) #15, !dbg !515",
+				"br label %_PyTime_MonotonicUnchecked.exit, !dbg !516"
+			]
+		},
+		{
+			"function": "_PyDeadline_Init",
+			"id": 323,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 1225, "columns": [1]
+				},
+				{
+					"line": 1235, "columns": [5]
+				}
+			],
+			"successors": [324],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ts.i.i) #15, !dbg !515",
+				"br label %_PyTime_MonotonicUnchecked.exit, !dbg !518"
+			]
+		},
+		{
+			"function": "_PyDeadline_Init",
+			"id": 324,
+			"name": "_PyTime_MonotonicUnchecked.exit",
+			"debug": [
+				{
+					"line": 123, "columns": [12, 16]
+				}
+			],
+			"successors": [325, 326],
+			"ir": [
+				"%t.1.i = phi i64 [ 0, %if.then.i ], [ %t.0.ph.i, %py_get_monotonic_clock.exit.thread.i ], !dbg !520",
+				"%cmp.i.i = icmp sgt i64 %timeout, 0, !dbg !531",
+				"br i1 %cmp.i.i, label %land.lhs.true.i.i, label %if.else.i.i, !dbg !532"
+			]
+		},
+		{
+			"function": "_PyDeadline_Init",
+			"id": 325,
+			"name": "land.lhs.true.i.i",
+			"debug": [
+				{
+					"line": 123, "columns": [36, 23, 9]
+				}
+			],
+			"successors": [328, 327],
+			"ir": [
+				"%sub.i.i = sub nuw nsw i64 9223372036854775807, %timeout, !dbg !533",
+				"%cmp1.i.i = icmp slt i64 %sub.i.i, %t.1.i, !dbg !534",
+				"br i1 %cmp1.i.i, label %_PyTime_Add.exit, label %if.else7.i.i, !dbg !535"
+			]
+		},
+		{
+			"function": "_PyDeadline_Init",
+			"id": 326,
+			"name": "if.else.i.i",
+			"debug": [
+				{
+					"line": 127, "columns": [17, 21]
+				}
+			],
+			"successors": [328, 327],
+			"ir": [
+				"%cmp2.i.i = icmp ne i64 %timeout, 0, !dbg !536",
+				"%sub4.i.i = sub nsw i64 -9223372036854775808, %timeout",
+				"%cmp5.i.i = icmp sgt i64 %sub4.i.i, %t.1.i",
+				"%or.cond.i.i = and i1 %cmp2.i.i, %cmp5.i.i, !dbg !537",
+				"br i1 %or.cond.i.i, label %_PyTime_Add.exit, label %if.else7.i.i, !dbg !537"
+			]
+		},
+		{
+			"function": "_PyDeadline_Init",
+			"id": 327,
+			"name": "if.else7.i.i",
+			"debug": [
+				{
+					"line": 132, "columns": [13]
+				},
+				{
+					"line": 133, "columns": [9]
+				}
+			],
+			"successors": [328],
+			"ir": [
+				"%add.i.i = add i64 %t.1.i, %timeout, !dbg !538",
+				"br label %_PyTime_Add.exit, !dbg !539"
+			]
+		},
+		{
+			"function": "_PyDeadline_Init",
+			"id": 328,
+			"name": "_PyTime_Add.exit",
+			"debug": [
+				{
+					"line": 1350, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%add.sink.i.i = phi i64 [ %add.i.i, %if.else7.i.i ], [ 9223372036854775807, %land.lhs.true.i.i ], [ -9223372036854775808, %if.else.i.i ]",
+				"ret i64 %add.sink.i.i, !dbg !540"
+			]
+		},
+		{
+			"function": "_PyDeadline_Get",
+			"id": 329,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 1199, "columns": [5, 21]
+				},
+				{
+					"line": 1200, "columns": [9, 36]
+				}
+			],
+			"successors": [330, 335],
+			"ir": [
+				"%ts.i.i = alloca %struct.timespec, align 8",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %ts.i.i) #15, !dbg !447",
+				"%call.i.i = call i32 @clock_gettime(i32 noundef 1, ptr noundef nonnull %ts.i.i) #15, !dbg !449",
+				"%cmp.not.i.i = icmp eq i32 %call.i.i, 0, !dbg !451",
+				"br i1 %cmp.not.i.i, label %if.end3.i.i, label %if.then.i, !dbg !452"
+			]
+		},
+		{
+			"function": "_PyDeadline_Get",
+			"id": 330,
+			"name": "if.end3.i.i",
+			"debug": [
+				{
+					"line": 123, "columns": [12, 16]
+				},
+				{
+					"line": 151, "columns": [38]
+				},
+				{
+					"line": 506, "columns": [23]
+				},
+				{
+					"line": 510, "columns": [19]
+				}
+			],
+			"successors": [331, 332],
+			"ir": [
+				"%0 = load i64, ptr %ts.i.i, align 8, !dbg !469, !tbaa !470",
+				"%1 = add i64 %0, -9223372037, !dbg !492",
+				"%or.cond14.i.i.i = icmp ult i64 %1, -18446744073, !dbg !492",
+				"%mul.i.i.i.i = mul nsw i64 %0, 1000000000, !dbg !492",
+				"%cmp.i.i.i.i = icmp sgt i64 %0, -1, !dbg !492",
+				"%cond.i.i.i.i = select i1 %cmp.i.i.i.i, i64 9223372036854775807, i64 -9223372036854775808, !dbg !492",
+				"%storemerge.i.i.i.i = select i1 %or.cond14.i.i.i, i64 %cond.i.i.i.i, i64 %mul.i.i.i.i, !dbg !492",
+				"%tv_nsec1.i.i.i = getelementptr inbounds %struct.timespec, ptr %ts.i.i, i64 0, i32 1, !dbg !495",
+				"%2 = load i64, ptr %tv_nsec1.i.i.i, align 8, !dbg !495, !tbaa !496",
+				"%cmp.i8.i.i.i = icmp sgt i64 %2, 0, !dbg !503",
+				"br i1 %cmp.i8.i.i.i, label %land.lhs.true.i.i.i.i, label %if.else.i9.i.i.i, !dbg !505"
+			]
+		},
+		{
+			"function": "_PyDeadline_Get",
+			"id": 331,
+			"name": "land.lhs.true.i.i.i.i",
+			"debug": [
+				{
+					"line": 123, "columns": [36, 23, 9]
+				}
+			],
+			"successors": [334, 333],
+			"ir": [
+				"%sub.i.i.i.i = sub nuw nsw i64 9223372036854775807, %2, !dbg !506",
+				"%cmp1.i.i.i.i = icmp sgt i64 %storemerge.i.i.i.i, %sub.i.i.i.i, !dbg !507",
+				"br i1 %cmp1.i.i.i.i, label %py_get_monotonic_clock.exit.thread.i, label %if.else7.i.i.i.i, !dbg !508"
+			]
+		},
+		{
+			"function": "_PyDeadline_Get",
+			"id": 332,
+			"name": "if.else.i9.i.i.i",
+			"debug": [
+				{
+					"line": 127, "columns": [17, 21]
+				}
+			],
+			"successors": [334, 333],
+			"ir": [
+				"%cmp2.i.i.i.i = icmp ne i64 %2, 0, !dbg !509",
+				"%sub4.i.i.i.i = sub nsw i64 -9223372036854775808, %2",
+				"%cmp5.i.i.i.i = icmp slt i64 %storemerge.i.i.i.i, %sub4.i.i.i.i",
+				"%or.cond.i.i.i.i = select i1 %cmp2.i.i.i.i, i1 %cmp5.i.i.i.i, i1 false, !dbg !511",
+				"br i1 %or.cond.i.i.i.i, label %py_get_monotonic_clock.exit.thread.i, label %if.else7.i.i.i.i, !dbg !511"
+			]
+		},
+		{
+			"function": "_PyDeadline_Get",
+			"id": 333,
+			"name": "if.else7.i.i.i.i",
+			"debug": [
+				{
+					"line": 132, "columns": [13]
+				},
+				{
+					"line": 133, "columns": [9]
+				}
+			],
+			"successors": [334],
+			"ir": [
+				"%add.i.i.i.i = add i64 %storemerge.i.i.i.i, %2, !dbg !512",
+				"br label %py_get_monotonic_clock.exit.thread.i, !dbg !514"
+			]
+		},
+		{
+			"function": "_PyDeadline_Get",
+			"id": 334,
+			"name": "py_get_monotonic_clock.exit.thread.i",
+			"debug": [
+				{
+					"line": 1225, "columns": [1]
+				},
+				{
+					"line": 1232, "columns": [9]
+				}
+			],
+			"successors": [336],
+			"ir": [
+				"%t.0.ph.i = phi i64 [ -9223372036854775808, %if.else.i9.i.i.i ], [ 9223372036854775807, %land.lhs.true.i.i.i.i ], [ %add.i.i.i.i, %if.else7.i.i.i.i ]",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ts.i.i) #15, !dbg !515",
+				"br label %_PyTime_MonotonicUnchecked.exit, !dbg !516"
+			]
+		},
+		{
+			"function": "_PyDeadline_Get",
+			"id": 335,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 1225, "columns": [1]
+				},
+				{
+					"line": 1235, "columns": [5]
+				}
+			],
+			"successors": [336],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ts.i.i) #15, !dbg !515",
+				"br label %_PyTime_MonotonicUnchecked.exit, !dbg !518"
+			]
+		},
+		{
+			"function": "_PyDeadline_Get",
+			"id": 336,
+			"name": "_PyTime_MonotonicUnchecked.exit",
+			"debug": [
+				{
+					"line": 1358, "columns": [21, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%t.1.i = phi i64 [ 0, %if.then.i ], [ %t.0.ph.i, %py_get_monotonic_clock.exit.thread.i ], !dbg !520",
+				"%sub = sub i64 %deadline, %t.1.i, !dbg !521",
+				"ret i64 %sub, !dbg !522"
+			]
+		}
+	]
+}

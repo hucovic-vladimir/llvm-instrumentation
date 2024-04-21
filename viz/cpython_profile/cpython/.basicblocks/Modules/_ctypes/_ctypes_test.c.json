@@ -1,0 +1,3052 @@
+{
+	"blocks": [
+		{
+			"function": "_testfunc_cbk_reg_int",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 31, "columns": [18, 23, 28, 33, 38, 12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%mul = mul i32 %a, %a, !dbg !269",
+				"%mul1 = mul i32 %b, %b, !dbg !270",
+				"%mul2 = mul i32 %c, %c, !dbg !271",
+				"%mul3 = mul i32 %d, %d, !dbg !272",
+				"%mul4 = mul i32 %e, %e, !dbg !273",
+				"%call = tail call i32 %func(i32 noundef %mul, i32 noundef %mul1, i32 noundef %mul2, i32 noundef %mul3, i32 noundef %mul4) #33, !dbg !274",
+				"ret i32 %call, !dbg !275"
+			]
+		},
+		{
+			"function": "_testfunc_cbk_reg_double",
+			"id": 1,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 38, "columns": [18, 23, 28, 33, 38, 12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%mul = fmul double %a, %a, !dbg !269",
+				"%mul1 = fmul double %b, %b, !dbg !270",
+				"%mul2 = fmul double %c, %c, !dbg !271",
+				"%mul3 = fmul double %d, %d, !dbg !272",
+				"%mul4 = fmul double %e, %e, !dbg !273",
+				"%call = tail call double %func(double noundef %mul, double noundef %mul1, double noundef %mul2, double noundef %mul3, double noundef %mul4) #33, !dbg !274",
+				"ret double %call, !dbg !275"
+			]
+		},
+		{
+			"function": "_testfunc_cbk_large_struct",
+			"id": 2,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 54, "columns": [33]
+				},
+				{
+					"line": 56, "columns": [5]
+				},
+				{
+					"line": 57, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void %func(ptr noundef nonnull byval(%struct.Test) align 8 %in) #33, !dbg !266",
+				"ret void, !dbg !267"
+			]
+		},
+		{
+			"function": "_testfunc_large_struct_update_value",
+			"id": 3,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 65, "columns": [42]
+				},
+				{
+					"line": 67, "columns": [35]
+				},
+				{
+					"line": 68, "columns": [29, 36]
+				},
+				{
+					"line": 69, "columns": [29, 35]
+				},
+				{
+					"line": 70, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"store volatile i64 195948557, ptr %in, align 8, !dbg !261, !tbaa !262",
+				"%second = getelementptr inbounds %struct.Test, ptr %in, i64 0, i32 1, !dbg !267",
+				"store volatile i64 195948557, ptr %second, align 8, !dbg !268, !tbaa !269",
+				"%third = getelementptr inbounds %struct.Test, ptr %in, i64 0, i32 2, !dbg !270",
+				"store volatile i64 195948557, ptr %third, align 8, !dbg !271, !tbaa !272",
+				"ret void, !dbg !273"
+			]
+		},
+		{
+			"function": "_testfunc_reg_struct_update_value",
+			"id": 4,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 82, "columns": [43]
+				},
+				{
+					"line": 84, "columns": [23]
+				},
+				{
+					"line": 85, "columns": [38]
+				},
+				{
+					"line": 86, "columns": [39]
+				},
+				{
+					"line": 87, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%in.sroa.0 = alloca i32, align 4",
+				"%in.sroa.3 = alloca i32, align 4",
+				"%in.sroa.0.0.extract.trunc = trunc i64 %in.coerce to i32",
+				"%in.sroa.3.0.extract.shift = lshr i64 %in.coerce, 32",
+				"%in.sroa.3.0.extract.trunc = trunc i64 %in.sroa.3.0.extract.shift to i32",
+				"store i32 %in.sroa.0.0.extract.trunc, ptr @last_tfrsuv_arg, align 4, !dbg !261, !tbaa.struct !262",
+				"store i32 %in.sroa.3.0.extract.trunc, ptr getelementptr inbounds (%struct.TestReg, ptr @last_tfrsuv_arg, i64 0, i32 1), align 4, !dbg !261, !tbaa.struct !267",
+				"store volatile i32 195948557, ptr %in.sroa.0, align 4, !dbg !268, !tbaa !269",
+				"store volatile i32 195948557, ptr %in.sroa.3, align 4, !dbg !271, !tbaa !272",
+				"ret void, !dbg !273"
+			]
+		},
+		{
+			"function": "_testfunc_array_in_struct2",
+			"id": 5,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 102, "columns": [19, 16]
+				},
+				{
+					"line": 107, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%in.sroa.0.sroa.0.0.extract.trunc = trunc i64 %in.coerce0 to i32",
+				"%0 = trunc i64 %in.coerce0 to i32",
+				"%1 = lshr i32 %0, 8",
+				"%2 = trunc i64 %in.coerce0 to i32",
+				"%3 = lshr i32 %2, 16",
+				"%4 = trunc i64 %in.coerce0 to i32",
+				"%5 = lshr i32 %4, 24",
+				"%in.sroa.0.sroa.6.0.extract.shift = lshr i64 %in.coerce0, 32",
+				"%in.sroa.0.sroa.6.0.extract.trunc = trunc i64 %in.sroa.0.sroa.6.0.extract.shift to i32",
+				"%in.sroa.0.sroa.7.0.extract.shift = lshr i64 %in.coerce0, 40",
+				"%in.sroa.0.sroa.7.0.extract.trunc = trunc i64 %in.sroa.0.sroa.7.0.extract.shift to i32",
+				"%in.sroa.0.sroa.8.0.extract.shift = lshr i64 %in.coerce0, 48",
+				"%in.sroa.0.sroa.8.0.extract.trunc = trunc i64 %in.sroa.0.sroa.8.0.extract.shift to i32",
+				"%in.sroa.0.sroa.9.0.extract.shift = lshr i64 %in.coerce0, 56",
+				"%in.sroa.0.sroa.9.0.extract.trunc = trunc i64 %in.sroa.0.sroa.9.0.extract.shift to i32",
+				"%conv2 = and i32 %in.sroa.0.sroa.0.0.extract.trunc, 255, !dbg !273",
+				"%conv2.1 = and i32 %1, 255, !dbg !273",
+				"%add.1 = add nuw nsw i32 %conv2, %conv2.1, !dbg !275",
+				"%conv2.2 = and i32 %3, 255, !dbg !273",
+				"%add.2 = add nuw nsw i32 %add.1, %conv2.2, !dbg !275",
+				"%add.3 = add nuw nsw i32 %add.2, %5, !dbg !275",
+				"%conv2.4 = and i32 %in.sroa.0.sroa.6.0.extract.trunc, 255, !dbg !273",
+				"%add.4 = add nuw nsw i32 %add.3, %conv2.4, !dbg !275",
+				"%conv2.5 = and i32 %in.sroa.0.sroa.7.0.extract.trunc, 255, !dbg !273",
+				"%add.5 = add nuw nsw i32 %add.4, %conv2.5, !dbg !275",
+				"%conv2.6 = and i32 %in.sroa.0.sroa.8.0.extract.trunc, 255, !dbg !273",
+				"%add.6 = add nuw nsw i32 %add.5, %conv2.6, !dbg !275",
+				"%add.7 = add nuw nsw i32 %add.6, %in.sroa.0.sroa.9.0.extract.trunc, !dbg !275",
+				"%in.sroa.10.8.extract.trunc = trunc i64 %in.coerce1 to i32, !dbg !273",
+				"%conv2.8 = and i32 %in.sroa.10.8.extract.trunc, 255, !dbg !273",
+				"%add.8 = add nuw nsw i32 %add.7, %conv2.8, !dbg !275",
+				"%6 = trunc i64 %in.coerce1 to i32, !dbg !273",
+				"%7 = lshr i32 %6, 8, !dbg !273",
+				"%conv2.9 = and i32 %7, 255, !dbg !273",
+				"%add.9 = add nuw nsw i32 %add.8, %conv2.9, !dbg !275",
+				"%8 = trunc i64 %in.coerce1 to i32, !dbg !273",
+				"%9 = lshr i32 %8, 16, !dbg !273",
+				"%conv2.10 = and i32 %9, 255, !dbg !273",
+				"%add.10 = add nuw nsw i32 %add.9, %conv2.10, !dbg !275",
+				"%10 = trunc i64 %in.coerce1 to i32, !dbg !273",
+				"%11 = lshr i32 %10, 24, !dbg !273",
+				"%add.11 = add nuw nsw i32 %add.10, %11, !dbg !275",
+				"%in.sroa.10.12.extract.shift = lshr i64 %in.coerce1, 32, !dbg !273",
+				"%in.sroa.10.12.extract.trunc = trunc i64 %in.sroa.10.12.extract.shift to i32, !dbg !273",
+				"%conv2.12 = and i32 %in.sroa.10.12.extract.trunc, 255, !dbg !273",
+				"%add.12 = add nuw nsw i32 %add.11, %conv2.12, !dbg !275",
+				"%in.sroa.10.13.extract.shift = lshr i64 %in.coerce1, 40, !dbg !273",
+				"%in.sroa.10.13.extract.trunc = trunc i64 %in.sroa.10.13.extract.shift to i32, !dbg !273",
+				"%conv2.13 = and i32 %in.sroa.10.13.extract.trunc, 255, !dbg !273",
+				"%add.13 = add nuw nsw i32 %add.12, %conv2.13, !dbg !275",
+				"%in.sroa.10.14.extract.shift = lshr i64 %in.coerce1, 48, !dbg !273",
+				"%in.sroa.10.14.extract.trunc = trunc i64 %in.sroa.10.14.extract.shift to i32, !dbg !273",
+				"%conv2.14 = and i32 %in.sroa.10.14.extract.trunc, 255, !dbg !273",
+				"%add.14 = add nuw nsw i32 %add.13, %conv2.14, !dbg !275",
+				"%in.sroa.10.15.extract.shift = lshr i64 %in.coerce1, 56, !dbg !273",
+				"%in.sroa.10.15.extract.trunc = trunc i64 %in.sroa.10.15.extract.shift to i32, !dbg !273",
+				"%add.15 = add nuw nsw i32 %add.14, %in.sroa.10.15.extract.trunc, !dbg !275",
+				"ret i32 %add.15, !dbg !276"
+			]
+		},
+		{
+			"function": "_testfunc_array_in_struct3A",
+			"id": 6,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 126, "columns": [19, 16]
+				},
+				{
+					"line": 128, "columns": [19, 16]
+				},
+				{
+					"line": 133, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%in.sroa.0.0.vec.extract = extractelement <2 x float> %in.coerce0, i64 0, !dbg !273",
+				"%conv2 = fpext float %in.sroa.0.0.vec.extract to double, !dbg !273",
+				"%add = fadd double %conv2, 0.000000e+00, !dbg !275",
+				"%in.sroa.0.4.vec.extract = extractelement <2 x float> %in.coerce0, i64 1, !dbg !273",
+				"%conv2.1 = fpext float %in.sroa.0.4.vec.extract to double, !dbg !273",
+				"%add.1 = fadd double %add, %conv2.1, !dbg !275",
+				"%in.sroa.4.8.vec.extract = extractelement <2 x float> %in.coerce1, i64 0, !dbg !277",
+				"%conv12 = fpext float %in.sroa.4.8.vec.extract to double, !dbg !277",
+				"%add13 = fadd double %add.1, %conv12, !dbg !279",
+				"%in.sroa.4.12.vec.extract = extractelement <2 x float> %in.coerce1, i64 1, !dbg !277",
+				"%conv12.1 = fpext float %in.sroa.4.12.vec.extract to double, !dbg !277",
+				"%add13.1 = fadd double %add13, %conv12.1, !dbg !279",
+				"ret double %add13.1, !dbg !280"
+			]
+		},
+		{
+			"function": "_testfunc_array_in_struct3B",
+			"id": 7,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 169, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%add = fadd double %in.coerce0, 0.000000e+00, !dbg !270",
+				"%add.1 = fadd double %add, %in.coerce1, !dbg !270",
+				"ret double %add.1, !dbg !272"
+			]
+		},
+		{
+			"function": "_testfunc_array_in_struct3B_set_defaults",
+			"id": 8,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 176, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret { double, double } { double 1.000000e+00, double 2.000000e+00 }, !dbg !268"
+			]
+		},
+		{
+			"function": "_testfunc_array_in_struct3C",
+			"id": 9,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 191, "columns": [36]
+				},
+				{
+					"line": 193, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = load double, ptr %in, align 8, !dbg !273, !tbaa !275",
+				"%add = fadd double %0, 0.000000e+00, !dbg !273",
+				"%arrayidx.1 = getelementptr [4 x double], ptr %in, i64 0, i64 1, !dbg !273",
+				"%1 = load double, ptr %arrayidx.1, align 8, !dbg !273, !tbaa !275",
+				"%add.1 = fadd double %add, %1, !dbg !273",
+				"%arrayidx.2 = getelementptr [4 x double], ptr %in, i64 0, i64 2, !dbg !273",
+				"%2 = load double, ptr %arrayidx.2, align 8, !dbg !273, !tbaa !275",
+				"%add.2 = fadd double %add.1, %2, !dbg !273",
+				"%arrayidx.3 = getelementptr [4 x double], ptr %in, i64 0, i64 3, !dbg !273",
+				"%3 = load double, ptr %arrayidx.3, align 8, !dbg !273, !tbaa !275",
+				"%add.3 = fadd double %add.2, %3, !dbg !273",
+				"ret double %add.3, !dbg !279"
+			]
+		},
+		{
+			"function": "_testfunc_array_in_struct3C_set_defaults",
+			"id": 10,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 199, "columns": [12]
+				},
+				{
+					"line": 200, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"store <2 x double> <double 1.000000e+00, double 2.000000e+00>, ptr %agg.result, align 8, !dbg !271, !tbaa !273",
+				"%arrayidx.2 = getelementptr [4 x double], ptr %agg.result, i64 0, i64 2, !dbg !271",
+				"store <2 x double> <double 3.000000e+00, double 4.000000e+00>, ptr %arrayidx.2, align 8, !dbg !271, !tbaa !273",
+				"ret void, !dbg !277"
+			]
+		},
+		{
+			"function": "_testfunc_array_in_struct3D",
+			"id": 11,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 215, "columns": [36]
+				},
+				{
+					"line": 217, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = load double, ptr %in, align 8, !dbg !271, !tbaa !273",
+				"%add = fadd double %0, 0.000000e+00, !dbg !271",
+				"%arrayidx.1 = getelementptr [8 x double], ptr %in, i64 0, i64 1, !dbg !271",
+				"%1 = load double, ptr %arrayidx.1, align 8, !dbg !271, !tbaa !273",
+				"%add.1 = fadd double %add, %1, !dbg !271",
+				"%arrayidx.2 = getelementptr [8 x double], ptr %in, i64 0, i64 2, !dbg !271",
+				"%2 = load double, ptr %arrayidx.2, align 8, !dbg !271, !tbaa !273",
+				"%add.2 = fadd double %add.1, %2, !dbg !271",
+				"%arrayidx.3 = getelementptr [8 x double], ptr %in, i64 0, i64 3, !dbg !271",
+				"%3 = load double, ptr %arrayidx.3, align 8, !dbg !271, !tbaa !273",
+				"%add.3 = fadd double %add.2, %3, !dbg !271",
+				"%arrayidx.4 = getelementptr [8 x double], ptr %in, i64 0, i64 4, !dbg !271",
+				"%4 = load double, ptr %arrayidx.4, align 8, !dbg !271, !tbaa !273",
+				"%add.4 = fadd double %add.3, %4, !dbg !271",
+				"%arrayidx.5 = getelementptr [8 x double], ptr %in, i64 0, i64 5, !dbg !271",
+				"%5 = load double, ptr %arrayidx.5, align 8, !dbg !271, !tbaa !273",
+				"%add.5 = fadd double %add.4, %5, !dbg !271",
+				"%arrayidx.6 = getelementptr [8 x double], ptr %in, i64 0, i64 6, !dbg !271",
+				"%6 = load double, ptr %arrayidx.6, align 8, !dbg !271, !tbaa !273",
+				"%add.6 = fadd double %add.5, %6, !dbg !271",
+				"%arrayidx.7 = getelementptr [8 x double], ptr %in, i64 0, i64 7, !dbg !271",
+				"%7 = load double, ptr %arrayidx.7, align 8, !dbg !271, !tbaa !273",
+				"%add.7 = fadd double %add.6, %7, !dbg !271",
+				"ret double %add.7, !dbg !277"
+			]
+		},
+		{
+			"function": "_testfunc_array_in_struct3D_set_defaults",
+			"id": 12,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 223, "columns": [12]
+				},
+				{
+					"line": 224, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"store <2 x double> <double 1.000000e+00, double 2.000000e+00>, ptr %agg.result, align 8, !dbg !269, !tbaa !271",
+				"%arrayidx.2 = getelementptr [8 x double], ptr %agg.result, i64 0, i64 2, !dbg !269",
+				"store <2 x double> <double 3.000000e+00, double 4.000000e+00>, ptr %arrayidx.2, align 8, !dbg !269, !tbaa !271",
+				"%arrayidx.4 = getelementptr [8 x double], ptr %agg.result, i64 0, i64 4, !dbg !269",
+				"store <2 x double> <double 5.000000e+00, double 6.000000e+00>, ptr %arrayidx.4, align 8, !dbg !269, !tbaa !271",
+				"%arrayidx.6 = getelementptr [8 x double], ptr %agg.result, i64 0, i64 6, !dbg !269",
+				"store <2 x double> <double 7.000000e+00, double 8.000000e+00>, ptr %arrayidx.6, align 8, !dbg !269, !tbaa !271",
+				"ret void, !dbg !275"
+			]
+		},
+		{
+			"function": "_testfunc_array_in_struct3E",
+			"id": 13,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 236, "columns": [36]
+				},
+				{
+					"line": 238, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = load double, ptr %in, align 8, !dbg !271, !tbaa !273",
+				"%add = fadd double %0, 0.000000e+00, !dbg !271",
+				"%arrayidx.1 = getelementptr [9 x double], ptr %in, i64 0, i64 1, !dbg !271",
+				"%1 = load double, ptr %arrayidx.1, align 8, !dbg !271, !tbaa !273",
+				"%add.1 = fadd double %add, %1, !dbg !271",
+				"%arrayidx.2 = getelementptr [9 x double], ptr %in, i64 0, i64 2, !dbg !271",
+				"%2 = load double, ptr %arrayidx.2, align 8, !dbg !271, !tbaa !273",
+				"%add.2 = fadd double %add.1, %2, !dbg !271",
+				"%arrayidx.3 = getelementptr [9 x double], ptr %in, i64 0, i64 3, !dbg !271",
+				"%3 = load double, ptr %arrayidx.3, align 8, !dbg !271, !tbaa !273",
+				"%add.3 = fadd double %add.2, %3, !dbg !271",
+				"%arrayidx.4 = getelementptr [9 x double], ptr %in, i64 0, i64 4, !dbg !271",
+				"%4 = load double, ptr %arrayidx.4, align 8, !dbg !271, !tbaa !273",
+				"%add.4 = fadd double %add.3, %4, !dbg !271",
+				"%arrayidx.5 = getelementptr [9 x double], ptr %in, i64 0, i64 5, !dbg !271",
+				"%5 = load double, ptr %arrayidx.5, align 8, !dbg !271, !tbaa !273",
+				"%add.5 = fadd double %add.4, %5, !dbg !271",
+				"%arrayidx.6 = getelementptr [9 x double], ptr %in, i64 0, i64 6, !dbg !271",
+				"%6 = load double, ptr %arrayidx.6, align 8, !dbg !271, !tbaa !273",
+				"%add.6 = fadd double %add.5, %6, !dbg !271",
+				"%arrayidx.7 = getelementptr [9 x double], ptr %in, i64 0, i64 7, !dbg !271",
+				"%7 = load double, ptr %arrayidx.7, align 8, !dbg !271, !tbaa !273",
+				"%add.7 = fadd double %add.6, %7, !dbg !271",
+				"%arrayidx.8 = getelementptr [9 x double], ptr %in, i64 0, i64 8, !dbg !271",
+				"%8 = load double, ptr %arrayidx.8, align 8, !dbg !271, !tbaa !273",
+				"%add.8 = fadd double %add.7, %8, !dbg !271",
+				"ret double %add.8, !dbg !277"
+			]
+		},
+		{
+			"function": "_testfunc_array_in_struct3E_set_defaults",
+			"id": 14,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 244, "columns": [12]
+				},
+				{
+					"line": 245, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"store <2 x double> <double 1.000000e+00, double 2.000000e+00>, ptr %agg.result, align 8, !dbg !269, !tbaa !271",
+				"%arrayidx.2 = getelementptr [9 x double], ptr %agg.result, i64 0, i64 2, !dbg !269",
+				"store <2 x double> <double 3.000000e+00, double 4.000000e+00>, ptr %arrayidx.2, align 8, !dbg !269, !tbaa !271",
+				"%arrayidx.4 = getelementptr [9 x double], ptr %agg.result, i64 0, i64 4, !dbg !269",
+				"store <2 x double> <double 5.000000e+00, double 6.000000e+00>, ptr %arrayidx.4, align 8, !dbg !269, !tbaa !271",
+				"%arrayidx.6 = getelementptr [9 x double], ptr %agg.result, i64 0, i64 6, !dbg !269",
+				"store <2 x double> <double 7.000000e+00, double 8.000000e+00>, ptr %arrayidx.6, align 8, !dbg !269, !tbaa !271",
+				"%arrayidx.8 = getelementptr [9 x double], ptr %agg.result, i64 0, i64 8, !dbg !269",
+				"store double 9.000000e+00, ptr %arrayidx.8, align 8, !dbg !269, !tbaa !271",
+				"ret void, !dbg !275"
+			]
+		},
+		{
+			"function": "_testfunc_union_by_value1",
+			"id": 15,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 267, "columns": [31, 52, 29, 50]
+				},
+				{
+					"line": 273, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%sext = shl i64 %in.coerce, 32, !dbg !271",
+				"%conv = ashr exact i64 %sext, 32, !dbg !271",
+				"%conv1 = ashr i64 %in.coerce, 32, !dbg !272",
+				"%add = add i64 %conv1, %in.coerce, !dbg !273",
+				"%add2 = add i64 %add, %conv, !dbg !274",
+				"ret i64 %add2, !dbg !275"
+			]
+		},
+		{
+			"function": "_testfunc_union_by_value2",
+			"id": 16,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 277, "columns": [33]
+				},
+				{
+					"line": 278, "columns": [22, 34, 41, 29, 19]
+				},
+				{
+					"line": 284, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = load i32, ptr %in, align 8, !dbg !281, !tbaa !282",
+				"%nested = getelementptr inbounds %struct.Test5, ptr %in, i64 0, i32 1, !dbg !288",
+				"%1 = load i32, ptr %nested, align 8, !dbg !289, !tbaa !290",
+				"%add = add i32 %1, %0, !dbg !291",
+				"%conv = sext i32 %add to i64, !dbg !292",
+				"ret i64 %conv, !dbg !294"
+			]
+		},
+		{
+			"function": "_testfunc_union_by_reference1",
+			"id": 17,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 289, "columns": [23]
+				},
+				{
+					"line": 291, "columns": [5]
+				},
+				{
+					"line": 292, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = load i64, ptr %in, align 8, !dbg !272, !tbaa !273",
+				"store i64 0, ptr %in, align 8, !dbg !276",
+				"ret i64 %0, !dbg !277"
+			]
+		},
+		{
+			"function": "_testfunc_union_by_reference2",
+			"id": 18,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 297, "columns": [32, 54, 39, 19]
+				},
+				{
+					"line": 299, "columns": [5]
+				},
+				{
+					"line": 300, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = load i32, ptr %in, align 8, !dbg !272, !tbaa !273",
+				"%another_int = getelementptr inbounds %struct.anon, ptr %in, i64 0, i32 1, !dbg !276",
+				"%1 = load i32, ptr %another_int, align 4, !dbg !276, !tbaa !273",
+				"%add = add i32 %1, %0, !dbg !277",
+				"%conv = sext i32 %add to i64, !dbg !278",
+				"store i64 0, ptr %in, align 8, !dbg !279",
+				"ret i64 %conv, !dbg !280"
+			]
+		},
+		{
+			"function": "_testfunc_union_by_reference3",
+			"id": 19,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 305, "columns": [23, 36, 43, 30, 56, 50, 19]
+				},
+				{
+					"line": 307, "columns": [5]
+				},
+				{
+					"line": 308, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = load i32, ptr %in, align 8, !dbg !282, !tbaa !283",
+				"%nested = getelementptr inbounds %struct.Test5, ptr %in, i64 0, i32 1, !dbg !289",
+				"%1 = load i32, ptr %nested, align 8, !dbg !290, !tbaa !291",
+				"%add = add i32 %1, %0, !dbg !292",
+				"%another_int = getelementptr inbounds %struct.Test5, ptr %in, i64 0, i32 2, !dbg !293",
+				"%2 = load i32, ptr %another_int, align 8, !dbg !293, !tbaa !294",
+				"%add2 = add i32 %add, %2, !dbg !295",
+				"%conv = sext i32 %add2 to i64, !dbg !296",
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %in, i8 0, i64 32, i1 false), !dbg !297",
+				"ret i64 %conv, !dbg !298"
+			]
+		},
+		{
+			"function": "_testfunc_bitfield_by_value1",
+			"id": 20,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 317, "columns": [22, 29, 36, 43, 24, 31, 38, 19]
+				},
+				{
+					"line": 323, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%in.sroa.0.0.extract.trunc = trunc i32 %in.coerce to i8",
+				"%0 = and i32 %in.coerce, 1, !dbg !269",
+				"%bf.shl2 = shl i8 %in.sroa.0.0.extract.trunc, 5, !dbg !270",
+				"%bf.ashr3 = ashr i8 %bf.shl2, 6, !dbg !270",
+				"%bf.cast4 = sext i8 %bf.ashr3 to i32, !dbg !270",
+				"%bf.shl6 = shl i8 %in.sroa.0.0.extract.trunc, 2, !dbg !271",
+				"%bf.ashr7 = ashr i8 %bf.shl6, 5, !dbg !271",
+				"%bf.cast8 = sext i8 %bf.ashr7 to i32, !dbg !271",
+				"%bf.ashr11 = ashr i8 %in.sroa.0.0.extract.trunc, 6, !dbg !272",
+				"%bf.cast12 = sext i8 %bf.ashr11 to i32, !dbg !272",
+				"%add = sub nsw i32 %bf.cast12, %0, !dbg !273",
+				"%add9 = add nsw i32 %add, %bf.cast4, !dbg !274",
+				"%add13 = add nsw i32 %add9, %bf.cast8, !dbg !275",
+				"%conv = sext i32 %add13 to i64, !dbg !276",
+				"ret i64 %conv, !dbg !277"
+			]
+		},
+		{
+			"function": "_testfunc_bitfield_by_reference1",
+			"id": 21,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 328, "columns": [23, 31, 39, 47, 25, 33, 41, 19]
+				},
+				{
+					"line": 330, "columns": [5]
+				},
+				{
+					"line": 331, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%bf.load = load i8, ptr %in, align 4, !dbg !270",
+				"%0 = and i8 %bf.load, 1, !dbg !270",
+				"%bf.shl2 = shl i8 %bf.load, 5, !dbg !271",
+				"%bf.ashr3 = ashr i8 %bf.shl2, 6, !dbg !271",
+				"%bf.shl6 = shl i8 %bf.load, 2, !dbg !272",
+				"%bf.ashr7 = ashr i8 %bf.shl6, 5, !dbg !272",
+				"%bf.ashr11 = ashr i8 %bf.load, 6, !dbg !273",
+				"%narrow = sub nsw i8 %bf.ashr11, %0, !dbg !274",
+				"%narrow18 = add nsw i8 %narrow, %bf.ashr3, !dbg !275",
+				"%narrow19 = add nsw i8 %narrow18, %bf.ashr7, !dbg !276",
+				"%conv = sext i8 %narrow19 to i64, !dbg !277",
+				"store i32 0, ptr %in, align 4, !dbg !278",
+				"ret i64 %conv, !dbg !279"
+			]
+		},
+		{
+			"function": "_testfunc_bitfield_by_reference2",
+			"id": 22,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 340, "columns": [23, 31, 39, 47, 25, 33, 41]
+				},
+				{
+					"line": 342, "columns": [5]
+				},
+				{
+					"line": 343, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%bf.load = load i8, ptr %in, align 4, !dbg !270",
+				"%bf.clear = and i8 %bf.load, 1, !dbg !270",
+				"%bf.lshr = lshr i8 %bf.load, 1, !dbg !271",
+				"%bf.clear2 = and i8 %bf.lshr, 3, !dbg !271",
+				"%bf.lshr5 = lshr i8 %bf.load, 3, !dbg !272",
+				"%bf.clear6 = and i8 %bf.lshr5, 7, !dbg !272",
+				"%bf.lshr10 = lshr i8 %bf.load, 6, !dbg !273",
+				"%narrow = add nuw nsw i8 %bf.lshr10, %bf.clear, !dbg !274",
+				"%narrow17 = add nuw nsw i8 %narrow, %bf.clear2, !dbg !275",
+				"%narrow18 = add nuw nsw i8 %narrow17, %bf.clear6, !dbg !276",
+				"%conv = zext i8 %narrow18 to i64",
+				"store i32 0, ptr %in, align 4, !dbg !277",
+				"ret i64 %conv, !dbg !278"
+			]
+		},
+		{
+			"function": "_testfunc_bitfield_by_value2",
+			"id": 23,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 352, "columns": [22, 29, 36, 31, 38, 19]
+				},
+				{
+					"line": 358, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = and i32 %in.coerce, 1, !dbg !269",
+				"%bf.cast418 = shl i32 %in.coerce, 30, !dbg !270",
+				"%bf.cast819 = shl i32 %in.coerce, 29, !dbg !271",
+				"%bf.cast8 = ashr exact i32 %bf.cast819, 29, !dbg !271",
+				"%factor = ashr exact i32 %bf.cast418, 29",
+				"%add9 = sub nsw i32 %bf.cast8, %0, !dbg !272",
+				"%add14 = add nsw i32 %add9, %factor, !dbg !273",
+				"%conv = sext i32 %add14 to i64, !dbg !274",
+				"ret i64 %conv, !dbg !275"
+			]
+		},
+		{
+			"function": "testfunc_array",
+			"id": 24,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 363, "columns": [5]
+				},
+				{
+					"line": 364, "columns": [12]
+				},
+				{
+					"line": 365, "columns": [12]
+				},
+				{
+					"line": 366, "columns": [12]
+				},
+				{
+					"line": 367, "columns": [12]
+				},
+				{
+					"line": 368, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = load i32, ptr %values, align 4, !dbg !262, !tbaa !263",
+				"%arrayidx1 = getelementptr i32, ptr %values, i64 1, !dbg !267",
+				"%1 = load i32, ptr %arrayidx1, align 4, !dbg !267, !tbaa !263",
+				"%arrayidx2 = getelementptr i32, ptr %values, i64 2, !dbg !268",
+				"%2 = load i32, ptr %arrayidx2, align 4, !dbg !268, !tbaa !263",
+				"%arrayidx3 = getelementptr i32, ptr %values, i64 3, !dbg !269",
+				"%3 = load i32, ptr %arrayidx3, align 4, !dbg !269, !tbaa !263",
+				"%call = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %0, i32 noundef %1, i32 noundef %2, i32 noundef %3), !dbg !270",
+				"ret void, !dbg !271"
+			]
+		},
+		{
+			"function": "testfunc_Ddd",
+			"id": 25,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 372, "columns": [17, 42, 26]
+				},
+				{
+					"line": 373, "columns": [5]
+				},
+				{
+					"line": 374, "columns": [38, 41, 5]
+				},
+				{
+					"line": 375, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%a.addr = alloca double, align 8",
+				"%b.addr = alloca double, align 8",
+				"store double %a, ptr %a.addr, align 8, !tbaa !264",
+				"store double %b, ptr %b.addr, align 8, !tbaa !264",
+				"%mul = fmul double %a, %b, !dbg !268",
+				"%conv = fpext double %mul to x86_fp80, !dbg !269",
+				"%call = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, ptr noundef nonnull %a.addr, ptr noundef nonnull %b.addr), !dbg !270",
+				"%0 = load double, ptr %a.addr, align 8, !dbg !271, !tbaa !264",
+				"%1 = load double, ptr %b.addr, align 8, !dbg !272, !tbaa !264",
+				"%call1 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, double noundef %0, double noundef %1), !dbg !273",
+				"ret x86_fp80 %conv, !dbg !274"
+			]
+		},
+		{
+			"function": "testfunc_DDD",
+			"id": 26,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 380, "columns": [17, 28]
+				},
+				{
+					"line": 381, "columns": [5]
+				},
+				{
+					"line": 382, "columns": [40, 43, 5]
+				},
+				{
+					"line": 383, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%a.addr = alloca x86_fp80, align 16",
+				"%b.addr = alloca x86_fp80, align 16",
+				"store x86_fp80 %a, ptr %a.addr, align 16, !tbaa !264",
+				"store x86_fp80 %b, ptr %b.addr, align 16, !tbaa !264",
+				"%mul = fmul x86_fp80 %a, %b, !dbg !268",
+				"%call = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, ptr noundef nonnull %a.addr, ptr noundef nonnull %b.addr), !dbg !269",
+				"%0 = load x86_fp80, ptr %a.addr, align 16, !dbg !270, !tbaa !264",
+				"%1 = load x86_fp80, ptr %b.addr, align 16, !dbg !271, !tbaa !264",
+				"%call1 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, x86_fp80 noundef %0, x86_fp80 noundef %1), !dbg !272",
+				"ret x86_fp80 %mul, !dbg !273"
+			]
+		},
+		{
+			"function": "testfunc_iii",
+			"id": 27,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 388, "columns": [20]
+				},
+				{
+					"line": 389, "columns": [5]
+				},
+				{
+					"line": 390, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%a.addr = alloca i32, align 4",
+				"%b.addr = alloca i32, align 4",
+				"store i32 %a, ptr %a.addr, align 4, !tbaa !263",
+				"store i32 %b, ptr %b.addr, align 4, !tbaa !263",
+				"%mul = mul i32 %b, %a, !dbg !267",
+				"%call = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, ptr noundef nonnull %a.addr, ptr noundef nonnull %b.addr), !dbg !268",
+				"ret i32 %mul, !dbg !269"
+			]
+		},
+		{
+			"function": "myprintf",
+			"id": 28,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 41, "columns": [20, 10]
+				},
+				{
+					"line": 396, "columns": [5, 13]
+				},
+				{
+					"line": 397, "columns": [5]
+				},
+				{
+					"line": 399, "columns": [5]
+				},
+				{
+					"line": 400, "columns": [5]
+				},
+				{
+					"line": 401, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%argptr = alloca [1 x %struct.__va_list_tag], align 16",
+				"call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %argptr) #33, !dbg !276",
+				"call void @llvm.va_start(ptr nonnull %argptr), !dbg !278",
+				"%0 = load ptr, ptr @stdout, align 8, !dbg !290, !tbaa !291, !noalias !295",
+				"%call.i = call i32 @vfprintf(ptr noundef %0, ptr noundef %fmt, ptr noundef nonnull %argptr), !dbg !298",
+				"call void @llvm.va_end(ptr nonnull %argptr), !dbg !299",
+				"call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %argptr) #33, !dbg !300",
+				"ret i32 %call.i, !dbg !301"
+			]
+		},
+		{
+			"function": "my_strtok",
+			"id": 29,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 405, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call ptr @strtok(ptr noundef %token, ptr noundef %delim) #33, !dbg !262",
+				"ret ptr %call, !dbg !263"
+			]
+		},
+		{
+			"function": "my_strchr",
+			"id": 30,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 410, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call ptr @strchr(ptr noundef nonnull dereferenceable(1) %s, i32 noundef %c) #33, !dbg !262",
+				"ret ptr %call, !dbg !263"
+			]
+		},
+		{
+			"function": "my_sqrt",
+			"id": 31,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 416, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call double @sqrt(double noundef %a) #33, !dbg !261",
+				"ret double %call, !dbg !262"
+			]
+		},
+		{
+			"function": "my_qsort",
+			"id": 32,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 421, "columns": [5]
+				},
+				{
+					"line": 422, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @qsort(ptr noundef %base, i64 noundef %num, i64 noundef %width, ptr noundef %compare) #33, !dbg !270",
+				"ret void, !dbg !271"
+			]
+		},
+		{
+			"function": "_testfunc_ai8",
+			"id": 33,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 426, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret ptr %a, !dbg !262"
+			]
+		},
+		{
+			"function": "_testfunc_v",
+			"id": 34,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 431, "columns": [18, 14]
+				},
+				{
+					"line": 432, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%add = add i32 %b, %a, !dbg !264",
+				"store i32 %add, ptr %presult, align 4, !dbg !265, !tbaa !266",
+				"ret void, !dbg !270"
+			]
+		},
+		{
+			"function": "_testfunc_i_bhilfd",
+			"id": 35,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 439, "columns": [18, 22, 20, 24, 28, 32, 36, 12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%conv = sext i8 %b to i32, !dbg !268",
+				"%conv1 = sext i16 %h to i32, !dbg !269",
+				"%add = add nsw i32 %conv1, %conv, !dbg !270",
+				"%add2 = add i32 %add, %i, !dbg !271",
+				"%conv3 = sext i32 %add2 to i64, !dbg !268",
+				"%add4 = add i64 %conv3, %l, !dbg !272",
+				"%conv5 = sitofp i64 %add4 to float, !dbg !268",
+				"%add6 = fadd float %conv5, %f, !dbg !273",
+				"%conv7 = fpext float %add6 to double, !dbg !268",
+				"%add8 = fadd double %conv7, %d, !dbg !274",
+				"%conv9 = fptosi double %add8 to i32, !dbg !275",
+				"ret i32 %conv9, !dbg !276"
+			]
+		},
+		{
+			"function": "_testfunc_f_bhilfd",
+			"id": 36,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 447, "columns": [20, 24, 22, 26, 30, 34, 38, 12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%conv = sext i8 %b to i32, !dbg !268",
+				"%conv1 = sext i16 %h to i32, !dbg !269",
+				"%add = add nsw i32 %conv1, %conv, !dbg !270",
+				"%add2 = add i32 %add, %i, !dbg !271",
+				"%conv3 = sext i32 %add2 to i64, !dbg !268",
+				"%add4 = add i64 %conv3, %l, !dbg !272",
+				"%conv5 = sitofp i64 %add4 to float, !dbg !268",
+				"%add6 = fadd float %conv5, %f, !dbg !273",
+				"%conv7 = fpext float %add6 to double, !dbg !268",
+				"%add8 = fadd double %conv7, %d, !dbg !274",
+				"%conv9 = fptrunc double %add8 to float, !dbg !275",
+				"ret float %conv9, !dbg !276"
+			]
+		},
+		{
+			"function": "_testfunc_d_bhilfd",
+			"id": 37,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 455, "columns": [21, 25, 23, 27, 31, 35, 39, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%conv = sext i8 %b to i32, !dbg !268",
+				"%conv1 = sext i16 %h to i32, !dbg !269",
+				"%add = add nsw i32 %conv1, %conv, !dbg !270",
+				"%add2 = add i32 %add, %i, !dbg !271",
+				"%conv3 = sext i32 %add2 to i64, !dbg !268",
+				"%add4 = add i64 %conv3, %l, !dbg !272",
+				"%conv5 = sitofp i64 %add4 to float, !dbg !268",
+				"%add6 = fadd float %conv5, %f, !dbg !273",
+				"%conv7 = fpext float %add6 to double, !dbg !268",
+				"%add8 = fadd double %conv7, %d, !dbg !274",
+				"ret double %add8, !dbg !275"
+			]
+		},
+		{
+			"function": "_testfunc_D_bhilfD",
+			"id": 38,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 463, "columns": [26, 30, 28, 32, 36, 40, 44, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%conv = sext i8 %b to i32, !dbg !268",
+				"%conv1 = sext i16 %h to i32, !dbg !269",
+				"%add = add nsw i32 %conv1, %conv, !dbg !270",
+				"%add2 = add i32 %add, %i, !dbg !271",
+				"%conv3 = sext i32 %add2 to i64, !dbg !268",
+				"%add4 = add i64 %conv3, %l, !dbg !272",
+				"%conv5 = sitofp i64 %add4 to float, !dbg !268",
+				"%add6 = fadd float %conv5, %f, !dbg !273",
+				"%conv7 = fpext float %add6 to x86_fp80, !dbg !268",
+				"%add8 = fadd x86_fp80 %conv7, %d, !dbg !274",
+				"ret x86_fp80 %add8, !dbg !275"
+			]
+		},
+		{
+			"function": "_testfunc_p_p",
+			"id": 39,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 468, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret ptr %s, !dbg !261"
+			]
+		},
+		{
+			"function": "_testfunc_c_p_p",
+			"id": 40,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 473, "columns": [18, 25, 12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = load i32, ptr %argcp, align 4, !dbg !264, !tbaa !265",
+				"%sub = add i32 %0, -1, !dbg !269",
+				"%idxprom = sext i32 %sub to i64, !dbg !270",
+				"%arrayidx = getelementptr ptr, ptr %argv, i64 %idxprom, !dbg !270",
+				"%1 = load ptr, ptr %arrayidx, align 8, !dbg !270, !tbaa !271",
+				"ret ptr %1, !dbg !273"
+			]
+		},
+		{
+			"function": "get_strchr",
+			"id": 41,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 478, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret ptr @strchr, !dbg !259"
+			]
+		},
+		{
+			"function": "my_strdup",
+			"id": 42,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 483, "columns": [32, 43, 25]
+				},
+				{
+					"line": 484, "columns": [10, 9]
+				}
+			],
+			"successors": [44, 43],
+			"ir": [
+				"%call = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %src) #33, !dbg !262",
+				"%add = add i64 %call, 1, !dbg !263",
+				"%call1 = tail call noalias ptr @malloc(i64 noundef %add) #34, !dbg !264",
+				"%tobool.not = icmp eq ptr %call1, null, !dbg !265",
+				"br i1 %tobool.not, label %cleanup, label %if.end, !dbg !267"
+			]
+		},
+		{
+			"function": "my_strdup",
+			"id": 43,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 486, "columns": [5]
+				},
+				{
+					"line": 487, "columns": [5]
+				}
+			],
+			"successors": [44],
+			"ir": [
+				"%call2 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call1, ptr noundef nonnull dereferenceable(1) %src) #35, !dbg !268",
+				"br label %cleanup, !dbg !269"
+			]
+		},
+		{
+			"function": "my_strdup",
+			"id": 44,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 488, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret ptr %call1, !dbg !270"
+			]
+		},
+		{
+			"function": "my_free",
+			"id": 45,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 492, "columns": [5]
+				},
+				{
+					"line": 493, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @free(ptr noundef %ptr) #33, !dbg !259",
+				"ret void, !dbg !260"
+			]
+		},
+		{
+			"function": "my_wcsdup",
+			"id": 46,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 498, "columns": [18]
+				},
+				{
+					"line": 499, "columns": [48, 31]
+				},
+				{
+					"line": 500, "columns": [13, 9]
+				}
+			],
+			"successors": [48, 47],
+			"ir": [
+				"%call = tail call i64 @wcslen(ptr noundef %src) #33, !dbg !264",
+				"%add = shl i64 %call, 2, !dbg !265",
+				"%mul = add i64 %add, 4, !dbg !265",
+				"%call1 = tail call noalias ptr @malloc(i64 noundef %mul) #34, !dbg !266",
+				"%cmp = icmp eq ptr %call1, null, !dbg !267",
+				"br i1 %cmp, label %cleanup, label %if.end, !dbg !269"
+			]
+		},
+		{
+			"function": "my_wcsdup",
+			"id": 47,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 502, "columns": [5]
+				},
+				{
+					"line": 503, "columns": [5]
+				}
+			],
+			"successors": [48],
+			"ir": [
+				"tail call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 4 %call1, ptr align 4 %src, i64 %mul, i1 false), !dbg !270",
+				"br label %cleanup, !dbg !271"
+			]
+		},
+		{
+			"function": "my_wcsdup",
+			"id": 48,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 504, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret ptr %call1, !dbg !272"
+			]
+		},
+		{
+			"function": "my_wcslen",
+			"id": 49,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 508, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call i64 @wcslen(ptr noundef %src) #33, !dbg !262",
+				"ret i64 %call, !dbg !263"
+			]
+		},
+		{
+			"function": "_testfunc_callfuncp",
+			"id": 50,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 525, "columns": [9, 5]
+				},
+				{
+					"line": 526, "columns": [9, 5]
+				},
+				{
+					"line": 527, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = load ptr, ptr %fp, align 8, !dbg !270, !tbaa !271",
+				"%call = tail call i32 %0(i32 noundef 1, i32 noundef 2) #33, !dbg !276",
+				"%s = getelementptr inbounds %struct.FUNCS, ptr %fp, i64 0, i32 1, !dbg !277",
+				"%1 = load ptr, ptr %s, align 8, !dbg !277, !tbaa !278",
+				"%call1 = tail call i32 %1(i32 noundef 3, i32 noundef 4) #33, !dbg !279",
+				"ret i32 0, !dbg !280"
+			]
+		},
+		{
+			"function": "_testfunc_deref_pointer",
+			"id": 51,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 532, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = load i32, ptr %pi, align 4, !dbg !262, !tbaa !263",
+				"ret i32 %0, !dbg !267"
+			]
+		},
+		{
+			"function": "_testfunc_callback_with_pointer",
+			"id": 52,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 545, "columns": [5, 9]
+				},
+				{
+					"line": 547, "columns": [12, 5]
+				},
+				{
+					"line": 548, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%table = alloca [10 x i32], align 16",
+				"call void @llvm.lifetime.start.p0(i64 40, ptr nonnull %table) #33, !dbg !267",
+				"call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(40) %table, ptr noundef nonnull align 16 dereferenceable(40) @__const._testfunc_callback_with_pointer.table, i64 40, i1 false), !dbg !268",
+				"%call = call i32 %func(ptr noundef nonnull %table) #33, !dbg !269",
+				"call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %table) #33, !dbg !270",
+				"ret i32 %call, !dbg !271"
+			]
+		},
+		{
+			"function": "_testfunc_q_bhilfdq",
+			"id": 53,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 553, "columns": [24, 28, 26, 30, 34, 38, 42, 48, 46, 12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%conv = sext i8 %b to i32, !dbg !269",
+				"%conv1 = sext i16 %h to i32, !dbg !270",
+				"%add = add nsw i32 %conv1, %conv, !dbg !271",
+				"%add2 = add i32 %add, %i, !dbg !272",
+				"%conv3 = sext i32 %add2 to i64, !dbg !269",
+				"%add4 = add i64 %conv3, %l, !dbg !273",
+				"%conv5 = sitofp i64 %add4 to float, !dbg !269",
+				"%add6 = fadd float %conv5, %f, !dbg !274",
+				"%conv7 = fpext float %add6 to double, !dbg !269",
+				"%add8 = fadd double %conv7, %d, !dbg !275",
+				"%conv9 = sitofp i64 %q to double, !dbg !276",
+				"%add10 = fadd double %add8, %conv9, !dbg !277",
+				"%conv11 = fptosi double %add10 to i64, !dbg !278",
+				"ret i64 %conv11, !dbg !279"
+			]
+		},
+		{
+			"function": "_testfunc_q_bhilfd",
+			"id": 54,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 558, "columns": [24, 28, 26, 30, 34, 38, 42, 12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%conv = sext i8 %b to i32, !dbg !268",
+				"%conv1 = sext i16 %h to i32, !dbg !269",
+				"%add = add nsw i32 %conv1, %conv, !dbg !270",
+				"%add2 = add i32 %add, %i, !dbg !271",
+				"%conv3 = sext i32 %add2 to i64, !dbg !268",
+				"%add4 = add i64 %conv3, %l, !dbg !272",
+				"%conv5 = sitofp i64 %add4 to float, !dbg !268",
+				"%add6 = fadd float %conv5, %f, !dbg !273",
+				"%conv7 = fpext float %add6 to double, !dbg !268",
+				"%add8 = fadd double %conv7, %d, !dbg !274",
+				"%conv9 = fptosi double %add8 to i64, !dbg !275",
+				"ret i64 %conv9, !dbg !276"
+			]
+		},
+		{
+			"function": "_testfunc_callback_i_if",
+			"id": 55,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 564, "columns": [18, 5]
+				}
+			],
+			"successors": [57, 56],
+			"ir": [
+				"%cmp.not4 = icmp eq i32 %value, 0, !dbg !266",
+				"br i1 %cmp.not4, label %while.end, label %while.body, !dbg !267"
+			]
+		},
+		{
+			"function": "_testfunc_callback_i_if",
+			"id": 56,
+			"name": "while.body",
+			"debug": [
+				{
+					"line": 564, "columns": [18, 5]
+				},
+				{
+					"line": 565, "columns": [16, 13]
+				},
+				{
+					"line": 566, "columns": [15]
+				}
+			],
+			"successors": [57, 56],
+			"ir": [
+				"%sum.06 = phi i32 [ %add, %while.body ], [ 0, %entry ]",
+				"%value.addr.05 = phi i32 [ %div, %while.body ], [ %value, %entry ]",
+				"%call = tail call i32 %func(i32 noundef %value.addr.05) #33, !dbg !268",
+				"%add = add i32 %call, %sum.06, !dbg !270",
+				"%div = sdiv i32 %value.addr.05, 2, !dbg !271",
+				"%value.addr.05.off = add i32 %value.addr.05, 1, !dbg !266",
+				"%cmp.not = icmp ult i32 %value.addr.05.off, 3, !dbg !266",
+				"br i1 %cmp.not, label %while.end, label %while.body, !dbg !267, !llvm.loop !272"
+			]
+		},
+		{
+			"function": "_testfunc_callback_i_if",
+			"id": 57,
+			"name": "while.end",
+			"debug": [
+				{
+					"line": 568, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%sum.0.lcssa = phi i32 [ 0, %entry ], [ %add, %while.body ], !dbg !265",
+				"ret i32 %sum.0.lcssa, !dbg !275"
+			]
+		},
+		{
+			"function": "_testfunc_callback_q_qf",
+			"id": 58,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 576, "columns": [18, 5]
+				}
+			],
+			"successors": [60, 59],
+			"ir": [
+				"%cmp.not4 = icmp eq i64 %value, 0, !dbg !266",
+				"br i1 %cmp.not4, label %while.end, label %while.body, !dbg !267"
+			]
+		},
+		{
+			"function": "_testfunc_callback_q_qf",
+			"id": 59,
+			"name": "while.body",
+			"debug": [
+				{
+					"line": 576, "columns": [18, 5]
+				},
+				{
+					"line": 577, "columns": [16, 13]
+				},
+				{
+					"line": 578, "columns": [15]
+				}
+			],
+			"successors": [60, 59],
+			"ir": [
+				"%sum.06 = phi i64 [ %add, %while.body ], [ 0, %entry ]",
+				"%value.addr.05 = phi i64 [ %div, %while.body ], [ %value, %entry ]",
+				"%call = tail call i64 %func(i64 noundef %value.addr.05) #33, !dbg !268",
+				"%add = add i64 %call, %sum.06, !dbg !270",
+				"%div = sdiv i64 %value.addr.05, 2, !dbg !271",
+				"%value.addr.05.off = add i64 %value.addr.05, 1, !dbg !266",
+				"%cmp.not = icmp ult i64 %value.addr.05.off, 3, !dbg !266",
+				"br i1 %cmp.not, label %while.end, label %while.body, !dbg !267, !llvm.loop !272"
+			]
+		},
+		{
+			"function": "_testfunc_callback_q_qf",
+			"id": 60,
+			"name": "while.end",
+			"debug": [
+				{
+					"line": 580, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%sum.0.lcssa = phi i64 [ 0, %entry ], [ %add, %while.body ], !dbg !265",
+				"ret i64 %sum.0.lcssa, !dbg !275"
+			]
+		},
+		{
+			"function": "getSPAMANDEGGS",
+			"id": 61,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 605, "columns": [11]
+				},
+				{
+					"line": 606, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"store ptr @my_eggs, ptr %eggs, align 8, !dbg !263, !tbaa !264",
+				"ret i32 1, !dbg !268"
+			]
+		},
+		{
+			"function": "_testfunc_byval",
+			"id": 62,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 616, "columns": [9]
+				}
+			],
+			"successors": [64, 63],
+			"ir": [
+				"%in.sroa.0.0.extract.trunc = trunc i64 %in.coerce to i32",
+				"%in.sroa.3.0.extract.shift = lshr i64 %in.coerce, 32",
+				"%in.sroa.3.0.extract.trunc = trunc i64 %in.sroa.3.0.extract.shift to i32",
+				"%tobool.not = icmp eq ptr %pout, null, !dbg !268",
+				"br i1 %tobool.not, label %if.end, label %if.then, !dbg !270"
+			]
+		},
+		{
+			"function": "_testfunc_byval",
+			"id": 63,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 617, "columns": [17]
+				},
+				{
+					"line": 618, "columns": [15, 17]
+				},
+				{
+					"line": 619, "columns": [5]
+				}
+			],
+			"successors": [64],
+			"ir": [
+				"store i32 %in.sroa.0.0.extract.trunc, ptr %pout, align 4, !dbg !271, !tbaa !273",
+				"%y2 = getelementptr inbounds %struct.tagpoint, ptr %pout, i64 0, i32 1, !dbg !278",
+				"store i32 %in.sroa.3.0.extract.trunc, ptr %y2, align 4, !dbg !279, !tbaa !280",
+				"br label %if.end, !dbg !281"
+			]
+		},
+		{
+			"function": "_testfunc_byval",
+			"id": 64,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 620, "columns": [17, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%add = add i32 %in.sroa.3.0.extract.trunc, %in.sroa.0.0.extract.trunc, !dbg !282",
+				"ret i32 %add, !dbg !283"
+			]
+		},
+		{
+			"function": "get_an_integer",
+			"id": 65,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 627, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = load i32, ptr @an_integer, align 4, !dbg !259, !tbaa !260",
+				"ret i32 %0, !dbg !264"
+			]
+		},
+		{
+			"function": "integrate",
+			"id": 66,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 633, "columns": [29, 33, 32]
+				},
+				{
+					"line": 634, "columns": [12, 23, 29, 26, 32, 5]
+				}
+			],
+			"successors": [67, 68],
+			"ir": [
+				"%sub = fsub double %b, %a, !dbg !270",
+				"%conv = sitofp i64 %nstep to double, !dbg !271",
+				"%div = fdiv double %sub, %conv, !dbg !272",
+				"%0 = tail call double @llvm.fmuladd.f64(double %div, double 5.000000e-01, double %a), !dbg !273",
+				"%sub116 = fsub double %b, %0, !dbg !275",
+				"%sub217 = fsub double %0, %a, !dbg !277",
+				"%mul18 = fmul double %sub116, %sub217, !dbg !278",
+				"%cmp19 = fcmp ogt double %mul18, 0.000000e+00, !dbg !279",
+				"br i1 %cmp19, label %for.body, label %for.end, !dbg !280"
+			]
+		},
+		{
+			"function": "integrate",
+			"id": 67,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 634, "columns": [39, 23, 29, 26, 32, 5]
+				},
+				{
+					"line": 635, "columns": [16, 13]
+				}
+			],
+			"successors": [67, 68],
+			"ir": [
+				"%x.021 = phi double [ %add4, %for.body ], [ %0, %entry ]",
+				"%sum.020 = phi double [ %add, %for.body ], [ 0.000000e+00, %entry ]",
+				"%call = tail call double %f(double noundef %x.021) #33, !dbg !281",
+				"%add = fadd double %sum.020, %call, !dbg !282",
+				"%add4 = fadd double %div, %x.021, !dbg !283",
+				"%sub1 = fsub double %b, %add4, !dbg !275",
+				"%sub2 = fsub double %add4, %a, !dbg !277",
+				"%mul = fmul double %sub1, %sub2, !dbg !278",
+				"%cmp = fcmp ogt double %mul, 0.000000e+00, !dbg !279",
+				"br i1 %cmp, label %for.body, label %for.end, !dbg !280, !llvm.loop !284"
+			]
+		},
+		{
+			"function": "integrate",
+			"id": 68,
+			"name": "for.end",
+			"debug": [
+				{
+					"line": 636, "columns": [15, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%sum.0.lcssa = phi double [ 0.000000e+00, %entry ], [ %add, %for.body ], !dbg !269",
+				"%div6 = fdiv double %sum.0.lcssa, %conv, !dbg !287",
+				"ret double %div6, !dbg !288"
+			]
+		},
+		{
+			"function": "_xxx_init",
+			"id": 69,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 647, "columns": [5]
+				},
+				{
+					"line": 648, "columns": [5]
+				},
+				{
+					"line": 649, "columns": [11]
+				},
+				{
+					"line": 650, "columns": [5]
+				},
+				{
+					"line": 651, "columns": [5]
+				},
+				{
+					"line": 652, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.12, ptr noundef %Xalloc, ptr noundef %Xfree), !dbg !261",
+				"%puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str), !dbg !262",
+				"%call2 = tail call ptr %Xalloc(i32 noundef 32) #33, !dbg !263",
+				"tail call void %Xfree(ptr noundef %call2) #33, !dbg !264",
+				"%call3 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.14, ptr noundef %call2), !dbg !265",
+				"ret void, !dbg !266"
+			]
+		},
+		{
+			"function": "library_get",
+			"id": 70,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 660, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret ptr @_xxx_lib, !dbg !260"
+			]
+		},
+		{
+			"function": "py_func_si",
+			"id": 71,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 676, "columns": [5]
+				},
+				{
+					"line": 677, "columns": [5]
+				},
+				{
+					"line": 678, "columns": [10]
+				},
+				{
+					"line": 681, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%name = alloca ptr, align 8",
+				"%i = alloca i32, align 4",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %name) #33, !dbg !262",
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %i) #33, !dbg !263",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.11, ptr noundef nonnull %name, ptr noundef nonnull %i) #33, !dbg !264",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !264",
+				"%._Py_NoneStruct = select i1 %tobool.not, ptr null, ptr @_Py_NoneStruct, !dbg !261",
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %i) #33, !dbg !266",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %name) #33, !dbg !266",
+				"ret ptr %._Py_NoneStruct, !dbg !266"
+			]
+		},
+		{
+			"function": "_py_func_si",
+			"id": 72,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 685, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !262"
+			]
+		},
+		{
+			"function": "py_func",
+			"id": 73,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 689, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret ptr @_Py_NoneStruct, !dbg !260"
+			]
+		},
+		{
+			"function": "_py_func",
+			"id": 74,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 694, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !259"
+			]
+		},
+		{
+			"function": "unpack_bitfields",
+			"id": 75,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 713, "columns": [13, 5]
+				}
+			],
+			"successors": [92, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91],
+			"ir": [
+				"%conv = sext i8 %name to i32, !dbg !282",
+				"switch i32 %conv, label %return [\n    i32 65, label %sw.bb\n    i32 66, label %sw.bb1\n    i32 67, label %sw.bb5\n    i32 68, label %sw.bb9\n    i32 69, label %sw.bb13\n    i32 70, label %sw.bb17\n    i32 71, label %sw.bb21\n    i32 72, label %sw.bb25\n    i32 73, label %sw.bb29\n    i32 77, label %sw.bb34\n    i32 78, label %sw.bb40\n    i32 79, label %sw.bb46\n    i32 80, label %sw.bb52\n    i32 81, label %sw.bb58\n    i32 82, label %sw.bb64\n    i32 83, label %sw.bb70\n  ], !dbg !283"
+			]
+		},
+		{
+			"function": "unpack_bitfields",
+			"id": 76,
+			"name": "sw.bb",
+			"debug": [
+				{
+					"line": 714, "columns": [28, 15]
+				}
+			],
+			"successors": [92],
+			"ir": [
+				"%bf.load = load i32, ptr %bits, align 4, !dbg !284",
+				"%0 = and i32 %bf.load, 1, !dbg !284",
+				"%bf.ashr = sub nsw i32 0, %0, !dbg !284",
+				"br label %return, !dbg !286"
+			]
+		},
+		{
+			"function": "unpack_bitfields",
+			"id": 77,
+			"name": "sw.bb1",
+			"debug": [
+				{
+					"line": 715, "columns": [28, 15]
+				}
+			],
+			"successors": [92],
+			"ir": [
+				"%bf.load2 = load i32, ptr %bits, align 4, !dbg !287",
+				"%bf.shl3 = shl i32 %bf.load2, 29, !dbg !287",
+				"%bf.ashr4 = ashr i32 %bf.shl3, 30, !dbg !287",
+				"br label %return, !dbg !288"
+			]
+		},
+		{
+			"function": "unpack_bitfields",
+			"id": 78,
+			"name": "sw.bb5",
+			"debug": [
+				{
+					"line": 716, "columns": [28, 15]
+				}
+			],
+			"successors": [92],
+			"ir": [
+				"%bf.load6 = load i32, ptr %bits, align 4, !dbg !289",
+				"%bf.shl7 = shl i32 %bf.load6, 26, !dbg !289",
+				"%bf.ashr8 = ashr i32 %bf.shl7, 29, !dbg !289",
+				"br label %return, !dbg !290"
+			]
+		},
+		{
+			"function": "unpack_bitfields",
+			"id": 79,
+			"name": "sw.bb9",
+			"debug": [
+				{
+					"line": 717, "columns": [28, 15]
+				}
+			],
+			"successors": [92],
+			"ir": [
+				"%bf.load10 = load i32, ptr %bits, align 4, !dbg !291",
+				"%bf.shl11 = shl i32 %bf.load10, 22, !dbg !291",
+				"%bf.ashr12 = ashr i32 %bf.shl11, 28, !dbg !291",
+				"br label %return, !dbg !292"
+			]
+		},
+		{
+			"function": "unpack_bitfields",
+			"id": 80,
+			"name": "sw.bb13",
+			"debug": [
+				{
+					"line": 718, "columns": [28, 15]
+				}
+			],
+			"successors": [92],
+			"ir": [
+				"%bf.load14 = load i32, ptr %bits, align 4, !dbg !293",
+				"%bf.shl15 = shl i32 %bf.load14, 17, !dbg !293",
+				"%bf.ashr16 = ashr i32 %bf.shl15, 27, !dbg !293",
+				"br label %return, !dbg !294"
+			]
+		},
+		{
+			"function": "unpack_bitfields",
+			"id": 81,
+			"name": "sw.bb17",
+			"debug": [
+				{
+					"line": 719, "columns": [28, 15]
+				}
+			],
+			"successors": [92],
+			"ir": [
+				"%bf.load18 = load i32, ptr %bits, align 4, !dbg !295",
+				"%bf.shl19 = shl i32 %bf.load18, 11, !dbg !295",
+				"%bf.ashr20 = ashr i32 %bf.shl19, 26, !dbg !295",
+				"br label %return, !dbg !296"
+			]
+		},
+		{
+			"function": "unpack_bitfields",
+			"id": 82,
+			"name": "sw.bb21",
+			"debug": [
+				{
+					"line": 720, "columns": [28, 15]
+				}
+			],
+			"successors": [92],
+			"ir": [
+				"%bf.load22 = load i32, ptr %bits, align 4, !dbg !297",
+				"%bf.shl23 = shl i32 %bf.load22, 4, !dbg !297",
+				"%bf.ashr24 = ashr i32 %bf.shl23, 25, !dbg !297",
+				"br label %return, !dbg !298"
+			]
+		},
+		{
+			"function": "unpack_bitfields",
+			"id": 83,
+			"name": "sw.bb25",
+			"debug": [
+				{
+					"line": 721, "columns": [28, 15]
+				}
+			],
+			"successors": [92],
+			"ir": [
+				"%H = getelementptr inbounds %struct.BITS, ptr %bits, i64 0, i32 1, !dbg !299",
+				"%bf.load26 = load i64, ptr %H, align 4, !dbg !299",
+				"%bf.shl27 = shl i64 %bf.load26, 56, !dbg !299",
+				"%bf.ashr28 = ashr exact i64 %bf.shl27, 56, !dbg !299",
+				"%bf.cast = trunc i64 %bf.ashr28 to i32, !dbg !299",
+				"br label %return, !dbg !300"
+			]
+		},
+		{
+			"function": "unpack_bitfields",
+			"id": 84,
+			"name": "sw.bb29",
+			"debug": [
+				{
+					"line": 722, "columns": [28, 15]
+				}
+			],
+			"successors": [92],
+			"ir": [
+				"%I = getelementptr inbounds %struct.BITS, ptr %bits, i64 0, i32 1, !dbg !301",
+				"%bf.load30 = load i64, ptr %I, align 4, !dbg !301",
+				"%bf.shl31 = shl i64 %bf.load30, 47, !dbg !301",
+				"%bf.ashr32 = ashr i64 %bf.shl31, 55, !dbg !301",
+				"%bf.cast33 = trunc i64 %bf.ashr32 to i32, !dbg !301",
+				"br label %return, !dbg !302"
+			]
+		},
+		{
+			"function": "unpack_bitfields",
+			"id": 85,
+			"name": "sw.bb34",
+			"debug": [
+				{
+					"line": 725, "columns": [28, 15]
+				}
+			],
+			"successors": [92],
+			"ir": [
+				"%M = getelementptr inbounds %struct.BITS, ptr %bits, i64 0, i32 1, !dbg !303",
+				"%bf.load35 = load i64, ptr %M, align 4, !dbg !303",
+				"%bf.shl36 = shl i64 %bf.load35, 46, !dbg !303",
+				"%bf.ashr37 = ashr i64 %bf.shl36, 63, !dbg !303",
+				"%bf.cast38 = trunc i64 %bf.ashr37 to i32, !dbg !303",
+				"br label %return, !dbg !304"
+			]
+		},
+		{
+			"function": "unpack_bitfields",
+			"id": 86,
+			"name": "sw.bb40",
+			"debug": [
+				{
+					"line": 726, "columns": [28, 15]
+				}
+			],
+			"successors": [92],
+			"ir": [
+				"%N = getelementptr inbounds %struct.BITS, ptr %bits, i64 0, i32 1, !dbg !305",
+				"%bf.load41 = load i64, ptr %N, align 4, !dbg !305",
+				"%bf.shl42 = shl i64 %bf.load41, 44, !dbg !305",
+				"%bf.ashr43 = ashr i64 %bf.shl42, 62, !dbg !305",
+				"%bf.cast44 = trunc i64 %bf.ashr43 to i32, !dbg !305",
+				"br label %return, !dbg !306"
+			]
+		},
+		{
+			"function": "unpack_bitfields",
+			"id": 87,
+			"name": "sw.bb46",
+			"debug": [
+				{
+					"line": 727, "columns": [28, 15]
+				}
+			],
+			"successors": [92],
+			"ir": [
+				"%O = getelementptr inbounds %struct.BITS, ptr %bits, i64 0, i32 1, !dbg !307",
+				"%bf.load47 = load i64, ptr %O, align 4, !dbg !307",
+				"%bf.shl48 = shl i64 %bf.load47, 41, !dbg !307",
+				"%bf.ashr49 = ashr i64 %bf.shl48, 61, !dbg !307",
+				"%bf.cast50 = trunc i64 %bf.ashr49 to i32, !dbg !307",
+				"br label %return, !dbg !308"
+			]
+		},
+		{
+			"function": "unpack_bitfields",
+			"id": 88,
+			"name": "sw.bb52",
+			"debug": [
+				{
+					"line": 728, "columns": [28, 15]
+				}
+			],
+			"successors": [92],
+			"ir": [
+				"%P = getelementptr inbounds %struct.BITS, ptr %bits, i64 0, i32 1, !dbg !309",
+				"%bf.load53 = load i64, ptr %P, align 4, !dbg !309",
+				"%bf.shl54 = shl i64 %bf.load53, 37, !dbg !309",
+				"%bf.ashr55 = ashr i64 %bf.shl54, 60, !dbg !309",
+				"%bf.cast56 = trunc i64 %bf.ashr55 to i32, !dbg !309",
+				"br label %return, !dbg !310"
+			]
+		},
+		{
+			"function": "unpack_bitfields",
+			"id": 89,
+			"name": "sw.bb58",
+			"debug": [
+				{
+					"line": 729, "columns": [28, 15]
+				}
+			],
+			"successors": [92],
+			"ir": [
+				"%Q = getelementptr inbounds %struct.BITS, ptr %bits, i64 0, i32 1, !dbg !311",
+				"%bf.load59 = load i64, ptr %Q, align 4, !dbg !311",
+				"%bf.shl60 = shl i64 %bf.load59, 32, !dbg !311",
+				"%bf.ashr61 = ashr i64 %bf.shl60, 59, !dbg !311",
+				"%bf.cast62 = trunc i64 %bf.ashr61 to i32, !dbg !311",
+				"br label %return, !dbg !312"
+			]
+		},
+		{
+			"function": "unpack_bitfields",
+			"id": 90,
+			"name": "sw.bb64",
+			"debug": [
+				{
+					"line": 730, "columns": [28, 15]
+				}
+			],
+			"successors": [92],
+			"ir": [
+				"%R = getelementptr inbounds %struct.BITS, ptr %bits, i64 0, i32 1, !dbg !313",
+				"%bf.load65 = load i64, ptr %R, align 4, !dbg !313",
+				"%bf.shl66 = shl i64 %bf.load65, 26, !dbg !313",
+				"%bf.ashr67 = ashr i64 %bf.shl66, 58, !dbg !313",
+				"%bf.cast68 = trunc i64 %bf.ashr67 to i32, !dbg !313",
+				"br label %return, !dbg !314"
+			]
+		},
+		{
+			"function": "unpack_bitfields",
+			"id": 91,
+			"name": "sw.bb70",
+			"debug": [
+				{
+					"line": 731, "columns": [28, 15]
+				}
+			],
+			"successors": [92],
+			"ir": [
+				"%S = getelementptr inbounds %struct.BITS, ptr %bits, i64 0, i32 1, !dbg !315",
+				"%bf.load71 = load i64, ptr %S, align 4, !dbg !315",
+				"%bf.shl72 = shl i64 %bf.load71, 19, !dbg !315",
+				"%bf.ashr73 = ashr i64 %bf.shl72, 57, !dbg !315",
+				"%bf.cast74 = trunc i64 %bf.ashr73 to i32, !dbg !315",
+				"br label %return, !dbg !316"
+			]
+		},
+		{
+			"function": "unpack_bitfields",
+			"id": 92,
+			"name": "return",
+			"debug": [
+				{
+					"line": 735, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ %bf.cast74, %sw.bb70 ], [ %bf.cast68, %sw.bb64 ], [ %bf.cast62, %sw.bb58 ], [ %bf.cast56, %sw.bb52 ], [ %bf.cast50, %sw.bb46 ], [ %bf.cast44, %sw.bb40 ], [ %bf.cast38, %sw.bb34 ], [ %bf.cast33, %sw.bb29 ], [ %bf.cast, %sw.bb25 ], [ %bf.ashr24, %sw.bb21 ], [ %bf.ashr20, %sw.bb17 ], [ %bf.ashr16, %sw.bb13 ], [ %bf.ashr12, %sw.bb9 ], [ %bf.ashr8, %sw.bb5 ], [ %bf.ashr4, %sw.bb1 ], [ %bf.ashr, %sw.bb ], [ 999, %entry ], !dbg !281",
+				"ret i32 %retval.0, !dbg !317"
+			]
+		},
+		{
+			"function": "tf_b",
+			"id": 93,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 749, "columns": [43, 54, 46]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%conv = sext i8 %c to i64, !dbg !262",
+				"store i64 %conv, ptr @last_tf_arg_s, align 8, !dbg !262, !tbaa !263",
+				"%0 = sdiv i8 %c, 3, !dbg !267",
+				"ret i8 %0, !dbg !268"
+			]
+		},
+		{
+			"function": "tf_B",
+			"id": 94,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 750, "columns": [47, 50]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%conv = zext i8 %c to i64, !dbg !262",
+				"store i64 %conv, ptr @last_tf_arg_u, align 8, !dbg !262, !tbaa !263",
+				"%0 = udiv i8 %c, 3",
+				"ret i8 %0, !dbg !267"
+			]
+		},
+		{
+			"function": "tf_h",
+			"id": 95,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 751, "columns": [31, 42, 34]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%conv = sext i16 %c to i64, !dbg !262",
+				"store i64 %conv, ptr @last_tf_arg_s, align 8, !dbg !262, !tbaa !263",
+				"%0 = sdiv i16 %c, 3, !dbg !267",
+				"ret i16 %0, !dbg !268"
+			]
+		},
+		{
+			"function": "tf_H",
+			"id": 96,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 752, "columns": [49, 52]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%conv = zext i16 %c to i64, !dbg !262",
+				"store i64 %conv, ptr @last_tf_arg_u, align 8, !dbg !262, !tbaa !263",
+				"%0 = udiv i16 %c, 3",
+				"ret i16 %0, !dbg !267"
+			]
+		},
+		{
+			"function": "tf_i",
+			"id": 97,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 753, "columns": [27, 38, 30]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%conv = sext i32 %c to i64, !dbg !261",
+				"store i64 %conv, ptr @last_tf_arg_s, align 8, !dbg !261, !tbaa !262",
+				"%div = sdiv i32 %c, 3, !dbg !266",
+				"ret i32 %div, !dbg !267"
+			]
+		},
+		{
+			"function": "tf_I",
+			"id": 98,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 754, "columns": [45, 56, 48]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%conv = zext i32 %c to i64, !dbg !261",
+				"store i64 %conv, ptr @last_tf_arg_u, align 8, !dbg !261, !tbaa !262",
+				"%div = udiv i32 %c, 3, !dbg !266",
+				"ret i32 %div, !dbg !267"
+			]
+		},
+		{
+			"function": "tf_l",
+			"id": 99,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 755, "columns": [29, 40, 32]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"store i64 %c, ptr @last_tf_arg_s, align 8, !dbg !261, !tbaa !262",
+				"%div = sdiv i64 %c, 3, !dbg !266",
+				"ret i64 %div, !dbg !267"
+			]
+		},
+		{
+			"function": "tf_L",
+			"id": 100,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 756, "columns": [47, 58, 50]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"store i64 %c, ptr @last_tf_arg_u, align 8, !dbg !261, !tbaa !262",
+				"%div = udiv i64 %c, 3, !dbg !266",
+				"ret i64 %div, !dbg !267"
+			]
+		},
+		{
+			"function": "tf_q",
+			"id": 101,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 757, "columns": [39, 50, 42]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"store i64 %c, ptr @last_tf_arg_s, align 8, !dbg !261, !tbaa !262",
+				"%div = sdiv i64 %c, 3, !dbg !266",
+				"ret i64 %div, !dbg !267"
+			]
+		},
+		{
+			"function": "tf_Q",
+			"id": 102,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 758, "columns": [57, 68, 60]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"store i64 %c, ptr @last_tf_arg_u, align 8, !dbg !261, !tbaa !262",
+				"%div = udiv i64 %c, 3, !dbg !266",
+				"ret i64 %div, !dbg !267"
+			]
+		},
+		{
+			"function": "tf_f",
+			"id": 103,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 759, "columns": [31, 42, 34]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%conv = fptosi float %c to i64, !dbg !261",
+				"store i64 %conv, ptr @last_tf_arg_s, align 8, !dbg !261, !tbaa !262",
+				"%div = fdiv float %c, 3.000000e+00, !dbg !266",
+				"ret float %div, !dbg !267"
+			]
+		},
+		{
+			"function": "tf_d",
+			"id": 104,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 760, "columns": [33, 44, 36]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%conv = fptosi double %c to i64, !dbg !261",
+				"store i64 %conv, ptr @last_tf_arg_s, align 8, !dbg !261, !tbaa !262",
+				"%div = fdiv double %c, 3.000000e+00, !dbg !266",
+				"ret double %div, !dbg !267"
+			]
+		},
+		{
+			"function": "tf_D",
+			"id": 105,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 761, "columns": [43, 54, 46]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%conv = fptosi x86_fp80 %c to i64, !dbg !261",
+				"store i64 %conv, ptr @last_tf_arg_s, align 8, !dbg !261, !tbaa !262",
+				"%div = fdiv x86_fp80 %c, 0xK4000C000000000000000, !dbg !266",
+				"ret x86_fp80 %div, !dbg !267"
+			]
+		},
+		{
+			"function": "tf_bb",
+			"id": 106,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 780, "columns": [59, 70, 62]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%conv = sext i8 %c to i64, !dbg !263",
+				"store i64 %conv, ptr @last_tf_arg_s, align 8, !dbg !263, !tbaa !264",
+				"%0 = sdiv i8 %c, 3, !dbg !268",
+				"ret i8 %0, !dbg !269"
+			]
+		},
+		{
+			"function": "tf_bB",
+			"id": 107,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 781, "columns": [63, 66]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%conv = zext i8 %c to i64, !dbg !264",
+				"store i64 %conv, ptr @last_tf_arg_u, align 8, !dbg !264, !tbaa !265",
+				"%0 = udiv i8 %c, 3",
+				"ret i8 %0, !dbg !269"
+			]
+		},
+		{
+			"function": "tf_bh",
+			"id": 108,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 782, "columns": [47, 58, 50]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%conv = sext i16 %c to i64, !dbg !264",
+				"store i64 %conv, ptr @last_tf_arg_s, align 8, !dbg !264, !tbaa !265",
+				"%0 = sdiv i16 %c, 3, !dbg !269",
+				"ret i16 %0, !dbg !270"
+			]
+		},
+		{
+			"function": "tf_bH",
+			"id": 109,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 783, "columns": [65, 68]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%conv = zext i16 %c to i64, !dbg !264",
+				"store i64 %conv, ptr @last_tf_arg_u, align 8, !dbg !264, !tbaa !265",
+				"%0 = udiv i16 %c, 3",
+				"ret i16 %0, !dbg !269"
+			]
+		},
+		{
+			"function": "tf_bi",
+			"id": 110,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 784, "columns": [43, 54, 46]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%conv = sext i32 %c to i64, !dbg !263",
+				"store i64 %conv, ptr @last_tf_arg_s, align 8, !dbg !263, !tbaa !264",
+				"%div = sdiv i32 %c, 3, !dbg !268",
+				"ret i32 %div, !dbg !269"
+			]
+		},
+		{
+			"function": "tf_bI",
+			"id": 111,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 785, "columns": [61, 72, 64]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%conv = zext i32 %c to i64, !dbg !263",
+				"store i64 %conv, ptr @last_tf_arg_u, align 8, !dbg !263, !tbaa !264",
+				"%div = udiv i32 %c, 3, !dbg !268",
+				"ret i32 %div, !dbg !269"
+			]
+		},
+		{
+			"function": "tf_bl",
+			"id": 112,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 786, "columns": [45, 56, 48]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"store i64 %c, ptr @last_tf_arg_s, align 8, !dbg !263, !tbaa !264",
+				"%div = sdiv i64 %c, 3, !dbg !268",
+				"ret i64 %div, !dbg !269"
+			]
+		},
+		{
+			"function": "tf_bL",
+			"id": 113,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 787, "columns": [63, 74, 66]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"store i64 %c, ptr @last_tf_arg_u, align 8, !dbg !263, !tbaa !264",
+				"%div = udiv i64 %c, 3, !dbg !268",
+				"ret i64 %div, !dbg !269"
+			]
+		},
+		{
+			"function": "tf_bq",
+			"id": 114,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 788, "columns": [55, 66, 58]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"store i64 %c, ptr @last_tf_arg_s, align 8, !dbg !263, !tbaa !264",
+				"%div = sdiv i64 %c, 3, !dbg !268",
+				"ret i64 %div, !dbg !269"
+			]
+		},
+		{
+			"function": "tf_bQ",
+			"id": 115,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 789, "columns": [73, 84, 76]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"store i64 %c, ptr @last_tf_arg_u, align 8, !dbg !263, !tbaa !264",
+				"%div = udiv i64 %c, 3, !dbg !268",
+				"ret i64 %div, !dbg !269"
+			]
+		},
+		{
+			"function": "tf_bf",
+			"id": 116,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 790, "columns": [47, 58, 50]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%conv = fptosi float %c to i64, !dbg !263",
+				"store i64 %conv, ptr @last_tf_arg_s, align 8, !dbg !263, !tbaa !264",
+				"%div = fdiv float %c, 3.000000e+00, !dbg !268",
+				"ret float %div, !dbg !269"
+			]
+		},
+		{
+			"function": "tf_bd",
+			"id": 117,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 791, "columns": [49, 60, 52]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%conv = fptosi double %c to i64, !dbg !263",
+				"store i64 %conv, ptr @last_tf_arg_s, align 8, !dbg !263, !tbaa !264",
+				"%div = fdiv double %c, 3.000000e+00, !dbg !268",
+				"ret double %div, !dbg !269"
+			]
+		},
+		{
+			"function": "tf_bD",
+			"id": 118,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 792, "columns": [59, 70, 62]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%conv = fptosi x86_fp80 %c to i64, !dbg !263",
+				"store i64 %conv, ptr @last_tf_arg_s, align 8, !dbg !263, !tbaa !264",
+				"%div = fdiv x86_fp80 %c, 0xK4000C000000000000000, !dbg !268",
+				"ret x86_fp80 %div, !dbg !269"
+			]
+		},
+		{
+			"function": "tv_i",
+			"id": 119,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 793, "columns": [28, 31]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%conv = sext i32 %c to i64, !dbg !261",
+				"store i64 %conv, ptr @last_tf_arg_s, align 8, !dbg !261, !tbaa !262",
+				"ret void, !dbg !266"
+			]
+		},
+		{
+			"function": "PointInRect",
+			"id": 120,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 832, "columns": [21, 14, 9]
+				}
+			],
+			"successors": [124, 121],
+			"ir": [
+				"%0 = load i64, ptr %prc, align 8, !dbg !275, !tbaa !277",
+				"%cmp = icmp sgt i64 %0, %pt.coerce0, !dbg !282",
+				"br i1 %cmp, label %return, label %if.end, !dbg !283"
+			]
+		},
+		{
+			"function": "PointInRect",
+			"id": 121,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 834, "columns": [21, 14, 9]
+				}
+			],
+			"successors": [124, 122],
+			"ir": [
+				"%right = getelementptr inbounds %struct.RECT, ptr %prc, i64 0, i32 2, !dbg !284",
+				"%1 = load i64, ptr %right, align 8, !dbg !284, !tbaa !286",
+				"%cmp2 = icmp slt i64 %1, %pt.coerce0, !dbg !287",
+				"br i1 %cmp2, label %return, label %if.end4, !dbg !288"
+			]
+		},
+		{
+			"function": "PointInRect",
+			"id": 122,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 836, "columns": [21, 14, 9]
+				}
+			],
+			"successors": [124, 123],
+			"ir": [
+				"%top = getelementptr inbounds %struct.RECT, ptr %prc, i64 0, i32 1, !dbg !289",
+				"%2 = load i64, ptr %top, align 8, !dbg !289, !tbaa !291",
+				"%cmp5 = icmp sgt i64 %2, %pt.coerce1, !dbg !292",
+				"br i1 %cmp5, label %return, label %if.end7, !dbg !293"
+			]
+		},
+		{
+			"function": "PointInRect",
+			"id": 123,
+			"name": "if.end7",
+			"debug": [
+				{
+					"line": 838, "columns": [21, 14]
+				}
+			],
+			"successors": [124],
+			"ir": [
+				"%bottom = getelementptr inbounds %struct.RECT, ptr %prc, i64 0, i32 3, !dbg !294",
+				"%3 = load i64, ptr %bottom, align 8, !dbg !294, !tbaa !296",
+				"%cmp9 = icmp sge i64 %3, %pt.coerce1, !dbg !297",
+				"%. = zext i1 %cmp9 to i32, !dbg !274",
+				"br label %return, !dbg !274"
+			]
+		},
+		{
+			"function": "PointInRect",
+			"id": 124,
+			"name": "return",
+			"debug": [
+				{
+					"line": 841, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ 0, %entry ], [ 0, %if.end ], [ 0, %if.end4 ], [ %., %if.end7 ], !dbg !274",
+				"ret i32 %retval.0, !dbg !298"
+			]
+		},
+		{
+			"function": "ReturnRect",
+			"id": 125,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 848, "columns": [37, 66]
+				},
+				{
+					"line": 849, "columns": [41, 50]
+				},
+				{
+					"line": 852, "columns": [12, 23, 17, 33, 28, 44, 38, 54, 49, 62, 67, 59, 9]
+				}
+			],
+			"successors": [127, 126],
+			"ir": [
+				"%0 = load i64, ptr %ar, align 8, !dbg !285, !tbaa !287",
+				"%1 = load i64, ptr %br, align 8, !dbg !292, !tbaa !287",
+				"%add = add i64 %1, %0, !dbg !293",
+				"%2 = load i64, ptr %dr, align 8, !dbg !294, !tbaa !287",
+				"%add3 = add i64 %add, %2, !dbg !295",
+				"%3 = load i64, ptr %er, align 8, !dbg !296, !tbaa !287",
+				"%add5 = add i64 %add3, %3, !dbg !297",
+				"%4 = load i64, ptr %gr, align 8, !dbg !298, !tbaa !287",
+				"%add7 = add i64 %add5, %4, !dbg !299",
+				"%5 = load i64, ptr @left, align 8, !dbg !300, !tbaa !301",
+				"%mul = mul i64 %5, 5, !dbg !302",
+				"%cmp.not = icmp eq i64 %add7, %mul, !dbg !303",
+				"br i1 %cmp.not, label %if.end, label %if.then, !dbg !304"
+			]
+		},
+		{
+			"function": "ReturnRect",
+			"id": 126,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 854, "columns": [17]
+				},
+				{
+					"line": 855, "columns": [9]
+				}
+			],
+			"successors": [136],
+			"ir": [
+				"store i64 100, ptr %ar, align 8, !dbg !305, !tbaa !287",
+				"br label %return, !dbg !307"
+			]
+		},
+		{
+			"function": "ReturnRect",
+			"id": 127,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 857, "columns": [12, 24, 18, 35, 30, 47, 41, 58, 53, 67, 73, 64, 9]
+				}
+			],
+			"successors": [129, 128],
+			"ir": [
+				"%right = getelementptr inbounds %struct.RECT, ptr %ar, i64 0, i32 2, !dbg !308",
+				"%6 = load i64, ptr %right, align 8, !dbg !308, !tbaa !310",
+				"%right9 = getelementptr inbounds %struct.RECT, ptr %br, i64 0, i32 2, !dbg !311",
+				"%7 = load i64, ptr %right9, align 8, !dbg !311, !tbaa !310",
+				"%add10 = add i64 %7, %6, !dbg !312",
+				"%right11 = getelementptr inbounds %struct.RECT, ptr %dr, i64 0, i32 2, !dbg !313",
+				"%8 = load i64, ptr %right11, align 8, !dbg !313, !tbaa !310",
+				"%add12 = add i64 %add10, %8, !dbg !314",
+				"%right13 = getelementptr inbounds %struct.RECT, ptr %er, i64 0, i32 2, !dbg !315",
+				"%9 = load i64, ptr %right13, align 8, !dbg !315, !tbaa !310",
+				"%add14 = add i64 %add12, %9, !dbg !316",
+				"%right15 = getelementptr inbounds %struct.RECT, ptr %gr, i64 0, i32 2, !dbg !317",
+				"%10 = load i64, ptr %right15, align 8, !dbg !317, !tbaa !310",
+				"%add16 = add i64 %add14, %10, !dbg !318",
+				"%11 = load i64, ptr @right, align 8, !dbg !319, !tbaa !301",
+				"%mul17 = mul i64 %11, 5, !dbg !320",
+				"%cmp18.not = icmp eq i64 %add16, %mul17, !dbg !321",
+				"br i1 %cmp18.not, label %if.end21, label %if.then19, !dbg !322"
+			]
+		},
+		{
+			"function": "ReturnRect",
+			"id": 128,
+			"name": "if.then19",
+			"debug": [
+				{
+					"line": 859, "columns": [18]
+				},
+				{
+					"line": 860, "columns": [9]
+				}
+			],
+			"successors": [136],
+			"ir": [
+				"store i64 100, ptr %right, align 8, !dbg !323, !tbaa !310",
+				"br label %return, !dbg !325"
+			]
+		},
+		{
+			"function": "ReturnRect",
+			"id": 129,
+			"name": "if.end21",
+			"debug": [
+				{
+					"line": 862, "columns": [20, 14, 9]
+				}
+			],
+			"successors": [131, 130],
+			"ir": [
+				"%12 = load i64, ptr %fp, align 8, !dbg !326, !tbaa !328",
+				"%cmp23.not = icmp eq i64 %12, %cp.coerce0, !dbg !330",
+				"br i1 %cmp23.not, label %if.end26, label %if.then24, !dbg !331"
+			]
+		},
+		{
+			"function": "ReturnRect",
+			"id": 130,
+			"name": "if.then24",
+			"debug": [
+				{
+					"line": 864, "columns": [17]
+				},
+				{
+					"line": 865, "columns": [5]
+				}
+			],
+			"successors": [131],
+			"ir": [
+				"store i64 -100, ptr %ar, align 8, !dbg !332, !tbaa !287",
+				"br label %if.end26, !dbg !334"
+			]
+		},
+		{
+			"function": "ReturnRect",
+			"id": 131,
+			"name": "if.end26",
+			"debug": [
+				{
+					"line": 866, "columns": [20, 14, 9]
+				}
+			],
+			"successors": [133, 132],
+			"ir": [
+				"%y27 = getelementptr inbounds %struct.POINT, ptr %fp, i64 0, i32 1, !dbg !335",
+				"%13 = load i64, ptr %y27, align 8, !dbg !335, !tbaa !337",
+				"%cmp28.not = icmp eq i64 %13, %cp.coerce1, !dbg !338",
+				"br i1 %cmp28.not, label %if.end31, label %if.then29, !dbg !339"
+			]
+		},
+		{
+			"function": "ReturnRect",
+			"id": 132,
+			"name": "if.then29",
+			"debug": [
+				{
+					"line": 868, "columns": [17]
+				},
+				{
+					"line": 869, "columns": [5]
+				}
+			],
+			"successors": [133],
+			"ir": [
+				"store i64 -200, ptr %ar, align 8, !dbg !340, !tbaa !287",
+				"br label %if.end31, !dbg !342"
+			]
+		},
+		{
+			"function": "ReturnRect",
+			"id": 133,
+			"name": "if.end31",
+			"debug": [
+				{
+					"line": 870, "columns": [5]
+				}
+			],
+			"successors": [136, 135, 134],
+			"ir": [
+				"switch i32 %i, label %return [\n    i32 2, label %sw.bb33\n    i32 1, label %sw.bb32\n  ], !dbg !343"
+			]
+		},
+		{
+			"function": "ReturnRect",
+			"id": 134,
+			"name": "sw.bb32",
+			"debug": [
+				{
+					"line": 876, "columns": [9]
+				}
+			],
+			"successors": [136],
+			"ir": [
+				"br label %return, !dbg !344"
+			]
+		},
+		{
+			"function": "ReturnRect",
+			"id": 135,
+			"name": "sw.bb33",
+			"debug": [
+				{
+					"line": 879, "columns": [9]
+				}
+			],
+			"successors": [136],
+			"ir": [
+				"br label %return, !dbg !346"
+			]
+		},
+		{
+			"function": "ReturnRect",
+			"id": 136,
+			"name": "return",
+			"debug": [
+				{
+					"line": 884, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%ar.sink = phi ptr [ %gr, %sw.bb33 ], [ %dr, %sw.bb32 ], [ %ar, %if.then19 ], [ %ar, %if.then ], [ %ar, %if.end31 ]",
+				"call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %agg.result, ptr noundef nonnull align 8 dereferenceable(32) %ar.sink, i64 32, i1 false), !dbg !280",
+				"ret void, !dbg !347"
+			]
+		},
+		{
+			"function": "ret_2h_func",
+			"id": 137,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 893, "columns": [11]
+				},
+				{
+					"line": 894, "columns": [11]
+				},
+				{
+					"line": 895, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%conv1 = shl i32 %inp.coerce, 1, !dbg !267",
+				"%0 = lshr i32 %inp.coerce, 16, !dbg !268",
+				"%retval.sroa.2.0.insert.ext = mul i32 %0, 196608, !dbg !269",
+				"%retval.sroa.0.0.insert.ext = and i32 %conv1, 65534, !dbg !269",
+				"%retval.sroa.0.0.insert.insert = or i32 %retval.sroa.2.0.insert.ext, %retval.sroa.0.0.insert.ext, !dbg !269",
+				"ret i32 %retval.sroa.0.0.insert.insert, !dbg !269"
+			]
+		},
+		{
+			"function": "ret_8i_func",
+			"id": 138,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 902, "columns": [29]
+				},
+				{
+					"line": 904, "columns": [11]
+				},
+				{
+					"line": 905, "columns": [9, 11]
+				},
+				{
+					"line": 906, "columns": [9, 11]
+				},
+				{
+					"line": 907, "columns": [9, 11]
+				},
+				{
+					"line": 908, "columns": [9, 11]
+				},
+				{
+					"line": 909, "columns": [9, 11]
+				},
+				{
+					"line": 910, "columns": [9, 11]
+				},
+				{
+					"line": 911, "columns": [9, 11]
+				},
+				{
+					"line": 912, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = load i32, ptr %inp, align 8, !dbg !272, !tbaa !273",
+				"%mul = shl i32 %0, 1, !dbg !272",
+				"store i32 %mul, ptr %inp, align 8, !dbg !272, !tbaa !273",
+				"%b = getelementptr inbounds %struct.S8I, ptr %inp, i64 0, i32 1, !dbg !278",
+				"%1 = load i32, ptr %b, align 4, !dbg !279, !tbaa !280",
+				"%mul1 = mul i32 %1, 3, !dbg !279",
+				"store i32 %mul1, ptr %b, align 4, !dbg !279, !tbaa !280",
+				"%c = getelementptr inbounds %struct.S8I, ptr %inp, i64 0, i32 2, !dbg !281",
+				"%2 = load i32, ptr %c, align 8, !dbg !282, !tbaa !283",
+				"%mul2 = shl i32 %2, 2, !dbg !282",
+				"store i32 %mul2, ptr %c, align 8, !dbg !282, !tbaa !283",
+				"%d = getelementptr inbounds %struct.S8I, ptr %inp, i64 0, i32 3, !dbg !284",
+				"%3 = load i32, ptr %d, align 4, !dbg !285, !tbaa !286",
+				"%mul3 = mul i32 %3, 5, !dbg !285",
+				"store i32 %mul3, ptr %d, align 4, !dbg !285, !tbaa !286",
+				"%e = getelementptr inbounds %struct.S8I, ptr %inp, i64 0, i32 4, !dbg !287",
+				"%4 = load i32, ptr %e, align 8, !dbg !288, !tbaa !289",
+				"%mul4 = mul i32 %4, 6, !dbg !288",
+				"store i32 %mul4, ptr %e, align 8, !dbg !288, !tbaa !289",
+				"%f = getelementptr inbounds %struct.S8I, ptr %inp, i64 0, i32 5, !dbg !290",
+				"%5 = load i32, ptr %f, align 4, !dbg !291, !tbaa !292",
+				"%mul5 = mul i32 %5, 7, !dbg !291",
+				"store i32 %mul5, ptr %f, align 4, !dbg !291, !tbaa !292",
+				"%g = getelementptr inbounds %struct.S8I, ptr %inp, i64 0, i32 6, !dbg !293",
+				"%6 = load i32, ptr %g, align 8, !dbg !294, !tbaa !295",
+				"%mul6 = shl i32 %6, 3, !dbg !294",
+				"store i32 %mul6, ptr %g, align 8, !dbg !294, !tbaa !295",
+				"%h = getelementptr inbounds %struct.S8I, ptr %inp, i64 0, i32 7, !dbg !296",
+				"%7 = load i32, ptr %h, align 4, !dbg !297, !tbaa !298",
+				"%mul7 = mul i32 %7, 9, !dbg !297",
+				"store i32 %mul7, ptr %h, align 4, !dbg !297, !tbaa !298",
+				"call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(32) %agg.result, ptr noundef nonnull align 8 dereferenceable(32) %inp, i64 32, i1 false), !dbg !299, !tbaa.struct !300",
+				"ret void, !dbg !302"
+			]
+		},
+		{
+			"function": "GetRectangle",
+			"id": 139,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 917, "columns": [14, 9]
+				}
+			],
+			"successors": [141, 140],
+			"ir": [
+				"%cmp = icmp eq i32 %flag, 0, !dbg !270",
+				"br i1 %cmp, label %return, label %if.end, !dbg !272"
+			]
+		},
+		{
+			"function": "GetRectangle",
+			"id": 140,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 919, "columns": [19, 17]
+				},
+				{
+					"line": 920, "columns": [28, 18, 12, 16]
+				},
+				{
+					"line": 921, "columns": [30, 20, 12, 18]
+				},
+				{
+					"line": 922, "columns": [31, 21, 12, 19]
+				},
+				{
+					"line": 923, "columns": [5]
+				}
+			],
+			"successors": [141],
+			"ir": [
+				"%conv = sext i32 %flag to i64, !dbg !273",
+				"store i64 %conv, ptr %prect, align 8, !dbg !274, !tbaa !275",
+				"%add = add i32 %flag, 1, !dbg !280",
+				"%conv1 = sext i32 %add to i64, !dbg !281",
+				"%top = getelementptr inbounds %struct.RECT, ptr %prect, i64 0, i32 1, !dbg !282",
+				"store i64 %conv1, ptr %top, align 8, !dbg !283, !tbaa !284",
+				"%add2 = add i32 %flag, 2, !dbg !285",
+				"%conv3 = sext i32 %add2 to i64, !dbg !286",
+				"%right = getelementptr inbounds %struct.RECT, ptr %prect, i64 0, i32 2, !dbg !287",
+				"store i64 %conv3, ptr %right, align 8, !dbg !288, !tbaa !289",
+				"%add4 = add i32 %flag, 3, !dbg !290",
+				"%conv5 = sext i32 %add4 to i64, !dbg !291",
+				"%bottom = getelementptr inbounds %struct.RECT, ptr %prect, i64 0, i32 3, !dbg !292",
+				"store i64 %conv5, ptr %bottom, align 8, !dbg !293, !tbaa !294",
+				"br label %return, !dbg !295"
+			]
+		},
+		{
+			"function": "GetRectangle",
+			"id": 141,
+			"name": "return",
+			"debug": [
+				{
+					"line": 924, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ 1, %if.end ], [ 0, %entry ], !dbg !269",
+				"ret i32 %retval.0, !dbg !296"
+			]
+		},
+		{
+			"function": "TwoOutArgs",
+			"id": 142,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 928, "columns": [9]
+				},
+				{
+					"line": 929, "columns": [9]
+				},
+				{
+					"line": 930, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = load i32, ptr %pi, align 4, !dbg !265, !tbaa !266",
+				"%add = add i32 %0, %a, !dbg !265",
+				"store i32 %add, ptr %pi, align 4, !dbg !265, !tbaa !266",
+				"%1 = load i32, ptr %pj, align 4, !dbg !270, !tbaa !266",
+				"%add1 = add i32 %1, %b, !dbg !270",
+				"store i32 %add1, ptr %pj, align 4, !dbg !270, !tbaa !266",
+				"ret void, !dbg !271"
+			]
+		},
+		{
+			"function": "_testfunc_pylist_append",
+			"id": 143,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 1165, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call i32 @PyList_Append(ptr noundef %list, ptr noundef %item) #33, !dbg !262",
+				"ret i32 %call, !dbg !263"
+			]
+		},
+		{
+			"function": "PyInit__ctypes_test",
+			"id": 144,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 1188, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call ptr @PyModuleDef_Init(ptr noundef nonnull @_ctypes_testmodule) #33, !dbg !257",
+				"ret ptr %call, !dbg !258"
+			]
+		}
+	]
+}

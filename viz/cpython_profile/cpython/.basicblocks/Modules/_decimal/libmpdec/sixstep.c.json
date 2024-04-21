@@ -1,0 +1,4896 @@
+{
+	"blocks": [
+		{
+			"function": "six_step_fnt",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 56, "columns": [13, 9]
+				},
+				{
+					"line": 59, "columns": [13, 9]
+				},
+				{
+					"line": 61, "columns": [13, 9]
+				},
+				{
+					"line": 63, "columns": [13, 9]
+				},
+				{
+					"line": 65, "columns": [13, 9]
+				},
+				{
+					"line": 67, "columns": [13, 9]
+				},
+				{
+					"line": 68, "columns": [35, 25]
+				},
+				{
+					"line": 69, "columns": [18, 16, 25, 35]
+				},
+				{
+					"line": 73, "columns": [10, 9]
+				}
+			],
+			"successors": [51, 1],
+			"ir": [
+				"%cmp.not.i = icmp ult i64 %n, 4294967296, !dbg !75",
+				"%shr.i = lshr i64 %n, 32",
+				"%spec.select.i = select i1 %cmp.not.i, i64 %n, i64 %shr.i, !dbg !77",
+				"%spec.select50.i = select i1 %cmp.not.i, i32 0, i32 32, !dbg !77",
+				"%cmp2.not.i = icmp ult i64 %spec.select.i, 65536, !dbg !78",
+				"%shr1.i = lshr i64 %spec.select.i, 16, !dbg !80",
+				"%add4.i = or i32 %spec.select50.i, 16, !dbg !80",
+				"%n.addr.1.i = select i1 %cmp2.not.i, i64 %spec.select.i, i64 %shr1.i, !dbg !80",
+				"%pos.1.i = select i1 %cmp2.not.i, i32 %spec.select50.i, i32 %add4.i, !dbg !80",
+				"%cmp7.not.i = icmp ult i64 %n.addr.1.i, 256, !dbg !81",
+				"%shr6.i = lshr i64 %n.addr.1.i, 8, !dbg !83",
+				"%add9.i = or i32 %pos.1.i, 8, !dbg !83",
+				"%n.addr.2.i = select i1 %cmp7.not.i, i64 %n.addr.1.i, i64 %shr6.i, !dbg !83",
+				"%pos.2.i = select i1 %cmp7.not.i, i32 %pos.1.i, i32 %add9.i, !dbg !83",
+				"%cmp12.not.i = icmp ult i64 %n.addr.2.i, 16, !dbg !84",
+				"%shr11.i = lshr i64 %n.addr.2.i, 4, !dbg !86",
+				"%add14.i = or i32 %pos.2.i, 4, !dbg !86",
+				"%n.addr.3.i = select i1 %cmp12.not.i, i64 %n.addr.2.i, i64 %shr11.i, !dbg !86",
+				"%pos.3.i = select i1 %cmp12.not.i, i32 %pos.2.i, i32 %add14.i, !dbg !86",
+				"%cmp17.not.i = icmp ult i64 %n.addr.3.i, 4, !dbg !87",
+				"%shr16.i = lshr i64 %n.addr.3.i, 2, !dbg !89",
+				"%add19.i = add nuw nsw i32 %pos.3.i, 2, !dbg !89",
+				"%n.addr.4.i = select i1 %cmp17.not.i, i64 %n.addr.3.i, i64 %shr16.i, !dbg !89",
+				"%pos.4.i = select i1 %cmp17.not.i, i32 %pos.3.i, i32 %add19.i, !dbg !89",
+				"%cmp22.not.i = icmp ugt i64 %n.addr.4.i, 1, !dbg !90",
+				"%shr21.i = zext i1 %cmp22.not.i to i64, !dbg !92",
+				"%n.addr.5.i = lshr i64 %n.addr.4.i, %shr21.i, !dbg !92",
+				"%add24.i = zext i1 %cmp22.not.i to i32, !dbg !92",
+				"%conv.i = trunc i64 %n.addr.5.i to i32, !dbg !93",
+				"%pos.5.i = add nsw i32 %pos.4.i, -1, !dbg !92",
+				"%add26.i = add nsw i32 %pos.5.i, %add24.i, !dbg !94",
+				"%sub.i = add nsw i32 %add26.i, %conv.i, !dbg !95",
+				"%conv = sext i32 %sub.i to i64, !dbg !96",
+				"%div123 = lshr i64 %conv, 1, !dbg !97",
+				"%shl = shl nuw i64 1, %div123, !dbg !98",
+				"%sub = sub nsw i64 %conv, %div123, !dbg !99",
+				"%shl2 = shl nuw i64 1, %sub, !dbg !100",
+				"%call3 = tail call i32 @transpose_pow2(ptr noundef %a, i64 noundef %shl2, i64 noundef %shl) #4, !dbg !101",
+				"%tobool.not = icmp eq i32 %call3, 0, !dbg !101",
+				"br i1 %tobool.not, label %cleanup, label %if.end, !dbg !103"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 1,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 78, "columns": [20, 57, 9]
+				}
+			],
+			"successors": [51, 2],
+			"ir": [
+				"%call4 = tail call ptr @_mpd_init_fnt_params(i64 noundef %shl2, i32 noundef -1, i32 noundef %modnum) #4, !dbg !104",
+				"%cmp = icmp eq ptr %call4, null, !dbg !106",
+				"br i1 %cmp, label %cleanup, label %for.cond.preheader, !dbg !107"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 2,
+			"name": "for.cond.preheader",
+			"debug": [
+				{
+					"line": 81, "columns": [19, 5]
+				}
+			],
+			"successors": [3, 4],
+			"ir": [
+				"%add.ptr = getelementptr i64, ptr %a, i64 %n",
+				"%cmp8619 = icmp ugt ptr %add.ptr, %a, !dbg !108",
+				"br i1 %cmp8619, label %for.body, label %for.end, !dbg !111"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 3,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 81, "columns": [28, 19, 5]
+				},
+				{
+					"line": 82, "columns": [9]
+				}
+			],
+			"successors": [3, 4],
+			"ir": [
+				"%x.0620 = phi ptr [ %add.ptr10, %for.body ], [ %a, %for.cond.preheader ]",
+				"tail call void @fnt_dif2(ptr noundef %x.0620, i64 noundef %shl2, ptr noundef nonnull %call4) #4, !dbg !112",
+				"%add.ptr10 = getelementptr i64, ptr %x.0620, i64 %shl2, !dbg !114",
+				"%cmp8 = icmp ult ptr %add.ptr10, %add.ptr, !dbg !108",
+				"br i1 %cmp8, label %for.body, label %for.end, !dbg !111, !llvm.loop !115"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 4,
+			"name": "for.end",
+			"debug": [
+				{
+					"line": 86, "columns": [10, 9]
+				}
+			],
+			"successors": [5, 6],
+			"ir": [
+				"%call11 = tail call i32 @transpose_pow2(ptr noundef %a, i64 noundef %shl, i64 noundef %shl2) #4, !dbg !118",
+				"%tobool12.not = icmp eq i32 %call11, 0, !dbg !118",
+				"br i1 %tobool12.not, label %if.then13, label %if.end14, !dbg !120"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 5,
+			"name": "if.then13",
+			"debug": [
+				{
+					"line": 87, "columns": [9]
+				},
+				{
+					"line": 88, "columns": [9]
+				}
+			],
+			"successors": [51],
+			"ir": [
+				"%0 = load ptr, ptr @mpd_free, align 8, !dbg !121, !tbaa !123",
+				"tail call void %0(ptr noundef nonnull %call4) #4, !dbg !121",
+				"br label %cleanup, !dbg !127"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 6,
+			"name": "if.end14",
+			"debug": [
+				{
+					"line": 68, "columns": [14]
+				},
+				{
+					"line": 93, "columns": [14]
+				},
+				{
+					"line": 94, "columns": [19, 5]
+				}
+			],
+			"successors": [46, 7],
+			"ir": [
+				"%idxprom.i = sext i32 %modnum to i64, !dbg !136",
+				"%arrayidx.i = getelementptr [0 x i64], ptr @mpd_moduli, i64 0, i64 %idxprom.i, !dbg !136",
+				"%1 = load i64, ptr %arrayidx.i, align 8, !dbg !136, !tbaa !137",
+				"%call15 = tail call i64 @_mpd_getkernel(i64 noundef %n, i32 noundef -1, i32 noundef %modnum) #4, !dbg !139",
+				"%cmp17624.not = icmp eq i64 %div123, %conv, !dbg !140",
+				"br i1 %cmp17624.not, label %for.end41, label %for.body19.lr.ph, !dbg !141"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 7,
+			"name": "for.body19.lr.ph",
+			"debug": [
+				{
+					"line": 94, "columns": [5]
+				}
+			],
+			"successors": [8],
+			"ir": [
+				"%and.i131 = and i64 %1, 4294967296",
+				"%tobool.not.i132 = icmp eq i64 %and.i131, 0",
+				"%and20.i164 = and i64 %1, 17179869184",
+				"%tobool21.not.i165 = icmp eq i64 %and20.i164, 0",
+				"%umax = tail call i64 @llvm.umax.i64(i64 %shl2, i64 2), !dbg !141",
+				"br label %while.body.i.preheader, !dbg !141"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 8,
+			"name": "while.body.i.preheader",
+			"debug": [
+				{
+					"line": 281, "columns": [5]
+				}
+			],
+			"successors": [9],
+			"ir": [
+				"%i.0625 = phi i64 [ 1, %for.body19.lr.ph ], [ %inc, %for.inc40 ]",
+				"br label %while.body.i, !dbg !153"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 9,
+			"name": "while.body.i",
+			"debug": [
+				{
+					"line": 282, "columns": [17, 13]
+				}
+			],
+			"successors": [10, 11],
+			"ir": [
+				"%r.011.i = phi i64 [ %r.1.i, %x64_mulmod.exit ], [ 1, %while.body.i.preheader ]",
+				"%base.addr.010.i = phi i64 [ %spec.select207.i, %x64_mulmod.exit ], [ %call15, %while.body.i.preheader ]",
+				"%exp.addr.09.i = phi i64 [ %shr.i125, %x64_mulmod.exit ], [ %i.0625, %while.body.i.preheader ]",
+				"%and.i = and i64 %exp.addr.09.i, 1, !dbg !154",
+				"%tobool.not.i = icmp eq i64 %and.i, 0, !dbg !154",
+				"br i1 %tobool.not.i, label %while.body.i.if.end.i_crit_edge, label %if.then.i, !dbg !157"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 10,
+			"name": "while.body.i.if.end.i_crit_edge",
+			"debug": [
+				{
+					"line": 56, "columns": [10]
+				},
+				{
+					"line": 282, "columns": [13]
+				}
+			],
+			"successors": [17],
+			"ir": [
+				"%.pre = zext i64 %base.addr.010.i to i128, !dbg !158",
+				"br label %if.end.i, !dbg !157"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 11,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 56, "columns": [10, 27, 25]
+				},
+				{
+					"line": 58, "columns": [14, 11]
+				},
+				{
+					"line": 59, "columns": [11]
+				},
+				{
+					"line": 159, "columns": [9]
+				}
+			],
+			"successors": [13, 12],
+			"ir": [
+				"%conv.i.i137 = zext i64 %r.011.i to i128, !dbg !184",
+				"%conv1.i.i138 = zext i64 %base.addr.010.i to i128, !dbg !185",
+				"%mul.i.i139 = mul nuw i128 %conv1.i.i138, %conv.i.i137, !dbg !186",
+				"%shr.i.i140 = lshr i128 %mul.i.i139, 64, !dbg !187",
+				"%conv2.i.i141 = trunc i128 %shr.i.i140 to i64, !dbg !188",
+				"%conv3.i.i142 = trunc i128 %mul.i.i139 to i64, !dbg !189",
+				"br i1 %tobool.not.i132, label %if.else.i169, label %if.then.i163, !dbg !190"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 12,
+			"name": "if.then.i163",
+			"debug": [
+				{
+					"line": 163, "columns": [12]
+				},
+				{
+					"line": 165, "columns": [16]
+				},
+				{
+					"line": 166, "columns": [15, 13]
+				},
+				{
+					"line": 168, "columns": [11]
+				},
+				{
+					"line": 169, "columns": [16]
+				},
+				{
+					"line": 170, "columns": [16, 13]
+				},
+				{
+					"line": 174, "columns": [12]
+				},
+				{
+					"line": 176, "columns": [16]
+				},
+				{
+					"line": 177, "columns": [15, 13]
+				},
+				{
+					"line": 179, "columns": [11]
+				},
+				{
+					"line": 180, "columns": [16]
+				},
+				{
+					"line": 181, "columns": [16]
+				},
+				{
+					"line": 183, "columns": [20]
+				}
+			],
+			"successors": [16],
+			"ir": [
+				"%shr.i145 = lshr i64 %conv2.i.i141, 32, !dbg !191",
+				"%sub.i146 = sub i64 %conv3.i.i142, %conv2.i.i141, !dbg !194",
+				"%cmp.i147 = icmp ult i64 %conv3.i.i142, %conv2.i.i141, !dbg !195",
+				"%dec.i148 = sext i1 %cmp.i147 to i64, !dbg !197",
+				"%spec.select.i149 = add nsw i64 %shr.i145, %dec.i148, !dbg !197",
+				"%shl.i150 = shl i64 %conv2.i.i141, 32, !dbg !198",
+				"%add.i151 = add i64 %shl.i150, %sub.i146, !dbg !199",
+				"%cmp2.i152 = icmp ult i64 %add.i151, %shl.i150, !dbg !200",
+				"%inc.i153 = zext i1 %cmp2.i152 to i64, !dbg !202",
+				"%hi.1.i154 = add nsw i64 %spec.select.i149, %inc.i153, !dbg !202",
+				"%shr5.i155 = lshr i64 %hi.1.i154, 32, !dbg !203",
+				"%sub6.i156 = sub i64 %add.i151, %hi.1.i154, !dbg !204",
+				"%cmp7.i157 = icmp ult i64 %add.i151, %hi.1.i154, !dbg !205",
+				"%dec9.i158 = sext i1 %cmp7.i157 to i64, !dbg !207",
+				"%hi.2.i159 = add nsw i64 %shr5.i155, %dec9.i158, !dbg !207",
+				"%shl11.i160 = shl i64 %hi.1.i154, 32, !dbg !208",
+				"%add12.i161 = add i64 %shl11.i160, %sub6.i156, !dbg !209",
+				"%cmp13.i162 = icmp ult i64 %add12.i161, %shl11.i160, !dbg !210",
+				"br label %x64_mulmod.exit231, !dbg !212"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 13,
+			"name": "if.else.i169",
+			"debug": [
+				{
+					"line": 185, "columns": [14]
+				}
+			],
+			"successors": [15, 14],
+			"ir": [
+				"%sub69.i166 = sub i64 %conv3.i.i142, %conv2.i.i141, !dbg !213",
+				"%cmp70.i167 = icmp ult i64 %conv3.i.i142, %conv2.i.i141, !dbg !213",
+				"%dec72.i168 = sext i1 %cmp70.i167 to i64, !dbg !213",
+				"br i1 %tobool21.not.i165, label %if.else67.i221, label %if.then22.i195, !dbg !215"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 14,
+			"name": "if.then22.i195",
+			"debug": [
+				{
+					"line": 189, "columns": [12]
+				},
+				{
+					"line": 192, "columns": [13]
+				},
+				{
+					"line": 194, "columns": [11]
+				},
+				{
+					"line": 195, "columns": [16]
+				},
+				{
+					"line": 196, "columns": [16, 13]
+				},
+				{
+					"line": 200, "columns": [12]
+				},
+				{
+					"line": 202, "columns": [16]
+				},
+				{
+					"line": 203, "columns": [15, 13]
+				},
+				{
+					"line": 205, "columns": [11]
+				},
+				{
+					"line": 206, "columns": [16]
+				},
+				{
+					"line": 207, "columns": [16, 13]
+				},
+				{
+					"line": 211, "columns": [12]
+				},
+				{
+					"line": 213, "columns": [16]
+				},
+				{
+					"line": 214, "columns": [15, 13]
+				},
+				{
+					"line": 216, "columns": [11]
+				},
+				{
+					"line": 217, "columns": [16]
+				},
+				{
+					"line": 218, "columns": [16]
+				},
+				{
+					"line": 220, "columns": [20]
+				}
+			],
+			"successors": [16],
+			"ir": [
+				"%shr23.i170 = lshr i64 %conv2.i.i141, 30, !dbg !216",
+				"%spec.select203.i171 = add nsw i64 %shr23.i170, %dec72.i168, !dbg !218",
+				"%shl29.i172 = shl i64 %conv2.i.i141, 34, !dbg !219",
+				"%add30.i173 = add i64 %shl29.i172, %sub69.i166, !dbg !220",
+				"%cmp31.i174 = icmp ult i64 %add30.i173, %shl29.i172, !dbg !221",
+				"%inc33.i175 = zext i1 %cmp31.i174 to i64, !dbg !223",
+				"%hi.5.i176 = add nsw i64 %spec.select203.i171, %inc33.i175, !dbg !223",
+				"%shr35.i177 = lshr i64 %hi.5.i176, 30, !dbg !224",
+				"%sub36.i178 = sub i64 %add30.i173, %hi.5.i176, !dbg !225",
+				"%cmp37.i179 = icmp ult i64 %add30.i173, %hi.5.i176, !dbg !226",
+				"%dec39.i180 = sext i1 %cmp37.i179 to i64, !dbg !228",
+				"%hi.6.i181 = add nsw i64 %shr35.i177, %dec39.i180, !dbg !228",
+				"%shl41.i182 = shl i64 %hi.5.i176, 34, !dbg !229",
+				"%add42.i183 = add i64 %shl41.i182, %sub36.i178, !dbg !230",
+				"%cmp43.i184 = icmp ult i64 %add42.i183, %shl41.i182, !dbg !231",
+				"%inc45.i185 = zext i1 %cmp43.i184 to i64, !dbg !233",
+				"%hi.7.i186 = add nsw i64 %hi.6.i181, %inc45.i185, !dbg !233",
+				"%shr47.i187 = lshr i64 %hi.7.i186, 30, !dbg !234",
+				"%sub48.i188 = sub i64 %add42.i183, %hi.7.i186, !dbg !235",
+				"%cmp49.i189 = icmp ult i64 %add42.i183, %hi.7.i186, !dbg !236",
+				"%dec51.i190 = sext i1 %cmp49.i189 to i64, !dbg !238",
+				"%hi.8.i191 = add nsw i64 %shr47.i187, %dec51.i190, !dbg !238",
+				"%shl53.i192 = shl i64 %hi.7.i186, 34, !dbg !239",
+				"%add54.i193 = add i64 %shl53.i192, %sub48.i188, !dbg !240",
+				"%cmp55.i194 = icmp ult i64 %add54.i193, %shl53.i192, !dbg !241",
+				"br label %x64_mulmod.exit231, !dbg !243"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 15,
+			"name": "if.else67.i221",
+			"debug": [
+				{
+					"line": 226, "columns": [12]
+				},
+				{
+					"line": 229, "columns": [13]
+				},
+				{
+					"line": 231, "columns": [11]
+				},
+				{
+					"line": 232, "columns": [16]
+				},
+				{
+					"line": 233, "columns": [16, 13]
+				},
+				{
+					"line": 237, "columns": [12]
+				},
+				{
+					"line": 239, "columns": [16]
+				},
+				{
+					"line": 240, "columns": [15, 13]
+				},
+				{
+					"line": 242, "columns": [11]
+				},
+				{
+					"line": 243, "columns": [16]
+				},
+				{
+					"line": 244, "columns": [16, 13]
+				},
+				{
+					"line": 248, "columns": [12]
+				},
+				{
+					"line": 250, "columns": [16]
+				},
+				{
+					"line": 251, "columns": [15, 13]
+				},
+				{
+					"line": 253, "columns": [11]
+				},
+				{
+					"line": 254, "columns": [16]
+				},
+				{
+					"line": 255, "columns": [16]
+				},
+				{
+					"line": 257, "columns": [20]
+				}
+			],
+			"successors": [16],
+			"ir": [
+				"%shr68.i196 = lshr i64 %conv2.i.i141, 24, !dbg !244",
+				"%spec.select204.i197 = add nsw i64 %shr68.i196, %dec72.i168, !dbg !246",
+				"%shl74.i198 = shl i64 %conv2.i.i141, 40, !dbg !247",
+				"%add75.i199 = add i64 %shl74.i198, %sub69.i166, !dbg !248",
+				"%cmp76.i200 = icmp ult i64 %add75.i199, %shl74.i198, !dbg !249",
+				"%inc78.i201 = zext i1 %cmp76.i200 to i64, !dbg !251",
+				"%hi.11.i202 = add nsw i64 %spec.select204.i197, %inc78.i201, !dbg !251",
+				"%shr80.i203 = lshr i64 %hi.11.i202, 24, !dbg !252",
+				"%sub81.i204 = sub i64 %add75.i199, %hi.11.i202, !dbg !253",
+				"%cmp82.i205 = icmp ult i64 %add75.i199, %hi.11.i202, !dbg !254",
+				"%dec84.i206 = sext i1 %cmp82.i205 to i64, !dbg !256",
+				"%hi.12.i207 = add nsw i64 %shr80.i203, %dec84.i206, !dbg !256",
+				"%shl86.i208 = shl i64 %hi.11.i202, 40, !dbg !257",
+				"%add87.i209 = add i64 %shl86.i208, %sub81.i204, !dbg !258",
+				"%cmp88.i210 = icmp ult i64 %add87.i209, %shl86.i208, !dbg !259",
+				"%inc90.i211 = zext i1 %cmp88.i210 to i64, !dbg !261",
+				"%hi.13.i212 = add nsw i64 %hi.12.i207, %inc90.i211, !dbg !261",
+				"%shr92.i213 = lshr i64 %hi.13.i212, 24, !dbg !262",
+				"%sub93.i214 = sub i64 %add87.i209, %hi.13.i212, !dbg !263",
+				"%cmp94.i215 = icmp ult i64 %add87.i209, %hi.13.i212, !dbg !264",
+				"%dec96.i216 = sext i1 %cmp94.i215 to i64, !dbg !266",
+				"%hi.14.i217 = add nsw i64 %shr92.i213, %dec96.i216, !dbg !266",
+				"%shl98.i218 = shl i64 %hi.13.i212, 40, !dbg !267",
+				"%add99.i219 = add i64 %shl98.i218, %sub93.i214, !dbg !268",
+				"%cmp100.i220 = icmp ult i64 %add99.i219, %shl98.i218, !dbg !269",
+				"br label %x64_mulmod.exit231, !dbg !271"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 16,
+			"name": "x64_mulmod.exit231",
+			"debug": [
+				{
+					"line": 283, "columns": [13]
+				}
+			],
+			"successors": [17],
+			"ir": [
+				"%cmp100.sink.i222 = phi i1 [ %cmp100.i220, %if.else67.i221 ], [ %cmp55.i194, %if.then22.i195 ], [ %cmp13.i162, %if.then.i163 ]",
+				"%hi.14.sink.i223 = phi i64 [ %hi.14.i217, %if.else67.i221 ], [ %hi.8.i191, %if.then22.i195 ], [ %hi.2.i159, %if.then.i163 ]",
+				"%add99.sink208.i224 = phi i64 [ %add99.i219, %if.else67.i221 ], [ %add54.i193, %if.then22.i195 ], [ %add12.i161, %if.then.i163 ]",
+				"%inc102.neg.i225 = sext i1 %cmp100.sink.i222 to i64, !dbg !272",
+				"%tobool104.not.i226 = icmp eq i64 %hi.14.sink.i223, %inc102.neg.i225, !dbg !272",
+				"%cmp106.not.i227 = icmp ult i64 %add99.sink208.i224, %1",
+				"%or.cond171.i228 = select i1 %tobool104.not.i226, i1 %cmp106.not.i227, i1 false, !dbg !272",
+				"%sub108.i229 = select i1 %or.cond171.i228, i64 0, i64 %1, !dbg !272",
+				"%spec.select207.i230 = sub i64 %add99.sink208.i224, %sub108.i229, !dbg !272",
+				"br label %if.end.i, !dbg !273"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 17,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 56, "columns": [10, 25]
+				},
+				{
+					"line": 58, "columns": [14, 11]
+				},
+				{
+					"line": 59, "columns": [11]
+				},
+				{
+					"line": 159, "columns": [9]
+				}
+			],
+			"successors": [19, 18],
+			"ir": [
+				"%conv.i.i.pre-phi = phi i128 [ %.pre, %while.body.i.if.end.i_crit_edge ], [ %conv1.i.i138, %x64_mulmod.exit231 ], !dbg !158",
+				"%r.1.i = phi i64 [ %r.011.i, %while.body.i.if.end.i_crit_edge ], [ %spec.select207.i230, %x64_mulmod.exit231 ], !dbg !151",
+				"%mul.i.i = mul nuw i128 %conv.i.i.pre-phi, %conv.i.i.pre-phi, !dbg !276",
+				"%shr.i.i = lshr i128 %mul.i.i, 64, !dbg !277",
+				"%conv2.i.i = trunc i128 %shr.i.i to i64, !dbg !278",
+				"%conv3.i.i = trunc i128 %mul.i.i to i64, !dbg !279",
+				"br i1 %tobool.not.i132, label %if.else.i, label %if.then.i136, !dbg !280"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 18,
+			"name": "if.then.i136",
+			"debug": [
+				{
+					"line": 163, "columns": [12]
+				},
+				{
+					"line": 165, "columns": [16]
+				},
+				{
+					"line": 166, "columns": [15, 13]
+				},
+				{
+					"line": 168, "columns": [11]
+				},
+				{
+					"line": 169, "columns": [16]
+				},
+				{
+					"line": 170, "columns": [16, 13]
+				},
+				{
+					"line": 174, "columns": [12]
+				},
+				{
+					"line": 176, "columns": [16]
+				},
+				{
+					"line": 177, "columns": [15, 13]
+				},
+				{
+					"line": 179, "columns": [11]
+				},
+				{
+					"line": 180, "columns": [16]
+				},
+				{
+					"line": 181, "columns": [16]
+				},
+				{
+					"line": 183, "columns": [20]
+				}
+			],
+			"successors": [22],
+			"ir": [
+				"%shr.i133 = lshr i64 %conv2.i.i, 32, !dbg !281",
+				"%sub.i134 = sub i64 %conv3.i.i, %conv2.i.i, !dbg !282",
+				"%cmp.i = icmp ult i64 %conv3.i.i, %conv2.i.i, !dbg !283",
+				"%dec.i = sext i1 %cmp.i to i64, !dbg !284",
+				"%spec.select.i135 = add nsw i64 %shr.i133, %dec.i, !dbg !284",
+				"%shl.i = shl i64 %conv2.i.i, 32, !dbg !285",
+				"%add.i = add i64 %shl.i, %sub.i134, !dbg !286",
+				"%cmp2.i = icmp ult i64 %add.i, %shl.i, !dbg !287",
+				"%inc.i = zext i1 %cmp2.i to i64, !dbg !288",
+				"%hi.1.i = add nsw i64 %spec.select.i135, %inc.i, !dbg !288",
+				"%shr5.i = lshr i64 %hi.1.i, 32, !dbg !289",
+				"%sub6.i = sub i64 %add.i, %hi.1.i, !dbg !290",
+				"%cmp7.i = icmp ult i64 %add.i, %hi.1.i, !dbg !291",
+				"%dec9.i = sext i1 %cmp7.i to i64, !dbg !292",
+				"%hi.2.i = add nsw i64 %shr5.i, %dec9.i, !dbg !292",
+				"%shl11.i = shl i64 %hi.1.i, 32, !dbg !293",
+				"%add12.i = add i64 %shl11.i, %sub6.i, !dbg !294",
+				"%cmp13.i = icmp ult i64 %add12.i, %shl11.i, !dbg !295",
+				"br label %x64_mulmod.exit, !dbg !296"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 19,
+			"name": "if.else.i",
+			"debug": [
+				{
+					"line": 185, "columns": [14]
+				}
+			],
+			"successors": [21, 20],
+			"ir": [
+				"%sub69.i = sub i64 %conv3.i.i, %conv2.i.i, !dbg !297",
+				"%cmp70.i = icmp ult i64 %conv3.i.i, %conv2.i.i, !dbg !297",
+				"%dec72.i = sext i1 %cmp70.i to i64, !dbg !297",
+				"br i1 %tobool21.not.i165, label %if.else67.i, label %if.then22.i, !dbg !298"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 20,
+			"name": "if.then22.i",
+			"debug": [
+				{
+					"line": 189, "columns": [12]
+				},
+				{
+					"line": 192, "columns": [13]
+				},
+				{
+					"line": 194, "columns": [11]
+				},
+				{
+					"line": 195, "columns": [16]
+				},
+				{
+					"line": 196, "columns": [16, 13]
+				},
+				{
+					"line": 200, "columns": [12]
+				},
+				{
+					"line": 202, "columns": [16]
+				},
+				{
+					"line": 203, "columns": [15, 13]
+				},
+				{
+					"line": 205, "columns": [11]
+				},
+				{
+					"line": 206, "columns": [16]
+				},
+				{
+					"line": 207, "columns": [16, 13]
+				},
+				{
+					"line": 211, "columns": [12]
+				},
+				{
+					"line": 213, "columns": [16]
+				},
+				{
+					"line": 214, "columns": [15, 13]
+				},
+				{
+					"line": 216, "columns": [11]
+				},
+				{
+					"line": 217, "columns": [16]
+				},
+				{
+					"line": 218, "columns": [16]
+				},
+				{
+					"line": 220, "columns": [20]
+				}
+			],
+			"successors": [22],
+			"ir": [
+				"%shr23.i = lshr i64 %conv2.i.i, 30, !dbg !299",
+				"%spec.select203.i = add nsw i64 %shr23.i, %dec72.i, !dbg !300",
+				"%shl29.i = shl i64 %conv2.i.i, 34, !dbg !301",
+				"%add30.i = add i64 %shl29.i, %sub69.i, !dbg !302",
+				"%cmp31.i = icmp ult i64 %add30.i, %shl29.i, !dbg !303",
+				"%inc33.i = zext i1 %cmp31.i to i64, !dbg !304",
+				"%hi.5.i = add nsw i64 %spec.select203.i, %inc33.i, !dbg !304",
+				"%shr35.i = lshr i64 %hi.5.i, 30, !dbg !305",
+				"%sub36.i = sub i64 %add30.i, %hi.5.i, !dbg !306",
+				"%cmp37.i = icmp ult i64 %add30.i, %hi.5.i, !dbg !307",
+				"%dec39.i = sext i1 %cmp37.i to i64, !dbg !308",
+				"%hi.6.i = add nsw i64 %shr35.i, %dec39.i, !dbg !308",
+				"%shl41.i = shl i64 %hi.5.i, 34, !dbg !309",
+				"%add42.i = add i64 %shl41.i, %sub36.i, !dbg !310",
+				"%cmp43.i = icmp ult i64 %add42.i, %shl41.i, !dbg !311",
+				"%inc45.i = zext i1 %cmp43.i to i64, !dbg !312",
+				"%hi.7.i = add nsw i64 %hi.6.i, %inc45.i, !dbg !312",
+				"%shr47.i = lshr i64 %hi.7.i, 30, !dbg !313",
+				"%sub48.i = sub i64 %add42.i, %hi.7.i, !dbg !314",
+				"%cmp49.i = icmp ult i64 %add42.i, %hi.7.i, !dbg !315",
+				"%dec51.i = sext i1 %cmp49.i to i64, !dbg !316",
+				"%hi.8.i = add nsw i64 %shr47.i, %dec51.i, !dbg !316",
+				"%shl53.i = shl i64 %hi.7.i, 34, !dbg !317",
+				"%add54.i = add i64 %shl53.i, %sub48.i, !dbg !318",
+				"%cmp55.i = icmp ult i64 %add54.i, %shl53.i, !dbg !319",
+				"br label %x64_mulmod.exit, !dbg !320"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 21,
+			"name": "if.else67.i",
+			"debug": [
+				{
+					"line": 226, "columns": [12]
+				},
+				{
+					"line": 229, "columns": [13]
+				},
+				{
+					"line": 231, "columns": [11]
+				},
+				{
+					"line": 232, "columns": [16]
+				},
+				{
+					"line": 233, "columns": [16, 13]
+				},
+				{
+					"line": 237, "columns": [12]
+				},
+				{
+					"line": 239, "columns": [16]
+				},
+				{
+					"line": 240, "columns": [15, 13]
+				},
+				{
+					"line": 242, "columns": [11]
+				},
+				{
+					"line": 243, "columns": [16]
+				},
+				{
+					"line": 244, "columns": [16, 13]
+				},
+				{
+					"line": 248, "columns": [12]
+				},
+				{
+					"line": 250, "columns": [16]
+				},
+				{
+					"line": 251, "columns": [15, 13]
+				},
+				{
+					"line": 253, "columns": [11]
+				},
+				{
+					"line": 254, "columns": [16]
+				},
+				{
+					"line": 255, "columns": [16]
+				},
+				{
+					"line": 257, "columns": [20]
+				}
+			],
+			"successors": [22],
+			"ir": [
+				"%shr68.i = lshr i64 %conv2.i.i, 24, !dbg !321",
+				"%spec.select204.i = add nsw i64 %shr68.i, %dec72.i, !dbg !322",
+				"%shl74.i = shl i64 %conv2.i.i, 40, !dbg !323",
+				"%add75.i = add i64 %shl74.i, %sub69.i, !dbg !324",
+				"%cmp76.i = icmp ult i64 %add75.i, %shl74.i, !dbg !325",
+				"%inc78.i = zext i1 %cmp76.i to i64, !dbg !326",
+				"%hi.11.i = add nsw i64 %spec.select204.i, %inc78.i, !dbg !326",
+				"%shr80.i = lshr i64 %hi.11.i, 24, !dbg !327",
+				"%sub81.i = sub i64 %add75.i, %hi.11.i, !dbg !328",
+				"%cmp82.i = icmp ult i64 %add75.i, %hi.11.i, !dbg !329",
+				"%dec84.i = sext i1 %cmp82.i to i64, !dbg !330",
+				"%hi.12.i = add nsw i64 %shr80.i, %dec84.i, !dbg !330",
+				"%shl86.i = shl i64 %hi.11.i, 40, !dbg !331",
+				"%add87.i = add i64 %shl86.i, %sub81.i, !dbg !332",
+				"%cmp88.i = icmp ult i64 %add87.i, %shl86.i, !dbg !333",
+				"%inc90.i = zext i1 %cmp88.i to i64, !dbg !334",
+				"%hi.13.i = add nsw i64 %hi.12.i, %inc90.i, !dbg !334",
+				"%shr92.i = lshr i64 %hi.13.i, 24, !dbg !335",
+				"%sub93.i = sub i64 %add87.i, %hi.13.i, !dbg !336",
+				"%cmp94.i = icmp ult i64 %add87.i, %hi.13.i, !dbg !337",
+				"%dec96.i = sext i1 %cmp94.i to i64, !dbg !338",
+				"%hi.14.i = add nsw i64 %shr92.i, %dec96.i, !dbg !338",
+				"%shl98.i = shl i64 %hi.13.i, 40, !dbg !339",
+				"%add99.i = add i64 %shl98.i, %sub93.i, !dbg !340",
+				"%cmp100.i = icmp ult i64 %add99.i, %shl98.i, !dbg !341",
+				"br label %x64_mulmod.exit, !dbg !342"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 22,
+			"name": "x64_mulmod.exit",
+			"debug": [
+				{
+					"line": 281, "columns": [16, 5]
+				},
+				{
+					"line": 285, "columns": [13]
+				}
+			],
+			"successors": [23, 9],
+			"ir": [
+				"%cmp100.sink.i = phi i1 [ %cmp100.i, %if.else67.i ], [ %cmp55.i, %if.then22.i ], [ %cmp13.i, %if.then.i136 ]",
+				"%hi.14.sink.i = phi i64 [ %hi.14.i, %if.else67.i ], [ %hi.8.i, %if.then22.i ], [ %hi.2.i, %if.then.i136 ]",
+				"%add99.sink208.i = phi i64 [ %add99.i, %if.else67.i ], [ %add54.i, %if.then22.i ], [ %add12.i, %if.then.i136 ]",
+				"%inc102.neg.i = sext i1 %cmp100.sink.i to i64, !dbg !343",
+				"%tobool104.not.i = icmp eq i64 %hi.14.sink.i, %inc102.neg.i, !dbg !343",
+				"%cmp106.not.i = icmp ult i64 %add99.sink208.i, %1",
+				"%or.cond171.i = select i1 %tobool104.not.i, i1 %cmp106.not.i, i1 false, !dbg !343",
+				"%sub108.i = select i1 %or.cond171.i, i64 0, i64 %1, !dbg !343",
+				"%spec.select207.i = sub i64 %add99.sink208.i, %sub108.i, !dbg !343",
+				"%shr.i125 = lshr i64 %exp.addr.09.i, 1, !dbg !344",
+				"%cmp.not.i126 = icmp ult i64 %exp.addr.09.i, 2, !dbg !345",
+				"br i1 %cmp.not.i126, label %x64_powmod.exit, label %while.body.i, !dbg !153, !llvm.loop !346"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 23,
+			"name": "x64_powmod.exit",
+			"debug": [
+				{
+					"line": 97, "columns": [17]
+				},
+				{
+					"line": 98, "columns": [9]
+				}
+			],
+			"successors": [24],
+			"ir": [
+				"%call21 = tail call fastcc i64 @x64_mulmod(i64 noundef %r.1.i, i64 noundef %r.1.i, i64 noundef %1), !dbg !348",
+				"%mul124 = shl i64 %i.0625, %div123",
+				"%conv1.i.i518 = zext i64 %call21 to i128",
+				"br label %for.body25, !dbg !349"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 24,
+			"name": "for.body25",
+			"debug": [
+				{
+					"line": 56, "columns": [10, 27, 25]
+				},
+				{
+					"line": 58, "columns": [14, 11]
+				},
+				{
+					"line": 59, "columns": [11]
+				},
+				{
+					"line": 99, "columns": [34, 29]
+				},
+				{
+					"line": 100, "columns": [36, 29]
+				},
+				{
+					"line": 159, "columns": [9]
+				}
+			],
+			"successors": [26, 25],
+			"ir": [
+				"%k.0623 = phi i64 [ 0, %x64_powmod.exit ], [ %add38, %x64_mulmod.exit516 ]",
+				"%w1.0622 = phi i64 [ %r.1.i, %x64_powmod.exit ], [ %spec.select207.i515, %x64_mulmod.exit516 ]",
+				"%w0.0621 = phi i64 [ 1, %x64_powmod.exit ], [ %spec.select207.i610, %x64_mulmod.exit516 ]",
+				"%add = add i64 %k.0623, %mul124, !dbg !350",
+				"%arrayidx = getelementptr i64, ptr %a, i64 %add, !dbg !351",
+				"%2 = load i64, ptr %arrayidx, align 8, !dbg !351, !tbaa !137",
+				"%add28 = add i64 %add, 1, !dbg !353",
+				"%arrayidx29 = getelementptr i64, ptr %a, i64 %add28, !dbg !354",
+				"%3 = load i64, ptr %arrayidx29, align 8, !dbg !354, !tbaa !137",
+				"%conv.i.i327 = zext i64 %2 to i128, !dbg !370",
+				"%conv1.i.i328 = zext i64 %w0.0621 to i128, !dbg !371",
+				"%mul.i.i329 = mul nuw i128 %conv.i.i327, %conv1.i.i328, !dbg !372",
+				"%shr.i.i330 = lshr i128 %mul.i.i329, 64, !dbg !373",
+				"%conv2.i.i331 = trunc i128 %shr.i.i330 to i64, !dbg !374",
+				"%conv3.i.i332 = trunc i128 %mul.i.i329 to i64, !dbg !375",
+				"br i1 %tobool.not.i132, label %if.else.i359, label %if.then.i353, !dbg !376"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 25,
+			"name": "if.then.i353",
+			"debug": [
+				{
+					"line": 163, "columns": [12]
+				},
+				{
+					"line": 165, "columns": [16]
+				},
+				{
+					"line": 166, "columns": [15, 13]
+				},
+				{
+					"line": 168, "columns": [11]
+				},
+				{
+					"line": 169, "columns": [16]
+				},
+				{
+					"line": 170, "columns": [16, 13]
+				},
+				{
+					"line": 174, "columns": [12]
+				},
+				{
+					"line": 176, "columns": [16]
+				},
+				{
+					"line": 177, "columns": [15, 13]
+				},
+				{
+					"line": 179, "columns": [11]
+				},
+				{
+					"line": 180, "columns": [16]
+				},
+				{
+					"line": 181, "columns": [16]
+				},
+				{
+					"line": 183, "columns": [20]
+				}
+			],
+			"successors": [29],
+			"ir": [
+				"%shr.i335 = lshr i64 %conv2.i.i331, 32, !dbg !377",
+				"%sub.i336 = sub i64 %conv3.i.i332, %conv2.i.i331, !dbg !378",
+				"%cmp.i337 = icmp ult i64 %conv3.i.i332, %conv2.i.i331, !dbg !379",
+				"%dec.i338 = sext i1 %cmp.i337 to i64, !dbg !380",
+				"%spec.select.i339 = add nsw i64 %shr.i335, %dec.i338, !dbg !380",
+				"%shl.i340 = shl i64 %conv2.i.i331, 32, !dbg !381",
+				"%add.i341 = add i64 %shl.i340, %sub.i336, !dbg !382",
+				"%cmp2.i342 = icmp ult i64 %add.i341, %shl.i340, !dbg !383",
+				"%inc.i343 = zext i1 %cmp2.i342 to i64, !dbg !384",
+				"%hi.1.i344 = add nsw i64 %spec.select.i339, %inc.i343, !dbg !384",
+				"%shr5.i345 = lshr i64 %hi.1.i344, 32, !dbg !385",
+				"%sub6.i346 = sub i64 %add.i341, %hi.1.i344, !dbg !386",
+				"%cmp7.i347 = icmp ult i64 %add.i341, %hi.1.i344, !dbg !387",
+				"%dec9.i348 = sext i1 %cmp7.i347 to i64, !dbg !388",
+				"%hi.2.i349 = add nsw i64 %shr5.i345, %dec9.i348, !dbg !388",
+				"%shl11.i350 = shl i64 %hi.1.i344, 32, !dbg !389",
+				"%add12.i351 = add i64 %shl11.i350, %sub6.i346, !dbg !390",
+				"%cmp13.i352 = icmp ult i64 %add12.i351, %shl11.i350, !dbg !391",
+				"br label %x64_mulmod.exit421, !dbg !392"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 26,
+			"name": "if.else.i359",
+			"debug": [
+				{
+					"line": 185, "columns": [14]
+				}
+			],
+			"successors": [28, 27],
+			"ir": [
+				"%sub69.i356 = sub i64 %conv3.i.i332, %conv2.i.i331, !dbg !393",
+				"%cmp70.i357 = icmp ult i64 %conv3.i.i332, %conv2.i.i331, !dbg !393",
+				"%dec72.i358 = sext i1 %cmp70.i357 to i64, !dbg !393",
+				"br i1 %tobool21.not.i165, label %if.else67.i411, label %if.then22.i385, !dbg !394"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 27,
+			"name": "if.then22.i385",
+			"debug": [
+				{
+					"line": 189, "columns": [12]
+				},
+				{
+					"line": 192, "columns": [13]
+				},
+				{
+					"line": 194, "columns": [11]
+				},
+				{
+					"line": 195, "columns": [16]
+				},
+				{
+					"line": 196, "columns": [16, 13]
+				},
+				{
+					"line": 200, "columns": [12]
+				},
+				{
+					"line": 202, "columns": [16]
+				},
+				{
+					"line": 203, "columns": [15, 13]
+				},
+				{
+					"line": 205, "columns": [11]
+				},
+				{
+					"line": 206, "columns": [16]
+				},
+				{
+					"line": 207, "columns": [16, 13]
+				},
+				{
+					"line": 211, "columns": [12]
+				},
+				{
+					"line": 213, "columns": [16]
+				},
+				{
+					"line": 214, "columns": [15, 13]
+				},
+				{
+					"line": 216, "columns": [11]
+				},
+				{
+					"line": 217, "columns": [16]
+				},
+				{
+					"line": 218, "columns": [16]
+				},
+				{
+					"line": 220, "columns": [20]
+				}
+			],
+			"successors": [29],
+			"ir": [
+				"%shr23.i360 = lshr i64 %conv2.i.i331, 30, !dbg !395",
+				"%spec.select203.i361 = add nsw i64 %shr23.i360, %dec72.i358, !dbg !396",
+				"%shl29.i362 = shl i64 %conv2.i.i331, 34, !dbg !397",
+				"%add30.i363 = add i64 %shl29.i362, %sub69.i356, !dbg !398",
+				"%cmp31.i364 = icmp ult i64 %add30.i363, %shl29.i362, !dbg !399",
+				"%inc33.i365 = zext i1 %cmp31.i364 to i64, !dbg !400",
+				"%hi.5.i366 = add nsw i64 %spec.select203.i361, %inc33.i365, !dbg !400",
+				"%shr35.i367 = lshr i64 %hi.5.i366, 30, !dbg !401",
+				"%sub36.i368 = sub i64 %add30.i363, %hi.5.i366, !dbg !402",
+				"%cmp37.i369 = icmp ult i64 %add30.i363, %hi.5.i366, !dbg !403",
+				"%dec39.i370 = sext i1 %cmp37.i369 to i64, !dbg !404",
+				"%hi.6.i371 = add nsw i64 %shr35.i367, %dec39.i370, !dbg !404",
+				"%shl41.i372 = shl i64 %hi.5.i366, 34, !dbg !405",
+				"%add42.i373 = add i64 %shl41.i372, %sub36.i368, !dbg !406",
+				"%cmp43.i374 = icmp ult i64 %add42.i373, %shl41.i372, !dbg !407",
+				"%inc45.i375 = zext i1 %cmp43.i374 to i64, !dbg !408",
+				"%hi.7.i376 = add nsw i64 %hi.6.i371, %inc45.i375, !dbg !408",
+				"%shr47.i377 = lshr i64 %hi.7.i376, 30, !dbg !409",
+				"%sub48.i378 = sub i64 %add42.i373, %hi.7.i376, !dbg !410",
+				"%cmp49.i379 = icmp ult i64 %add42.i373, %hi.7.i376, !dbg !411",
+				"%dec51.i380 = sext i1 %cmp49.i379 to i64, !dbg !412",
+				"%hi.8.i381 = add nsw i64 %shr47.i377, %dec51.i380, !dbg !412",
+				"%shl53.i382 = shl i64 %hi.7.i376, 34, !dbg !413",
+				"%add54.i383 = add i64 %shl53.i382, %sub48.i378, !dbg !414",
+				"%cmp55.i384 = icmp ult i64 %add54.i383, %shl53.i382, !dbg !415",
+				"br label %x64_mulmod.exit421, !dbg !416"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 28,
+			"name": "if.else67.i411",
+			"debug": [
+				{
+					"line": 226, "columns": [12]
+				},
+				{
+					"line": 229, "columns": [13]
+				},
+				{
+					"line": 231, "columns": [11]
+				},
+				{
+					"line": 232, "columns": [16]
+				},
+				{
+					"line": 233, "columns": [16, 13]
+				},
+				{
+					"line": 237, "columns": [12]
+				},
+				{
+					"line": 239, "columns": [16]
+				},
+				{
+					"line": 240, "columns": [15, 13]
+				},
+				{
+					"line": 242, "columns": [11]
+				},
+				{
+					"line": 243, "columns": [16]
+				},
+				{
+					"line": 244, "columns": [16, 13]
+				},
+				{
+					"line": 248, "columns": [12]
+				},
+				{
+					"line": 250, "columns": [16]
+				},
+				{
+					"line": 251, "columns": [15, 13]
+				},
+				{
+					"line": 253, "columns": [11]
+				},
+				{
+					"line": 254, "columns": [16]
+				},
+				{
+					"line": 255, "columns": [16]
+				},
+				{
+					"line": 257, "columns": [20]
+				}
+			],
+			"successors": [29],
+			"ir": [
+				"%shr68.i386 = lshr i64 %conv2.i.i331, 24, !dbg !417",
+				"%spec.select204.i387 = add nsw i64 %shr68.i386, %dec72.i358, !dbg !418",
+				"%shl74.i388 = shl i64 %conv2.i.i331, 40, !dbg !419",
+				"%add75.i389 = add i64 %shl74.i388, %sub69.i356, !dbg !420",
+				"%cmp76.i390 = icmp ult i64 %add75.i389, %shl74.i388, !dbg !421",
+				"%inc78.i391 = zext i1 %cmp76.i390 to i64, !dbg !422",
+				"%hi.11.i392 = add nsw i64 %spec.select204.i387, %inc78.i391, !dbg !422",
+				"%shr80.i393 = lshr i64 %hi.11.i392, 24, !dbg !423",
+				"%sub81.i394 = sub i64 %add75.i389, %hi.11.i392, !dbg !424",
+				"%cmp82.i395 = icmp ult i64 %add75.i389, %hi.11.i392, !dbg !425",
+				"%dec84.i396 = sext i1 %cmp82.i395 to i64, !dbg !426",
+				"%hi.12.i397 = add nsw i64 %shr80.i393, %dec84.i396, !dbg !426",
+				"%shl86.i398 = shl i64 %hi.11.i392, 40, !dbg !427",
+				"%add87.i399 = add i64 %shl86.i398, %sub81.i394, !dbg !428",
+				"%cmp88.i400 = icmp ult i64 %add87.i399, %shl86.i398, !dbg !429",
+				"%inc90.i401 = zext i1 %cmp88.i400 to i64, !dbg !430",
+				"%hi.13.i402 = add nsw i64 %hi.12.i397, %inc90.i401, !dbg !430",
+				"%shr92.i403 = lshr i64 %hi.13.i402, 24, !dbg !431",
+				"%sub93.i404 = sub i64 %add87.i399, %hi.13.i402, !dbg !432",
+				"%cmp94.i405 = icmp ult i64 %add87.i399, %hi.13.i402, !dbg !433",
+				"%dec96.i406 = sext i1 %cmp94.i405 to i64, !dbg !434",
+				"%hi.14.i407 = add nsw i64 %shr92.i403, %dec96.i406, !dbg !434",
+				"%shl98.i408 = shl i64 %hi.13.i402, 40, !dbg !435",
+				"%add99.i409 = add i64 %shl98.i408, %sub93.i404, !dbg !436",
+				"%cmp100.i410 = icmp ult i64 %add99.i409, %shl98.i408, !dbg !437",
+				"br label %x64_mulmod.exit421, !dbg !438"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 29,
+			"name": "x64_mulmod.exit421",
+			"debug": [
+				{
+					"line": 56, "columns": [10, 27, 25]
+				},
+				{
+					"line": 58, "columns": [14, 11]
+				},
+				{
+					"line": 59, "columns": [11]
+				},
+				{
+					"line": 159, "columns": [9]
+				}
+			],
+			"successors": [31, 30],
+			"ir": [
+				"%cmp100.sink.i412 = phi i1 [ %cmp100.i410, %if.else67.i411 ], [ %cmp55.i384, %if.then22.i385 ], [ %cmp13.i352, %if.then.i353 ]",
+				"%hi.14.sink.i413 = phi i64 [ %hi.14.i407, %if.else67.i411 ], [ %hi.8.i381, %if.then22.i385 ], [ %hi.2.i349, %if.then.i353 ]",
+				"%add99.sink208.i414 = phi i64 [ %add99.i409, %if.else67.i411 ], [ %add54.i383, %if.then22.i385 ], [ %add12.i351, %if.then.i353 ]",
+				"%inc102.neg.i415 = sext i1 %cmp100.sink.i412 to i64, !dbg !439",
+				"%tobool104.not.i416 = icmp eq i64 %hi.14.sink.i413, %inc102.neg.i415, !dbg !439",
+				"%cmp106.not.i417 = icmp ult i64 %add99.sink208.i414, %1",
+				"%or.cond171.i418 = select i1 %tobool104.not.i416, i1 %cmp106.not.i417, i1 false, !dbg !439",
+				"%sub108.i419 = select i1 %or.cond171.i418, i64 0, i64 %1, !dbg !439",
+				"%spec.select207.i420 = sub i64 %add99.sink208.i414, %sub108.i419, !dbg !439",
+				"%conv.i.i232 = zext i64 %3 to i128, !dbg !444",
+				"%conv1.i.i233 = zext i64 %w1.0622 to i128, !dbg !445",
+				"%mul.i.i234 = mul nuw i128 %conv.i.i232, %conv1.i.i233, !dbg !446",
+				"%shr.i.i235 = lshr i128 %mul.i.i234, 64, !dbg !447",
+				"%conv2.i.i236 = trunc i128 %shr.i.i235 to i64, !dbg !448",
+				"%conv3.i.i237 = trunc i128 %mul.i.i234 to i64, !dbg !449",
+				"br i1 %tobool.not.i132, label %if.else.i264, label %if.then.i258, !dbg !450"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 30,
+			"name": "if.then.i258",
+			"debug": [
+				{
+					"line": 163, "columns": [12]
+				},
+				{
+					"line": 165, "columns": [16]
+				},
+				{
+					"line": 166, "columns": [15, 13]
+				},
+				{
+					"line": 168, "columns": [11]
+				},
+				{
+					"line": 169, "columns": [16]
+				},
+				{
+					"line": 170, "columns": [16, 13]
+				},
+				{
+					"line": 174, "columns": [12]
+				},
+				{
+					"line": 176, "columns": [16]
+				},
+				{
+					"line": 177, "columns": [15, 13]
+				},
+				{
+					"line": 179, "columns": [11]
+				},
+				{
+					"line": 180, "columns": [16]
+				},
+				{
+					"line": 181, "columns": [16]
+				},
+				{
+					"line": 183, "columns": [20]
+				}
+			],
+			"successors": [34],
+			"ir": [
+				"%shr.i240 = lshr i64 %conv2.i.i236, 32, !dbg !451",
+				"%sub.i241 = sub i64 %conv3.i.i237, %conv2.i.i236, !dbg !452",
+				"%cmp.i242 = icmp ult i64 %conv3.i.i237, %conv2.i.i236, !dbg !453",
+				"%dec.i243 = sext i1 %cmp.i242 to i64, !dbg !454",
+				"%spec.select.i244 = add nsw i64 %shr.i240, %dec.i243, !dbg !454",
+				"%shl.i245 = shl i64 %conv2.i.i236, 32, !dbg !455",
+				"%add.i246 = add i64 %shl.i245, %sub.i241, !dbg !456",
+				"%cmp2.i247 = icmp ult i64 %add.i246, %shl.i245, !dbg !457",
+				"%inc.i248 = zext i1 %cmp2.i247 to i64, !dbg !458",
+				"%hi.1.i249 = add nsw i64 %spec.select.i244, %inc.i248, !dbg !458",
+				"%shr5.i250 = lshr i64 %hi.1.i249, 32, !dbg !459",
+				"%sub6.i251 = sub i64 %add.i246, %hi.1.i249, !dbg !460",
+				"%cmp7.i252 = icmp ult i64 %add.i246, %hi.1.i249, !dbg !461",
+				"%dec9.i253 = sext i1 %cmp7.i252 to i64, !dbg !462",
+				"%hi.2.i254 = add nsw i64 %shr5.i250, %dec9.i253, !dbg !462",
+				"%shl11.i255 = shl i64 %hi.1.i249, 32, !dbg !463",
+				"%add12.i256 = add i64 %shl11.i255, %sub6.i251, !dbg !464",
+				"%cmp13.i257 = icmp ult i64 %add12.i256, %shl11.i255, !dbg !465",
+				"br label %x64_mulmod.exit326, !dbg !466"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 31,
+			"name": "if.else.i264",
+			"debug": [
+				{
+					"line": 185, "columns": [14]
+				}
+			],
+			"successors": [33, 32],
+			"ir": [
+				"%sub69.i261 = sub i64 %conv3.i.i237, %conv2.i.i236, !dbg !467",
+				"%cmp70.i262 = icmp ult i64 %conv3.i.i237, %conv2.i.i236, !dbg !467",
+				"%dec72.i263 = sext i1 %cmp70.i262 to i64, !dbg !467",
+				"br i1 %tobool21.not.i165, label %if.else67.i316, label %if.then22.i290, !dbg !468"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 32,
+			"name": "if.then22.i290",
+			"debug": [
+				{
+					"line": 189, "columns": [12]
+				},
+				{
+					"line": 192, "columns": [13]
+				},
+				{
+					"line": 194, "columns": [11]
+				},
+				{
+					"line": 195, "columns": [16]
+				},
+				{
+					"line": 196, "columns": [16, 13]
+				},
+				{
+					"line": 200, "columns": [12]
+				},
+				{
+					"line": 202, "columns": [16]
+				},
+				{
+					"line": 203, "columns": [15, 13]
+				},
+				{
+					"line": 205, "columns": [11]
+				},
+				{
+					"line": 206, "columns": [16]
+				},
+				{
+					"line": 207, "columns": [16, 13]
+				},
+				{
+					"line": 211, "columns": [12]
+				},
+				{
+					"line": 213, "columns": [16]
+				},
+				{
+					"line": 214, "columns": [15, 13]
+				},
+				{
+					"line": 216, "columns": [11]
+				},
+				{
+					"line": 217, "columns": [16]
+				},
+				{
+					"line": 218, "columns": [16]
+				},
+				{
+					"line": 220, "columns": [20]
+				}
+			],
+			"successors": [34],
+			"ir": [
+				"%shr23.i265 = lshr i64 %conv2.i.i236, 30, !dbg !469",
+				"%spec.select203.i266 = add nsw i64 %shr23.i265, %dec72.i263, !dbg !470",
+				"%shl29.i267 = shl i64 %conv2.i.i236, 34, !dbg !471",
+				"%add30.i268 = add i64 %shl29.i267, %sub69.i261, !dbg !472",
+				"%cmp31.i269 = icmp ult i64 %add30.i268, %shl29.i267, !dbg !473",
+				"%inc33.i270 = zext i1 %cmp31.i269 to i64, !dbg !474",
+				"%hi.5.i271 = add nsw i64 %spec.select203.i266, %inc33.i270, !dbg !474",
+				"%shr35.i272 = lshr i64 %hi.5.i271, 30, !dbg !475",
+				"%sub36.i273 = sub i64 %add30.i268, %hi.5.i271, !dbg !476",
+				"%cmp37.i274 = icmp ult i64 %add30.i268, %hi.5.i271, !dbg !477",
+				"%dec39.i275 = sext i1 %cmp37.i274 to i64, !dbg !478",
+				"%hi.6.i276 = add nsw i64 %shr35.i272, %dec39.i275, !dbg !478",
+				"%shl41.i277 = shl i64 %hi.5.i271, 34, !dbg !479",
+				"%add42.i278 = add i64 %shl41.i277, %sub36.i273, !dbg !480",
+				"%cmp43.i279 = icmp ult i64 %add42.i278, %shl41.i277, !dbg !481",
+				"%inc45.i280 = zext i1 %cmp43.i279 to i64, !dbg !482",
+				"%hi.7.i281 = add nsw i64 %hi.6.i276, %inc45.i280, !dbg !482",
+				"%shr47.i282 = lshr i64 %hi.7.i281, 30, !dbg !483",
+				"%sub48.i283 = sub i64 %add42.i278, %hi.7.i281, !dbg !484",
+				"%cmp49.i284 = icmp ult i64 %add42.i278, %hi.7.i281, !dbg !485",
+				"%dec51.i285 = sext i1 %cmp49.i284 to i64, !dbg !486",
+				"%hi.8.i286 = add nsw i64 %shr47.i282, %dec51.i285, !dbg !486",
+				"%shl53.i287 = shl i64 %hi.7.i281, 34, !dbg !487",
+				"%add54.i288 = add i64 %shl53.i287, %sub48.i283, !dbg !488",
+				"%cmp55.i289 = icmp ult i64 %add54.i288, %shl53.i287, !dbg !489",
+				"br label %x64_mulmod.exit326, !dbg !490"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 33,
+			"name": "if.else67.i316",
+			"debug": [
+				{
+					"line": 226, "columns": [12]
+				},
+				{
+					"line": 229, "columns": [13]
+				},
+				{
+					"line": 231, "columns": [11]
+				},
+				{
+					"line": 232, "columns": [16]
+				},
+				{
+					"line": 233, "columns": [16, 13]
+				},
+				{
+					"line": 237, "columns": [12]
+				},
+				{
+					"line": 239, "columns": [16]
+				},
+				{
+					"line": 240, "columns": [15, 13]
+				},
+				{
+					"line": 242, "columns": [11]
+				},
+				{
+					"line": 243, "columns": [16]
+				},
+				{
+					"line": 244, "columns": [16, 13]
+				},
+				{
+					"line": 248, "columns": [12]
+				},
+				{
+					"line": 250, "columns": [16]
+				},
+				{
+					"line": 251, "columns": [15, 13]
+				},
+				{
+					"line": 253, "columns": [11]
+				},
+				{
+					"line": 254, "columns": [16]
+				},
+				{
+					"line": 255, "columns": [16]
+				},
+				{
+					"line": 257, "columns": [20]
+				}
+			],
+			"successors": [34],
+			"ir": [
+				"%shr68.i291 = lshr i64 %conv2.i.i236, 24, !dbg !491",
+				"%spec.select204.i292 = add nsw i64 %shr68.i291, %dec72.i263, !dbg !492",
+				"%shl74.i293 = shl i64 %conv2.i.i236, 40, !dbg !493",
+				"%add75.i294 = add i64 %shl74.i293, %sub69.i261, !dbg !494",
+				"%cmp76.i295 = icmp ult i64 %add75.i294, %shl74.i293, !dbg !495",
+				"%inc78.i296 = zext i1 %cmp76.i295 to i64, !dbg !496",
+				"%hi.11.i297 = add nsw i64 %spec.select204.i292, %inc78.i296, !dbg !496",
+				"%shr80.i298 = lshr i64 %hi.11.i297, 24, !dbg !497",
+				"%sub81.i299 = sub i64 %add75.i294, %hi.11.i297, !dbg !498",
+				"%cmp82.i300 = icmp ult i64 %add75.i294, %hi.11.i297, !dbg !499",
+				"%dec84.i301 = sext i1 %cmp82.i300 to i64, !dbg !500",
+				"%hi.12.i302 = add nsw i64 %shr80.i298, %dec84.i301, !dbg !500",
+				"%shl86.i303 = shl i64 %hi.11.i297, 40, !dbg !501",
+				"%add87.i304 = add i64 %shl86.i303, %sub81.i299, !dbg !502",
+				"%cmp88.i305 = icmp ult i64 %add87.i304, %shl86.i303, !dbg !503",
+				"%inc90.i306 = zext i1 %cmp88.i305 to i64, !dbg !504",
+				"%hi.13.i307 = add nsw i64 %hi.12.i302, %inc90.i306, !dbg !504",
+				"%shr92.i308 = lshr i64 %hi.13.i307, 24, !dbg !505",
+				"%sub93.i309 = sub i64 %add87.i304, %hi.13.i307, !dbg !506",
+				"%cmp94.i310 = icmp ult i64 %add87.i304, %hi.13.i307, !dbg !507",
+				"%dec96.i311 = sext i1 %cmp94.i310 to i64, !dbg !508",
+				"%hi.14.i312 = add nsw i64 %shr92.i308, %dec96.i311, !dbg !508",
+				"%shl98.i313 = shl i64 %hi.13.i307, 40, !dbg !509",
+				"%add99.i314 = add i64 %shl98.i313, %sub93.i309, !dbg !510",
+				"%cmp100.i315 = icmp ult i64 %add99.i314, %shl98.i313, !dbg !511",
+				"br label %x64_mulmod.exit326, !dbg !512"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 34,
+			"name": "x64_mulmod.exit326",
+			"debug": [
+				{
+					"line": 56, "columns": [25]
+				},
+				{
+					"line": 58, "columns": [14, 11]
+				},
+				{
+					"line": 59, "columns": [11]
+				},
+				{
+					"line": 159, "columns": [9]
+				}
+			],
+			"successors": [36, 35],
+			"ir": [
+				"%cmp100.sink.i317 = phi i1 [ %cmp100.i315, %if.else67.i316 ], [ %cmp55.i289, %if.then22.i290 ], [ %cmp13.i257, %if.then.i258 ]",
+				"%hi.14.sink.i318 = phi i64 [ %hi.14.i312, %if.else67.i316 ], [ %hi.8.i286, %if.then22.i290 ], [ %hi.2.i254, %if.then.i258 ]",
+				"%add99.sink208.i319 = phi i64 [ %add99.i314, %if.else67.i316 ], [ %add54.i288, %if.then22.i290 ], [ %add12.i256, %if.then.i258 ]",
+				"%inc102.neg.i320 = sext i1 %cmp100.sink.i317 to i64, !dbg !513",
+				"%tobool104.not.i321 = icmp eq i64 %hi.14.sink.i318, %inc102.neg.i320, !dbg !513",
+				"%cmp106.not.i322 = icmp ult i64 %add99.sink208.i319, %1",
+				"%or.cond171.i323 = select i1 %tobool104.not.i321, i1 %cmp106.not.i322, i1 false, !dbg !513",
+				"%sub108.i324 = select i1 %or.cond171.i323, i64 0, i64 %1, !dbg !513",
+				"%spec.select207.i325 = sub i64 %add99.sink208.i319, %sub108.i324, !dbg !513",
+				"%mul.i.i519 = mul nuw i128 %conv1.i.i328, %conv1.i.i518, !dbg !526",
+				"%shr.i.i520 = lshr i128 %mul.i.i519, 64, !dbg !527",
+				"%conv2.i.i521 = trunc i128 %shr.i.i520 to i64, !dbg !528",
+				"%conv3.i.i522 = trunc i128 %mul.i.i519 to i64, !dbg !529",
+				"br i1 %tobool.not.i132, label %if.else.i549, label %if.then.i543, !dbg !530"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 35,
+			"name": "if.then.i543",
+			"debug": [
+				{
+					"line": 163, "columns": [12]
+				},
+				{
+					"line": 165, "columns": [16]
+				},
+				{
+					"line": 166, "columns": [15, 13]
+				},
+				{
+					"line": 168, "columns": [11]
+				},
+				{
+					"line": 169, "columns": [16]
+				},
+				{
+					"line": 170, "columns": [16, 13]
+				},
+				{
+					"line": 174, "columns": [12]
+				},
+				{
+					"line": 176, "columns": [16]
+				},
+				{
+					"line": 177, "columns": [15, 13]
+				},
+				{
+					"line": 179, "columns": [11]
+				},
+				{
+					"line": 180, "columns": [16]
+				},
+				{
+					"line": 181, "columns": [16]
+				},
+				{
+					"line": 183, "columns": [20]
+				}
+			],
+			"successors": [39],
+			"ir": [
+				"%shr.i525 = lshr i64 %conv2.i.i521, 32, !dbg !531",
+				"%sub.i526 = sub i64 %conv3.i.i522, %conv2.i.i521, !dbg !532",
+				"%cmp.i527 = icmp ult i64 %conv3.i.i522, %conv2.i.i521, !dbg !533",
+				"%dec.i528 = sext i1 %cmp.i527 to i64, !dbg !534",
+				"%spec.select.i529 = add nsw i64 %shr.i525, %dec.i528, !dbg !534",
+				"%shl.i530 = shl i64 %conv2.i.i521, 32, !dbg !535",
+				"%add.i531 = add i64 %shl.i530, %sub.i526, !dbg !536",
+				"%cmp2.i532 = icmp ult i64 %add.i531, %shl.i530, !dbg !537",
+				"%inc.i533 = zext i1 %cmp2.i532 to i64, !dbg !538",
+				"%hi.1.i534 = add nsw i64 %spec.select.i529, %inc.i533, !dbg !538",
+				"%shr5.i535 = lshr i64 %hi.1.i534, 32, !dbg !539",
+				"%sub6.i536 = sub i64 %add.i531, %hi.1.i534, !dbg !540",
+				"%cmp7.i537 = icmp ult i64 %add.i531, %hi.1.i534, !dbg !541",
+				"%dec9.i538 = sext i1 %cmp7.i537 to i64, !dbg !542",
+				"%hi.2.i539 = add nsw i64 %shr5.i535, %dec9.i538, !dbg !542",
+				"%shl11.i540 = shl i64 %hi.1.i534, 32, !dbg !543",
+				"%add12.i541 = add i64 %shl11.i540, %sub6.i536, !dbg !544",
+				"%cmp13.i542 = icmp ult i64 %add12.i541, %shl11.i540, !dbg !545",
+				"br label %x64_mulmod.exit611, !dbg !546"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 36,
+			"name": "if.else.i549",
+			"debug": [
+				{
+					"line": 185, "columns": [14]
+				}
+			],
+			"successors": [38, 37],
+			"ir": [
+				"%sub69.i546 = sub i64 %conv3.i.i522, %conv2.i.i521, !dbg !547",
+				"%cmp70.i547 = icmp ult i64 %conv3.i.i522, %conv2.i.i521, !dbg !547",
+				"%dec72.i548 = sext i1 %cmp70.i547 to i64, !dbg !547",
+				"br i1 %tobool21.not.i165, label %if.else67.i601, label %if.then22.i575, !dbg !548"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 37,
+			"name": "if.then22.i575",
+			"debug": [
+				{
+					"line": 189, "columns": [12]
+				},
+				{
+					"line": 192, "columns": [13]
+				},
+				{
+					"line": 194, "columns": [11]
+				},
+				{
+					"line": 195, "columns": [16]
+				},
+				{
+					"line": 196, "columns": [16, 13]
+				},
+				{
+					"line": 200, "columns": [12]
+				},
+				{
+					"line": 202, "columns": [16]
+				},
+				{
+					"line": 203, "columns": [15, 13]
+				},
+				{
+					"line": 205, "columns": [11]
+				},
+				{
+					"line": 206, "columns": [16]
+				},
+				{
+					"line": 207, "columns": [16, 13]
+				},
+				{
+					"line": 211, "columns": [12]
+				},
+				{
+					"line": 213, "columns": [16]
+				},
+				{
+					"line": 214, "columns": [15, 13]
+				},
+				{
+					"line": 216, "columns": [11]
+				},
+				{
+					"line": 217, "columns": [16]
+				},
+				{
+					"line": 218, "columns": [16]
+				},
+				{
+					"line": 220, "columns": [20]
+				}
+			],
+			"successors": [39],
+			"ir": [
+				"%shr23.i550 = lshr i64 %conv2.i.i521, 30, !dbg !549",
+				"%spec.select203.i551 = add nsw i64 %shr23.i550, %dec72.i548, !dbg !550",
+				"%shl29.i552 = shl i64 %conv2.i.i521, 34, !dbg !551",
+				"%add30.i553 = add i64 %shl29.i552, %sub69.i546, !dbg !552",
+				"%cmp31.i554 = icmp ult i64 %add30.i553, %shl29.i552, !dbg !553",
+				"%inc33.i555 = zext i1 %cmp31.i554 to i64, !dbg !554",
+				"%hi.5.i556 = add nsw i64 %spec.select203.i551, %inc33.i555, !dbg !554",
+				"%shr35.i557 = lshr i64 %hi.5.i556, 30, !dbg !555",
+				"%sub36.i558 = sub i64 %add30.i553, %hi.5.i556, !dbg !556",
+				"%cmp37.i559 = icmp ult i64 %add30.i553, %hi.5.i556, !dbg !557",
+				"%dec39.i560 = sext i1 %cmp37.i559 to i64, !dbg !558",
+				"%hi.6.i561 = add nsw i64 %shr35.i557, %dec39.i560, !dbg !558",
+				"%shl41.i562 = shl i64 %hi.5.i556, 34, !dbg !559",
+				"%add42.i563 = add i64 %shl41.i562, %sub36.i558, !dbg !560",
+				"%cmp43.i564 = icmp ult i64 %add42.i563, %shl41.i562, !dbg !561",
+				"%inc45.i565 = zext i1 %cmp43.i564 to i64, !dbg !562",
+				"%hi.7.i566 = add nsw i64 %hi.6.i561, %inc45.i565, !dbg !562",
+				"%shr47.i567 = lshr i64 %hi.7.i566, 30, !dbg !563",
+				"%sub48.i568 = sub i64 %add42.i563, %hi.7.i566, !dbg !564",
+				"%cmp49.i569 = icmp ult i64 %add42.i563, %hi.7.i566, !dbg !565",
+				"%dec51.i570 = sext i1 %cmp49.i569 to i64, !dbg !566",
+				"%hi.8.i571 = add nsw i64 %shr47.i567, %dec51.i570, !dbg !566",
+				"%shl53.i572 = shl i64 %hi.7.i566, 34, !dbg !567",
+				"%add54.i573 = add i64 %shl53.i572, %sub48.i568, !dbg !568",
+				"%cmp55.i574 = icmp ult i64 %add54.i573, %shl53.i572, !dbg !569",
+				"br label %x64_mulmod.exit611, !dbg !570"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 38,
+			"name": "if.else67.i601",
+			"debug": [
+				{
+					"line": 226, "columns": [12]
+				},
+				{
+					"line": 229, "columns": [13]
+				},
+				{
+					"line": 231, "columns": [11]
+				},
+				{
+					"line": 232, "columns": [16]
+				},
+				{
+					"line": 233, "columns": [16, 13]
+				},
+				{
+					"line": 237, "columns": [12]
+				},
+				{
+					"line": 239, "columns": [16]
+				},
+				{
+					"line": 240, "columns": [15, 13]
+				},
+				{
+					"line": 242, "columns": [11]
+				},
+				{
+					"line": 243, "columns": [16]
+				},
+				{
+					"line": 244, "columns": [16, 13]
+				},
+				{
+					"line": 248, "columns": [12]
+				},
+				{
+					"line": 250, "columns": [16]
+				},
+				{
+					"line": 251, "columns": [15, 13]
+				},
+				{
+					"line": 253, "columns": [11]
+				},
+				{
+					"line": 254, "columns": [16]
+				},
+				{
+					"line": 255, "columns": [16]
+				},
+				{
+					"line": 257, "columns": [20]
+				}
+			],
+			"successors": [39],
+			"ir": [
+				"%shr68.i576 = lshr i64 %conv2.i.i521, 24, !dbg !571",
+				"%spec.select204.i577 = add nsw i64 %shr68.i576, %dec72.i548, !dbg !572",
+				"%shl74.i578 = shl i64 %conv2.i.i521, 40, !dbg !573",
+				"%add75.i579 = add i64 %shl74.i578, %sub69.i546, !dbg !574",
+				"%cmp76.i580 = icmp ult i64 %add75.i579, %shl74.i578, !dbg !575",
+				"%inc78.i581 = zext i1 %cmp76.i580 to i64, !dbg !576",
+				"%hi.11.i582 = add nsw i64 %spec.select204.i577, %inc78.i581, !dbg !576",
+				"%shr80.i583 = lshr i64 %hi.11.i582, 24, !dbg !577",
+				"%sub81.i584 = sub i64 %add75.i579, %hi.11.i582, !dbg !578",
+				"%cmp82.i585 = icmp ult i64 %add75.i579, %hi.11.i582, !dbg !579",
+				"%dec84.i586 = sext i1 %cmp82.i585 to i64, !dbg !580",
+				"%hi.12.i587 = add nsw i64 %shr80.i583, %dec84.i586, !dbg !580",
+				"%shl86.i588 = shl i64 %hi.11.i582, 40, !dbg !581",
+				"%add87.i589 = add i64 %shl86.i588, %sub81.i584, !dbg !582",
+				"%cmp88.i590 = icmp ult i64 %add87.i589, %shl86.i588, !dbg !583",
+				"%inc90.i591 = zext i1 %cmp88.i590 to i64, !dbg !584",
+				"%hi.13.i592 = add nsw i64 %hi.12.i587, %inc90.i591, !dbg !584",
+				"%shr92.i593 = lshr i64 %hi.13.i592, 24, !dbg !585",
+				"%sub93.i594 = sub i64 %add87.i589, %hi.13.i592, !dbg !586",
+				"%cmp94.i595 = icmp ult i64 %add87.i589, %hi.13.i592, !dbg !587",
+				"%dec96.i596 = sext i1 %cmp94.i595 to i64, !dbg !588",
+				"%hi.14.i597 = add nsw i64 %shr92.i593, %dec96.i596, !dbg !588",
+				"%shl98.i598 = shl i64 %hi.13.i592, 40, !dbg !589",
+				"%add99.i599 = add i64 %shl98.i598, %sub93.i594, !dbg !590",
+				"%cmp100.i600 = icmp ult i64 %add99.i599, %shl98.i598, !dbg !591",
+				"br label %x64_mulmod.exit611, !dbg !592"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 39,
+			"name": "x64_mulmod.exit611",
+			"debug": [
+				{
+					"line": 56, "columns": [25]
+				},
+				{
+					"line": 58, "columns": [14, 11]
+				},
+				{
+					"line": 59, "columns": [11]
+				},
+				{
+					"line": 159, "columns": [9]
+				}
+			],
+			"successors": [41, 40],
+			"ir": [
+				"%cmp100.sink.i602 = phi i1 [ %cmp100.i600, %if.else67.i601 ], [ %cmp55.i574, %if.then22.i575 ], [ %cmp13.i542, %if.then.i543 ]",
+				"%hi.14.sink.i603 = phi i64 [ %hi.14.i597, %if.else67.i601 ], [ %hi.8.i571, %if.then22.i575 ], [ %hi.2.i539, %if.then.i543 ]",
+				"%add99.sink208.i604 = phi i64 [ %add99.i599, %if.else67.i601 ], [ %add54.i573, %if.then22.i575 ], [ %add12.i541, %if.then.i543 ]",
+				"%inc102.neg.i605 = sext i1 %cmp100.sink.i602 to i64, !dbg !593",
+				"%tobool104.not.i606 = icmp eq i64 %hi.14.sink.i603, %inc102.neg.i605, !dbg !593",
+				"%cmp106.not.i607 = icmp ult i64 %add99.sink208.i604, %1",
+				"%or.cond171.i608 = select i1 %tobool104.not.i606, i1 %cmp106.not.i607, i1 false, !dbg !593",
+				"%sub108.i609 = select i1 %or.cond171.i608, i64 0, i64 %1, !dbg !593",
+				"%spec.select207.i610 = sub i64 %add99.sink208.i604, %sub108.i609, !dbg !593",
+				"%mul.i.i424 = mul nuw i128 %conv1.i.i233, %conv1.i.i518, !dbg !598",
+				"%shr.i.i425 = lshr i128 %mul.i.i424, 64, !dbg !599",
+				"%conv2.i.i426 = trunc i128 %shr.i.i425 to i64, !dbg !600",
+				"%conv3.i.i427 = trunc i128 %mul.i.i424 to i64, !dbg !601",
+				"br i1 %tobool.not.i132, label %if.else.i454, label %if.then.i448, !dbg !602"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 40,
+			"name": "if.then.i448",
+			"debug": [
+				{
+					"line": 163, "columns": [12]
+				},
+				{
+					"line": 165, "columns": [16]
+				},
+				{
+					"line": 166, "columns": [15, 13]
+				},
+				{
+					"line": 168, "columns": [11]
+				},
+				{
+					"line": 169, "columns": [16]
+				},
+				{
+					"line": 170, "columns": [16, 13]
+				},
+				{
+					"line": 174, "columns": [12]
+				},
+				{
+					"line": 176, "columns": [16]
+				},
+				{
+					"line": 177, "columns": [15, 13]
+				},
+				{
+					"line": 179, "columns": [11]
+				},
+				{
+					"line": 180, "columns": [16]
+				},
+				{
+					"line": 181, "columns": [16]
+				},
+				{
+					"line": 183, "columns": [20]
+				}
+			],
+			"successors": [44],
+			"ir": [
+				"%shr.i430 = lshr i64 %conv2.i.i426, 32, !dbg !603",
+				"%sub.i431 = sub i64 %conv3.i.i427, %conv2.i.i426, !dbg !604",
+				"%cmp.i432 = icmp ult i64 %conv3.i.i427, %conv2.i.i426, !dbg !605",
+				"%dec.i433 = sext i1 %cmp.i432 to i64, !dbg !606",
+				"%spec.select.i434 = add nsw i64 %shr.i430, %dec.i433, !dbg !606",
+				"%shl.i435 = shl i64 %conv2.i.i426, 32, !dbg !607",
+				"%add.i436 = add i64 %shl.i435, %sub.i431, !dbg !608",
+				"%cmp2.i437 = icmp ult i64 %add.i436, %shl.i435, !dbg !609",
+				"%inc.i438 = zext i1 %cmp2.i437 to i64, !dbg !610",
+				"%hi.1.i439 = add nsw i64 %spec.select.i434, %inc.i438, !dbg !610",
+				"%shr5.i440 = lshr i64 %hi.1.i439, 32, !dbg !611",
+				"%sub6.i441 = sub i64 %add.i436, %hi.1.i439, !dbg !612",
+				"%cmp7.i442 = icmp ult i64 %add.i436, %hi.1.i439, !dbg !613",
+				"%dec9.i443 = sext i1 %cmp7.i442 to i64, !dbg !614",
+				"%hi.2.i444 = add nsw i64 %shr5.i440, %dec9.i443, !dbg !614",
+				"%shl11.i445 = shl i64 %hi.1.i439, 32, !dbg !615",
+				"%add12.i446 = add i64 %shl11.i445, %sub6.i441, !dbg !616",
+				"%cmp13.i447 = icmp ult i64 %add12.i446, %shl11.i445, !dbg !617",
+				"br label %x64_mulmod.exit516, !dbg !618"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 41,
+			"name": "if.else.i454",
+			"debug": [
+				{
+					"line": 185, "columns": [14]
+				}
+			],
+			"successors": [43, 42],
+			"ir": [
+				"%sub69.i451 = sub i64 %conv3.i.i427, %conv2.i.i426, !dbg !619",
+				"%cmp70.i452 = icmp ult i64 %conv3.i.i427, %conv2.i.i426, !dbg !619",
+				"%dec72.i453 = sext i1 %cmp70.i452 to i64, !dbg !619",
+				"br i1 %tobool21.not.i165, label %if.else67.i506, label %if.then22.i480, !dbg !620"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 42,
+			"name": "if.then22.i480",
+			"debug": [
+				{
+					"line": 189, "columns": [12]
+				},
+				{
+					"line": 192, "columns": [13]
+				},
+				{
+					"line": 194, "columns": [11]
+				},
+				{
+					"line": 195, "columns": [16]
+				},
+				{
+					"line": 196, "columns": [16, 13]
+				},
+				{
+					"line": 200, "columns": [12]
+				},
+				{
+					"line": 202, "columns": [16]
+				},
+				{
+					"line": 203, "columns": [15, 13]
+				},
+				{
+					"line": 205, "columns": [11]
+				},
+				{
+					"line": 206, "columns": [16]
+				},
+				{
+					"line": 207, "columns": [16, 13]
+				},
+				{
+					"line": 211, "columns": [12]
+				},
+				{
+					"line": 213, "columns": [16]
+				},
+				{
+					"line": 214, "columns": [15, 13]
+				},
+				{
+					"line": 216, "columns": [11]
+				},
+				{
+					"line": 217, "columns": [16]
+				},
+				{
+					"line": 218, "columns": [16]
+				},
+				{
+					"line": 220, "columns": [20]
+				}
+			],
+			"successors": [44],
+			"ir": [
+				"%shr23.i455 = lshr i64 %conv2.i.i426, 30, !dbg !621",
+				"%spec.select203.i456 = add nsw i64 %shr23.i455, %dec72.i453, !dbg !622",
+				"%shl29.i457 = shl i64 %conv2.i.i426, 34, !dbg !623",
+				"%add30.i458 = add i64 %shl29.i457, %sub69.i451, !dbg !624",
+				"%cmp31.i459 = icmp ult i64 %add30.i458, %shl29.i457, !dbg !625",
+				"%inc33.i460 = zext i1 %cmp31.i459 to i64, !dbg !626",
+				"%hi.5.i461 = add nsw i64 %spec.select203.i456, %inc33.i460, !dbg !626",
+				"%shr35.i462 = lshr i64 %hi.5.i461, 30, !dbg !627",
+				"%sub36.i463 = sub i64 %add30.i458, %hi.5.i461, !dbg !628",
+				"%cmp37.i464 = icmp ult i64 %add30.i458, %hi.5.i461, !dbg !629",
+				"%dec39.i465 = sext i1 %cmp37.i464 to i64, !dbg !630",
+				"%hi.6.i466 = add nsw i64 %shr35.i462, %dec39.i465, !dbg !630",
+				"%shl41.i467 = shl i64 %hi.5.i461, 34, !dbg !631",
+				"%add42.i468 = add i64 %shl41.i467, %sub36.i463, !dbg !632",
+				"%cmp43.i469 = icmp ult i64 %add42.i468, %shl41.i467, !dbg !633",
+				"%inc45.i470 = zext i1 %cmp43.i469 to i64, !dbg !634",
+				"%hi.7.i471 = add nsw i64 %hi.6.i466, %inc45.i470, !dbg !634",
+				"%shr47.i472 = lshr i64 %hi.7.i471, 30, !dbg !635",
+				"%sub48.i473 = sub i64 %add42.i468, %hi.7.i471, !dbg !636",
+				"%cmp49.i474 = icmp ult i64 %add42.i468, %hi.7.i471, !dbg !637",
+				"%dec51.i475 = sext i1 %cmp49.i474 to i64, !dbg !638",
+				"%hi.8.i476 = add nsw i64 %shr47.i472, %dec51.i475, !dbg !638",
+				"%shl53.i477 = shl i64 %hi.7.i471, 34, !dbg !639",
+				"%add54.i478 = add i64 %shl53.i477, %sub48.i473, !dbg !640",
+				"%cmp55.i479 = icmp ult i64 %add54.i478, %shl53.i477, !dbg !641",
+				"br label %x64_mulmod.exit516, !dbg !642"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 43,
+			"name": "if.else67.i506",
+			"debug": [
+				{
+					"line": 226, "columns": [12]
+				},
+				{
+					"line": 229, "columns": [13]
+				},
+				{
+					"line": 231, "columns": [11]
+				},
+				{
+					"line": 232, "columns": [16]
+				},
+				{
+					"line": 233, "columns": [16, 13]
+				},
+				{
+					"line": 237, "columns": [12]
+				},
+				{
+					"line": 239, "columns": [16]
+				},
+				{
+					"line": 240, "columns": [15, 13]
+				},
+				{
+					"line": 242, "columns": [11]
+				},
+				{
+					"line": 243, "columns": [16]
+				},
+				{
+					"line": 244, "columns": [16, 13]
+				},
+				{
+					"line": 248, "columns": [12]
+				},
+				{
+					"line": 250, "columns": [16]
+				},
+				{
+					"line": 251, "columns": [15, 13]
+				},
+				{
+					"line": 253, "columns": [11]
+				},
+				{
+					"line": 254, "columns": [16]
+				},
+				{
+					"line": 255, "columns": [16]
+				},
+				{
+					"line": 257, "columns": [20]
+				}
+			],
+			"successors": [44],
+			"ir": [
+				"%shr68.i481 = lshr i64 %conv2.i.i426, 24, !dbg !643",
+				"%spec.select204.i482 = add nsw i64 %shr68.i481, %dec72.i453, !dbg !644",
+				"%shl74.i483 = shl i64 %conv2.i.i426, 40, !dbg !645",
+				"%add75.i484 = add i64 %shl74.i483, %sub69.i451, !dbg !646",
+				"%cmp76.i485 = icmp ult i64 %add75.i484, %shl74.i483, !dbg !647",
+				"%inc78.i486 = zext i1 %cmp76.i485 to i64, !dbg !648",
+				"%hi.11.i487 = add nsw i64 %spec.select204.i482, %inc78.i486, !dbg !648",
+				"%shr80.i488 = lshr i64 %hi.11.i487, 24, !dbg !649",
+				"%sub81.i489 = sub i64 %add75.i484, %hi.11.i487, !dbg !650",
+				"%cmp82.i490 = icmp ult i64 %add75.i484, %hi.11.i487, !dbg !651",
+				"%dec84.i491 = sext i1 %cmp82.i490 to i64, !dbg !652",
+				"%hi.12.i492 = add nsw i64 %shr80.i488, %dec84.i491, !dbg !652",
+				"%shl86.i493 = shl i64 %hi.11.i487, 40, !dbg !653",
+				"%add87.i494 = add i64 %shl86.i493, %sub81.i489, !dbg !654",
+				"%cmp88.i495 = icmp ult i64 %add87.i494, %shl86.i493, !dbg !655",
+				"%inc90.i496 = zext i1 %cmp88.i495 to i64, !dbg !656",
+				"%hi.13.i497 = add nsw i64 %hi.12.i492, %inc90.i496, !dbg !656",
+				"%shr92.i498 = lshr i64 %hi.13.i497, 24, !dbg !657",
+				"%sub93.i499 = sub i64 %add87.i494, %hi.13.i497, !dbg !658",
+				"%cmp94.i500 = icmp ult i64 %add87.i494, %hi.13.i497, !dbg !659",
+				"%dec96.i501 = sext i1 %cmp94.i500 to i64, !dbg !660",
+				"%hi.14.i502 = add nsw i64 %shr92.i498, %dec96.i501, !dbg !660",
+				"%shl98.i503 = shl i64 %hi.13.i497, 40, !dbg !661",
+				"%add99.i504 = add i64 %shl98.i503, %sub93.i499, !dbg !662",
+				"%cmp100.i505 = icmp ult i64 %add99.i504, %shl98.i503, !dbg !663",
+				"br label %x64_mulmod.exit516, !dbg !664"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 44,
+			"name": "x64_mulmod.exit516",
+			"debug": [
+				{
+					"line": 98, "columns": [30, 23, 9]
+				},
+				{
+					"line": 103, "columns": [22]
+				},
+				{
+					"line": 104, "columns": [24]
+				}
+			],
+			"successors": [24, 45],
+			"ir": [
+				"%cmp100.sink.i507 = phi i1 [ %cmp100.i505, %if.else67.i506 ], [ %cmp55.i479, %if.then22.i480 ], [ %cmp13.i447, %if.then.i448 ]",
+				"%hi.14.sink.i508 = phi i64 [ %hi.14.i502, %if.else67.i506 ], [ %hi.8.i476, %if.then22.i480 ], [ %hi.2.i444, %if.then.i448 ]",
+				"%add99.sink208.i509 = phi i64 [ %add99.i504, %if.else67.i506 ], [ %add54.i478, %if.then22.i480 ], [ %add12.i446, %if.then.i448 ]",
+				"%inc102.neg.i510 = sext i1 %cmp100.sink.i507 to i64, !dbg !665",
+				"%tobool104.not.i511 = icmp eq i64 %hi.14.sink.i508, %inc102.neg.i510, !dbg !665",
+				"%cmp106.not.i512 = icmp ult i64 %add99.sink208.i509, %1",
+				"%or.cond171.i513 = select i1 %tobool104.not.i511, i1 %cmp106.not.i512, i1 false, !dbg !665",
+				"%sub108.i514 = select i1 %or.cond171.i513, i64 0, i64 %1, !dbg !665",
+				"%spec.select207.i515 = sub i64 %add99.sink208.i509, %sub108.i514, !dbg !665",
+				"store i64 %spec.select207.i420, ptr %arrayidx, align 8, !dbg !666, !tbaa !137",
+				"store i64 %spec.select207.i325, ptr %arrayidx29, align 8, !dbg !667, !tbaa !137",
+				"%add38 = add nuw i64 %k.0623, 2, !dbg !668",
+				"%cmp23 = icmp ult i64 %add38, %shl, !dbg !669",
+				"br i1 %cmp23, label %for.body25, label %for.inc40, !dbg !349, !llvm.loop !670"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 45,
+			"name": "for.inc40",
+			"debug": [
+				{
+					"line": 94, "columns": [25, 19, 5]
+				}
+			],
+			"successors": [46, 8],
+			"ir": [
+				"%inc = add nuw i64 %i.0625, 1, !dbg !672",
+				"%exitcond.not = icmp eq i64 %inc, %umax, !dbg !140",
+				"br i1 %exitcond.not, label %for.end41, label %while.body.i.preheader, !dbg !141, !llvm.loop !673"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 46,
+			"name": "for.end41",
+			"debug": [
+				{
+					"line": 109, "columns": [11, 9]
+				}
+			],
+			"successors": [48, 47],
+			"ir": [
+				"%cmp42.not = icmp eq i64 %shl, %shl2, !dbg !675",
+				"br i1 %cmp42.not, label %if.end50, label %if.then44, !dbg !677"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 47,
+			"name": "if.then44",
+			"debug": [
+				{
+					"line": 110, "columns": [9]
+				},
+				{
+					"line": 111, "columns": [24, 61, 13]
+				}
+			],
+			"successors": [51, 48],
+			"ir": [
+				"%4 = load ptr, ptr @mpd_free, align 8, !dbg !678, !tbaa !123",
+				"tail call void %4(ptr noundef nonnull %call4) #4, !dbg !678",
+				"%call45 = tail call ptr @_mpd_init_fnt_params(i64 noundef %shl, i32 noundef -1, i32 noundef %modnum) #4, !dbg !680",
+				"%cmp46 = icmp eq ptr %call45, null, !dbg !682",
+				"br i1 %cmp46, label %cleanup, label %if.end50, !dbg !683"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 48,
+			"name": "if.end50",
+			"debug": [
+				{
+					"line": 115, "columns": [5]
+				}
+			],
+			"successors": [49, 50],
+			"ir": [
+				"%tparams.0 = phi ptr [ %call45, %if.then44 ], [ %call4, %for.end41 ], !dbg !64",
+				"br i1 %cmp8619, label %for.body55, label %for.end58, !dbg !684"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 49,
+			"name": "for.body55",
+			"debug": [
+				{
+					"line": 115, "columns": [28, 19, 5]
+				},
+				{
+					"line": 116, "columns": [9]
+				}
+			],
+			"successors": [49, 50],
+			"ir": [
+				"%x.1627 = phi ptr [ %add.ptr57, %for.body55 ], [ %a, %if.end50 ]",
+				"tail call void @fnt_dif2(ptr noundef %x.1627, i64 noundef %shl, ptr noundef %tparams.0) #4, !dbg !686",
+				"%add.ptr57 = getelementptr i64, ptr %x.1627, i64 %shl, !dbg !689",
+				"%cmp53 = icmp ult ptr %add.ptr57, %add.ptr, !dbg !690",
+				"br i1 %cmp53, label %for.body55, label %for.end58, !dbg !684, !llvm.loop !691"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 50,
+			"name": "for.end58",
+			"debug": [
+				{
+					"line": 118, "columns": [5]
+				},
+				{
+					"line": 128, "columns": [5]
+				}
+			],
+			"successors": [51],
+			"ir": [
+				"%5 = load ptr, ptr @mpd_free, align 8, !dbg !693, !tbaa !123",
+				"tail call void %5(ptr noundef %tparams.0) #4, !dbg !693",
+				"br label %cleanup, !dbg !694"
+			]
+		},
+		{
+			"function": "six_step_fnt",
+			"id": 51,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 129, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ 1, %for.end58 ], [ 0, %if.then13 ], [ 0, %entry ], [ 0, %if.end ], [ 0, %if.then44 ], !dbg !64",
+				"ret i32 %retval.0, !dbg !695"
+			]
+		},
+		{
+			"function": "x64_mulmod",
+			"id": 52,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 56, "columns": [10, 27, 25]
+				},
+				{
+					"line": 58, "columns": [14, 11]
+				},
+				{
+					"line": 59, "columns": [11]
+				},
+				{
+					"line": 159, "columns": [11, 9]
+				}
+			],
+			"successors": [54, 53],
+			"ir": [
+				"%conv.i = zext i64 %a to i128, !dbg !50",
+				"%conv1.i = zext i64 %b to i128, !dbg !51",
+				"%mul.i = mul nuw i128 %conv1.i, %conv.i, !dbg !52",
+				"%shr.i = lshr i128 %mul.i, 64, !dbg !53",
+				"%conv2.i = trunc i128 %shr.i to i64, !dbg !54",
+				"%conv3.i = trunc i128 %mul.i to i64, !dbg !55",
+				"%and = and i64 %m, 4294967296, !dbg !56",
+				"%tobool.not = icmp eq i64 %and, 0, !dbg !56",
+				"br i1 %tobool.not, label %if.else, label %if.then, !dbg !58"
+			]
+		},
+		{
+			"function": "x64_mulmod",
+			"id": 53,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 163, "columns": [12]
+				},
+				{
+					"line": 165, "columns": [16]
+				},
+				{
+					"line": 166, "columns": [15, 13]
+				},
+				{
+					"line": 168, "columns": [11]
+				},
+				{
+					"line": 169, "columns": [16]
+				},
+				{
+					"line": 170, "columns": [16, 13]
+				},
+				{
+					"line": 174, "columns": [12]
+				},
+				{
+					"line": 176, "columns": [16]
+				},
+				{
+					"line": 177, "columns": [15, 13]
+				},
+				{
+					"line": 179, "columns": [11]
+				},
+				{
+					"line": 180, "columns": [16]
+				},
+				{
+					"line": 181, "columns": [16]
+				},
+				{
+					"line": 183, "columns": [20]
+				}
+			],
+			"successors": [57],
+			"ir": [
+				"%shr = lshr i64 %conv2.i, 32, !dbg !59",
+				"%sub = sub i64 %conv3.i, %conv2.i, !dbg !61",
+				"%cmp = icmp ult i64 %conv3.i, %conv2.i, !dbg !62",
+				"%dec = sext i1 %cmp to i64, !dbg !64",
+				"%spec.select = add nsw i64 %shr, %dec, !dbg !64",
+				"%shl = shl i64 %conv2.i, 32, !dbg !65",
+				"%add = add i64 %shl, %sub, !dbg !66",
+				"%cmp2 = icmp ult i64 %add, %shl, !dbg !67",
+				"%inc = zext i1 %cmp2 to i64, !dbg !69",
+				"%hi.1 = add nsw i64 %spec.select, %inc, !dbg !69",
+				"%shr5 = lshr i64 %hi.1, 32, !dbg !70",
+				"%sub6 = sub i64 %add, %hi.1, !dbg !71",
+				"%cmp7 = icmp ult i64 %add, %hi.1, !dbg !72",
+				"%dec9 = sext i1 %cmp7 to i64, !dbg !74",
+				"%hi.2 = add nsw i64 %shr5, %dec9, !dbg !74",
+				"%shl11 = shl i64 %hi.1, 32, !dbg !75",
+				"%add12 = add i64 %shl11, %sub6, !dbg !76",
+				"%cmp13 = icmp ult i64 %add12, %shl11, !dbg !77",
+				"br label %cleanup, !dbg !79"
+			]
+		},
+		{
+			"function": "x64_mulmod",
+			"id": 54,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 185, "columns": [16, 14]
+				}
+			],
+			"successors": [56, 55],
+			"ir": [
+				"%and20 = and i64 %m, 17179869184, !dbg !80",
+				"%tobool21.not = icmp eq i64 %and20, 0, !dbg !80",
+				"%sub69 = sub i64 %conv3.i, %conv2.i, !dbg !82",
+				"%cmp70 = icmp ult i64 %conv3.i, %conv2.i, !dbg !82",
+				"%dec72 = sext i1 %cmp70 to i64, !dbg !82",
+				"br i1 %tobool21.not, label %if.else67, label %if.then22, !dbg !83"
+			]
+		},
+		{
+			"function": "x64_mulmod",
+			"id": 55,
+			"name": "if.then22",
+			"debug": [
+				{
+					"line": 189, "columns": [12]
+				},
+				{
+					"line": 192, "columns": [13]
+				},
+				{
+					"line": 194, "columns": [11]
+				},
+				{
+					"line": 195, "columns": [16]
+				},
+				{
+					"line": 196, "columns": [16, 13]
+				},
+				{
+					"line": 200, "columns": [12]
+				},
+				{
+					"line": 202, "columns": [16]
+				},
+				{
+					"line": 203, "columns": [15, 13]
+				},
+				{
+					"line": 205, "columns": [11]
+				},
+				{
+					"line": 206, "columns": [16]
+				},
+				{
+					"line": 207, "columns": [16, 13]
+				},
+				{
+					"line": 211, "columns": [12]
+				},
+				{
+					"line": 213, "columns": [16]
+				},
+				{
+					"line": 214, "columns": [15, 13]
+				},
+				{
+					"line": 216, "columns": [11]
+				},
+				{
+					"line": 217, "columns": [16]
+				},
+				{
+					"line": 218, "columns": [16]
+				},
+				{
+					"line": 220, "columns": [20]
+				}
+			],
+			"successors": [57],
+			"ir": [
+				"%shr23 = lshr i64 %conv2.i, 30, !dbg !84",
+				"%spec.select203 = add nsw i64 %shr23, %dec72, !dbg !86",
+				"%shl29 = shl i64 %conv2.i, 34, !dbg !87",
+				"%add30 = add i64 %shl29, %sub69, !dbg !88",
+				"%cmp31 = icmp ult i64 %add30, %shl29, !dbg !89",
+				"%inc33 = zext i1 %cmp31 to i64, !dbg !91",
+				"%hi.5 = add nsw i64 %spec.select203, %inc33, !dbg !91",
+				"%shr35 = lshr i64 %hi.5, 30, !dbg !92",
+				"%sub36 = sub i64 %add30, %hi.5, !dbg !93",
+				"%cmp37 = icmp ult i64 %add30, %hi.5, !dbg !94",
+				"%dec39 = sext i1 %cmp37 to i64, !dbg !96",
+				"%hi.6 = add nsw i64 %shr35, %dec39, !dbg !96",
+				"%shl41 = shl i64 %hi.5, 34, !dbg !97",
+				"%add42 = add i64 %shl41, %sub36, !dbg !98",
+				"%cmp43 = icmp ult i64 %add42, %shl41, !dbg !99",
+				"%inc45 = zext i1 %cmp43 to i64, !dbg !101",
+				"%hi.7 = add nsw i64 %hi.6, %inc45, !dbg !101",
+				"%shr47 = lshr i64 %hi.7, 30, !dbg !102",
+				"%sub48 = sub i64 %add42, %hi.7, !dbg !103",
+				"%cmp49 = icmp ult i64 %add42, %hi.7, !dbg !104",
+				"%dec51 = sext i1 %cmp49 to i64, !dbg !106",
+				"%hi.8 = add nsw i64 %shr47, %dec51, !dbg !106",
+				"%shl53 = shl i64 %hi.7, 34, !dbg !107",
+				"%add54 = add i64 %shl53, %sub48, !dbg !108",
+				"%cmp55 = icmp ult i64 %add54, %shl53, !dbg !109",
+				"br label %cleanup, !dbg !111"
+			]
+		},
+		{
+			"function": "x64_mulmod",
+			"id": 56,
+			"name": "if.else67",
+			"debug": [
+				{
+					"line": 226, "columns": [12]
+				},
+				{
+					"line": 229, "columns": [13]
+				},
+				{
+					"line": 231, "columns": [11]
+				},
+				{
+					"line": 232, "columns": [16]
+				},
+				{
+					"line": 233, "columns": [16, 13]
+				},
+				{
+					"line": 237, "columns": [12]
+				},
+				{
+					"line": 239, "columns": [16]
+				},
+				{
+					"line": 240, "columns": [15, 13]
+				},
+				{
+					"line": 242, "columns": [11]
+				},
+				{
+					"line": 243, "columns": [16]
+				},
+				{
+					"line": 244, "columns": [16, 13]
+				},
+				{
+					"line": 248, "columns": [12]
+				},
+				{
+					"line": 250, "columns": [16]
+				},
+				{
+					"line": 251, "columns": [15, 13]
+				},
+				{
+					"line": 253, "columns": [11]
+				},
+				{
+					"line": 254, "columns": [16]
+				},
+				{
+					"line": 255, "columns": [16]
+				},
+				{
+					"line": 257, "columns": [20]
+				}
+			],
+			"successors": [57],
+			"ir": [
+				"%shr68 = lshr i64 %conv2.i, 24, !dbg !112",
+				"%spec.select204 = add nsw i64 %shr68, %dec72, !dbg !114",
+				"%shl74 = shl i64 %conv2.i, 40, !dbg !115",
+				"%add75 = add i64 %shl74, %sub69, !dbg !116",
+				"%cmp76 = icmp ult i64 %add75, %shl74, !dbg !117",
+				"%inc78 = zext i1 %cmp76 to i64, !dbg !119",
+				"%hi.11 = add nsw i64 %spec.select204, %inc78, !dbg !119",
+				"%shr80 = lshr i64 %hi.11, 24, !dbg !120",
+				"%sub81 = sub i64 %add75, %hi.11, !dbg !121",
+				"%cmp82 = icmp ult i64 %add75, %hi.11, !dbg !122",
+				"%dec84 = sext i1 %cmp82 to i64, !dbg !124",
+				"%hi.12 = add nsw i64 %shr80, %dec84, !dbg !124",
+				"%shl86 = shl i64 %hi.11, 40, !dbg !125",
+				"%add87 = add i64 %shl86, %sub81, !dbg !126",
+				"%cmp88 = icmp ult i64 %add87, %shl86, !dbg !127",
+				"%inc90 = zext i1 %cmp88 to i64, !dbg !129",
+				"%hi.13 = add nsw i64 %hi.12, %inc90, !dbg !129",
+				"%shr92 = lshr i64 %hi.13, 24, !dbg !130",
+				"%sub93 = sub i64 %add87, %hi.13, !dbg !131",
+				"%cmp94 = icmp ult i64 %add87, %hi.13, !dbg !132",
+				"%dec96 = sext i1 %cmp94 to i64, !dbg !134",
+				"%hi.14 = add nsw i64 %shr92, %dec96, !dbg !134",
+				"%shl98 = shl i64 %hi.13, 40, !dbg !135",
+				"%add99 = add i64 %shl98, %sub93, !dbg !136",
+				"%cmp100 = icmp ult i64 %add99, %shl98, !dbg !137",
+				"br label %cleanup, !dbg !139"
+			]
+		},
+		{
+			"function": "x64_mulmod",
+			"id": 57,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 259, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%cmp100.sink = phi i1 [ %cmp100, %if.else67 ], [ %cmp55, %if.then22 ], [ %cmp13, %if.then ]",
+				"%hi.14.sink = phi i64 [ %hi.14, %if.else67 ], [ %hi.8, %if.then22 ], [ %hi.2, %if.then ]",
+				"%add99.sink208 = phi i64 [ %add99, %if.else67 ], [ %add54, %if.then22 ], [ %add12, %if.then ]",
+				"%inc102.neg = sext i1 %cmp100.sink to i64, !dbg !140",
+				"%tobool104.not = icmp eq i64 %hi.14.sink, %inc102.neg, !dbg !140",
+				"%cmp106.not = icmp ult i64 %add99.sink208, %m",
+				"%or.cond171 = select i1 %tobool104.not, i1 %cmp106.not, i1 false, !dbg !140",
+				"%sub108 = select i1 %or.cond171, i64 0, i64 %m, !dbg !140",
+				"%spec.select207 = sub i64 %add99.sink208, %sub108, !dbg !140",
+				"ret i64 %spec.select207, !dbg !141"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 58,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 56, "columns": [13, 9]
+				},
+				{
+					"line": 59, "columns": [13, 9]
+				},
+				{
+					"line": 61, "columns": [13, 9]
+				},
+				{
+					"line": 63, "columns": [13, 9]
+				},
+				{
+					"line": 65, "columns": [13, 9]
+				},
+				{
+					"line": 67, "columns": [13, 9]
+				},
+				{
+					"line": 69, "columns": [18, 16, 25]
+				},
+				{
+					"line": 152, "columns": [13]
+				},
+				{
+					"line": 153, "columns": [35, 25]
+				},
+				{
+					"line": 154, "columns": [35, 25]
+				},
+				{
+					"line": 166, "columns": [20, 56, 9]
+				}
+			],
+			"successors": [108, 59],
+			"ir": [
+				"%cmp.not.i = icmp ult i64 %n, 4294967296, !dbg !75",
+				"%shr.i = lshr i64 %n, 32",
+				"%spec.select.i = select i1 %cmp.not.i, i64 %n, i64 %shr.i, !dbg !77",
+				"%spec.select50.i = select i1 %cmp.not.i, i32 0, i32 32, !dbg !77",
+				"%cmp2.not.i = icmp ult i64 %spec.select.i, 65536, !dbg !78",
+				"%shr1.i = lshr i64 %spec.select.i, 16, !dbg !80",
+				"%add4.i = or i32 %spec.select50.i, 16, !dbg !80",
+				"%n.addr.1.i = select i1 %cmp2.not.i, i64 %spec.select.i, i64 %shr1.i, !dbg !80",
+				"%pos.1.i = select i1 %cmp2.not.i, i32 %spec.select50.i, i32 %add4.i, !dbg !80",
+				"%cmp7.not.i = icmp ult i64 %n.addr.1.i, 256, !dbg !81",
+				"%shr6.i = lshr i64 %n.addr.1.i, 8, !dbg !83",
+				"%add9.i = or i32 %pos.1.i, 8, !dbg !83",
+				"%n.addr.2.i = select i1 %cmp7.not.i, i64 %n.addr.1.i, i64 %shr6.i, !dbg !83",
+				"%pos.2.i = select i1 %cmp7.not.i, i32 %pos.1.i, i32 %add9.i, !dbg !83",
+				"%cmp12.not.i = icmp ult i64 %n.addr.2.i, 16, !dbg !84",
+				"%shr11.i = lshr i64 %n.addr.2.i, 4, !dbg !86",
+				"%add14.i = or i32 %pos.2.i, 4, !dbg !86",
+				"%n.addr.3.i = select i1 %cmp12.not.i, i64 %n.addr.2.i, i64 %shr11.i, !dbg !86",
+				"%pos.3.i = select i1 %cmp12.not.i, i32 %pos.2.i, i32 %add14.i, !dbg !86",
+				"%cmp17.not.i = icmp ult i64 %n.addr.3.i, 4, !dbg !87",
+				"%shr16.i = lshr i64 %n.addr.3.i, 2, !dbg !89",
+				"%add19.i = add nuw nsw i32 %pos.3.i, 2, !dbg !89",
+				"%n.addr.4.i = select i1 %cmp17.not.i, i64 %n.addr.3.i, i64 %shr16.i, !dbg !89",
+				"%pos.4.i = select i1 %cmp17.not.i, i32 %pos.3.i, i32 %add19.i, !dbg !89",
+				"%cmp22.not.i = icmp ugt i64 %n.addr.4.i, 1, !dbg !90",
+				"%shr21.i = zext i1 %cmp22.not.i to i64, !dbg !92",
+				"%n.addr.5.i = lshr i64 %n.addr.4.i, %shr21.i, !dbg !92",
+				"%add24.i = zext i1 %cmp22.not.i to i32, !dbg !92",
+				"%conv.i = trunc i64 %n.addr.5.i to i32, !dbg !93",
+				"%pos.5.i = add nsw i32 %pos.4.i, -1, !dbg !92",
+				"%add26.i = add nsw i32 %pos.5.i, %add24.i, !dbg !94",
+				"%sub.i = add nsw i32 %add26.i, %conv.i, !dbg !95",
+				"%conv = sext i32 %sub.i to i64, !dbg !96",
+				"%div123 = lshr i64 %conv, 1, !dbg !97",
+				"%shl = shl nuw i64 1, %div123, !dbg !98",
+				"%sub = sub nsw i64 %conv, %div123, !dbg !99",
+				"%shl2 = shl nuw i64 1, %sub, !dbg !100",
+				"%call3 = tail call ptr @_mpd_init_fnt_params(i64 noundef %shl, i32 noundef 1, i32 noundef %modnum) #4, !dbg !101",
+				"%cmp = icmp eq ptr %call3, null, !dbg !103",
+				"br i1 %cmp, label %cleanup, label %for.cond.preheader, !dbg !104"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 59,
+			"name": "for.cond.preheader",
+			"debug": [
+				{
+					"line": 169, "columns": [19, 5]
+				}
+			],
+			"successors": [60, 61],
+			"ir": [
+				"%add.ptr = getelementptr i64, ptr %a, i64 %n",
+				"%cmp5619 = icmp ugt ptr %add.ptr, %a, !dbg !105",
+				"br i1 %cmp5619, label %for.body, label %for.end, !dbg !108"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 60,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 169, "columns": [28, 19, 5]
+				},
+				{
+					"line": 170, "columns": [9]
+				}
+			],
+			"successors": [60, 61],
+			"ir": [
+				"%x.0620 = phi ptr [ %add.ptr7, %for.body ], [ %a, %for.cond.preheader ]",
+				"tail call void @fnt_dif2(ptr noundef %x.0620, i64 noundef %shl, ptr noundef nonnull %call3) #4, !dbg !109",
+				"%add.ptr7 = getelementptr i64, ptr %x.0620, i64 %shl, !dbg !111",
+				"%cmp5 = icmp ult ptr %add.ptr7, %add.ptr, !dbg !105",
+				"br i1 %cmp5, label %for.body, label %for.end, !dbg !108, !llvm.loop !112"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 61,
+			"name": "for.end",
+			"debug": [
+				{
+					"line": 68, "columns": [14]
+				},
+				{
+					"line": 175, "columns": [14]
+				},
+				{
+					"line": 176, "columns": [19, 5]
+				}
+			],
+			"successors": [101, 62],
+			"ir": [
+				"%idxprom.i = sext i32 %modnum to i64, !dbg !123",
+				"%arrayidx.i = getelementptr [0 x i64], ptr @mpd_moduli, i64 0, i64 %idxprom.i, !dbg !123",
+				"%0 = load i64, ptr %arrayidx.i, align 8, !dbg !123, !tbaa !124",
+				"%call8 = tail call i64 @_mpd_getkernel(i64 noundef %n, i32 noundef 1, i32 noundef %modnum) #4, !dbg !128",
+				"%cmp10624.not = icmp eq i64 %div123, %conv, !dbg !129",
+				"br i1 %cmp10624.not, label %for.end34, label %for.body12.lr.ph, !dbg !130"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 62,
+			"name": "for.body12.lr.ph",
+			"debug": [
+				{
+					"line": 176, "columns": [5]
+				}
+			],
+			"successors": [63],
+			"ir": [
+				"%and.i131 = and i64 %0, 4294967296",
+				"%tobool.not.i132 = icmp eq i64 %and.i131, 0",
+				"%and20.i164 = and i64 %0, 17179869184",
+				"%tobool21.not.i165 = icmp eq i64 %and20.i164, 0",
+				"%umax = tail call i64 @llvm.umax.i64(i64 %shl2, i64 2), !dbg !130",
+				"br label %while.body.i.preheader, !dbg !130"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 63,
+			"name": "while.body.i.preheader",
+			"debug": [
+				{
+					"line": 281, "columns": [5]
+				}
+			],
+			"successors": [64],
+			"ir": [
+				"%i.0625 = phi i64 [ 1, %for.body12.lr.ph ], [ %inc, %for.inc33 ]",
+				"br label %while.body.i, !dbg !142"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 64,
+			"name": "while.body.i",
+			"debug": [
+				{
+					"line": 282, "columns": [17, 13]
+				}
+			],
+			"successors": [65, 66],
+			"ir": [
+				"%r.011.i = phi i64 [ %r.1.i, %x64_mulmod.exit ], [ 1, %while.body.i.preheader ]",
+				"%base.addr.010.i = phi i64 [ %spec.select207.i, %x64_mulmod.exit ], [ %call8, %while.body.i.preheader ]",
+				"%exp.addr.09.i = phi i64 [ %shr.i125, %x64_mulmod.exit ], [ %i.0625, %while.body.i.preheader ]",
+				"%and.i = and i64 %exp.addr.09.i, 1, !dbg !143",
+				"%tobool.not.i = icmp eq i64 %and.i, 0, !dbg !143",
+				"br i1 %tobool.not.i, label %while.body.i.if.end.i_crit_edge, label %if.then.i, !dbg !146"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 65,
+			"name": "while.body.i.if.end.i_crit_edge",
+			"debug": [
+				{
+					"line": 56, "columns": [10]
+				},
+				{
+					"line": 282, "columns": [13]
+				}
+			],
+			"successors": [72],
+			"ir": [
+				"%.pre = zext i64 %base.addr.010.i to i128, !dbg !147",
+				"br label %if.end.i, !dbg !146"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 66,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 56, "columns": [10, 27, 25]
+				},
+				{
+					"line": 58, "columns": [14, 11]
+				},
+				{
+					"line": 59, "columns": [11]
+				},
+				{
+					"line": 159, "columns": [9]
+				}
+			],
+			"successors": [68, 67],
+			"ir": [
+				"%conv.i.i137 = zext i64 %r.011.i to i128, !dbg !173",
+				"%conv1.i.i138 = zext i64 %base.addr.010.i to i128, !dbg !174",
+				"%mul.i.i139 = mul nuw i128 %conv1.i.i138, %conv.i.i137, !dbg !175",
+				"%shr.i.i140 = lshr i128 %mul.i.i139, 64, !dbg !176",
+				"%conv2.i.i141 = trunc i128 %shr.i.i140 to i64, !dbg !177",
+				"%conv3.i.i142 = trunc i128 %mul.i.i139 to i64, !dbg !178",
+				"br i1 %tobool.not.i132, label %if.else.i169, label %if.then.i163, !dbg !179"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 67,
+			"name": "if.then.i163",
+			"debug": [
+				{
+					"line": 163, "columns": [12]
+				},
+				{
+					"line": 165, "columns": [16]
+				},
+				{
+					"line": 166, "columns": [15, 13]
+				},
+				{
+					"line": 168, "columns": [11]
+				},
+				{
+					"line": 169, "columns": [16]
+				},
+				{
+					"line": 170, "columns": [16, 13]
+				},
+				{
+					"line": 174, "columns": [12]
+				},
+				{
+					"line": 176, "columns": [16]
+				},
+				{
+					"line": 177, "columns": [15, 13]
+				},
+				{
+					"line": 179, "columns": [11]
+				},
+				{
+					"line": 180, "columns": [16]
+				},
+				{
+					"line": 181, "columns": [16]
+				},
+				{
+					"line": 183, "columns": [20]
+				}
+			],
+			"successors": [71],
+			"ir": [
+				"%shr.i145 = lshr i64 %conv2.i.i141, 32, !dbg !180",
+				"%sub.i146 = sub i64 %conv3.i.i142, %conv2.i.i141, !dbg !183",
+				"%cmp.i147 = icmp ult i64 %conv3.i.i142, %conv2.i.i141, !dbg !184",
+				"%dec.i148 = sext i1 %cmp.i147 to i64, !dbg !186",
+				"%spec.select.i149 = add nsw i64 %shr.i145, %dec.i148, !dbg !186",
+				"%shl.i150 = shl i64 %conv2.i.i141, 32, !dbg !187",
+				"%add.i151 = add i64 %shl.i150, %sub.i146, !dbg !188",
+				"%cmp2.i152 = icmp ult i64 %add.i151, %shl.i150, !dbg !189",
+				"%inc.i153 = zext i1 %cmp2.i152 to i64, !dbg !191",
+				"%hi.1.i154 = add nsw i64 %spec.select.i149, %inc.i153, !dbg !191",
+				"%shr5.i155 = lshr i64 %hi.1.i154, 32, !dbg !192",
+				"%sub6.i156 = sub i64 %add.i151, %hi.1.i154, !dbg !193",
+				"%cmp7.i157 = icmp ult i64 %add.i151, %hi.1.i154, !dbg !194",
+				"%dec9.i158 = sext i1 %cmp7.i157 to i64, !dbg !196",
+				"%hi.2.i159 = add nsw i64 %shr5.i155, %dec9.i158, !dbg !196",
+				"%shl11.i160 = shl i64 %hi.1.i154, 32, !dbg !197",
+				"%add12.i161 = add i64 %shl11.i160, %sub6.i156, !dbg !198",
+				"%cmp13.i162 = icmp ult i64 %add12.i161, %shl11.i160, !dbg !199",
+				"br label %x64_mulmod.exit231, !dbg !201"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 68,
+			"name": "if.else.i169",
+			"debug": [
+				{
+					"line": 185, "columns": [14]
+				}
+			],
+			"successors": [70, 69],
+			"ir": [
+				"%sub69.i166 = sub i64 %conv3.i.i142, %conv2.i.i141, !dbg !202",
+				"%cmp70.i167 = icmp ult i64 %conv3.i.i142, %conv2.i.i141, !dbg !202",
+				"%dec72.i168 = sext i1 %cmp70.i167 to i64, !dbg !202",
+				"br i1 %tobool21.not.i165, label %if.else67.i221, label %if.then22.i195, !dbg !204"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 69,
+			"name": "if.then22.i195",
+			"debug": [
+				{
+					"line": 189, "columns": [12]
+				},
+				{
+					"line": 192, "columns": [13]
+				},
+				{
+					"line": 194, "columns": [11]
+				},
+				{
+					"line": 195, "columns": [16]
+				},
+				{
+					"line": 196, "columns": [16, 13]
+				},
+				{
+					"line": 200, "columns": [12]
+				},
+				{
+					"line": 202, "columns": [16]
+				},
+				{
+					"line": 203, "columns": [15, 13]
+				},
+				{
+					"line": 205, "columns": [11]
+				},
+				{
+					"line": 206, "columns": [16]
+				},
+				{
+					"line": 207, "columns": [16, 13]
+				},
+				{
+					"line": 211, "columns": [12]
+				},
+				{
+					"line": 213, "columns": [16]
+				},
+				{
+					"line": 214, "columns": [15, 13]
+				},
+				{
+					"line": 216, "columns": [11]
+				},
+				{
+					"line": 217, "columns": [16]
+				},
+				{
+					"line": 218, "columns": [16]
+				},
+				{
+					"line": 220, "columns": [20]
+				}
+			],
+			"successors": [71],
+			"ir": [
+				"%shr23.i170 = lshr i64 %conv2.i.i141, 30, !dbg !205",
+				"%spec.select203.i171 = add nsw i64 %shr23.i170, %dec72.i168, !dbg !207",
+				"%shl29.i172 = shl i64 %conv2.i.i141, 34, !dbg !208",
+				"%add30.i173 = add i64 %shl29.i172, %sub69.i166, !dbg !209",
+				"%cmp31.i174 = icmp ult i64 %add30.i173, %shl29.i172, !dbg !210",
+				"%inc33.i175 = zext i1 %cmp31.i174 to i64, !dbg !212",
+				"%hi.5.i176 = add nsw i64 %spec.select203.i171, %inc33.i175, !dbg !212",
+				"%shr35.i177 = lshr i64 %hi.5.i176, 30, !dbg !213",
+				"%sub36.i178 = sub i64 %add30.i173, %hi.5.i176, !dbg !214",
+				"%cmp37.i179 = icmp ult i64 %add30.i173, %hi.5.i176, !dbg !215",
+				"%dec39.i180 = sext i1 %cmp37.i179 to i64, !dbg !217",
+				"%hi.6.i181 = add nsw i64 %shr35.i177, %dec39.i180, !dbg !217",
+				"%shl41.i182 = shl i64 %hi.5.i176, 34, !dbg !218",
+				"%add42.i183 = add i64 %shl41.i182, %sub36.i178, !dbg !219",
+				"%cmp43.i184 = icmp ult i64 %add42.i183, %shl41.i182, !dbg !220",
+				"%inc45.i185 = zext i1 %cmp43.i184 to i64, !dbg !222",
+				"%hi.7.i186 = add nsw i64 %hi.6.i181, %inc45.i185, !dbg !222",
+				"%shr47.i187 = lshr i64 %hi.7.i186, 30, !dbg !223",
+				"%sub48.i188 = sub i64 %add42.i183, %hi.7.i186, !dbg !224",
+				"%cmp49.i189 = icmp ult i64 %add42.i183, %hi.7.i186, !dbg !225",
+				"%dec51.i190 = sext i1 %cmp49.i189 to i64, !dbg !227",
+				"%hi.8.i191 = add nsw i64 %shr47.i187, %dec51.i190, !dbg !227",
+				"%shl53.i192 = shl i64 %hi.7.i186, 34, !dbg !228",
+				"%add54.i193 = add i64 %shl53.i192, %sub48.i188, !dbg !229",
+				"%cmp55.i194 = icmp ult i64 %add54.i193, %shl53.i192, !dbg !230",
+				"br label %x64_mulmod.exit231, !dbg !232"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 70,
+			"name": "if.else67.i221",
+			"debug": [
+				{
+					"line": 226, "columns": [12]
+				},
+				{
+					"line": 229, "columns": [13]
+				},
+				{
+					"line": 231, "columns": [11]
+				},
+				{
+					"line": 232, "columns": [16]
+				},
+				{
+					"line": 233, "columns": [16, 13]
+				},
+				{
+					"line": 237, "columns": [12]
+				},
+				{
+					"line": 239, "columns": [16]
+				},
+				{
+					"line": 240, "columns": [15, 13]
+				},
+				{
+					"line": 242, "columns": [11]
+				},
+				{
+					"line": 243, "columns": [16]
+				},
+				{
+					"line": 244, "columns": [16, 13]
+				},
+				{
+					"line": 248, "columns": [12]
+				},
+				{
+					"line": 250, "columns": [16]
+				},
+				{
+					"line": 251, "columns": [15, 13]
+				},
+				{
+					"line": 253, "columns": [11]
+				},
+				{
+					"line": 254, "columns": [16]
+				},
+				{
+					"line": 255, "columns": [16]
+				},
+				{
+					"line": 257, "columns": [20]
+				}
+			],
+			"successors": [71],
+			"ir": [
+				"%shr68.i196 = lshr i64 %conv2.i.i141, 24, !dbg !233",
+				"%spec.select204.i197 = add nsw i64 %shr68.i196, %dec72.i168, !dbg !235",
+				"%shl74.i198 = shl i64 %conv2.i.i141, 40, !dbg !236",
+				"%add75.i199 = add i64 %shl74.i198, %sub69.i166, !dbg !237",
+				"%cmp76.i200 = icmp ult i64 %add75.i199, %shl74.i198, !dbg !238",
+				"%inc78.i201 = zext i1 %cmp76.i200 to i64, !dbg !240",
+				"%hi.11.i202 = add nsw i64 %spec.select204.i197, %inc78.i201, !dbg !240",
+				"%shr80.i203 = lshr i64 %hi.11.i202, 24, !dbg !241",
+				"%sub81.i204 = sub i64 %add75.i199, %hi.11.i202, !dbg !242",
+				"%cmp82.i205 = icmp ult i64 %add75.i199, %hi.11.i202, !dbg !243",
+				"%dec84.i206 = sext i1 %cmp82.i205 to i64, !dbg !245",
+				"%hi.12.i207 = add nsw i64 %shr80.i203, %dec84.i206, !dbg !245",
+				"%shl86.i208 = shl i64 %hi.11.i202, 40, !dbg !246",
+				"%add87.i209 = add i64 %shl86.i208, %sub81.i204, !dbg !247",
+				"%cmp88.i210 = icmp ult i64 %add87.i209, %shl86.i208, !dbg !248",
+				"%inc90.i211 = zext i1 %cmp88.i210 to i64, !dbg !250",
+				"%hi.13.i212 = add nsw i64 %hi.12.i207, %inc90.i211, !dbg !250",
+				"%shr92.i213 = lshr i64 %hi.13.i212, 24, !dbg !251",
+				"%sub93.i214 = sub i64 %add87.i209, %hi.13.i212, !dbg !252",
+				"%cmp94.i215 = icmp ult i64 %add87.i209, %hi.13.i212, !dbg !253",
+				"%dec96.i216 = sext i1 %cmp94.i215 to i64, !dbg !255",
+				"%hi.14.i217 = add nsw i64 %shr92.i213, %dec96.i216, !dbg !255",
+				"%shl98.i218 = shl i64 %hi.13.i212, 40, !dbg !256",
+				"%add99.i219 = add i64 %shl98.i218, %sub93.i214, !dbg !257",
+				"%cmp100.i220 = icmp ult i64 %add99.i219, %shl98.i218, !dbg !258",
+				"br label %x64_mulmod.exit231, !dbg !260"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 71,
+			"name": "x64_mulmod.exit231",
+			"debug": [
+				{
+					"line": 283, "columns": [13]
+				}
+			],
+			"successors": [72],
+			"ir": [
+				"%cmp100.sink.i222 = phi i1 [ %cmp100.i220, %if.else67.i221 ], [ %cmp55.i194, %if.then22.i195 ], [ %cmp13.i162, %if.then.i163 ]",
+				"%hi.14.sink.i223 = phi i64 [ %hi.14.i217, %if.else67.i221 ], [ %hi.8.i191, %if.then22.i195 ], [ %hi.2.i159, %if.then.i163 ]",
+				"%add99.sink208.i224 = phi i64 [ %add99.i219, %if.else67.i221 ], [ %add54.i193, %if.then22.i195 ], [ %add12.i161, %if.then.i163 ]",
+				"%inc102.neg.i225 = sext i1 %cmp100.sink.i222 to i64, !dbg !261",
+				"%tobool104.not.i226 = icmp eq i64 %hi.14.sink.i223, %inc102.neg.i225, !dbg !261",
+				"%cmp106.not.i227 = icmp ult i64 %add99.sink208.i224, %0",
+				"%or.cond171.i228 = select i1 %tobool104.not.i226, i1 %cmp106.not.i227, i1 false, !dbg !261",
+				"%sub108.i229 = select i1 %or.cond171.i228, i64 0, i64 %0, !dbg !261",
+				"%spec.select207.i230 = sub i64 %add99.sink208.i224, %sub108.i229, !dbg !261",
+				"br label %if.end.i, !dbg !262"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 72,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 56, "columns": [10, 25]
+				},
+				{
+					"line": 58, "columns": [14, 11]
+				},
+				{
+					"line": 59, "columns": [11]
+				},
+				{
+					"line": 159, "columns": [9]
+				}
+			],
+			"successors": [74, 73],
+			"ir": [
+				"%conv.i.i.pre-phi = phi i128 [ %.pre, %while.body.i.if.end.i_crit_edge ], [ %conv1.i.i138, %x64_mulmod.exit231 ], !dbg !147",
+				"%r.1.i = phi i64 [ %r.011.i, %while.body.i.if.end.i_crit_edge ], [ %spec.select207.i230, %x64_mulmod.exit231 ], !dbg !140",
+				"%mul.i.i = mul nuw i128 %conv.i.i.pre-phi, %conv.i.i.pre-phi, !dbg !265",
+				"%shr.i.i = lshr i128 %mul.i.i, 64, !dbg !266",
+				"%conv2.i.i = trunc i128 %shr.i.i to i64, !dbg !267",
+				"%conv3.i.i = trunc i128 %mul.i.i to i64, !dbg !268",
+				"br i1 %tobool.not.i132, label %if.else.i, label %if.then.i136, !dbg !269"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 73,
+			"name": "if.then.i136",
+			"debug": [
+				{
+					"line": 163, "columns": [12]
+				},
+				{
+					"line": 165, "columns": [16]
+				},
+				{
+					"line": 166, "columns": [15, 13]
+				},
+				{
+					"line": 168, "columns": [11]
+				},
+				{
+					"line": 169, "columns": [16]
+				},
+				{
+					"line": 170, "columns": [16, 13]
+				},
+				{
+					"line": 174, "columns": [12]
+				},
+				{
+					"line": 176, "columns": [16]
+				},
+				{
+					"line": 177, "columns": [15, 13]
+				},
+				{
+					"line": 179, "columns": [11]
+				},
+				{
+					"line": 180, "columns": [16]
+				},
+				{
+					"line": 181, "columns": [16]
+				},
+				{
+					"line": 183, "columns": [20]
+				}
+			],
+			"successors": [77],
+			"ir": [
+				"%shr.i133 = lshr i64 %conv2.i.i, 32, !dbg !270",
+				"%sub.i134 = sub i64 %conv3.i.i, %conv2.i.i, !dbg !271",
+				"%cmp.i = icmp ult i64 %conv3.i.i, %conv2.i.i, !dbg !272",
+				"%dec.i = sext i1 %cmp.i to i64, !dbg !273",
+				"%spec.select.i135 = add nsw i64 %shr.i133, %dec.i, !dbg !273",
+				"%shl.i = shl i64 %conv2.i.i, 32, !dbg !274",
+				"%add.i = add i64 %shl.i, %sub.i134, !dbg !275",
+				"%cmp2.i = icmp ult i64 %add.i, %shl.i, !dbg !276",
+				"%inc.i = zext i1 %cmp2.i to i64, !dbg !277",
+				"%hi.1.i = add nsw i64 %spec.select.i135, %inc.i, !dbg !277",
+				"%shr5.i = lshr i64 %hi.1.i, 32, !dbg !278",
+				"%sub6.i = sub i64 %add.i, %hi.1.i, !dbg !279",
+				"%cmp7.i = icmp ult i64 %add.i, %hi.1.i, !dbg !280",
+				"%dec9.i = sext i1 %cmp7.i to i64, !dbg !281",
+				"%hi.2.i = add nsw i64 %shr5.i, %dec9.i, !dbg !281",
+				"%shl11.i = shl i64 %hi.1.i, 32, !dbg !282",
+				"%add12.i = add i64 %shl11.i, %sub6.i, !dbg !283",
+				"%cmp13.i = icmp ult i64 %add12.i, %shl11.i, !dbg !284",
+				"br label %x64_mulmod.exit, !dbg !285"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 74,
+			"name": "if.else.i",
+			"debug": [
+				{
+					"line": 185, "columns": [14]
+				}
+			],
+			"successors": [76, 75],
+			"ir": [
+				"%sub69.i = sub i64 %conv3.i.i, %conv2.i.i, !dbg !286",
+				"%cmp70.i = icmp ult i64 %conv3.i.i, %conv2.i.i, !dbg !286",
+				"%dec72.i = sext i1 %cmp70.i to i64, !dbg !286",
+				"br i1 %tobool21.not.i165, label %if.else67.i, label %if.then22.i, !dbg !287"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 75,
+			"name": "if.then22.i",
+			"debug": [
+				{
+					"line": 189, "columns": [12]
+				},
+				{
+					"line": 192, "columns": [13]
+				},
+				{
+					"line": 194, "columns": [11]
+				},
+				{
+					"line": 195, "columns": [16]
+				},
+				{
+					"line": 196, "columns": [16, 13]
+				},
+				{
+					"line": 200, "columns": [12]
+				},
+				{
+					"line": 202, "columns": [16]
+				},
+				{
+					"line": 203, "columns": [15, 13]
+				},
+				{
+					"line": 205, "columns": [11]
+				},
+				{
+					"line": 206, "columns": [16]
+				},
+				{
+					"line": 207, "columns": [16, 13]
+				},
+				{
+					"line": 211, "columns": [12]
+				},
+				{
+					"line": 213, "columns": [16]
+				},
+				{
+					"line": 214, "columns": [15, 13]
+				},
+				{
+					"line": 216, "columns": [11]
+				},
+				{
+					"line": 217, "columns": [16]
+				},
+				{
+					"line": 218, "columns": [16]
+				},
+				{
+					"line": 220, "columns": [20]
+				}
+			],
+			"successors": [77],
+			"ir": [
+				"%shr23.i = lshr i64 %conv2.i.i, 30, !dbg !288",
+				"%spec.select203.i = add nsw i64 %shr23.i, %dec72.i, !dbg !289",
+				"%shl29.i = shl i64 %conv2.i.i, 34, !dbg !290",
+				"%add30.i = add i64 %shl29.i, %sub69.i, !dbg !291",
+				"%cmp31.i = icmp ult i64 %add30.i, %shl29.i, !dbg !292",
+				"%inc33.i = zext i1 %cmp31.i to i64, !dbg !293",
+				"%hi.5.i = add nsw i64 %spec.select203.i, %inc33.i, !dbg !293",
+				"%shr35.i = lshr i64 %hi.5.i, 30, !dbg !294",
+				"%sub36.i = sub i64 %add30.i, %hi.5.i, !dbg !295",
+				"%cmp37.i = icmp ult i64 %add30.i, %hi.5.i, !dbg !296",
+				"%dec39.i = sext i1 %cmp37.i to i64, !dbg !297",
+				"%hi.6.i = add nsw i64 %shr35.i, %dec39.i, !dbg !297",
+				"%shl41.i = shl i64 %hi.5.i, 34, !dbg !298",
+				"%add42.i = add i64 %shl41.i, %sub36.i, !dbg !299",
+				"%cmp43.i = icmp ult i64 %add42.i, %shl41.i, !dbg !300",
+				"%inc45.i = zext i1 %cmp43.i to i64, !dbg !301",
+				"%hi.7.i = add nsw i64 %hi.6.i, %inc45.i, !dbg !301",
+				"%shr47.i = lshr i64 %hi.7.i, 30, !dbg !302",
+				"%sub48.i = sub i64 %add42.i, %hi.7.i, !dbg !303",
+				"%cmp49.i = icmp ult i64 %add42.i, %hi.7.i, !dbg !304",
+				"%dec51.i = sext i1 %cmp49.i to i64, !dbg !305",
+				"%hi.8.i = add nsw i64 %shr47.i, %dec51.i, !dbg !305",
+				"%shl53.i = shl i64 %hi.7.i, 34, !dbg !306",
+				"%add54.i = add i64 %shl53.i, %sub48.i, !dbg !307",
+				"%cmp55.i = icmp ult i64 %add54.i, %shl53.i, !dbg !308",
+				"br label %x64_mulmod.exit, !dbg !309"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 76,
+			"name": "if.else67.i",
+			"debug": [
+				{
+					"line": 226, "columns": [12]
+				},
+				{
+					"line": 229, "columns": [13]
+				},
+				{
+					"line": 231, "columns": [11]
+				},
+				{
+					"line": 232, "columns": [16]
+				},
+				{
+					"line": 233, "columns": [16, 13]
+				},
+				{
+					"line": 237, "columns": [12]
+				},
+				{
+					"line": 239, "columns": [16]
+				},
+				{
+					"line": 240, "columns": [15, 13]
+				},
+				{
+					"line": 242, "columns": [11]
+				},
+				{
+					"line": 243, "columns": [16]
+				},
+				{
+					"line": 244, "columns": [16, 13]
+				},
+				{
+					"line": 248, "columns": [12]
+				},
+				{
+					"line": 250, "columns": [16]
+				},
+				{
+					"line": 251, "columns": [15, 13]
+				},
+				{
+					"line": 253, "columns": [11]
+				},
+				{
+					"line": 254, "columns": [16]
+				},
+				{
+					"line": 255, "columns": [16]
+				},
+				{
+					"line": 257, "columns": [20]
+				}
+			],
+			"successors": [77],
+			"ir": [
+				"%shr68.i = lshr i64 %conv2.i.i, 24, !dbg !310",
+				"%spec.select204.i = add nsw i64 %shr68.i, %dec72.i, !dbg !311",
+				"%shl74.i = shl i64 %conv2.i.i, 40, !dbg !312",
+				"%add75.i = add i64 %shl74.i, %sub69.i, !dbg !313",
+				"%cmp76.i = icmp ult i64 %add75.i, %shl74.i, !dbg !314",
+				"%inc78.i = zext i1 %cmp76.i to i64, !dbg !315",
+				"%hi.11.i = add nsw i64 %spec.select204.i, %inc78.i, !dbg !315",
+				"%shr80.i = lshr i64 %hi.11.i, 24, !dbg !316",
+				"%sub81.i = sub i64 %add75.i, %hi.11.i, !dbg !317",
+				"%cmp82.i = icmp ult i64 %add75.i, %hi.11.i, !dbg !318",
+				"%dec84.i = sext i1 %cmp82.i to i64, !dbg !319",
+				"%hi.12.i = add nsw i64 %shr80.i, %dec84.i, !dbg !319",
+				"%shl86.i = shl i64 %hi.11.i, 40, !dbg !320",
+				"%add87.i = add i64 %shl86.i, %sub81.i, !dbg !321",
+				"%cmp88.i = icmp ult i64 %add87.i, %shl86.i, !dbg !322",
+				"%inc90.i = zext i1 %cmp88.i to i64, !dbg !323",
+				"%hi.13.i = add nsw i64 %hi.12.i, %inc90.i, !dbg !323",
+				"%shr92.i = lshr i64 %hi.13.i, 24, !dbg !324",
+				"%sub93.i = sub i64 %add87.i, %hi.13.i, !dbg !325",
+				"%cmp94.i = icmp ult i64 %add87.i, %hi.13.i, !dbg !326",
+				"%dec96.i = sext i1 %cmp94.i to i64, !dbg !327",
+				"%hi.14.i = add nsw i64 %shr92.i, %dec96.i, !dbg !327",
+				"%shl98.i = shl i64 %hi.13.i, 40, !dbg !328",
+				"%add99.i = add i64 %shl98.i, %sub93.i, !dbg !329",
+				"%cmp100.i = icmp ult i64 %add99.i, %shl98.i, !dbg !330",
+				"br label %x64_mulmod.exit, !dbg !331"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 77,
+			"name": "x64_mulmod.exit",
+			"debug": [
+				{
+					"line": 281, "columns": [16, 5]
+				},
+				{
+					"line": 285, "columns": [13]
+				}
+			],
+			"successors": [78, 64],
+			"ir": [
+				"%cmp100.sink.i = phi i1 [ %cmp100.i, %if.else67.i ], [ %cmp55.i, %if.then22.i ], [ %cmp13.i, %if.then.i136 ]",
+				"%hi.14.sink.i = phi i64 [ %hi.14.i, %if.else67.i ], [ %hi.8.i, %if.then22.i ], [ %hi.2.i, %if.then.i136 ]",
+				"%add99.sink208.i = phi i64 [ %add99.i, %if.else67.i ], [ %add54.i, %if.then22.i ], [ %add12.i, %if.then.i136 ]",
+				"%inc102.neg.i = sext i1 %cmp100.sink.i to i64, !dbg !332",
+				"%tobool104.not.i = icmp eq i64 %hi.14.sink.i, %inc102.neg.i, !dbg !332",
+				"%cmp106.not.i = icmp ult i64 %add99.sink208.i, %0",
+				"%or.cond171.i = select i1 %tobool104.not.i, i1 %cmp106.not.i, i1 false, !dbg !332",
+				"%sub108.i = select i1 %or.cond171.i, i64 0, i64 %0, !dbg !332",
+				"%spec.select207.i = sub i64 %add99.sink208.i, %sub108.i, !dbg !332",
+				"%shr.i125 = lshr i64 %exp.addr.09.i, 1, !dbg !333",
+				"%cmp.not.i126 = icmp ult i64 %exp.addr.09.i, 2, !dbg !334",
+				"br i1 %cmp.not.i126, label %x64_powmod.exit, label %while.body.i, !dbg !142, !llvm.loop !335"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 78,
+			"name": "x64_powmod.exit",
+			"debug": [
+				{
+					"line": 179, "columns": [17]
+				},
+				{
+					"line": 180, "columns": [9]
+				}
+			],
+			"successors": [79],
+			"ir": [
+				"%call14 = tail call fastcc i64 @x64_mulmod(i64 noundef %r.1.i, i64 noundef %r.1.i, i64 noundef %0), !dbg !337",
+				"%mul124 = shl i64 %i.0625, %div123",
+				"%conv1.i.i518 = zext i64 %call14 to i128",
+				"br label %for.body18, !dbg !338"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 79,
+			"name": "for.body18",
+			"debug": [
+				{
+					"line": 56, "columns": [10, 27, 25]
+				},
+				{
+					"line": 58, "columns": [14, 11]
+				},
+				{
+					"line": 59, "columns": [11]
+				},
+				{
+					"line": 159, "columns": [9]
+				},
+				{
+					"line": 181, "columns": [34, 29]
+				},
+				{
+					"line": 182, "columns": [36, 29]
+				}
+			],
+			"successors": [81, 80],
+			"ir": [
+				"%k.0623 = phi i64 [ 0, %x64_powmod.exit ], [ %add31, %x64_mulmod.exit516 ]",
+				"%w1.0622 = phi i64 [ %r.1.i, %x64_powmod.exit ], [ %spec.select207.i515, %x64_mulmod.exit516 ]",
+				"%w0.0621 = phi i64 [ 1, %x64_powmod.exit ], [ %spec.select207.i610, %x64_mulmod.exit516 ]",
+				"%add = add i64 %k.0623, %mul124, !dbg !339",
+				"%arrayidx = getelementptr i64, ptr %a, i64 %add, !dbg !340",
+				"%1 = load i64, ptr %arrayidx, align 8, !dbg !340, !tbaa !124",
+				"%add21 = add i64 %add, 1, !dbg !342",
+				"%arrayidx22 = getelementptr i64, ptr %a, i64 %add21, !dbg !343",
+				"%2 = load i64, ptr %arrayidx22, align 8, !dbg !343, !tbaa !124",
+				"%conv.i.i327 = zext i64 %1 to i128, !dbg !359",
+				"%conv1.i.i328 = zext i64 %w0.0621 to i128, !dbg !360",
+				"%mul.i.i329 = mul nuw i128 %conv.i.i327, %conv1.i.i328, !dbg !361",
+				"%shr.i.i330 = lshr i128 %mul.i.i329, 64, !dbg !362",
+				"%conv2.i.i331 = trunc i128 %shr.i.i330 to i64, !dbg !363",
+				"%conv3.i.i332 = trunc i128 %mul.i.i329 to i64, !dbg !364",
+				"br i1 %tobool.not.i132, label %if.else.i359, label %if.then.i353, !dbg !365"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 80,
+			"name": "if.then.i353",
+			"debug": [
+				{
+					"line": 163, "columns": [12]
+				},
+				{
+					"line": 165, "columns": [16]
+				},
+				{
+					"line": 166, "columns": [15, 13]
+				},
+				{
+					"line": 168, "columns": [11]
+				},
+				{
+					"line": 169, "columns": [16]
+				},
+				{
+					"line": 170, "columns": [16, 13]
+				},
+				{
+					"line": 174, "columns": [12]
+				},
+				{
+					"line": 176, "columns": [16]
+				},
+				{
+					"line": 177, "columns": [15, 13]
+				},
+				{
+					"line": 179, "columns": [11]
+				},
+				{
+					"line": 180, "columns": [16]
+				},
+				{
+					"line": 181, "columns": [16]
+				},
+				{
+					"line": 183, "columns": [20]
+				}
+			],
+			"successors": [84],
+			"ir": [
+				"%shr.i335 = lshr i64 %conv2.i.i331, 32, !dbg !366",
+				"%sub.i336 = sub i64 %conv3.i.i332, %conv2.i.i331, !dbg !367",
+				"%cmp.i337 = icmp ult i64 %conv3.i.i332, %conv2.i.i331, !dbg !368",
+				"%dec.i338 = sext i1 %cmp.i337 to i64, !dbg !369",
+				"%spec.select.i339 = add nsw i64 %shr.i335, %dec.i338, !dbg !369",
+				"%shl.i340 = shl i64 %conv2.i.i331, 32, !dbg !370",
+				"%add.i341 = add i64 %shl.i340, %sub.i336, !dbg !371",
+				"%cmp2.i342 = icmp ult i64 %add.i341, %shl.i340, !dbg !372",
+				"%inc.i343 = zext i1 %cmp2.i342 to i64, !dbg !373",
+				"%hi.1.i344 = add nsw i64 %spec.select.i339, %inc.i343, !dbg !373",
+				"%shr5.i345 = lshr i64 %hi.1.i344, 32, !dbg !374",
+				"%sub6.i346 = sub i64 %add.i341, %hi.1.i344, !dbg !375",
+				"%cmp7.i347 = icmp ult i64 %add.i341, %hi.1.i344, !dbg !376",
+				"%dec9.i348 = sext i1 %cmp7.i347 to i64, !dbg !377",
+				"%hi.2.i349 = add nsw i64 %shr5.i345, %dec9.i348, !dbg !377",
+				"%shl11.i350 = shl i64 %hi.1.i344, 32, !dbg !378",
+				"%add12.i351 = add i64 %shl11.i350, %sub6.i346, !dbg !379",
+				"%cmp13.i352 = icmp ult i64 %add12.i351, %shl11.i350, !dbg !380",
+				"br label %x64_mulmod.exit421, !dbg !381"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 81,
+			"name": "if.else.i359",
+			"debug": [
+				{
+					"line": 185, "columns": [14]
+				}
+			],
+			"successors": [83, 82],
+			"ir": [
+				"%sub69.i356 = sub i64 %conv3.i.i332, %conv2.i.i331, !dbg !382",
+				"%cmp70.i357 = icmp ult i64 %conv3.i.i332, %conv2.i.i331, !dbg !382",
+				"%dec72.i358 = sext i1 %cmp70.i357 to i64, !dbg !382",
+				"br i1 %tobool21.not.i165, label %if.else67.i411, label %if.then22.i385, !dbg !383"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 82,
+			"name": "if.then22.i385",
+			"debug": [
+				{
+					"line": 189, "columns": [12]
+				},
+				{
+					"line": 192, "columns": [13]
+				},
+				{
+					"line": 194, "columns": [11]
+				},
+				{
+					"line": 195, "columns": [16]
+				},
+				{
+					"line": 196, "columns": [16, 13]
+				},
+				{
+					"line": 200, "columns": [12]
+				},
+				{
+					"line": 202, "columns": [16]
+				},
+				{
+					"line": 203, "columns": [15, 13]
+				},
+				{
+					"line": 205, "columns": [11]
+				},
+				{
+					"line": 206, "columns": [16]
+				},
+				{
+					"line": 207, "columns": [16, 13]
+				},
+				{
+					"line": 211, "columns": [12]
+				},
+				{
+					"line": 213, "columns": [16]
+				},
+				{
+					"line": 214, "columns": [15, 13]
+				},
+				{
+					"line": 216, "columns": [11]
+				},
+				{
+					"line": 217, "columns": [16]
+				},
+				{
+					"line": 218, "columns": [16]
+				},
+				{
+					"line": 220, "columns": [20]
+				}
+			],
+			"successors": [84],
+			"ir": [
+				"%shr23.i360 = lshr i64 %conv2.i.i331, 30, !dbg !384",
+				"%spec.select203.i361 = add nsw i64 %shr23.i360, %dec72.i358, !dbg !385",
+				"%shl29.i362 = shl i64 %conv2.i.i331, 34, !dbg !386",
+				"%add30.i363 = add i64 %shl29.i362, %sub69.i356, !dbg !387",
+				"%cmp31.i364 = icmp ult i64 %add30.i363, %shl29.i362, !dbg !388",
+				"%inc33.i365 = zext i1 %cmp31.i364 to i64, !dbg !389",
+				"%hi.5.i366 = add nsw i64 %spec.select203.i361, %inc33.i365, !dbg !389",
+				"%shr35.i367 = lshr i64 %hi.5.i366, 30, !dbg !390",
+				"%sub36.i368 = sub i64 %add30.i363, %hi.5.i366, !dbg !391",
+				"%cmp37.i369 = icmp ult i64 %add30.i363, %hi.5.i366, !dbg !392",
+				"%dec39.i370 = sext i1 %cmp37.i369 to i64, !dbg !393",
+				"%hi.6.i371 = add nsw i64 %shr35.i367, %dec39.i370, !dbg !393",
+				"%shl41.i372 = shl i64 %hi.5.i366, 34, !dbg !394",
+				"%add42.i373 = add i64 %shl41.i372, %sub36.i368, !dbg !395",
+				"%cmp43.i374 = icmp ult i64 %add42.i373, %shl41.i372, !dbg !396",
+				"%inc45.i375 = zext i1 %cmp43.i374 to i64, !dbg !397",
+				"%hi.7.i376 = add nsw i64 %hi.6.i371, %inc45.i375, !dbg !397",
+				"%shr47.i377 = lshr i64 %hi.7.i376, 30, !dbg !398",
+				"%sub48.i378 = sub i64 %add42.i373, %hi.7.i376, !dbg !399",
+				"%cmp49.i379 = icmp ult i64 %add42.i373, %hi.7.i376, !dbg !400",
+				"%dec51.i380 = sext i1 %cmp49.i379 to i64, !dbg !401",
+				"%hi.8.i381 = add nsw i64 %shr47.i377, %dec51.i380, !dbg !401",
+				"%shl53.i382 = shl i64 %hi.7.i376, 34, !dbg !402",
+				"%add54.i383 = add i64 %shl53.i382, %sub48.i378, !dbg !403",
+				"%cmp55.i384 = icmp ult i64 %add54.i383, %shl53.i382, !dbg !404",
+				"br label %x64_mulmod.exit421, !dbg !405"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 83,
+			"name": "if.else67.i411",
+			"debug": [
+				{
+					"line": 226, "columns": [12]
+				},
+				{
+					"line": 229, "columns": [13]
+				},
+				{
+					"line": 231, "columns": [11]
+				},
+				{
+					"line": 232, "columns": [16]
+				},
+				{
+					"line": 233, "columns": [16, 13]
+				},
+				{
+					"line": 237, "columns": [12]
+				},
+				{
+					"line": 239, "columns": [16]
+				},
+				{
+					"line": 240, "columns": [15, 13]
+				},
+				{
+					"line": 242, "columns": [11]
+				},
+				{
+					"line": 243, "columns": [16]
+				},
+				{
+					"line": 244, "columns": [16, 13]
+				},
+				{
+					"line": 248, "columns": [12]
+				},
+				{
+					"line": 250, "columns": [16]
+				},
+				{
+					"line": 251, "columns": [15, 13]
+				},
+				{
+					"line": 253, "columns": [11]
+				},
+				{
+					"line": 254, "columns": [16]
+				},
+				{
+					"line": 255, "columns": [16]
+				},
+				{
+					"line": 257, "columns": [20]
+				}
+			],
+			"successors": [84],
+			"ir": [
+				"%shr68.i386 = lshr i64 %conv2.i.i331, 24, !dbg !406",
+				"%spec.select204.i387 = add nsw i64 %shr68.i386, %dec72.i358, !dbg !407",
+				"%shl74.i388 = shl i64 %conv2.i.i331, 40, !dbg !408",
+				"%add75.i389 = add i64 %shl74.i388, %sub69.i356, !dbg !409",
+				"%cmp76.i390 = icmp ult i64 %add75.i389, %shl74.i388, !dbg !410",
+				"%inc78.i391 = zext i1 %cmp76.i390 to i64, !dbg !411",
+				"%hi.11.i392 = add nsw i64 %spec.select204.i387, %inc78.i391, !dbg !411",
+				"%shr80.i393 = lshr i64 %hi.11.i392, 24, !dbg !412",
+				"%sub81.i394 = sub i64 %add75.i389, %hi.11.i392, !dbg !413",
+				"%cmp82.i395 = icmp ult i64 %add75.i389, %hi.11.i392, !dbg !414",
+				"%dec84.i396 = sext i1 %cmp82.i395 to i64, !dbg !415",
+				"%hi.12.i397 = add nsw i64 %shr80.i393, %dec84.i396, !dbg !415",
+				"%shl86.i398 = shl i64 %hi.11.i392, 40, !dbg !416",
+				"%add87.i399 = add i64 %shl86.i398, %sub81.i394, !dbg !417",
+				"%cmp88.i400 = icmp ult i64 %add87.i399, %shl86.i398, !dbg !418",
+				"%inc90.i401 = zext i1 %cmp88.i400 to i64, !dbg !419",
+				"%hi.13.i402 = add nsw i64 %hi.12.i397, %inc90.i401, !dbg !419",
+				"%shr92.i403 = lshr i64 %hi.13.i402, 24, !dbg !420",
+				"%sub93.i404 = sub i64 %add87.i399, %hi.13.i402, !dbg !421",
+				"%cmp94.i405 = icmp ult i64 %add87.i399, %hi.13.i402, !dbg !422",
+				"%dec96.i406 = sext i1 %cmp94.i405 to i64, !dbg !423",
+				"%hi.14.i407 = add nsw i64 %shr92.i403, %dec96.i406, !dbg !423",
+				"%shl98.i408 = shl i64 %hi.13.i402, 40, !dbg !424",
+				"%add99.i409 = add i64 %shl98.i408, %sub93.i404, !dbg !425",
+				"%cmp100.i410 = icmp ult i64 %add99.i409, %shl98.i408, !dbg !426",
+				"br label %x64_mulmod.exit421, !dbg !427"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 84,
+			"name": "x64_mulmod.exit421",
+			"debug": [
+				{
+					"line": 56, "columns": [10, 27, 25]
+				},
+				{
+					"line": 58, "columns": [14, 11]
+				},
+				{
+					"line": 59, "columns": [11]
+				},
+				{
+					"line": 159, "columns": [9]
+				}
+			],
+			"successors": [86, 85],
+			"ir": [
+				"%cmp100.sink.i412 = phi i1 [ %cmp100.i410, %if.else67.i411 ], [ %cmp55.i384, %if.then22.i385 ], [ %cmp13.i352, %if.then.i353 ]",
+				"%hi.14.sink.i413 = phi i64 [ %hi.14.i407, %if.else67.i411 ], [ %hi.8.i381, %if.then22.i385 ], [ %hi.2.i349, %if.then.i353 ]",
+				"%add99.sink208.i414 = phi i64 [ %add99.i409, %if.else67.i411 ], [ %add54.i383, %if.then22.i385 ], [ %add12.i351, %if.then.i353 ]",
+				"%inc102.neg.i415 = sext i1 %cmp100.sink.i412 to i64, !dbg !428",
+				"%tobool104.not.i416 = icmp eq i64 %hi.14.sink.i413, %inc102.neg.i415, !dbg !428",
+				"%cmp106.not.i417 = icmp ult i64 %add99.sink208.i414, %0",
+				"%or.cond171.i418 = select i1 %tobool104.not.i416, i1 %cmp106.not.i417, i1 false, !dbg !428",
+				"%sub108.i419 = select i1 %or.cond171.i418, i64 0, i64 %0, !dbg !428",
+				"%spec.select207.i420 = sub i64 %add99.sink208.i414, %sub108.i419, !dbg !428",
+				"%conv.i.i232 = zext i64 %2 to i128, !dbg !433",
+				"%conv1.i.i233 = zext i64 %w1.0622 to i128, !dbg !434",
+				"%mul.i.i234 = mul nuw i128 %conv.i.i232, %conv1.i.i233, !dbg !435",
+				"%shr.i.i235 = lshr i128 %mul.i.i234, 64, !dbg !436",
+				"%conv2.i.i236 = trunc i128 %shr.i.i235 to i64, !dbg !437",
+				"%conv3.i.i237 = trunc i128 %mul.i.i234 to i64, !dbg !438",
+				"br i1 %tobool.not.i132, label %if.else.i264, label %if.then.i258, !dbg !439"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 85,
+			"name": "if.then.i258",
+			"debug": [
+				{
+					"line": 163, "columns": [12]
+				},
+				{
+					"line": 165, "columns": [16]
+				},
+				{
+					"line": 166, "columns": [15, 13]
+				},
+				{
+					"line": 168, "columns": [11]
+				},
+				{
+					"line": 169, "columns": [16]
+				},
+				{
+					"line": 170, "columns": [16, 13]
+				},
+				{
+					"line": 174, "columns": [12]
+				},
+				{
+					"line": 176, "columns": [16]
+				},
+				{
+					"line": 177, "columns": [15, 13]
+				},
+				{
+					"line": 179, "columns": [11]
+				},
+				{
+					"line": 180, "columns": [16]
+				},
+				{
+					"line": 181, "columns": [16]
+				},
+				{
+					"line": 183, "columns": [20]
+				}
+			],
+			"successors": [89],
+			"ir": [
+				"%shr.i240 = lshr i64 %conv2.i.i236, 32, !dbg !440",
+				"%sub.i241 = sub i64 %conv3.i.i237, %conv2.i.i236, !dbg !441",
+				"%cmp.i242 = icmp ult i64 %conv3.i.i237, %conv2.i.i236, !dbg !442",
+				"%dec.i243 = sext i1 %cmp.i242 to i64, !dbg !443",
+				"%spec.select.i244 = add nsw i64 %shr.i240, %dec.i243, !dbg !443",
+				"%shl.i245 = shl i64 %conv2.i.i236, 32, !dbg !444",
+				"%add.i246 = add i64 %shl.i245, %sub.i241, !dbg !445",
+				"%cmp2.i247 = icmp ult i64 %add.i246, %shl.i245, !dbg !446",
+				"%inc.i248 = zext i1 %cmp2.i247 to i64, !dbg !447",
+				"%hi.1.i249 = add nsw i64 %spec.select.i244, %inc.i248, !dbg !447",
+				"%shr5.i250 = lshr i64 %hi.1.i249, 32, !dbg !448",
+				"%sub6.i251 = sub i64 %add.i246, %hi.1.i249, !dbg !449",
+				"%cmp7.i252 = icmp ult i64 %add.i246, %hi.1.i249, !dbg !450",
+				"%dec9.i253 = sext i1 %cmp7.i252 to i64, !dbg !451",
+				"%hi.2.i254 = add nsw i64 %shr5.i250, %dec9.i253, !dbg !451",
+				"%shl11.i255 = shl i64 %hi.1.i249, 32, !dbg !452",
+				"%add12.i256 = add i64 %shl11.i255, %sub6.i251, !dbg !453",
+				"%cmp13.i257 = icmp ult i64 %add12.i256, %shl11.i255, !dbg !454",
+				"br label %x64_mulmod.exit326, !dbg !455"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 86,
+			"name": "if.else.i264",
+			"debug": [
+				{
+					"line": 185, "columns": [14]
+				}
+			],
+			"successors": [88, 87],
+			"ir": [
+				"%sub69.i261 = sub i64 %conv3.i.i237, %conv2.i.i236, !dbg !456",
+				"%cmp70.i262 = icmp ult i64 %conv3.i.i237, %conv2.i.i236, !dbg !456",
+				"%dec72.i263 = sext i1 %cmp70.i262 to i64, !dbg !456",
+				"br i1 %tobool21.not.i165, label %if.else67.i316, label %if.then22.i290, !dbg !457"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 87,
+			"name": "if.then22.i290",
+			"debug": [
+				{
+					"line": 189, "columns": [12]
+				},
+				{
+					"line": 192, "columns": [13]
+				},
+				{
+					"line": 194, "columns": [11]
+				},
+				{
+					"line": 195, "columns": [16]
+				},
+				{
+					"line": 196, "columns": [16, 13]
+				},
+				{
+					"line": 200, "columns": [12]
+				},
+				{
+					"line": 202, "columns": [16]
+				},
+				{
+					"line": 203, "columns": [15, 13]
+				},
+				{
+					"line": 205, "columns": [11]
+				},
+				{
+					"line": 206, "columns": [16]
+				},
+				{
+					"line": 207, "columns": [16, 13]
+				},
+				{
+					"line": 211, "columns": [12]
+				},
+				{
+					"line": 213, "columns": [16]
+				},
+				{
+					"line": 214, "columns": [15, 13]
+				},
+				{
+					"line": 216, "columns": [11]
+				},
+				{
+					"line": 217, "columns": [16]
+				},
+				{
+					"line": 218, "columns": [16]
+				},
+				{
+					"line": 220, "columns": [20]
+				}
+			],
+			"successors": [89],
+			"ir": [
+				"%shr23.i265 = lshr i64 %conv2.i.i236, 30, !dbg !458",
+				"%spec.select203.i266 = add nsw i64 %shr23.i265, %dec72.i263, !dbg !459",
+				"%shl29.i267 = shl i64 %conv2.i.i236, 34, !dbg !460",
+				"%add30.i268 = add i64 %shl29.i267, %sub69.i261, !dbg !461",
+				"%cmp31.i269 = icmp ult i64 %add30.i268, %shl29.i267, !dbg !462",
+				"%inc33.i270 = zext i1 %cmp31.i269 to i64, !dbg !463",
+				"%hi.5.i271 = add nsw i64 %spec.select203.i266, %inc33.i270, !dbg !463",
+				"%shr35.i272 = lshr i64 %hi.5.i271, 30, !dbg !464",
+				"%sub36.i273 = sub i64 %add30.i268, %hi.5.i271, !dbg !465",
+				"%cmp37.i274 = icmp ult i64 %add30.i268, %hi.5.i271, !dbg !466",
+				"%dec39.i275 = sext i1 %cmp37.i274 to i64, !dbg !467",
+				"%hi.6.i276 = add nsw i64 %shr35.i272, %dec39.i275, !dbg !467",
+				"%shl41.i277 = shl i64 %hi.5.i271, 34, !dbg !468",
+				"%add42.i278 = add i64 %shl41.i277, %sub36.i273, !dbg !469",
+				"%cmp43.i279 = icmp ult i64 %add42.i278, %shl41.i277, !dbg !470",
+				"%inc45.i280 = zext i1 %cmp43.i279 to i64, !dbg !471",
+				"%hi.7.i281 = add nsw i64 %hi.6.i276, %inc45.i280, !dbg !471",
+				"%shr47.i282 = lshr i64 %hi.7.i281, 30, !dbg !472",
+				"%sub48.i283 = sub i64 %add42.i278, %hi.7.i281, !dbg !473",
+				"%cmp49.i284 = icmp ult i64 %add42.i278, %hi.7.i281, !dbg !474",
+				"%dec51.i285 = sext i1 %cmp49.i284 to i64, !dbg !475",
+				"%hi.8.i286 = add nsw i64 %shr47.i282, %dec51.i285, !dbg !475",
+				"%shl53.i287 = shl i64 %hi.7.i281, 34, !dbg !476",
+				"%add54.i288 = add i64 %shl53.i287, %sub48.i283, !dbg !477",
+				"%cmp55.i289 = icmp ult i64 %add54.i288, %shl53.i287, !dbg !478",
+				"br label %x64_mulmod.exit326, !dbg !479"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 88,
+			"name": "if.else67.i316",
+			"debug": [
+				{
+					"line": 226, "columns": [12]
+				},
+				{
+					"line": 229, "columns": [13]
+				},
+				{
+					"line": 231, "columns": [11]
+				},
+				{
+					"line": 232, "columns": [16]
+				},
+				{
+					"line": 233, "columns": [16, 13]
+				},
+				{
+					"line": 237, "columns": [12]
+				},
+				{
+					"line": 239, "columns": [16]
+				},
+				{
+					"line": 240, "columns": [15, 13]
+				},
+				{
+					"line": 242, "columns": [11]
+				},
+				{
+					"line": 243, "columns": [16]
+				},
+				{
+					"line": 244, "columns": [16, 13]
+				},
+				{
+					"line": 248, "columns": [12]
+				},
+				{
+					"line": 250, "columns": [16]
+				},
+				{
+					"line": 251, "columns": [15, 13]
+				},
+				{
+					"line": 253, "columns": [11]
+				},
+				{
+					"line": 254, "columns": [16]
+				},
+				{
+					"line": 255, "columns": [16]
+				},
+				{
+					"line": 257, "columns": [20]
+				}
+			],
+			"successors": [89],
+			"ir": [
+				"%shr68.i291 = lshr i64 %conv2.i.i236, 24, !dbg !480",
+				"%spec.select204.i292 = add nsw i64 %shr68.i291, %dec72.i263, !dbg !481",
+				"%shl74.i293 = shl i64 %conv2.i.i236, 40, !dbg !482",
+				"%add75.i294 = add i64 %shl74.i293, %sub69.i261, !dbg !483",
+				"%cmp76.i295 = icmp ult i64 %add75.i294, %shl74.i293, !dbg !484",
+				"%inc78.i296 = zext i1 %cmp76.i295 to i64, !dbg !485",
+				"%hi.11.i297 = add nsw i64 %spec.select204.i292, %inc78.i296, !dbg !485",
+				"%shr80.i298 = lshr i64 %hi.11.i297, 24, !dbg !486",
+				"%sub81.i299 = sub i64 %add75.i294, %hi.11.i297, !dbg !487",
+				"%cmp82.i300 = icmp ult i64 %add75.i294, %hi.11.i297, !dbg !488",
+				"%dec84.i301 = sext i1 %cmp82.i300 to i64, !dbg !489",
+				"%hi.12.i302 = add nsw i64 %shr80.i298, %dec84.i301, !dbg !489",
+				"%shl86.i303 = shl i64 %hi.11.i297, 40, !dbg !490",
+				"%add87.i304 = add i64 %shl86.i303, %sub81.i299, !dbg !491",
+				"%cmp88.i305 = icmp ult i64 %add87.i304, %shl86.i303, !dbg !492",
+				"%inc90.i306 = zext i1 %cmp88.i305 to i64, !dbg !493",
+				"%hi.13.i307 = add nsw i64 %hi.12.i302, %inc90.i306, !dbg !493",
+				"%shr92.i308 = lshr i64 %hi.13.i307, 24, !dbg !494",
+				"%sub93.i309 = sub i64 %add87.i304, %hi.13.i307, !dbg !495",
+				"%cmp94.i310 = icmp ult i64 %add87.i304, %hi.13.i307, !dbg !496",
+				"%dec96.i311 = sext i1 %cmp94.i310 to i64, !dbg !497",
+				"%hi.14.i312 = add nsw i64 %shr92.i308, %dec96.i311, !dbg !497",
+				"%shl98.i313 = shl i64 %hi.13.i307, 40, !dbg !498",
+				"%add99.i314 = add i64 %shl98.i313, %sub93.i309, !dbg !499",
+				"%cmp100.i315 = icmp ult i64 %add99.i314, %shl98.i313, !dbg !500",
+				"br label %x64_mulmod.exit326, !dbg !501"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 89,
+			"name": "x64_mulmod.exit326",
+			"debug": [
+				{
+					"line": 56, "columns": [25]
+				},
+				{
+					"line": 58, "columns": [14, 11]
+				},
+				{
+					"line": 59, "columns": [11]
+				},
+				{
+					"line": 159, "columns": [9]
+				}
+			],
+			"successors": [91, 90],
+			"ir": [
+				"%cmp100.sink.i317 = phi i1 [ %cmp100.i315, %if.else67.i316 ], [ %cmp55.i289, %if.then22.i290 ], [ %cmp13.i257, %if.then.i258 ]",
+				"%hi.14.sink.i318 = phi i64 [ %hi.14.i312, %if.else67.i316 ], [ %hi.8.i286, %if.then22.i290 ], [ %hi.2.i254, %if.then.i258 ]",
+				"%add99.sink208.i319 = phi i64 [ %add99.i314, %if.else67.i316 ], [ %add54.i288, %if.then22.i290 ], [ %add12.i256, %if.then.i258 ]",
+				"%inc102.neg.i320 = sext i1 %cmp100.sink.i317 to i64, !dbg !502",
+				"%tobool104.not.i321 = icmp eq i64 %hi.14.sink.i318, %inc102.neg.i320, !dbg !502",
+				"%cmp106.not.i322 = icmp ult i64 %add99.sink208.i319, %0",
+				"%or.cond171.i323 = select i1 %tobool104.not.i321, i1 %cmp106.not.i322, i1 false, !dbg !502",
+				"%sub108.i324 = select i1 %or.cond171.i323, i64 0, i64 %0, !dbg !502",
+				"%spec.select207.i325 = sub i64 %add99.sink208.i319, %sub108.i324, !dbg !502",
+				"%mul.i.i519 = mul nuw i128 %conv1.i.i328, %conv1.i.i518, !dbg !515",
+				"%shr.i.i520 = lshr i128 %mul.i.i519, 64, !dbg !516",
+				"%conv2.i.i521 = trunc i128 %shr.i.i520 to i64, !dbg !517",
+				"%conv3.i.i522 = trunc i128 %mul.i.i519 to i64, !dbg !518",
+				"br i1 %tobool.not.i132, label %if.else.i549, label %if.then.i543, !dbg !519"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 90,
+			"name": "if.then.i543",
+			"debug": [
+				{
+					"line": 163, "columns": [12]
+				},
+				{
+					"line": 165, "columns": [16]
+				},
+				{
+					"line": 166, "columns": [15, 13]
+				},
+				{
+					"line": 168, "columns": [11]
+				},
+				{
+					"line": 169, "columns": [16]
+				},
+				{
+					"line": 170, "columns": [16, 13]
+				},
+				{
+					"line": 174, "columns": [12]
+				},
+				{
+					"line": 176, "columns": [16]
+				},
+				{
+					"line": 177, "columns": [15, 13]
+				},
+				{
+					"line": 179, "columns": [11]
+				},
+				{
+					"line": 180, "columns": [16]
+				},
+				{
+					"line": 181, "columns": [16]
+				},
+				{
+					"line": 183, "columns": [20]
+				}
+			],
+			"successors": [94],
+			"ir": [
+				"%shr.i525 = lshr i64 %conv2.i.i521, 32, !dbg !520",
+				"%sub.i526 = sub i64 %conv3.i.i522, %conv2.i.i521, !dbg !521",
+				"%cmp.i527 = icmp ult i64 %conv3.i.i522, %conv2.i.i521, !dbg !522",
+				"%dec.i528 = sext i1 %cmp.i527 to i64, !dbg !523",
+				"%spec.select.i529 = add nsw i64 %shr.i525, %dec.i528, !dbg !523",
+				"%shl.i530 = shl i64 %conv2.i.i521, 32, !dbg !524",
+				"%add.i531 = add i64 %shl.i530, %sub.i526, !dbg !525",
+				"%cmp2.i532 = icmp ult i64 %add.i531, %shl.i530, !dbg !526",
+				"%inc.i533 = zext i1 %cmp2.i532 to i64, !dbg !527",
+				"%hi.1.i534 = add nsw i64 %spec.select.i529, %inc.i533, !dbg !527",
+				"%shr5.i535 = lshr i64 %hi.1.i534, 32, !dbg !528",
+				"%sub6.i536 = sub i64 %add.i531, %hi.1.i534, !dbg !529",
+				"%cmp7.i537 = icmp ult i64 %add.i531, %hi.1.i534, !dbg !530",
+				"%dec9.i538 = sext i1 %cmp7.i537 to i64, !dbg !531",
+				"%hi.2.i539 = add nsw i64 %shr5.i535, %dec9.i538, !dbg !531",
+				"%shl11.i540 = shl i64 %hi.1.i534, 32, !dbg !532",
+				"%add12.i541 = add i64 %shl11.i540, %sub6.i536, !dbg !533",
+				"%cmp13.i542 = icmp ult i64 %add12.i541, %shl11.i540, !dbg !534",
+				"br label %x64_mulmod.exit611, !dbg !535"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 91,
+			"name": "if.else.i549",
+			"debug": [
+				{
+					"line": 185, "columns": [14]
+				}
+			],
+			"successors": [93, 92],
+			"ir": [
+				"%sub69.i546 = sub i64 %conv3.i.i522, %conv2.i.i521, !dbg !536",
+				"%cmp70.i547 = icmp ult i64 %conv3.i.i522, %conv2.i.i521, !dbg !536",
+				"%dec72.i548 = sext i1 %cmp70.i547 to i64, !dbg !536",
+				"br i1 %tobool21.not.i165, label %if.else67.i601, label %if.then22.i575, !dbg !537"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 92,
+			"name": "if.then22.i575",
+			"debug": [
+				{
+					"line": 189, "columns": [12]
+				},
+				{
+					"line": 192, "columns": [13]
+				},
+				{
+					"line": 194, "columns": [11]
+				},
+				{
+					"line": 195, "columns": [16]
+				},
+				{
+					"line": 196, "columns": [16, 13]
+				},
+				{
+					"line": 200, "columns": [12]
+				},
+				{
+					"line": 202, "columns": [16]
+				},
+				{
+					"line": 203, "columns": [15, 13]
+				},
+				{
+					"line": 205, "columns": [11]
+				},
+				{
+					"line": 206, "columns": [16]
+				},
+				{
+					"line": 207, "columns": [16, 13]
+				},
+				{
+					"line": 211, "columns": [12]
+				},
+				{
+					"line": 213, "columns": [16]
+				},
+				{
+					"line": 214, "columns": [15, 13]
+				},
+				{
+					"line": 216, "columns": [11]
+				},
+				{
+					"line": 217, "columns": [16]
+				},
+				{
+					"line": 218, "columns": [16]
+				},
+				{
+					"line": 220, "columns": [20]
+				}
+			],
+			"successors": [94],
+			"ir": [
+				"%shr23.i550 = lshr i64 %conv2.i.i521, 30, !dbg !538",
+				"%spec.select203.i551 = add nsw i64 %shr23.i550, %dec72.i548, !dbg !539",
+				"%shl29.i552 = shl i64 %conv2.i.i521, 34, !dbg !540",
+				"%add30.i553 = add i64 %shl29.i552, %sub69.i546, !dbg !541",
+				"%cmp31.i554 = icmp ult i64 %add30.i553, %shl29.i552, !dbg !542",
+				"%inc33.i555 = zext i1 %cmp31.i554 to i64, !dbg !543",
+				"%hi.5.i556 = add nsw i64 %spec.select203.i551, %inc33.i555, !dbg !543",
+				"%shr35.i557 = lshr i64 %hi.5.i556, 30, !dbg !544",
+				"%sub36.i558 = sub i64 %add30.i553, %hi.5.i556, !dbg !545",
+				"%cmp37.i559 = icmp ult i64 %add30.i553, %hi.5.i556, !dbg !546",
+				"%dec39.i560 = sext i1 %cmp37.i559 to i64, !dbg !547",
+				"%hi.6.i561 = add nsw i64 %shr35.i557, %dec39.i560, !dbg !547",
+				"%shl41.i562 = shl i64 %hi.5.i556, 34, !dbg !548",
+				"%add42.i563 = add i64 %shl41.i562, %sub36.i558, !dbg !549",
+				"%cmp43.i564 = icmp ult i64 %add42.i563, %shl41.i562, !dbg !550",
+				"%inc45.i565 = zext i1 %cmp43.i564 to i64, !dbg !551",
+				"%hi.7.i566 = add nsw i64 %hi.6.i561, %inc45.i565, !dbg !551",
+				"%shr47.i567 = lshr i64 %hi.7.i566, 30, !dbg !552",
+				"%sub48.i568 = sub i64 %add42.i563, %hi.7.i566, !dbg !553",
+				"%cmp49.i569 = icmp ult i64 %add42.i563, %hi.7.i566, !dbg !554",
+				"%dec51.i570 = sext i1 %cmp49.i569 to i64, !dbg !555",
+				"%hi.8.i571 = add nsw i64 %shr47.i567, %dec51.i570, !dbg !555",
+				"%shl53.i572 = shl i64 %hi.7.i566, 34, !dbg !556",
+				"%add54.i573 = add i64 %shl53.i572, %sub48.i568, !dbg !557",
+				"%cmp55.i574 = icmp ult i64 %add54.i573, %shl53.i572, !dbg !558",
+				"br label %x64_mulmod.exit611, !dbg !559"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 93,
+			"name": "if.else67.i601",
+			"debug": [
+				{
+					"line": 226, "columns": [12]
+				},
+				{
+					"line": 229, "columns": [13]
+				},
+				{
+					"line": 231, "columns": [11]
+				},
+				{
+					"line": 232, "columns": [16]
+				},
+				{
+					"line": 233, "columns": [16, 13]
+				},
+				{
+					"line": 237, "columns": [12]
+				},
+				{
+					"line": 239, "columns": [16]
+				},
+				{
+					"line": 240, "columns": [15, 13]
+				},
+				{
+					"line": 242, "columns": [11]
+				},
+				{
+					"line": 243, "columns": [16]
+				},
+				{
+					"line": 244, "columns": [16, 13]
+				},
+				{
+					"line": 248, "columns": [12]
+				},
+				{
+					"line": 250, "columns": [16]
+				},
+				{
+					"line": 251, "columns": [15, 13]
+				},
+				{
+					"line": 253, "columns": [11]
+				},
+				{
+					"line": 254, "columns": [16]
+				},
+				{
+					"line": 255, "columns": [16]
+				},
+				{
+					"line": 257, "columns": [20]
+				}
+			],
+			"successors": [94],
+			"ir": [
+				"%shr68.i576 = lshr i64 %conv2.i.i521, 24, !dbg !560",
+				"%spec.select204.i577 = add nsw i64 %shr68.i576, %dec72.i548, !dbg !561",
+				"%shl74.i578 = shl i64 %conv2.i.i521, 40, !dbg !562",
+				"%add75.i579 = add i64 %shl74.i578, %sub69.i546, !dbg !563",
+				"%cmp76.i580 = icmp ult i64 %add75.i579, %shl74.i578, !dbg !564",
+				"%inc78.i581 = zext i1 %cmp76.i580 to i64, !dbg !565",
+				"%hi.11.i582 = add nsw i64 %spec.select204.i577, %inc78.i581, !dbg !565",
+				"%shr80.i583 = lshr i64 %hi.11.i582, 24, !dbg !566",
+				"%sub81.i584 = sub i64 %add75.i579, %hi.11.i582, !dbg !567",
+				"%cmp82.i585 = icmp ult i64 %add75.i579, %hi.11.i582, !dbg !568",
+				"%dec84.i586 = sext i1 %cmp82.i585 to i64, !dbg !569",
+				"%hi.12.i587 = add nsw i64 %shr80.i583, %dec84.i586, !dbg !569",
+				"%shl86.i588 = shl i64 %hi.11.i582, 40, !dbg !570",
+				"%add87.i589 = add i64 %shl86.i588, %sub81.i584, !dbg !571",
+				"%cmp88.i590 = icmp ult i64 %add87.i589, %shl86.i588, !dbg !572",
+				"%inc90.i591 = zext i1 %cmp88.i590 to i64, !dbg !573",
+				"%hi.13.i592 = add nsw i64 %hi.12.i587, %inc90.i591, !dbg !573",
+				"%shr92.i593 = lshr i64 %hi.13.i592, 24, !dbg !574",
+				"%sub93.i594 = sub i64 %add87.i589, %hi.13.i592, !dbg !575",
+				"%cmp94.i595 = icmp ult i64 %add87.i589, %hi.13.i592, !dbg !576",
+				"%dec96.i596 = sext i1 %cmp94.i595 to i64, !dbg !577",
+				"%hi.14.i597 = add nsw i64 %shr92.i593, %dec96.i596, !dbg !577",
+				"%shl98.i598 = shl i64 %hi.13.i592, 40, !dbg !578",
+				"%add99.i599 = add i64 %shl98.i598, %sub93.i594, !dbg !579",
+				"%cmp100.i600 = icmp ult i64 %add99.i599, %shl98.i598, !dbg !580",
+				"br label %x64_mulmod.exit611, !dbg !581"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 94,
+			"name": "x64_mulmod.exit611",
+			"debug": [
+				{
+					"line": 56, "columns": [25]
+				},
+				{
+					"line": 58, "columns": [14, 11]
+				},
+				{
+					"line": 59, "columns": [11]
+				},
+				{
+					"line": 159, "columns": [9]
+				}
+			],
+			"successors": [96, 95],
+			"ir": [
+				"%cmp100.sink.i602 = phi i1 [ %cmp100.i600, %if.else67.i601 ], [ %cmp55.i574, %if.then22.i575 ], [ %cmp13.i542, %if.then.i543 ]",
+				"%hi.14.sink.i603 = phi i64 [ %hi.14.i597, %if.else67.i601 ], [ %hi.8.i571, %if.then22.i575 ], [ %hi.2.i539, %if.then.i543 ]",
+				"%add99.sink208.i604 = phi i64 [ %add99.i599, %if.else67.i601 ], [ %add54.i573, %if.then22.i575 ], [ %add12.i541, %if.then.i543 ]",
+				"%inc102.neg.i605 = sext i1 %cmp100.sink.i602 to i64, !dbg !582",
+				"%tobool104.not.i606 = icmp eq i64 %hi.14.sink.i603, %inc102.neg.i605, !dbg !582",
+				"%cmp106.not.i607 = icmp ult i64 %add99.sink208.i604, %0",
+				"%or.cond171.i608 = select i1 %tobool104.not.i606, i1 %cmp106.not.i607, i1 false, !dbg !582",
+				"%sub108.i609 = select i1 %or.cond171.i608, i64 0, i64 %0, !dbg !582",
+				"%spec.select207.i610 = sub i64 %add99.sink208.i604, %sub108.i609, !dbg !582",
+				"%mul.i.i424 = mul nuw i128 %conv1.i.i233, %conv1.i.i518, !dbg !587",
+				"%shr.i.i425 = lshr i128 %mul.i.i424, 64, !dbg !588",
+				"%conv2.i.i426 = trunc i128 %shr.i.i425 to i64, !dbg !589",
+				"%conv3.i.i427 = trunc i128 %mul.i.i424 to i64, !dbg !590",
+				"br i1 %tobool.not.i132, label %if.else.i454, label %if.then.i448, !dbg !591"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 95,
+			"name": "if.then.i448",
+			"debug": [
+				{
+					"line": 163, "columns": [12]
+				},
+				{
+					"line": 165, "columns": [16]
+				},
+				{
+					"line": 166, "columns": [15, 13]
+				},
+				{
+					"line": 168, "columns": [11]
+				},
+				{
+					"line": 169, "columns": [16]
+				},
+				{
+					"line": 170, "columns": [16, 13]
+				},
+				{
+					"line": 174, "columns": [12]
+				},
+				{
+					"line": 176, "columns": [16]
+				},
+				{
+					"line": 177, "columns": [15, 13]
+				},
+				{
+					"line": 179, "columns": [11]
+				},
+				{
+					"line": 180, "columns": [16]
+				},
+				{
+					"line": 181, "columns": [16]
+				},
+				{
+					"line": 183, "columns": [20]
+				}
+			],
+			"successors": [99],
+			"ir": [
+				"%shr.i430 = lshr i64 %conv2.i.i426, 32, !dbg !592",
+				"%sub.i431 = sub i64 %conv3.i.i427, %conv2.i.i426, !dbg !593",
+				"%cmp.i432 = icmp ult i64 %conv3.i.i427, %conv2.i.i426, !dbg !594",
+				"%dec.i433 = sext i1 %cmp.i432 to i64, !dbg !595",
+				"%spec.select.i434 = add nsw i64 %shr.i430, %dec.i433, !dbg !595",
+				"%shl.i435 = shl i64 %conv2.i.i426, 32, !dbg !596",
+				"%add.i436 = add i64 %shl.i435, %sub.i431, !dbg !597",
+				"%cmp2.i437 = icmp ult i64 %add.i436, %shl.i435, !dbg !598",
+				"%inc.i438 = zext i1 %cmp2.i437 to i64, !dbg !599",
+				"%hi.1.i439 = add nsw i64 %spec.select.i434, %inc.i438, !dbg !599",
+				"%shr5.i440 = lshr i64 %hi.1.i439, 32, !dbg !600",
+				"%sub6.i441 = sub i64 %add.i436, %hi.1.i439, !dbg !601",
+				"%cmp7.i442 = icmp ult i64 %add.i436, %hi.1.i439, !dbg !602",
+				"%dec9.i443 = sext i1 %cmp7.i442 to i64, !dbg !603",
+				"%hi.2.i444 = add nsw i64 %shr5.i440, %dec9.i443, !dbg !603",
+				"%shl11.i445 = shl i64 %hi.1.i439, 32, !dbg !604",
+				"%add12.i446 = add i64 %shl11.i445, %sub6.i441, !dbg !605",
+				"%cmp13.i447 = icmp ult i64 %add12.i446, %shl11.i445, !dbg !606",
+				"br label %x64_mulmod.exit516, !dbg !607"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 96,
+			"name": "if.else.i454",
+			"debug": [
+				{
+					"line": 185, "columns": [14]
+				}
+			],
+			"successors": [98, 97],
+			"ir": [
+				"%sub69.i451 = sub i64 %conv3.i.i427, %conv2.i.i426, !dbg !608",
+				"%cmp70.i452 = icmp ult i64 %conv3.i.i427, %conv2.i.i426, !dbg !608",
+				"%dec72.i453 = sext i1 %cmp70.i452 to i64, !dbg !608",
+				"br i1 %tobool21.not.i165, label %if.else67.i506, label %if.then22.i480, !dbg !609"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 97,
+			"name": "if.then22.i480",
+			"debug": [
+				{
+					"line": 189, "columns": [12]
+				},
+				{
+					"line": 192, "columns": [13]
+				},
+				{
+					"line": 194, "columns": [11]
+				},
+				{
+					"line": 195, "columns": [16]
+				},
+				{
+					"line": 196, "columns": [16, 13]
+				},
+				{
+					"line": 200, "columns": [12]
+				},
+				{
+					"line": 202, "columns": [16]
+				},
+				{
+					"line": 203, "columns": [15, 13]
+				},
+				{
+					"line": 205, "columns": [11]
+				},
+				{
+					"line": 206, "columns": [16]
+				},
+				{
+					"line": 207, "columns": [16, 13]
+				},
+				{
+					"line": 211, "columns": [12]
+				},
+				{
+					"line": 213, "columns": [16]
+				},
+				{
+					"line": 214, "columns": [15, 13]
+				},
+				{
+					"line": 216, "columns": [11]
+				},
+				{
+					"line": 217, "columns": [16]
+				},
+				{
+					"line": 218, "columns": [16]
+				},
+				{
+					"line": 220, "columns": [20]
+				}
+			],
+			"successors": [99],
+			"ir": [
+				"%shr23.i455 = lshr i64 %conv2.i.i426, 30, !dbg !610",
+				"%spec.select203.i456 = add nsw i64 %shr23.i455, %dec72.i453, !dbg !611",
+				"%shl29.i457 = shl i64 %conv2.i.i426, 34, !dbg !612",
+				"%add30.i458 = add i64 %shl29.i457, %sub69.i451, !dbg !613",
+				"%cmp31.i459 = icmp ult i64 %add30.i458, %shl29.i457, !dbg !614",
+				"%inc33.i460 = zext i1 %cmp31.i459 to i64, !dbg !615",
+				"%hi.5.i461 = add nsw i64 %spec.select203.i456, %inc33.i460, !dbg !615",
+				"%shr35.i462 = lshr i64 %hi.5.i461, 30, !dbg !616",
+				"%sub36.i463 = sub i64 %add30.i458, %hi.5.i461, !dbg !617",
+				"%cmp37.i464 = icmp ult i64 %add30.i458, %hi.5.i461, !dbg !618",
+				"%dec39.i465 = sext i1 %cmp37.i464 to i64, !dbg !619",
+				"%hi.6.i466 = add nsw i64 %shr35.i462, %dec39.i465, !dbg !619",
+				"%shl41.i467 = shl i64 %hi.5.i461, 34, !dbg !620",
+				"%add42.i468 = add i64 %shl41.i467, %sub36.i463, !dbg !621",
+				"%cmp43.i469 = icmp ult i64 %add42.i468, %shl41.i467, !dbg !622",
+				"%inc45.i470 = zext i1 %cmp43.i469 to i64, !dbg !623",
+				"%hi.7.i471 = add nsw i64 %hi.6.i466, %inc45.i470, !dbg !623",
+				"%shr47.i472 = lshr i64 %hi.7.i471, 30, !dbg !624",
+				"%sub48.i473 = sub i64 %add42.i468, %hi.7.i471, !dbg !625",
+				"%cmp49.i474 = icmp ult i64 %add42.i468, %hi.7.i471, !dbg !626",
+				"%dec51.i475 = sext i1 %cmp49.i474 to i64, !dbg !627",
+				"%hi.8.i476 = add nsw i64 %shr47.i472, %dec51.i475, !dbg !627",
+				"%shl53.i477 = shl i64 %hi.7.i471, 34, !dbg !628",
+				"%add54.i478 = add i64 %shl53.i477, %sub48.i473, !dbg !629",
+				"%cmp55.i479 = icmp ult i64 %add54.i478, %shl53.i477, !dbg !630",
+				"br label %x64_mulmod.exit516, !dbg !631"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 98,
+			"name": "if.else67.i506",
+			"debug": [
+				{
+					"line": 226, "columns": [12]
+				},
+				{
+					"line": 229, "columns": [13]
+				},
+				{
+					"line": 231, "columns": [11]
+				},
+				{
+					"line": 232, "columns": [16]
+				},
+				{
+					"line": 233, "columns": [16, 13]
+				},
+				{
+					"line": 237, "columns": [12]
+				},
+				{
+					"line": 239, "columns": [16]
+				},
+				{
+					"line": 240, "columns": [15, 13]
+				},
+				{
+					"line": 242, "columns": [11]
+				},
+				{
+					"line": 243, "columns": [16]
+				},
+				{
+					"line": 244, "columns": [16, 13]
+				},
+				{
+					"line": 248, "columns": [12]
+				},
+				{
+					"line": 250, "columns": [16]
+				},
+				{
+					"line": 251, "columns": [15, 13]
+				},
+				{
+					"line": 253, "columns": [11]
+				},
+				{
+					"line": 254, "columns": [16]
+				},
+				{
+					"line": 255, "columns": [16]
+				},
+				{
+					"line": 257, "columns": [20]
+				}
+			],
+			"successors": [99],
+			"ir": [
+				"%shr68.i481 = lshr i64 %conv2.i.i426, 24, !dbg !632",
+				"%spec.select204.i482 = add nsw i64 %shr68.i481, %dec72.i453, !dbg !633",
+				"%shl74.i483 = shl i64 %conv2.i.i426, 40, !dbg !634",
+				"%add75.i484 = add i64 %shl74.i483, %sub69.i451, !dbg !635",
+				"%cmp76.i485 = icmp ult i64 %add75.i484, %shl74.i483, !dbg !636",
+				"%inc78.i486 = zext i1 %cmp76.i485 to i64, !dbg !637",
+				"%hi.11.i487 = add nsw i64 %spec.select204.i482, %inc78.i486, !dbg !637",
+				"%shr80.i488 = lshr i64 %hi.11.i487, 24, !dbg !638",
+				"%sub81.i489 = sub i64 %add75.i484, %hi.11.i487, !dbg !639",
+				"%cmp82.i490 = icmp ult i64 %add75.i484, %hi.11.i487, !dbg !640",
+				"%dec84.i491 = sext i1 %cmp82.i490 to i64, !dbg !641",
+				"%hi.12.i492 = add nsw i64 %shr80.i488, %dec84.i491, !dbg !641",
+				"%shl86.i493 = shl i64 %hi.11.i487, 40, !dbg !642",
+				"%add87.i494 = add i64 %shl86.i493, %sub81.i489, !dbg !643",
+				"%cmp88.i495 = icmp ult i64 %add87.i494, %shl86.i493, !dbg !644",
+				"%inc90.i496 = zext i1 %cmp88.i495 to i64, !dbg !645",
+				"%hi.13.i497 = add nsw i64 %hi.12.i492, %inc90.i496, !dbg !645",
+				"%shr92.i498 = lshr i64 %hi.13.i497, 24, !dbg !646",
+				"%sub93.i499 = sub i64 %add87.i494, %hi.13.i497, !dbg !647",
+				"%cmp94.i500 = icmp ult i64 %add87.i494, %hi.13.i497, !dbg !648",
+				"%dec96.i501 = sext i1 %cmp94.i500 to i64, !dbg !649",
+				"%hi.14.i502 = add nsw i64 %shr92.i498, %dec96.i501, !dbg !649",
+				"%shl98.i503 = shl i64 %hi.13.i497, 40, !dbg !650",
+				"%add99.i504 = add i64 %shl98.i503, %sub93.i499, !dbg !651",
+				"%cmp100.i505 = icmp ult i64 %add99.i504, %shl98.i503, !dbg !652",
+				"br label %x64_mulmod.exit516, !dbg !653"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 99,
+			"name": "x64_mulmod.exit516",
+			"debug": [
+				{
+					"line": 180, "columns": [30, 23, 9]
+				},
+				{
+					"line": 185, "columns": [22]
+				},
+				{
+					"line": 186, "columns": [24]
+				}
+			],
+			"successors": [79, 100],
+			"ir": [
+				"%cmp100.sink.i507 = phi i1 [ %cmp100.i505, %if.else67.i506 ], [ %cmp55.i479, %if.then22.i480 ], [ %cmp13.i447, %if.then.i448 ]",
+				"%hi.14.sink.i508 = phi i64 [ %hi.14.i502, %if.else67.i506 ], [ %hi.8.i476, %if.then22.i480 ], [ %hi.2.i444, %if.then.i448 ]",
+				"%add99.sink208.i509 = phi i64 [ %add99.i504, %if.else67.i506 ], [ %add54.i478, %if.then22.i480 ], [ %add12.i446, %if.then.i448 ]",
+				"%inc102.neg.i510 = sext i1 %cmp100.sink.i507 to i64, !dbg !654",
+				"%tobool104.not.i511 = icmp eq i64 %hi.14.sink.i508, %inc102.neg.i510, !dbg !654",
+				"%cmp106.not.i512 = icmp ult i64 %add99.sink208.i509, %0",
+				"%or.cond171.i513 = select i1 %tobool104.not.i511, i1 %cmp106.not.i512, i1 false, !dbg !654",
+				"%sub108.i514 = select i1 %or.cond171.i513, i64 0, i64 %0, !dbg !654",
+				"%spec.select207.i515 = sub i64 %add99.sink208.i509, %sub108.i514, !dbg !654",
+				"store i64 %spec.select207.i420, ptr %arrayidx, align 8, !dbg !655, !tbaa !124",
+				"store i64 %spec.select207.i325, ptr %arrayidx22, align 8, !dbg !656, !tbaa !124",
+				"%add31 = add nuw i64 %k.0623, 2, !dbg !657",
+				"%cmp16 = icmp ult i64 %add31, %shl, !dbg !658",
+				"br i1 %cmp16, label %for.body18, label %for.inc33, !dbg !338, !llvm.loop !659"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 100,
+			"name": "for.inc33",
+			"debug": [
+				{
+					"line": 176, "columns": [25, 19, 5]
+				}
+			],
+			"successors": [101, 63],
+			"ir": [
+				"%inc = add nuw i64 %i.0625, 1, !dbg !661",
+				"%exitcond.not = icmp eq i64 %inc, %umax, !dbg !129",
+				"br i1 %exitcond.not, label %for.end34, label %while.body.i.preheader, !dbg !130, !llvm.loop !662"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 101,
+			"name": "for.end34",
+			"debug": [
+				{
+					"line": 191, "columns": [10, 9]
+				}
+			],
+			"successors": [102, 103],
+			"ir": [
+				"%call35 = tail call i32 @transpose_pow2(ptr noundef %a, i64 noundef %shl2, i64 noundef %shl) #4, !dbg !664",
+				"%tobool.not = icmp eq i32 %call35, 0, !dbg !664",
+				"br i1 %tobool.not, label %if.then36, label %if.end37, !dbg !666"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 102,
+			"name": "if.then36",
+			"debug": [
+				{
+					"line": 192, "columns": [9]
+				},
+				{
+					"line": 193, "columns": [9]
+				}
+			],
+			"successors": [108],
+			"ir": [
+				"%3 = load ptr, ptr @mpd_free, align 8, !dbg !667, !tbaa !669",
+				"tail call void %3(ptr noundef nonnull %call3) #4, !dbg !667",
+				"br label %cleanup, !dbg !671"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 103,
+			"name": "if.end37",
+			"debug": [
+				{
+					"line": 197, "columns": [11, 9]
+				}
+			],
+			"successors": [105, 104],
+			"ir": [
+				"%cmp38.not = icmp eq i64 %shl2, %shl, !dbg !672",
+				"br i1 %cmp38.not, label %if.end46, label %if.then40, !dbg !674"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 104,
+			"name": "if.then40",
+			"debug": [
+				{
+					"line": 198, "columns": [9]
+				},
+				{
+					"line": 199, "columns": [24, 60, 13]
+				}
+			],
+			"successors": [108, 105],
+			"ir": [
+				"%4 = load ptr, ptr @mpd_free, align 8, !dbg !675, !tbaa !669",
+				"tail call void %4(ptr noundef nonnull %call3) #4, !dbg !675",
+				"%call41 = tail call ptr @_mpd_init_fnt_params(i64 noundef %shl2, i32 noundef 1, i32 noundef %modnum) #4, !dbg !677",
+				"%cmp42 = icmp eq ptr %call41, null, !dbg !679",
+				"br i1 %cmp42, label %cleanup, label %if.end46, !dbg !680"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 105,
+			"name": "if.end46",
+			"debug": [
+				{
+					"line": 203, "columns": [5]
+				}
+			],
+			"successors": [106, 107],
+			"ir": [
+				"%tparams.0 = phi ptr [ %call41, %if.then40 ], [ %call3, %if.end37 ], !dbg !64",
+				"br i1 %cmp5619, label %for.body51, label %for.end54, !dbg !681"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 106,
+			"name": "for.body51",
+			"debug": [
+				{
+					"line": 203, "columns": [28, 19, 5]
+				},
+				{
+					"line": 204, "columns": [9]
+				}
+			],
+			"successors": [106, 107],
+			"ir": [
+				"%x.1627 = phi ptr [ %add.ptr53, %for.body51 ], [ %a, %if.end46 ]",
+				"tail call void @fnt_dif2(ptr noundef %x.1627, i64 noundef %shl2, ptr noundef %tparams.0) #4, !dbg !683",
+				"%add.ptr53 = getelementptr i64, ptr %x.1627, i64 %shl2, !dbg !686",
+				"%cmp49 = icmp ult ptr %add.ptr53, %add.ptr, !dbg !687",
+				"br i1 %cmp49, label %for.body51, label %for.end54, !dbg !681, !llvm.loop !688"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 107,
+			"name": "for.end54",
+			"debug": [
+				{
+					"line": 206, "columns": [5]
+				},
+				{
+					"line": 209, "columns": [10]
+				}
+			],
+			"successors": [108],
+			"ir": [
+				"%5 = load ptr, ptr @mpd_free, align 8, !dbg !690, !tbaa !669",
+				"tail call void %5(ptr noundef %tparams.0) #4, !dbg !690",
+				"%call55 = tail call i32 @transpose_pow2(ptr noundef %a, i64 noundef %shl, i64 noundef %shl2) #4, !dbg !691",
+				"%tobool56.not = icmp ne i32 %call55, 0, !dbg !691",
+				"%. = zext i1 %tobool56.not to i32, !dbg !64",
+				"br label %cleanup, !dbg !64"
+			]
+		},
+		{
+			"function": "inv_six_step_fnt",
+			"id": 108,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 214, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ 0, %if.then36 ], [ 0, %entry ], [ 0, %if.then40 ], [ %., %for.end54 ], !dbg !64",
+				"ret i32 %retval.0, !dbg !693"
+			]
+		}
+	]
+}

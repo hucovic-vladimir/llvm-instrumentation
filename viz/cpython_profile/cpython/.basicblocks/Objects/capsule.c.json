@@ -1,0 +1,1990 @@
+{
+	"blocks": [
+		{
+			"function": "PyCapsule_New",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 62, "columns": [10, 9]
+				}
+			],
+			"successors": [1, 2],
+			"ir": [
+				"%tobool.not = icmp eq ptr %pointer, null, !dbg !589",
+				"br i1 %tobool.not, label %if.then, label %if.end, !dbg !591"
+			]
+		},
+		{
+			"function": "PyCapsule_New",
+			"id": 1,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 63, "columns": [25, 9]
+				},
+				{
+					"line": 64, "columns": [9]
+				}
+			],
+			"successors": [4],
+			"ir": [
+				"%0 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !592, !tbaa !594",
+				"tail call void @PyErr_SetString(ptr noundef %0, ptr noundef nonnull @.str) #8, !dbg !598",
+				"br label %cleanup, !dbg !599"
+			]
+		},
+		{
+			"function": "PyCapsule_New",
+			"id": 2,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 67, "columns": [15]
+				},
+				{
+					"line": 68, "columns": [17, 9]
+				}
+			],
+			"successors": [4, 3],
+			"ir": [
+				"%call = tail call ptr @_PyObject_GC_New(ptr noundef nonnull @PyCapsule_Type) #8, !dbg !600",
+				"%cmp = icmp eq ptr %call, null, !dbg !601",
+				"br i1 %cmp, label %cleanup, label %if.end2, !dbg !603"
+			]
+		},
+		{
+			"function": "PyCapsule_New",
+			"id": 3,
+			"name": "if.end2",
+			"debug": [
+				{
+					"line": 72, "columns": [14, 22]
+				},
+				{
+					"line": 73, "columns": [14, 19]
+				},
+				{
+					"line": 74, "columns": [14, 22]
+				},
+				{
+					"line": 75, "columns": [14, 25]
+				},
+				{
+					"line": 76, "columns": [14]
+				},
+				{
+					"line": 77, "columns": [25]
+				},
+				{
+					"line": 80, "columns": [5]
+				}
+			],
+			"successors": [4],
+			"ir": [
+				"%pointer3 = getelementptr inbounds %struct.PyCapsule, ptr %call, i64 0, i32 1, !dbg !604",
+				"store ptr %pointer, ptr %pointer3, align 8, !dbg !605, !tbaa !606",
+				"%name4 = getelementptr inbounds %struct.PyCapsule, ptr %call, i64 0, i32 2, !dbg !609",
+				"store ptr %name, ptr %name4, align 8, !dbg !610, !tbaa !611",
+				"%context = getelementptr inbounds %struct.PyCapsule, ptr %call, i64 0, i32 3, !dbg !612",
+				"store ptr null, ptr %context, align 8, !dbg !613, !tbaa !614",
+				"%destructor5 = getelementptr inbounds %struct.PyCapsule, ptr %call, i64 0, i32 4, !dbg !615",
+				"store ptr %destructor, ptr %destructor5, align 8, !dbg !616, !tbaa !617",
+				"%traverse_func = getelementptr inbounds %struct.PyCapsule, ptr %call, i64 0, i32 5, !dbg !618",
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %traverse_func, i8 0, i64 16, i1 false), !dbg !619",
+				"br label %cleanup, !dbg !620"
+			]
+		},
+		{
+			"function": "PyCapsule_New",
+			"id": 4,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 81, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call, %if.end2 ], [ null, %if.then ], [ null, %if.end ], !dbg !588",
+				"ret ptr %retval.0, !dbg !621"
+			]
+		},
+		{
+			"function": "PyCapsule_IsValid",
+			"id": 5,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 89, "columns": [21, 29]
+				}
+			],
+			"successors": [12, 6],
+			"ir": [
+				"%cmp.not = icmp eq ptr %op, null, !dbg !588",
+				"br i1 %cmp.not, label %land.end, label %land.lhs.true, !dbg !589"
+			]
+		},
+		{
+			"function": "PyCapsule_IsValid",
+			"id": 6,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 90, "columns": [13, 43]
+				},
+				{
+					"line": 365, "columns": [24]
+				}
+			],
+			"successors": [7, 12],
+			"ir": [
+				"%0 = getelementptr i8, ptr %op, i64 8, !dbg !590",
+				"%op.val = load ptr, ptr %0, align 8, !dbg !590, !tbaa !591",
+				"%cmp.i.not = icmp eq ptr %op.val, @PyCapsule_Type, !dbg !604",
+				"br i1 %cmp.i.not, label %land.lhs.true1, label %land.end, !dbg !605"
+			]
+		},
+		{
+			"function": "PyCapsule_IsValid",
+			"id": 7,
+			"name": "land.lhs.true1",
+			"debug": [
+				{
+					"line": 91, "columns": [22, 30, 38]
+				}
+			],
+			"successors": [12, 8],
+			"ir": [
+				"%pointer = getelementptr inbounds %struct.PyCapsule, ptr %op, i64 0, i32 1, !dbg !606",
+				"%1 = load ptr, ptr %pointer, align 8, !dbg !606, !tbaa !607",
+				"%cmp2.not = icmp eq ptr %1, null, !dbg !609",
+				"br i1 %cmp2.not, label %land.end, label %land.rhs, !dbg !610"
+			]
+		},
+		{
+			"function": "PyCapsule_IsValid",
+			"id": 8,
+			"name": "land.rhs",
+			"debug": [
+				{
+					"line": 48, "columns": [10, 16]
+				},
+				{
+					"line": 92, "columns": [35]
+				}
+			],
+			"successors": [10, 9],
+			"ir": [
+				"%name3 = getelementptr inbounds %struct.PyCapsule, ptr %op, i64 0, i32 2, !dbg !611",
+				"%2 = load ptr, ptr %name3, align 8, !dbg !611, !tbaa !612",
+				"%tobool.i = icmp ne ptr %2, null, !dbg !621",
+				"%tobool1.i = icmp ne ptr %name, null",
+				"%or.cond.i = and i1 %tobool1.i, %tobool.i, !dbg !623",
+				"br i1 %or.cond.i, label %if.end.i, label %if.then.i, !dbg !623"
+			]
+		},
+		{
+			"function": "PyCapsule_IsValid",
+			"id": 9,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 50, "columns": [22, 9]
+				}
+			],
+			"successors": [11],
+			"ir": [
+				"%cmp.i9 = icmp eq ptr %2, %name, !dbg !624",
+				"br label %name_matches.exit, !dbg !626"
+			]
+		},
+		{
+			"function": "PyCapsule_IsValid",
+			"id": 10,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 52, "columns": [13, 12, 5]
+				}
+			],
+			"successors": [11],
+			"ir": [
+				"%call.i = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %2, ptr noundef nonnull dereferenceable(1) %name) #8, !dbg !627",
+				"%tobool2.not.i = icmp eq i32 %call.i, 0, !dbg !628",
+				"br label %name_matches.exit, !dbg !629"
+			]
+		},
+		{
+			"function": "PyCapsule_IsValid",
+			"id": 11,
+			"name": "name_matches.exit",
+			"debug": [
+			],
+			"successors": [12],
+			"ir": [
+				"%retval.0.in.i = phi i1 [ %tobool2.not.i, %if.end.i ], [ %cmp.i9, %if.then.i ]",
+				"%retval.0.i = zext i1 %retval.0.in.i to i32, !dbg !619",
+				"br label %land.end"
+			]
+		},
+		{
+			"function": "PyCapsule_IsValid",
+			"id": 12,
+			"name": "land.end",
+			"debug": [
+				{
+					"line": 89, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%land.ext = phi i32 [ 0, %land.lhs.true1 ], [ 0, %land.lhs.true ], [ 0, %entry ], [ %retval.0.i, %name_matches.exit ], !dbg !587",
+				"ret i32 %land.ext, !dbg !630"
+			]
+		},
+		{
+			"function": "PyCapsule_GetPointer",
+			"id": 13,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 25, "columns": [10, 13]
+				}
+			],
+			"successors": [19, 14],
+			"ir": [
+				"%tobool.not.i = icmp eq ptr %op, null, !dbg !599",
+				"br i1 %tobool.not.i, label %return.sink.split, label %lor.lhs.false.i, !dbg !601"
+			]
+		},
+		{
+			"function": "PyCapsule_GetPointer",
+			"id": 14,
+			"name": "lor.lhs.false.i",
+			"debug": [
+				{
+					"line": 25, "columns": [17, 9]
+				},
+				{
+					"line": 365, "columns": [24]
+				}
+			],
+			"successors": [15, 19],
+			"ir": [
+				"%0 = getelementptr i8, ptr %op, i64 8, !dbg !602",
+				"%op.val.i = load ptr, ptr %0, align 8, !dbg !602, !tbaa !603",
+				"%cmp.i.not.i = icmp eq ptr %op.val.i, @PyCapsule_Type, !dbg !616",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %return.sink.split, !dbg !617"
+			]
+		},
+		{
+			"function": "PyCapsule_GetPointer",
+			"id": 15,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 30, "columns": [18, 26, 9]
+				}
+			],
+			"successors": [19, 16],
+			"ir": [
+				"%pointer.i = getelementptr inbounds %struct.PyCapsule, ptr %op, i64 0, i32 1, !dbg !618",
+				"%1 = load ptr, ptr %pointer.i, align 8, !dbg !618, !tbaa !620",
+				"%cmp.i = icmp eq ptr %1, null, !dbg !622",
+				"br i1 %cmp.i, label %return.sink.split, label %if.end, !dbg !623"
+			]
+		},
+		{
+			"function": "PyCapsule_GetPointer",
+			"id": 16,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 48, "columns": [10, 16]
+				},
+				{
+					"line": 104, "columns": [38]
+				}
+			],
+			"successors": [17, 18],
+			"ir": [
+				"%name1 = getelementptr inbounds %struct.PyCapsule, ptr %op, i64 0, i32 2, !dbg !624",
+				"%2 = load ptr, ptr %name1, align 8, !dbg !624, !tbaa !626",
+				"%tobool.i = icmp ne ptr %name, null, !dbg !635",
+				"%tobool1.i = icmp ne ptr %2, null",
+				"%or.cond.i = and i1 %tobool.i, %tobool1.i, !dbg !637",
+				"br i1 %or.cond.i, label %if.end.i9, label %name_matches.exit, !dbg !637"
+			]
+		},
+		{
+			"function": "PyCapsule_GetPointer",
+			"id": 17,
+			"name": "if.end.i9",
+			"debug": [
+				{
+					"line": 52, "columns": [13, 12]
+				},
+				{
+					"line": 104, "columns": [9]
+				}
+			],
+			"successors": [20, 19],
+			"ir": [
+				"%call.i = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(1) %2) #8, !dbg !638",
+				"%tobool2.not.i = icmp eq i32 %call.i, 0, !dbg !639",
+				"br i1 %tobool2.not.i, label %return, label %return.sink.split, !dbg !640"
+			]
+		},
+		{
+			"function": "PyCapsule_GetPointer",
+			"id": 18,
+			"name": "name_matches.exit",
+			"debug": [
+				{
+					"line": 50, "columns": [22]
+				},
+				{
+					"line": 104, "columns": [9]
+				}
+			],
+			"successors": [20, 19],
+			"ir": [
+				"%cmp.i8 = icmp eq ptr %2, %name, !dbg !641",
+				"br i1 %cmp.i8, label %return, label %return.sink.split, !dbg !640"
+			]
+		},
+		{
+			"function": "PyCapsule_GetPointer",
+			"id": 19,
+			"name": "return.sink.split",
+			"debug": [
+				{
+					"line": 110, "columns": [1]
+				}
+			],
+			"successors": [20],
+			"ir": [
+				"%.str.1.sink = phi ptr [ @.str.1, %entry ], [ @.str.1, %lor.lhs.false.i ], [ @.str.1, %if.end.i ], [ @.str.2, %if.end.i9 ], [ @.str.2, %name_matches.exit ]",
+				"%3 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !587, !tbaa !643",
+				"tail call void @PyErr_SetString(ptr noundef %3, ptr noundef nonnull %.str.1.sink) #9, !dbg !587",
+				"br label %return, !dbg !644"
+			]
+		},
+		{
+			"function": "PyCapsule_GetPointer",
+			"id": 20,
+			"name": "return",
+			"debug": [
+				{
+					"line": 110, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ %1, %if.end.i9 ], [ %1, %name_matches.exit ], [ null, %return.sink.split ], !dbg !587",
+				"ret ptr %retval.1, !dbg !644"
+			]
+		},
+		{
+			"function": "PyCapsule_GetName",
+			"id": 21,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 25, "columns": [10, 13]
+				}
+			],
+			"successors": [24, 22],
+			"ir": [
+				"%tobool.not.i = icmp eq ptr %op, null, !dbg !598",
+				"br i1 %tobool.not.i, label %_is_legal_capsule.exit.thread, label %lor.lhs.false.i, !dbg !600"
+			]
+		},
+		{
+			"function": "PyCapsule_GetName",
+			"id": 22,
+			"name": "lor.lhs.false.i",
+			"debug": [
+				{
+					"line": 25, "columns": [17, 9]
+				},
+				{
+					"line": 365, "columns": [24]
+				}
+			],
+			"successors": [23, 24],
+			"ir": [
+				"%0 = getelementptr i8, ptr %op, i64 8, !dbg !601",
+				"%op.val.i = load ptr, ptr %0, align 8, !dbg !601, !tbaa !602",
+				"%cmp.i.not.i = icmp eq ptr %op.val.i, @PyCapsule_Type, !dbg !615",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %_is_legal_capsule.exit.thread, !dbg !616"
+			]
+		},
+		{
+			"function": "PyCapsule_GetName",
+			"id": 23,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 30, "columns": [18, 26, 9]
+				}
+			],
+			"successors": [24, 25],
+			"ir": [
+				"%pointer.i = getelementptr inbounds %struct.PyCapsule, ptr %op, i64 0, i32 1, !dbg !617",
+				"%1 = load ptr, ptr %pointer.i, align 8, !dbg !617, !tbaa !619",
+				"%cmp.i = icmp eq ptr %1, null, !dbg !621",
+				"br i1 %cmp.i, label %_is_legal_capsule.exit.thread, label %if.end, !dbg !622"
+			]
+		},
+		{
+			"function": "PyCapsule_GetName",
+			"id": 24,
+			"name": "_is_legal_capsule.exit.thread",
+			"debug": [
+				{
+					"line": 35, "columns": [1]
+				},
+				{
+					"line": 36, "columns": [21, 5]
+				},
+				{
+					"line": 116, "columns": [9]
+				}
+			],
+			"successors": [26],
+			"ir": [
+				"%2 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !624, !tbaa !625",
+				"tail call void @PyErr_SetString(ptr noundef %2, ptr noundef nonnull @.str.3) #8, !dbg !626",
+				"br label %return, !dbg !627"
+			]
+		},
+		{
+			"function": "PyCapsule_GetName",
+			"id": 25,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 120, "columns": [21]
+				}
+			],
+			"successors": [26],
+			"ir": [
+				"%name = getelementptr inbounds %struct.PyCapsule, ptr %op, i64 0, i32 2, !dbg !628",
+				"%3 = load ptr, ptr %name, align 8, !dbg !628, !tbaa !629",
+				"br label %return"
+			]
+		},
+		{
+			"function": "PyCapsule_GetName",
+			"id": 26,
+			"name": "return",
+			"debug": [
+				{
+					"line": 121, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %3, %if.end ], [ null, %_is_legal_capsule.exit.thread ], !dbg !586",
+				"ret ptr %retval.0, !dbg !630"
+			]
+		},
+		{
+			"function": "PyCapsule_GetDestructor",
+			"id": 27,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 25, "columns": [10, 13]
+				}
+			],
+			"successors": [30, 28],
+			"ir": [
+				"%tobool.not.i = icmp eq ptr %op, null, !dbg !598",
+				"br i1 %tobool.not.i, label %_is_legal_capsule.exit.thread, label %lor.lhs.false.i, !dbg !600"
+			]
+		},
+		{
+			"function": "PyCapsule_GetDestructor",
+			"id": 28,
+			"name": "lor.lhs.false.i",
+			"debug": [
+				{
+					"line": 25, "columns": [17, 9]
+				},
+				{
+					"line": 365, "columns": [24]
+				}
+			],
+			"successors": [29, 30],
+			"ir": [
+				"%0 = getelementptr i8, ptr %op, i64 8, !dbg !601",
+				"%op.val.i = load ptr, ptr %0, align 8, !dbg !601, !tbaa !602",
+				"%cmp.i.not.i = icmp eq ptr %op.val.i, @PyCapsule_Type, !dbg !615",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %_is_legal_capsule.exit.thread, !dbg !616"
+			]
+		},
+		{
+			"function": "PyCapsule_GetDestructor",
+			"id": 29,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 30, "columns": [18, 26, 9]
+				}
+			],
+			"successors": [30, 31],
+			"ir": [
+				"%pointer.i = getelementptr inbounds %struct.PyCapsule, ptr %op, i64 0, i32 1, !dbg !617",
+				"%1 = load ptr, ptr %pointer.i, align 8, !dbg !617, !tbaa !619",
+				"%cmp.i = icmp eq ptr %1, null, !dbg !621",
+				"br i1 %cmp.i, label %_is_legal_capsule.exit.thread, label %if.end, !dbg !622"
+			]
+		},
+		{
+			"function": "PyCapsule_GetDestructor",
+			"id": 30,
+			"name": "_is_legal_capsule.exit.thread",
+			"debug": [
+				{
+					"line": 35, "columns": [1]
+				},
+				{
+					"line": 36, "columns": [21, 5]
+				},
+				{
+					"line": 127, "columns": [9]
+				}
+			],
+			"successors": [32],
+			"ir": [
+				"%2 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !624, !tbaa !625",
+				"tail call void @PyErr_SetString(ptr noundef %2, ptr noundef nonnull @.str.4) #8, !dbg !626",
+				"br label %return, !dbg !627"
+			]
+		},
+		{
+			"function": "PyCapsule_GetDestructor",
+			"id": 31,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 131, "columns": [21]
+				}
+			],
+			"successors": [32],
+			"ir": [
+				"%destructor = getelementptr inbounds %struct.PyCapsule, ptr %op, i64 0, i32 4, !dbg !628",
+				"%3 = load ptr, ptr %destructor, align 8, !dbg !628, !tbaa !629",
+				"br label %return"
+			]
+		},
+		{
+			"function": "PyCapsule_GetDestructor",
+			"id": 32,
+			"name": "return",
+			"debug": [
+				{
+					"line": 132, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %3, %if.end ], [ null, %_is_legal_capsule.exit.thread ], !dbg !586",
+				"ret ptr %retval.0, !dbg !630"
+			]
+		},
+		{
+			"function": "PyCapsule_GetContext",
+			"id": 33,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 25, "columns": [10, 13]
+				}
+			],
+			"successors": [36, 34],
+			"ir": [
+				"%tobool.not.i = icmp eq ptr %op, null, !dbg !598",
+				"br i1 %tobool.not.i, label %_is_legal_capsule.exit.thread, label %lor.lhs.false.i, !dbg !600"
+			]
+		},
+		{
+			"function": "PyCapsule_GetContext",
+			"id": 34,
+			"name": "lor.lhs.false.i",
+			"debug": [
+				{
+					"line": 25, "columns": [17, 9]
+				},
+				{
+					"line": 365, "columns": [24]
+				}
+			],
+			"successors": [35, 36],
+			"ir": [
+				"%0 = getelementptr i8, ptr %op, i64 8, !dbg !601",
+				"%op.val.i = load ptr, ptr %0, align 8, !dbg !601, !tbaa !602",
+				"%cmp.i.not.i = icmp eq ptr %op.val.i, @PyCapsule_Type, !dbg !615",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %_is_legal_capsule.exit.thread, !dbg !616"
+			]
+		},
+		{
+			"function": "PyCapsule_GetContext",
+			"id": 35,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 30, "columns": [18, 26, 9]
+				}
+			],
+			"successors": [36, 37],
+			"ir": [
+				"%pointer.i = getelementptr inbounds %struct.PyCapsule, ptr %op, i64 0, i32 1, !dbg !617",
+				"%1 = load ptr, ptr %pointer.i, align 8, !dbg !617, !tbaa !619",
+				"%cmp.i = icmp eq ptr %1, null, !dbg !621",
+				"br i1 %cmp.i, label %_is_legal_capsule.exit.thread, label %if.end, !dbg !622"
+			]
+		},
+		{
+			"function": "PyCapsule_GetContext",
+			"id": 36,
+			"name": "_is_legal_capsule.exit.thread",
+			"debug": [
+				{
+					"line": 35, "columns": [1]
+				},
+				{
+					"line": 36, "columns": [21, 5]
+				},
+				{
+					"line": 138, "columns": [9]
+				}
+			],
+			"successors": [38],
+			"ir": [
+				"%2 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !624, !tbaa !625",
+				"tail call void @PyErr_SetString(ptr noundef %2, ptr noundef nonnull @.str.5) #8, !dbg !626",
+				"br label %return, !dbg !627"
+			]
+		},
+		{
+			"function": "PyCapsule_GetContext",
+			"id": 37,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 142, "columns": [21]
+				}
+			],
+			"successors": [38],
+			"ir": [
+				"%context = getelementptr inbounds %struct.PyCapsule, ptr %op, i64 0, i32 3, !dbg !628",
+				"%3 = load ptr, ptr %context, align 8, !dbg !628, !tbaa !629",
+				"br label %return"
+			]
+		},
+		{
+			"function": "PyCapsule_GetContext",
+			"id": 38,
+			"name": "return",
+			"debug": [
+				{
+					"line": 143, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %3, %if.end ], [ null, %_is_legal_capsule.exit.thread ], !dbg !586",
+				"ret ptr %retval.0, !dbg !630"
+			]
+		},
+		{
+			"function": "PyCapsule_SetPointer",
+			"id": 39,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 25, "columns": [10, 13]
+				}
+			],
+			"successors": [42, 40],
+			"ir": [
+				"%tobool.not.i = icmp eq ptr %op, null, !dbg !597",
+				"br i1 %tobool.not.i, label %_is_legal_capsule.exit.thread, label %lor.lhs.false.i, !dbg !599"
+			]
+		},
+		{
+			"function": "PyCapsule_SetPointer",
+			"id": 40,
+			"name": "lor.lhs.false.i",
+			"debug": [
+				{
+					"line": 25, "columns": [17, 9]
+				},
+				{
+					"line": 365, "columns": [24]
+				}
+			],
+			"successors": [41, 42],
+			"ir": [
+				"%0 = getelementptr i8, ptr %op, i64 8, !dbg !600",
+				"%op.val.i = load ptr, ptr %0, align 8, !dbg !600, !tbaa !601",
+				"%cmp.i.not.i = icmp eq ptr %op.val.i, @PyCapsule_Type, !dbg !614",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %_is_legal_capsule.exit.thread, !dbg !615"
+			]
+		},
+		{
+			"function": "PyCapsule_SetPointer",
+			"id": 41,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 30, "columns": [18, 26, 9]
+				}
+			],
+			"successors": [42, 43],
+			"ir": [
+				"%pointer.i = getelementptr inbounds %struct.PyCapsule, ptr %op, i64 0, i32 1, !dbg !616",
+				"%1 = load ptr, ptr %pointer.i, align 8, !dbg !616, !tbaa !618",
+				"%cmp.i = icmp eq ptr %1, null, !dbg !620",
+				"br i1 %cmp.i, label %_is_legal_capsule.exit.thread, label %if.end, !dbg !621"
+			]
+		},
+		{
+			"function": "PyCapsule_SetPointer",
+			"id": 42,
+			"name": "_is_legal_capsule.exit.thread",
+			"debug": [
+				{
+					"line": 35, "columns": [1]
+				},
+				{
+					"line": 36, "columns": [21, 5]
+				},
+				{
+					"line": 149, "columns": [9]
+				}
+			],
+			"successors": [46],
+			"ir": [
+				"%2 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !623, !tbaa !624",
+				"tail call void @PyErr_SetString(ptr noundef %2, ptr noundef nonnull @.str.6) #8, !dbg !625",
+				"br label %return, !dbg !626"
+			]
+		},
+		{
+			"function": "PyCapsule_SetPointer",
+			"id": 43,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 154, "columns": [10, 9]
+				}
+			],
+			"successors": [44, 45],
+			"ir": [
+				"%tobool1.not = icmp eq ptr %pointer, null, !dbg !627",
+				"br i1 %tobool1.not, label %if.then2, label %if.end3, !dbg !629"
+			]
+		},
+		{
+			"function": "PyCapsule_SetPointer",
+			"id": 44,
+			"name": "if.then2",
+			"debug": [
+				{
+					"line": 155, "columns": [25, 9]
+				},
+				{
+					"line": 156, "columns": [9]
+				}
+			],
+			"successors": [46],
+			"ir": [
+				"%3 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !630, !tbaa !624",
+				"tail call void @PyErr_SetString(ptr noundef %3, ptr noundef nonnull @.str.7) #8, !dbg !632",
+				"br label %return, !dbg !633"
+			]
+		},
+		{
+			"function": "PyCapsule_SetPointer",
+			"id": 45,
+			"name": "if.end3",
+			"debug": [
+				{
+					"line": 159, "columns": [22]
+				},
+				{
+					"line": 160, "columns": [5]
+				}
+			],
+			"successors": [46],
+			"ir": [
+				"store ptr %pointer, ptr %pointer.i, align 8, !dbg !634, !tbaa !618",
+				"br label %return, !dbg !635"
+			]
+		},
+		{
+			"function": "PyCapsule_SetPointer",
+			"id": 46,
+			"name": "return",
+			"debug": [
+				{
+					"line": 161, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi i32 [ 0, %if.end3 ], [ -1, %if.then2 ], [ -1, %_is_legal_capsule.exit.thread ], !dbg !585",
+				"ret i32 %retval.1, !dbg !636"
+			]
+		},
+		{
+			"function": "PyCapsule_SetName",
+			"id": 47,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 25, "columns": [10, 13]
+				}
+			],
+			"successors": [50, 48],
+			"ir": [
+				"%tobool.not.i = icmp eq ptr %op, null, !dbg !597",
+				"br i1 %tobool.not.i, label %_is_legal_capsule.exit.thread, label %lor.lhs.false.i, !dbg !599"
+			]
+		},
+		{
+			"function": "PyCapsule_SetName",
+			"id": 48,
+			"name": "lor.lhs.false.i",
+			"debug": [
+				{
+					"line": 25, "columns": [17, 9]
+				},
+				{
+					"line": 365, "columns": [24]
+				}
+			],
+			"successors": [49, 50],
+			"ir": [
+				"%0 = getelementptr i8, ptr %op, i64 8, !dbg !600",
+				"%op.val.i = load ptr, ptr %0, align 8, !dbg !600, !tbaa !601",
+				"%cmp.i.not.i = icmp eq ptr %op.val.i, @PyCapsule_Type, !dbg !614",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %_is_legal_capsule.exit.thread, !dbg !615"
+			]
+		},
+		{
+			"function": "PyCapsule_SetName",
+			"id": 49,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 30, "columns": [18, 26, 9]
+				}
+			],
+			"successors": [50, 51],
+			"ir": [
+				"%pointer.i = getelementptr inbounds %struct.PyCapsule, ptr %op, i64 0, i32 1, !dbg !616",
+				"%1 = load ptr, ptr %pointer.i, align 8, !dbg !616, !tbaa !618",
+				"%cmp.i = icmp eq ptr %1, null, !dbg !620",
+				"br i1 %cmp.i, label %_is_legal_capsule.exit.thread, label %if.end, !dbg !621"
+			]
+		},
+		{
+			"function": "PyCapsule_SetName",
+			"id": 50,
+			"name": "_is_legal_capsule.exit.thread",
+			"debug": [
+				{
+					"line": 35, "columns": [1]
+				},
+				{
+					"line": 36, "columns": [21, 5]
+				},
+				{
+					"line": 167, "columns": [9]
+				}
+			],
+			"successors": [52],
+			"ir": [
+				"%2 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !623, !tbaa !624",
+				"tail call void @PyErr_SetString(ptr noundef %2, ptr noundef nonnull @.str.8) #8, !dbg !625",
+				"br label %return, !dbg !626"
+			]
+		},
+		{
+			"function": "PyCapsule_SetName",
+			"id": 51,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 172, "columns": [14, 19]
+				}
+			],
+			"successors": [52],
+			"ir": [
+				"%name1 = getelementptr inbounds %struct.PyCapsule, ptr %op, i64 0, i32 2, !dbg !627",
+				"store ptr %name, ptr %name1, align 8, !dbg !628, !tbaa !629",
+				"br label %return"
+			]
+		},
+		{
+			"function": "PyCapsule_SetName",
+			"id": 52,
+			"name": "return",
+			"debug": [
+				{
+					"line": 174, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ 0, %if.end ], [ -1, %_is_legal_capsule.exit.thread ], !dbg !587",
+				"ret i32 %retval.0, !dbg !630"
+			]
+		},
+		{
+			"function": "PyCapsule_SetDestructor",
+			"id": 53,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 25, "columns": [10, 13]
+				}
+			],
+			"successors": [56, 54],
+			"ir": [
+				"%tobool.not.i = icmp eq ptr %op, null, !dbg !599",
+				"br i1 %tobool.not.i, label %_is_legal_capsule.exit.thread, label %lor.lhs.false.i, !dbg !601"
+			]
+		},
+		{
+			"function": "PyCapsule_SetDestructor",
+			"id": 54,
+			"name": "lor.lhs.false.i",
+			"debug": [
+				{
+					"line": 25, "columns": [17, 9]
+				},
+				{
+					"line": 365, "columns": [24]
+				}
+			],
+			"successors": [55, 56],
+			"ir": [
+				"%0 = getelementptr i8, ptr %op, i64 8, !dbg !602",
+				"%op.val.i = load ptr, ptr %0, align 8, !dbg !602, !tbaa !603",
+				"%cmp.i.not.i = icmp eq ptr %op.val.i, @PyCapsule_Type, !dbg !616",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %_is_legal_capsule.exit.thread, !dbg !617"
+			]
+		},
+		{
+			"function": "PyCapsule_SetDestructor",
+			"id": 55,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 30, "columns": [18, 26, 9]
+				}
+			],
+			"successors": [56, 57],
+			"ir": [
+				"%pointer.i = getelementptr inbounds %struct.PyCapsule, ptr %op, i64 0, i32 1, !dbg !618",
+				"%1 = load ptr, ptr %pointer.i, align 8, !dbg !618, !tbaa !620",
+				"%cmp.i = icmp eq ptr %1, null, !dbg !622",
+				"br i1 %cmp.i, label %_is_legal_capsule.exit.thread, label %if.end, !dbg !623"
+			]
+		},
+		{
+			"function": "PyCapsule_SetDestructor",
+			"id": 56,
+			"name": "_is_legal_capsule.exit.thread",
+			"debug": [
+				{
+					"line": 35, "columns": [1]
+				},
+				{
+					"line": 36, "columns": [21, 5]
+				},
+				{
+					"line": 180, "columns": [9]
+				}
+			],
+			"successors": [58],
+			"ir": [
+				"%2 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !625, !tbaa !626",
+				"tail call void @PyErr_SetString(ptr noundef %2, ptr noundef nonnull @.str.9) #8, !dbg !627",
+				"br label %return, !dbg !628"
+			]
+		},
+		{
+			"function": "PyCapsule_SetDestructor",
+			"id": 57,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 185, "columns": [14, 25]
+				}
+			],
+			"successors": [58],
+			"ir": [
+				"%destructor1 = getelementptr inbounds %struct.PyCapsule, ptr %op, i64 0, i32 4, !dbg !629",
+				"store ptr %destructor, ptr %destructor1, align 8, !dbg !630, !tbaa !631",
+				"br label %return"
+			]
+		},
+		{
+			"function": "PyCapsule_SetDestructor",
+			"id": 58,
+			"name": "return",
+			"debug": [
+				{
+					"line": 187, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ 0, %if.end ], [ -1, %_is_legal_capsule.exit.thread ], !dbg !587",
+				"ret i32 %retval.0, !dbg !632"
+			]
+		},
+		{
+			"function": "PyCapsule_SetContext",
+			"id": 59,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 25, "columns": [10, 13]
+				}
+			],
+			"successors": [62, 60],
+			"ir": [
+				"%tobool.not.i = icmp eq ptr %op, null, !dbg !597",
+				"br i1 %tobool.not.i, label %_is_legal_capsule.exit.thread, label %lor.lhs.false.i, !dbg !599"
+			]
+		},
+		{
+			"function": "PyCapsule_SetContext",
+			"id": 60,
+			"name": "lor.lhs.false.i",
+			"debug": [
+				{
+					"line": 25, "columns": [17, 9]
+				},
+				{
+					"line": 365, "columns": [24]
+				}
+			],
+			"successors": [61, 62],
+			"ir": [
+				"%0 = getelementptr i8, ptr %op, i64 8, !dbg !600",
+				"%op.val.i = load ptr, ptr %0, align 8, !dbg !600, !tbaa !601",
+				"%cmp.i.not.i = icmp eq ptr %op.val.i, @PyCapsule_Type, !dbg !614",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %_is_legal_capsule.exit.thread, !dbg !615"
+			]
+		},
+		{
+			"function": "PyCapsule_SetContext",
+			"id": 61,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 30, "columns": [18, 26, 9]
+				}
+			],
+			"successors": [62, 63],
+			"ir": [
+				"%pointer.i = getelementptr inbounds %struct.PyCapsule, ptr %op, i64 0, i32 1, !dbg !616",
+				"%1 = load ptr, ptr %pointer.i, align 8, !dbg !616, !tbaa !618",
+				"%cmp.i = icmp eq ptr %1, null, !dbg !620",
+				"br i1 %cmp.i, label %_is_legal_capsule.exit.thread, label %if.end, !dbg !621"
+			]
+		},
+		{
+			"function": "PyCapsule_SetContext",
+			"id": 62,
+			"name": "_is_legal_capsule.exit.thread",
+			"debug": [
+				{
+					"line": 35, "columns": [1]
+				},
+				{
+					"line": 36, "columns": [21, 5]
+				},
+				{
+					"line": 193, "columns": [9]
+				}
+			],
+			"successors": [64],
+			"ir": [
+				"%2 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !623, !tbaa !624",
+				"tail call void @PyErr_SetString(ptr noundef %2, ptr noundef nonnull @.str.10) #8, !dbg !625",
+				"br label %return, !dbg !626"
+			]
+		},
+		{
+			"function": "PyCapsule_SetContext",
+			"id": 63,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 198, "columns": [14, 22]
+				}
+			],
+			"successors": [64],
+			"ir": [
+				"%context1 = getelementptr inbounds %struct.PyCapsule, ptr %op, i64 0, i32 3, !dbg !627",
+				"store ptr %context, ptr %context1, align 8, !dbg !628, !tbaa !629",
+				"br label %return"
+			]
+		},
+		{
+			"function": "PyCapsule_SetContext",
+			"id": 64,
+			"name": "return",
+			"debug": [
+				{
+					"line": 200, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ 0, %if.end ], [ -1, %_is_legal_capsule.exit.thread ], !dbg !585",
+				"ret i32 %retval.0, !dbg !630"
+			]
+		},
+		{
+			"function": "_PyCapsule_SetTraverse",
+			"id": 65,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 25, "columns": [10, 13]
+				}
+			],
+			"successors": [68, 66],
+			"ir": [
+				"%tobool.not.i = icmp eq ptr %op, null, !dbg !600",
+				"br i1 %tobool.not.i, label %_is_legal_capsule.exit.thread, label %lor.lhs.false.i, !dbg !602"
+			]
+		},
+		{
+			"function": "_PyCapsule_SetTraverse",
+			"id": 66,
+			"name": "lor.lhs.false.i",
+			"debug": [
+				{
+					"line": 25, "columns": [17, 9]
+				},
+				{
+					"line": 365, "columns": [24]
+				}
+			],
+			"successors": [67, 68],
+			"ir": [
+				"%0 = getelementptr i8, ptr %op, i64 8, !dbg !603",
+				"%op.val.i = load ptr, ptr %0, align 8, !dbg !603, !tbaa !604",
+				"%cmp.i.not.i = icmp eq ptr %op.val.i, @PyCapsule_Type, !dbg !617",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %_is_legal_capsule.exit.thread, !dbg !618"
+			]
+		},
+		{
+			"function": "_PyCapsule_SetTraverse",
+			"id": 67,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 30, "columns": [18, 26, 9]
+				}
+			],
+			"successors": [68, 69],
+			"ir": [
+				"%pointer.i = getelementptr inbounds %struct.PyCapsule, ptr %op, i64 0, i32 1, !dbg !619",
+				"%1 = load ptr, ptr %pointer.i, align 8, !dbg !619, !tbaa !621",
+				"%cmp.i = icmp eq ptr %1, null, !dbg !623",
+				"br i1 %cmp.i, label %_is_legal_capsule.exit.thread, label %if.end, !dbg !624"
+			]
+		},
+		{
+			"function": "_PyCapsule_SetTraverse",
+			"id": 68,
+			"name": "_is_legal_capsule.exit.thread",
+			"debug": [
+				{
+					"line": 35, "columns": [1]
+				},
+				{
+					"line": 36, "columns": [21, 5]
+				},
+				{
+					"line": 206, "columns": [9]
+				}
+			],
+			"successors": [74],
+			"ir": [
+				"%2 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !626, !tbaa !627",
+				"tail call void @PyErr_SetString(ptr noundef %2, ptr noundef nonnull @.str.11) #8, !dbg !628",
+				"br label %return, !dbg !629"
+			]
+		},
+		{
+			"function": "_PyCapsule_SetTraverse",
+			"id": 69,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 211, "columns": [23, 31]
+				}
+			],
+			"successors": [70, 71],
+			"ir": [
+				"%cmp = icmp eq ptr %traverse_func, null, !dbg !630",
+				"%cmp1 = icmp eq ptr %clear_func, null",
+				"%or.cond = or i1 %cmp, %cmp1, !dbg !632",
+				"br i1 %or.cond, label %if.then2, label %if.end3, !dbg !632"
+			]
+		},
+		{
+			"function": "_PyCapsule_SetTraverse",
+			"id": 70,
+			"name": "if.then2",
+			"debug": [
+				{
+					"line": 212, "columns": [25, 9]
+				},
+				{
+					"line": 214, "columns": [9]
+				}
+			],
+			"successors": [74],
+			"ir": [
+				"%3 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !633, !tbaa !627",
+				"tail call void @PyErr_SetString(ptr noundef %3, ptr noundef nonnull @.str.12) #8, !dbg !635",
+				"br label %return, !dbg !636"
+			]
+		},
+		{
+			"function": "_PyCapsule_SetTraverse",
+			"id": 71,
+			"name": "if.end3",
+			"debug": [
+				{
+					"line": 56, "columns": [26]
+				},
+				{
+					"line": 217, "columns": [10, 9]
+				}
+			],
+			"successors": [72, 73],
+			"ir": [
+				"%4 = getelementptr i8, ptr %op, i64 -16, !dbg !637",
+				"%op.val = load i64, ptr %4, align 8, !dbg !637, !tbaa !639",
+				"%cmp.i16.not = icmp eq i64 %op.val, 0, !dbg !648",
+				"br i1 %cmp.i16.not, label %if.then6, label %if.end7, !dbg !649"
+			]
+		},
+		{
+			"function": "_PyCapsule_SetTraverse",
+			"id": 72,
+			"name": "if.then6",
+			"debug": [
+				{
+					"line": 137, "columns": [12]
+				},
+				{
+					"line": 161, "columns": [23]
+				},
+				{
+					"line": 163, "columns": [25, 34, 54, 18]
+				},
+				{
+					"line": 175, "columns": [26, 35, 55, 18]
+				},
+				{
+					"line": 211, "columns": [20]
+				},
+				{
+					"line": 219, "columns": [5]
+				},
+				{
+					"line": 316, "columns": [42]
+				},
+				{
+					"line": 317, "columns": [49, 23]
+				},
+				{
+					"line": 321, "columns": [21, 58, 47, 45, 18]
+				},
+				{
+					"line": 322, "columns": [27]
+				}
+			],
+			"successors": [73],
+			"ir": [
+				"%5 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6930",
+				"%6 = load ptr, ptr %5, align 8, !dbg !6930, !tbaa !627",
+				"%interp.i.i = getelementptr inbounds %struct._ts, ptr %6, i64 0, i32 2, !dbg !6944",
+				"%7 = load ptr, ptr %interp.i.i, align 8, !dbg !6944, !tbaa !6945",
+				"%young.i = getelementptr inbounds %struct._is, ptr %7, i64 0, i32 13, i32 4, !dbg !6951",
+				"%_gc_prev.i = getelementptr inbounds %struct._is, ptr %7, i64 0, i32 13, i32 4, i32 0, i32 1, !dbg !6952",
+				"%8 = load i64, ptr %_gc_prev.i, align 8, !dbg !6952, !tbaa !6953",
+				"%9 = inttoptr i64 %8 to ptr, !dbg !6954",
+				"%10 = ptrtoint ptr %4 to i64, !dbg !6964",
+				"%11 = load i64, ptr %9, align 8, !dbg !6965, !tbaa !639",
+				"%and.i.i = and i64 %11, 3, !dbg !6966",
+				"%or.i.i = or i64 %and.i.i, %10, !dbg !6967",
+				"store i64 %or.i.i, ptr %9, align 8, !dbg !6968, !tbaa !639",
+				"%_gc_prev.i.i = getelementptr i8, ptr %op, i64 -8, !dbg !6976",
+				"%12 = load i64, ptr %_gc_prev.i.i, align 8, !dbg !6976, !tbaa !6953",
+				"%and.i12.i = and i64 %12, 3, !dbg !6977",
+				"%or.i13.i = or i64 %and.i12.i, %8, !dbg !6978",
+				"store i64 %or.i13.i, ptr %_gc_prev.i.i, align 8, !dbg !6979, !tbaa !6953",
+				"%13 = ptrtoint ptr %young.i to i64, !dbg !6980",
+				"%visited_space.i = getelementptr inbounds %struct._is, ptr %7, i64 0, i32 13, i32 13, !dbg !6981",
+				"%14 = load i32, ptr %visited_space.i, align 8, !dbg !6981, !tbaa !6982",
+				"%conv.i17 = sext i32 %14 to i64, !dbg !7038",
+				"%or.i = or i64 %conv.i17, %13, !dbg !7039",
+				"store i64 %or.i, ptr %4, align 8, !dbg !7040, !tbaa !639",
+				"store i64 %10, ptr %_gc_prev.i, align 8, !dbg !7041, !tbaa !6953",
+				"br label %if.end7, !dbg !7042"
+			]
+		},
+		{
+			"function": "_PyCapsule_SetTraverse",
+			"id": 73,
+			"name": "if.end7",
+			"debug": [
+				{
+					"line": 221, "columns": [14, 28]
+				},
+				{
+					"line": 222, "columns": [14, 25]
+				},
+				{
+					"line": 223, "columns": [5]
+				}
+			],
+			"successors": [74],
+			"ir": [
+				"%traverse_func8 = getelementptr inbounds %struct.PyCapsule, ptr %op, i64 0, i32 5, !dbg !7043",
+				"store ptr %traverse_func, ptr %traverse_func8, align 8, !dbg !7044, !tbaa !7045",
+				"%clear_func9 = getelementptr inbounds %struct.PyCapsule, ptr %op, i64 0, i32 6, !dbg !7046",
+				"store ptr %clear_func, ptr %clear_func9, align 8, !dbg !7047, !tbaa !7048",
+				"br label %return, !dbg !7049"
+			]
+		},
+		{
+			"function": "_PyCapsule_SetTraverse",
+			"id": 74,
+			"name": "return",
+			"debug": [
+				{
+					"line": 224, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi i32 [ -1, %if.then2 ], [ 0, %if.end7 ], [ -1, %_is_legal_capsule.exit.thread ], !dbg !588",
+				"ret i32 %retval.1, !dbg !7050"
+			]
+		},
+		{
+			"function": "PyCapsule_Import",
+			"id": 75,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 233, "columns": [27, 40]
+				},
+				{
+					"line": 234, "columns": [30]
+				},
+				{
+					"line": 236, "columns": [10, 9]
+				}
+			],
+			"successors": [76, 77],
+			"ir": [
+				"%call = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %name) #8, !dbg !604",
+				"%add = add i64 %call, 1, !dbg !605",
+				"%call1 = tail call ptr @PyMem_Malloc(i64 noundef %add) #9, !dbg !606",
+				"%tobool.not = icmp eq ptr %call1, null, !dbg !607",
+				"br i1 %tobool.not, label %if.then, label %if.end, !dbg !609"
+			]
+		},
+		{
+			"function": "PyCapsule_Import",
+			"id": 76,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 237, "columns": [16, 9]
+				}
+			],
+			"successors": [100],
+			"ir": [
+				"%call2 = tail call ptr @PyErr_NoMemory() #9, !dbg !610",
+				"br label %cleanup28, !dbg !612"
+			]
+		},
+		{
+			"function": "PyCapsule_Import",
+			"id": 77,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 240, "columns": [5]
+				},
+				{
+					"line": 243, "columns": [5]
+				}
+			],
+			"successors": [78],
+			"ir": [
+				"tail call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 1 %call1, ptr align 1 %name, i64 %add, i1 false), !dbg !613",
+				"br label %while.cond, !dbg !614"
+			]
+		},
+		{
+			"function": "PyCapsule_Import",
+			"id": 78,
+			"name": "while.cond",
+			"debug": [
+				{
+					"line": 243, "columns": [5]
+				}
+			],
+			"successors": [88, 79],
+			"ir": [
+				"%object.0 = phi ptr [ null, %if.end ], [ %object.1, %if.end15 ], !dbg !603",
+				"%trace.0 = phi ptr [ %call1, %if.end ], [ %dot.0, %if.end15 ], !dbg !603",
+				"%tobool3.not = icmp eq ptr %trace.0, null, !dbg !614",
+				"br i1 %tobool3.not, label %while.end, label %while.body, !dbg !614"
+			]
+		},
+		{
+			"function": "PyCapsule_Import",
+			"id": 79,
+			"name": "while.body",
+			"debug": [
+				{
+					"line": 244, "columns": [21]
+				},
+				{
+					"line": 245, "columns": [13]
+				}
+			],
+			"successors": [81, 80],
+			"ir": [
+				"%call4 = tail call ptr @strchr(ptr noundef nonnull dereferenceable(1) %trace.0, i32 noundef 46) #8, !dbg !615",
+				"%tobool5.not = icmp eq ptr %call4, null, !dbg !617",
+				"br i1 %tobool5.not, label %if.end7, label %if.then6, !dbg !619"
+			]
+		},
+		{
+			"function": "PyCapsule_Import",
+			"id": 80,
+			"name": "if.then6",
+			"debug": [
+				{
+					"line": 246, "columns": [17, 20]
+				},
+				{
+					"line": 247, "columns": [9]
+				}
+			],
+			"successors": [81],
+			"ir": [
+				"%incdec.ptr = getelementptr i8, ptr %call4, i64 1, !dbg !620",
+				"store i8 0, ptr %call4, align 1, !dbg !622, !tbaa !623",
+				"br label %if.end7, !dbg !626"
+			]
+		},
+		{
+			"function": "PyCapsule_Import",
+			"id": 81,
+			"name": "if.end7",
+			"debug": [
+				{
+					"line": 249, "columns": [20, 13]
+				}
+			],
+			"successors": [82, 84],
+			"ir": [
+				"%dot.0 = phi ptr [ %incdec.ptr, %if.then6 ], [ null, %while.body ], !dbg !616",
+				"%cmp = icmp eq ptr %object.0, null, !dbg !627",
+				"br i1 %cmp, label %if.then8, label %if.else, !dbg !628"
+			]
+		},
+		{
+			"function": "PyCapsule_Import",
+			"id": 82,
+			"name": "if.then8",
+			"debug": [
+				{
+					"line": 250, "columns": [22]
+				},
+				{
+					"line": 251, "columns": [18, 17]
+				}
+			],
+			"successors": [83, 87],
+			"ir": [
+				"%call9 = tail call ptr @PyImport_ImportModule(ptr noundef nonnull %trace.0) #9, !dbg !629",
+				"%tobool10.not = icmp eq ptr %call9, null, !dbg !631",
+				"br i1 %tobool10.not, label %if.end15.thread, label %if.end15, !dbg !633"
+			]
+		},
+		{
+			"function": "PyCapsule_Import",
+			"id": 83,
+			"name": "if.end15.thread",
+			"debug": [
+				{
+					"line": 252, "columns": [30, 17]
+				}
+			],
+			"successors": [99],
+			"ir": [
+				"%0 = load ptr, ptr @PyExc_ImportError, align 8, !dbg !634, !tbaa !636",
+				"%call12 = tail call ptr (ptr, ptr, ...) @PyErr_Format(ptr noundef %0, ptr noundef nonnull @.str.13, ptr noundef nonnull %trace.0) #9, !dbg !638",
+				"br label %Py_XDECREF.exit"
+			]
+		},
+		{
+			"function": "PyCapsule_Import",
+			"id": 84,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 255, "columns": [33]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [85, 87],
+			"ir": [
+				"%call14 = tail call ptr @PyObject_GetAttrString(ptr noundef nonnull %object.0, ptr noundef nonnull %trace.0) #9, !dbg !639",
+				"%op.val.i = load i64, ptr %object.0, align 8, !dbg !647, !tbaa !623",
+				"%1 = and i64 %op.val.i, 2147483648, !dbg !654",
+				"%cmp.i.not.i = icmp eq i64 %1, 0, !dbg !654",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %if.end15, !dbg !655"
+			]
+		},
+		{
+			"function": "PyCapsule_Import",
+			"id": 85,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [86, 87],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !656",
+				"store i64 %dec.i, ptr %object.0, align 8, !dbg !656, !tbaa !623",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !658",
+				"br i1 %cmp.i, label %if.then1.i, label %if.end15, !dbg !659"
+			]
+		},
+		{
+			"function": "PyCapsule_Import",
+			"id": 86,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [87],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %object.0) #9, !dbg !660",
+				"br label %if.end15, !dbg !662"
+			]
+		},
+		{
+			"function": "PyCapsule_Import",
+			"id": 87,
+			"name": "if.end15",
+			"debug": [
+				{
+					"line": 258, "columns": [14]
+				}
+			],
+			"successors": [99, 78],
+			"ir": [
+				"%object.1 = phi ptr [ %call9, %if.then8 ], [ %call14, %if.else ], [ %call14, %if.end.i ], [ %call14, %if.then1.i ], !dbg !663",
+				"%tobool16.not = icmp eq ptr %object.1, null, !dbg !664",
+				"br i1 %tobool16.not, label %Py_XDECREF.exit, label %while.cond"
+			]
+		},
+		{
+			"function": "PyCapsule_Import",
+			"id": 88,
+			"name": "while.end",
+			"debug": [
+				{
+					"line": 89, "columns": [21, 29]
+				}
+			],
+			"successors": [94, 89],
+			"ir": [
+				"%cmp.not.i = icmp eq ptr %object.0, null, !dbg !675",
+				"br i1 %cmp.not.i, label %EXIT, label %land.lhs.true.i, !dbg !676"
+			]
+		},
+		{
+			"function": "PyCapsule_Import",
+			"id": 89,
+			"name": "land.lhs.true.i",
+			"debug": [
+				{
+					"line": 90, "columns": [13, 43]
+				},
+				{
+					"line": 365, "columns": [24]
+				}
+			],
+			"successors": [90, 95],
+			"ir": [
+				"%2 = getelementptr i8, ptr %object.0, i64 8, !dbg !677",
+				"%op.val.i55 = load ptr, ptr %2, align 8, !dbg !677, !tbaa !678",
+				"%cmp.i.not.i56 = icmp eq ptr %op.val.i55, @PyCapsule_Type, !dbg !688",
+				"br i1 %cmp.i.not.i56, label %land.lhs.true1.i, label %if.then.i.sink.split, !dbg !689"
+			]
+		},
+		{
+			"function": "PyCapsule_Import",
+			"id": 90,
+			"name": "land.lhs.true1.i",
+			"debug": [
+				{
+					"line": 91, "columns": [22, 30, 38]
+				}
+			],
+			"successors": [95, 91],
+			"ir": [
+				"%pointer.i = getelementptr inbounds %struct.PyCapsule, ptr %object.0, i64 0, i32 1, !dbg !690",
+				"%3 = load ptr, ptr %pointer.i, align 8, !dbg !690, !tbaa !691",
+				"%cmp2.not.i = icmp eq ptr %3, null, !dbg !693",
+				"br i1 %cmp2.not.i, label %if.then.i.sink.split, label %land.rhs.i, !dbg !694"
+			]
+		},
+		{
+			"function": "PyCapsule_Import",
+			"id": 91,
+			"name": "land.rhs.i",
+			"debug": [
+				{
+					"line": 48, "columns": [10, 16]
+				},
+				{
+					"line": 92, "columns": [35]
+				}
+			],
+			"successors": [92, 93],
+			"ir": [
+				"%name3.i = getelementptr inbounds %struct.PyCapsule, ptr %object.0, i64 0, i32 2, !dbg !695",
+				"%4 = load ptr, ptr %name3.i, align 8, !dbg !695, !tbaa !696",
+				"%tobool.i.i = icmp ne ptr %4, null, !dbg !705",
+				"%tobool1.i.i = icmp ne ptr %name, null",
+				"%or.cond.i.i = and i1 %tobool1.i.i, %tobool.i.i, !dbg !707",
+				"br i1 %or.cond.i.i, label %if.end.i.i, label %PyCapsule_IsValid.exit, !dbg !707"
+			]
+		},
+		{
+			"function": "PyCapsule_Import",
+			"id": 92,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 52, "columns": [13, 12]
+				},
+				{
+					"line": 266, "columns": [9]
+				}
+			],
+			"successors": [96, 95],
+			"ir": [
+				"%call.i.i = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %4, ptr noundef nonnull dereferenceable(1) %name) #8, !dbg !708",
+				"%tobool2.not.i.i = icmp eq i32 %call.i.i, 0, !dbg !709",
+				"br i1 %tobool2.not.i.i, label %if.then.i, label %if.then.i.sink.split, !dbg !710"
+			]
+		},
+		{
+			"function": "PyCapsule_Import",
+			"id": 93,
+			"name": "PyCapsule_IsValid.exit",
+			"debug": [
+				{
+					"line": 50, "columns": [22]
+				},
+				{
+					"line": 266, "columns": [9]
+				}
+			],
+			"successors": [96, 95],
+			"ir": [
+				"%cmp.i9.i = icmp eq ptr %4, %name, !dbg !711",
+				"br i1 %cmp.i9.i, label %if.then.i, label %if.then.i.sink.split, !dbg !710"
+			]
+		},
+		{
+			"function": "PyCapsule_Import",
+			"id": 94,
+			"name": "EXIT",
+			"debug": [
+				{
+					"line": 270, "columns": [22, 9]
+				},
+				{
+					"line": 275, "columns": [1]
+				},
+				{
+					"line": 1037, "columns": [9]
+				}
+			],
+			"successors": [99],
+			"ir": [
+				"%5 = load ptr, ptr @PyExc_AttributeError, align 8, !dbg !713, !tbaa !636",
+				"%call23 = tail call ptr (ptr, ptr, ...) @PyErr_Format(ptr noundef %5, ptr noundef nonnull @.str.14, ptr noundef %name) #9, !dbg !715",
+				"br label %Py_XDECREF.exit, !dbg !722"
+			]
+		},
+		{
+			"function": "PyCapsule_Import",
+			"id": 95,
+			"name": "if.then.i.sink.split",
+			"debug": [
+				{
+					"line": 270, "columns": [22, 9]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [96],
+			"ir": [
+				"%6 = load ptr, ptr @PyExc_AttributeError, align 8, !dbg !713, !tbaa !636",
+				"%call2380 = tail call ptr (ptr, ptr, ...) @PyErr_Format(ptr noundef %6, ptr noundef nonnull @.str.14, ptr noundef %name) #9, !dbg !715",
+				"br label %if.then.i, !dbg !723"
+			]
+		},
+		{
+			"function": "PyCapsule_Import",
+			"id": 96,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [97, 99],
+			"ir": [
+				"%return_value.074 = phi ptr [ %3, %if.end.i.i ], [ %3, %PyCapsule_IsValid.exit ], [ null, %if.then.i.sink.split ]",
+				"%op.val.i.i = load i64, ptr %object.0, align 8, !dbg !723, !tbaa !623",
+				"%7 = and i64 %op.val.i.i, 2147483648, !dbg !730",
+				"%cmp.i.not.i.i = icmp eq i64 %7, 0, !dbg !730",
+				"br i1 %cmp.i.not.i.i, label %if.end.i.i58, label %Py_XDECREF.exit, !dbg !731"
+			]
+		},
+		{
+			"function": "PyCapsule_Import",
+			"id": 97,
+			"name": "if.end.i.i58",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [98, 99],
+			"ir": [
+				"%dec.i.i = add i64 %op.val.i.i, -1, !dbg !732",
+				"store i64 %dec.i.i, ptr %object.0, align 8, !dbg !732, !tbaa !623",
+				"%cmp.i.i = icmp eq i64 %dec.i.i, 0, !dbg !733",
+				"br i1 %cmp.i.i, label %if.then1.i.i, label %Py_XDECREF.exit, !dbg !734"
+			]
+		},
+		{
+			"function": "PyCapsule_Import",
+			"id": 98,
+			"name": "if.then1.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [99],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %object.0) #9, !dbg !735",
+				"br label %Py_XDECREF.exit, !dbg !736"
+			]
+		},
+		{
+			"function": "PyCapsule_Import",
+			"id": 99,
+			"name": "Py_XDECREF.exit",
+			"debug": [
+				{
+					"line": 278, "columns": [9]
+				},
+				{
+					"line": 280, "columns": [5]
+				}
+			],
+			"successors": [100],
+			"ir": [
+				"%return_value.068 = phi ptr [ null, %EXIT ], [ %return_value.074, %if.then.i ], [ %return_value.074, %if.end.i.i58 ], [ %return_value.074, %if.then1.i.i ], [ null, %if.end15.thread ], [ null, %if.end15 ]",
+				"tail call void @PyMem_Free(ptr noundef nonnull %call1) #9, !dbg !737",
+				"br label %cleanup28, !dbg !740"
+			]
+		},
+		{
+			"function": "PyCapsule_Import",
+			"id": 100,
+			"name": "cleanup28",
+			"debug": [
+				{
+					"line": 281, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %return_value.068, %Py_XDECREF.exit ], [ %call2, %if.then ]",
+				"ret ptr %retval.0, !dbg !741"
+			]
+		},
+		{
+			"function": "capsule_dealloc",
+			"id": 101,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 288, "columns": [5]
+				},
+				{
+					"line": 289, "columns": [18, 9]
+				}
+			],
+			"successors": [103, 102],
+			"ir": [
+				"tail call void @PyObject_GC_UnTrack(ptr noundef %op) #8, !dbg !585",
+				"%destructor = getelementptr inbounds %struct.PyCapsule, ptr %op, i64 0, i32 4, !dbg !586",
+				"%0 = load ptr, ptr %destructor, align 8, !dbg !586, !tbaa !588",
+				"%tobool.not = icmp eq ptr %0, null, !dbg !594",
+				"br i1 %tobool.not, label %if.end, label %if.then, !dbg !595"
+			]
+		},
+		{
+			"function": "capsule_dealloc",
+			"id": 102,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 290, "columns": [9]
+				},
+				{
+					"line": 291, "columns": [5]
+				}
+			],
+			"successors": [103],
+			"ir": [
+				"tail call void %0(ptr noundef nonnull %op) #8, !dbg !596",
+				"br label %if.end, !dbg !598"
+			]
+		},
+		{
+			"function": "capsule_dealloc",
+			"id": 103,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 292, "columns": [5]
+				},
+				{
+					"line": 293, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @PyObject_GC_Del(ptr noundef nonnull %op) #8, !dbg !599",
+				"ret void, !dbg !600"
+			]
+		},
+		{
+			"function": "capsule_repr",
+			"id": 104,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 303, "columns": [18, 9]
+				},
+				{
+					"line": 311, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%name1 = getelementptr inbounds %struct.PyCapsule, ptr %o, i64 0, i32 2, !dbg !587",
+				"%0 = load ptr, ptr %name1, align 8, !dbg !587, !tbaa !589",
+				"%tobool.not = icmp eq ptr %0, null, !dbg !595",
+				"%.str.18. = select i1 %tobool.not, ptr @.str.18, ptr %0",
+				"%.str.17..str.16 = select i1 %tobool.not, ptr @.str.17, ptr @.str.16",
+				"%call = tail call ptr (ptr, ...) @PyUnicode_FromFormat(ptr noundef nonnull @.str.19, ptr noundef nonnull %.str.17..str.16, ptr noundef nonnull %.str.18., ptr noundef nonnull %.str.17..str.16, ptr noundef %o) #8, !dbg !596",
+				"ret ptr %call, !dbg !597"
+			]
+		},
+		{
+			"function": "capsule_traverse",
+			"id": 105,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 323, "columns": [21, 12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%traverse_func = getelementptr inbounds %struct.PyCapsule, ptr %capsule, i64 0, i32 5, !dbg !588",
+				"%0 = load ptr, ptr %traverse_func, align 8, !dbg !588, !tbaa !589",
+				"%call = tail call i32 %0(ptr noundef %capsule, ptr noundef %visit, ptr noundef %arg) #8, !dbg !595",
+				"ret i32 %call, !dbg !596"
+			]
+		},
+		{
+			"function": "capsule_clear",
+			"id": 106,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 334, "columns": [21, 12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%clear_func = getelementptr inbounds %struct.PyCapsule, ptr %capsule, i64 0, i32 6, !dbg !586",
+				"%0 = load ptr, ptr %clear_func, align 8, !dbg !586, !tbaa !587",
+				"%call = tail call i32 %0(ptr noundef %capsule) #8, !dbg !593",
+				"ret i32 %call, !dbg !594"
+			]
+		}
+	]
+}

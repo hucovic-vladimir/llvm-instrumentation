@@ -1,0 +1,1409 @@
+{
+	"blocks": [
+		{
+			"function": "mpd_callocfunc_em",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 56, "columns": [25]
+				},
+				{
+					"line": 66, "columns": [9]
+				}
+			],
+			"successors": [3, 1],
+			"ir": [
+				"%umul = tail call { i64, i1 } @llvm.umul.with.overflow.i64(i64 %size, i64 %nmemb), !dbg !85",
+				"%umul.value = extractvalue { i64, i1 } %umul, 0, !dbg !85",
+				"%0 = extractvalue { i64, i1 } %umul, 1, !dbg !85",
+				"br i1 %0, label %cleanup, label %if.end, !dbg !86"
+			]
+		},
+		{
+			"function": "mpd_callocfunc_em",
+			"id": 1,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 70, "columns": [11]
+				},
+				{
+					"line": 71, "columns": [13, 9]
+				}
+			],
+			"successors": [3, 2],
+			"ir": [
+				"%1 = load ptr, ptr @mpd_mallocfunc, align 8, !dbg !87, !tbaa !88",
+				"%call1 = tail call ptr %1(i64 noundef %umul.value) #9, !dbg !87",
+				"%cmp = icmp eq ptr %call1, null, !dbg !92",
+				"br i1 %cmp, label %cleanup, label %if.end3, !dbg !94"
+			]
+		},
+		{
+			"function": "mpd_callocfunc_em",
+			"id": 2,
+			"name": "if.end3",
+			"debug": [
+				{
+					"line": 75, "columns": [5]
+				},
+				{
+					"line": 77, "columns": [5]
+				}
+			],
+			"successors": [3],
+			"ir": [
+				"tail call void @llvm.memset.p0.i64(ptr nonnull align 1 %call1, i8 0, i64 %umul.value, i1 false), !dbg !95",
+				"br label %cleanup, !dbg !96"
+			]
+		},
+		{
+			"function": "mpd_callocfunc_em",
+			"id": 3,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 78, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call1, %if.end3 ], [ null, %entry ], [ null, %if.end ], !dbg !59",
+				"ret ptr %retval.0, !dbg !97"
+			]
+		},
+		{
+			"function": "mpd_alloc",
+			"id": 4,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 56, "columns": [25]
+				},
+				{
+					"line": 88, "columns": [9]
+				}
+			],
+			"successors": [6, 5],
+			"ir": [
+				"%umul = tail call { i64, i1 } @llvm.umul.with.overflow.i64(i64 %size, i64 %nmemb), !dbg !86",
+				"%0 = extractvalue { i64, i1 } %umul, 1, !dbg !86",
+				"br i1 %0, label %cleanup, label %if.end, !dbg !87"
+			]
+		},
+		{
+			"function": "mpd_alloc",
+			"id": 5,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 56, "columns": [25]
+				},
+				{
+					"line": 92, "columns": [12, 5]
+				}
+			],
+			"successors": [6],
+			"ir": [
+				"%umul.value = extractvalue { i64, i1 } %umul, 0, !dbg !86",
+				"%1 = load ptr, ptr @mpd_mallocfunc, align 8, !dbg !88, !tbaa !89",
+				"%call1 = tail call ptr %1(i64 noundef %umul.value) #9, !dbg !88",
+				"br label %cleanup, !dbg !93"
+			]
+		},
+		{
+			"function": "mpd_alloc",
+			"id": 6,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 93, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call1, %if.end ], [ null, %entry ], !dbg !60",
+				"ret ptr %retval.0, !dbg !94"
+			]
+		},
+		{
+			"function": "mpd_calloc",
+			"id": 7,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 56, "columns": [25]
+				},
+				{
+					"line": 102, "columns": [9]
+				}
+			],
+			"successors": [9, 8],
+			"ir": [
+				"%umul = tail call { i64, i1 } @llvm.umul.with.overflow.i64(i64 %size, i64 %nmemb), !dbg !85",
+				"%0 = extractvalue { i64, i1 } %umul, 1, !dbg !85",
+				"br i1 %0, label %cleanup, label %if.end, !dbg !86"
+			]
+		},
+		{
+			"function": "mpd_calloc",
+			"id": 8,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 106, "columns": [12, 5]
+				}
+			],
+			"successors": [9],
+			"ir": [
+				"%1 = load ptr, ptr @mpd_callocfunc, align 8, !dbg !87, !tbaa !88",
+				"%call1 = tail call ptr %1(i64 noundef %nmemb, i64 noundef %size) #9, !dbg !87",
+				"br label %cleanup, !dbg !92"
+			]
+		},
+		{
+			"function": "mpd_calloc",
+			"id": 9,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 107, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call1, %if.end ], [ null, %entry ], !dbg !59",
+				"ret ptr %retval.0, !dbg !93"
+			]
+		},
+		{
+			"function": "mpd_realloc",
+			"id": 10,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 56, "columns": [25]
+				},
+				{
+					"line": 117, "columns": [9]
+				}
+			],
+			"successors": [12, 11],
+			"ir": [
+				"%umul = tail call { i64, i1 } @llvm.umul.with.overflow.i64(i64 %size, i64 %nmemb), !dbg !93",
+				"%0 = extractvalue { i64, i1 } %umul, 1, !dbg !93",
+				"br i1 %0, label %cleanup.sink.split, label %if.end, !dbg !94"
+			]
+		},
+		{
+			"function": "mpd_realloc",
+			"id": 11,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 56, "columns": [25]
+				},
+				{
+					"line": 122, "columns": [11]
+				},
+				{
+					"line": 123, "columns": [13, 9]
+				}
+			],
+			"successors": [12, 13],
+			"ir": [
+				"%umul.value = extractvalue { i64, i1 } %umul, 0, !dbg !93",
+				"%1 = load ptr, ptr @mpd_reallocfunc, align 8, !dbg !95, !tbaa !96",
+				"%call1 = tail call ptr %1(ptr noundef %ptr, i64 noundef %umul.value) #9, !dbg !95",
+				"%cmp = icmp eq ptr %call1, null, !dbg !100",
+				"br i1 %cmp, label %cleanup.sink.split, label %cleanup, !dbg !102"
+			]
+		},
+		{
+			"function": "mpd_realloc",
+			"id": 12,
+			"name": "cleanup.sink.split",
+			"debug": [
+				{
+					"line": 129, "columns": [1]
+				}
+			],
+			"successors": [13],
+			"ir": [
+				"store i8 1, ptr %err, align 1, !dbg !67, !tbaa !103",
+				"br label %cleanup, !dbg !104"
+			]
+		},
+		{
+			"function": "mpd_realloc",
+			"id": 13,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 129, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call1, %if.end ], [ %ptr, %cleanup.sink.split ], !dbg !67",
+				"ret ptr %retval.0, !dbg !104"
+			]
+		},
+		{
+			"function": "mpd_sh_alloc",
+			"id": 14,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 56, "columns": [25]
+				},
+				{
+					"line": 138, "columns": [9]
+				}
+			],
+			"successors": [17, 15],
+			"ir": [
+				"%umul = tail call { i64, i1 } @llvm.umul.with.overflow.i64(i64 %size, i64 %nmemb), !dbg !87",
+				"%0 = extractvalue { i64, i1 } %umul, 1, !dbg !87",
+				"br i1 %0, label %cleanup, label %if.end, !dbg !88"
+			]
+		},
+		{
+			"function": "mpd_sh_alloc",
+			"id": 15,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 56, "columns": [25]
+				},
+				{
+					"line": 143, "columns": [9]
+				},
+				{
+					"line": 633, "columns": [13]
+				},
+				{
+					"line": 634, "columns": [13]
+				}
+			],
+			"successors": [17, 16],
+			"ir": [
+				"%umul.value = extractvalue { i64, i1 } %umul, 0, !dbg !87",
+				"%add.i = add i64 %umul.value, %struct_size, !dbg !97",
+				"%cmp.i.not = icmp ult i64 %add.i, %umul.value, !dbg !98",
+				"br i1 %cmp.i.not, label %cleanup, label %if.end4, !dbg !100"
+			]
+		},
+		{
+			"function": "mpd_sh_alloc",
+			"id": 16,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 147, "columns": [12, 5]
+				}
+			],
+			"successors": [17],
+			"ir": [
+				"%1 = load ptr, ptr @mpd_mallocfunc, align 8, !dbg !101, !tbaa !102",
+				"%call5 = tail call ptr %1(i64 noundef %add.i) #9, !dbg !101",
+				"br label %cleanup, !dbg !106"
+			]
+		},
+		{
+			"function": "mpd_sh_alloc",
+			"id": 17,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 148, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call5, %if.end4 ], [ null, %entry ], [ null, %if.end ], !dbg !61",
+				"ret ptr %retval.0, !dbg !107"
+			]
+		},
+		{
+			"function": "mpd_qnew_size",
+			"id": 18,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 92, "columns": [12]
+				},
+				{
+					"line": 158, "columns": [24, 14]
+				},
+				{
+					"line": 161, "columns": [16, 9]
+				}
+			],
+			"successors": [24, 19],
+			"ir": [
+				"%0 = load i64, ptr @MPD_MINALLOC, align 8, !dbg !73",
+				"%cond = tail call i64 @llvm.smax.i64(i64 %0, i64 %nwords), !dbg !74",
+				"%1 = load ptr, ptr @mpd_mallocfunc, align 8, !dbg !109, !tbaa !110",
+				"%call1.i = tail call ptr %1(i64 noundef 48) #9, !dbg !109",
+				"%cmp1 = icmp eq ptr %call1.i, null, !dbg !114",
+				"br i1 %cmp1, label %cleanup, label %if.end, !dbg !116"
+			]
+		},
+		{
+			"function": "mpd_qnew_size",
+			"id": 19,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 56, "columns": [25]
+				},
+				{
+					"line": 88, "columns": [9]
+				}
+			],
+			"successors": [20, 21],
+			"ir": [
+				"%2 = icmp ugt i64 %cond, 2305843009213693951, !dbg !123",
+				"br i1 %2, label %mpd_alloc.exit.thread, label %mpd_alloc.exit, !dbg !124"
+			]
+		},
+		{
+			"function": "mpd_qnew_size",
+			"id": 20,
+			"name": "mpd_alloc.exit.thread",
+			"debug": [
+				{
+					"line": 165, "columns": [13, 18]
+				},
+				{
+					"line": 166, "columns": [9]
+				}
+			],
+			"successors": [22],
+			"ir": [
+				"%data21 = getelementptr inbounds %struct.mpd_t, ptr %call1.i, i64 0, i32 5, !dbg !125",
+				"store ptr null, ptr %data21, align 8, !dbg !126, !tbaa !127",
+				"br label %if.then5, !dbg !130"
+			]
+		},
+		{
+			"function": "mpd_qnew_size",
+			"id": 21,
+			"name": "mpd_alloc.exit",
+			"debug": [
+				{
+					"line": 56, "columns": [25]
+				},
+				{
+					"line": 92, "columns": [12]
+				},
+				{
+					"line": 165, "columns": [13, 18]
+				},
+				{
+					"line": 166, "columns": [22, 9]
+				}
+			],
+			"successors": [22, 23],
+			"ir": [
+				"%umul.value.i = shl nuw i64 %cond, 3, !dbg !123",
+				"%3 = load ptr, ptr @mpd_mallocfunc, align 8, !dbg !131, !tbaa !110",
+				"%call1.i19 = tail call ptr %3(i64 noundef %umul.value.i) #9, !dbg !131",
+				"%data = getelementptr inbounds %struct.mpd_t, ptr %call1.i, i64 0, i32 5, !dbg !125",
+				"store ptr %call1.i19, ptr %data, align 8, !dbg !126, !tbaa !127",
+				"%cmp4 = icmp eq ptr %call1.i19, null, !dbg !132",
+				"br i1 %cmp4, label %if.then5, label %if.end6, !dbg !130"
+			]
+		},
+		{
+			"function": "mpd_qnew_size",
+			"id": 22,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 167, "columns": [9]
+				},
+				{
+					"line": 168, "columns": [9]
+				}
+			],
+			"successors": [24],
+			"ir": [
+				"%4 = load ptr, ptr @mpd_free, align 8, !dbg !134, !tbaa !110",
+				"tail call void %4(ptr noundef nonnull %call1.i) #9, !dbg !134",
+				"br label %cleanup, !dbg !136"
+			]
+		},
+		{
+			"function": "mpd_qnew_size",
+			"id": 23,
+			"name": "if.end6",
+			"debug": [
+				{
+					"line": 171, "columns": [19]
+				},
+				{
+					"line": 172, "columns": [13, 17]
+				},
+				{
+					"line": 175, "columns": [13, 19]
+				},
+				{
+					"line": 177, "columns": [5]
+				}
+			],
+			"successors": [24],
+			"ir": [
+				"store i8 0, ptr %call1.i, align 8, !dbg !137, !tbaa !138",
+				"%exp = getelementptr inbounds %struct.mpd_t, ptr %call1.i, i64 0, i32 1, !dbg !139",
+				"%alloc = getelementptr inbounds %struct.mpd_t, ptr %call1.i, i64 0, i32 4, !dbg !140",
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %exp, i8 0, i64 24, i1 false), !dbg !141",
+				"store i64 %cond, ptr %alloc, align 8, !dbg !142, !tbaa !143",
+				"br label %cleanup, !dbg !144"
+			]
+		},
+		{
+			"function": "mpd_qnew_size",
+			"id": 24,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 178, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ null, %if.then5 ], [ %call1.i, %if.end6 ], [ null, %entry ], !dbg !72",
+				"ret ptr %retval.0, !dbg !145"
+			]
+		},
+		{
+			"function": "mpd_qnew",
+			"id": 25,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 92, "columns": [12]
+				},
+				{
+					"line": 161, "columns": [16, 9]
+				},
+				{
+					"line": 185, "columns": [26]
+				}
+			],
+			"successors": [31, 26],
+			"ir": [
+				"%0 = load i64, ptr @MPD_MINALLOC, align 8, !dbg !70",
+				"%1 = load ptr, ptr @mpd_mallocfunc, align 8, !dbg !113, !tbaa !114",
+				"%call1.i.i = tail call ptr %1(i64 noundef 48) #9, !dbg !113",
+				"%cmp1.i = icmp eq ptr %call1.i.i, null, !dbg !118",
+				"br i1 %cmp1.i, label %mpd_qnew_size.exit, label %if.end.i, !dbg !120"
+			]
+		},
+		{
+			"function": "mpd_qnew",
+			"id": 26,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 56, "columns": [25]
+				},
+				{
+					"line": 88, "columns": [9]
+				}
+			],
+			"successors": [27, 28],
+			"ir": [
+				"%2 = icmp ugt i64 %0, 2305843009213693951, !dbg !127",
+				"br i1 %2, label %mpd_alloc.exit.thread.i, label %mpd_alloc.exit.i, !dbg !128"
+			]
+		},
+		{
+			"function": "mpd_qnew",
+			"id": 27,
+			"name": "mpd_alloc.exit.thread.i",
+			"debug": [
+				{
+					"line": 165, "columns": [13, 18]
+				},
+				{
+					"line": 166, "columns": [9]
+				}
+			],
+			"successors": [29],
+			"ir": [
+				"%data21.i = getelementptr inbounds %struct.mpd_t, ptr %call1.i.i, i64 0, i32 5, !dbg !129",
+				"store ptr null, ptr %data21.i, align 8, !dbg !130, !tbaa !131",
+				"br label %if.then5.i, !dbg !134"
+			]
+		},
+		{
+			"function": "mpd_qnew",
+			"id": 28,
+			"name": "mpd_alloc.exit.i",
+			"debug": [
+				{
+					"line": 56, "columns": [25]
+				},
+				{
+					"line": 92, "columns": [12]
+				},
+				{
+					"line": 165, "columns": [13, 18]
+				},
+				{
+					"line": 166, "columns": [22, 9]
+				}
+			],
+			"successors": [29, 30],
+			"ir": [
+				"%umul.value.i.i = shl nuw i64 %0, 3, !dbg !127",
+				"%3 = load ptr, ptr @mpd_mallocfunc, align 8, !dbg !135, !tbaa !114",
+				"%call1.i19.i = tail call ptr %3(i64 noundef %umul.value.i.i) #9, !dbg !135",
+				"%data.i = getelementptr inbounds %struct.mpd_t, ptr %call1.i.i, i64 0, i32 5, !dbg !129",
+				"store ptr %call1.i19.i, ptr %data.i, align 8, !dbg !130, !tbaa !131",
+				"%cmp4.i = icmp eq ptr %call1.i19.i, null, !dbg !136",
+				"br i1 %cmp4.i, label %if.then5.i, label %if.end6.i, !dbg !134"
+			]
+		},
+		{
+			"function": "mpd_qnew",
+			"id": 29,
+			"name": "if.then5.i",
+			"debug": [
+				{
+					"line": 167, "columns": [9]
+				},
+				{
+					"line": 168, "columns": [9]
+				}
+			],
+			"successors": [31],
+			"ir": [
+				"%4 = load ptr, ptr @mpd_free, align 8, !dbg !138, !tbaa !114",
+				"tail call void %4(ptr noundef nonnull %call1.i.i) #9, !dbg !138",
+				"br label %mpd_qnew_size.exit, !dbg !140"
+			]
+		},
+		{
+			"function": "mpd_qnew",
+			"id": 30,
+			"name": "if.end6.i",
+			"debug": [
+				{
+					"line": 171, "columns": [19]
+				},
+				{
+					"line": 172, "columns": [13, 17]
+				},
+				{
+					"line": 175, "columns": [13, 19]
+				},
+				{
+					"line": 177, "columns": [5]
+				}
+			],
+			"successors": [31],
+			"ir": [
+				"store i8 0, ptr %call1.i.i, align 8, !dbg !141, !tbaa !142",
+				"%exp.i = getelementptr inbounds %struct.mpd_t, ptr %call1.i.i, i64 0, i32 1, !dbg !143",
+				"%alloc.i = getelementptr inbounds %struct.mpd_t, ptr %call1.i.i, i64 0, i32 4, !dbg !144",
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %exp.i, i8 0, i64 24, i1 false), !dbg !145",
+				"store i64 %0, ptr %alloc.i, align 8, !dbg !146, !tbaa !147",
+				"br label %mpd_qnew_size.exit, !dbg !148"
+			]
+		},
+		{
+			"function": "mpd_qnew",
+			"id": 31,
+			"name": "mpd_qnew_size.exit",
+			"debug": [
+				{
+					"line": 185, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0.i = phi ptr [ null, %if.then5.i ], [ %call1.i.i, %if.end6.i ], [ null, %entry ], !dbg !77",
+				"ret ptr %retval.0.i, !dbg !149"
+			]
+		},
+		{
+			"function": "mpd_new",
+			"id": 32,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 92, "columns": [12]
+				},
+				{
+					"line": 161, "columns": [16, 9]
+				},
+				{
+					"line": 185, "columns": [26]
+				}
+			],
+			"successors": [38, 33],
+			"ir": [
+				"%0 = load i64, ptr @MPD_MINALLOC, align 8, !dbg !90",
+				"%1 = load ptr, ptr @mpd_mallocfunc, align 8, !dbg !138, !tbaa !139",
+				"%call1.i.i.i = tail call ptr %1(i64 noundef 48) #9, !dbg !138",
+				"%cmp1.i.i = icmp eq ptr %call1.i.i.i, null, !dbg !143",
+				"br i1 %cmp1.i.i, label %if.then, label %if.end.i.i, !dbg !145"
+			]
+		},
+		{
+			"function": "mpd_new",
+			"id": 33,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 56, "columns": [25]
+				},
+				{
+					"line": 88, "columns": [9]
+				}
+			],
+			"successors": [34, 35],
+			"ir": [
+				"%2 = icmp ugt i64 %0, 2305843009213693951, !dbg !152",
+				"br i1 %2, label %mpd_alloc.exit.thread.i.i, label %mpd_alloc.exit.i.i, !dbg !153"
+			]
+		},
+		{
+			"function": "mpd_new",
+			"id": 34,
+			"name": "mpd_alloc.exit.thread.i.i",
+			"debug": [
+				{
+					"line": 165, "columns": [13, 18]
+				},
+				{
+					"line": 166, "columns": [9]
+				}
+			],
+			"successors": [36],
+			"ir": [
+				"%data21.i.i = getelementptr inbounds %struct.mpd_t, ptr %call1.i.i.i, i64 0, i32 5, !dbg !154",
+				"store ptr null, ptr %data21.i.i, align 8, !dbg !155, !tbaa !156",
+				"br label %if.then5.i.i, !dbg !159"
+			]
+		},
+		{
+			"function": "mpd_new",
+			"id": 35,
+			"name": "mpd_alloc.exit.i.i",
+			"debug": [
+				{
+					"line": 56, "columns": [25]
+				},
+				{
+					"line": 92, "columns": [12]
+				},
+				{
+					"line": 165, "columns": [13, 18]
+				},
+				{
+					"line": 166, "columns": [22, 9]
+				}
+			],
+			"successors": [36, 37],
+			"ir": [
+				"%umul.value.i.i.i = shl nuw i64 %0, 3, !dbg !152",
+				"%3 = load ptr, ptr @mpd_mallocfunc, align 8, !dbg !160, !tbaa !139",
+				"%call1.i19.i.i = tail call ptr %3(i64 noundef %umul.value.i.i.i) #9, !dbg !160",
+				"%data.i.i = getelementptr inbounds %struct.mpd_t, ptr %call1.i.i.i, i64 0, i32 5, !dbg !154",
+				"store ptr %call1.i19.i.i, ptr %data.i.i, align 8, !dbg !155, !tbaa !156",
+				"%cmp4.i.i = icmp eq ptr %call1.i19.i.i, null, !dbg !161",
+				"br i1 %cmp4.i.i, label %if.then5.i.i, label %mpd_qnew.exit, !dbg !159"
+			]
+		},
+		{
+			"function": "mpd_new",
+			"id": 36,
+			"name": "if.then5.i.i",
+			"debug": [
+				{
+					"line": 167, "columns": [9]
+				},
+				{
+					"line": 168, "columns": [9]
+				}
+			],
+			"successors": [38],
+			"ir": [
+				"%4 = load ptr, ptr @mpd_free, align 8, !dbg !163, !tbaa !139",
+				"tail call void %4(ptr noundef nonnull %call1.i.i.i) #9, !dbg !163",
+				"br label %if.then, !dbg !165"
+			]
+		},
+		{
+			"function": "mpd_new",
+			"id": 37,
+			"name": "mpd_qnew.exit",
+			"debug": [
+				{
+					"line": 171, "columns": [19]
+				},
+				{
+					"line": 172, "columns": [13, 17]
+				},
+				{
+					"line": 175, "columns": [13, 19]
+				},
+				{
+					"line": 196, "columns": [9]
+				}
+			],
+			"successors": [39],
+			"ir": [
+				"store i8 0, ptr %call1.i.i.i, align 8, !dbg !166, !tbaa !167",
+				"%exp.i.i = getelementptr inbounds %struct.mpd_t, ptr %call1.i.i.i, i64 0, i32 1, !dbg !168",
+				"%alloc.i.i = getelementptr inbounds %struct.mpd_t, ptr %call1.i.i.i, i64 0, i32 4, !dbg !169",
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %exp.i.i, i8 0, i64 24, i1 false), !dbg !170",
+				"store i64 %0, ptr %alloc.i.i, align 8, !dbg !171, !tbaa !172",
+				"br label %if.end, !dbg !173"
+			]
+		},
+		{
+			"function": "mpd_new",
+			"id": 38,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 197, "columns": [9]
+				},
+				{
+					"line": 198, "columns": [5]
+				}
+			],
+			"successors": [39],
+			"ir": [
+				"tail call void @mpd_addstatus_raise(ptr noundef %ctx, i32 noundef 512) #9, !dbg !174",
+				"br label %if.end, !dbg !177"
+			]
+		},
+		{
+			"function": "mpd_new",
+			"id": 39,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 199, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0.i.i4 = phi ptr [ null, %if.then ], [ %call1.i.i.i, %mpd_qnew.exit ]",
+				"ret ptr %retval.0.i.i4, !dbg !178"
+			]
+		},
+		{
+			"function": "mpd_switch_to_dyn",
+			"id": 40,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 56, "columns": [25]
+				},
+				{
+					"line": 88, "columns": [9]
+				},
+				{
+					"line": 213, "columns": [29]
+				}
+			],
+			"successors": [42, 41],
+			"ir": [
+				"%data = getelementptr inbounds %struct.mpd_t, ptr %result, i64 0, i32 5, !dbg !80",
+				"%0 = load ptr, ptr %data, align 8, !dbg !80, !tbaa !81",
+				"%1 = icmp ugt i64 %nwords, 2305843009213693951, !dbg !121",
+				"br i1 %1, label %if.then, label %mpd_alloc.exit, !dbg !122"
+			]
+		},
+		{
+			"function": "mpd_switch_to_dyn",
+			"id": 41,
+			"name": "mpd_alloc.exit",
+			"debug": [
+				{
+					"line": 56, "columns": [25]
+				},
+				{
+					"line": 92, "columns": [12]
+				},
+				{
+					"line": 217, "columns": [18]
+				},
+				{
+					"line": 218, "columns": [22, 9]
+				}
+			],
+			"successors": [42, 43],
+			"ir": [
+				"%umul.value.i = shl nuw i64 %nwords, 3, !dbg !121",
+				"%2 = load ptr, ptr @mpd_mallocfunc, align 8, !dbg !123, !tbaa !124",
+				"%call1.i = tail call ptr %2(i64 noundef %umul.value.i) #9, !dbg !123",
+				"store ptr %call1.i, ptr %data, align 8, !dbg !125, !tbaa !81",
+				"%cmp = icmp eq ptr %call1.i, null, !dbg !126",
+				"br i1 %cmp, label %if.then, label %if.end, !dbg !128"
+			]
+		},
+		{
+			"function": "mpd_switch_to_dyn",
+			"id": 42,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 219, "columns": [22]
+				},
+				{
+					"line": 220, "columns": [9]
+				},
+				{
+					"line": 221, "columns": [9]
+				},
+				{
+					"line": 222, "columns": [17, 38]
+				},
+				{
+					"line": 223, "columns": [17]
+				},
+				{
+					"line": 224, "columns": [9]
+				}
+			],
+			"successors": [44],
+			"ir": [
+				"store ptr %0, ptr %data, align 8, !dbg !129, !tbaa !81",
+				"tail call void @mpd_set_qnan(ptr noundef nonnull %result) #9, !dbg !131",
+				"tail call void @mpd_set_positive(ptr noundef nonnull %result) #9, !dbg !132",
+				"%exp = getelementptr inbounds %struct.mpd_t, ptr %result, i64 0, i32 1, !dbg !133",
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %exp, i8 0, i64 24, i1 false), !dbg !134",
+				"%3 = load i32, ptr %status, align 4, !dbg !135, !tbaa !136",
+				"%or = or i32 %3, 512, !dbg !135",
+				"store i32 %or, ptr %status, align 4, !dbg !135, !tbaa !136",
+				"br label %cleanup, !dbg !138"
+			]
+		},
+		{
+			"function": "mpd_switch_to_dyn",
+			"id": 43,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 227, "columns": [37, 43, 5]
+				},
+				{
+					"line": 228, "columns": [19]
+				},
+				{
+					"line": 229, "columns": [5]
+				},
+				{
+					"line": 230, "columns": [5]
+				}
+			],
+			"successors": [44],
+			"ir": [
+				"%alloc = getelementptr inbounds %struct.mpd_t, ptr %result, i64 0, i32 4, !dbg !139",
+				"%4 = load i64, ptr %alloc, align 8, !dbg !139, !tbaa !140",
+				"%mul = shl i64 %4, 3, !dbg !141",
+				"tail call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 8 %call1.i, ptr align 8 %0, i64 %mul, i1 false), !dbg !142",
+				"store i64 %nwords, ptr %alloc, align 8, !dbg !143, !tbaa !140",
+				"tail call void @mpd_set_dynamic_data(ptr noundef nonnull %result) #9, !dbg !144",
+				"br label %cleanup, !dbg !145"
+			]
+		},
+		{
+			"function": "mpd_switch_to_dyn",
+			"id": 44,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 231, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ 0, %if.then ], [ 1, %if.end ], !dbg !79",
+				"ret i32 %retval.0, !dbg !146"
+			]
+		},
+		{
+			"function": "mpd_switch_to_dyn_zero",
+			"id": 45,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 56, "columns": [25]
+				},
+				{
+					"line": 102, "columns": [9]
+				},
+				{
+					"line": 242, "columns": [29]
+				}
+			],
+			"successors": [47, 46],
+			"ir": [
+				"%data = getelementptr inbounds %struct.mpd_t, ptr %result, i64 0, i32 5, !dbg !80",
+				"%0 = load ptr, ptr %data, align 8, !dbg !80, !tbaa !81",
+				"%1 = icmp ugt i64 %nwords, 2305843009213693951, !dbg !120",
+				"br i1 %1, label %if.then, label %mpd_calloc.exit, !dbg !121"
+			]
+		},
+		{
+			"function": "mpd_switch_to_dyn_zero",
+			"id": 46,
+			"name": "mpd_calloc.exit",
+			"debug": [
+				{
+					"line": 106, "columns": [12]
+				},
+				{
+					"line": 244, "columns": [18]
+				},
+				{
+					"line": 245, "columns": [22, 9]
+				}
+			],
+			"successors": [47, 48],
+			"ir": [
+				"%2 = load ptr, ptr @mpd_callocfunc, align 8, !dbg !122, !tbaa !123",
+				"%call1.i = tail call ptr %2(i64 noundef %nwords, i64 noundef 8) #9, !dbg !122",
+				"store ptr %call1.i, ptr %data, align 8, !dbg !124, !tbaa !81",
+				"%cmp = icmp eq ptr %call1.i, null, !dbg !125",
+				"br i1 %cmp, label %if.then, label %if.end, !dbg !127"
+			]
+		},
+		{
+			"function": "mpd_switch_to_dyn_zero",
+			"id": 47,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 246, "columns": [22]
+				},
+				{
+					"line": 247, "columns": [9]
+				},
+				{
+					"line": 248, "columns": [9]
+				},
+				{
+					"line": 249, "columns": [17, 38]
+				},
+				{
+					"line": 250, "columns": [17]
+				},
+				{
+					"line": 251, "columns": [9]
+				}
+			],
+			"successors": [49],
+			"ir": [
+				"store ptr %0, ptr %data, align 8, !dbg !128, !tbaa !81",
+				"tail call void @mpd_set_qnan(ptr noundef nonnull %result) #9, !dbg !130",
+				"tail call void @mpd_set_positive(ptr noundef nonnull %result) #9, !dbg !131",
+				"%exp = getelementptr inbounds %struct.mpd_t, ptr %result, i64 0, i32 1, !dbg !132",
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %exp, i8 0, i64 24, i1 false), !dbg !133",
+				"%3 = load i32, ptr %status, align 4, !dbg !134, !tbaa !135",
+				"%or = or i32 %3, 512, !dbg !134",
+				"store i32 %or, ptr %status, align 4, !dbg !134, !tbaa !135",
+				"br label %cleanup, !dbg !137"
+			]
+		},
+		{
+			"function": "mpd_switch_to_dyn_zero",
+			"id": 48,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 254, "columns": [13, 19]
+				},
+				{
+					"line": 255, "columns": [5]
+				},
+				{
+					"line": 257, "columns": [5]
+				}
+			],
+			"successors": [49],
+			"ir": [
+				"%alloc = getelementptr inbounds %struct.mpd_t, ptr %result, i64 0, i32 4, !dbg !138",
+				"store i64 %nwords, ptr %alloc, align 8, !dbg !139, !tbaa !140",
+				"tail call void @mpd_set_dynamic_data(ptr noundef nonnull %result) #9, !dbg !141",
+				"br label %cleanup, !dbg !142"
+			]
+		},
+		{
+			"function": "mpd_switch_to_dyn_zero",
+			"id": 49,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 258, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ 0, %if.then ], [ 1, %if.end ], !dbg !79",
+				"ret i32 %retval.0, !dbg !143"
+			]
+		},
+		{
+			"function": "mpd_realloc_dyn",
+			"id": 50,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 56, "columns": [25]
+				},
+				{
+					"line": 117, "columns": [9]
+				},
+				{
+					"line": 279, "columns": [40]
+				}
+			],
+			"successors": [53, 51],
+			"ir": [
+				"%data = getelementptr inbounds %struct.mpd_t, ptr %result, i64 0, i32 5, !dbg !80",
+				"%0 = load ptr, ptr %data, align 8, !dbg !80, !tbaa !81",
+				"%1 = icmp ugt i64 %nwords, 2305843009213693951, !dbg !125",
+				"br i1 %1, label %if.else, label %if.end.i, !dbg !126"
+			]
+		},
+		{
+			"function": "mpd_realloc_dyn",
+			"id": 51,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 56, "columns": [25]
+				},
+				{
+					"line": 122, "columns": [11]
+				},
+				{
+					"line": 123, "columns": [13, 9]
+				}
+			],
+			"successors": [53, 52],
+			"ir": [
+				"%umul.value.i = shl nuw i64 %nwords, 3, !dbg !125",
+				"%2 = load ptr, ptr @mpd_reallocfunc, align 8, !dbg !127, !tbaa !128",
+				"%call1.i = tail call ptr %2(ptr noundef %0, i64 noundef %umul.value.i) #9, !dbg !127",
+				"%cmp.i = icmp eq ptr %call1.i, null, !dbg !129",
+				"br i1 %cmp.i, label %if.else, label %if.then, !dbg !131"
+			]
+		},
+		{
+			"function": "mpd_realloc_dyn",
+			"id": 52,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 279, "columns": [18]
+				},
+				{
+					"line": 281, "columns": [17, 23]
+				},
+				{
+					"line": 282, "columns": [5]
+				}
+			],
+			"successors": [55],
+			"ir": [
+				"store ptr %call1.i, ptr %data, align 8, !dbg !132, !tbaa !81",
+				"%alloc = getelementptr inbounds %struct.mpd_t, ptr %result, i64 0, i32 4, !dbg !133",
+				"store i64 %nwords, ptr %alloc, align 8, !dbg !136, !tbaa !137",
+				"br label %cleanup, !dbg !138"
+			]
+		},
+		{
+			"function": "mpd_realloc_dyn",
+			"id": 53,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 279, "columns": [18]
+				},
+				{
+					"line": 283, "columns": [31, 21, 14]
+				}
+			],
+			"successors": [54, 55],
+			"ir": [
+				"store ptr %0, ptr %data, align 8, !dbg !132, !tbaa !81",
+				"%alloc2 = getelementptr inbounds %struct.mpd_t, ptr %result, i64 0, i32 4, !dbg !139",
+				"%3 = load i64, ptr %alloc2, align 8, !dbg !139, !tbaa !137",
+				"%cmp = icmp slt i64 %3, %nwords, !dbg !141",
+				"br i1 %cmp, label %if.then3, label %cleanup, !dbg !142"
+			]
+		},
+		{
+			"function": "mpd_realloc_dyn",
+			"id": 54,
+			"name": "if.then3",
+			"debug": [
+				{
+					"line": 284, "columns": [9]
+				},
+				{
+					"line": 285, "columns": [9]
+				},
+				{
+					"line": 286, "columns": [17, 38]
+				},
+				{
+					"line": 287, "columns": [17]
+				},
+				{
+					"line": 288, "columns": [9]
+				}
+			],
+			"successors": [55],
+			"ir": [
+				"tail call void @mpd_set_qnan(ptr noundef nonnull %result) #9, !dbg !143",
+				"tail call void @mpd_set_positive(ptr noundef nonnull %result) #9, !dbg !145",
+				"%exp = getelementptr inbounds %struct.mpd_t, ptr %result, i64 0, i32 1, !dbg !146",
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %exp, i8 0, i64 24, i1 false), !dbg !147",
+				"%4 = load i32, ptr %status, align 4, !dbg !148, !tbaa !149",
+				"%or = or i32 %4, 512, !dbg !148",
+				"store i32 %or, ptr %status, align 4, !dbg !148, !tbaa !149",
+				"br label %cleanup, !dbg !151"
+			]
+		},
+		{
+			"function": "mpd_realloc_dyn",
+			"id": 55,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 292, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ 0, %if.then3 ], [ 1, %if.else ], [ 1, %if.then ], !dbg !79",
+				"ret i32 %retval.0, !dbg !152"
+			]
+		},
+		{
+			"function": "mpd_switch_to_dyn_cxx",
+			"id": 56,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 56, "columns": [25]
+				},
+				{
+					"line": 88, "columns": [9]
+				}
+			],
+			"successors": [59, 57],
+			"ir": [
+				"%0 = icmp ugt i64 %nwords, 2305843009213693951, !dbg !109",
+				"br i1 %0, label %cleanup, label %mpd_alloc.exit, !dbg !110"
+			]
+		},
+		{
+			"function": "mpd_switch_to_dyn_cxx",
+			"id": 57,
+			"name": "mpd_alloc.exit",
+			"debug": [
+				{
+					"line": 56, "columns": [25]
+				},
+				{
+					"line": 92, "columns": [12]
+				},
+				{
+					"line": 309, "columns": [14, 9]
+				}
+			],
+			"successors": [59, 58],
+			"ir": [
+				"%umul.value.i = shl nuw i64 %nwords, 3, !dbg !109",
+				"%1 = load ptr, ptr @mpd_mallocfunc, align 8, !dbg !111, !tbaa !112",
+				"%call1.i = tail call ptr %1(i64 noundef %umul.value.i) #9, !dbg !111",
+				"%cmp = icmp eq ptr %call1.i, null, !dbg !116",
+				"br i1 %cmp, label %cleanup, label %if.end, !dbg !118"
+			]
+		},
+		{
+			"function": "mpd_switch_to_dyn_cxx",
+			"id": 58,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 313, "columns": [26, 40, 46, 5]
+				},
+				{
+					"line": 314, "columns": [18]
+				},
+				{
+					"line": 315, "columns": [19]
+				},
+				{
+					"line": 316, "columns": [5]
+				},
+				{
+					"line": 317, "columns": [5]
+				}
+			],
+			"successors": [59],
+			"ir": [
+				"%data1 = getelementptr inbounds %struct.mpd_t, ptr %result, i64 0, i32 5, !dbg !119",
+				"%2 = load ptr, ptr %data1, align 8, !dbg !119, !tbaa !120",
+				"%alloc = getelementptr inbounds %struct.mpd_t, ptr %result, i64 0, i32 4, !dbg !123",
+				"%3 = load i64, ptr %alloc, align 8, !dbg !123, !tbaa !124",
+				"%mul = shl i64 %3, 3, !dbg !125",
+				"tail call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 8 %call1.i, ptr align 8 %2, i64 %mul, i1 false), !dbg !126",
+				"store ptr %call1.i, ptr %data1, align 8, !dbg !127, !tbaa !120",
+				"store i64 %nwords, ptr %alloc, align 8, !dbg !128, !tbaa !124",
+				"tail call void @mpd_set_dynamic_data(ptr noundef %result) #9, !dbg !129",
+				"br label %cleanup, !dbg !130"
+			]
+		},
+		{
+			"function": "mpd_switch_to_dyn_cxx",
+			"id": 59,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 318, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ 1, %if.end ], [ 0, %mpd_alloc.exit ], [ 0, %entry ], !dbg !74",
+				"ret i32 %retval.0, !dbg !131"
+			]
+		},
+		{
+			"function": "mpd_realloc_dyn_cxx",
+			"id": 60,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 56, "columns": [25]
+				},
+				{
+					"line": 117, "columns": [9]
+				},
+				{
+					"line": 339, "columns": [41]
+				}
+			],
+			"successors": [63, 61],
+			"ir": [
+				"%data = getelementptr inbounds %struct.mpd_t, ptr %result, i64 0, i32 5, !dbg !76",
+				"%0 = icmp ugt i64 %nwords, 2305843009213693951, !dbg !115",
+				"br i1 %0, label %if.else, label %if.end.i, !dbg !116"
+			]
+		},
+		{
+			"function": "mpd_realloc_dyn_cxx",
+			"id": 61,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 56, "columns": [25]
+				},
+				{
+					"line": 122, "columns": [11]
+				},
+				{
+					"line": 123, "columns": [13, 9]
+				},
+				{
+					"line": 339, "columns": [41]
+				}
+			],
+			"successors": [63, 62],
+			"ir": [
+				"%1 = load ptr, ptr %data, align 8, !dbg !76, !tbaa !117",
+				"%umul.value.i = shl nuw i64 %nwords, 3, !dbg !115",
+				"%2 = load ptr, ptr @mpd_reallocfunc, align 8, !dbg !123, !tbaa !124",
+				"%call1.i = tail call ptr %2(ptr noundef %1, i64 noundef %umul.value.i) #9, !dbg !123",
+				"%cmp.i = icmp eq ptr %call1.i, null, !dbg !125",
+				"br i1 %cmp.i, label %if.else, label %if.then, !dbg !127"
+			]
+		},
+		{
+			"function": "mpd_realloc_dyn_cxx",
+			"id": 62,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 341, "columns": [22]
+				},
+				{
+					"line": 342, "columns": [17, 23]
+				},
+				{
+					"line": 343, "columns": [5]
+				}
+			],
+			"successors": [64],
+			"ir": [
+				"store ptr %call1.i, ptr %data, align 8, !dbg !128, !tbaa !117",
+				"%alloc = getelementptr inbounds %struct.mpd_t, ptr %result, i64 0, i32 4, !dbg !131",
+				"store i64 %nwords, ptr %alloc, align 8, !dbg !132, !tbaa !133",
+				"br label %if.end4, !dbg !134"
+			]
+		},
+		{
+			"function": "mpd_realloc_dyn_cxx",
+			"id": 63,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 344, "columns": [31, 21, 14]
+				}
+			],
+			"successors": [65, 64],
+			"ir": [
+				"%alloc2 = getelementptr inbounds %struct.mpd_t, ptr %result, i64 0, i32 4, !dbg !135",
+				"%3 = load i64, ptr %alloc2, align 8, !dbg !135, !tbaa !133",
+				"%cmp = icmp slt i64 %3, %nwords, !dbg !137",
+				"br i1 %cmp, label %cleanup, label %if.end4, !dbg !138"
+			]
+		},
+		{
+			"function": "mpd_realloc_dyn_cxx",
+			"id": 64,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 348, "columns": [5]
+				}
+			],
+			"successors": [65],
+			"ir": [
+				"br label %cleanup, !dbg !139"
+			]
+		},
+		{
+			"function": "mpd_realloc_dyn_cxx",
+			"id": 65,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 349, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ 1, %if.end4 ], [ 0, %if.else ], !dbg !75",
+				"ret i32 %retval.0, !dbg !140"
+			]
+		}
+	]
+}

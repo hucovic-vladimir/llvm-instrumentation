@@ -1,0 +1,52 @@
+{
+	"blocks": [
+		{
+			"function": "_Py_get_387controlword",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 11, "columns": [5]
+				},
+				{
+					"line": 12, "columns": [5]
+				},
+				{
+					"line": 13, "columns": [12, 5]
+				},
+				{
+					"line": 14, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%cw = alloca i16, align 2",
+				"call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %cw) #3, !dbg !15",
+				"call void asm sideeffect "fnstcw $0", "=*m,~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(i16) %cw) #3, !dbg !17, !srcloc !18",
+				"%0 = load i16, ptr %cw, align 2, !dbg !19, !tbaa !20",
+				"call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %cw) #3, !dbg !24",
+				"ret i16 %0, !dbg !25"
+			]
+		},
+		{
+			"function": "_Py_set_387controlword",
+			"id": 1,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 17, "columns": [5]
+				},
+				{
+					"line": 18, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%cw.addr = alloca i16, align 2",
+				"store i16 %cw, ptr %cw.addr, align 2, !tbaa !16",
+				"call void asm sideeffect "fldcw $0", "*m,~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(i16) %cw.addr) #3, !dbg !20, !srcloc !21",
+				"ret void, !dbg !22"
+			]
+		}
+	]
+}

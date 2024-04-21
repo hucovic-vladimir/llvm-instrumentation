@@ -1,0 +1,904 @@
+{
+	"blocks": [
+		{
+			"function": "PyInit_xxsubtype",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 310, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call ptr @PyModuleDef_Init(ptr noundef nonnull @xxsubtypemodule) #5, !dbg !498",
+				"ret ptr %call, !dbg !499"
+			]
+		},
+		{
+			"function": "spam_bench",
+			"id": 1,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 236, "columns": [5]
+				},
+				{
+					"line": 237, "columns": [5, 9]
+				},
+				{
+					"line": 240, "columns": [10, 9]
+				}
+			],
+			"successors": [9, 2],
+			"ir": [
+				"%obj = alloca ptr, align 8",
+				"%name = alloca ptr, align 8",
+				"%n = alloca i32, align 4",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %obj) #5, !dbg !510",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %name) #5, !dbg !510",
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %n) #5, !dbg !511",
+				"store i32 1000, ptr %n, align 4, !dbg !512, !tbaa !513",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.2, ptr noundef nonnull %obj, ptr noundef nonnull %name, ptr noundef nonnull %n) #5, !dbg !517",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !517",
+				"br i1 %tobool.not, label %cleanup, label %if.end, !dbg !519"
+			]
+		},
+		{
+			"function": "spam_bench",
+			"id": 2,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 243, "columns": [10]
+				},
+				{
+					"line": 244, "columns": [12, 16, 5]
+				}
+			],
+			"successors": [3, 8],
+			"ir": [
+				"%call1 = call i64 @clock() #5, !dbg !520",
+				"%0 = load i32, ptr %n, align 4, !dbg !521, !tbaa !513",
+				"%dec14 = add i32 %0, -1, !dbg !521",
+				"store i32 %dec14, ptr %n, align 4, !dbg !521, !tbaa !513",
+				"%cmp15 = icmp sgt i32 %dec14, -1, !dbg !522",
+				"br i1 %cmp15, label %while.body, label %while.end, !dbg !523"
+			]
+		},
+		{
+			"function": "spam_bench",
+			"id": 3,
+			"name": "while.body",
+			"debug": [
+				{
+					"line": 245, "columns": [32, 37, 15]
+				},
+				{
+					"line": 246, "columns": [17, 13]
+				}
+			],
+			"successors": [9, 4],
+			"ir": [
+				"%1 = load ptr, ptr %obj, align 8, !dbg !524, !tbaa !526",
+				"%2 = load ptr, ptr %name, align 8, !dbg !528, !tbaa !526",
+				"%call2 = call ptr @PyObject_GetAttr(ptr noundef %1, ptr noundef %2) #5, !dbg !529",
+				"%cmp3 = icmp eq ptr %call2, null, !dbg !530",
+				"br i1 %cmp3, label %cleanup, label %if.end5, !dbg !532"
+			]
+		},
+		{
+			"function": "spam_bench",
+			"id": 4,
+			"name": "if.end5",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [5, 7],
+			"ir": [
+				"%op.val.i = load i64, ptr %call2, align 8, !dbg !538, !tbaa !540",
+				"%3 = and i64 %op.val.i, 2147483648, !dbg !546",
+				"%cmp.i.not.i = icmp eq i64 %3, 0, !dbg !546",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %Py_DECREF.exit, !dbg !547"
+			]
+		},
+		{
+			"function": "spam_bench",
+			"id": 5,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [6, 7],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !548",
+				"store i64 %dec.i, ptr %call2, align 8, !dbg !548, !tbaa !540",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !550",
+				"br i1 %cmp.i, label %if.then1.i, label %Py_DECREF.exit, !dbg !551"
+			]
+		},
+		{
+			"function": "spam_bench",
+			"id": 6,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [7],
+			"ir": [
+				"call void @_Py_Dealloc(ptr noundef nonnull %call2) #5, !dbg !552",
+				"br label %Py_DECREF.exit, !dbg !554"
+			]
+		},
+		{
+			"function": "spam_bench",
+			"id": 7,
+			"name": "Py_DECREF.exit",
+			"debug": [
+				{
+					"line": 244, "columns": [12, 16, 5]
+				}
+			],
+			"successors": [3, 8],
+			"ir": [
+				"%4 = load i32, ptr %n, align 4, !dbg !521, !tbaa !513",
+				"%dec = add i32 %4, -1, !dbg !521",
+				"store i32 %dec, ptr %n, align 4, !dbg !521, !tbaa !513",
+				"%cmp = icmp sgt i32 %dec, -1, !dbg !522",
+				"br i1 %cmp, label %while.body, label %while.end, !dbg !523, !llvm.loop !555"
+			]
+		},
+		{
+			"function": "spam_bench",
+			"id": 8,
+			"name": "while.end",
+			"debug": [
+				{
+					"line": 250, "columns": [10]
+				},
+				{
+					"line": 252, "columns": [42, 31, 47, 12, 5]
+				}
+			],
+			"successors": [9],
+			"ir": [
+				"%call6 = call i64 @clock() #5, !dbg !558",
+				"%sub = sub i64 %call6, %call1, !dbg !559",
+				"%conv = sitofp i64 %sub to double, !dbg !560",
+				"%div = fdiv double %conv, 1.000000e+06, !dbg !561",
+				"%call7 = call ptr @PyFloat_FromDouble(double noundef %div) #5, !dbg !562",
+				"br label %cleanup, !dbg !563"
+			]
+		},
+		{
+			"function": "spam_bench",
+			"id": 9,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 253, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call7, %while.end ], [ null, %entry ], [ null, %while.body ], !dbg !509",
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %n) #5, !dbg !564",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %name) #5, !dbg !564",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %obj) #5, !dbg !564",
+				"ret ptr %retval.0, !dbg !564"
+			]
+		},
+		{
+			"function": "xxsubtype_exec",
+			"id": 10,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 267, "columns": [27]
+				},
+				{
+					"line": 268, "columns": [9, 38]
+				}
+			],
+			"successors": [16, 11],
+			"ir": [
+				"store ptr @PyDict_Type, ptr getelementptr inbounds (%struct._typeobject, ptr @spamdict_type, i64 0, i32 30), align 8, !dbg !500, !tbaa !501",
+				"%call = tail call i32 @PyType_Ready(ptr noundef nonnull @spamdict_type) #5, !dbg !511",
+				"%cmp = icmp slt i32 %call, 0, !dbg !513",
+				"br i1 %cmp, label %return, label %if.end, !dbg !514"
+			]
+		},
+		{
+			"function": "xxsubtype_exec",
+			"id": 11,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 271, "columns": [27]
+				},
+				{
+					"line": 272, "columns": [9, 38]
+				}
+			],
+			"successors": [16, 12],
+			"ir": [
+				"store ptr @PyList_Type, ptr getelementptr inbounds (%struct._typeobject, ptr @spamlist_type, i64 0, i32 30), align 8, !dbg !515, !tbaa !501",
+				"%call1 = tail call i32 @PyType_Ready(ptr noundef nonnull @spamlist_type) #5, !dbg !516",
+				"%cmp2 = icmp slt i32 %call1, 0, !dbg !518",
+				"br i1 %cmp2, label %return, label %if.end4, !dbg !519"
+			]
+		},
+		{
+			"function": "xxsubtype_exec",
+			"id": 12,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 275, "columns": [9, 38]
+				}
+			],
+			"successors": [16, 13],
+			"ir": [
+				"%call5 = tail call i32 @PyType_Ready(ptr noundef nonnull @spamlist_type) #5, !dbg !520",
+				"%cmp6 = icmp slt i32 %call5, 0, !dbg !522",
+				"br i1 %cmp6, label %return, label %if.end8, !dbg !523"
+			]
+		},
+		{
+			"function": "xxsubtype_exec",
+			"id": 13,
+			"name": "if.end8",
+			"debug": [
+				{
+					"line": 277, "columns": [9, 38]
+				}
+			],
+			"successors": [16, 14],
+			"ir": [
+				"%call9 = tail call i32 @PyType_Ready(ptr noundef nonnull @spamdict_type) #5, !dbg !524",
+				"%cmp10 = icmp slt i32 %call9, 0, !dbg !526",
+				"br i1 %cmp10, label %return, label %if.end12, !dbg !527"
+			]
+		},
+		{
+			"function": "xxsubtype_exec",
+			"id": 14,
+			"name": "if.end12",
+			"debug": [
+				{
+					"line": 280, "columns": [9, 74]
+				}
+			],
+			"successors": [16, 15],
+			"ir": [
+				"%call13 = tail call i32 @PyModule_AddObjectRef(ptr noundef %m, ptr noundef nonnull @.str.3, ptr noundef nonnull @spamlist_type) #5, !dbg !528",
+				"%cmp14 = icmp slt i32 %call13, 0, !dbg !530",
+				"br i1 %cmp14, label %return, label %if.end16, !dbg !531"
+			]
+		},
+		{
+			"function": "xxsubtype_exec",
+			"id": 15,
+			"name": "if.end16",
+			"debug": [
+				{
+					"line": 283, "columns": [9]
+				}
+			],
+			"successors": [16],
+			"ir": [
+				"%call17 = tail call i32 @PyModule_AddObjectRef(ptr noundef %m, ptr noundef nonnull @.str.4, ptr noundef nonnull @spamdict_type) #5, !dbg !532",
+				"%call17.lobit = ashr i32 %call17, 31, !dbg !499",
+				"br label %return, !dbg !499"
+			]
+		},
+		{
+			"function": "xxsubtype_exec",
+			"id": 16,
+			"name": "return",
+			"debug": [
+				{
+					"line": 286, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ -1, %entry ], [ -1, %if.end ], [ -1, %if.end4 ], [ -1, %if.end8 ], [ -1, %if.end12 ], [ %call17.lobit, %if.end16 ], !dbg !499",
+				"ret i32 %retval.0, !dbg !534"
+			]
+		},
+		{
+			"function": "spamdict_init",
+			"id": 17,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 180, "columns": [21, 9, 59]
+				}
+			],
+			"successors": [19, 18],
+			"ir": [
+				"%0 = load ptr, ptr getelementptr inbounds (%struct._typeobject, ptr @PyDict_Type, i64 0, i32 35), align 8, !dbg !527, !tbaa !529",
+				"%call = tail call i32 %0(ptr noundef %self, ptr noundef %args, ptr noundef %kwds) #5, !dbg !539",
+				"%cmp = icmp slt i32 %call, 0, !dbg !540",
+				"br i1 %cmp, label %return, label %if.end, !dbg !541"
+			]
+		},
+		{
+			"function": "spamdict_init",
+			"id": 18,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 182, "columns": [11, 17]
+				},
+				{
+					"line": 183, "columns": [5]
+				}
+			],
+			"successors": [19],
+			"ir": [
+				"%state = getelementptr inbounds %struct.spamdictobject, ptr %self, i64 0, i32 1, !dbg !542",
+				"store i32 0, ptr %state, align 8, !dbg !543, !tbaa !544",
+				"br label %return, !dbg !547"
+			]
+		},
+		{
+			"function": "spamdict_init",
+			"id": 19,
+			"name": "return",
+			"debug": [
+				{
+					"line": 184, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ 0, %if.end ], [ -1, %entry ], !dbg !526",
+				"ret i32 %retval.0, !dbg !548"
+			]
+		},
+		{
+			"function": "spamdict_getstate",
+			"id": 20,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 153, "columns": [10, 9]
+				}
+			],
+			"successors": [22, 21],
+			"ir": [
+				"%call = tail call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.10) #5, !dbg !526",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !526",
+				"br i1 %tobool.not, label %return, label %if.end, !dbg !528"
+			]
+		},
+		{
+			"function": "spamdict_getstate",
+			"id": 21,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 155, "columns": [34, 28, 12, 5]
+				}
+			],
+			"successors": [22],
+			"ir": [
+				"%state = getelementptr inbounds %struct.spamdictobject, ptr %self, i64 0, i32 1, !dbg !529",
+				"%0 = load i32, ptr %state, align 8, !dbg !529, !tbaa !530",
+				"%conv = sext i32 %0 to i64, !dbg !539",
+				"%call1 = tail call ptr @PyLong_FromLong(i64 noundef %conv) #5, !dbg !540",
+				"br label %return, !dbg !541"
+			]
+		},
+		{
+			"function": "spamdict_getstate",
+			"id": 22,
+			"name": "return",
+			"debug": [
+				{
+					"line": 156, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call1, %if.end ], [ null, %entry ], !dbg !525",
+				"ret ptr %retval.0, !dbg !542"
+			]
+		},
+		{
+			"function": "spamdict_setstate",
+			"id": 23,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 161, "columns": [5]
+				},
+				{
+					"line": 163, "columns": [10, 9]
+				}
+			],
+			"successors": [26, 24],
+			"ir": [
+				"%state = alloca i32, align 4",
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %state) #5, !dbg !527",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.11, ptr noundef nonnull %state) #5, !dbg !528",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !528",
+				"br i1 %tobool.not, label %cleanup, label %if.end, !dbg !530"
+			]
+		},
+		{
+			"function": "spamdict_setstate",
+			"id": 24,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 165, "columns": [19, 11, 17]
+				},
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [26, 25],
+			"ir": [
+				"%0 = load i32, ptr %state, align 4, !dbg !531, !tbaa !532",
+				"%state1 = getelementptr inbounds %struct.spamdictobject, ptr %self, i64 0, i32 1, !dbg !536",
+				"store i32 %0, ptr %state1, align 8, !dbg !537, !tbaa !538",
+				"%1 = load i32, ptr @_Py_NoneStruct, align 8, !dbg !556, !tbaa !557",
+				"%add.i.i = add i32 %1, 1, !dbg !558",
+				"%cmp.i.i = icmp eq i32 %add.i.i, 0, !dbg !559",
+				"br i1 %cmp.i.i, label %cleanup, label %if.end.i.i, !dbg !561"
+			]
+		},
+		{
+			"function": "spamdict_setstate",
+			"id": 25,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [26],
+			"ir": [
+				"store i32 %add.i.i, ptr @_Py_NoneStruct, align 8, !dbg !562, !tbaa !557",
+				"br label %cleanup, !dbg !563"
+			]
+		},
+		{
+			"function": "spamdict_setstate",
+			"id": 26,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 167, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ null, %entry ], [ @_Py_NoneStruct, %if.end ], [ @_Py_NoneStruct, %if.end.i.i ], !dbg !526",
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %state) #5, !dbg !564",
+				"ret ptr %retval.0, !dbg !564"
+			]
+		},
+		{
+			"function": "spamlist_init",
+			"id": 27,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 84, "columns": [21, 9, 59]
+				}
+			],
+			"successors": [29, 28],
+			"ir": [
+				"%0 = load ptr, ptr getelementptr inbounds (%struct._typeobject, ptr @PyList_Type, i64 0, i32 35), align 8, !dbg !517, !tbaa !519",
+				"%call = tail call i32 %0(ptr noundef %self, ptr noundef %args, ptr noundef %kwds) #5, !dbg !529",
+				"%cmp = icmp slt i32 %call, 0, !dbg !530",
+				"br i1 %cmp, label %return, label %if.end, !dbg !531"
+			]
+		},
+		{
+			"function": "spamlist_init",
+			"id": 28,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 86, "columns": [11, 17]
+				},
+				{
+					"line": 87, "columns": [5]
+				}
+			],
+			"successors": [29],
+			"ir": [
+				"%state = getelementptr inbounds %struct.spamlistobject, ptr %self, i64 0, i32 1, !dbg !532",
+				"store i32 0, ptr %state, align 8, !dbg !533, !tbaa !534",
+				"br label %return, !dbg !537"
+			]
+		},
+		{
+			"function": "spamlist_init",
+			"id": 29,
+			"name": "return",
+			"debug": [
+				{
+					"line": 88, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ 0, %if.end ], [ -1, %entry ], !dbg !516",
+				"ret i32 %retval.0, !dbg !538"
+			]
+		},
+		{
+			"function": "spamlist_getstate",
+			"id": 30,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 32, "columns": [10, 9]
+				}
+			],
+			"successors": [32, 31],
+			"ir": [
+				"%call = tail call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.10) #5, !dbg !516",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !516",
+				"br i1 %tobool.not, label %return, label %if.end, !dbg !518"
+			]
+		},
+		{
+			"function": "spamlist_getstate",
+			"id": 31,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 34, "columns": [34, 28, 12, 5]
+				}
+			],
+			"successors": [32],
+			"ir": [
+				"%state = getelementptr inbounds %struct.spamlistobject, ptr %self, i64 0, i32 1, !dbg !519",
+				"%0 = load i32, ptr %state, align 8, !dbg !519, !tbaa !520",
+				"%conv = sext i32 %0 to i64, !dbg !530",
+				"%call1 = tail call ptr @PyLong_FromLong(i64 noundef %conv) #5, !dbg !531",
+				"br label %return, !dbg !532"
+			]
+		},
+		{
+			"function": "spamlist_getstate",
+			"id": 32,
+			"name": "return",
+			"debug": [
+				{
+					"line": 35, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call1, %if.end ], [ null, %entry ], !dbg !515",
+				"ret ptr %retval.0, !dbg !533"
+			]
+		},
+		{
+			"function": "spamlist_setstate",
+			"id": 33,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 40, "columns": [5]
+				},
+				{
+					"line": 42, "columns": [10, 9]
+				}
+			],
+			"successors": [36, 34],
+			"ir": [
+				"%state = alloca i32, align 4",
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %state) #5, !dbg !517",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.11, ptr noundef nonnull %state) #5, !dbg !518",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !518",
+				"br i1 %tobool.not, label %cleanup, label %if.end, !dbg !520"
+			]
+		},
+		{
+			"function": "spamlist_setstate",
+			"id": 34,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 44, "columns": [19, 11, 17]
+				},
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [36, 35],
+			"ir": [
+				"%0 = load i32, ptr %state, align 4, !dbg !521, !tbaa !522",
+				"%state1 = getelementptr inbounds %struct.spamlistobject, ptr %self, i64 0, i32 1, !dbg !526",
+				"store i32 %0, ptr %state1, align 8, !dbg !527, !tbaa !528",
+				"%1 = load i32, ptr @_Py_NoneStruct, align 8, !dbg !547, !tbaa !548",
+				"%add.i.i = add i32 %1, 1, !dbg !549",
+				"%cmp.i.i = icmp eq i32 %add.i.i, 0, !dbg !550",
+				"br i1 %cmp.i.i, label %cleanup, label %if.end.i.i, !dbg !552"
+			]
+		},
+		{
+			"function": "spamlist_setstate",
+			"id": 35,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [36],
+			"ir": [
+				"store i32 %add.i.i, ptr @_Py_NoneStruct, align 8, !dbg !553, !tbaa !548",
+				"br label %cleanup, !dbg !554"
+			]
+		},
+		{
+			"function": "spamlist_setstate",
+			"id": 36,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 46, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ null, %entry ], [ @_Py_NoneStruct, %if.end ], [ @_Py_NoneStruct, %if.end.i.i ], !dbg !516",
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %state) #5, !dbg !555",
+				"ret ptr %retval.0, !dbg !555"
+			]
+		},
+		{
+			"function": "spamlist_specialmeth",
+			"id": 37,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 51, "columns": [24]
+				},
+				{
+					"line": 53, "columns": [16, 9]
+				}
+			],
+			"successors": [45, 38],
+			"ir": [
+				"%call = tail call ptr @PyTuple_New(i64 noundef 3) #5, !dbg !503",
+				"%cmp.not = icmp eq ptr %call, null, !dbg !504",
+				"br i1 %cmp.not, label %if.end9, label %if.then, !dbg !506"
+			]
+		},
+		{
+			"function": "spamlist_specialmeth",
+			"id": 38,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 54, "columns": [18, 13]
+				},
+				{
+					"line": 56, "columns": [16, 13]
+				},
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [40, 39],
+			"ir": [
+				"%cmp1 = icmp eq ptr %self, null, !dbg !507",
+				"%spec.store.select = select i1 %cmp1, ptr @_Py_NoneStruct, ptr %self, !dbg !510",
+				"%cmp3 = icmp eq ptr %kw, null, !dbg !511",
+				"%spec.store.select10 = select i1 %cmp3, ptr @_Py_NoneStruct, ptr %kw, !dbg !513",
+				"%0 = load i32, ptr %spec.store.select, align 8, !dbg !526, !tbaa !527",
+				"%add.i.i = add i32 %0, 1, !dbg !530",
+				"%cmp.i.i = icmp eq i32 %add.i.i, 0, !dbg !531",
+				"br i1 %cmp.i.i, label %_Py_NewRef.exit, label %if.end.i.i, !dbg !533"
+			]
+		},
+		{
+			"function": "spamlist_specialmeth",
+			"id": 39,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [40],
+			"ir": [
+				"store i32 %add.i.i, ptr %spec.store.select, align 8, !dbg !534, !tbaa !527",
+				"br label %_Py_NewRef.exit, !dbg !535"
+			]
+		},
+		{
+			"function": "spamlist_specialmeth",
+			"id": 40,
+			"name": "_Py_NewRef.exit",
+			"debug": [
+				{
+					"line": 35, "columns": [5, 27]
+				},
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [42, 41],
+			"ir": [
+				"%arrayidx.i = getelementptr %struct.PyTupleObject, ptr %call, i64 0, i32 1, i64 0, !dbg !546",
+				"store ptr %spec.store.select, ptr %arrayidx.i, align 8, !dbg !547, !tbaa !548",
+				"%1 = load i32, ptr %args, align 8, !dbg !554, !tbaa !527",
+				"%add.i.i17 = add i32 %1, 1, !dbg !555",
+				"%cmp.i.i18 = icmp eq i32 %add.i.i17, 0, !dbg !556",
+				"br i1 %cmp.i.i18, label %_Py_NewRef.exit20, label %if.end.i.i19, !dbg !557"
+			]
+		},
+		{
+			"function": "spamlist_specialmeth",
+			"id": 41,
+			"name": "if.end.i.i19",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [42],
+			"ir": [
+				"store i32 %add.i.i17, ptr %args, align 8, !dbg !558, !tbaa !527",
+				"br label %_Py_NewRef.exit20, !dbg !559"
+			]
+		},
+		{
+			"function": "spamlist_specialmeth",
+			"id": 42,
+			"name": "_Py_NewRef.exit20",
+			"debug": [
+				{
+					"line": 35, "columns": [5, 27]
+				},
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [44, 43],
+			"ir": [
+				"%arrayidx.i21 = getelementptr %struct.PyTupleObject, ptr %call, i64 0, i32 1, i64 1, !dbg !562",
+				"store ptr %args, ptr %arrayidx.i21, align 8, !dbg !563, !tbaa !548",
+				"%2 = load i32, ptr %spec.store.select10, align 8, !dbg !568, !tbaa !527",
+				"%add.i.i22 = add i32 %2, 1, !dbg !569",
+				"%cmp.i.i23 = icmp eq i32 %add.i.i22, 0, !dbg !570",
+				"br i1 %cmp.i.i23, label %_Py_NewRef.exit25, label %if.end.i.i24, !dbg !571"
+			]
+		},
+		{
+			"function": "spamlist_specialmeth",
+			"id": 43,
+			"name": "if.end.i.i24",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [44],
+			"ir": [
+				"store i32 %add.i.i22, ptr %spec.store.select10, align 8, !dbg !572, !tbaa !527",
+				"br label %_Py_NewRef.exit25, !dbg !573"
+			]
+		},
+		{
+			"function": "spamlist_specialmeth",
+			"id": 44,
+			"name": "_Py_NewRef.exit25",
+			"debug": [
+				{
+					"line": 35, "columns": [5, 27]
+				},
+				{
+					"line": 61, "columns": [5]
+				}
+			],
+			"successors": [45],
+			"ir": [
+				"%arrayidx.i26 = getelementptr %struct.PyTupleObject, ptr %call, i64 0, i32 1, i64 2, !dbg !576",
+				"store ptr %spec.store.select10, ptr %arrayidx.i26, align 8, !dbg !577, !tbaa !548",
+				"br label %if.end9, !dbg !578"
+			]
+		},
+		{
+			"function": "spamlist_specialmeth",
+			"id": 45,
+			"name": "if.end9",
+			"debug": [
+				{
+					"line": 62, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret ptr %call, !dbg !579"
+			]
+		},
+		{
+			"function": "spamlist_state_get",
+			"id": 46,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 93, "columns": [34, 28, 12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%state = getelementptr inbounds %struct.spamlistobject, ptr %self, i64 0, i32 1, !dbg !516",
+				"%0 = load i32, ptr %state, align 8, !dbg !516, !tbaa !517",
+				"%conv = sext i32 %0 to i64, !dbg !527",
+				"%call = tail call ptr @PyLong_FromLong(i64 noundef %conv) #5, !dbg !528",
+				"ret ptr %call, !dbg !529"
+			]
+		}
+	]
+}

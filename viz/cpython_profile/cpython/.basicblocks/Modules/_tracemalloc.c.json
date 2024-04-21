@@ -1,0 +1,397 @@
+{
+	"blocks": [
+		{
+			"function": "PyInit__tracemalloc",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 219, "columns": [9]
+				},
+				{
+					"line": 220, "columns": [11, 9]
+				}
+			],
+			"successors": [5, 1],
+			"ir": [
+				"%call = tail call ptr @PyModule_Create2(ptr noundef nonnull @module_def, i32 noundef 1013) #4, !dbg !496",
+				"%cmp = icmp eq ptr %call, null, !dbg !498",
+				"br i1 %cmp, label %cleanup, label %if.end, !dbg !500"
+			]
+		},
+		{
+			"function": "PyInit__tracemalloc",
+			"id": 1,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 223, "columns": [9, 31]
+				}
+			],
+			"successors": [2, 5],
+			"ir": [
+				"%call1 = tail call i32 @_PyTraceMalloc_Init() #4, !dbg !501",
+				"%cmp2 = icmp slt i32 %call1, 0, !dbg !503",
+				"br i1 %cmp2, label %if.then3, label %cleanup, !dbg !504"
+			]
+		},
+		{
+			"function": "PyInit__tracemalloc",
+			"id": 2,
+			"name": "if.then3",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [3, 5],
+			"ir": [
+				"%op.val.i = load i64, ptr %call, align 8, !dbg !511, !tbaa !513",
+				"%0 = and i64 %op.val.i, 2147483648, !dbg !521",
+				"%cmp.i.not.i = icmp eq i64 %0, 0, !dbg !521",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %cleanup, !dbg !522"
+			]
+		},
+		{
+			"function": "PyInit__tracemalloc",
+			"id": 3,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [4, 5],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !523",
+				"store i64 %dec.i, ptr %call, align 8, !dbg !523, !tbaa !513",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !525",
+				"br i1 %cmp.i, label %if.then1.i, label %cleanup, !dbg !526"
+			]
+		},
+		{
+			"function": "PyInit__tracemalloc",
+			"id": 4,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [5],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call) #4, !dbg !527",
+				"br label %cleanup, !dbg !529"
+			]
+		},
+		{
+			"function": "PyInit__tracemalloc",
+			"id": 5,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 229, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ null, %entry ], [ %call, %if.end ], [ null, %if.then3 ], [ null, %if.end.i ], [ null, %if.then1.i ], !dbg !497",
+				"ret ptr %retval.0, !dbg !530"
+			]
+		},
+		{
+			"function": "_tracemalloc_is_tracing",
+			"id": 6,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 22, "columns": [5]
+				},
+				{
+					"line": 23, "columns": [28, 12]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call.i = tail call i32 @_PyTraceMalloc_IsTracing() #4, !dbg !503",
+				"%conv.i = sext i32 %call.i to i64, !dbg !503",
+				"%call1.i = tail call ptr @PyBool_FromLong(i64 noundef %conv.i) #4, !dbg !504",
+				"ret ptr %call1.i, !dbg !505"
+			]
+		},
+		{
+			"function": "_tracemalloc_clear_traces",
+			"id": 7,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 37, "columns": [5]
+				},
+				{
+					"line": 40, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @_PyTraceMalloc_ClearTraces() #4, !dbg !503",
+				"ret ptr @_Py_NoneStruct, !dbg !504"
+			]
+		},
+		{
+			"function": "_tracemalloc__get_traces",
+			"id": 8,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 57, "columns": [12]
+				},
+				{
+					"line": 63, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call.i = tail call ptr @_PyTraceMalloc_GetTraces() #4, !dbg !503",
+				"ret ptr %call.i, !dbg !504"
+			]
+		},
+		{
+			"function": "_tracemalloc__get_object_traceback",
+			"id": 9,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 79, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call ptr @_PyTraceMalloc_GetObjectTraceback(ptr noundef %obj) #4, !dbg !498",
+				"ret ptr %call, !dbg !499"
+			]
+		},
+		{
+			"function": "_tracemalloc_start",
+			"id": 10,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 100, "columns": [10]
+				}
+			],
+			"successors": [12, 11],
+			"ir": [
+				"%or.cond = icmp ult i64 %nargs, 2, !dbg !505",
+				"br i1 %or.cond, label %if.end, label %lor.lhs.false, !dbg !505"
+			]
+		},
+		{
+			"function": "_tracemalloc_start",
+			"id": 11,
+			"name": "lor.lhs.false",
+			"debug": [
+				{
+					"line": 100, "columns": [10, 9]
+				}
+			],
+			"successors": [16, 12],
+			"ir": [
+				"%call = tail call i32 @_PyArg_CheckPositional(ptr noundef nonnull @.str.5, i64 noundef %nargs, i64 noundef 0, i64 noundef 1) #4, !dbg !505",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !505",
+				"br i1 %tobool.not, label %exit, label %if.end, !dbg !507"
+			]
+		},
+		{
+			"function": "_tracemalloc_start",
+			"id": 12,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 103, "columns": [15, 9]
+				}
+			],
+			"successors": [15, 13],
+			"ir": [
+				"%cmp2 = icmp slt i64 %nargs, 1, !dbg !508",
+				"br i1 %cmp2, label %skip_optional, label %if.end4, !dbg !510"
+			]
+		},
+		{
+			"function": "_tracemalloc_start",
+			"id": 13,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 106, "columns": [27, 14]
+				},
+				{
+					"line": 107, "columns": [16, 22]
+				}
+			],
+			"successors": [14, 15],
+			"ir": [
+				"%0 = load ptr, ptr %args, align 8, !dbg !511, !tbaa !512",
+				"%call5 = tail call i32 @PyLong_AsInt(ptr noundef %0) #4, !dbg !516",
+				"%cmp6 = icmp eq i32 %call5, -1, !dbg !517",
+				"br i1 %cmp6, label %land.lhs.true7, label %skip_optional, !dbg !519"
+			]
+		},
+		{
+			"function": "_tracemalloc_start",
+			"id": 14,
+			"name": "land.lhs.true7",
+			"debug": [
+				{
+					"line": 107, "columns": [25, 9]
+				}
+			],
+			"successors": [15, 16],
+			"ir": [
+				"%call8 = tail call ptr @PyErr_Occurred() #4, !dbg !520",
+				"%tobool9.not = icmp eq ptr %call8, null, !dbg !520",
+				"br i1 %tobool9.not, label %skip_optional, label %exit, !dbg !521"
+			]
+		},
+		{
+			"function": "_tracemalloc_start",
+			"id": 15,
+			"name": "skip_optional",
+			"debug": [
+				{
+					"line": 99, "columns": [9, 38]
+				},
+				{
+					"line": 110, "columns": [1]
+				},
+				{
+					"line": 111, "columns": [5]
+				}
+			],
+			"successors": [16],
+			"ir": [
+				"%nframe.0 = phi i32 [ 1, %if.end ], [ -1, %land.lhs.true7 ], [ %call5, %if.end4 ], !dbg !504",
+				"%call.i = tail call i32 @_PyTraceMalloc_Start(i32 noundef %nframe.0) #4, !dbg !531",
+				"%cmp.i = icmp slt i32 %call.i, 0, !dbg !533",
+				"%._Py_NoneStruct.i = select i1 %cmp.i, ptr null, ptr @_Py_NoneStruct, !dbg !529",
+				"br label %exit, !dbg !534"
+			]
+		},
+		{
+			"function": "_tracemalloc_start",
+			"id": 16,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 113, "columns": [1]
+				},
+				{
+					"line": 114, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%return_value.0 = phi ptr [ %._Py_NoneStruct.i, %skip_optional ], [ null, %land.lhs.true7 ], [ null, %lor.lhs.false ], !dbg !504",
+				"ret ptr %return_value.0, !dbg !536"
+			]
+		},
+		{
+			"function": "_tracemalloc_stop",
+			"id": 17,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 118, "columns": [5]
+				},
+				{
+					"line": 134, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @_PyTraceMalloc_Stop() #4, !dbg !503",
+				"ret ptr @_Py_NoneStruct, !dbg !504"
+			]
+		},
+		{
+			"function": "_tracemalloc_get_traceback_limit",
+			"id": 18,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 136, "columns": [28, 12]
+				},
+				{
+					"line": 155, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call.i = tail call i32 @_PyTraceMalloc_GetTracebackLimit() #4, !dbg !503",
+				"%conv.i = sext i32 %call.i to i64, !dbg !503",
+				"%call1.i = tail call ptr @PyLong_FromLong(i64 noundef %conv.i) #4, !dbg !504",
+				"ret ptr %call1.i, !dbg !505"
+			]
+		},
+		{
+			"function": "_tracemalloc_get_tracemalloc_memory",
+			"id": 19,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 151, "columns": [30, 12]
+				},
+				{
+					"line": 175, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call.i = tail call i64 @_PyTraceMalloc_GetMemory() #4, !dbg !503",
+				"%call1.i = tail call ptr @PyLong_FromSize_t(i64 noundef %call.i) #4, !dbg !504",
+				"ret ptr %call1.i, !dbg !505"
+			]
+		},
+		{
+			"function": "_tracemalloc_get_traced_memory",
+			"id": 20,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 167, "columns": [12]
+				},
+				{
+					"line": 195, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call.i = tail call ptr @_PyTraceMalloc_GetTracedMemory() #4, !dbg !503",
+				"ret ptr %call.i, !dbg !504"
+			]
+		},
+		{
+			"function": "_tracemalloc_reset_peak",
+			"id": 21,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 183, "columns": [5]
+				},
+				{
+					"line": 215, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @_PyTraceMalloc_ResetPeak() #4, !dbg !503",
+				"ret ptr @_Py_NoneStruct, !dbg !504"
+			]
+		}
+	]
+}

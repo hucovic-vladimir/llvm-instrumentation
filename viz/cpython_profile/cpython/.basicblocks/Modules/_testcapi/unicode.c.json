@@ -1,0 +1,1773 @@
+{
+	"blocks": [
+		{
+			"function": "_PyTestCapi_Init_Unicode",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 237, "columns": [9]
+				},
+				{
+					"line": 241, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call i32 @PyModule_AddFunctions(ptr noundef %m, ptr noundef nonnull @TestMethods) #6, !dbg !477",
+				"%call.lobit = ashr i32 %call, 31, !dbg !476",
+				"ret i32 %call.lobit, !dbg !479"
+			]
+		},
+		{
+			"function": "unicode_new",
+			"id": 1,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 10, "columns": [5]
+				},
+				{
+					"line": 11, "columns": [5]
+				},
+				{
+					"line": 14, "columns": [10, 9]
+				}
+			],
+			"successors": [8, 2],
+			"ir": [
+				"%size = alloca i64, align 8",
+				"%maxchar = alloca i32, align 4",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %size) #6, !dbg !481",
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %maxchar) #6, !dbg !482",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.7, ptr noundef nonnull %size, ptr noundef nonnull %maxchar) #6, !dbg !483",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !483",
+				"br i1 %tobool.not, label %cleanup, label %if.end, !dbg !485"
+			]
+		},
+		{
+			"function": "unicode_new",
+			"id": 2,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 18, "columns": [28, 43, 14]
+				},
+				{
+					"line": 19, "columns": [10, 9]
+				}
+			],
+			"successors": [8, 3],
+			"ir": [
+				"%0 = load i64, ptr %size, align 8, !dbg !486, !tbaa !487",
+				"%1 = load i32, ptr %maxchar, align 4, !dbg !491, !tbaa !492",
+				"%call1 = call ptr @PyUnicode_New(i64 noundef %0, i32 noundef %1) #6, !dbg !494",
+				"%tobool2.not = icmp eq ptr %call1, null, !dbg !495",
+				"br i1 %tobool2.not, label %cleanup, label %if.end4, !dbg !497"
+			]
+		},
+		{
+			"function": "unicode_new",
+			"id": 3,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 22, "columns": [9, 14, 18]
+				}
+			],
+			"successors": [4, 8],
+			"ir": [
+				"%2 = load i64, ptr %size, align 8, !dbg !498, !tbaa !487",
+				"%cmp = icmp sgt i64 %2, 0, !dbg !500",
+				"%3 = load i32, ptr %maxchar, align 4",
+				"%cmp5 = icmp ult i32 %3, 1114112",
+				"%or.cond = select i1 %cmp, i1 %cmp5, i1 false, !dbg !501",
+				"br i1 %or.cond, label %land.lhs.true6, label %cleanup, !dbg !501"
+			]
+		},
+		{
+			"function": "unicode_new",
+			"id": 4,
+			"name": "land.lhs.true6",
+			"debug": [
+				{
+					"line": 22, "columns": [9]
+				},
+				{
+					"line": 23, "columns": [9, 59]
+				}
+			],
+			"successors": [5, 8],
+			"ir": [
+				"%call7 = call i64 @PyUnicode_Fill(ptr noundef nonnull %call1, i64 noundef 0, i64 noundef %2, i32 noundef %3) #6, !dbg !502",
+				"%cmp8 = icmp slt i64 %call7, 0, !dbg !503",
+				"br i1 %cmp8, label %if.then9, label %cleanup, !dbg !504"
+			]
+		},
+		{
+			"function": "unicode_new",
+			"id": 5,
+			"name": "if.then9",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [6, 8],
+			"ir": [
+				"%op.val.i = load i64, ptr %call1, align 8, !dbg !511, !tbaa !513",
+				"%4 = and i64 %op.val.i, 2147483648, !dbg !519",
+				"%cmp.i.not.i = icmp eq i64 %4, 0, !dbg !519",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %cleanup, !dbg !520"
+			]
+		},
+		{
+			"function": "unicode_new",
+			"id": 6,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [7, 8],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !521",
+				"store i64 %dec.i, ptr %call1, align 8, !dbg !521, !tbaa !513",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !523",
+				"br i1 %cmp.i, label %if.then1.i, label %cleanup, !dbg !524"
+			]
+		},
+		{
+			"function": "unicode_new",
+			"id": 7,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [8],
+			"ir": [
+				"call void @_Py_Dealloc(ptr noundef nonnull %call1) #6, !dbg !525",
+				"br label %cleanup, !dbg !527"
+			]
+		},
+		{
+			"function": "unicode_new",
+			"id": 8,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 29, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ null, %entry ], [ null, %if.end ], [ %call1, %land.lhs.true6 ], [ %call1, %if.end4 ], [ null, %if.then9 ], [ null, %if.end.i ], [ null, %if.then1.i ], !dbg !480",
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %maxchar) #6, !dbg !528",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %size) #6, !dbg !528",
+				"ret ptr %retval.0, !dbg !528"
+			]
+		},
+		{
+			"function": "unicode_fill",
+			"id": 9,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 64, "columns": [5]
+				},
+				{
+					"line": 65, "columns": [5]
+				},
+				{
+					"line": 66, "columns": [5]
+				},
+				{
+					"line": 68, "columns": [10, 9]
+				}
+			],
+			"successors": [35, 10],
+			"ir": [
+				"%to = alloca ptr, align 8",
+				"%start = alloca i64, align 8",
+				"%length = alloca i64, align 8",
+				"%fill_char = alloca i32, align 4",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %to) #6, !dbg !484",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %start) #6, !dbg !485",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %length) #6, !dbg !485",
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %fill_char) #6, !dbg !486",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.8, ptr noundef nonnull %to, ptr noundef nonnull %start, ptr noundef nonnull %length, ptr noundef nonnull %fill_char) #6, !dbg !487",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !487",
+				"br i1 %tobool.not, label %cleanup, label %do.body, !dbg !489"
+			]
+		},
+		{
+			"function": "unicode_fill",
+			"id": 10,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 72, "columns": [5]
+				}
+			],
+			"successors": [11, 12],
+			"ir": [
+				"%0 = load ptr, ptr %to, align 8, !dbg !490",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !490",
+				"br i1 %cmp, label %do.end.thread, label %do.end, !dbg !493"
+			]
+		},
+		{
+			"function": "unicode_fill",
+			"id": 11,
+			"name": "do.end.thread",
+			"debug": [
+				{
+					"line": 37, "columns": [9]
+				},
+				{
+					"line": 72, "columns": [5]
+				}
+			],
+			"successors": [29],
+			"ir": [
+				"store ptr null, ptr %to, align 8, !dbg !494, !tbaa !496",
+				"br label %if.end7, !dbg !507"
+			]
+		},
+		{
+			"function": "unicode_fill",
+			"id": 12,
+			"name": "do.end",
+			"debug": [
+				{
+					"line": 37, "columns": [10, 9]
+				}
+			],
+			"successors": [29, 13],
+			"ir": [
+				"%tobool.not.i = icmp eq ptr %0, null, !dbg !508",
+				"br i1 %tobool.not.i, label %if.end7, label %if.end.i24, !dbg !507"
+			]
+		},
+		{
+			"function": "unicode_fill",
+			"id": 13,
+			"name": "if.end.i24",
+			"debug": [
+				{
+					"line": 40, "columns": [10, 9]
+				}
+			],
+			"successors": [14, 16],
+			"ir": [
+				"%1 = getelementptr i8, ptr %0, i64 8, !dbg !510",
+				"%unicode.val.i = load ptr, ptr %1, align 8, !dbg !510, !tbaa !512",
+				"%2 = getelementptr i8, ptr %unicode.val.i, i64 168, !dbg !510",
+				"%call.val.i = load i64, ptr %2, align 8, !dbg !510, !tbaa !514",
+				"%3 = and i64 %call.val.i, 268435456, !dbg !510",
+				"%tobool2.not.i = icmp eq i64 %3, 0, !dbg !510",
+				"br i1 %tobool2.not.i, label %if.then3.i, label %PyUnicode_IS_ASCII.exit.i.i, !dbg !520"
+			]
+		},
+		{
+			"function": "unicode_fill",
+			"id": 14,
+			"name": "if.then3.i",
+			"debug": [
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [29, 15],
+			"ir": [
+				"%4 = load i32, ptr %0, align 8, !dbg !529, !tbaa !530",
+				"%add.i.i = add i32 %4, 1, !dbg !531",
+				"%cmp.i.i = icmp eq i32 %add.i.i, 0, !dbg !532",
+				"br i1 %cmp.i.i, label %if.end7, label %if.end.i.i, !dbg !534"
+			]
+		},
+		{
+			"function": "unicode_fill",
+			"id": 15,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [29],
+			"ir": [
+				"store i32 %add.i.i, ptr %0, align 8, !dbg !535, !tbaa !530",
+				"br label %if.end7, !dbg !536"
+			]
+		},
+		{
+			"function": "unicode_fill",
+			"id": 16,
+			"name": "PyUnicode_IS_ASCII.exit.i.i",
+			"debug": [
+				{
+					"line": 212, "columns": [37, 43]
+				},
+				{
+					"line": 280, "columns": [37]
+				},
+				{
+					"line": 363, "columns": [9]
+				}
+			],
+			"successors": [17, 21],
+			"ir": [
+				"%length.i.i = getelementptr inbounds %struct.PyASCIIObject, ptr %0, i64 0, i32 1, !dbg !542",
+				"%5 = load i64, ptr %length.i.i, align 8, !dbg !542, !tbaa !543",
+				"%state.i.i.i = getelementptr inbounds %struct.PyASCIIObject, ptr %0, i64 0, i32 3, !dbg !562",
+				"%bf.load.i.i.i = load i32, ptr %state.i.i.i, align 8, !dbg !563",
+				"%6 = and i32 %bf.load.i.i.i, 64, !dbg !564",
+				"%tobool.not.i28.i = icmp eq i32 %6, 0, !dbg !564",
+				"br i1 %tobool.not.i28.i, label %cond.end.i.i, label %PyUnicode_MAX_CHAR_VALUE.exit.i, !dbg !565"
+			]
+		},
+		{
+			"function": "unicode_fill",
+			"id": 17,
+			"name": "cond.end.i.i",
+			"debug": [
+				{
+					"line": 367, "columns": [12]
+				},
+				{
+					"line": 368, "columns": [9]
+				}
+			],
+			"successors": [19, 21, 18, 20],
+			"ir": [
+				"%bf.lshr.i.i = lshr i32 %bf.load.i.i.i, 2, !dbg !566",
+				"%bf.clear.i.i = and i32 %bf.lshr.i.i, 7, !dbg !566",
+				"switch i32 %bf.clear.i.i, label %cond.false11.i.i [\n    i32 1, label %PyUnicode_MAX_CHAR_VALUE.exit.i\n    i32 2, label %if.then7.i.i\n    i32 4, label %cond.end12.i.i\n  ], !dbg !567"
+			]
+		},
+		{
+			"function": "unicode_fill",
+			"id": 18,
+			"name": "if.then7.i.i",
+			"debug": [
+				{
+					"line": 372, "columns": [9]
+				}
+			],
+			"successors": [21],
+			"ir": [
+				"br label %PyUnicode_MAX_CHAR_VALUE.exit.i, !dbg !568"
+			]
+		},
+		{
+			"function": "unicode_fill",
+			"id": 19,
+			"name": "cond.false11.i.i",
+			"debug": [
+				{
+					"line": 374, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.12, ptr noundef nonnull @.str.11, i32 noundef 374, ptr noundef nonnull @__PRETTY_FUNCTION__.PyUnicode_MAX_CHAR_VALUE) #7, !dbg !571",
+				"unreachable, !dbg !571"
+			]
+		},
+		{
+			"function": "unicode_fill",
+			"id": 20,
+			"name": "cond.end12.i.i",
+			"debug": [
+				{
+					"line": 375, "columns": [5]
+				}
+			],
+			"successors": [21],
+			"ir": [
+				"br label %PyUnicode_MAX_CHAR_VALUE.exit.i, !dbg !572"
+			]
+		},
+		{
+			"function": "unicode_fill",
+			"id": 21,
+			"name": "PyUnicode_MAX_CHAR_VALUE.exit.i",
+			"debug": [
+				{
+					"line": 45, "columns": [12]
+				},
+				{
+					"line": 47, "columns": [10, 9]
+				}
+			],
+			"successors": [28, 22],
+			"ir": [
+				"%retval.0.i.i = phi i32 [ 65535, %if.then7.i.i ], [ 1114111, %cond.end12.i.i ], [ 127, %PyUnicode_IS_ASCII.exit.i.i ], [ 255, %cond.end.i.i ], !dbg !552",
+				"%call7.i = call ptr @PyUnicode_New(i64 noundef %5, i32 noundef %retval.0.i.i) #6, !dbg !573",
+				"%tobool8.not.i = icmp eq ptr %call7.i, null, !dbg !574",
+				"br i1 %tobool8.not.i, label %unicode_copy.exit, label %if.end10.i, !dbg !576"
+			]
+		},
+		{
+			"function": "unicode_fill",
+			"id": 22,
+			"name": "if.end10.i",
+			"debug": [
+				{
+					"line": 280, "columns": [12]
+				}
+			],
+			"successors": [23, 24],
+			"ir": [
+				"%op.val.i29.i = load ptr, ptr %1, align 8, !dbg !580, !tbaa !512",
+				"%7 = getelementptr i8, ptr %op.val.i29.i, i64 168, !dbg !580",
+				"%call.val.i30.i = load i64, ptr %7, align 8, !dbg !580, !tbaa !514",
+				"%8 = and i64 %call.val.i30.i, 268435456, !dbg !580",
+				"%tobool.not.i31.i = icmp eq i64 %8, 0, !dbg !580",
+				"br i1 %tobool.not.i31.i, label %cond.false.i32.i, label %PyUnicode_GET_LENGTH.exit35.i, !dbg !580"
+			]
+		},
+		{
+			"function": "unicode_fill",
+			"id": 23,
+			"name": "cond.false.i32.i",
+			"debug": [
+				{
+					"line": 280, "columns": [12]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.10, ptr noundef nonnull @.str.11, i32 noundef 280, ptr noundef nonnull @__PRETTY_FUNCTION__.PyUnicode_GET_LENGTH) #7, !dbg !580",
+				"unreachable, !dbg !580"
+			]
+		},
+		{
+			"function": "unicode_fill",
+			"id": 24,
+			"name": "PyUnicode_GET_LENGTH.exit35.i",
+			"debug": [
+				{
+					"line": 50, "columns": [9]
+				},
+				{
+					"line": 51, "columns": [68]
+				},
+				{
+					"line": 280, "columns": [37]
+				}
+			],
+			"successors": [25, 29],
+			"ir": [
+				"%9 = load i64, ptr %length.i.i, align 8, !dbg !581, !tbaa !543",
+				"%call12.i = call i64 @PyUnicode_CopyCharacters(ptr noundef nonnull %call7.i, i64 noundef 0, ptr noundef nonnull %0, i64 noundef 0, i64 noundef %9) #6, !dbg !582",
+				"%cmp.i25 = icmp slt i64 %call12.i, 0, !dbg !583",
+				"br i1 %cmp.i25, label %if.then13.i, label %if.end7, !dbg !584"
+			]
+		},
+		{
+			"function": "unicode_fill",
+			"id": 25,
+			"name": "if.then13.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [26, 28],
+			"ir": [
+				"%op.val.i.i = load i64, ptr %call7.i, align 8, !dbg !591, !tbaa !530",
+				"%10 = and i64 %op.val.i.i, 2147483648, !dbg !598",
+				"%cmp.i.not.i.i = icmp eq i64 %10, 0, !dbg !598",
+				"br i1 %cmp.i.not.i.i, label %if.end.i26.i, label %unicode_copy.exit, !dbg !599"
+			]
+		},
+		{
+			"function": "unicode_fill",
+			"id": 26,
+			"name": "if.end.i26.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [27, 28],
+			"ir": [
+				"%dec.i.i = add i64 %op.val.i.i, -1, !dbg !600",
+				"store i64 %dec.i.i, ptr %call7.i, align 8, !dbg !600, !tbaa !530",
+				"%cmp.i25.i = icmp eq i64 %dec.i.i, 0, !dbg !602",
+				"br i1 %cmp.i25.i, label %if.then1.i.i, label %unicode_copy.exit, !dbg !603"
+			]
+		},
+		{
+			"function": "unicode_fill",
+			"id": 27,
+			"name": "if.then1.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [28],
+			"ir": [
+				"call void @_Py_Dealloc(ptr noundef nonnull %call7.i) #6, !dbg !604",
+				"br label %unicode_copy.exit, !dbg !606"
+			]
+		},
+		{
+			"function": "unicode_fill",
+			"id": 28,
+			"name": "unicode_copy.exit",
+			"debug": [
+				{
+					"line": 73, "columns": [39]
+				}
+			],
+			"successors": [29, 35],
+			"ir": [
+				"%.pr = load ptr, ptr %to, align 8",
+				"%tobool5.not = icmp eq ptr %.pr, null",
+				"br i1 %tobool5.not, label %if.end7, label %cleanup, !dbg !607"
+			]
+		},
+		{
+			"function": "unicode_fill",
+			"id": 29,
+			"name": "if.end7",
+			"debug": [
+				{
+					"line": 77, "columns": [38, 45, 62, 14]
+				},
+				{
+					"line": 78, "columns": [16, 22]
+				}
+			],
+			"successors": [30, 34],
+			"ir": [
+				"%retval.0.i31 = phi ptr [ null, %unicode_copy.exit ], [ %0, %if.end.i.i ], [ %0, %if.then3.i ], [ %call7.i, %PyUnicode_GET_LENGTH.exit35.i ], [ null, %do.end.thread ], [ null, %do.end ]",
+				"%11 = load i64, ptr %start, align 8, !dbg !608, !tbaa !609",
+				"%12 = load i64, ptr %length, align 8, !dbg !610, !tbaa !609",
+				"%13 = load i32, ptr %fill_char, align 4, !dbg !611, !tbaa !612",
+				"%call8 = call i64 @PyUnicode_Fill(ptr noundef %retval.0.i31, i64 noundef %11, i64 noundef %12, i32 noundef %13) #6, !dbg !613",
+				"%cmp9 = icmp eq i64 %call8, -1, !dbg !614",
+				"br i1 %cmp9, label %land.lhs.true10, label %if.end14, !dbg !616"
+			]
+		},
+		{
+			"function": "unicode_fill",
+			"id": 30,
+			"name": "land.lhs.true10",
+			"debug": [
+				{
+					"line": 78, "columns": [25, 9]
+				}
+			],
+			"successors": [34, 31],
+			"ir": [
+				"%call11 = call ptr @PyErr_Occurred() #6, !dbg !617",
+				"%tobool12.not = icmp eq ptr %call11, null, !dbg !617",
+				"br i1 %tobool12.not, label %if.end14, label %if.then13, !dbg !618"
+			]
+		},
+		{
+			"function": "unicode_fill",
+			"id": 31,
+			"name": "if.then13",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [32, 35],
+			"ir": [
+				"%op.val.i = load i64, ptr %retval.0.i31, align 8, !dbg !622, !tbaa !530",
+				"%14 = and i64 %op.val.i, 2147483648, !dbg !625",
+				"%cmp.i.not.i = icmp eq i64 %14, 0, !dbg !625",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %cleanup, !dbg !626"
+			]
+		},
+		{
+			"function": "unicode_fill",
+			"id": 32,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [33, 35],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !627",
+				"store i64 %dec.i, ptr %retval.0.i31, align 8, !dbg !627, !tbaa !530",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !628",
+				"br i1 %cmp.i, label %if.then1.i, label %cleanup, !dbg !629"
+			]
+		},
+		{
+			"function": "unicode_fill",
+			"id": 33,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [35],
+			"ir": [
+				"call void @_Py_Dealloc(ptr noundef nonnull %retval.0.i31) #6, !dbg !630",
+				"br label %cleanup, !dbg !631"
+			]
+		},
+		{
+			"function": "unicode_fill",
+			"id": 34,
+			"name": "if.end14",
+			"debug": [
+				{
+					"line": 82, "columns": [12, 5]
+				}
+			],
+			"successors": [35],
+			"ir": [
+				"%call15 = call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.9, ptr noundef %retval.0.i31, i64 noundef %call8) #6, !dbg !632",
+				"br label %cleanup, !dbg !633"
+			]
+		},
+		{
+			"function": "unicode_fill",
+			"id": 35,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 83, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call15, %if.end14 ], [ null, %entry ], [ null, %unicode_copy.exit ], [ null, %if.then13 ], [ null, %if.end.i ], [ null, %if.then1.i ], !dbg !483",
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %fill_char) #6, !dbg !634",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %length) #6, !dbg !634",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %start) #6, !dbg !634",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %to) #6, !dbg !634",
+				"ret ptr %retval.0, !dbg !634"
+			]
+		},
+		{
+			"function": "unicode_fromkindanddata",
+			"id": 36,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 90, "columns": [5]
+				},
+				{
+					"line": 91, "columns": [5]
+				},
+				{
+					"line": 92, "columns": [5]
+				},
+				{
+					"line": 93, "columns": [5, 16]
+				},
+				{
+					"line": 95, "columns": [10, 9]
+				}
+			],
+			"successors": [43, 37],
+			"ir": [
+				"%kind = alloca i32, align 4",
+				"%buffer = alloca ptr, align 8",
+				"%bsize = alloca i64, align 8",
+				"%size = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %kind) #6, !dbg !482",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %buffer) #6, !dbg !483",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %bsize) #6, !dbg !484",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %size) #6, !dbg !485",
+				"store i64 -100, ptr %size, align 8, !dbg !486, !tbaa !487",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.13, ptr noundef nonnull %kind, ptr noundef nonnull %buffer, ptr noundef nonnull %bsize, ptr noundef nonnull %size) #6, !dbg !491",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !491",
+				"br i1 %tobool.not, label %cleanup, label %if.end, !dbg !493"
+			]
+		},
+		{
+			"function": "unicode_fromkindanddata",
+			"id": 37,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 99, "columns": [9, 14]
+				}
+			],
+			"successors": [38, 39],
+			"ir": [
+				"%0 = load i64, ptr %size, align 8, !dbg !494, !tbaa !487",
+				"%cmp = icmp eq i64 %0, -100, !dbg !496",
+				"br i1 %cmp, label %if.then1, label %if.end2, !dbg !497"
+			]
+		},
+		{
+			"function": "unicode_fromkindanddata",
+			"id": 38,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 100, "columns": [16, 14]
+				},
+				{
+					"line": 101, "columns": [5]
+				}
+			],
+			"successors": [39],
+			"ir": [
+				"%1 = load i64, ptr %bsize, align 8, !dbg !498, !tbaa !487",
+				"store i64 %1, ptr %size, align 8, !dbg !500, !tbaa !487",
+				"br label %if.end2, !dbg !501"
+			]
+		},
+		{
+			"function": "unicode_fromkindanddata",
+			"id": 39,
+			"name": "if.end2",
+			"debug": [
+				{
+					"line": 102, "columns": [9, 14]
+				}
+			],
+			"successors": [42, 40],
+			"ir": [
+				"%2 = phi i64 [ %1, %if.then1 ], [ %0, %if.end ]",
+				"%3 = load i32, ptr %kind, align 4, !dbg !502, !tbaa !504",
+				"%tobool3.not = icmp eq i32 %3, 0, !dbg !502",
+				"br i1 %tobool3.not, label %cond.end, label %land.lhs.true, !dbg !506"
+			]
+		},
+		{
+			"function": "unicode_fromkindanddata",
+			"id": 40,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 102, "columns": [24, 22, 9]
+				},
+				{
+					"line": 107, "columns": [64]
+				}
+			],
+			"successors": [42, 41],
+			"ir": [
+				"%conv = sext i32 %3 to i64, !dbg !507",
+				"%rem = srem i64 %2, %conv, !dbg !508",
+				"%div = sdiv i64 %2, %conv, !dbg !509",
+				"%tobool4.not = icmp eq i64 %rem, 0, !dbg !508",
+				"br i1 %tobool4.not, label %cond.end, label %if.then5, !dbg !510"
+			]
+		},
+		{
+			"function": "unicode_fromkindanddata",
+			"id": 41,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 103, "columns": [25, 9]
+				},
+				{
+					"line": 105, "columns": [9]
+				}
+			],
+			"successors": [43],
+			"ir": [
+				"%4 = load ptr, ptr @PyExc_AssertionError, align 8, !dbg !511, !tbaa !513",
+				"call void @PyErr_SetString(ptr noundef %4, ptr noundef nonnull @.str.14) #6, !dbg !515",
+				"br label %cleanup, !dbg !516"
+			]
+		},
+		{
+			"function": "unicode_fromkindanddata",
+			"id": 42,
+			"name": "cond.end",
+			"debug": [
+				{
+					"line": 107, "columns": [52, 44, 12, 5]
+				}
+			],
+			"successors": [43],
+			"ir": [
+				"%cond = phi i64 [ 0, %if.end2 ], [ %div, %land.lhs.true ], !dbg !517",
+				"%5 = load ptr, ptr %buffer, align 8, !dbg !518, !tbaa !513",
+				"%call9 = call ptr @PyUnicode_FromKindAndData(i32 noundef %3, ptr noundef %5, i64 noundef %cond) #6, !dbg !519",
+				"br label %cleanup, !dbg !520"
+			]
+		},
+		{
+			"function": "unicode_fromkindanddata",
+			"id": 43,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 108, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ null, %if.then5 ], [ %call9, %cond.end ], [ null, %entry ], !dbg !481",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %size) #6, !dbg !521",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %bsize) #6, !dbg !521",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %buffer) #6, !dbg !521",
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %kind) #6, !dbg !521",
+				"ret ptr %retval.0, !dbg !521"
+			]
+		},
+		{
+			"function": "unicode_asucs4",
+			"id": 44,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 116, "columns": [5]
+				},
+				{
+					"line": 118, "columns": [5]
+				},
+				{
+					"line": 119, "columns": [5]
+				},
+				{
+					"line": 121, "columns": [10, 9]
+				}
+			],
+			"successors": [53, 45],
+			"ir": [
+				"%unicode = alloca ptr, align 8",
+				"%copy_null = alloca i32, align 4",
+				"%str_len = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %unicode) #6, !dbg !484",
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %copy_null) #6, !dbg !485",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %str_len) #6, !dbg !486",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.15, ptr noundef nonnull %unicode, ptr noundef nonnull %str_len, ptr noundef nonnull %copy_null) #6, !dbg !487",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !487",
+				"br i1 %tobool.not, label %cleanup, label %do.body, !dbg !489"
+			]
+		},
+		{
+			"function": "unicode_asucs4",
+			"id": 45,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 125, "columns": [5]
+				}
+			],
+			"successors": [46, 47],
+			"ir": [
+				"%0 = load ptr, ptr %unicode, align 8, !dbg !490, !tbaa !493",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !490",
+				"br i1 %cmp, label %if.then1, label %do.end, !dbg !497"
+			]
+		},
+		{
+			"function": "unicode_asucs4",
+			"id": 46,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 125, "columns": [5]
+				}
+			],
+			"successors": [47],
+			"ir": [
+				"store ptr null, ptr %unicode, align 8, !dbg !498, !tbaa !493",
+				"br label %do.end, !dbg !498"
+			]
+		},
+		{
+			"function": "unicode_asucs4",
+			"id": 47,
+			"name": "do.end",
+			"debug": [
+				{
+					"line": 126, "columns": [15, 23]
+				},
+				{
+					"line": 127, "columns": [14]
+				}
+			],
+			"successors": [49, 48],
+			"ir": [
+				"%1 = load i64, ptr %str_len, align 8, !dbg !500, !tbaa !501",
+				"%add = add i64 %1, 1, !dbg !503",
+				"%cmp3 = icmp ugt i64 %add, 2305843009213693951, !dbg !504",
+				"br i1 %cmp3, label %if.then6, label %cond.end, !dbg !504"
+			]
+		},
+		{
+			"function": "unicode_asucs4",
+			"id": 48,
+			"name": "cond.end",
+			"debug": [
+				{
+					"line": 127, "columns": [14]
+				},
+				{
+					"line": 128, "columns": [16, 9]
+				}
+			],
+			"successors": [49, 50],
+			"ir": [
+				"%mul = shl nuw nsw i64 %add, 2, !dbg !504",
+				"%call4 = call ptr @PyMem_Malloc(i64 noundef %mul) #6, !dbg !504",
+				"%cmp5 = icmp eq ptr %call4, null, !dbg !505",
+				"br i1 %cmp5, label %if.then6, label %if.end8, !dbg !507"
+			]
+		},
+		{
+			"function": "unicode_asucs4",
+			"id": 49,
+			"name": "if.then6",
+			"debug": [
+				{
+					"line": 129, "columns": [16, 9]
+				}
+			],
+			"successors": [53],
+			"ir": [
+				"%call7 = call ptr @PyErr_NoMemory() #6, !dbg !508",
+				"br label %cleanup, !dbg !510"
+			]
+		},
+		{
+			"function": "unicode_asucs4",
+			"id": 50,
+			"name": "if.end8",
+			"debug": [
+				{
+					"line": 131, "columns": [5]
+				},
+				{
+					"line": 132, "columns": [12, 5, 21]
+				},
+				{
+					"line": 134, "columns": [27, 53, 10, 9]
+				}
+			],
+			"successors": [51, 52],
+			"ir": [
+				"call void @llvm.memset.p0.i64(ptr nonnull align 4 %call4, i8 0, i64 %mul, i1 false), !dbg !511",
+				"%2 = load i64, ptr %str_len, align 8, !dbg !512, !tbaa !501",
+				"%arrayidx = getelementptr i32, ptr %call4, i64 %2, !dbg !513",
+				"store i32 65535, ptr %arrayidx, align 4, !dbg !514, !tbaa !515",
+				"%3 = load ptr, ptr %unicode, align 8, !dbg !517, !tbaa !493",
+				"%4 = load i32, ptr %copy_null, align 4, !dbg !519, !tbaa !515",
+				"%call10 = call ptr @PyUnicode_AsUCS4(ptr noundef %3, ptr noundef nonnull %call4, i64 noundef %add, i32 noundef %4) #6, !dbg !520",
+				"%tobool11.not = icmp eq ptr %call10, null, !dbg !520",
+				"br i1 %tobool11.not, label %if.then12, label %if.end13, !dbg !521"
+			]
+		},
+		{
+			"function": "unicode_asucs4",
+			"id": 51,
+			"name": "if.then12",
+			"debug": [
+				{
+					"line": 135, "columns": [9]
+				},
+				{
+					"line": 136, "columns": [9]
+				}
+			],
+			"successors": [53],
+			"ir": [
+				"call void @PyMem_Free(ptr noundef nonnull %call4) #6, !dbg !522",
+				"br label %cleanup, !dbg !524"
+			]
+		},
+		{
+			"function": "unicode_asucs4",
+			"id": 52,
+			"name": "if.end13",
+			"debug": [
+				{
+					"line": 139, "columns": [14]
+				},
+				{
+					"line": 140, "columns": [5]
+				},
+				{
+					"line": 141, "columns": [5]
+				}
+			],
+			"successors": [53],
+			"ir": [
+				"%call14 = call ptr @PyUnicode_FromKindAndData(i32 noundef 4, ptr noundef nonnull %call4, i64 noundef %add) #6, !dbg !525",
+				"call void @PyMem_Free(ptr noundef nonnull %call4) #6, !dbg !526",
+				"br label %cleanup, !dbg !527"
+			]
+		},
+		{
+			"function": "unicode_asucs4",
+			"id": 53,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 142, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call7, %if.then6 ], [ %call14, %if.end13 ], [ null, %if.then12 ], [ null, %entry ], !dbg !483",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %str_len) #6, !dbg !528",
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %copy_null) #6, !dbg !528",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %unicode) #6, !dbg !528",
+				"ret ptr %retval.0, !dbg !528"
+			]
+		},
+		{
+			"function": "unicode_asucs4copy",
+			"id": 54,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 150, "columns": [5]
+				},
+				{
+					"line": 154, "columns": [10, 9]
+				}
+			],
+			"successors": [61, 55],
+			"ir": [
+				"%unicode = alloca ptr, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %unicode) #6, !dbg !481",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.16, ptr noundef nonnull %unicode) #6, !dbg !482",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !482",
+				"br i1 %tobool.not, label %cleanup, label %do.body, !dbg !484"
+			]
+		},
+		{
+			"function": "unicode_asucs4copy",
+			"id": 55,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 158, "columns": [5]
+				}
+			],
+			"successors": [56, 57],
+			"ir": [
+				"%0 = load ptr, ptr %unicode, align 8, !dbg !485, !tbaa !488",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !485",
+				"br i1 %cmp, label %if.then1, label %do.end, !dbg !492"
+			]
+		},
+		{
+			"function": "unicode_asucs4copy",
+			"id": 56,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 158, "columns": [5]
+				}
+			],
+			"successors": [57],
+			"ir": [
+				"store ptr null, ptr %unicode, align 8, !dbg !493, !tbaa !488",
+				"br label %do.end, !dbg !493"
+			]
+		},
+		{
+			"function": "unicode_asucs4copy",
+			"id": 57,
+			"name": "do.end",
+			"debug": [
+				{
+					"line": 159, "columns": [35, 14]
+				},
+				{
+					"line": 160, "columns": [16, 9]
+				}
+			],
+			"successors": [61, 58],
+			"ir": [
+				"%1 = phi ptr [ null, %if.then1 ], [ %0, %do.body ], !dbg !495",
+				"%call3 = call ptr @PyUnicode_AsUCS4Copy(ptr noundef %1) #6, !dbg !496",
+				"%cmp4 = icmp eq ptr %call3, null, !dbg !497",
+				"br i1 %cmp4, label %cleanup, label %if.end6, !dbg !499"
+			]
+		},
+		{
+			"function": "unicode_asucs4copy",
+			"id": 58,
+			"name": "if.end6",
+			"debug": [
+				{
+					"line": 165, "columns": [40]
+				},
+				{
+					"line": 280, "columns": [12]
+				}
+			],
+			"successors": [59, 60],
+			"ir": [
+				"%2 = load ptr, ptr %unicode, align 8, !dbg !500, !tbaa !488",
+				"%3 = getelementptr i8, ptr %2, i64 8, !dbg !506",
+				"%op.val.i = load ptr, ptr %3, align 8, !dbg !506, !tbaa !507",
+				"%4 = getelementptr i8, ptr %op.val.i, i64 168, !dbg !506",
+				"%call.val.i = load i64, ptr %4, align 8, !dbg !506, !tbaa !509",
+				"%5 = and i64 %call.val.i, 268435456, !dbg !506",
+				"%tobool.not.i = icmp eq i64 %5, 0, !dbg !506",
+				"br i1 %tobool.not.i, label %cond.false.i, label %PyUnicode_GET_LENGTH.exit, !dbg !506"
+			]
+		},
+		{
+			"function": "unicode_asucs4copy",
+			"id": 59,
+			"name": "cond.false.i",
+			"debug": [
+				{
+					"line": 280, "columns": [12]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.10, ptr noundef nonnull @.str.11, i32 noundef 280, ptr noundef nonnull @__PRETTY_FUNCTION__.PyUnicode_GET_LENGTH) #7, !dbg !506",
+				"unreachable, !dbg !506"
+			]
+		},
+		{
+			"function": "unicode_asucs4copy",
+			"id": 60,
+			"name": "PyUnicode_GET_LENGTH.exit",
+			"debug": [
+				{
+					"line": 163, "columns": [14]
+				},
+				{
+					"line": 165, "columns": [70]
+				},
+				{
+					"line": 166, "columns": [5]
+				},
+				{
+					"line": 167, "columns": [5]
+				},
+				{
+					"line": 280, "columns": [37]
+				}
+			],
+			"successors": [61],
+			"ir": [
+				"%length.i = getelementptr inbounds %struct.PyASCIIObject, ptr %2, i64 0, i32 1, !dbg !515",
+				"%6 = load i64, ptr %length.i, align 8, !dbg !515, !tbaa !516",
+				"%add = add i64 %6, 1, !dbg !519",
+				"%call8 = call ptr @PyUnicode_FromKindAndData(i32 noundef 4, ptr noundef nonnull %call3, i64 noundef %add) #6, !dbg !520",
+				"call void @PyMem_Free(ptr noundef nonnull %call3) #6, !dbg !521",
+				"br label %cleanup, !dbg !522"
+			]
+		},
+		{
+			"function": "unicode_asucs4copy",
+			"id": 61,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 168, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call8, %PyUnicode_GET_LENGTH.exit ], [ null, %entry ], [ null, %do.end ], !dbg !480",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %unicode) #6, !dbg !523",
+				"ret ptr %retval.0, !dbg !523"
+			]
+		},
+		{
+			"function": "unicode_asutf8",
+			"id": 62,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 175, "columns": [5]
+				},
+				{
+					"line": 176, "columns": [5]
+				},
+				{
+					"line": 179, "columns": [10, 9]
+				}
+			],
+			"successors": [67, 63],
+			"ir": [
+				"%unicode = alloca ptr, align 8",
+				"%buflen = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %unicode) #6, !dbg !481",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %buflen) #6, !dbg !482",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.17, ptr noundef nonnull %unicode, ptr noundef nonnull %buflen) #6, !dbg !483",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !483",
+				"br i1 %tobool.not, label %cleanup, label %do.body, !dbg !485"
+			]
+		},
+		{
+			"function": "unicode_asutf8",
+			"id": 63,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 182, "columns": [5]
+				}
+			],
+			"successors": [64, 65],
+			"ir": [
+				"%0 = load ptr, ptr %unicode, align 8, !dbg !486, !tbaa !489",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !486",
+				"br i1 %cmp, label %if.then1, label %do.end, !dbg !493"
+			]
+		},
+		{
+			"function": "unicode_asutf8",
+			"id": 64,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 182, "columns": [5]
+				}
+			],
+			"successors": [65],
+			"ir": [
+				"store ptr null, ptr %unicode, align 8, !dbg !494, !tbaa !489",
+				"br label %do.end, !dbg !494"
+			]
+		},
+		{
+			"function": "unicode_asutf8",
+			"id": 65,
+			"name": "do.end",
+			"debug": [
+				{
+					"line": 183, "columns": [26, 9]
+				},
+				{
+					"line": 184, "columns": [11, 9]
+				}
+			],
+			"successors": [67, 66],
+			"ir": [
+				"%1 = phi ptr [ null, %if.then1 ], [ %0, %do.body ], !dbg !496",
+				"%call3 = call ptr @PyUnicode_AsUTF8(ptr noundef %1) #6, !dbg !497",
+				"%cmp4 = icmp eq ptr %call3, null, !dbg !498",
+				"br i1 %cmp4, label %cleanup, label %if.end6, !dbg !500"
+			]
+		},
+		{
+			"function": "unicode_asutf8",
+			"id": 66,
+			"name": "if.end6",
+			"debug": [
+				{
+					"line": 187, "columns": [41, 12, 5]
+				}
+			],
+			"successors": [67],
+			"ir": [
+				"%2 = load i64, ptr %buflen, align 8, !dbg !501, !tbaa !502",
+				"%call7 = call ptr @PyBytes_FromStringAndSize(ptr noundef nonnull %call3, i64 noundef %2) #6, !dbg !504",
+				"br label %cleanup, !dbg !505"
+			]
+		},
+		{
+			"function": "unicode_asutf8",
+			"id": 67,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 188, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call7, %if.end6 ], [ null, %entry ], [ null, %do.end ], !dbg !480",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %buflen) #6, !dbg !506",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %unicode) #6, !dbg !506",
+				"ret ptr %retval.0, !dbg !506"
+			]
+		},
+		{
+			"function": "unicode_copycharacters",
+			"id": 68,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 195, "columns": [5]
+				},
+				{
+					"line": 196, "columns": [5]
+				},
+				{
+					"line": 198, "columns": [10, 9]
+				}
+			],
+			"successors": [91, 69],
+			"ir": [
+				"%from = alloca ptr, align 8",
+				"%to = alloca ptr, align 8",
+				"%from_start = alloca i64, align 8",
+				"%to_start = alloca i64, align 8",
+				"%how_many = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %from) #6, !dbg !485",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %to) #6, !dbg !485",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %from_start) #6, !dbg !486",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %to_start) #6, !dbg !486",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %how_many) #6, !dbg !486",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.18, ptr noundef nonnull %to, ptr noundef nonnull %to_start, ptr noundef nonnull %from, ptr noundef nonnull %from_start, ptr noundef nonnull %how_many) #6, !dbg !487",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !487",
+				"br i1 %tobool.not, label %cleanup, label %do.body, !dbg !489"
+			]
+		},
+		{
+			"function": "unicode_copycharacters",
+			"id": 69,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 203, "columns": [5]
+				}
+			],
+			"successors": [70, 71],
+			"ir": [
+				"%0 = load ptr, ptr %from, align 8, !dbg !490, !tbaa !493",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !490",
+				"br i1 %cmp, label %if.then1, label %do.end, !dbg !497"
+			]
+		},
+		{
+			"function": "unicode_copycharacters",
+			"id": 70,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 203, "columns": [5]
+				}
+			],
+			"successors": [71],
+			"ir": [
+				"store ptr null, ptr %from, align 8, !dbg !498, !tbaa !493",
+				"br label %do.end, !dbg !498"
+			]
+		},
+		{
+			"function": "unicode_copycharacters",
+			"id": 71,
+			"name": "do.end",
+			"debug": [
+				{
+					"line": 204, "columns": [35]
+				},
+				{
+					"line": 280, "columns": [12]
+				}
+			],
+			"successors": [72, 73],
+			"ir": [
+				"%1 = load ptr, ptr %to, align 8, !dbg !500, !tbaa !493",
+				"%2 = getelementptr i8, ptr %1, i64 8, !dbg !507",
+				"%op.val.i40 = load ptr, ptr %2, align 8, !dbg !507, !tbaa !508",
+				"%3 = getelementptr i8, ptr %op.val.i40, i64 168, !dbg !507",
+				"%call.val.i = load i64, ptr %3, align 8, !dbg !507, !tbaa !510",
+				"%4 = and i64 %call.val.i, 268435456, !dbg !507",
+				"%tobool.not.i = icmp eq i64 %4, 0, !dbg !507",
+				"br i1 %tobool.not.i, label %cond.false.i, label %PyUnicode_IS_ASCII.exit.i, !dbg !507"
+			]
+		},
+		{
+			"function": "unicode_copycharacters",
+			"id": 72,
+			"name": "cond.false.i",
+			"debug": [
+				{
+					"line": 280, "columns": [12]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.10, ptr noundef nonnull @.str.11, i32 noundef 280, ptr noundef nonnull @__PRETTY_FUNCTION__.PyUnicode_GET_LENGTH) #7, !dbg !507",
+				"unreachable, !dbg !507"
+			]
+		},
+		{
+			"function": "unicode_copycharacters",
+			"id": 73,
+			"name": "PyUnicode_IS_ASCII.exit.i",
+			"debug": [
+				{
+					"line": 212, "columns": [37, 43]
+				},
+				{
+					"line": 280, "columns": [37]
+				},
+				{
+					"line": 363, "columns": [9]
+				}
+			],
+			"successors": [74, 78],
+			"ir": [
+				"%length.i = getelementptr inbounds %struct.PyASCIIObject, ptr %1, i64 0, i32 1, !dbg !516",
+				"%5 = load i64, ptr %length.i, align 8, !dbg !516, !tbaa !517",
+				"%state.i.i = getelementptr inbounds %struct.PyASCIIObject, ptr %1, i64 0, i32 3, !dbg !536",
+				"%bf.load.i.i = load i32, ptr %state.i.i, align 8, !dbg !537",
+				"%6 = and i32 %bf.load.i.i, 64, !dbg !538",
+				"%tobool.not.i41 = icmp eq i32 %6, 0, !dbg !538",
+				"br i1 %tobool.not.i41, label %cond.end.i, label %PyUnicode_MAX_CHAR_VALUE.exit, !dbg !539"
+			]
+		},
+		{
+			"function": "unicode_copycharacters",
+			"id": 74,
+			"name": "cond.end.i",
+			"debug": [
+				{
+					"line": 367, "columns": [12]
+				},
+				{
+					"line": 368, "columns": [9]
+				}
+			],
+			"successors": [76, 78, 75, 77],
+			"ir": [
+				"%bf.lshr.i = lshr i32 %bf.load.i.i, 2, !dbg !540",
+				"%bf.clear.i = and i32 %bf.lshr.i, 7, !dbg !540",
+				"switch i32 %bf.clear.i, label %cond.false11.i [\n    i32 1, label %PyUnicode_MAX_CHAR_VALUE.exit\n    i32 2, label %if.then7.i\n    i32 4, label %cond.end12.i\n  ], !dbg !541"
+			]
+		},
+		{
+			"function": "unicode_copycharacters",
+			"id": 75,
+			"name": "if.then7.i",
+			"debug": [
+				{
+					"line": 372, "columns": [9]
+				}
+			],
+			"successors": [78],
+			"ir": [
+				"br label %PyUnicode_MAX_CHAR_VALUE.exit, !dbg !542"
+			]
+		},
+		{
+			"function": "unicode_copycharacters",
+			"id": 76,
+			"name": "cond.false11.i",
+			"debug": [
+				{
+					"line": 374, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.12, ptr noundef nonnull @.str.11, i32 noundef 374, ptr noundef nonnull @__PRETTY_FUNCTION__.PyUnicode_MAX_CHAR_VALUE) #7, !dbg !545",
+				"unreachable, !dbg !545"
+			]
+		},
+		{
+			"function": "unicode_copycharacters",
+			"id": 77,
+			"name": "cond.end12.i",
+			"debug": [
+				{
+					"line": 375, "columns": [5]
+				}
+			],
+			"successors": [78],
+			"ir": [
+				"br label %PyUnicode_MAX_CHAR_VALUE.exit, !dbg !546"
+			]
+		},
+		{
+			"function": "unicode_copycharacters",
+			"id": 78,
+			"name": "PyUnicode_MAX_CHAR_VALUE.exit",
+			"debug": [
+				{
+					"line": 204, "columns": [21, 19, 9]
+				}
+			],
+			"successors": [91, 79],
+			"ir": [
+				"%retval.0.i = phi i32 [ 65535, %if.then7.i ], [ 1114111, %cond.end12.i ], [ 127, %PyUnicode_IS_ASCII.exit.i ], [ 255, %cond.end.i ], !dbg !526",
+				"%call5 = call ptr @PyUnicode_New(i64 noundef %5, i32 noundef %retval.0.i) #6, !dbg !547",
+				"%tobool6.not = icmp eq ptr %call5, null, !dbg !548",
+				"br i1 %tobool6.not, label %cleanup, label %if.end8, !dbg !549"
+			]
+		},
+		{
+			"function": "unicode_copycharacters",
+			"id": 79,
+			"name": "if.end8",
+			"debug": [
+				{
+					"line": 280, "columns": [12]
+				}
+			],
+			"successors": [80, 81],
+			"ir": [
+				"%7 = getelementptr i8, ptr %call5, i64 8, !dbg !553",
+				"%op.val.i42 = load ptr, ptr %7, align 8, !dbg !553, !tbaa !508",
+				"%8 = getelementptr i8, ptr %op.val.i42, i64 168, !dbg !553",
+				"%call.val.i43 = load i64, ptr %8, align 8, !dbg !553, !tbaa !510",
+				"%9 = and i64 %call.val.i43, 268435456, !dbg !553",
+				"%tobool.not.i44 = icmp eq i64 %9, 0, !dbg !553",
+				"br i1 %tobool.not.i44, label %cond.false.i45, label %PyUnicode_GET_LENGTH.exit48, !dbg !553"
+			]
+		},
+		{
+			"function": "unicode_copycharacters",
+			"id": 80,
+			"name": "cond.false.i45",
+			"debug": [
+				{
+					"line": 280, "columns": [12]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.10, ptr noundef nonnull @.str.11, i32 noundef 280, ptr noundef nonnull @__PRETTY_FUNCTION__.PyUnicode_GET_LENGTH) #7, !dbg !553",
+				"unreachable, !dbg !553"
+			]
+		},
+		{
+			"function": "unicode_copycharacters",
+			"id": 81,
+			"name": "PyUnicode_GET_LENGTH.exit48",
+			"debug": [
+				{
+					"line": 208, "columns": [9, 71]
+				},
+				{
+					"line": 280, "columns": [37]
+				}
+			],
+			"successors": [82, 85],
+			"ir": [
+				"%length.i46 = getelementptr inbounds %struct.PyASCIIObject, ptr %call5, i64 0, i32 1, !dbg !554",
+				"%10 = load i64, ptr %length.i46, align 8, !dbg !554, !tbaa !517",
+				"%call10 = call i64 @PyUnicode_Fill(ptr noundef nonnull %call5, i64 noundef 0, i64 noundef %10, i32 noundef 0) #6, !dbg !555",
+				"%cmp11 = icmp slt i64 %call10, 0, !dbg !556",
+				"br i1 %cmp11, label %if.then12, label %if.end13, !dbg !557"
+			]
+		},
+		{
+			"function": "unicode_copycharacters",
+			"id": 82,
+			"name": "if.then12",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [83, 91],
+			"ir": [
+				"%op.val.i = load i64, ptr %call5, align 8, !dbg !564, !tbaa !566",
+				"%11 = and i64 %op.val.i, 2147483648, !dbg !572",
+				"%cmp.i.not.i = icmp eq i64 %11, 0, !dbg !572",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %cleanup, !dbg !573"
+			]
+		},
+		{
+			"function": "unicode_copycharacters",
+			"id": 83,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [84, 91],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !574",
+				"store i64 %dec.i, ptr %call5, align 8, !dbg !574, !tbaa !566",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !576",
+				"br i1 %cmp.i, label %if.then1.i, label %cleanup, !dbg !577"
+			]
+		},
+		{
+			"function": "unicode_copycharacters",
+			"id": 84,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [91],
+			"ir": [
+				"call void @_Py_Dealloc(ptr noundef nonnull %call5) #6, !dbg !578",
+				"br label %cleanup, !dbg !580"
+			]
+		},
+		{
+			"function": "unicode_copycharacters",
+			"id": 85,
+			"name": "if.end13",
+			"debug": [
+				{
+					"line": 213, "columns": [48, 58, 14]
+				},
+				{
+					"line": 214, "columns": [39, 51]
+				},
+				{
+					"line": 215, "columns": [16, 22]
+				}
+			],
+			"successors": [86, 90],
+			"ir": [
+				"%12 = load i64, ptr %to_start, align 8, !dbg !581, !tbaa !582",
+				"%13 = load ptr, ptr %from, align 8, !dbg !583, !tbaa !493",
+				"%14 = load i64, ptr %from_start, align 8, !dbg !584, !tbaa !582",
+				"%15 = load i64, ptr %how_many, align 8, !dbg !585, !tbaa !582",
+				"%call14 = call i64 @PyUnicode_CopyCharacters(ptr noundef nonnull %call5, i64 noundef %12, ptr noundef %13, i64 noundef %14, i64 noundef %15) #6, !dbg !586",
+				"%cmp15 = icmp eq i64 %call14, -1, !dbg !587",
+				"br i1 %cmp15, label %land.lhs.true, label %if.end19, !dbg !589"
+			]
+		},
+		{
+			"function": "unicode_copycharacters",
+			"id": 86,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 215, "columns": [25, 9]
+				}
+			],
+			"successors": [90, 87],
+			"ir": [
+				"%call16 = call ptr @PyErr_Occurred() #6, !dbg !590",
+				"%tobool17.not = icmp eq ptr %call16, null, !dbg !590",
+				"br i1 %tobool17.not, label %if.end19, label %if.then18, !dbg !591"
+			]
+		},
+		{
+			"function": "unicode_copycharacters",
+			"id": 87,
+			"name": "if.then18",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [88, 91],
+			"ir": [
+				"%op.val.i33 = load i64, ptr %call5, align 8, !dbg !595, !tbaa !566",
+				"%16 = and i64 %op.val.i33, 2147483648, !dbg !598",
+				"%cmp.i.not.i34 = icmp eq i64 %16, 0, !dbg !598",
+				"br i1 %cmp.i.not.i34, label %if.end.i37, label %cleanup, !dbg !599"
+			]
+		},
+		{
+			"function": "unicode_copycharacters",
+			"id": 88,
+			"name": "if.end.i37",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [89, 91],
+			"ir": [
+				"%dec.i35 = add i64 %op.val.i33, -1, !dbg !600",
+				"store i64 %dec.i35, ptr %call5, align 8, !dbg !600, !tbaa !566",
+				"%cmp.i36 = icmp eq i64 %dec.i35, 0, !dbg !601",
+				"br i1 %cmp.i36, label %if.then1.i38, label %cleanup, !dbg !602"
+			]
+		},
+		{
+			"function": "unicode_copycharacters",
+			"id": 89,
+			"name": "if.then1.i38",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [91],
+			"ir": [
+				"call void @_Py_Dealloc(ptr noundef nonnull %call5) #6, !dbg !603",
+				"br label %cleanup, !dbg !604"
+			]
+		},
+		{
+			"function": "unicode_copycharacters",
+			"id": 90,
+			"name": "if.end19",
+			"debug": [
+				{
+					"line": 220, "columns": [12, 5]
+				}
+			],
+			"successors": [91],
+			"ir": [
+				"%call20 = call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.9, ptr noundef nonnull %call5, i64 noundef %call14) #6, !dbg !605",
+				"br label %cleanup, !dbg !606"
+			]
+		},
+		{
+			"function": "unicode_copycharacters",
+			"id": 91,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 221, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call20, %if.end19 ], [ null, %entry ], [ null, %PyUnicode_MAX_CHAR_VALUE.exit ], [ null, %if.then12 ], [ null, %if.end.i ], [ null, %if.then1.i ], [ null, %if.then18 ], [ null, %if.end.i37 ], [ null, %if.then1.i38 ], !dbg !484",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %how_many) #6, !dbg !607",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %to_start) #6, !dbg !607",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %from_start) #6, !dbg !607",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %to) #6, !dbg !607",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %from) #6, !dbg !607",
+				"ret ptr %retval.0, !dbg !607"
+			]
+		}
+	]
+}

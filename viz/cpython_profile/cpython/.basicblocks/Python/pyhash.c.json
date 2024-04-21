@@ -1,0 +1,806 @@
+{
+	"blocks": [
+		{
+			"function": "_Py_HashDouble",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 89, "columns": [5]
+				},
+				{
+					"line": 93, "columns": [10, 9]
+				}
+			],
+			"successors": [1, 4],
+			"ir": [
+				"%e = alloca i32, align 4",
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %e) #9, !dbg !429",
+				"%0 = tail call double @llvm.fabs.f64(double %v) #10, !dbg !430",
+				"%cmpinf = fcmp ueq double %0, 0x7FF0000000000000, !dbg !430",
+				"br i1 %cmpinf, label %if.then, label %if.end, !dbg !432"
+			]
+		},
+		{
+			"function": "_Py_HashDouble",
+			"id": 1,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 94, "columns": [13]
+				}
+			],
+			"successors": [2, 3],
+			"ir": [
+				"%isinf = fcmp oeq double %0, 0x7FF0000000000000, !dbg !433",
+				"br i1 %isinf, label %if.then1, label %if.else, !dbg !436"
+			]
+		},
+		{
+			"function": "_Py_HashDouble",
+			"id": 2,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 95, "columns": [22, 20, 13]
+				}
+			],
+			"successors": [10],
+			"ir": [
+				"%cmp = fcmp ogt double %v, 0.000000e+00, !dbg !437",
+				"%conv = select i1 %cmp, i64 314159, i64 -314159, !dbg !438",
+				"br label %cleanup, !dbg !439"
+			]
+		},
+		{
+			"function": "_Py_HashDouble",
+			"id": 3,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 12, "columns": [19]
+				},
+				{
+					"line": 17, "columns": [18]
+				},
+				{
+					"line": 97, "columns": [13]
+				},
+				{
+					"line": 136, "columns": [9]
+				}
+			],
+			"successors": [10],
+			"ir": [
+				"%1 = ptrtoint ptr %inst to i64, !dbg !459",
+				"%or.i.i.i = tail call i64 @llvm.fshl.i64(i64 %1, i64 %1, i64 60), !dbg !460",
+				"%spec.store.select.i.i = tail call i64 @llvm.umin.i64(i64 %or.i.i.i, i64 -2), !dbg !461",
+				"br label %cleanup, !dbg !462"
+			]
+		},
+		{
+			"function": "_Py_HashDouble",
+			"id": 4,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 100, "columns": [9]
+				},
+				{
+					"line": 103, "columns": [11, 9]
+				},
+				{
+					"line": 111, "columns": [5]
+				}
+			],
+			"successors": [5, 6],
+			"ir": [
+				"%call2 = call double @frexp(double noundef %v, ptr noundef nonnull %e) #9, !dbg !463",
+				"%cmp3 = fcmp olt double %call2, 0.000000e+00, !dbg !464",
+				"%fneg = fneg double %call2, !dbg !466",
+				"%m.0 = select i1 %cmp3, double %fneg, double %call2, !dbg !466",
+				"%e.promoted = load i32, ptr %e, align 4, !tbaa !467",
+				"%tobool758 = fcmp une double %m.0, 0.000000e+00, !dbg !471",
+				"br i1 %tobool758, label %while.body, label %while.end, !dbg !471"
+			]
+		},
+		{
+			"function": "_Py_HashDouble",
+			"id": 5,
+			"name": "while.body",
+			"debug": [
+				{
+					"line": 111, "columns": [5]
+				},
+				{
+					"line": 112, "columns": [17, 24, 47, 43]
+				},
+				{
+					"line": 113, "columns": [11]
+				},
+				{
+					"line": 114, "columns": [11]
+				},
+				{
+					"line": 115, "columns": [13]
+				},
+				{
+					"line": 116, "columns": [14, 11]
+				},
+				{
+					"line": 117, "columns": [11]
+				},
+				{
+					"line": 118, "columns": [15, 13]
+				}
+			],
+			"successors": [5, 6],
+			"ir": [
+				"%x.061 = phi i64 [ %spec.select, %while.body ], [ 0, %if.end ]",
+				"%m.160 = phi double [ %sub10, %while.body ], [ %m.0, %if.end ]",
+				"%sub5759 = phi i32 [ %sub, %while.body ], [ %e.promoted, %if.end ]",
+				"%shl = shl i64 %x.061, 28, !dbg !472",
+				"%and = and i64 %shl, 2305843008945258496, !dbg !474",
+				"%shr = lshr i64 %x.061, 33, !dbg !475",
+				"%or = or i64 %and, %shr, !dbg !476",
+				"%mul = fmul double %m.160, 0x41B0000000000000, !dbg !477",
+				"%sub = add i32 %sub5759, -28, !dbg !478",
+				"%conv8 = fptoui double %mul to i64, !dbg !479",
+				"%conv9 = uitofp i64 %conv8 to double, !dbg !480",
+				"%sub10 = fsub double %mul, %conv9, !dbg !481",
+				"%add = add i64 %or, %conv8, !dbg !482",
+				"%cmp11 = icmp ugt i64 %add, 2305843009213693950, !dbg !483",
+				"%sub14 = add i64 %add, -2305843009213693951",
+				"%spec.select = select i1 %cmp11, i64 %sub14, i64 %add, !dbg !485",
+				"%tobool7 = fcmp une double %sub10, 0.000000e+00, !dbg !471",
+				"br i1 %tobool7, label %while.body, label %while.end, !dbg !471, !llvm.loop !486"
+			]
+		},
+		{
+			"function": "_Py_HashDouble",
+			"id": 6,
+			"name": "while.end",
+			"debug": [
+				{
+					"line": 123, "columns": [11, 9]
+				}
+			],
+			"successors": [7, 8],
+			"ir": [
+				"%sub57.lcssa = phi i32 [ %e.promoted, %if.end ], [ %sub, %while.body ]",
+				"%x.0.lcssa = phi i64 [ 0, %if.end ], [ %spec.select, %while.body ], !dbg !428",
+				"%cmp16 = icmp sgt i32 %sub57.lcssa, -1, !dbg !489",
+				"br i1 %cmp16, label %cond.true, label %cond.false, !dbg !490"
+			]
+		},
+		{
+			"function": "_Py_HashDouble",
+			"id": 7,
+			"name": "cond.true",
+			"debug": [
+				{
+					"line": 123, "columns": [9]
+				}
+			],
+			"successors": [9],
+			"ir": [
+				"%rem = urem i32 %sub57.lcssa, 61",
+				"br label %cond.end, !dbg !490"
+			]
+		},
+		{
+			"function": "_Py_HashDouble",
+			"id": 8,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 123, "columns": [56, 51, 9]
+				}
+			],
+			"successors": [9],
+			"ir": [
+				"%sub18 = xor i32 %sub57.lcssa, -1, !dbg !491",
+				"%rem19 = urem i32 %sub18, 61",
+				"%sub20 = sub nuw nsw i32 60, %rem19, !dbg !492",
+				"br label %cond.end, !dbg !490"
+			]
+		},
+		{
+			"function": "_Py_HashDouble",
+			"id": 9,
+			"name": "cond.end",
+			"debug": [
+				{
+					"line": 123, "columns": [9]
+				},
+				{
+					"line": 124, "columns": [13, 19, 59, 42, 38]
+				},
+				{
+					"line": 126, "columns": [11]
+				},
+				{
+					"line": 127, "columns": [9]
+				},
+				{
+					"line": 129, "columns": [5]
+				}
+			],
+			"successors": [10],
+			"ir": [
+				"%cond21 = phi i32 [ %rem, %cond.true ], [ %sub20, %cond.false ], !dbg !490",
+				"%sh_prom = zext i32 %cond21 to i64, !dbg !493",
+				"%shl22 = shl i64 %x.0.lcssa, %sh_prom, !dbg !493",
+				"%and23 = and i64 %shl22, 2305843009213693951, !dbg !494",
+				"%sub24 = sub nuw nsw i32 61, %cond21, !dbg !495",
+				"%sh_prom25 = zext i32 %sub24 to i64, !dbg !496",
+				"%shr26 = lshr i64 %x.0.lcssa, %sh_prom25, !dbg !496",
+				"%or27 = or i64 %and23, %shr26, !dbg !497",
+				"%2 = sub nsw i64 0, %or27, !dbg !498",
+				"%mul29 = select i1 %cmp3, i64 %2, i64 %or27, !dbg !498",
+				"%spec.store.select = tail call i64 @llvm.umin.i64(i64 %mul29, i64 -2), !dbg !499",
+				"br label %cleanup, !dbg !500"
+			]
+		},
+		{
+			"function": "_Py_HashDouble",
+			"id": 10,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 130, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i64 [ %spec.store.select, %cond.end ], [ %conv, %if.then1 ], [ %spec.store.select.i.i, %if.else ], !dbg !428",
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %e) #9, !dbg !501",
+				"ret i64 %retval.0, !dbg !501"
+			]
+		},
+		{
+			"function": "PyObject_GenericHash",
+			"id": 11,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 12, "columns": [19]
+				},
+				{
+					"line": 17, "columns": [18]
+				},
+				{
+					"line": 136, "columns": [9]
+				},
+				{
+					"line": 145, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = ptrtoint ptr %obj to i64, !dbg !434",
+				"%or.i.i = tail call i64 @llvm.fshl.i64(i64 %0, i64 %0, i64 60), !dbg !435",
+				"%spec.store.select.i = tail call i64 @llvm.umin.i64(i64 %or.i.i, i64 -2), !dbg !436",
+				"ret i64 %spec.store.select.i, !dbg !437"
+			]
+		},
+		{
+			"function": "Py_HashPointer",
+			"id": 12,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 12, "columns": [19]
+				},
+				{
+					"line": 17, "columns": [18]
+				},
+				{
+					"line": 136, "columns": [9]
+				},
+				{
+					"line": 139, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = ptrtoint ptr %ptr to i64, !dbg !113",
+				"%or.i = tail call i64 @llvm.fshl.i64(i64 %0, i64 %0, i64 60), !dbg !114",
+				"%spec.store.select = tail call i64 @llvm.umin.i64(i64 %or.i, i64 -2), !dbg !115",
+				"ret i64 %spec.store.select, !dbg !116"
+			]
+		},
+		{
+			"function": "_Py_HashBytes",
+			"id": 13,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 156, "columns": [13, 9]
+				}
+			],
+			"successors": [15, 14],
+			"ir": [
+				"%cmp = icmp eq i64 %len, 0, !dbg !106",
+				"br i1 %cmp, label %cleanup, label %if.end, !dbg !108"
+			]
+		},
+		{
+			"function": "_Py_HashBytes",
+			"id": 14,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 189, "columns": [25, 13]
+				}
+			],
+			"successors": [15],
+			"ir": [
+				"%0 = load ptr, ptr @PyHash_Func, align 8, !dbg !109, !tbaa !110",
+				"%call = tail call i64 %0(ptr noundef %src, i64 noundef %len) #9, !dbg !116",
+				"%.call = tail call i64 @llvm.umin.i64(i64 %call, i64 -2), !dbg !105",
+				"br label %cleanup, !dbg !105"
+			]
+		},
+		{
+			"function": "_Py_HashBytes",
+			"id": 15,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 194, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i64 [ 0, %entry ], [ %.call, %if.end ], !dbg !105",
+				"ret i64 %retval.0, !dbg !117"
+			]
+		},
+		{
+			"function": "_PyHash_Fini",
+			"id": 16,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 209, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !104"
+			]
+		},
+		{
+			"function": "PyHash_GetFuncDef",
+			"id": 17,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 214, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret ptr @PyHash_Func, !dbg !105"
+			]
+		},
+		{
+			"function": "_Py_KeyedHash",
+			"id": 18,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 471, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call fastcc i64 @siphash13(i64 noundef %key, i64 noundef 0, ptr noundef %src, i64 noundef %src_sz), !dbg !108",
+				"ret i64 %call, !dbg !109"
+			]
+		},
+		{
+			"function": "siphash13",
+			"id": 19,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 372, "columns": [22]
+				},
+				{
+					"line": 373, "columns": [22]
+				},
+				{
+					"line": 374, "columns": [22]
+				},
+				{
+					"line": 375, "columns": [22]
+				},
+				{
+					"line": 380, "columns": [19, 5]
+				}
+			],
+			"successors": [20, 21],
+			"ir": [
+				"%xor = xor i64 %k0, 8317987319222330741, !dbg !119",
+				"%xor1 = xor i64 %k1, 7237128888997146477, !dbg !120",
+				"%xor2 = xor i64 %k0, 7816392313619706465, !dbg !121",
+				"%xor3 = xor i64 %k1, 8387220255154660723, !dbg !122",
+				"%cmp345 = icmp sgt i64 %src_sz, 7, !dbg !123",
+				"br i1 %cmp345, label %while.body, label %while.end, !dbg !124"
+			]
+		},
+		{
+			"function": "siphash13",
+			"id": 20,
+			"name": "while.body",
+			"debug": [
+				{
+					"line": 380, "columns": [19, 5]
+				},
+				{
+					"line": 382, "columns": [9]
+				},
+				{
+					"line": 384, "columns": [12]
+				},
+				{
+					"line": 385, "columns": [16]
+				},
+				{
+					"line": 386, "columns": [12]
+				},
+				{
+					"line": 387, "columns": [9]
+				},
+				{
+					"line": 388, "columns": [12]
+				}
+			],
+			"successors": [20, 21],
+			"ir": [
+				"%src_sz.addr.0351 = phi i64 [ %sub, %while.body ], [ %src_sz, %entry ]",
+				"%v3.0350 = phi i64 [ %xor24, %while.body ], [ %xor3, %entry ]",
+				"%v2.0349 = phi i64 [ %or27, %while.body ], [ %xor2, %entry ]",
+				"%v1.0348 = phi i64 [ %xor20, %while.body ], [ %xor1, %entry ]",
+				"%v0.0347 = phi i64 [ %xor28, %while.body ], [ %xor, %entry ]",
+				"%in.0346 = phi ptr [ %add.ptr, %while.body ], [ %src, %entry ]",
+				"%mi.0.copyload = load i64, ptr %in.0346, align 1, !dbg !125",
+				"%add.ptr = getelementptr i8, ptr %in.0346, i64 8, !dbg !127",
+				"%sub = add nsw i64 %src_sz.addr.0351, -8, !dbg !128",
+				"%xor4 = xor i64 %mi.0.copyload, %v3.0350, !dbg !129",
+				"%add = add i64 %v1.0348, %v0.0347, !dbg !130",
+				"%add5 = add i64 %xor4, %v2.0349, !dbg !130",
+				"%or = tail call i64 @llvm.fshl.i64(i64 %v1.0348, i64 %v1.0348, i64 13), !dbg !130",
+				"%xor7 = xor i64 %or, %add, !dbg !130",
+				"%or10 = tail call i64 @llvm.fshl.i64(i64 %xor4, i64 %xor4, i64 16), !dbg !130",
+				"%xor11 = xor i64 %or10, %add5, !dbg !130",
+				"%or14 = tail call i64 @llvm.fshl.i64(i64 %add, i64 %add, i64 32), !dbg !130",
+				"%add15 = add i64 %add5, %xor7, !dbg !130",
+				"%add16 = add i64 %xor11, %or14, !dbg !130",
+				"%or19 = tail call i64 @llvm.fshl.i64(i64 %xor7, i64 %xor7, i64 17), !dbg !130",
+				"%xor20 = xor i64 %add15, %or19, !dbg !130",
+				"%or23 = tail call i64 @llvm.fshl.i64(i64 %xor11, i64 %xor11, i64 21), !dbg !130",
+				"%xor24 = xor i64 %or23, %add16, !dbg !130",
+				"%or27 = tail call i64 @llvm.fshl.i64(i64 %add15, i64 %add15, i64 32), !dbg !130",
+				"%xor28 = xor i64 %add16, %mi.0.copyload, !dbg !131",
+				"%cmp = icmp ugt i64 %src_sz.addr.0351, 15, !dbg !123",
+				"br i1 %cmp, label %while.body, label %while.end, !dbg !124, !llvm.loop !132"
+			]
+		},
+		{
+			"function": "siphash13",
+			"id": 21,
+			"name": "while.end",
+			"debug": [
+				{
+					"line": 393, "columns": [5]
+				}
+			],
+			"successors": [29, 22, 23, 24, 25, 26, 27, 28],
+			"ir": [
+				"%in.0.lcssa = phi ptr [ %src, %entry ], [ %add.ptr, %while.body ], !dbg !118",
+				"%v0.0.lcssa = phi i64 [ %xor, %entry ], [ %xor28, %while.body ], !dbg !118",
+				"%v1.0.lcssa = phi i64 [ %xor1, %entry ], [ %xor20, %while.body ], !dbg !118",
+				"%v2.0.lcssa = phi i64 [ %xor2, %entry ], [ %or27, %while.body ], !dbg !118",
+				"%v3.0.lcssa = phi i64 [ %xor3, %entry ], [ %xor24, %while.body ], !dbg !118",
+				"%src_sz.addr.0.lcssa = phi i64 [ %src_sz, %entry ], [ %sub, %while.body ]",
+				"switch i64 %src_sz.addr.0.lcssa, label %sw.epilog [\n    i64 7, label %sw.bb\n    i64 6, label %sw.bb30\n    i64 5, label %sw.bb33\n    i64 4, label %sw.bb36\n    i64 3, label %sw.bb37\n    i64 2, label %sw.bb40\n    i64 1, label %sw.bb43\n  ], !dbg !135"
+			]
+		},
+		{
+			"function": "siphash13",
+			"id": 22,
+			"name": "sw.bb",
+			"debug": [
+				{
+					"line": 394, "columns": [25, 17]
+				}
+			],
+			"successors": [23],
+			"ir": [
+				"%arrayidx = getelementptr i8, ptr %in.0.lcssa, i64 6, !dbg !136",
+				"%0 = load i8, ptr %arrayidx, align 1, !dbg !136, !tbaa !138",
+				"br label %sw.bb30, !dbg !141"
+			]
+		},
+		{
+			"function": "siphash13",
+			"id": 23,
+			"name": "sw.bb30",
+			"debug": [
+				{
+					"line": 395, "columns": [25, 17]
+				}
+			],
+			"successors": [24],
+			"ir": [
+				"%t.sroa.12.0 = phi i8 [ 0, %while.end ], [ %0, %sw.bb ], !dbg !118",
+				"%arrayidx31 = getelementptr i8, ptr %in.0.lcssa, i64 5, !dbg !142",
+				"%1 = load i8, ptr %arrayidx31, align 1, !dbg !142, !tbaa !138",
+				"br label %sw.bb33, !dbg !143"
+			]
+		},
+		{
+			"function": "siphash13",
+			"id": 24,
+			"name": "sw.bb33",
+			"debug": [
+				{
+					"line": 391, "columns": [7]
+				},
+				{
+					"line": 396, "columns": [25, 17]
+				}
+			],
+			"successors": [25],
+			"ir": [
+				"%t.sroa.12.1 = phi i8 [ 0, %while.end ], [ %t.sroa.12.0, %sw.bb30 ], !dbg !144",
+				"%t.sroa.11.0 = phi i8 [ 0, %while.end ], [ %1, %sw.bb30 ], !dbg !118",
+				"%arrayidx34 = getelementptr i8, ptr %in.0.lcssa, i64 4, !dbg !145",
+				"%2 = load i8, ptr %arrayidx34, align 1, !dbg !145, !tbaa !138",
+				"br label %sw.bb36, !dbg !146"
+			]
+		},
+		{
+			"function": "siphash13",
+			"id": 25,
+			"name": "sw.bb36",
+			"debug": [
+				{
+					"line": 391, "columns": [7]
+				},
+				{
+					"line": 397, "columns": [17, 51]
+				},
+				{
+					"line": 402, "columns": [7]
+				}
+			],
+			"successors": [29],
+			"ir": [
+				"%t.sroa.12.2 = phi i8 [ 0, %while.end ], [ %t.sroa.12.1, %sw.bb33 ], !dbg !144",
+				"%t.sroa.11.1 = phi i8 [ 0, %while.end ], [ %t.sroa.11.0, %sw.bb33 ], !dbg !144",
+				"%t.sroa.10324.0 = phi i8 [ 0, %while.end ], [ %2, %sw.bb33 ], !dbg !118",
+				"%t.sroa.0.0.copyload = load i8, ptr %in.0.lcssa, align 1, !dbg !147",
+				"%t.sroa.8.0.in.0.sroa_idx = getelementptr inbounds i8, ptr %in.0.lcssa, i64 1, !dbg !147",
+				"%t.sroa.8.0.copyload = load i8, ptr %t.sroa.8.0.in.0.sroa_idx, align 1, !dbg !147",
+				"%t.sroa.9.0.in.0.sroa_idx = getelementptr inbounds i8, ptr %in.0.lcssa, i64 2, !dbg !147",
+				"%t.sroa.9.0.copyload = load i8, ptr %t.sroa.9.0.in.0.sroa_idx, align 1, !dbg !147",
+				"%t.sroa.10.0.in.0.sroa_idx = getelementptr inbounds i8, ptr %in.0.lcssa, i64 3, !dbg !147",
+				"%t.sroa.10.0.copyload = load i8, ptr %t.sroa.10.0.in.0.sroa_idx, align 1, !dbg !147",
+				"%3 = zext i8 %t.sroa.10.0.copyload to i64, !dbg !148",
+				"%4 = shl nuw nsw i64 %3, 24, !dbg !148",
+				"br label %sw.epilog, !dbg !149"
+			]
+		},
+		{
+			"function": "siphash13",
+			"id": 26,
+			"name": "sw.bb37",
+			"debug": [
+				{
+					"line": 398, "columns": [25, 17]
+				}
+			],
+			"successors": [27],
+			"ir": [
+				"%arrayidx38 = getelementptr i8, ptr %in.0.lcssa, i64 2, !dbg !150",
+				"%5 = load i8, ptr %arrayidx38, align 1, !dbg !150, !tbaa !138",
+				"br label %sw.bb40, !dbg !151"
+			]
+		},
+		{
+			"function": "siphash13",
+			"id": 27,
+			"name": "sw.bb40",
+			"debug": [
+				{
+					"line": 399, "columns": [25, 17]
+				}
+			],
+			"successors": [28],
+			"ir": [
+				"%t.sroa.9.0 = phi i8 [ 0, %while.end ], [ %5, %sw.bb37 ], !dbg !118",
+				"%arrayidx41 = getelementptr i8, ptr %in.0.lcssa, i64 1, !dbg !152",
+				"%6 = load i8, ptr %arrayidx41, align 1, !dbg !152, !tbaa !138",
+				"br label %sw.bb43, !dbg !153"
+			]
+		},
+		{
+			"function": "siphash13",
+			"id": 28,
+			"name": "sw.bb43",
+			"debug": [
+				{
+					"line": 391, "columns": [7]
+				},
+				{
+					"line": 400, "columns": [25]
+				},
+				{
+					"line": 401, "columns": [5]
+				}
+			],
+			"successors": [29],
+			"ir": [
+				"%t.sroa.9.1 = phi i8 [ 0, %while.end ], [ %t.sroa.9.0, %sw.bb40 ], !dbg !144",
+				"%t.sroa.8.0 = phi i8 [ 0, %while.end ], [ %6, %sw.bb40 ], !dbg !118",
+				"%7 = load i8, ptr %in.0.lcssa, align 1, !dbg !154, !tbaa !138",
+				"br label %sw.epilog, !dbg !155"
+			]
+		},
+		{
+			"function": "siphash13",
+			"id": 29,
+			"name": "sw.epilog",
+			"debug": [
+				{
+					"line": 369, "columns": [35]
+				},
+				{
+					"line": 391, "columns": [7]
+				},
+				{
+					"line": 402, "columns": [7]
+				},
+				{
+					"line": 404, "columns": [8]
+				},
+				{
+					"line": 405, "columns": [5]
+				},
+				{
+					"line": 406, "columns": [8]
+				},
+				{
+					"line": 407, "columns": [8]
+				},
+				{
+					"line": 408, "columns": [5]
+				},
+				{
+					"line": 409, "columns": [5]
+				},
+				{
+					"line": 410, "columns": [5]
+				},
+				{
+					"line": 413, "columns": [19]
+				},
+				{
+					"line": 414, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%t.sroa.12.3 = phi i8 [ 0, %while.end ], [ 0, %sw.bb43 ], [ %t.sroa.12.2, %sw.bb36 ], !dbg !144",
+				"%t.sroa.11.2 = phi i8 [ 0, %while.end ], [ 0, %sw.bb43 ], [ %t.sroa.11.1, %sw.bb36 ], !dbg !144",
+				"%t.sroa.10324.1 = phi i8 [ 0, %while.end ], [ 0, %sw.bb43 ], [ %t.sroa.10324.0, %sw.bb36 ], !dbg !144",
+				"%t.sroa.10.0 = phi i64 [ 0, %while.end ], [ 0, %sw.bb43 ], [ %4, %sw.bb36 ], !dbg !118",
+				"%t.sroa.9.2 = phi i8 [ 0, %while.end ], [ %t.sroa.9.1, %sw.bb43 ], [ %t.sroa.9.0.copyload, %sw.bb36 ], !dbg !118",
+				"%t.sroa.8.1 = phi i8 [ 0, %while.end ], [ %t.sroa.8.0, %sw.bb43 ], [ %t.sroa.8.0.copyload, %sw.bb36 ], !dbg !118",
+				"%t.sroa.0.0 = phi i8 [ 0, %while.end ], [ %7, %sw.bb43 ], [ %t.sroa.0.0.copyload, %sw.bb36 ], !dbg !118",
+				"%shl = shl i64 %src_sz, 56, !dbg !156",
+				"%t.sroa.12.0.insert.ext = zext i8 %t.sroa.12.3 to i64, !dbg !148",
+				"%t.sroa.12.0.insert.shift = shl nuw nsw i64 %t.sroa.12.0.insert.ext, 48, !dbg !148",
+				"%t.sroa.11.0.insert.ext = zext i8 %t.sroa.11.2 to i64, !dbg !148",
+				"%t.sroa.11.0.insert.shift = shl nuw nsw i64 %t.sroa.11.0.insert.ext, 40, !dbg !148",
+				"%t.sroa.11.0.insert.insert = or i64 %t.sroa.11.0.insert.shift, %t.sroa.12.0.insert.shift, !dbg !148",
+				"%t.sroa.10324.0.insert.ext = zext i8 %t.sroa.10324.1 to i64, !dbg !148",
+				"%t.sroa.10324.0.insert.shift = shl nuw nsw i64 %t.sroa.10324.0.insert.ext, 32, !dbg !148",
+				"%t.sroa.10324.0.insert.insert = or i64 %t.sroa.11.0.insert.insert, %t.sroa.10324.0.insert.shift, !dbg !148",
+				"%t.sroa.10.0.insert.insert = or i64 %t.sroa.10.0, %t.sroa.10324.0.insert.insert, !dbg !148",
+				"%t.sroa.9.0.insert.ext = zext i8 %t.sroa.9.2 to i64, !dbg !148",
+				"%t.sroa.9.0.insert.shift = shl nuw nsw i64 %t.sroa.9.0.insert.ext, 16, !dbg !148",
+				"%t.sroa.9.0.insert.insert = or i64 %t.sroa.10.0.insert.insert, %t.sroa.9.0.insert.shift, !dbg !148",
+				"%t.sroa.8.0.insert.ext = zext i8 %t.sroa.8.1 to i64, !dbg !148",
+				"%t.sroa.8.0.insert.shift = shl nuw nsw i64 %t.sroa.8.0.insert.ext, 8, !dbg !148",
+				"%t.sroa.0.0.insert.ext = zext i8 %t.sroa.0.0 to i64, !dbg !148",
+				"%t.sroa.0.0.insert.mask = or i64 %t.sroa.9.0.insert.insert, %t.sroa.8.0.insert.shift, !dbg !148",
+				"%t.sroa.0.0.insert.insert = or i64 %t.sroa.0.0.insert.mask, %t.sroa.0.0.insert.ext, !dbg !148",
+				"%or46 = or i64 %t.sroa.0.0.insert.insert, %shl, !dbg !148",
+				"%xor47 = xor i64 %or46, %v3.0.lcssa, !dbg !157",
+				"%add48 = add i64 %v1.0.lcssa, %v0.0.lcssa, !dbg !158",
+				"%add49 = add i64 %xor47, %v2.0.lcssa, !dbg !158",
+				"%or52 = tail call i64 @llvm.fshl.i64(i64 %v1.0.lcssa, i64 %v1.0.lcssa, i64 13), !dbg !158",
+				"%xor53 = xor i64 %or52, %add48, !dbg !158",
+				"%or56 = tail call i64 @llvm.fshl.i64(i64 %xor47, i64 %xor47, i64 16), !dbg !158",
+				"%xor57 = xor i64 %or56, %add49, !dbg !158",
+				"%or60 = tail call i64 @llvm.fshl.i64(i64 %add48, i64 %add48, i64 32), !dbg !158",
+				"%add61 = add i64 %add49, %xor53, !dbg !158",
+				"%add62 = add i64 %xor57, %or60, !dbg !158",
+				"%or65 = tail call i64 @llvm.fshl.i64(i64 %xor53, i64 %xor53, i64 17), !dbg !158",
+				"%xor66 = xor i64 %add61, %or65, !dbg !158",
+				"%or69 = tail call i64 @llvm.fshl.i64(i64 %xor57, i64 %xor57, i64 21), !dbg !158",
+				"%xor70 = xor i64 %or69, %add62, !dbg !158",
+				"%or73 = tail call i64 @llvm.fshl.i64(i64 %add61, i64 %add61, i64 32), !dbg !158",
+				"%xor74 = xor i64 %add62, %or46, !dbg !159",
+				"%xor75 = xor i64 %or73, 255, !dbg !160",
+				"%add76 = add i64 %xor74, %xor66, !dbg !161",
+				"%add77 = add i64 %xor75, %xor70, !dbg !161",
+				"%or80 = tail call i64 @llvm.fshl.i64(i64 %xor66, i64 %xor66, i64 13), !dbg !161",
+				"%xor81 = xor i64 %add76, %or80, !dbg !161",
+				"%or84 = tail call i64 @llvm.fshl.i64(i64 %xor70, i64 %xor70, i64 16), !dbg !161",
+				"%xor85 = xor i64 %or84, %add77, !dbg !161",
+				"%or88 = tail call i64 @llvm.fshl.i64(i64 %add76, i64 %add76, i64 32), !dbg !161",
+				"%add89 = add i64 %xor81, %add77, !dbg !161",
+				"%add90 = add i64 %or88, %xor85, !dbg !161",
+				"%or93 = tail call i64 @llvm.fshl.i64(i64 %xor81, i64 %xor81, i64 17), !dbg !161",
+				"%xor94 = xor i64 %or93, %add89, !dbg !161",
+				"%or97 = tail call i64 @llvm.fshl.i64(i64 %xor85, i64 %xor85, i64 21), !dbg !161",
+				"%xor98 = xor i64 %or97, %add90, !dbg !161",
+				"%or101 = tail call i64 @llvm.fshl.i64(i64 %add89, i64 %add89, i64 32), !dbg !161",
+				"%add102 = add i64 %xor94, %add90, !dbg !162",
+				"%add103 = add i64 %or101, %xor98, !dbg !162",
+				"%or106 = tail call i64 @llvm.fshl.i64(i64 %xor94, i64 %xor94, i64 13), !dbg !162",
+				"%xor107 = xor i64 %or106, %add102, !dbg !162",
+				"%or110 = tail call i64 @llvm.fshl.i64(i64 %xor98, i64 %xor98, i64 16), !dbg !162",
+				"%xor111 = xor i64 %or110, %add103, !dbg !162",
+				"%or114 = tail call i64 @llvm.fshl.i64(i64 %add102, i64 %add102, i64 32), !dbg !162",
+				"%add115 = add i64 %xor107, %add103, !dbg !162",
+				"%add116 = add i64 %or114, %xor111, !dbg !162",
+				"%or119 = tail call i64 @llvm.fshl.i64(i64 %xor107, i64 %xor107, i64 17), !dbg !162",
+				"%xor120 = xor i64 %or119, %add115, !dbg !162",
+				"%or123 = tail call i64 @llvm.fshl.i64(i64 %xor111, i64 %xor111, i64 21), !dbg !162",
+				"%xor124 = xor i64 %or123, %add116, !dbg !162",
+				"%or127 = tail call i64 @llvm.fshl.i64(i64 %add115, i64 %add115, i64 32), !dbg !162",
+				"%add128 = add i64 %xor120, %add116, !dbg !163",
+				"%add129 = add i64 %or127, %xor124, !dbg !163",
+				"%or132 = tail call i64 @llvm.fshl.i64(i64 %xor120, i64 %xor120, i64 13), !dbg !163",
+				"%xor133 = xor i64 %or132, %add128, !dbg !163",
+				"%or136 = tail call i64 @llvm.fshl.i64(i64 %xor124, i64 %xor124, i64 16), !dbg !163",
+				"%xor137 = xor i64 %or136, %add129, !dbg !163",
+				"%add141 = add i64 %xor133, %add129, !dbg !163",
+				"%or145 = tail call i64 @llvm.fshl.i64(i64 %xor133, i64 %xor133, i64 17), !dbg !163",
+				"%or149 = tail call i64 @llvm.fshl.i64(i64 %xor137, i64 %xor137, i64 21), !dbg !163",
+				"%or153 = tail call i64 @llvm.fshl.i64(i64 %add141, i64 %add141, i64 32), !dbg !163",
+				"%8 = xor i64 %or145, %or149, !dbg !163",
+				"%9 = xor i64 %8, %or153, !dbg !164",
+				"%xor156 = xor i64 %9, %add141, !dbg !164",
+				"ret i64 %xor156, !dbg !165"
+			]
+		},
+		{
+			"function": "pysiphash",
+			"id": 30,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 478, "columns": [23, 5]
+				},
+				{
+					"line": 479, "columns": [9, 46]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = load i64, ptr @_Py_HashSecret, align 8, !dbg !105, !tbaa !106",
+				"%1 = load i64, ptr getelementptr inbounds ({ [24 x i8] }, ptr @_Py_HashSecret, i64 0, i32 0, i64 8), align 8, !dbg !109, !tbaa !106",
+				"%call = tail call fastcc i64 @siphash13(i64 noundef %0, i64 noundef %1, ptr noundef %src, i64 noundef %src_sz), !dbg !110",
+				"ret i64 %call, !dbg !111"
+			]
+		}
+	]
+}

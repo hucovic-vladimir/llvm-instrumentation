@@ -1,0 +1,2505 @@
+{
+	"blocks": [
+		{
+			"function": "_PyMp_sem_unlink",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 791, "columns": [9, 26]
+				}
+			],
+			"successors": [1, 2],
+			"ir": [
+				"%call = tail call i32 @sem_unlink(ptr noundef %name) #12, !dbg !766",
+				"%cmp = icmp slt i32 %call, 0, !dbg !768",
+				"br i1 %cmp, label %if.then, label %return, !dbg !769"
+			]
+		},
+		{
+			"function": "_PyMp_sem_unlink",
+			"id": 1,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 792, "columns": [9]
+				},
+				{
+					"line": 793, "columns": [9]
+				}
+			],
+			"successors": [2],
+			"ir": [
+				"%call1 = tail call ptr @_PyMp_SetError(ptr noundef null, i32 noundef -1) #12, !dbg !770",
+				"br label %return, !dbg !772"
+			]
+		},
+		{
+			"function": "_PyMp_sem_unlink",
+			"id": 2,
+			"name": "return",
+			"debug": [
+				{
+					"line": 797, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ null, %if.then ], [ @_Py_NoneStruct, %entry ], !dbg !765",
+				"ret ptr %retval.0, !dbg !773"
+			]
+		},
+		{
+			"function": "semlock_dealloc",
+			"id": 3,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 580, "columns": [24]
+				},
+				{
+					"line": 581, "columns": [5]
+				},
+				{
+					"line": 582, "columns": [15, 22, 9]
+				}
+			],
+			"successors": [5, 4],
+			"ir": [
+				"%0 = getelementptr i8, ptr %self, i64 8, !dbg !767",
+				"%self.val = load ptr, ptr %0, align 8, !dbg !767, !tbaa !768",
+				"tail call void @PyObject_GC_UnTrack(ptr noundef %self) #12, !dbg !773",
+				"%handle = getelementptr inbounds %struct.SemLockObject, ptr %self, i64 0, i32 1, !dbg !774",
+				"%1 = load ptr, ptr %handle, align 8, !dbg !774, !tbaa !776",
+				"%cmp.not = icmp eq ptr %1, null, !dbg !780",
+				"br i1 %cmp.not, label %if.end, label %if.then, !dbg !781"
+			]
+		},
+		{
+			"function": "semlock_dealloc",
+			"id": 4,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 583, "columns": [9]
+				}
+			],
+			"successors": [5],
+			"ir": [
+				"%call2 = tail call i32 @sem_close(ptr noundef nonnull %1) #12, !dbg !782",
+				"br label %if.end, !dbg !782"
+			]
+		},
+		{
+			"function": "semlock_dealloc",
+			"id": 5,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 584, "columns": [22, 5]
+				},
+				{
+					"line": 585, "columns": [9, 5]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [6, 8],
+			"ir": [
+				"%name = getelementptr inbounds %struct.SemLockObject, ptr %self, i64 0, i32 6, !dbg !783",
+				"%2 = load ptr, ptr %name, align 8, !dbg !783, !tbaa !784",
+				"tail call void @PyMem_Free(ptr noundef %2) #12, !dbg !785",
+				"%tp_free = getelementptr inbounds %struct._typeobject, ptr %self.val, i64 0, i32 38, !dbg !786",
+				"%3 = load ptr, ptr %tp_free, align 8, !dbg !786, !tbaa !787",
+				"tail call void %3(ptr noundef nonnull %self) #12, !dbg !791",
+				"%op.val.i = load i64, ptr %self.val, align 8, !dbg !797, !tbaa !799",
+				"%4 = and i64 %op.val.i, 2147483648, !dbg !805",
+				"%cmp.i.not.i = icmp eq i64 %4, 0, !dbg !805",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %Py_DECREF.exit, !dbg !806"
+			]
+		},
+		{
+			"function": "semlock_dealloc",
+			"id": 6,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [7, 8],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !807",
+				"store i64 %dec.i, ptr %self.val, align 8, !dbg !807, !tbaa !799",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !809",
+				"br i1 %cmp.i, label %if.then1.i, label %Py_DECREF.exit, !dbg !810"
+			]
+		},
+		{
+			"function": "semlock_dealloc",
+			"id": 7,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [8],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %self.val) #12, !dbg !811",
+				"br label %Py_DECREF.exit, !dbg !813"
+			]
+		},
+		{
+			"function": "semlock_dealloc",
+			"id": 8,
+			"name": "Py_DECREF.exit",
+			"debug": [
+				{
+					"line": 587, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !814"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock",
+			"id": 9,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 257, "columns": [5, 15]
+				},
+				{
+					"line": 259, "columns": [24]
+				},
+				{
+					"line": 266, "columns": [16]
+				}
+			],
+			"successors": [11, 10],
+			"ir": [
+				"%argsbuf = alloca [5 x ptr], align 16",
+				"%name_length = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 40, ptr nonnull %argsbuf) #12, !dbg !761",
+				"%0 = getelementptr i8, ptr %args, i64 16, !dbg !763",
+				"%args.val = load i64, ptr %0, align 8, !dbg !763, !tbaa !764",
+				"%cmp = icmp eq ptr %kwargs, null, !dbg !771",
+				"%cmp1 = icmp sgt i64 %args.val, 4, !dbg !771",
+				"%or.cond = select i1 %cmp, i1 %cmp1, i1 false, !dbg !771",
+				"%cmp3 = icmp slt i64 %args.val, 6, !dbg !771",
+				"%or.cond57 = select i1 %or.cond, i1 %cmp3, i1 false, !dbg !771",
+				"%ob_item = getelementptr inbounds %struct.PyTupleObject, ptr %args, i64 0, i32 1, !dbg !771",
+				"br i1 %or.cond57, label %if.end, label %cond.end, !dbg !771"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock",
+			"id": 10,
+			"name": "cond.end",
+			"debug": [
+				{
+					"line": 266, "columns": [16]
+				},
+				{
+					"line": 267, "columns": [10, 9]
+				}
+			],
+			"successors": [38, 11],
+			"ir": [
+				"%call11 = call ptr @_PyArg_UnpackKeywords(ptr noundef nonnull %ob_item, i64 noundef %args.val, ptr noundef %kwargs, ptr noundef null, ptr noundef nonnull @_multiprocessing_SemLock._parser, i32 noundef 5, i32 noundef 5, i32 noundef 0, ptr noundef nonnull %argsbuf) #12, !dbg !771",
+				"%tobool.not = icmp eq ptr %call11, null, !dbg !772",
+				"br i1 %tobool.not, label %exit, label %if.end, !dbg !774"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock",
+			"id": 11,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 270, "columns": [25, 12]
+				},
+				{
+					"line": 271, "columns": [14, 20]
+				}
+			],
+			"successors": [12, 13],
+			"ir": [
+				"%cond80 = phi ptr [ %call11, %cond.end ], [ %ob_item, %entry ]",
+				"%1 = load ptr, ptr %cond80, align 8, !dbg !775, !tbaa !776",
+				"%call12 = call i32 @PyLong_AsInt(ptr noundef %1) #12, !dbg !777",
+				"%cmp13 = icmp eq i32 %call12, -1, !dbg !778",
+				"br i1 %cmp13, label %land.lhs.true14, label %if.end18, !dbg !780"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock",
+			"id": 12,
+			"name": "land.lhs.true14",
+			"debug": [
+				{
+					"line": 271, "columns": [23, 9]
+				}
+			],
+			"successors": [13, 38],
+			"ir": [
+				"%call15 = call ptr @PyErr_Occurred() #12, !dbg !781",
+				"%tobool16.not = icmp eq ptr %call15, null, !dbg !781",
+				"br i1 %tobool16.not, label %if.end18, label %exit, !dbg !782"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock",
+			"id": 13,
+			"name": "if.end18",
+			"debug": [
+				{
+					"line": 274, "columns": [26, 13]
+				},
+				{
+					"line": 275, "columns": [15, 21]
+				}
+			],
+			"successors": [14, 15],
+			"ir": [
+				"%arrayidx19 = getelementptr ptr, ptr %cond80, i64 1, !dbg !783",
+				"%2 = load ptr, ptr %arrayidx19, align 8, !dbg !783, !tbaa !776",
+				"%call20 = call i32 @PyLong_AsInt(ptr noundef %2) #12, !dbg !784",
+				"%cmp21 = icmp eq i32 %call20, -1, !dbg !785",
+				"br i1 %cmp21, label %land.lhs.true22, label %if.end26, !dbg !787"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock",
+			"id": 14,
+			"name": "land.lhs.true22",
+			"debug": [
+				{
+					"line": 275, "columns": [24, 9]
+				}
+			],
+			"successors": [15, 38],
+			"ir": [
+				"%call23 = call ptr @PyErr_Occurred() #12, !dbg !788",
+				"%tobool24.not = icmp eq ptr %call23, null, !dbg !788",
+				"br i1 %tobool24.not, label %if.end26, label %exit, !dbg !789"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock",
+			"id": 15,
+			"name": "if.end26",
+			"debug": [
+				{
+					"line": 278, "columns": [29, 16]
+				},
+				{
+					"line": 279, "columns": [18, 24]
+				}
+			],
+			"successors": [16, 17],
+			"ir": [
+				"%arrayidx27 = getelementptr ptr, ptr %cond80, i64 2, !dbg !790",
+				"%3 = load ptr, ptr %arrayidx27, align 8, !dbg !790, !tbaa !776",
+				"%call28 = call i32 @PyLong_AsInt(ptr noundef %3) #12, !dbg !791",
+				"%cmp29 = icmp eq i32 %call28, -1, !dbg !792",
+				"br i1 %cmp29, label %land.lhs.true30, label %if.end34, !dbg !794"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock",
+			"id": 16,
+			"name": "land.lhs.true30",
+			"debug": [
+				{
+					"line": 279, "columns": [27, 9]
+				}
+			],
+			"successors": [17, 38],
+			"ir": [
+				"%call31 = call ptr @PyErr_Occurred() #12, !dbg !795",
+				"%tobool32.not = icmp eq ptr %call31, null, !dbg !795",
+				"br i1 %tobool32.not, label %if.end34, label %exit, !dbg !796"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock",
+			"id": 17,
+			"name": "if.end34",
+			"debug": [
+				{
+					"line": 282, "columns": [10, 9]
+				}
+			],
+			"successors": [18, 19],
+			"ir": [
+				"%arrayidx35 = getelementptr ptr, ptr %cond80, i64 3, !dbg !797",
+				"%4 = load ptr, ptr %arrayidx35, align 8, !dbg !797, !tbaa !776",
+				"%5 = getelementptr i8, ptr %4, i64 8, !dbg !797",
+				"%.val = load ptr, ptr %5, align 8, !dbg !797, !tbaa !799",
+				"%6 = getelementptr i8, ptr %.val, i64 168, !dbg !797",
+				"%call36.val = load i64, ptr %6, align 8, !dbg !797, !tbaa !800",
+				"%7 = and i64 %call36.val, 268435456, !dbg !797",
+				"%tobool38.not = icmp eq i64 %7, 0, !dbg !797",
+				"br i1 %tobool38.not, label %if.then39, label %if.end41, !dbg !804"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock",
+			"id": 18,
+			"name": "if.then39",
+			"debug": [
+				{
+					"line": 283, "columns": [9]
+				},
+				{
+					"line": 284, "columns": [9]
+				}
+			],
+			"successors": [38],
+			"ir": [
+				"call void @_PyArg_BadArgument(ptr noundef nonnull @.str.24, ptr noundef nonnull @.str.25, ptr noundef nonnull @.str.26, ptr noundef nonnull %4) #12, !dbg !805",
+				"br label %exit, !dbg !807"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock",
+			"id": 19,
+			"name": "if.end41",
+			"debug": [
+				{
+					"line": 287, "columns": [12]
+				},
+				{
+					"line": 288, "columns": [14, 9]
+				}
+			],
+			"successors": [38, 20],
+			"ir": [
+				"%call43 = call ptr @PyUnicode_AsUTF8AndSize(ptr noundef nonnull %4, ptr noundef nonnull %name_length) #12, !dbg !808",
+				"%cmp44 = icmp eq ptr %call43, null, !dbg !809",
+				"br i1 %cmp44, label %exit, label %if.end46, !dbg !811"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock",
+			"id": 20,
+			"name": "if.end46",
+			"debug": [
+				{
+					"line": 291, "columns": [9, 33, 22]
+				}
+			],
+			"successors": [22, 21],
+			"ir": [
+				"%call47 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %call43) #13, !dbg !812",
+				"%8 = load i64, ptr %name_length, align 8, !dbg !814, !tbaa !815",
+				"%cmp48.not = icmp eq i64 %call47, %8, !dbg !816",
+				"br i1 %cmp48.not, label %if.end50, label %if.then49, !dbg !817"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock",
+			"id": 21,
+			"name": "if.then49",
+			"debug": [
+				{
+					"line": 292, "columns": [25, 9]
+				},
+				{
+					"line": 293, "columns": [9]
+				}
+			],
+			"successors": [38],
+			"ir": [
+				"%9 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !818, !tbaa !776",
+				"call void @PyErr_SetString(ptr noundef %9, ptr noundef nonnull @.str.27) #12, !dbg !820",
+				"br label %exit, !dbg !821"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock",
+			"id": 22,
+			"name": "if.end50",
+			"debug": [
+				{
+					"line": 295, "columns": [30, 14]
+				},
+				{
+					"line": 296, "columns": [16, 9]
+				}
+			],
+			"successors": [38, 23],
+			"ir": [
+				"%arrayidx51 = getelementptr ptr, ptr %cond80, i64 4, !dbg !822",
+				"%10 = load ptr, ptr %arrayidx51, align 8, !dbg !822, !tbaa !776",
+				"%call52 = call i32 @PyObject_IsTrue(ptr noundef %10) #12, !dbg !823",
+				"%cmp53 = icmp slt i32 %call52, 0, !dbg !824",
+				"br i1 %cmp53, label %exit, label %if.end55, !dbg !826"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock",
+			"id": 23,
+			"name": "if.end55",
+			"debug": [
+				{
+					"line": 498, "columns": [33]
+				}
+			],
+			"successors": [24, 25],
+			"ir": [
+				"%or.cond.i = icmp ugt i32 %call12, 1, !dbg !843",
+				"br i1 %or.cond.i, label %if.then.i, label %if.end.i, !dbg !843"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock",
+			"id": 24,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 499, "columns": [25, 9]
+				},
+				{
+					"line": 500, "columns": [9]
+				}
+			],
+			"successors": [38],
+			"ir": [
+				"%11 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !845, !tbaa !776",
+				"call void @PyErr_SetString(ptr noundef %11, ptr noundef nonnull @.str.28) #12, !dbg !847",
+				"br label %exit, !dbg !848"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock",
+			"id": 25,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 503, "columns": [10, 9]
+				}
+			],
+			"successors": [26, 29],
+			"ir": [
+				"%tobool.not.i = icmp eq i32 %call52, 0, !dbg !849",
+				"br i1 %tobool.not.i, label %if.then2.i, label %if.end9.thread.i, !dbg !851"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock",
+			"id": 26,
+			"name": "if.then2.i",
+			"debug": [
+				{
+					"line": 504, "columns": [34, 47, 21]
+				},
+				{
+					"line": 505, "columns": [23, 13]
+				}
+			],
+			"successors": [27, 28],
+			"ir": [
+				"%call.i = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %call43) #13, !dbg !852",
+				"%add.i = add i64 %call.i, 1, !dbg !854",
+				"%call3.i = call ptr @PyMem_Malloc(i64 noundef %add.i) #12, !dbg !855",
+				"%cmp4.i = icmp eq ptr %call3.i, null, !dbg !856",
+				"br i1 %cmp4.i, label %if.then5.i, label %if.end9.i, !dbg !858"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock",
+			"id": 27,
+			"name": "if.then5.i",
+			"debug": [
+				{
+					"line": 506, "columns": [20, 13]
+				}
+			],
+			"successors": [38],
+			"ir": [
+				"%call6.i = call ptr @PyErr_NoMemory() #12, !dbg !859",
+				"br label %exit, !dbg !861"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock",
+			"id": 28,
+			"name": "if.end9.i",
+			"debug": [
+				{
+					"line": 508, "columns": [9]
+				},
+				{
+					"line": 512, "columns": [14]
+				},
+				{
+					"line": 514, "columns": [16, 9]
+				}
+			],
+			"successors": [33, 31],
+			"ir": [
+				"%call8.i = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call3.i, ptr noundef nonnull dereferenceable(1) %call43) #12, !dbg !862",
+				"%call10.i = call ptr (ptr, i32, ...) @sem_open(ptr noundef nonnull %call43, i32 noundef 192, i32 noundef 384, i32 noundef %call20) #12, !dbg !863",
+				"%cmp11.i = icmp eq ptr %call10.i, null, !dbg !864",
+				"br i1 %cmp11.i, label %failure.i, label %if.end19.i, !dbg !866"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock",
+			"id": 29,
+			"name": "if.end9.thread.i",
+			"debug": [
+				{
+					"line": 512, "columns": [14]
+				},
+				{
+					"line": 514, "columns": [16, 9]
+				}
+			],
+			"successors": [33, 30],
+			"ir": [
+				"%call1049.i = call ptr (ptr, i32, ...) @sem_open(ptr noundef nonnull %call43, i32 noundef 192, i32 noundef 384, i32 noundef %call20) #12, !dbg !863",
+				"%cmp1150.i = icmp eq ptr %call1049.i, null, !dbg !864",
+				"br i1 %cmp1150.i, label %failure.i, label %land.lhs.true15.i, !dbg !866"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock",
+			"id": 30,
+			"name": "land.lhs.true15.i",
+			"debug": [
+				{
+					"line": 517, "columns": [19, 36, 9]
+				}
+			],
+			"successors": [33, 31],
+			"ir": [
+				"%call16.i = call i32 @sem_unlink(ptr noundef nonnull %call43) #12, !dbg !867",
+				"%cmp17.i = icmp slt i32 %call16.i, 0, !dbg !869",
+				"br i1 %cmp17.i, label %failure.i, label %if.end19.i, !dbg !870"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock",
+			"id": 31,
+			"name": "if.end19.i",
+			"debug": [
+				{
+					"line": 465, "columns": [50, 44]
+				},
+				{
+					"line": 466, "columns": [10, 9]
+				}
+			],
+			"successors": [33, 32],
+			"ir": [
+				"%name_copy.05165.i = phi ptr [ null, %land.lhs.true15.i ], [ %call3.i, %if.end9.i ]",
+				"%call105363.i = phi ptr [ %call1049.i, %land.lhs.true15.i ], [ %call10.i, %if.end9.i ]",
+				"%tp_alloc.i.i = getelementptr inbounds %struct._typeobject, ptr %type, i64 0, i32 36, !dbg !883",
+				"%12 = load ptr, ptr %tp_alloc.i.i, align 8, !dbg !883, !tbaa !884",
+				"%call.i.i = call ptr %12(ptr noundef %type, i64 noundef 0) #12, !dbg !885",
+				"%tobool.not.i.i = icmp eq ptr %call.i.i, null, !dbg !886",
+				"br i1 %tobool.not.i.i, label %failure.i, label %newsemlockobject.exit.i, !dbg !888"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock",
+			"id": 32,
+			"name": "newsemlockobject.exit.i",
+			"debug": [
+				{
+					"line": 468, "columns": [11, 18]
+				},
+				{
+					"line": 469, "columns": [11, 16]
+				},
+				{
+					"line": 470, "columns": [11, 17]
+				},
+				{
+					"line": 471, "columns": [11, 20]
+				},
+				{
+					"line": 472, "columns": [11, 20]
+				},
+				{
+					"line": 473, "columns": [11, 16]
+				},
+				{
+					"line": 521, "columns": [9]
+				}
+			],
+			"successors": [38],
+			"ir": [
+				"%handle1.i.i = getelementptr inbounds %struct.SemLockObject, ptr %call.i.i, i64 0, i32 1, !dbg !889",
+				"store ptr %call105363.i, ptr %handle1.i.i, align 8, !dbg !890, !tbaa !891",
+				"%kind2.i.i = getelementptr inbounds %struct.SemLockObject, ptr %call.i.i, i64 0, i32 5, !dbg !893",
+				"store i32 %call12, ptr %kind2.i.i, align 8, !dbg !894, !tbaa !895",
+				"%count.i.i = getelementptr inbounds %struct.SemLockObject, ptr %call.i.i, i64 0, i32 3, !dbg !896",
+				"store i32 0, ptr %count.i.i, align 8, !dbg !897, !tbaa !898",
+				"%last_tid.i.i = getelementptr inbounds %struct.SemLockObject, ptr %call.i.i, i64 0, i32 2, !dbg !899",
+				"store i64 0, ptr %last_tid.i.i, align 8, !dbg !900, !tbaa !901",
+				"%maxvalue3.i.i = getelementptr inbounds %struct.SemLockObject, ptr %call.i.i, i64 0, i32 4, !dbg !902",
+				"store i32 %call28, ptr %maxvalue3.i.i, align 4, !dbg !903, !tbaa !904",
+				"%name4.i.i = getelementptr inbounds %struct.SemLockObject, ptr %call.i.i, i64 0, i32 6, !dbg !905",
+				"store ptr %name_copy.05165.i, ptr %name4.i.i, align 8, !dbg !906, !tbaa !907",
+				"br label %exit, !dbg !908"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock",
+			"id": 33,
+			"name": "failure.i",
+			"debug": [
+				{
+					"line": 526, "columns": [3]
+				},
+				{
+					"line": 527, "columns": [10, 9]
+				}
+			],
+			"successors": [34, 35],
+			"ir": [
+				"%cmp1156.i = phi i1 [ true, %if.end9.thread.i ], [ false, %land.lhs.true15.i ], [ true, %if.end9.i ], [ false, %if.end19.i ]",
+				"%call1054.i = phi ptr [ null, %if.end9.thread.i ], [ %call1049.i, %land.lhs.true15.i ], [ null, %if.end9.i ], [ %call105363.i, %if.end19.i ]",
+				"%name_copy.052.i = phi ptr [ null, %if.end9.thread.i ], [ null, %land.lhs.true15.i ], [ %call3.i, %if.end9.i ], [ %name_copy.05165.i, %if.end19.i ]",
+				"%call24.i = call ptr @PyErr_Occurred() #12, !dbg !910",
+				"%tobool25.not.i = icmp eq ptr %call24.i, null, !dbg !910",
+				"br i1 %tobool25.not.i, label %if.then26.i, label %if.end28.i, !dbg !912"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock",
+			"id": 34,
+			"name": "if.then26.i",
+			"debug": [
+				{
+					"line": 528, "columns": [9]
+				},
+				{
+					"line": 529, "columns": [5]
+				}
+			],
+			"successors": [35],
+			"ir": [
+				"%call27.i = call ptr @_PyMp_SetError(ptr noundef null, i32 noundef -1) #12, !dbg !913",
+				"br label %if.end28.i, !dbg !915"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock",
+			"id": 35,
+			"name": "if.end28.i",
+			"debug": [
+				{
+					"line": 530, "columns": [9]
+				}
+			],
+			"successors": [37, 36],
+			"ir": [
+				"br i1 %cmp1156.i, label %if.end32.i, label %if.then30.i, !dbg !916"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock",
+			"id": 36,
+			"name": "if.then30.i",
+			"debug": [
+				{
+					"line": 531, "columns": [9]
+				}
+			],
+			"successors": [37],
+			"ir": [
+				"%call31.i = call i32 @sem_close(ptr noundef nonnull %call1054.i) #12, !dbg !917",
+				"br label %if.end32.i, !dbg !917"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock",
+			"id": 37,
+			"name": "if.end32.i",
+			"debug": [
+				{
+					"line": 532, "columns": [5]
+				},
+				{
+					"line": 533, "columns": [5]
+				}
+			],
+			"successors": [38],
+			"ir": [
+				"call void @PyMem_Free(ptr noundef %name_copy.052.i) #12, !dbg !919",
+				"br label %exit, !dbg !920"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock",
+			"id": 38,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 301, "columns": [1]
+				},
+				{
+					"line": 302, "columns": [5]
+				},
+				{
+					"line": 303, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%return_value.0 = phi ptr [ null, %land.lhs.true14 ], [ null, %land.lhs.true22 ], [ null, %land.lhs.true30 ], [ null, %if.end41 ], [ null, %if.then49 ], [ null, %if.end50 ], [ null, %if.then39 ], [ null, %cond.end ], [ null, %if.then.i ], [ null, %if.end32.i ], [ %call6.i, %if.then5.i ], [ %call.i.i, %newsemlockobject.exit.i ], !dbg !760",
+				"call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %argsbuf) #12, !dbg !922",
+				"ret ptr %return_value.0, !dbg !923"
+			]
+		},
+		{
+			"function": "semlock_traverse",
+			"id": 39,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 720, "columns": [5]
+				}
+			],
+			"successors": [41, 40],
+			"ir": [
+				"%0 = getelementptr i8, ptr %s, i64 8, !dbg !772",
+				"%s.val8 = load ptr, ptr %0, align 8, !dbg !772, !tbaa !773",
+				"%tobool.not = icmp eq ptr %s.val8, null, !dbg !772",
+				"br i1 %tobool.not, label %do.end, label %if.then, !dbg !778"
+			]
+		},
+		{
+			"function": "semlock_traverse",
+			"id": 40,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 720, "columns": [5]
+				}
+			],
+			"successors": [41, 42],
+			"ir": [
+				"%call2 = tail call i32 %visit(ptr noundef nonnull %s.val8, ptr noundef %arg) #12, !dbg !779",
+				"%tobool3.not.not = icmp eq i32 %call2, 0, !dbg !781",
+				"br i1 %tobool3.not.not, label %do.end, label %return"
+			]
+		},
+		{
+			"function": "semlock_traverse",
+			"id": 41,
+			"name": "do.end",
+			"debug": [
+				{
+					"line": 721, "columns": [5]
+				}
+			],
+			"successors": [42],
+			"ir": [
+				"br label %return, !dbg !783"
+			]
+		},
+		{
+			"function": "semlock_traverse",
+			"id": 42,
+			"name": "return",
+			"debug": [
+				{
+					"line": 722, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi i32 [ %call2, %if.then ], [ 0, %do.end ], !dbg !771",
+				"ret i32 %retval.1, !dbg !784"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire",
+			"id": 43,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 161, "columns": [5, 15]
+				},
+				{
+					"line": 162, "columns": [36]
+				}
+			],
+			"successors": [45, 44],
+			"ir": [
+				"%argsbuf = alloca [2 x ptr], align 16",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %argsbuf) #12, !dbg !761",
+				"%tobool.not = icmp eq ptr %kwnames, null, !dbg !763",
+				"br i1 %tobool.not, label %cond.end, label %cond.end.thread, !dbg !763"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire",
+			"id": 44,
+			"name": "cond.end.thread",
+			"debug": [
+				{
+					"line": 162, "columns": [46, 33]
+				},
+				{
+					"line": 166, "columns": [12]
+				}
+			],
+			"successors": [46],
+			"ir": [
+				"%0 = getelementptr i8, ptr %kwnames, i64 16, !dbg !764",
+				"%kwnames.val = load i64, ptr %0, align 8, !dbg !764, !tbaa !765",
+				"%add45 = add i64 %kwnames.val, %nargs, !dbg !772",
+				"br label %cond.end9, !dbg !773"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire",
+			"id": 45,
+			"name": "cond.end",
+			"debug": [
+				{
+					"line": 166, "columns": [12]
+				}
+			],
+			"successors": [47, 46],
+			"ir": [
+				"%1 = icmp ult i64 %nargs, 3, !dbg !773",
+				"%cmp5 = icmp ne ptr %args, null, !dbg !773",
+				"%2 = and i1 %cmp5, %1, !dbg !773",
+				"br i1 %2, label %if.end, label %cond.end9, !dbg !773"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire",
+			"id": 46,
+			"name": "cond.end9",
+			"debug": [
+				{
+					"line": 166, "columns": [12]
+				},
+				{
+					"line": 167, "columns": [10, 9]
+				}
+			],
+			"successors": [53, 47],
+			"ir": [
+				"%add49 = phi i64 [ %add45, %cond.end.thread ], [ %nargs, %cond.end ]",
+				"%call8 = call ptr @_PyArg_UnpackKeywords(ptr noundef %args, i64 noundef %nargs, ptr noundef null, ptr noundef %kwnames, ptr noundef nonnull @_multiprocessing_SemLock_acquire._parser, i32 noundef 0, i32 noundef 2, i32 noundef 0, ptr noundef nonnull %argsbuf) #12, !dbg !773",
+				"%tobool11.not = icmp eq ptr %call8, null, !dbg !774",
+				"br i1 %tobool11.not, label %exit, label %if.end, !dbg !776"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire",
+			"id": 47,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 170, "columns": [10, 9]
+				}
+			],
+			"successors": [52, 48],
+			"ir": [
+				"%cond1055 = phi ptr [ %call8, %cond.end9 ], [ %args, %cond.end ]",
+				"%add5054 = phi i64 [ %add49, %cond.end9 ], [ %nargs, %cond.end ]",
+				"%tobool12.not = icmp eq i64 %add5054, 0, !dbg !777",
+				"br i1 %tobool12.not, label %skip_optional_pos, label %if.end14, !dbg !779"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire",
+			"id": 48,
+			"name": "if.end14",
+			"debug": [
+				{
+					"line": 173, "columns": [9]
+				}
+			],
+			"successors": [51, 49],
+			"ir": [
+				"%3 = load ptr, ptr %cond1055, align 8, !dbg !780, !tbaa !782",
+				"%tobool15.not = icmp eq ptr %3, null, !dbg !780",
+				"br i1 %tobool15.not, label %if.end25, label %if.then16, !dbg !783"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire",
+			"id": 49,
+			"name": "if.then16",
+			"debug": [
+				{
+					"line": 174, "columns": [20]
+				},
+				{
+					"line": 175, "columns": [22, 13]
+				}
+			],
+			"successors": [53, 50],
+			"ir": [
+				"%call18 = call i32 @PyObject_IsTrue(ptr noundef nonnull %3) #12, !dbg !784",
+				"%cmp19 = icmp slt i32 %call18, 0, !dbg !786",
+				"br i1 %cmp19, label %exit, label %if.end21, !dbg !788"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire",
+			"id": 50,
+			"name": "if.end21",
+			"debug": [
+				{
+					"line": 178, "columns": [14, 13]
+				}
+			],
+			"successors": [52, 51],
+			"ir": [
+				"%tobool22.not = icmp eq i64 %add5054, 1, !dbg !789",
+				"br i1 %tobool22.not, label %skip_optional_pos, label %if.end25, !dbg !791"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire",
+			"id": 51,
+			"name": "if.end25",
+			"debug": [
+				{
+					"line": 182, "columns": [19, 5]
+				}
+			],
+			"successors": [52],
+			"ir": [
+				"%blocking.0 = phi i32 [ %call18, %if.end21 ], [ 1, %if.end14 ], !dbg !760",
+				"%arrayidx26 = getelementptr ptr, ptr %cond1055, i64 1, !dbg !792",
+				"%4 = load ptr, ptr %arrayidx26, align 8, !dbg !792, !tbaa !782",
+				"br label %skip_optional_pos, !dbg !793"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire",
+			"id": 52,
+			"name": "skip_optional_pos",
+			"debug": [
+				{
+					"line": 183, "columns": [1]
+				},
+				{
+					"line": 185, "columns": [20, 5]
+				}
+			],
+			"successors": [53],
+			"ir": [
+				"%blocking.1 = phi i32 [ %blocking.0, %if.end25 ], [ %call18, %if.end21 ], [ 1, %if.end ], !dbg !760",
+				"%timeout_obj.0 = phi ptr [ %4, %if.end25 ], [ @_Py_NoneStruct, %if.end21 ], [ @_Py_NoneStruct, %if.end ], !dbg !760",
+				"%call27 = call fastcc ptr @_multiprocessing_SemLock_acquire_impl(ptr noundef %self, i32 noundef %blocking.1, ptr noundef %timeout_obj.0), !dbg !795",
+				"br label %exit, !dbg !796"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire",
+			"id": 53,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 188, "columns": [1]
+				},
+				{
+					"line": 189, "columns": [5]
+				},
+				{
+					"line": 190, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%return_value.0 = phi ptr [ null, %if.then16 ], [ %call27, %skip_optional_pos ], [ null, %cond.end9 ], !dbg !760",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %argsbuf) #12, !dbg !798",
+				"ret ptr %return_value.0, !dbg !799"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_release",
+			"id": 54,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 214, "columns": [20]
+				},
+				{
+					"line": 217, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call fastcc ptr @_multiprocessing_SemLock_release_impl(ptr noundef %self), !dbg !768",
+				"ret ptr %call, !dbg !769"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock___enter__",
+			"id": 55,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 476, "columns": [5]
+				},
+				{
+					"line": 694, "columns": [12]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call.i = tail call fastcc ptr @_multiprocessing_SemLock_acquire_impl(ptr noundef %self, i32 noundef 1, ptr noundef nonnull @_Py_NoneStruct), !dbg !774",
+				"ret ptr %call.i, !dbg !775"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock___exit__",
+			"id": 56,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 505, "columns": [10]
+				}
+			],
+			"successors": [58, 57],
+			"ir": [
+				"%or.cond = icmp ult i64 %nargs, 4, !dbg !774",
+				"br i1 %or.cond, label %if.end, label %lor.lhs.false, !dbg !774"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock___exit__",
+			"id": 57,
+			"name": "lor.lhs.false",
+			"debug": [
+				{
+					"line": 505, "columns": [10, 9]
+				}
+			],
+			"successors": [59, 58],
+			"ir": [
+				"%call = tail call i32 @_PyArg_CheckPositional(ptr noundef nonnull @.str.5, i64 noundef %nargs, i64 noundef 0, i64 noundef 3) #12, !dbg !774",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !774",
+				"br i1 %tobool.not, label %exit, label %if.end, !dbg !776"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock___exit__",
+			"id": 58,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 520, "columns": [1]
+				},
+				{
+					"line": 521, "columns": [5]
+				},
+				{
+					"line": 714, "columns": [12]
+				}
+			],
+			"successors": [59],
+			"ir": [
+				"%call.i = tail call fastcc ptr @_multiprocessing_SemLock_release_impl(ptr noundef %self), !dbg !788",
+				"br label %exit, !dbg !789"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock___exit__",
+			"id": 59,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 523, "columns": [1]
+				},
+				{
+					"line": 524, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%return_value.0 = phi ptr [ %call.i, %if.end ], [ null, %lor.lhs.false ], !dbg !773",
+				"ret ptr %return_value.0, !dbg !791"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock__count",
+			"id": 60,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 363, "columns": [20]
+				},
+				{
+					"line": 366, "columns": [5]
+				},
+				{
+					"line": 600, "columns": [28, 12]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = getelementptr i8, ptr %self, i64 32, !dbg !768",
+				"%self.val = load i32, ptr %0, align 8, !dbg !768, !tbaa !769",
+				"%conv.i = sext i32 %self.val to i64, !dbg !784",
+				"%call.i = tail call ptr @PyLong_FromLong(i64 noundef %conv.i) #12, !dbg !785",
+				"ret ptr %call.i, !dbg !786"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock__is_mine",
+			"id": 61,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 614, "columns": [28]
+				}
+			],
+			"successors": [62, 63],
+			"ir": [
+				"%count.i = getelementptr inbounds %struct.SemLockObject, ptr %self, i64 0, i32 3, !dbg !774",
+				"%0 = load i32, ptr %count.i, align 8, !dbg !774, !tbaa !775",
+				"%cmp.i = icmp sgt i32 %0, 0, !dbg !774",
+				"br i1 %cmp.i, label %land.rhs.i, label %_multiprocessing_SemLock__is_mine_impl.exit, !dbg !774"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock__is_mine",
+			"id": 62,
+			"name": "land.rhs.i",
+			"debug": [
+				{
+					"line": 614, "columns": [28]
+				}
+			],
+			"successors": [63],
+			"ir": [
+				"%call.i = tail call i64 @PyThread_get_thread_ident() #12, !dbg !774",
+				"%last_tid.i = getelementptr inbounds %struct.SemLockObject, ptr %self, i64 0, i32 2, !dbg !774",
+				"%1 = load i64, ptr %last_tid.i, align 8, !dbg !774, !tbaa !783",
+				"%cmp1.i = icmp eq i64 %call.i, %1, !dbg !774",
+				"%2 = zext i1 %cmp1.i to i64",
+				"br label %_multiprocessing_SemLock__is_mine_impl.exit"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock__is_mine",
+			"id": 63,
+			"name": "_multiprocessing_SemLock__is_mine_impl.exit",
+			"debug": [
+				{
+					"line": 388, "columns": [5]
+				},
+				{
+					"line": 614, "columns": [12]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%land.ext.i = phi i64 [ 0, %entry ], [ %2, %land.rhs.i ], !dbg !772",
+				"%call2.i = tail call ptr @PyBool_FromLong(i64 noundef %land.ext.i) #12, !dbg !784",
+				"ret ptr %call2.i, !dbg !785"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock__get_value",
+			"id": 64,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 410, "columns": [12]
+				},
+				{
+					"line": 631, "columns": [5]
+				},
+				{
+					"line": 632, "columns": [9, 43]
+				}
+			],
+			"successors": [65, 66],
+			"ir": [
+				"%sval.i = alloca i32, align 4",
+				"%0 = getelementptr i8, ptr %self, i64 16, !dbg !767",
+				"%self.val = load ptr, ptr %0, align 8, !dbg !767, !tbaa !768",
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %sval.i) #12, !dbg !784",
+				"%call.i = call i32 @sem_getvalue(ptr noundef %self.val, ptr noundef nonnull %sval.i) #12, !dbg !785",
+				"%cmp.i = icmp slt i32 %call.i, 0, !dbg !787",
+				"br i1 %cmp.i, label %if.then.i, label %if.end.i, !dbg !788"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock__get_value",
+			"id": 65,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 633, "columns": [16, 9]
+				}
+			],
+			"successors": [69],
+			"ir": [
+				"%call1.i = call ptr @_PyMp_SetError(ptr noundef null, i32 noundef -1) #12, !dbg !789",
+				"br label %_multiprocessing_SemLock__get_value_impl.exit, !dbg !790"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock__get_value",
+			"id": 66,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 636, "columns": [9, 14]
+				}
+			],
+			"successors": [67, 68],
+			"ir": [
+				"%1 = load i32, ptr %sval.i, align 4, !dbg !791, !tbaa !793",
+				"%cmp2.i = icmp slt i32 %1, 0, !dbg !794",
+				"br i1 %cmp2.i, label %if.then3.i, label %if.end4.i, !dbg !795"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock__get_value",
+			"id": 67,
+			"name": "if.then3.i",
+			"debug": [
+				{
+					"line": 637, "columns": [14, 9]
+				}
+			],
+			"successors": [68],
+			"ir": [
+				"store i32 0, ptr %sval.i, align 4, !dbg !796, !tbaa !793",
+				"br label %if.end4.i, !dbg !797"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock__get_value",
+			"id": 68,
+			"name": "if.end4.i",
+			"debug": [
+				{
+					"line": 638, "columns": [34, 28, 12, 5]
+				}
+			],
+			"successors": [69],
+			"ir": [
+				"%2 = phi i32 [ 0, %if.then3.i ], [ %1, %if.end.i ], !dbg !798",
+				"%conv.i = zext i32 %2 to i64, !dbg !799",
+				"%call5.i = call ptr @PyLong_FromLong(i64 noundef %conv.i) #12, !dbg !800",
+				"br label %_multiprocessing_SemLock__get_value_impl.exit, !dbg !801"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock__get_value",
+			"id": 69,
+			"name": "_multiprocessing_SemLock__get_value_impl.exit",
+			"debug": [
+				{
+					"line": 410, "columns": [5]
+				},
+				{
+					"line": 640, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0.i = phi ptr [ %call1.i, %if.then.i ], [ %call5.i, %if.end4.i ], !dbg !782",
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %sval.i) #12, !dbg !802",
+				"ret ptr %retval.0.i, !dbg !803"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock__is_zero",
+			"id": 70,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 432, "columns": [12]
+				},
+				{
+					"line": 663, "columns": [5]
+				},
+				{
+					"line": 664, "columns": [9, 43]
+				}
+			],
+			"successors": [71, 72],
+			"ir": [
+				"%sval.i = alloca i32, align 4",
+				"%0 = getelementptr i8, ptr %self, i64 16, !dbg !767",
+				"%self.val = load ptr, ptr %0, align 8, !dbg !767, !tbaa !768",
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %sval.i) #12, !dbg !784",
+				"%call.i = call i32 @sem_getvalue(ptr noundef %self.val, ptr noundef nonnull %sval.i) #12, !dbg !785",
+				"%cmp.i = icmp slt i32 %call.i, 0, !dbg !787",
+				"br i1 %cmp.i, label %if.then.i, label %if.end.i, !dbg !788"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock__is_zero",
+			"id": 71,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 665, "columns": [16, 9]
+				}
+			],
+			"successors": [73],
+			"ir": [
+				"%call1.i = call ptr @_PyMp_SetError(ptr noundef null, i32 noundef -1) #12, !dbg !789",
+				"br label %_multiprocessing_SemLock__is_zero_impl.exit, !dbg !790"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock__is_zero",
+			"id": 72,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 666, "columns": [34, 39, 12, 5]
+				}
+			],
+			"successors": [73],
+			"ir": [
+				"%1 = load i32, ptr %sval.i, align 4, !dbg !791, !tbaa !792",
+				"%cmp2.i = icmp eq i32 %1, 0, !dbg !793",
+				"%conv4.i = zext i1 %cmp2.i to i64",
+				"%call5.i = call ptr @PyBool_FromLong(i64 noundef %conv4.i) #12, !dbg !794",
+				"br label %_multiprocessing_SemLock__is_zero_impl.exit, !dbg !795"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock__is_zero",
+			"id": 73,
+			"name": "_multiprocessing_SemLock__is_zero_impl.exit",
+			"debug": [
+				{
+					"line": 432, "columns": [5]
+				},
+				{
+					"line": 668, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0.i = phi ptr [ %call1.i, %if.then.i ], [ %call5.i, %if.end.i ], !dbg !782",
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %sval.i) #12, !dbg !796",
+				"ret ptr %retval.0.i, !dbg !797"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock__rebuild",
+			"id": 74,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 326, "columns": [5]
+				},
+				{
+					"line": 327, "columns": [5]
+				},
+				{
+					"line": 328, "columns": [5]
+				},
+				{
+					"line": 329, "columns": [5]
+				},
+				{
+					"line": 331, "columns": [10, 9]
+				}
+			],
+			"successors": [82, 75],
+			"ir": [
+				"%handle = alloca ptr, align 8",
+				"%kind = alloca i32, align 4",
+				"%maxvalue = alloca i32, align 4",
+				"%name = alloca ptr, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %handle) #12, !dbg !774",
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %kind) #12, !dbg !775",
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %maxvalue) #12, !dbg !776",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %name) #12, !dbg !777",
+				"%call = call i32 (ptr, i64, ptr, ...) @_PyArg_ParseStack(ptr noundef %args, i64 noundef %nargs, ptr noundef nonnull @.str.16, ptr noundef nonnull %handle, ptr noundef nonnull %kind, ptr noundef nonnull %maxvalue, ptr noundef nonnull %name) #12, !dbg !778",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !778",
+				"br i1 %tobool.not, label %exit, label %if.end, !dbg !780"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock__rebuild",
+			"id": 75,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 335, "columns": [65, 73, 79, 89]
+				},
+				{
+					"line": 556, "columns": [14, 9]
+				}
+			],
+			"successors": [80, 76],
+			"ir": [
+				"%0 = load ptr, ptr %handle, align 8, !dbg !781, !tbaa !782",
+				"%1 = load i32, ptr %kind, align 4, !dbg !786, !tbaa !787",
+				"%2 = load i32, ptr %maxvalue, align 4, !dbg !789, !tbaa !787",
+				"%3 = load ptr, ptr %name, align 8, !dbg !790, !tbaa !782",
+				"%cmp.not.i = icmp eq ptr %3, null, !dbg !803",
+				"br i1 %cmp.not.i, label %if.end14.i, label %if.then.i, !dbg !805"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock__rebuild",
+			"id": 76,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 557, "columns": [34, 47, 21]
+				},
+				{
+					"line": 558, "columns": [23, 13]
+				}
+			],
+			"successors": [77, 78],
+			"ir": [
+				"%call.i = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %3) #13, !dbg !806",
+				"%add.i = add i64 %call.i, 1, !dbg !808",
+				"%call1.i = call ptr @PyMem_Malloc(i64 noundef %add.i) #12, !dbg !809",
+				"%cmp2.i = icmp eq ptr %call1.i, null, !dbg !810",
+				"br i1 %cmp2.i, label %if.then3.i, label %if.then8.i, !dbg !812"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock__rebuild",
+			"id": 77,
+			"name": "if.then3.i",
+			"debug": [
+				{
+					"line": 559, "columns": [20, 13]
+				}
+			],
+			"successors": [82],
+			"ir": [
+				"%call4.i = call ptr @PyErr_NoMemory() #12, !dbg !813",
+				"br label %exit, !dbg !814"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock__rebuild",
+			"id": 78,
+			"name": "if.then8.i",
+			"debug": [
+				{
+					"line": 560, "columns": [9]
+				},
+				{
+					"line": 565, "columns": [18]
+				},
+				{
+					"line": 566, "columns": [20, 13]
+				}
+			],
+			"successors": [79, 80],
+			"ir": [
+				"%call5.i = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call1.i, ptr noundef nonnull dereferenceable(1) %3) #12, !dbg !815",
+				"%call9.i = call ptr (ptr, i32, ...) @sem_open(ptr noundef nonnull %3, i32 noundef 0) #12, !dbg !816",
+				"%cmp10.i = icmp eq ptr %call9.i, null, !dbg !819",
+				"br i1 %cmp10.i, label %if.then11.i, label %if.end14.i, !dbg !821"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock__rebuild",
+			"id": 79,
+			"name": "if.then11.i",
+			"debug": [
+				{
+					"line": 567, "columns": [32, 13]
+				},
+				{
+					"line": 568, "columns": [13]
+				},
+				{
+					"line": 569, "columns": [13]
+				}
+			],
+			"successors": [82],
+			"ir": [
+				"%4 = load ptr, ptr @PyExc_OSError, align 8, !dbg !822, !tbaa !782",
+				"%call12.i = call ptr @PyErr_SetFromErrno(ptr noundef %4) #12, !dbg !824",
+				"call void @PyMem_Free(ptr noundef nonnull %call1.i) #12, !dbg !825",
+				"br label %exit, !dbg !826"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock__rebuild",
+			"id": 80,
+			"name": "if.end14.i",
+			"debug": [
+				{
+					"line": 465, "columns": [50, 44]
+				},
+				{
+					"line": 466, "columns": [10, 9]
+				}
+			],
+			"successors": [82, 81],
+			"ir": [
+				"%name_copy.025.i = phi ptr [ %call1.i, %if.then8.i ], [ null, %if.end ]",
+				"%handle.addr.0.i = phi ptr [ %call9.i, %if.then8.i ], [ %0, %if.end ]",
+				"%tp_alloc.i.i = getelementptr inbounds %struct._typeobject, ptr %type, i64 0, i32 36, !dbg !839",
+				"%5 = load ptr, ptr %tp_alloc.i.i, align 8, !dbg !839, !tbaa !840",
+				"%call.i.i = call ptr %5(ptr noundef %type, i64 noundef 0) #12, !dbg !846",
+				"%tobool.not.i.i = icmp eq ptr %call.i.i, null, !dbg !847",
+				"br i1 %tobool.not.i.i, label %exit, label %if.end.i.i, !dbg !849"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock__rebuild",
+			"id": 81,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 468, "columns": [11, 18]
+				},
+				{
+					"line": 469, "columns": [11, 16]
+				},
+				{
+					"line": 470, "columns": [11, 17]
+				},
+				{
+					"line": 471, "columns": [11, 20]
+				},
+				{
+					"line": 472, "columns": [11, 20]
+				},
+				{
+					"line": 473, "columns": [11, 16]
+				},
+				{
+					"line": 474, "columns": [5]
+				}
+			],
+			"successors": [82],
+			"ir": [
+				"%handle1.i.i = getelementptr inbounds %struct.SemLockObject, ptr %call.i.i, i64 0, i32 1, !dbg !850",
+				"store ptr %handle.addr.0.i, ptr %handle1.i.i, align 8, !dbg !851, !tbaa !852",
+				"%kind2.i.i = getelementptr inbounds %struct.SemLockObject, ptr %call.i.i, i64 0, i32 5, !dbg !854",
+				"store i32 %1, ptr %kind2.i.i, align 8, !dbg !855, !tbaa !856",
+				"%count.i.i = getelementptr inbounds %struct.SemLockObject, ptr %call.i.i, i64 0, i32 3, !dbg !857",
+				"store i32 0, ptr %count.i.i, align 8, !dbg !858, !tbaa !859",
+				"%last_tid.i.i = getelementptr inbounds %struct.SemLockObject, ptr %call.i.i, i64 0, i32 2, !dbg !860",
+				"store i64 0, ptr %last_tid.i.i, align 8, !dbg !861, !tbaa !862",
+				"%maxvalue3.i.i = getelementptr inbounds %struct.SemLockObject, ptr %call.i.i, i64 0, i32 4, !dbg !863",
+				"store i32 %2, ptr %maxvalue3.i.i, align 4, !dbg !864, !tbaa !865",
+				"%name4.i.i = getelementptr inbounds %struct.SemLockObject, ptr %call.i.i, i64 0, i32 6, !dbg !866",
+				"store ptr %name_copy.025.i, ptr %name4.i.i, align 8, !dbg !867, !tbaa !868",
+				"br label %exit, !dbg !869"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock__rebuild",
+			"id": 82,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 337, "columns": [1]
+				},
+				{
+					"line": 338, "columns": [5]
+				},
+				{
+					"line": 339, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%return_value.0 = phi ptr [ null, %entry ], [ %call4.i, %if.then3.i ], [ null, %if.then11.i ], [ null, %if.end14.i ], [ %call.i.i, %if.end.i.i ], !dbg !773",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %name) #12, !dbg !871",
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %maxvalue) #12, !dbg !871",
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %kind) #12, !dbg !871",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %handle) #12, !dbg !871",
+				"ret ptr %return_value.0, !dbg !872"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock__after_fork",
+			"id": 83,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 454, "columns": [5]
+				},
+				{
+					"line": 680, "columns": [11, 17]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%count.i = getelementptr inbounds %struct.SemLockObject, ptr %self, i64 0, i32 3, !dbg !774",
+				"store i32 0, ptr %count.i, align 8, !dbg !775, !tbaa !776",
+				"ret ptr @_Py_NoneStruct, !dbg !784"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire_impl",
+			"id": 84,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 317, "columns": [5, 21]
+				},
+				{
+					"line": 319, "columns": [15, 20, 39]
+				}
+			],
+			"successors": [85, 88],
+			"ir": [
+				"%deadline = alloca %struct.timespec, align 8",
+				"%now = alloca %struct.timeval, align 8",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %deadline) #12, !dbg !7022",
+				"call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %deadline, i8 0, i64 16, i1 false), !dbg !7023",
+				"%kind = getelementptr inbounds %struct.SemLockObject, ptr %self, i64 0, i32 5, !dbg !7024",
+				"%0 = load i32, ptr %kind, align 8, !dbg !7024, !tbaa !7026",
+				"%cmp = icmp eq i32 %0, 0, !dbg !7034",
+				"br i1 %cmp, label %land.lhs.true, label %if.end, !dbg !7035"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire_impl",
+			"id": 85,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 319, "columns": [42]
+				}
+			],
+			"successors": [86, 88],
+			"ir": [
+				"%count = getelementptr inbounds %struct.SemLockObject, ptr %self, i64 0, i32 3, !dbg !7036",
+				"%1 = load i32, ptr %count, align 8, !dbg !7036, !tbaa !7037",
+				"%cmp1 = icmp sgt i32 %1, 0, !dbg !7036",
+				"br i1 %cmp1, label %land.lhs.true2, label %if.end, !dbg !7036"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire_impl",
+			"id": 86,
+			"name": "land.lhs.true2",
+			"debug": [
+				{
+					"line": 319, "columns": [42, 9]
+				}
+			],
+			"successors": [87, 88],
+			"ir": [
+				"%call = tail call i64 @PyThread_get_thread_ident() #12, !dbg !7036",
+				"%last_tid = getelementptr inbounds %struct.SemLockObject, ptr %self, i64 0, i32 2, !dbg !7036",
+				"%2 = load i64, ptr %last_tid, align 8, !dbg !7036, !tbaa !7038",
+				"%cmp3 = icmp eq i64 %call, %2, !dbg !7036",
+				"br i1 %cmp3, label %if.then, label %if.end, !dbg !7039"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire_impl",
+			"id": 87,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 320, "columns": [9]
+				},
+				{
+					"line": 321, "columns": [9]
+				}
+			],
+			"successors": [110],
+			"ir": [
+				"%3 = load i32, ptr %count, align 8, !dbg !7040, !tbaa !7037",
+				"%inc = add i32 %3, 1, !dbg !7040",
+				"store i32 %inc, ptr %count, align 8, !dbg !7040, !tbaa !7037",
+				"br label %cleanup105, !dbg !7042"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire_impl",
+			"id": 88,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 324, "columns": [37]
+				},
+				{
+					"line": 325, "columns": [9]
+				}
+			],
+			"successors": [93, 89],
+			"ir": [
+				"%cmp5.not = icmp eq ptr %timeout_obj, @_Py_NoneStruct, !dbg !7043",
+				"br i1 %cmp5.not, label %if.end32, label %if.then6, !dbg !7044"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire_impl",
+			"id": 89,
+			"name": "if.then6",
+			"debug": [
+				{
+					"line": 326, "columns": [26]
+				},
+				{
+					"line": 327, "columns": [13]
+				}
+			],
+			"successors": [90, 110],
+			"ir": [
+				"%call7 = tail call double @PyFloat_AsDouble(ptr noundef %timeout_obj) #12, !dbg !7045",
+				"%call8 = tail call ptr @PyErr_Occurred() #12, !dbg !7047",
+				"%tobool9.not = icmp eq ptr %call8, null, !dbg !7047",
+				"br i1 %tobool9.not, label %if.end11, label %cleanup105, !dbg !7049"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire_impl",
+			"id": 90,
+			"name": "if.end11",
+			"debug": [
+				{
+					"line": 334, "columns": [9, 24]
+				},
+				{
+					"line": 335, "columns": [13, 38]
+				}
+			],
+			"successors": [92, 91],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %now) #12, !dbg !7050",
+				"%call16 = call i32 @gettimeofday(ptr noundef nonnull %now, ptr noundef null) #12, !dbg !7052",
+				"%cmp17 = icmp slt i32 %call16, 0, !dbg !7054",
+				"br i1 %cmp17, label %cleanup31, label %cleanup31.thread131, !dbg !7055"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire_impl",
+			"id": 91,
+			"name": "cleanup31.thread131",
+			"debug": [
+				{
+					"line": 330, "columns": [21, 13]
+				},
+				{
+					"line": 339, "columns": [20]
+				},
+				{
+					"line": 340, "columns": [46, 44, 51, 21]
+				},
+				{
+					"line": 341, "columns": [31, 38]
+				},
+				{
+					"line": 342, "columns": [32, 40, 47, 18]
+				},
+				{
+					"line": 343, "columns": [46, 25]
+				},
+				{
+					"line": 344, "columns": [26]
+				},
+				{
+					"line": 345, "columns": [5]
+				}
+			],
+			"successors": [93],
+			"ir": [
+				"%cmp12 = fcmp olt double %call7, 0.000000e+00, !dbg !7056",
+				"%timeout.0 = select i1 %cmp12, double 0.000000e+00, double %call7, !dbg !7058",
+				"%conv22 = fptosi double %timeout.0 to i64, !dbg !7059",
+				"%conv23 = sitofp i64 %conv22 to double, !dbg !7060",
+				"%sub = fsub double %timeout.0, %conv23, !dbg !7061",
+				"%4 = tail call double @llvm.fmuladd.f64(double %sub, double 1.000000e+09, double 5.000000e-01), !dbg !7062",
+				"%conv24 = fptosi double %4 to i64, !dbg !7063",
+				"%5 = load i64, ptr %now, align 8, !dbg !7064, !tbaa !7065",
+				"%add = add i64 %5, %conv22, !dbg !7067",
+				"%tv_usec = getelementptr inbounds %struct.timeval, ptr %now, i64 0, i32 1, !dbg !7068",
+				"%6 = load i64, ptr %tv_usec, align 8, !dbg !7068, !tbaa !7069",
+				"%mul = mul i64 %6, 1000, !dbg !7070",
+				"%add26 = add i64 %mul, %conv24, !dbg !7071",
+				"%tv_nsec = getelementptr inbounds %struct.timespec, ptr %deadline, i64 0, i32 1, !dbg !7072",
+				"%div = sdiv i64 %add26, 1000000000, !dbg !7073",
+				"%add29 = add i64 %div, %add, !dbg !7074",
+				"store i64 %add29, ptr %deadline, align 8, !dbg !7074, !tbaa !7075",
+				"%rem = srem i64 %add26, 1000000000, !dbg !7077",
+				"store i64 %rem, ptr %tv_nsec, align 8, !dbg !7077, !tbaa !7078",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %now) #12, !dbg !7079",
+				"br label %if.end32"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire_impl",
+			"id": 92,
+			"name": "cleanup31",
+			"debug": [
+				{
+					"line": 336, "columns": [32, 13]
+				},
+				{
+					"line": 345, "columns": [5]
+				}
+			],
+			"successors": [110],
+			"ir": [
+				"%7 = load ptr, ptr @PyExc_OSError, align 8, !dbg !7080, !tbaa !7082",
+				"%call20 = tail call ptr @PyErr_SetFromErrno(ptr noundef %7) #12, !dbg !7083",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %now) #12, !dbg !7079",
+				"br label %cleanup105"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire_impl",
+			"id": 93,
+			"name": "if.end32",
+			"debug": [
+				{
+					"line": 348, "columns": [5]
+				}
+			],
+			"successors": [94],
+			"ir": [
+				"%handle = getelementptr inbounds %struct.SemLockObject, ptr %self, i64 0, i32 1",
+				"br label %do.body, !dbg !7084"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire_impl",
+			"id": 94,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 349, "columns": [33, 15]
+				},
+				{
+					"line": 350, "columns": [15]
+				},
+				{
+					"line": 351, "columns": [18, 22]
+				}
+			],
+			"successors": [95, 97],
+			"ir": [
+				"%8 = load ptr, ptr %handle, align 8, !dbg !7085, !tbaa !7087",
+				"%call33 = tail call i32 @sem_trywait(ptr noundef %8) #12, !dbg !7088",
+				"%call34 = tail call ptr @__errno_location() #13, !dbg !7089",
+				"%9 = load i32, ptr %call34, align 4, !dbg !7089, !tbaa !7090",
+				"%cmp35 = icmp slt i32 %call33, 0, !dbg !7091",
+				"%cmp39 = icmp eq i32 %9, 4",
+				"%or.cond127 = select i1 %cmp35, i1 %cmp39, i1 false, !dbg !7092",
+				"br i1 %or.cond127, label %land.rhs, label %do.end, !dbg !7092"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire_impl",
+			"id": 95,
+			"name": "land.rhs",
+			"debug": [
+				{
+					"line": 351, "columns": [44, 43, 5]
+				}
+			],
+			"successors": [94, 96],
+			"ir": [
+				"%call41 = tail call i32 @PyErr_CheckSignals() #12, !dbg !7093",
+				"%tobool42.not = icmp eq i32 %call41, 0, !dbg !7094",
+				"br i1 %tobool42.not, label %do.body, label %land.lhs.true46.thread, !dbg !7095, !llvm.loop !7096"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire_impl",
+			"id": 96,
+			"name": "land.lhs.true46.thread",
+			"debug": [
+				{
+					"line": 352, "columns": [11]
+				},
+				{
+					"line": 354, "columns": [36]
+				}
+			],
+			"successors": [105],
+			"ir": [
+				"store i32 4, ptr %call34, align 4, !dbg !7099, !tbaa !7090",
+				"br label %if.then83.thread, !dbg !7100"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire_impl",
+			"id": 97,
+			"name": "do.end",
+			"debug": [
+				{
+					"line": 354, "columns": [17]
+				}
+			],
+			"successors": [98, 109],
+			"ir": [
+				"br i1 %cmp35, label %land.lhs.true46, label %if.end99, !dbg !7101"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire_impl",
+			"id": 98,
+			"name": "land.lhs.true46",
+			"debug": [
+				{
+					"line": 354, "columns": [26, 36]
+				}
+			],
+			"successors": [99, 106],
+			"ir": [
+				"%cmp48 = icmp eq i32 %9, 11, !dbg !7102",
+				"%tobool51 = icmp ne i32 %blocking, 0",
+				"%or.cond = and i1 %tobool51, %cmp48, !dbg !7100",
+				"br i1 %or.cond, label %do.body53.preheader, label %if.then83, !dbg !7100"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire_impl",
+			"id": 99,
+			"name": "do.body53.preheader",
+			"debug": [
+				{
+					"line": 358, "columns": [17]
+				}
+			],
+			"successors": [100, 102],
+			"ir": [
+				"br i1 %cmp5.not, label %do.body53.us, label %do.body53, !dbg !7103"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire_impl",
+			"id": 100,
+			"name": "do.body53.us",
+			"debug": [
+				{
+					"line": 357, "columns": [13]
+				},
+				{
+					"line": 359, "columns": [38, 23]
+				},
+				{
+					"line": 364, "columns": [13]
+				},
+				{
+					"line": 365, "columns": [19]
+				},
+				{
+					"line": 366, "columns": [21, 17]
+				}
+			],
+			"successors": [101, 104],
+			"ir": [
+				"%call54.us = tail call ptr @PyEval_SaveThread() #12, !dbg !7104",
+				"%10 = load ptr, ptr %handle, align 8, !dbg !7106, !tbaa !7087",
+				"%call58.us = tail call i32 @sem_wait(ptr noundef %10) #12, !dbg !7109",
+				"tail call void @PyEval_RestoreThread(ptr noundef %call54.us) #12, !dbg !7110",
+				"%11 = load i32, ptr %call34, align 4, !dbg !7111, !tbaa !7090",
+				"%cmp63.us = icmp ne i32 %call58.us, -1003, !dbg !7112",
+				"%cmp68.us = icmp slt i32 %call58.us, 0",
+				"%or.cond108.us = and i1 %cmp63.us, %cmp68.us, !dbg !7114",
+				"%cmp72.us = icmp eq i32 %11, 4",
+				"%or.cond128.us = select i1 %or.cond108.us, i1 %cmp72.us, i1 false, !dbg !7114",
+				"br i1 %or.cond128.us, label %land.rhs74.us, label %if.end80, !dbg !7114"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire_impl",
+			"id": 101,
+			"name": "land.rhs74.us",
+			"debug": [
+				{
+					"line": 368, "columns": [48, 47, 9]
+				}
+			],
+			"successors": [100, 105],
+			"ir": [
+				"%call75.us = tail call i32 @PyErr_CheckSignals() #12, !dbg !7115",
+				"%tobool76.not.us = icmp eq i32 %call75.us, 0, !dbg !7116",
+				"br i1 %tobool76.not.us, label %do.body53.us, label %if.then83.thread, !dbg !7117, !llvm.loop !7118"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire_impl",
+			"id": 102,
+			"name": "do.body53",
+			"debug": [
+				{
+					"line": 357, "columns": [13]
+				},
+				{
+					"line": 362, "columns": [43, 23]
+				},
+				{
+					"line": 364, "columns": [13]
+				},
+				{
+					"line": 365, "columns": [19]
+				},
+				{
+					"line": 366, "columns": [21, 17]
+				}
+			],
+			"successors": [103, 104],
+			"ir": [
+				"%call54 = call ptr @PyEval_SaveThread() #12, !dbg !7104",
+				"%12 = load ptr, ptr %handle, align 8, !dbg !7121, !tbaa !7087",
+				"%call60 = call i32 @sem_timedwait(ptr noundef %12, ptr noundef nonnull %deadline) #12, !dbg !7123",
+				"call void @PyEval_RestoreThread(ptr noundef %call54) #12, !dbg !7110",
+				"%13 = load i32, ptr %call34, align 4, !dbg !7111, !tbaa !7090",
+				"%cmp63 = icmp ne i32 %call60, -1003, !dbg !7112",
+				"%cmp68 = icmp slt i32 %call60, 0",
+				"%or.cond108 = and i1 %cmp63, %cmp68, !dbg !7114",
+				"%cmp72 = icmp eq i32 %13, 4",
+				"%or.cond128 = select i1 %or.cond108, i1 %cmp72, i1 false, !dbg !7114",
+				"br i1 %or.cond128, label %land.rhs74, label %if.end80, !dbg !7114"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire_impl",
+			"id": 103,
+			"name": "land.rhs74",
+			"debug": [
+				{
+					"line": 368, "columns": [48, 47, 9]
+				}
+			],
+			"successors": [102, 105],
+			"ir": [
+				"%call75 = call i32 @PyErr_CheckSignals() #12, !dbg !7115",
+				"%tobool76.not = icmp eq i32 %call75, 0, !dbg !7116",
+				"br i1 %tobool76.not, label %do.body53, label %if.then83.thread, !dbg !7117, !llvm.loop !7118"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire_impl",
+			"id": 104,
+			"name": "if.end80",
+			"debug": [
+				{
+					"line": 371, "columns": [13, 9]
+				}
+			],
+			"successors": [106, 109],
+			"ir": [
+				"%.us-phi = phi i32 [ %call58.us, %do.body53.us ], [ %call60, %do.body53 ]",
+				"%.us-phi154 = phi i32 [ %11, %do.body53.us ], [ %13, %do.body53 ]",
+				"%cmp81 = icmp slt i32 %.us-phi, 0, !dbg !7124",
+				"br i1 %cmp81, label %if.then83, label %if.end99, !dbg !7126"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire_impl",
+			"id": 105,
+			"name": "if.then83.thread",
+			"debug": [
+				{
+					"line": 372, "columns": [15]
+				},
+				{
+					"line": 373, "columns": [29]
+				}
+			],
+			"successors": [107],
+			"ir": [
+				"store i32 4, ptr %call34, align 4, !dbg !7127, !tbaa !7090",
+				"br label %if.then96, !dbg !7129"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire_impl",
+			"id": 106,
+			"name": "if.then83",
+			"debug": [
+				{
+					"line": 372, "columns": [15]
+				},
+				{
+					"line": 373, "columns": [29]
+				}
+			],
+			"successors": [108, 110, 110, 107],
+			"ir": [
+				"%err.0140 = phi i32 [ %.us-phi154, %if.end80 ], [ %9, %land.lhs.true46 ]",
+				"store i32 %err.0140, ptr %call34, align 4, !dbg !7127, !tbaa !7090",
+				"switch i32 %err.0140, label %if.else97 [\n    i32 11, label %cleanup105\n    i32 110, label %cleanup105\n    i32 4, label %if.then96\n  ], !dbg !7129"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire_impl",
+			"id": 107,
+			"name": "if.then96",
+			"debug": [
+				{
+					"line": 376, "columns": [13]
+				}
+			],
+			"successors": [110],
+			"ir": [
+				"br label %cleanup105, !dbg !7131"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire_impl",
+			"id": 108,
+			"name": "if.else97",
+			"debug": [
+				{
+					"line": 378, "columns": [39, 20, 13]
+				}
+			],
+			"successors": [110],
+			"ir": [
+				"%14 = load ptr, ptr @PyExc_OSError, align 8, !dbg !7133, !tbaa !7082",
+				"%call98 = call ptr @PyErr_SetFromErrno(ptr noundef %14) #12, !dbg !7134",
+				"br label %cleanup105, !dbg !7135"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire_impl",
+			"id": 109,
+			"name": "if.end99",
+			"debug": [
+				{
+					"line": 381, "columns": [13, 5]
+				},
+				{
+					"line": 382, "columns": [22, 11, 20]
+				},
+				{
+					"line": 384, "columns": [5]
+				}
+			],
+			"successors": [110],
+			"ir": [
+				"%count100 = getelementptr inbounds %struct.SemLockObject, ptr %self, i64 0, i32 3, !dbg !7136",
+				"%15 = load i32, ptr %count100, align 8, !dbg !7137, !tbaa !7037",
+				"%inc101 = add i32 %15, 1, !dbg !7137",
+				"store i32 %inc101, ptr %count100, align 8, !dbg !7137, !tbaa !7037",
+				"%call102 = call i64 @PyThread_get_thread_ident() #12, !dbg !7138",
+				"%last_tid103 = getelementptr inbounds %struct.SemLockObject, ptr %self, i64 0, i32 2, !dbg !7139",
+				"store i64 %call102, ptr %last_tid103, align 8, !dbg !7140, !tbaa !7038",
+				"br label %cleanup105, !dbg !7141"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_acquire_impl",
+			"id": 110,
+			"name": "cleanup105",
+			"debug": [
+				{
+					"line": 385, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.3 = phi ptr [ @_Py_TrueStruct, %if.then ], [ null, %if.then96 ], [ %call98, %if.else97 ], [ @_Py_TrueStruct, %if.end99 ], [ null, %cleanup31 ], [ @_Py_FalseStruct, %if.then83 ], [ @_Py_FalseStruct, %if.then83 ], [ null, %if.then6 ], !dbg !7021",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %deadline) #12, !dbg !7142",
+				"ret ptr %retval.3, !dbg !7142"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_release_impl",
+			"id": 111,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 398, "columns": [15, 20, 9]
+				}
+			],
+			"successors": [112, 117],
+			"ir": [
+				"%sval = alloca i32, align 4",
+				"%kind = getelementptr inbounds %struct.SemLockObject, ptr %self, i64 0, i32 5, !dbg !769",
+				"%0 = load i32, ptr %kind, align 8, !dbg !769, !tbaa !770",
+				"%cmp = icmp eq i32 %0, 0, !dbg !778",
+				"br i1 %cmp, label %if.then, label %if.else, !dbg !779"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_release_impl",
+			"id": 112,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 399, "columns": [14]
+				}
+			],
+			"successors": [113, 114],
+			"ir": [
+				"%count = getelementptr inbounds %struct.SemLockObject, ptr %self, i64 0, i32 3, !dbg !780",
+				"%1 = load i32, ptr %count, align 8, !dbg !780, !tbaa !783",
+				"%cmp1 = icmp sgt i32 %1, 0, !dbg !780",
+				"br i1 %cmp1, label %land.lhs.true, label %if.then3, !dbg !780"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_release_impl",
+			"id": 113,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 399, "columns": [14, 13]
+				}
+			],
+			"successors": [115, 114],
+			"ir": [
+				"%call = tail call i64 @PyThread_get_thread_ident() #12, !dbg !780",
+				"%last_tid = getelementptr inbounds %struct.SemLockObject, ptr %self, i64 0, i32 2, !dbg !780",
+				"%2 = load i64, ptr %last_tid, align 8, !dbg !780, !tbaa !784",
+				"%cmp2 = icmp eq i64 %call, %2, !dbg !780",
+				"br i1 %cmp2, label %if.end, label %if.then3, !dbg !785"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_release_impl",
+			"id": 114,
+			"name": "if.then3",
+			"debug": [
+				{
+					"line": 400, "columns": [29, 13]
+				},
+				{
+					"line": 403, "columns": [13]
+				}
+			],
+			"successors": [126],
+			"ir": [
+				"%3 = load ptr, ptr @PyExc_AssertionError, align 8, !dbg !786, !tbaa !788",
+				"tail call void @PyErr_SetString(ptr noundef %3, ptr noundef nonnull @.str.14) #12, !dbg !789",
+				"br label %return, !dbg !790"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_release_impl",
+			"id": 115,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 405, "columns": [19, 25, 13]
+				}
+			],
+			"successors": [116, 123],
+			"ir": [
+				"%4 = load i32, ptr %count, align 8, !dbg !791, !tbaa !783",
+				"%cmp5 = icmp sgt i32 %4, 1, !dbg !793",
+				"br i1 %cmp5, label %if.then6, label %if.end18, !dbg !794"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_release_impl",
+			"id": 116,
+			"name": "if.then6",
+			"debug": [
+				{
+					"line": 406, "columns": [13]
+				},
+				{
+					"line": 407, "columns": [13]
+				}
+			],
+			"successors": [126],
+			"ir": [
+				"%dec = add nsw i32 %4, -1, !dbg !795",
+				"store i32 %dec, ptr %count, align 8, !dbg !795, !tbaa !783",
+				"br label %return, !dbg !797"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_release_impl",
+			"id": 117,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 434, "columns": [9]
+				},
+				{
+					"line": 438, "columns": [32, 13, 47]
+				}
+			],
+			"successors": [118, 119],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %sval) #12, !dbg !798",
+				"%handle = getelementptr inbounds %struct.SemLockObject, ptr %self, i64 0, i32 1, !dbg !799",
+				"%5 = load ptr, ptr %handle, align 8, !dbg !799, !tbaa !801",
+				"%call9 = call i32 @sem_getvalue(ptr noundef %5, ptr noundef nonnull %sval) #12, !dbg !803",
+				"%cmp10 = icmp slt i32 %call9, 0, !dbg !804",
+				"br i1 %cmp10, label %if.then11, label %if.else13, !dbg !805"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_release_impl",
+			"id": 118,
+			"name": "if.then11",
+			"debug": [
+				{
+					"line": 439, "columns": [39, 20, 13]
+				}
+			],
+			"successors": [121],
+			"ir": [
+				"%6 = load ptr, ptr @PyExc_OSError, align 8, !dbg !806, !tbaa !788",
+				"%call12 = call ptr @PyErr_SetFromErrno(ptr noundef %6) #12, !dbg !808",
+				"br label %cleanup.thread, !dbg !809"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_release_impl",
+			"id": 119,
+			"name": "if.else13",
+			"debug": [
+				{
+					"line": 440, "columns": [20, 34, 25]
+				}
+			],
+			"successors": [122, 120],
+			"ir": [
+				"%7 = load i32, ptr %sval, align 4, !dbg !810, !tbaa !812",
+				"%maxvalue = getelementptr inbounds %struct.SemLockObject, ptr %self, i64 0, i32 4, !dbg !813",
+				"%8 = load i32, ptr %maxvalue, align 4, !dbg !813, !tbaa !814",
+				"%cmp14.not = icmp slt i32 %7, %8, !dbg !815",
+				"br i1 %cmp14.not, label %cleanup, label %if.then15, !dbg !816"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_release_impl",
+			"id": 120,
+			"name": "if.then15",
+			"debug": [
+				{
+					"line": 441, "columns": [29, 13]
+				},
+				{
+					"line": 443, "columns": [13]
+				}
+			],
+			"successors": [121],
+			"ir": [
+				"%9 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !817, !tbaa !788",
+				"call void @PyErr_SetString(ptr noundef %9, ptr noundef nonnull @.str.15) #12, !dbg !819",
+				"br label %cleanup.thread, !dbg !820"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_release_impl",
+			"id": 121,
+			"name": "cleanup.thread",
+			"debug": [
+				{
+					"line": 446, "columns": [5]
+				}
+			],
+			"successors": [126],
+			"ir": [
+				"%retval.0.ph = phi ptr [ null, %if.then15 ], [ %call12, %if.then11 ]",
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %sval) #12, !dbg !821",
+				"br label %return"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_release_impl",
+			"id": 122,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 446, "columns": [5]
+				}
+			],
+			"successors": [123],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %sval) #12, !dbg !821",
+				"br label %if.end18"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_release_impl",
+			"id": 123,
+			"name": "if.end18",
+			"debug": [
+				{
+					"line": 448, "columns": [24, 9, 32]
+				}
+			],
+			"successors": [124, 125],
+			"ir": [
+				"%handle19 = getelementptr inbounds %struct.SemLockObject, ptr %self, i64 0, i32 1, !dbg !822",
+				"%10 = load ptr, ptr %handle19, align 8, !dbg !822, !tbaa !801",
+				"%call20 = call i32 @sem_post(ptr noundef %10) #12, !dbg !824",
+				"%cmp21 = icmp slt i32 %call20, 0, !dbg !825",
+				"br i1 %cmp21, label %if.then22, label %if.end24, !dbg !826"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_release_impl",
+			"id": 124,
+			"name": "if.then22",
+			"debug": [
+				{
+					"line": 449, "columns": [35, 16, 9]
+				}
+			],
+			"successors": [126],
+			"ir": [
+				"%11 = load ptr, ptr @PyExc_OSError, align 8, !dbg !827, !tbaa !788",
+				"%call23 = call ptr @PyErr_SetFromErrno(ptr noundef %11) #12, !dbg !828",
+				"br label %return, !dbg !829"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_release_impl",
+			"id": 125,
+			"name": "if.end24",
+			"debug": [
+				{
+					"line": 451, "columns": [13, 5]
+				},
+				{
+					"line": 452, "columns": [5]
+				}
+			],
+			"successors": [126],
+			"ir": [
+				"%count25 = getelementptr inbounds %struct.SemLockObject, ptr %self, i64 0, i32 3, !dbg !830",
+				"%12 = load i32, ptr %count25, align 8, !dbg !831, !tbaa !783",
+				"%dec26 = add i32 %12, -1, !dbg !831",
+				"store i32 %dec26, ptr %count25, align 8, !dbg !831, !tbaa !783",
+				"br label %return, !dbg !832"
+			]
+		},
+		{
+			"function": "_multiprocessing_SemLock_release_impl",
+			"id": 126,
+			"name": "return",
+			"debug": [
+				{
+					"line": 453, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ @_Py_NoneStruct, %if.then6 ], [ %call23, %if.then22 ], [ @_Py_NoneStruct, %if.end24 ], [ null, %if.then3 ], [ %retval.0.ph, %cleanup.thread ], !dbg !768",
+				"ret ptr %retval.1, !dbg !833"
+			]
+		}
+	]
+}

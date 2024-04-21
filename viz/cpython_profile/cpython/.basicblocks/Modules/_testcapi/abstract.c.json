@@ -1,0 +1,1389 @@
+{
+	"blocks": [
+		{
+			"function": "_PyTestCapi_Init_Abstract",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 147, "columns": [9]
+				},
+				{
+					"line": 152, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call i32 @PyModule_AddFunctions(ptr noundef %m, ptr noundef nonnull @test_methods) #6, !dbg !462",
+				"%call.lobit = ashr i32 %call, 31, !dbg !461",
+				"ret i32 %call.lobit, !dbg !464"
+			]
+		},
+		{
+			"function": "object_getoptionalattr",
+			"id": 1,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 8, "columns": [5, 33]
+				},
+				{
+					"line": 9, "columns": [10, 9]
+				}
+			],
+			"successors": [15, 2],
+			"ir": [
+				"%obj = alloca ptr, align 8",
+				"%attr_name = alloca ptr, align 8",
+				"%value = alloca ptr, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %obj) #6, !dbg !466",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %attr_name) #6, !dbg !466",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %value) #6, !dbg !466",
+				"store ptr @uninitialized, ptr %value, align 8, !dbg !467, !tbaa !468",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.6, ptr noundef nonnull %obj, ptr noundef nonnull %attr_name) #6, !dbg !472",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !472",
+				"br i1 %tobool.not, label %cleanup, label %do.body, !dbg !474"
+			]
+		},
+		{
+			"function": "object_getoptionalattr",
+			"id": 2,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 12, "columns": [5]
+				}
+			],
+			"successors": [3, 4],
+			"ir": [
+				"%0 = load ptr, ptr %obj, align 8, !dbg !475, !tbaa !468",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !475",
+				"br i1 %cmp, label %if.then1, label %do.body3, !dbg !478"
+			]
+		},
+		{
+			"function": "object_getoptionalattr",
+			"id": 3,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 12, "columns": [5]
+				}
+			],
+			"successors": [4],
+			"ir": [
+				"store ptr null, ptr %obj, align 8, !dbg !479, !tbaa !468",
+				"br label %do.body3, !dbg !479"
+			]
+		},
+		{
+			"function": "object_getoptionalattr",
+			"id": 4,
+			"name": "do.body3",
+			"debug": [
+				{
+					"line": 13, "columns": [5]
+				}
+			],
+			"successors": [5, 6],
+			"ir": [
+				"%1 = phi ptr [ %0, %do.body ], [ null, %if.then1 ]",
+				"%2 = load ptr, ptr %attr_name, align 8, !dbg !481, !tbaa !468",
+				"%cmp4 = icmp eq ptr %2, @_Py_NoneStruct, !dbg !481",
+				"br i1 %cmp4, label %if.then5, label %do.end8, !dbg !484"
+			]
+		},
+		{
+			"function": "object_getoptionalattr",
+			"id": 5,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 13, "columns": [5]
+				}
+			],
+			"successors": [6],
+			"ir": [
+				"store ptr null, ptr %attr_name, align 8, !dbg !485, !tbaa !468",
+				"br label %do.end8, !dbg !485"
+			]
+		},
+		{
+			"function": "object_getoptionalattr",
+			"id": 6,
+			"name": "do.end8",
+			"debug": [
+				{
+					"line": 15, "columns": [43, 13, 5]
+				}
+			],
+			"successors": [14, 7, 9, 13],
+			"ir": [
+				"%3 = phi ptr [ null, %if.then5 ], [ %2, %do.body3 ], !dbg !487",
+				"%call9 = call i32 @PyObject_GetOptionalAttr(ptr noundef %1, ptr noundef %3, ptr noundef nonnull %value) #6, !dbg !488",
+				"switch i32 %call9, label %sw.default [\n    i32 -1, label %sw.bb\n    i32 0, label %sw.bb11\n    i32 1, label %sw.bb17\n  ], !dbg !489"
+			]
+		},
+		{
+			"function": "object_getoptionalattr",
+			"id": 7,
+			"name": "sw.bb",
+			"debug": [
+				{
+					"line": 17, "columns": [13]
+				}
+			],
+			"successors": [15, 8],
+			"ir": [
+				"%4 = load ptr, ptr %value, align 8, !dbg !490, !tbaa !468",
+				"%cmp10 = icmp eq ptr %4, null, !dbg !490",
+				"br i1 %cmp10, label %cleanup, label %cond.false, !dbg !490"
+			]
+		},
+		{
+			"function": "object_getoptionalattr",
+			"id": 8,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 17, "columns": [13]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.7, ptr noundef nonnull @.str.8, i32 noundef 17, ptr noundef nonnull @__PRETTY_FUNCTION__.object_getoptionalattr) #7, !dbg !490",
+				"unreachable, !dbg !490"
+			]
+		},
+		{
+			"function": "object_getoptionalattr",
+			"id": 9,
+			"name": "sw.bb11",
+			"debug": [
+				{
+					"line": 20, "columns": [13]
+				}
+			],
+			"successors": [11, 10],
+			"ir": [
+				"%5 = load ptr, ptr %value, align 8, !dbg !492, !tbaa !468",
+				"%cmp12 = icmp eq ptr %5, null, !dbg !492",
+				"br i1 %cmp12, label %cond.end15, label %cond.false14, !dbg !492"
+			]
+		},
+		{
+			"function": "object_getoptionalattr",
+			"id": 10,
+			"name": "cond.false14",
+			"debug": [
+				{
+					"line": 20, "columns": [13]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.7, ptr noundef nonnull @.str.8, i32 noundef 20, ptr noundef nonnull @__PRETTY_FUNCTION__.object_getoptionalattr) #7, !dbg !492",
+				"unreachable, !dbg !492"
+			]
+		},
+		{
+			"function": "object_getoptionalattr",
+			"id": 11,
+			"name": "cond.end15",
+			"debug": [
+				{
+					"line": 21, "columns": [20]
+				},
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [15, 12],
+			"ir": [
+				"%6 = load ptr, ptr @PyExc_AttributeError, align 8, !dbg !493, !tbaa !468",
+				"%7 = load i32, ptr %6, align 8, !dbg !506, !tbaa !507",
+				"%add.i.i = add i32 %7, 1, !dbg !508",
+				"%cmp.i.i = icmp eq i32 %add.i.i, 0, !dbg !509",
+				"br i1 %cmp.i.i, label %cleanup, label %if.end.i.i, !dbg !511"
+			]
+		},
+		{
+			"function": "object_getoptionalattr",
+			"id": 12,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [15],
+			"ir": [
+				"store i32 %add.i.i, ptr %6, align 8, !dbg !512, !tbaa !507",
+				"br label %cleanup, !dbg !513"
+			]
+		},
+		{
+			"function": "object_getoptionalattr",
+			"id": 13,
+			"name": "sw.bb17",
+			"debug": [
+				{
+					"line": 23, "columns": [20, 13]
+				}
+			],
+			"successors": [15],
+			"ir": [
+				"%8 = load ptr, ptr %value, align 8, !dbg !514, !tbaa !468",
+				"br label %cleanup, !dbg !515"
+			]
+		},
+		{
+			"function": "object_getoptionalattr",
+			"id": 14,
+			"name": "sw.default",
+			"debug": [
+				{
+					"line": 25, "columns": [13]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @_Py_FatalErrorFunc(ptr noundef nonnull @.str, ptr noundef nonnull @.str.9) #7, !dbg !516",
+				"unreachable, !dbg !516"
+			]
+		},
+		{
+			"function": "object_getoptionalattr",
+			"id": 15,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 28, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %8, %sw.bb17 ], [ null, %entry ], [ null, %sw.bb ], [ %6, %cond.end15 ], [ %6, %if.end.i.i ], !dbg !465",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %value) #6, !dbg !517",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %attr_name) #6, !dbg !517",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %obj) #6, !dbg !517",
+				"ret ptr %retval.0, !dbg !517"
+			]
+		},
+		{
+			"function": "object_getoptionalattrstring",
+			"id": 16,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 33, "columns": [5, 21]
+				},
+				{
+					"line": 34, "columns": [5]
+				},
+				{
+					"line": 35, "columns": [5]
+				},
+				{
+					"line": 36, "columns": [10, 9]
+				}
+			],
+			"successors": [28, 17],
+			"ir": [
+				"%obj = alloca ptr, align 8",
+				"%value = alloca ptr, align 8",
+				"%attr_name = alloca ptr, align 8",
+				"%size = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %obj) #6, !dbg !467",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %value) #6, !dbg !467",
+				"store ptr @uninitialized, ptr %value, align 8, !dbg !468, !tbaa !469",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %attr_name) #6, !dbg !473",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %size) #6, !dbg !474",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.10, ptr noundef nonnull %obj, ptr noundef nonnull %attr_name, ptr noundef nonnull %size) #6, !dbg !475",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !475",
+				"br i1 %tobool.not, label %cleanup, label %do.body, !dbg !477"
+			]
+		},
+		{
+			"function": "object_getoptionalattrstring",
+			"id": 17,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 39, "columns": [5]
+				}
+			],
+			"successors": [18, 19],
+			"ir": [
+				"%0 = load ptr, ptr %obj, align 8, !dbg !478, !tbaa !469",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !478",
+				"br i1 %cmp, label %if.then1, label %do.end, !dbg !481"
+			]
+		},
+		{
+			"function": "object_getoptionalattrstring",
+			"id": 18,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 39, "columns": [5]
+				}
+			],
+			"successors": [19],
+			"ir": [
+				"store ptr null, ptr %obj, align 8, !dbg !482, !tbaa !469",
+				"br label %do.end, !dbg !482"
+			]
+		},
+		{
+			"function": "object_getoptionalattrstring",
+			"id": 19,
+			"name": "do.end",
+			"debug": [
+				{
+					"line": 41, "columns": [44, 49, 13, 5]
+				}
+			],
+			"successors": [27, 20, 22, 26],
+			"ir": [
+				"%1 = phi ptr [ null, %if.then1 ], [ %0, %do.body ], !dbg !484",
+				"%2 = load ptr, ptr %attr_name, align 8, !dbg !485, !tbaa !469",
+				"%call3 = call i32 @PyObject_GetOptionalAttrString(ptr noundef %1, ptr noundef %2, ptr noundef nonnull %value) #6, !dbg !486",
+				"switch i32 %call3, label %sw.default [\n    i32 -1, label %sw.bb\n    i32 0, label %sw.bb5\n    i32 1, label %sw.bb11\n  ], !dbg !487"
+			]
+		},
+		{
+			"function": "object_getoptionalattrstring",
+			"id": 20,
+			"name": "sw.bb",
+			"debug": [
+				{
+					"line": 43, "columns": [13]
+				}
+			],
+			"successors": [28, 21],
+			"ir": [
+				"%3 = load ptr, ptr %value, align 8, !dbg !488, !tbaa !469",
+				"%cmp4 = icmp eq ptr %3, null, !dbg !488",
+				"br i1 %cmp4, label %cleanup, label %cond.false, !dbg !488"
+			]
+		},
+		{
+			"function": "object_getoptionalattrstring",
+			"id": 21,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 43, "columns": [13]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.7, ptr noundef nonnull @.str.8, i32 noundef 43, ptr noundef nonnull @__PRETTY_FUNCTION__.object_getoptionalattrstring) #7, !dbg !488",
+				"unreachable, !dbg !488"
+			]
+		},
+		{
+			"function": "object_getoptionalattrstring",
+			"id": 22,
+			"name": "sw.bb5",
+			"debug": [
+				{
+					"line": 46, "columns": [13]
+				}
+			],
+			"successors": [24, 23],
+			"ir": [
+				"%4 = load ptr, ptr %value, align 8, !dbg !490, !tbaa !469",
+				"%cmp6 = icmp eq ptr %4, null, !dbg !490",
+				"br i1 %cmp6, label %cond.end9, label %cond.false8, !dbg !490"
+			]
+		},
+		{
+			"function": "object_getoptionalattrstring",
+			"id": 23,
+			"name": "cond.false8",
+			"debug": [
+				{
+					"line": 46, "columns": [13]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.7, ptr noundef nonnull @.str.8, i32 noundef 46, ptr noundef nonnull @__PRETTY_FUNCTION__.object_getoptionalattrstring) #7, !dbg !490",
+				"unreachable, !dbg !490"
+			]
+		},
+		{
+			"function": "object_getoptionalattrstring",
+			"id": 24,
+			"name": "cond.end9",
+			"debug": [
+				{
+					"line": 47, "columns": [20]
+				},
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [28, 25],
+			"ir": [
+				"%5 = load ptr, ptr @PyExc_AttributeError, align 8, !dbg !491, !tbaa !469",
+				"%6 = load i32, ptr %5, align 8, !dbg !504, !tbaa !505",
+				"%add.i.i = add i32 %6, 1, !dbg !506",
+				"%cmp.i.i = icmp eq i32 %add.i.i, 0, !dbg !507",
+				"br i1 %cmp.i.i, label %cleanup, label %if.end.i.i, !dbg !509"
+			]
+		},
+		{
+			"function": "object_getoptionalattrstring",
+			"id": 25,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [28],
+			"ir": [
+				"store i32 %add.i.i, ptr %5, align 8, !dbg !510, !tbaa !505",
+				"br label %cleanup, !dbg !511"
+			]
+		},
+		{
+			"function": "object_getoptionalattrstring",
+			"id": 26,
+			"name": "sw.bb11",
+			"debug": [
+				{
+					"line": 49, "columns": [20, 13]
+				}
+			],
+			"successors": [28],
+			"ir": [
+				"%7 = load ptr, ptr %value, align 8, !dbg !512, !tbaa !469",
+				"br label %cleanup, !dbg !513"
+			]
+		},
+		{
+			"function": "object_getoptionalattrstring",
+			"id": 27,
+			"name": "sw.default",
+			"debug": [
+				{
+					"line": 51, "columns": [13]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @_Py_FatalErrorFunc(ptr noundef nonnull @.str.1, ptr noundef nonnull @.str.11) #7, !dbg !514",
+				"unreachable, !dbg !514"
+			]
+		},
+		{
+			"function": "object_getoptionalattrstring",
+			"id": 28,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 54, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %7, %sw.bb11 ], [ null, %entry ], [ null, %sw.bb ], [ %5, %cond.end9 ], [ %5, %if.end.i.i ], !dbg !466",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %size) #6, !dbg !515",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %attr_name) #6, !dbg !515",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %value) #6, !dbg !515",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %obj) #6, !dbg !515",
+				"ret ptr %retval.0, !dbg !515"
+			]
+		},
+		{
+			"function": "object_hasattrwitherror",
+			"id": 29,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 59, "columns": [5]
+				},
+				{
+					"line": 60, "columns": [10, 9]
+				}
+			],
+			"successors": [40, 30],
+			"ir": [
+				"%obj = alloca ptr, align 8",
+				"%attr_name = alloca ptr, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %obj) #6, !dbg !467",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %attr_name) #6, !dbg !467",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.6, ptr noundef nonnull %obj, ptr noundef nonnull %attr_name) #6, !dbg !468",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !468",
+				"br i1 %tobool.not, label %cleanup24, label %do.body, !dbg !470"
+			]
+		},
+		{
+			"function": "object_hasattrwitherror",
+			"id": 30,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 63, "columns": [5]
+				}
+			],
+			"successors": [31, 32],
+			"ir": [
+				"%0 = load ptr, ptr %obj, align 8, !dbg !471, !tbaa !474",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !471",
+				"br i1 %cmp, label %if.then1, label %do.body3, !dbg !478"
+			]
+		},
+		{
+			"function": "object_hasattrwitherror",
+			"id": 31,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 63, "columns": [5]
+				}
+			],
+			"successors": [32],
+			"ir": [
+				"store ptr null, ptr %obj, align 8, !dbg !479, !tbaa !474",
+				"br label %do.body3, !dbg !479"
+			]
+		},
+		{
+			"function": "object_hasattrwitherror",
+			"id": 32,
+			"name": "do.body3",
+			"debug": [
+				{
+					"line": 64, "columns": [5]
+				}
+			],
+			"successors": [33, 34],
+			"ir": [
+				"%1 = phi ptr [ %0, %do.body ], [ null, %if.then1 ]",
+				"%2 = load ptr, ptr %attr_name, align 8, !dbg !481, !tbaa !474",
+				"%cmp4 = icmp eq ptr %2, @_Py_NoneStruct, !dbg !481",
+				"br i1 %cmp4, label %if.then5, label %do.body9, !dbg !484"
+			]
+		},
+		{
+			"function": "object_hasattrwitherror",
+			"id": 33,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 64, "columns": [5]
+				}
+			],
+			"successors": [34],
+			"ir": [
+				"store ptr null, ptr %attr_name, align 8, !dbg !485, !tbaa !474",
+				"br label %do.body9, !dbg !485"
+			]
+		},
+		{
+			"function": "object_hasattrwitherror",
+			"id": 34,
+			"name": "do.body9",
+			"debug": [
+				{
+					"line": 65, "columns": [5]
+				}
+			],
+			"successors": [35, 37],
+			"ir": [
+				"%3 = phi ptr [ %2, %do.body3 ], [ null, %if.then5 ], !dbg !487",
+				"%call10 = call i32 @PyObject_HasAttrWithError(ptr noundef %1, ptr noundef %3) #6, !dbg !487",
+				"%cmp11 = icmp eq i32 %call10, -1, !dbg !489",
+				"%call13 = call ptr @PyErr_Occurred() #6, !dbg !487",
+				"%tobool14.not = icmp eq ptr %call13, null, !dbg !487",
+				"br i1 %cmp11, label %if.then12, label %if.end15, !dbg !487"
+			]
+		},
+		{
+			"function": "object_hasattrwitherror",
+			"id": 35,
+			"name": "if.then12",
+			"debug": [
+				{
+					"line": 65, "columns": [5]
+				}
+			],
+			"successors": [36, 40],
+			"ir": [
+				"br i1 %tobool14.not, label %cond.false, label %cleanup24, !dbg !491"
+			]
+		},
+		{
+			"function": "object_hasattrwitherror",
+			"id": 36,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 65, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.12, ptr noundef nonnull @.str.8, i32 noundef 65, ptr noundef nonnull @__PRETTY_FUNCTION__.object_hasattrwitherror) #7, !dbg !491",
+				"unreachable, !dbg !491"
+			]
+		},
+		{
+			"function": "object_hasattrwitherror",
+			"id": 37,
+			"name": "if.end15",
+			"debug": [
+				{
+					"line": 65, "columns": [5]
+				}
+			],
+			"successors": [39, 38],
+			"ir": [
+				"br i1 %tobool14.not, label %cond.end20, label %cond.false19, !dbg !487"
+			]
+		},
+		{
+			"function": "object_hasattrwitherror",
+			"id": 38,
+			"name": "cond.false19",
+			"debug": [
+				{
+					"line": 65, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.13, ptr noundef nonnull @.str.8, i32 noundef 65, ptr noundef nonnull @__PRETTY_FUNCTION__.object_hasattrwitherror) #7, !dbg !487",
+				"unreachable, !dbg !487"
+			]
+		},
+		{
+			"function": "object_hasattrwitherror",
+			"id": 39,
+			"name": "cond.end20",
+			"debug": [
+				{
+					"line": 65, "columns": [5]
+				}
+			],
+			"successors": [40],
+			"ir": [
+				"%conv = sext i32 %call10 to i64, !dbg !487",
+				"%call21 = call ptr @PyLong_FromLong(i64 noundef %conv) #6, !dbg !487",
+				"br label %cleanup24, !dbg !487"
+			]
+		},
+		{
+			"function": "object_hasattrwitherror",
+			"id": 40,
+			"name": "cleanup24",
+			"debug": [
+				{
+					"line": 66, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %entry ], [ %call21, %cond.end20 ], [ null, %if.then12 ], !dbg !466",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %attr_name) #6, !dbg !493",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %obj) #6, !dbg !493",
+				"ret ptr %retval.1, !dbg !493"
+			]
+		},
+		{
+			"function": "object_hasattrstringwitherror",
+			"id": 41,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 71, "columns": [5]
+				},
+				{
+					"line": 72, "columns": [5]
+				},
+				{
+					"line": 73, "columns": [5]
+				},
+				{
+					"line": 74, "columns": [10, 9]
+				}
+			],
+			"successors": [50, 42],
+			"ir": [
+				"%obj = alloca ptr, align 8",
+				"%attr_name = alloca ptr, align 8",
+				"%size = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %obj) #6, !dbg !468",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %attr_name) #6, !dbg !469",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %size) #6, !dbg !470",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.10, ptr noundef nonnull %obj, ptr noundef nonnull %attr_name, ptr noundef nonnull %size) #6, !dbg !471",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !471",
+				"br i1 %tobool.not, label %cleanup18, label %do.body, !dbg !473"
+			]
+		},
+		{
+			"function": "object_hasattrstringwitherror",
+			"id": 42,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 77, "columns": [5]
+				}
+			],
+			"successors": [43, 44],
+			"ir": [
+				"%0 = load ptr, ptr %obj, align 8, !dbg !474, !tbaa !477",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !474",
+				"br i1 %cmp, label %if.then1, label %do.body3, !dbg !481"
+			]
+		},
+		{
+			"function": "object_hasattrstringwitherror",
+			"id": 43,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 77, "columns": [5]
+				}
+			],
+			"successors": [44],
+			"ir": [
+				"store ptr null, ptr %obj, align 8, !dbg !482, !tbaa !477",
+				"br label %do.body3, !dbg !482"
+			]
+		},
+		{
+			"function": "object_hasattrstringwitherror",
+			"id": 44,
+			"name": "do.body3",
+			"debug": [
+				{
+					"line": 78, "columns": [5]
+				}
+			],
+			"successors": [45, 47],
+			"ir": [
+				"%1 = phi ptr [ %0, %do.body ], [ null, %if.then1 ], !dbg !484",
+				"%2 = load ptr, ptr %attr_name, align 8, !dbg !484, !tbaa !477",
+				"%call4 = call i32 @PyObject_HasAttrStringWithError(ptr noundef %1, ptr noundef %2) #6, !dbg !484",
+				"%cmp5 = icmp eq i32 %call4, -1, !dbg !486",
+				"%call7 = call ptr @PyErr_Occurred() #6, !dbg !484",
+				"%tobool8.not = icmp eq ptr %call7, null, !dbg !484",
+				"br i1 %cmp5, label %if.then6, label %if.end9, !dbg !484"
+			]
+		},
+		{
+			"function": "object_hasattrstringwitherror",
+			"id": 45,
+			"name": "if.then6",
+			"debug": [
+				{
+					"line": 78, "columns": [5]
+				}
+			],
+			"successors": [46, 50],
+			"ir": [
+				"br i1 %tobool8.not, label %cond.false, label %cleanup18, !dbg !488"
+			]
+		},
+		{
+			"function": "object_hasattrstringwitherror",
+			"id": 46,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 78, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.12, ptr noundef nonnull @.str.8, i32 noundef 78, ptr noundef nonnull @__PRETTY_FUNCTION__.object_hasattrstringwitherror) #7, !dbg !488",
+				"unreachable, !dbg !488"
+			]
+		},
+		{
+			"function": "object_hasattrstringwitherror",
+			"id": 47,
+			"name": "if.end9",
+			"debug": [
+				{
+					"line": 78, "columns": [5]
+				}
+			],
+			"successors": [49, 48],
+			"ir": [
+				"br i1 %tobool8.not, label %cond.end14, label %cond.false13, !dbg !484"
+			]
+		},
+		{
+			"function": "object_hasattrstringwitherror",
+			"id": 48,
+			"name": "cond.false13",
+			"debug": [
+				{
+					"line": 78, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.13, ptr noundef nonnull @.str.8, i32 noundef 78, ptr noundef nonnull @__PRETTY_FUNCTION__.object_hasattrstringwitherror) #7, !dbg !484",
+				"unreachable, !dbg !484"
+			]
+		},
+		{
+			"function": "object_hasattrstringwitherror",
+			"id": 49,
+			"name": "cond.end14",
+			"debug": [
+				{
+					"line": 78, "columns": [5]
+				}
+			],
+			"successors": [50],
+			"ir": [
+				"%conv = sext i32 %call4 to i64, !dbg !484",
+				"%call15 = call ptr @PyLong_FromLong(i64 noundef %conv) #6, !dbg !484",
+				"br label %cleanup18, !dbg !484"
+			]
+		},
+		{
+			"function": "object_hasattrstringwitherror",
+			"id": 50,
+			"name": "cleanup18",
+			"debug": [
+				{
+					"line": 79, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %entry ], [ %call15, %cond.end14 ], [ null, %if.then6 ], !dbg !467",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %size) #6, !dbg !490",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %attr_name) #6, !dbg !490",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %obj) #6, !dbg !490",
+				"ret ptr %retval.1, !dbg !490"
+			]
+		},
+		{
+			"function": "mapping_getoptionalitem",
+			"id": 51,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 110, "columns": [5, 33]
+				},
+				{
+					"line": 111, "columns": [10, 9]
+				}
+			],
+			"successors": [65, 52],
+			"ir": [
+				"%obj = alloca ptr, align 8",
+				"%attr_name = alloca ptr, align 8",
+				"%value = alloca ptr, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %obj) #6, !dbg !466",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %attr_name) #6, !dbg !466",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %value) #6, !dbg !466",
+				"store ptr @uninitialized, ptr %value, align 8, !dbg !467, !tbaa !468",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.6, ptr noundef nonnull %obj, ptr noundef nonnull %attr_name) #6, !dbg !472",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !472",
+				"br i1 %tobool.not, label %cleanup, label %do.body, !dbg !474"
+			]
+		},
+		{
+			"function": "mapping_getoptionalitem",
+			"id": 52,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 114, "columns": [5]
+				}
+			],
+			"successors": [53, 54],
+			"ir": [
+				"%0 = load ptr, ptr %obj, align 8, !dbg !475, !tbaa !468",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !475",
+				"br i1 %cmp, label %if.then1, label %do.body3, !dbg !478"
+			]
+		},
+		{
+			"function": "mapping_getoptionalitem",
+			"id": 53,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 114, "columns": [5]
+				}
+			],
+			"successors": [54],
+			"ir": [
+				"store ptr null, ptr %obj, align 8, !dbg !479, !tbaa !468",
+				"br label %do.body3, !dbg !479"
+			]
+		},
+		{
+			"function": "mapping_getoptionalitem",
+			"id": 54,
+			"name": "do.body3",
+			"debug": [
+				{
+					"line": 115, "columns": [5]
+				}
+			],
+			"successors": [55, 56],
+			"ir": [
+				"%1 = phi ptr [ %0, %do.body ], [ null, %if.then1 ]",
+				"%2 = load ptr, ptr %attr_name, align 8, !dbg !481, !tbaa !468",
+				"%cmp4 = icmp eq ptr %2, @_Py_NoneStruct, !dbg !481",
+				"br i1 %cmp4, label %if.then5, label %do.end8, !dbg !484"
+			]
+		},
+		{
+			"function": "mapping_getoptionalitem",
+			"id": 55,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 115, "columns": [5]
+				}
+			],
+			"successors": [56],
+			"ir": [
+				"store ptr null, ptr %attr_name, align 8, !dbg !485, !tbaa !468",
+				"br label %do.end8, !dbg !485"
+			]
+		},
+		{
+			"function": "mapping_getoptionalitem",
+			"id": 56,
+			"name": "do.end8",
+			"debug": [
+				{
+					"line": 117, "columns": [44, 13, 5]
+				}
+			],
+			"successors": [64, 57, 59, 63],
+			"ir": [
+				"%3 = phi ptr [ null, %if.then5 ], [ %2, %do.body3 ], !dbg !487",
+				"%call9 = call i32 @PyMapping_GetOptionalItem(ptr noundef %1, ptr noundef %3, ptr noundef nonnull %value) #6, !dbg !488",
+				"switch i32 %call9, label %sw.default [\n    i32 -1, label %sw.bb\n    i32 0, label %sw.bb11\n    i32 1, label %sw.bb17\n  ], !dbg !489"
+			]
+		},
+		{
+			"function": "mapping_getoptionalitem",
+			"id": 57,
+			"name": "sw.bb",
+			"debug": [
+				{
+					"line": 119, "columns": [13]
+				}
+			],
+			"successors": [65, 58],
+			"ir": [
+				"%4 = load ptr, ptr %value, align 8, !dbg !490, !tbaa !468",
+				"%cmp10 = icmp eq ptr %4, null, !dbg !490",
+				"br i1 %cmp10, label %cleanup, label %cond.false, !dbg !490"
+			]
+		},
+		{
+			"function": "mapping_getoptionalitem",
+			"id": 58,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 119, "columns": [13]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.7, ptr noundef nonnull @.str.8, i32 noundef 119, ptr noundef nonnull @__PRETTY_FUNCTION__.mapping_getoptionalitem) #7, !dbg !490",
+				"unreachable, !dbg !490"
+			]
+		},
+		{
+			"function": "mapping_getoptionalitem",
+			"id": 59,
+			"name": "sw.bb11",
+			"debug": [
+				{
+					"line": 122, "columns": [13]
+				}
+			],
+			"successors": [61, 60],
+			"ir": [
+				"%5 = load ptr, ptr %value, align 8, !dbg !492, !tbaa !468",
+				"%cmp12 = icmp eq ptr %5, null, !dbg !492",
+				"br i1 %cmp12, label %cond.end15, label %cond.false14, !dbg !492"
+			]
+		},
+		{
+			"function": "mapping_getoptionalitem",
+			"id": 60,
+			"name": "cond.false14",
+			"debug": [
+				{
+					"line": 122, "columns": [13]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.7, ptr noundef nonnull @.str.8, i32 noundef 122, ptr noundef nonnull @__PRETTY_FUNCTION__.mapping_getoptionalitem) #7, !dbg !492",
+				"unreachable, !dbg !492"
+			]
+		},
+		{
+			"function": "mapping_getoptionalitem",
+			"id": 61,
+			"name": "cond.end15",
+			"debug": [
+				{
+					"line": 123, "columns": [20]
+				},
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [65, 62],
+			"ir": [
+				"%6 = load ptr, ptr @PyExc_KeyError, align 8, !dbg !493, !tbaa !468",
+				"%7 = load i32, ptr %6, align 8, !dbg !506, !tbaa !507",
+				"%add.i.i = add i32 %7, 1, !dbg !508",
+				"%cmp.i.i = icmp eq i32 %add.i.i, 0, !dbg !509",
+				"br i1 %cmp.i.i, label %cleanup, label %if.end.i.i, !dbg !511"
+			]
+		},
+		{
+			"function": "mapping_getoptionalitem",
+			"id": 62,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [65],
+			"ir": [
+				"store i32 %add.i.i, ptr %6, align 8, !dbg !512, !tbaa !507",
+				"br label %cleanup, !dbg !513"
+			]
+		},
+		{
+			"function": "mapping_getoptionalitem",
+			"id": 63,
+			"name": "sw.bb17",
+			"debug": [
+				{
+					"line": 125, "columns": [20, 13]
+				}
+			],
+			"successors": [65],
+			"ir": [
+				"%8 = load ptr, ptr %value, align 8, !dbg !514, !tbaa !468",
+				"br label %cleanup, !dbg !515"
+			]
+		},
+		{
+			"function": "mapping_getoptionalitem",
+			"id": 64,
+			"name": "sw.default",
+			"debug": [
+				{
+					"line": 127, "columns": [13]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @_Py_FatalErrorFunc(ptr noundef nonnull @.str.4, ptr noundef nonnull @.str.14) #7, !dbg !516",
+				"unreachable, !dbg !516"
+			]
+		},
+		{
+			"function": "mapping_getoptionalitem",
+			"id": 65,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 130, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %8, %sw.bb17 ], [ null, %entry ], [ null, %sw.bb ], [ %6, %cond.end15 ], [ %6, %if.end.i.i ], !dbg !465",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %value) #6, !dbg !517",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %attr_name) #6, !dbg !517",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %obj) #6, !dbg !517",
+				"ret ptr %retval.0, !dbg !517"
+			]
+		},
+		{
+			"function": "mapping_getoptionalitemstring",
+			"id": 66,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 84, "columns": [5, 21]
+				},
+				{
+					"line": 85, "columns": [5]
+				},
+				{
+					"line": 86, "columns": [5]
+				},
+				{
+					"line": 87, "columns": [10, 9]
+				}
+			],
+			"successors": [78, 67],
+			"ir": [
+				"%obj = alloca ptr, align 8",
+				"%value = alloca ptr, align 8",
+				"%attr_name = alloca ptr, align 8",
+				"%size = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %obj) #6, !dbg !467",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %value) #6, !dbg !467",
+				"store ptr @uninitialized, ptr %value, align 8, !dbg !468, !tbaa !469",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %attr_name) #6, !dbg !473",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %size) #6, !dbg !474",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.10, ptr noundef nonnull %obj, ptr noundef nonnull %attr_name, ptr noundef nonnull %size) #6, !dbg !475",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !475",
+				"br i1 %tobool.not, label %cleanup, label %do.body, !dbg !477"
+			]
+		},
+		{
+			"function": "mapping_getoptionalitemstring",
+			"id": 67,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 90, "columns": [5]
+				}
+			],
+			"successors": [68, 69],
+			"ir": [
+				"%0 = load ptr, ptr %obj, align 8, !dbg !478, !tbaa !469",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !478",
+				"br i1 %cmp, label %if.then1, label %do.end, !dbg !481"
+			]
+		},
+		{
+			"function": "mapping_getoptionalitemstring",
+			"id": 68,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 90, "columns": [5]
+				}
+			],
+			"successors": [69],
+			"ir": [
+				"store ptr null, ptr %obj, align 8, !dbg !482, !tbaa !469",
+				"br label %do.end, !dbg !482"
+			]
+		},
+		{
+			"function": "mapping_getoptionalitemstring",
+			"id": 69,
+			"name": "do.end",
+			"debug": [
+				{
+					"line": 92, "columns": [45, 50, 13, 5]
+				}
+			],
+			"successors": [77, 70, 72, 76],
+			"ir": [
+				"%1 = phi ptr [ null, %if.then1 ], [ %0, %do.body ], !dbg !484",
+				"%2 = load ptr, ptr %attr_name, align 8, !dbg !485, !tbaa !469",
+				"%call3 = call i32 @PyMapping_GetOptionalItemString(ptr noundef %1, ptr noundef %2, ptr noundef nonnull %value) #6, !dbg !486",
+				"switch i32 %call3, label %sw.default [\n    i32 -1, label %sw.bb\n    i32 0, label %sw.bb5\n    i32 1, label %sw.bb11\n  ], !dbg !487"
+			]
+		},
+		{
+			"function": "mapping_getoptionalitemstring",
+			"id": 70,
+			"name": "sw.bb",
+			"debug": [
+				{
+					"line": 94, "columns": [13]
+				}
+			],
+			"successors": [78, 71],
+			"ir": [
+				"%3 = load ptr, ptr %value, align 8, !dbg !488, !tbaa !469",
+				"%cmp4 = icmp eq ptr %3, null, !dbg !488",
+				"br i1 %cmp4, label %cleanup, label %cond.false, !dbg !488"
+			]
+		},
+		{
+			"function": "mapping_getoptionalitemstring",
+			"id": 71,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 94, "columns": [13]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.7, ptr noundef nonnull @.str.8, i32 noundef 94, ptr noundef nonnull @__PRETTY_FUNCTION__.mapping_getoptionalitemstring) #7, !dbg !488",
+				"unreachable, !dbg !488"
+			]
+		},
+		{
+			"function": "mapping_getoptionalitemstring",
+			"id": 72,
+			"name": "sw.bb5",
+			"debug": [
+				{
+					"line": 97, "columns": [13]
+				}
+			],
+			"successors": [74, 73],
+			"ir": [
+				"%4 = load ptr, ptr %value, align 8, !dbg !490, !tbaa !469",
+				"%cmp6 = icmp eq ptr %4, null, !dbg !490",
+				"br i1 %cmp6, label %cond.end9, label %cond.false8, !dbg !490"
+			]
+		},
+		{
+			"function": "mapping_getoptionalitemstring",
+			"id": 73,
+			"name": "cond.false8",
+			"debug": [
+				{
+					"line": 97, "columns": [13]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.7, ptr noundef nonnull @.str.8, i32 noundef 97, ptr noundef nonnull @__PRETTY_FUNCTION__.mapping_getoptionalitemstring) #7, !dbg !490",
+				"unreachable, !dbg !490"
+			]
+		},
+		{
+			"function": "mapping_getoptionalitemstring",
+			"id": 74,
+			"name": "cond.end9",
+			"debug": [
+				{
+					"line": 98, "columns": [20]
+				},
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [78, 75],
+			"ir": [
+				"%5 = load ptr, ptr @PyExc_KeyError, align 8, !dbg !491, !tbaa !469",
+				"%6 = load i32, ptr %5, align 8, !dbg !504, !tbaa !505",
+				"%add.i.i = add i32 %6, 1, !dbg !506",
+				"%cmp.i.i = icmp eq i32 %add.i.i, 0, !dbg !507",
+				"br i1 %cmp.i.i, label %cleanup, label %if.end.i.i, !dbg !509"
+			]
+		},
+		{
+			"function": "mapping_getoptionalitemstring",
+			"id": 75,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [78],
+			"ir": [
+				"store i32 %add.i.i, ptr %5, align 8, !dbg !510, !tbaa !505",
+				"br label %cleanup, !dbg !511"
+			]
+		},
+		{
+			"function": "mapping_getoptionalitemstring",
+			"id": 76,
+			"name": "sw.bb11",
+			"debug": [
+				{
+					"line": 100, "columns": [20, 13]
+				}
+			],
+			"successors": [78],
+			"ir": [
+				"%7 = load ptr, ptr %value, align 8, !dbg !512, !tbaa !469",
+				"br label %cleanup, !dbg !513"
+			]
+		},
+		{
+			"function": "mapping_getoptionalitemstring",
+			"id": 77,
+			"name": "sw.default",
+			"debug": [
+				{
+					"line": 102, "columns": [13]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @_Py_FatalErrorFunc(ptr noundef nonnull @.str.5, ptr noundef nonnull @.str.15) #7, !dbg !514",
+				"unreachable, !dbg !514"
+			]
+		},
+		{
+			"function": "mapping_getoptionalitemstring",
+			"id": 78,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 105, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %7, %sw.bb11 ], [ null, %entry ], [ null, %sw.bb ], [ %5, %cond.end9 ], [ %5, %if.end.i.i ], !dbg !466",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %size) #6, !dbg !515",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %attr_name) #6, !dbg !515",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %value) #6, !dbg !515",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %obj) #6, !dbg !515",
+				"ret ptr %retval.0, !dbg !515"
+			]
+		}
+	]
+}

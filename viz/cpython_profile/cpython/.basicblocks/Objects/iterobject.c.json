@@ -1,0 +1,3409 @@
+{
+	"blocks": [
+		{
+			"function": "PySeqIter_New",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 20, "columns": [10, 9]
+				}
+			],
+			"successors": [1, 2],
+			"ir": [
+				"%call = tail call i32 @PySequence_Check(ptr noundef %seq) #4, !dbg !614",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !614",
+				"br i1 %tobool.not, label %if.then, label %if.end, !dbg !616"
+			]
+		},
+		{
+			"function": "PySeqIter_New",
+			"id": 1,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 21, "columns": [9]
+				},
+				{
+					"line": 22, "columns": [9]
+				}
+			],
+			"successors": [6],
+			"ir": [
+				"tail call void @_PyErr_BadInternalCall(ptr noundef nonnull @.str, i32 noundef 21) #4, !dbg !617",
+				"br label %cleanup, !dbg !619"
+			]
+		},
+		{
+			"function": "PySeqIter_New",
+			"id": 2,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 24, "columns": [10]
+				},
+				{
+					"line": 25, "columns": [12, 9]
+				}
+			],
+			"successors": [6, 3],
+			"ir": [
+				"%call1 = tail call ptr @_PyObject_GC_New(ptr noundef nonnull @PySeqIter_Type) #4, !dbg !620",
+				"%cmp = icmp eq ptr %call1, null, !dbg !621",
+				"br i1 %cmp, label %cleanup, label %if.end3, !dbg !623"
+			]
+		},
+		{
+			"function": "PySeqIter_New",
+			"id": 3,
+			"name": "if.end3",
+			"debug": [
+				{
+					"line": 27, "columns": [9, 18]
+				},
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [5, 4],
+			"ir": [
+				"%it_index = getelementptr inbounds %struct.seqiterobject, ptr %call1, i64 0, i32 1, !dbg !624",
+				"store i64 0, ptr %it_index, align 8, !dbg !625, !tbaa !626",
+				"%0 = load i32, ptr %seq, align 8, !dbg !645, !tbaa !646",
+				"%add.i.i = add i32 %0, 1, !dbg !647",
+				"%cmp.i.i = icmp eq i32 %add.i.i, 0, !dbg !648",
+				"br i1 %cmp.i.i, label %_Py_NewRef.exit, label %if.end.i.i, !dbg !650"
+			]
+		},
+		{
+			"function": "PySeqIter_New",
+			"id": 4,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [5],
+			"ir": [
+				"store i32 %add.i.i, ptr %seq, align 8, !dbg !651, !tbaa !646",
+				"br label %_Py_NewRef.exit, !dbg !652"
+			]
+		},
+		{
+			"function": "PySeqIter_New",
+			"id": 5,
+			"name": "_Py_NewRef.exit",
+			"debug": [
+				{
+					"line": 28, "columns": [9, 16]
+				},
+				{
+					"line": 29, "columns": [28]
+				},
+				{
+					"line": 30, "columns": [5]
+				},
+				{
+					"line": 137, "columns": [12]
+				},
+				{
+					"line": 161, "columns": [23]
+				},
+				{
+					"line": 163, "columns": [25, 34, 54, 18]
+				},
+				{
+					"line": 175, "columns": [26, 35, 55, 18]
+				},
+				{
+					"line": 211, "columns": [20]
+				},
+				{
+					"line": 316, "columns": [42]
+				},
+				{
+					"line": 317, "columns": [49, 23]
+				},
+				{
+					"line": 321, "columns": [21, 58, 47, 45, 18]
+				},
+				{
+					"line": 322, "columns": [27]
+				}
+			],
+			"successors": [6],
+			"ir": [
+				"%it_seq = getelementptr inbounds %struct.seqiterobject, ptr %call1, i64 0, i32 2, !dbg !653",
+				"store ptr %seq, ptr %it_seq, align 8, !dbg !654, !tbaa !655",
+				"%add.ptr.i.i = getelementptr i8, ptr %call1, i64 -16, !dbg !6935",
+				"%1 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6936",
+				"%2 = load ptr, ptr %1, align 8, !dbg !6936, !tbaa !6949",
+				"%interp.i.i = getelementptr inbounds %struct._ts, ptr %2, i64 0, i32 2, !dbg !6951",
+				"%3 = load ptr, ptr %interp.i.i, align 8, !dbg !6951, !tbaa !6952",
+				"%young.i = getelementptr inbounds %struct._is, ptr %3, i64 0, i32 13, i32 4, !dbg !6958",
+				"%_gc_prev.i = getelementptr inbounds %struct._is, ptr %3, i64 0, i32 13, i32 4, i32 0, i32 1, !dbg !6959",
+				"%4 = load i64, ptr %_gc_prev.i, align 8, !dbg !6959, !tbaa !6960",
+				"%5 = inttoptr i64 %4 to ptr, !dbg !6962",
+				"%6 = ptrtoint ptr %add.ptr.i.i to i64, !dbg !6972",
+				"%7 = load i64, ptr %5, align 8, !dbg !6973, !tbaa !6974",
+				"%and.i.i = and i64 %7, 3, !dbg !6975",
+				"%or.i.i = or i64 %and.i.i, %6, !dbg !6976",
+				"store i64 %or.i.i, ptr %5, align 8, !dbg !6977, !tbaa !6974",
+				"%_gc_prev.i.i = getelementptr i8, ptr %call1, i64 -8, !dbg !6985",
+				"%8 = load i64, ptr %_gc_prev.i.i, align 8, !dbg !6985, !tbaa !6960",
+				"%and.i12.i = and i64 %8, 3, !dbg !6986",
+				"%or.i13.i = or i64 %and.i12.i, %4, !dbg !6987",
+				"store i64 %or.i13.i, ptr %_gc_prev.i.i, align 8, !dbg !6988, !tbaa !6960",
+				"%9 = ptrtoint ptr %young.i to i64, !dbg !6989",
+				"%visited_space.i = getelementptr inbounds %struct._is, ptr %3, i64 0, i32 13, i32 13, !dbg !6990",
+				"%10 = load i32, ptr %visited_space.i, align 8, !dbg !6990, !tbaa !6991",
+				"%conv.i = sext i32 %10 to i64, !dbg !7047",
+				"%or.i = or i64 %conv.i, %9, !dbg !7048",
+				"store i64 %or.i, ptr %add.ptr.i.i, align 8, !dbg !7049, !tbaa !6974",
+				"store i64 %6, ptr %_gc_prev.i, align 8, !dbg !7050, !tbaa !6960",
+				"br label %cleanup, !dbg !7051"
+			]
+		},
+		{
+			"function": "PySeqIter_New",
+			"id": 6,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 31, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call1, %_Py_NewRef.exit ], [ null, %if.then ], [ null, %if.end ], !dbg !613",
+				"ret ptr %retval.0, !dbg !7052"
+			]
+		},
+		{
+			"function": "iter_dealloc",
+			"id": 7,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 29, "columns": [28]
+				},
+				{
+					"line": 37, "columns": [5]
+				},
+				{
+					"line": 157, "columns": [35]
+				},
+				{
+					"line": 158, "columns": [12]
+				},
+				{
+					"line": 163, "columns": [25, 34, 54, 18]
+				},
+				{
+					"line": 168, "columns": [36]
+				},
+				{
+					"line": 169, "columns": [12]
+				},
+				{
+					"line": 175, "columns": [26, 35, 55, 18]
+				},
+				{
+					"line": 351, "columns": [23]
+				},
+				{
+					"line": 352, "columns": [23]
+				},
+				{
+					"line": 355, "columns": [18]
+				},
+				{
+					"line": 356, "columns": [18]
+				},
+				{
+					"line": 1037, "columns": [12, 9]
+				}
+			],
+			"successors": [11, 8],
+			"ir": [
+				"%add.ptr.i.i = getelementptr i8, ptr %it, i64 -16, !dbg !632",
+				"%0 = getelementptr i8, ptr %it, i64 -8, !dbg !633",
+				"%call.val.i = load i64, ptr %0, align 8, !dbg !633, !tbaa !634",
+				"%and.i.i = and i64 %call.val.i, -4, !dbg !647",
+				"%1 = inttoptr i64 %and.i.i to ptr, !dbg !648",
+				"%call.val8.i = load i64, ptr %add.ptr.i.i, align 8, !dbg !649, !tbaa !650",
+				"%and.i9.i = and i64 %call.val8.i, -4, !dbg !657",
+				"%2 = inttoptr i64 %and.i9.i to ptr, !dbg !658",
+				"%3 = load i64, ptr %1, align 8, !dbg !668, !tbaa !650",
+				"%and.i10.i = and i64 %3, 3, !dbg !669",
+				"%or.i.i = or i64 %and.i10.i, %and.i9.i, !dbg !670",
+				"store i64 %or.i.i, ptr %1, align 8, !dbg !671, !tbaa !650",
+				"%_gc_prev.i.i = getelementptr inbounds %struct.PyGC_Head, ptr %2, i64 0, i32 1, !dbg !679",
+				"%4 = load i64, ptr %_gc_prev.i.i, align 8, !dbg !679, !tbaa !634",
+				"%and.i11.i = and i64 %4, 3, !dbg !680",
+				"%or.i12.i = or i64 %and.i11.i, %and.i.i, !dbg !681",
+				"store i64 %or.i12.i, ptr %_gc_prev.i.i, align 8, !dbg !682, !tbaa !634",
+				"store i64 0, ptr %add.ptr.i.i, align 8, !dbg !683, !tbaa !650",
+				"%5 = load i64, ptr %0, align 8, !dbg !684, !tbaa !634",
+				"%and.i = and i64 %5, 1, !dbg !684",
+				"store i64 %and.i, ptr %0, align 8, !dbg !684, !tbaa !634",
+				"%it_seq = getelementptr inbounds %struct.seqiterobject, ptr %it, i64 0, i32 2, !dbg !685",
+				"%6 = load ptr, ptr %it_seq, align 8, !dbg !685, !tbaa !686",
+				"%cmp.not.i = icmp eq ptr %6, null, !dbg !695",
+				"br i1 %cmp.not.i, label %Py_XDECREF.exit, label %if.then.i, !dbg !697"
+			]
+		},
+		{
+			"function": "iter_dealloc",
+			"id": 8,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [9, 11],
+			"ir": [
+				"%op.val.i.i = load i64, ptr %6, align 8, !dbg !704, !tbaa !706",
+				"%7 = and i64 %op.val.i.i, 2147483648, !dbg !712",
+				"%cmp.i.not.i.i = icmp eq i64 %7, 0, !dbg !712",
+				"br i1 %cmp.i.not.i.i, label %if.end.i.i, label %Py_XDECREF.exit, !dbg !713"
+			]
+		},
+		{
+			"function": "iter_dealloc",
+			"id": 9,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [10, 11],
+			"ir": [
+				"%dec.i.i = add i64 %op.val.i.i, -1, !dbg !714",
+				"store i64 %dec.i.i, ptr %6, align 8, !dbg !714, !tbaa !706",
+				"%cmp.i.i = icmp eq i64 %dec.i.i, 0, !dbg !716",
+				"br i1 %cmp.i.i, label %if.then1.i.i, label %Py_XDECREF.exit, !dbg !717"
+			]
+		},
+		{
+			"function": "iter_dealloc",
+			"id": 10,
+			"name": "if.then1.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [11],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %6) #4, !dbg !718",
+				"br label %Py_XDECREF.exit, !dbg !720"
+			]
+		},
+		{
+			"function": "iter_dealloc",
+			"id": 11,
+			"name": "Py_XDECREF.exit",
+			"debug": [
+				{
+					"line": 38, "columns": [5]
+				},
+				{
+					"line": 39, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @PyObject_GC_Del(ptr noundef nonnull %it) #4, !dbg !721",
+				"ret void, !dbg !722"
+			]
+		},
+		{
+			"function": "iter_traverse",
+			"id": 12,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 44, "columns": [5]
+				}
+			],
+			"successors": [14, 13],
+			"ir": [
+				"%it_seq = getelementptr inbounds %struct.seqiterobject, ptr %it, i64 0, i32 2, !dbg !621",
+				"%0 = load ptr, ptr %it_seq, align 8, !dbg !621, !tbaa !622",
+				"%tobool.not = icmp eq ptr %0, null, !dbg !621",
+				"br i1 %tobool.not, label %do.end, label %if.then, !dbg !629"
+			]
+		},
+		{
+			"function": "iter_traverse",
+			"id": 13,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 44, "columns": [5]
+				}
+			],
+			"successors": [14, 15],
+			"ir": [
+				"%call = tail call i32 %visit(ptr noundef nonnull %0, ptr noundef %arg) #4, !dbg !630",
+				"%tobool2.not.not = icmp eq i32 %call, 0, !dbg !632",
+				"br i1 %tobool2.not.not, label %do.end, label %return"
+			]
+		},
+		{
+			"function": "iter_traverse",
+			"id": 14,
+			"name": "do.end",
+			"debug": [
+				{
+					"line": 45, "columns": [5]
+				}
+			],
+			"successors": [15],
+			"ir": [
+				"br label %return, !dbg !634"
+			]
+		},
+		{
+			"function": "iter_traverse",
+			"id": 15,
+			"name": "return",
+			"debug": [
+				{
+					"line": 46, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi i32 [ %call, %if.then ], [ 0, %do.end ], !dbg !620",
+				"ret i32 %retval.1, !dbg !635"
+			]
+		},
+		{
+			"function": "iter_iternext",
+			"id": 16,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 57, "columns": [15]
+				},
+				{
+					"line": 58, "columns": [13, 9]
+				}
+			],
+			"successors": [26, 17],
+			"ir": [
+				"%it_seq = getelementptr inbounds %struct.seqiterobject, ptr %iterator, i64 0, i32 2, !dbg !616",
+				"%0 = load ptr, ptr %it_seq, align 8, !dbg !616, !tbaa !617",
+				"%cmp = icmp eq ptr %0, null, !dbg !624",
+				"br i1 %cmp, label %cleanup, label %if.end, !dbg !626"
+			]
+		},
+		{
+			"function": "iter_iternext",
+			"id": 17,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 60, "columns": [13, 22, 9]
+				}
+			],
+			"successors": [18, 19],
+			"ir": [
+				"%it_index = getelementptr inbounds %struct.seqiterobject, ptr %iterator, i64 0, i32 1, !dbg !627",
+				"%1 = load i64, ptr %it_index, align 8, !dbg !627, !tbaa !629",
+				"%cmp1 = icmp eq i64 %1, 9223372036854775807, !dbg !630",
+				"br i1 %cmp1, label %if.then2, label %if.end3, !dbg !631"
+			]
+		},
+		{
+			"function": "iter_iternext",
+			"id": 18,
+			"name": "if.then2",
+			"debug": [
+				{
+					"line": 61, "columns": [25, 9]
+				},
+				{
+					"line": 63, "columns": [9]
+				}
+			],
+			"successors": [26],
+			"ir": [
+				"%2 = load ptr, ptr @PyExc_OverflowError, align 8, !dbg !632, !tbaa !634",
+				"tail call void @PyErr_SetString(ptr noundef %2, ptr noundef nonnull @.str.4) #4, !dbg !635",
+				"br label %cleanup, !dbg !636"
+			]
+		},
+		{
+			"function": "iter_iternext",
+			"id": 19,
+			"name": "if.end3",
+			"debug": [
+				{
+					"line": 66, "columns": [14]
+				},
+				{
+					"line": 67, "columns": [16, 9]
+				}
+			],
+			"successors": [21, 20],
+			"ir": [
+				"%call = tail call ptr @PySequence_GetItem(ptr noundef nonnull %0, i64 noundef %1) #4, !dbg !637",
+				"%cmp5.not = icmp eq ptr %call, null, !dbg !638",
+				"br i1 %cmp5.not, label %if.end8, label %if.then6, !dbg !640"
+			]
+		},
+		{
+			"function": "iter_iternext",
+			"id": 20,
+			"name": "if.then6",
+			"debug": [
+				{
+					"line": 68, "columns": [21]
+				},
+				{
+					"line": 69, "columns": [9]
+				}
+			],
+			"successors": [26],
+			"ir": [
+				"%3 = load i64, ptr %it_index, align 8, !dbg !641, !tbaa !629",
+				"%inc = add i64 %3, 1, !dbg !641",
+				"store i64 %inc, ptr %it_index, align 8, !dbg !641, !tbaa !629",
+				"br label %cleanup, !dbg !643"
+			]
+		},
+		{
+			"function": "iter_iternext",
+			"id": 21,
+			"name": "if.end8",
+			"debug": [
+				{
+					"line": 71, "columns": [32, 9, 50]
+				}
+			],
+			"successors": [22, 23],
+			"ir": [
+				"%4 = load ptr, ptr @PyExc_IndexError, align 8, !dbg !644, !tbaa !634",
+				"%call9 = tail call i32 @PyErr_ExceptionMatches(ptr noundef %4) #4, !dbg !646",
+				"%tobool.not = icmp eq i32 %call9, 0, !dbg !646",
+				"br i1 %tobool.not, label %lor.lhs.false, label %if.then12, !dbg !647"
+			]
+		},
+		{
+			"function": "iter_iternext",
+			"id": 22,
+			"name": "lor.lhs.false",
+			"debug": [
+				{
+					"line": 71, "columns": [9]
+				},
+				{
+					"line": 72, "columns": [32, 9]
+				}
+			],
+			"successors": [26, 23],
+			"ir": [
+				"%5 = load ptr, ptr @PyExc_StopIteration, align 8, !dbg !648, !tbaa !634",
+				"%call10 = tail call i32 @PyErr_ExceptionMatches(ptr noundef %5) #4, !dbg !649",
+				"%tobool11.not = icmp eq i32 %call10, 0, !dbg !649",
+				"br i1 %tobool11.not, label %cleanup, label %if.then12, !dbg !650"
+			]
+		},
+		{
+			"function": "iter_iternext",
+			"id": 23,
+			"name": "if.then12",
+			"debug": [
+				{
+					"line": 74, "columns": [9]
+				},
+				{
+					"line": 75, "columns": [20]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [24, 26],
+			"ir": [
+				"tail call void @PyErr_Clear() #4, !dbg !651",
+				"store ptr null, ptr %it_seq, align 8, !dbg !653, !tbaa !617",
+				"%op.val.i = load i64, ptr %0, align 8, !dbg !659, !tbaa !661",
+				"%6 = and i64 %op.val.i, 2147483648, !dbg !667",
+				"%cmp.i.not.i = icmp eq i64 %6, 0, !dbg !667",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %cleanup, !dbg !668"
+			]
+		},
+		{
+			"function": "iter_iternext",
+			"id": 24,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [25, 26],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !669",
+				"store i64 %dec.i, ptr %0, align 8, !dbg !669, !tbaa !661",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !671",
+				"br i1 %cmp.i, label %if.then1.i, label %cleanup, !dbg !672"
+			]
+		},
+		{
+			"function": "iter_iternext",
+			"id": 25,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [26],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %0) #4, !dbg !673",
+				"br label %cleanup, !dbg !675"
+			]
+		},
+		{
+			"function": "iter_iternext",
+			"id": 26,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 79, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ null, %if.then2 ], [ %call, %if.then6 ], [ null, %entry ], [ null, %lor.lhs.false ], [ null, %if.then12 ], [ null, %if.end.i ], [ null, %if.then1.i ], !dbg !615",
+				"ret ptr %retval.0, !dbg !676"
+			]
+		},
+		{
+			"function": "PyCallIter_New",
+			"id": 27,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 189, "columns": [10]
+				},
+				{
+					"line": 190, "columns": [12, 9]
+				}
+			],
+			"successors": [33, 28],
+			"ir": [
+				"%call = tail call ptr @_PyObject_GC_New(ptr noundef nonnull @PyCallIter_Type) #4, !dbg !615",
+				"%cmp = icmp eq ptr %call, null, !dbg !616",
+				"br i1 %cmp, label %cleanup, label %if.end, !dbg !618"
+			]
+		},
+		{
+			"function": "PyCallIter_New",
+			"id": 28,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [30, 29],
+			"ir": [
+				"%0 = load i32, ptr %callable, align 8, !dbg !631, !tbaa !632",
+				"%add.i.i = add i32 %0, 1, !dbg !635",
+				"%cmp.i.i = icmp eq i32 %add.i.i, 0, !dbg !636",
+				"br i1 %cmp.i.i, label %_Py_NewRef.exit, label %if.end.i.i, !dbg !638"
+			]
+		},
+		{
+			"function": "PyCallIter_New",
+			"id": 29,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [30],
+			"ir": [
+				"store i32 %add.i.i, ptr %callable, align 8, !dbg !639, !tbaa !632",
+				"br label %_Py_NewRef.exit, !dbg !640"
+			]
+		},
+		{
+			"function": "PyCallIter_New",
+			"id": 30,
+			"name": "_Py_NewRef.exit",
+			"debug": [
+				{
+					"line": 192, "columns": [9, 21]
+				},
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [32, 31],
+			"ir": [
+				"%it_callable = getelementptr inbounds %struct.calliterobject, ptr %call, i64 0, i32 1, !dbg !641",
+				"store ptr %callable, ptr %it_callable, align 8, !dbg !642, !tbaa !643",
+				"%1 = load i32, ptr %sentinel, align 8, !dbg !651, !tbaa !632",
+				"%add.i.i7 = add i32 %1, 1, !dbg !652",
+				"%cmp.i.i8 = icmp eq i32 %add.i.i7, 0, !dbg !653",
+				"br i1 %cmp.i.i8, label %_Py_NewRef.exit10, label %if.end.i.i9, !dbg !654"
+			]
+		},
+		{
+			"function": "PyCallIter_New",
+			"id": 31,
+			"name": "if.end.i.i9",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [32],
+			"ir": [
+				"store i32 %add.i.i7, ptr %sentinel, align 8, !dbg !655, !tbaa !632",
+				"br label %_Py_NewRef.exit10, !dbg !656"
+			]
+		},
+		{
+			"function": "PyCallIter_New",
+			"id": 32,
+			"name": "_Py_NewRef.exit10",
+			"debug": [
+				{
+					"line": 29, "columns": [28]
+				},
+				{
+					"line": 137, "columns": [12]
+				},
+				{
+					"line": 161, "columns": [23]
+				},
+				{
+					"line": 163, "columns": [25, 34, 54, 18]
+				},
+				{
+					"line": 175, "columns": [26, 35, 55, 18]
+				},
+				{
+					"line": 193, "columns": [9, 21]
+				},
+				{
+					"line": 195, "columns": [5]
+				},
+				{
+					"line": 211, "columns": [20]
+				},
+				{
+					"line": 316, "columns": [42]
+				},
+				{
+					"line": 317, "columns": [49, 23]
+				},
+				{
+					"line": 321, "columns": [21, 58, 47, 45, 18]
+				},
+				{
+					"line": 322, "columns": [27]
+				}
+			],
+			"successors": [33],
+			"ir": [
+				"%it_sentinel = getelementptr inbounds %struct.calliterobject, ptr %call, i64 0, i32 2, !dbg !657",
+				"store ptr %sentinel, ptr %it_sentinel, align 8, !dbg !658, !tbaa !659",
+				"%add.ptr.i.i = getelementptr i8, ptr %call, i64 -16, !dbg !6939",
+				"%2 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6940",
+				"%3 = load ptr, ptr %2, align 8, !dbg !6940, !tbaa !6953",
+				"%interp.i.i = getelementptr inbounds %struct._ts, ptr %3, i64 0, i32 2, !dbg !6955",
+				"%4 = load ptr, ptr %interp.i.i, align 8, !dbg !6955, !tbaa !6956",
+				"%young.i = getelementptr inbounds %struct._is, ptr %4, i64 0, i32 13, i32 4, !dbg !6963",
+				"%_gc_prev.i = getelementptr inbounds %struct._is, ptr %4, i64 0, i32 13, i32 4, i32 0, i32 1, !dbg !6964",
+				"%5 = load i64, ptr %_gc_prev.i, align 8, !dbg !6964, !tbaa !6965",
+				"%6 = inttoptr i64 %5 to ptr, !dbg !6967",
+				"%7 = ptrtoint ptr %add.ptr.i.i to i64, !dbg !6977",
+				"%8 = load i64, ptr %6, align 8, !dbg !6978, !tbaa !6979",
+				"%and.i.i = and i64 %8, 3, !dbg !6980",
+				"%or.i.i = or i64 %and.i.i, %7, !dbg !6981",
+				"store i64 %or.i.i, ptr %6, align 8, !dbg !6982, !tbaa !6979",
+				"%_gc_prev.i.i = getelementptr i8, ptr %call, i64 -8, !dbg !6990",
+				"%9 = load i64, ptr %_gc_prev.i.i, align 8, !dbg !6990, !tbaa !6965",
+				"%and.i12.i = and i64 %9, 3, !dbg !6991",
+				"%or.i13.i = or i64 %and.i12.i, %5, !dbg !6992",
+				"store i64 %or.i13.i, ptr %_gc_prev.i.i, align 8, !dbg !6993, !tbaa !6965",
+				"%10 = ptrtoint ptr %young.i to i64, !dbg !6994",
+				"%visited_space.i = getelementptr inbounds %struct._is, ptr %4, i64 0, i32 13, i32 13, !dbg !6995",
+				"%11 = load i32, ptr %visited_space.i, align 8, !dbg !6995, !tbaa !6996",
+				"%conv.i = sext i32 %11 to i64, !dbg !7052",
+				"%or.i = or i64 %conv.i, %10, !dbg !7053",
+				"store i64 %or.i, ptr %add.ptr.i.i, align 8, !dbg !7054, !tbaa !6979",
+				"store i64 %7, ptr %_gc_prev.i, align 8, !dbg !7055, !tbaa !6965",
+				"br label %cleanup, !dbg !7056"
+			]
+		},
+		{
+			"function": "PyCallIter_New",
+			"id": 33,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 196, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret ptr %call, !dbg !7057"
+			]
+		},
+		{
+			"function": "calliter_dealloc",
+			"id": 34,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 29, "columns": [28]
+				},
+				{
+					"line": 157, "columns": [35]
+				},
+				{
+					"line": 158, "columns": [12]
+				},
+				{
+					"line": 163, "columns": [25, 34, 54, 18]
+				},
+				{
+					"line": 168, "columns": [36]
+				},
+				{
+					"line": 169, "columns": [12]
+				},
+				{
+					"line": 175, "columns": [26, 35, 55, 18]
+				},
+				{
+					"line": 201, "columns": [5]
+				},
+				{
+					"line": 351, "columns": [23]
+				},
+				{
+					"line": 352, "columns": [23]
+				},
+				{
+					"line": 355, "columns": [18]
+				},
+				{
+					"line": 356, "columns": [18]
+				},
+				{
+					"line": 1037, "columns": [12, 9]
+				}
+			],
+			"successors": [38, 35],
+			"ir": [
+				"%add.ptr.i.i = getelementptr i8, ptr %it, i64 -16, !dbg !632",
+				"%0 = getelementptr i8, ptr %it, i64 -8, !dbg !633",
+				"%call.val.i = load i64, ptr %0, align 8, !dbg !633, !tbaa !634",
+				"%and.i.i = and i64 %call.val.i, -4, !dbg !647",
+				"%1 = inttoptr i64 %and.i.i to ptr, !dbg !648",
+				"%call.val8.i = load i64, ptr %add.ptr.i.i, align 8, !dbg !649, !tbaa !650",
+				"%and.i9.i = and i64 %call.val8.i, -4, !dbg !657",
+				"%2 = inttoptr i64 %and.i9.i to ptr, !dbg !658",
+				"%3 = load i64, ptr %1, align 8, !dbg !668, !tbaa !650",
+				"%and.i10.i = and i64 %3, 3, !dbg !669",
+				"%or.i.i = or i64 %and.i10.i, %and.i9.i, !dbg !670",
+				"store i64 %or.i.i, ptr %1, align 8, !dbg !671, !tbaa !650",
+				"%_gc_prev.i.i = getelementptr inbounds %struct.PyGC_Head, ptr %2, i64 0, i32 1, !dbg !679",
+				"%4 = load i64, ptr %_gc_prev.i.i, align 8, !dbg !679, !tbaa !634",
+				"%and.i11.i = and i64 %4, 3, !dbg !680",
+				"%or.i12.i = or i64 %and.i11.i, %and.i.i, !dbg !681",
+				"store i64 %or.i12.i, ptr %_gc_prev.i.i, align 8, !dbg !682, !tbaa !634",
+				"store i64 0, ptr %add.ptr.i.i, align 8, !dbg !683, !tbaa !650",
+				"%5 = load i64, ptr %0, align 8, !dbg !684, !tbaa !634",
+				"%and.i = and i64 %5, 1, !dbg !684",
+				"store i64 %and.i, ptr %0, align 8, !dbg !684, !tbaa !634",
+				"%it_callable = getelementptr inbounds %struct.calliterobject, ptr %it, i64 0, i32 1, !dbg !685",
+				"%6 = load ptr, ptr %it_callable, align 8, !dbg !685, !tbaa !686",
+				"%cmp.not.i = icmp eq ptr %6, null, !dbg !695",
+				"br i1 %cmp.not.i, label %Py_XDECREF.exit, label %if.then.i, !dbg !697"
+			]
+		},
+		{
+			"function": "calliter_dealloc",
+			"id": 35,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [36, 38],
+			"ir": [
+				"%op.val.i.i = load i64, ptr %6, align 8, !dbg !704, !tbaa !706",
+				"%7 = and i64 %op.val.i.i, 2147483648, !dbg !712",
+				"%cmp.i.not.i.i = icmp eq i64 %7, 0, !dbg !712",
+				"br i1 %cmp.i.not.i.i, label %if.end.i.i, label %Py_XDECREF.exit, !dbg !713"
+			]
+		},
+		{
+			"function": "calliter_dealloc",
+			"id": 36,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [37, 38],
+			"ir": [
+				"%dec.i.i = add i64 %op.val.i.i, -1, !dbg !714",
+				"store i64 %dec.i.i, ptr %6, align 8, !dbg !714, !tbaa !706",
+				"%cmp.i.i = icmp eq i64 %dec.i.i, 0, !dbg !716",
+				"br i1 %cmp.i.i, label %if.then1.i.i, label %Py_XDECREF.exit, !dbg !717"
+			]
+		},
+		{
+			"function": "calliter_dealloc",
+			"id": 37,
+			"name": "if.then1.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [38],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %6) #4, !dbg !718",
+				"br label %Py_XDECREF.exit, !dbg !720"
+			]
+		},
+		{
+			"function": "calliter_dealloc",
+			"id": 38,
+			"name": "Py_XDECREF.exit",
+			"debug": [
+				{
+					"line": 202, "columns": [5]
+				},
+				{
+					"line": 1037, "columns": [12, 9]
+				}
+			],
+			"successors": [42, 39],
+			"ir": [
+				"%it_sentinel = getelementptr inbounds %struct.calliterobject, ptr %it, i64 0, i32 2, !dbg !721",
+				"%8 = load ptr, ptr %it_sentinel, align 8, !dbg !721, !tbaa !722",
+				"%cmp.not.i4 = icmp eq ptr %8, null, !dbg !725",
+				"br i1 %cmp.not.i4, label %Py_XDECREF.exit12, label %if.then.i7, !dbg !726"
+			]
+		},
+		{
+			"function": "calliter_dealloc",
+			"id": 39,
+			"name": "if.then.i7",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [40, 42],
+			"ir": [
+				"%op.val.i.i5 = load i64, ptr %8, align 8, !dbg !729, !tbaa !706",
+				"%9 = and i64 %op.val.i.i5, 2147483648, !dbg !732",
+				"%cmp.i.not.i.i6 = icmp eq i64 %9, 0, !dbg !732",
+				"br i1 %cmp.i.not.i.i6, label %if.end.i.i10, label %Py_XDECREF.exit12, !dbg !733"
+			]
+		},
+		{
+			"function": "calliter_dealloc",
+			"id": 40,
+			"name": "if.end.i.i10",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [41, 42],
+			"ir": [
+				"%dec.i.i8 = add i64 %op.val.i.i5, -1, !dbg !734",
+				"store i64 %dec.i.i8, ptr %8, align 8, !dbg !734, !tbaa !706",
+				"%cmp.i.i9 = icmp eq i64 %dec.i.i8, 0, !dbg !735",
+				"br i1 %cmp.i.i9, label %if.then1.i.i11, label %Py_XDECREF.exit12, !dbg !736"
+			]
+		},
+		{
+			"function": "calliter_dealloc",
+			"id": 41,
+			"name": "if.then1.i.i11",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [42],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %8) #4, !dbg !737",
+				"br label %Py_XDECREF.exit12, !dbg !738"
+			]
+		},
+		{
+			"function": "calliter_dealloc",
+			"id": 42,
+			"name": "Py_XDECREF.exit12",
+			"debug": [
+				{
+					"line": 203, "columns": [5]
+				},
+				{
+					"line": 204, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @PyObject_GC_Del(ptr noundef nonnull %it) #4, !dbg !739",
+				"ret void, !dbg !740"
+			]
+		},
+		{
+			"function": "calliter_traverse",
+			"id": 43,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 209, "columns": [5]
+				}
+			],
+			"successors": [45, 44],
+			"ir": [
+				"%it_callable = getelementptr inbounds %struct.calliterobject, ptr %it, i64 0, i32 1, !dbg !625",
+				"%0 = load ptr, ptr %it_callable, align 8, !dbg !625, !tbaa !626",
+				"%tobool.not = icmp eq ptr %0, null, !dbg !625",
+				"br i1 %tobool.not, label %do.body5, label %if.then, !dbg !632"
+			]
+		},
+		{
+			"function": "calliter_traverse",
+			"id": 44,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 209, "columns": [5]
+				}
+			],
+			"successors": [45, 48],
+			"ir": [
+				"%call = tail call i32 %visit(ptr noundef nonnull %0, ptr noundef %arg) #4, !dbg !633",
+				"%tobool2.not.not = icmp eq i32 %call, 0, !dbg !635",
+				"br i1 %tobool2.not.not, label %do.body5, label %return"
+			]
+		},
+		{
+			"function": "calliter_traverse",
+			"id": 45,
+			"name": "do.body5",
+			"debug": [
+				{
+					"line": 210, "columns": [5]
+				}
+			],
+			"successors": [47, 46],
+			"ir": [
+				"%it_sentinel = getelementptr inbounds %struct.calliterobject, ptr %it, i64 0, i32 2, !dbg !637",
+				"%1 = load ptr, ptr %it_sentinel, align 8, !dbg !637, !tbaa !638",
+				"%tobool6.not = icmp eq ptr %1, null, !dbg !637",
+				"br i1 %tobool6.not, label %do.end18, label %if.then7, !dbg !639"
+			]
+		},
+		{
+			"function": "calliter_traverse",
+			"id": 46,
+			"name": "if.then7",
+			"debug": [
+				{
+					"line": 210, "columns": [5]
+				}
+			],
+			"successors": [47, 48],
+			"ir": [
+				"%call10 = tail call i32 %visit(ptr noundef nonnull %1, ptr noundef %arg) #4, !dbg !640",
+				"%tobool11.not.not = icmp eq i32 %call10, 0, !dbg !642",
+				"br i1 %tobool11.not.not, label %do.end18, label %return"
+			]
+		},
+		{
+			"function": "calliter_traverse",
+			"id": 47,
+			"name": "do.end18",
+			"debug": [
+				{
+					"line": 211, "columns": [5]
+				}
+			],
+			"successors": [48],
+			"ir": [
+				"br label %return, !dbg !644"
+			]
+		},
+		{
+			"function": "calliter_traverse",
+			"id": 48,
+			"name": "return",
+			"debug": [
+				{
+					"line": 212, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.3 = phi i32 [ %call, %if.then ], [ %call10, %if.then7 ], [ 0, %do.end18 ], !dbg !624",
+				"ret i32 %retval.3, !dbg !645"
+			]
+		},
+		{
+			"function": "calliter_iternext",
+			"id": 49,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 219, "columns": [13, 25, 9]
+				}
+			],
+			"successors": [79, 50],
+			"ir": [
+				"%it_callable = getelementptr inbounds %struct.calliterobject, ptr %it, i64 0, i32 1, !dbg !635",
+				"%0 = load ptr, ptr %it_callable, align 8, !dbg !635, !tbaa !637",
+				"%cmp = icmp eq ptr %0, null, !dbg !643",
+				"br i1 %cmp, label %cleanup48, label %if.end, !dbg !644"
+			]
+		},
+		{
+			"function": "calliter_iternext",
+			"id": 50,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 119, "columns": [24]
+				},
+				{
+					"line": 120, "columns": [10, 9]
+				},
+				{
+					"line": 137, "columns": [12]
+				}
+			],
+			"successors": [52, 51],
+			"ir": [
+				"%1 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6913",
+				"%2 = load ptr, ptr %1, align 8, !dbg !6913, !tbaa !6920",
+				"%3 = getelementptr i8, ptr %0, i64 8, !dbg !6947",
+				"%callable.val.i.i.i = load ptr, ptr %3, align 8, !dbg !6947, !tbaa !6948",
+				"%4 = getelementptr i8, ptr %callable.val.i.i.i, i64 168, !dbg !6949",
+				"%call.val.i.i.i = load i64, ptr %4, align 8, !dbg !6949, !tbaa !6951",
+				"%5 = and i64 %call.val.i.i.i, 2048, !dbg !6949",
+				"%tobool.not.i.i.i = icmp eq i64 %5, 0, !dbg !6949",
+				"br i1 %tobool.not.i.i.i, label %if.then.i.i, label %_PyVectorcall_FunctionInline.exit.i.i, !dbg !6957"
+			]
+		},
+		{
+			"function": "calliter_iternext",
+			"id": 51,
+			"name": "_PyVectorcall_FunctionInline.exit.i.i",
+			"debug": [
+				{
+					"line": 125, "columns": [29]
+				},
+				{
+					"line": 129, "columns": [36, 5]
+				},
+				{
+					"line": 164, "columns": [14, 9]
+				}
+			],
+			"successors": [52, 53],
+			"ir": [
+				"%tp_vectorcall_offset.i.i.i = getelementptr inbounds %struct._typeobject, ptr %callable.val.i.i.i, i64 0, i32 5, !dbg !6958",
+				"%6 = load i64, ptr %tp_vectorcall_offset.i.i.i, align 8, !dbg !6958, !tbaa !6959",
+				"%add.ptr.i.i.i = getelementptr i8, ptr %0, i64 %6, !dbg !6960",
+				"%ptr.0.copyload.i.i.i = load ptr, ptr %add.ptr.i.i.i, align 1, !dbg !6961",
+				"%cmp.i.i = icmp eq ptr %ptr.0.copyload.i.i.i, null, !dbg !6962",
+				"br i1 %cmp.i.i, label %if.then.i.i, label %if.end.i.i, !dbg !6963"
+			]
+		},
+		{
+			"function": "calliter_iternext",
+			"id": 52,
+			"name": "if.then.i.i",
+			"debug": [
+				{
+					"line": 166, "columns": [16]
+				}
+			],
+			"successors": [54],
+			"ir": [
+				"%call2.i.i = tail call ptr @_PyObject_MakeTpCall(ptr noundef %2, ptr noundef nonnull %0, ptr noundef null, i64 noundef 0, ptr noundef null) #4, !dbg !6965",
+				"br label %_PyObject_CallNoArgs.exit"
+			]
+		},
+		{
+			"function": "calliter_iternext",
+			"id": 53,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 168, "columns": [11]
+				},
+				{
+					"line": 169, "columns": [12, 5]
+				}
+			],
+			"successors": [54],
+			"ir": [
+				"%call3.i.i = tail call ptr %ptr.0.copyload.i.i.i(ptr noundef nonnull %0, ptr noundef null, i64 noundef 0, ptr noundef null) #4, !dbg !6966",
+				"%call4.i.i = tail call ptr @_Py_CheckFunctionResult(ptr noundef %2, ptr noundef nonnull %0, ptr noundef %call3.i.i, ptr noundef null) #4, !dbg !6967",
+				"br label %_PyObject_CallNoArgs.exit, !dbg !6968"
+			]
+		},
+		{
+			"function": "calliter_iternext",
+			"id": 54,
+			"name": "_PyObject_CallNoArgs.exit",
+			"debug": [
+				{
+					"line": 224, "columns": [16, 24]
+				}
+			],
+			"successors": [66, 55],
+			"ir": [
+				"%retval.0.i.i = phi ptr [ %call2.i.i, %if.then.i.i ], [ %call4.i.i, %if.end.i.i ], !dbg !6935",
+				"%cmp2.not = icmp eq ptr %retval.0.i.i, null, !dbg !6969",
+				"br i1 %cmp2.not, label %if.else, label %land.lhs.true, !dbg !6970"
+			]
+		},
+		{
+			"function": "calliter_iternext",
+			"id": 55,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 224, "columns": [31, 43, 9]
+				}
+			],
+			"successors": [66, 56],
+			"ir": [
+				"%it_sentinel = getelementptr inbounds %struct.calliterobject, ptr %it, i64 0, i32 2, !dbg !6971",
+				"%7 = load ptr, ptr %it_sentinel, align 8, !dbg !6971, !tbaa !6972",
+				"%cmp3.not = icmp eq ptr %7, null, !dbg !6973",
+				"br i1 %cmp3.not, label %if.else, label %if.then4, !dbg !6974"
+			]
+		},
+		{
+			"function": "calliter_iternext",
+			"id": 56,
+			"name": "if.then4",
+			"debug": [
+				{
+					"line": 227, "columns": [14]
+				},
+				{
+					"line": 228, "columns": [16, 13]
+				}
+			],
+			"successors": [79, 57],
+			"ir": [
+				"%call6 = tail call i32 @PyObject_RichCompareBool(ptr noundef nonnull %7, ptr noundef nonnull %retval.0.i.i, i32 noundef 2) #4, !dbg !6975",
+				"%cmp7.not = icmp eq i32 %call6, 0, !dbg !6977",
+				"br i1 %cmp7.not, label %cleanup48, label %if.end9, !dbg !6979"
+			]
+		},
+		{
+			"function": "calliter_iternext",
+			"id": 57,
+			"name": "if.end9",
+			"debug": [
+				{
+					"line": 232, "columns": [16, 13]
+				}
+			],
+			"successors": [58, 76],
+			"ir": [
+				"%cmp10 = icmp sgt i32 %call6, 0, !dbg !6980",
+				"br i1 %cmp10, label %do.body, label %if.then.i, !dbg !6981"
+			]
+		},
+		{
+			"function": "calliter_iternext",
+			"id": 58,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 233, "columns": [13]
+				}
+			],
+			"successors": [62, 59],
+			"ir": [
+				"%8 = load ptr, ptr %it_callable, align 8, !dbg !6983, !tbaa !6920",
+				"%cmp13.not = icmp eq ptr %8, null, !dbg !6984",
+				"br i1 %cmp13.not, label %if.end15, label %if.then14, !dbg !6983"
+			]
+		},
+		{
+			"function": "calliter_iternext",
+			"id": 59,
+			"name": "if.then14",
+			"debug": [
+				{
+					"line": 233, "columns": [13]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [60, 62],
+			"ir": [
+				"store ptr null, ptr %it_callable, align 8, !dbg !6986, !tbaa !6920",
+				"%op.val.i = load i64, ptr %8, align 8, !dbg !6993, !tbaa !6995",
+				"%9 = and i64 %op.val.i, 2147483648, !dbg !7001",
+				"%cmp.i.not.i = icmp eq i64 %9, 0, !dbg !7001",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %if.end15, !dbg !7002"
+			]
+		},
+		{
+			"function": "calliter_iternext",
+			"id": 60,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [61, 62],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !7003",
+				"store i64 %dec.i, ptr %8, align 8, !dbg !7003, !tbaa !6995",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !7005",
+				"br i1 %cmp.i, label %if.then1.i, label %if.end15, !dbg !7006"
+			]
+		},
+		{
+			"function": "calliter_iternext",
+			"id": 61,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [62],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %8) #4, !dbg !7007",
+				"br label %if.end15, !dbg !7009"
+			]
+		},
+		{
+			"function": "calliter_iternext",
+			"id": 62,
+			"name": "if.end15",
+			"debug": [
+				{
+					"line": 234, "columns": [13]
+				}
+			],
+			"successors": [76, 63],
+			"ir": [
+				"%10 = load ptr, ptr %it_sentinel, align 8, !dbg !7011, !tbaa !6920",
+				"%cmp20.not = icmp eq ptr %10, null, !dbg !7012",
+				"br i1 %cmp20.not, label %if.then.i, label %if.then21, !dbg !7011"
+			]
+		},
+		{
+			"function": "calliter_iternext",
+			"id": 63,
+			"name": "if.then21",
+			"debug": [
+				{
+					"line": 234, "columns": [13]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [64, 76],
+			"ir": [
+				"store ptr null, ptr %it_sentinel, align 8, !dbg !7014, !tbaa !6920",
+				"%op.val.i73 = load i64, ptr %10, align 8, !dbg !7018, !tbaa !6995",
+				"%11 = and i64 %op.val.i73, 2147483648, !dbg !7021",
+				"%cmp.i.not.i74 = icmp eq i64 %11, 0, !dbg !7021",
+				"br i1 %cmp.i.not.i74, label %if.end.i77, label %if.then.i, !dbg !7022"
+			]
+		},
+		{
+			"function": "calliter_iternext",
+			"id": 64,
+			"name": "if.end.i77",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [65, 76],
+			"ir": [
+				"%dec.i75 = add i64 %op.val.i73, -1, !dbg !7023",
+				"store i64 %dec.i75, ptr %10, align 8, !dbg !7023, !tbaa !6995",
+				"%cmp.i76 = icmp eq i64 %dec.i75, 0, !dbg !7024",
+				"br i1 %cmp.i76, label %if.then1.i78, label %if.then.i, !dbg !7025"
+			]
+		},
+		{
+			"function": "calliter_iternext",
+			"id": 65,
+			"name": "if.then1.i78",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [76],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %10) #4, !dbg !7026",
+				"br label %if.then.i, !dbg !7027"
+			]
+		},
+		{
+			"function": "calliter_iternext",
+			"id": 66,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 237, "columns": [37, 14]
+				}
+			],
+			"successors": [75, 67],
+			"ir": [
+				"%12 = load ptr, ptr @PyExc_StopIteration, align 8, !dbg !7028, !tbaa !6920",
+				"%call26 = tail call i32 @PyErr_ExceptionMatches(ptr noundef %12) #4, !dbg !7029",
+				"%tobool.not = icmp eq i32 %call26, 0, !dbg !7029",
+				"br i1 %tobool.not, label %if.end47, label %if.then27, !dbg !7030"
+			]
+		},
+		{
+			"function": "calliter_iternext",
+			"id": 67,
+			"name": "if.then27",
+			"debug": [
+				{
+					"line": 238, "columns": [9]
+				},
+				{
+					"line": 239, "columns": [9]
+				}
+			],
+			"successors": [71, 68],
+			"ir": [
+				"tail call void @PyErr_Clear() #4, !dbg !7031",
+				"%13 = load ptr, ptr %it_callable, align 8, !dbg !7033, !tbaa !6920",
+				"%cmp32.not = icmp eq ptr %13, null, !dbg !7034",
+				"br i1 %cmp32.not, label %if.end34, label %if.then33, !dbg !7033"
+			]
+		},
+		{
+			"function": "calliter_iternext",
+			"id": 68,
+			"name": "if.then33",
+			"debug": [
+				{
+					"line": 239, "columns": [9]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [69, 71],
+			"ir": [
+				"store ptr null, ptr %it_callable, align 8, !dbg !7036, !tbaa !6920",
+				"%op.val.i80 = load i64, ptr %13, align 8, !dbg !7040, !tbaa !6995",
+				"%14 = and i64 %op.val.i80, 2147483648, !dbg !7043",
+				"%cmp.i.not.i81 = icmp eq i64 %14, 0, !dbg !7043",
+				"br i1 %cmp.i.not.i81, label %if.end.i84, label %if.end34, !dbg !7044"
+			]
+		},
+		{
+			"function": "calliter_iternext",
+			"id": 69,
+			"name": "if.end.i84",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [70, 71],
+			"ir": [
+				"%dec.i82 = add i64 %op.val.i80, -1, !dbg !7045",
+				"store i64 %dec.i82, ptr %13, align 8, !dbg !7045, !tbaa !6995",
+				"%cmp.i83 = icmp eq i64 %dec.i82, 0, !dbg !7046",
+				"br i1 %cmp.i83, label %if.then1.i85, label %if.end34, !dbg !7047"
+			]
+		},
+		{
+			"function": "calliter_iternext",
+			"id": 70,
+			"name": "if.then1.i85",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [71],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %13) #4, !dbg !7048",
+				"br label %if.end34, !dbg !7049"
+			]
+		},
+		{
+			"function": "calliter_iternext",
+			"id": 71,
+			"name": "if.end34",
+			"debug": [
+				{
+					"line": 240, "columns": [9]
+				}
+			],
+			"successors": [75, 72],
+			"ir": [
+				"%it_sentinel39 = getelementptr inbounds %struct.calliterobject, ptr %it, i64 0, i32 2, !dbg !7050",
+				"%15 = load ptr, ptr %it_sentinel39, align 8, !dbg !7050, !tbaa !6920",
+				"%cmp41.not = icmp eq ptr %15, null, !dbg !7052",
+				"br i1 %cmp41.not, label %if.end47, label %if.then42, !dbg !7050"
+			]
+		},
+		{
+			"function": "calliter_iternext",
+			"id": 72,
+			"name": "if.then42",
+			"debug": [
+				{
+					"line": 240, "columns": [9]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [73, 75],
+			"ir": [
+				"store ptr null, ptr %it_sentinel39, align 8, !dbg !7054, !tbaa !6920",
+				"%op.val.i87 = load i64, ptr %15, align 8, !dbg !7058, !tbaa !6995",
+				"%16 = and i64 %op.val.i87, 2147483648, !dbg !7061",
+				"%cmp.i.not.i88 = icmp eq i64 %16, 0, !dbg !7061",
+				"br i1 %cmp.i.not.i88, label %if.end.i91, label %if.end47, !dbg !7062"
+			]
+		},
+		{
+			"function": "calliter_iternext",
+			"id": 73,
+			"name": "if.end.i91",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [74, 75],
+			"ir": [
+				"%dec.i89 = add i64 %op.val.i87, -1, !dbg !7063",
+				"store i64 %dec.i89, ptr %15, align 8, !dbg !7063, !tbaa !6995",
+				"%cmp.i90 = icmp eq i64 %dec.i89, 0, !dbg !7064",
+				"br i1 %cmp.i90, label %if.then1.i92, label %if.end47, !dbg !7065"
+			]
+		},
+		{
+			"function": "calliter_iternext",
+			"id": 74,
+			"name": "if.then1.i92",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [75],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %15) #4, !dbg !7066",
+				"br label %if.end47, !dbg !7067"
+			]
+		},
+		{
+			"function": "calliter_iternext",
+			"id": 75,
+			"name": "if.end47",
+			"debug": [
+				{
+					"line": 1037, "columns": [9]
+				}
+			],
+			"successors": [79, 76],
+			"ir": [
+				"br i1 %cmp2.not, label %cleanup48, label %if.then.i, !dbg !7073"
+			]
+		},
+		{
+			"function": "calliter_iternext",
+			"id": 76,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [77, 79],
+			"ir": [
+				"%op.val.i.i = load i64, ptr %retval.0.i.i, align 8, !dbg !7078, !tbaa !6995",
+				"%17 = and i64 %op.val.i.i, 2147483648, !dbg !7081",
+				"%cmp.i.not.i.i = icmp eq i64 %17, 0, !dbg !7081",
+				"br i1 %cmp.i.not.i.i, label %if.end.i.i95, label %cleanup48, !dbg !7082"
+			]
+		},
+		{
+			"function": "calliter_iternext",
+			"id": 77,
+			"name": "if.end.i.i95",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [78, 79],
+			"ir": [
+				"%dec.i.i = add i64 %op.val.i.i, -1, !dbg !7083",
+				"store i64 %dec.i.i, ptr %retval.0.i.i, align 8, !dbg !7083, !tbaa !6995",
+				"%cmp.i.i94 = icmp eq i64 %dec.i.i, 0, !dbg !7084",
+				"br i1 %cmp.i.i94, label %if.then1.i.i, label %cleanup48, !dbg !7085"
+			]
+		},
+		{
+			"function": "calliter_iternext",
+			"id": 78,
+			"name": "if.then1.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [79],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %retval.0.i.i) #4, !dbg !7086",
+				"br label %cleanup48, !dbg !7087"
+			]
+		},
+		{
+			"function": "calliter_iternext",
+			"id": 79,
+			"name": "cleanup48",
+			"debug": [
+				{
+					"line": 244, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %entry ], [ %retval.0.i.i, %if.then4 ], [ null, %if.end47 ], [ null, %if.then.i ], [ null, %if.end.i.i95 ], [ null, %if.then1.i.i ], !dbg !634",
+				"ret ptr %retval.1, !dbg !7088"
+			]
+		},
+		{
+			"function": "anextawaitable_dealloc",
+			"id": 80,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 29, "columns": [28]
+				},
+				{
+					"line": 157, "columns": [35]
+				},
+				{
+					"line": 158, "columns": [12]
+				},
+				{
+					"line": 163, "columns": [25, 34, 54, 18]
+				},
+				{
+					"line": 168, "columns": [36]
+				},
+				{
+					"line": 169, "columns": [12]
+				},
+				{
+					"line": 175, "columns": [26, 35, 55, 18]
+				},
+				{
+					"line": 311, "columns": [5]
+				},
+				{
+					"line": 351, "columns": [23]
+				},
+				{
+					"line": 352, "columns": [23]
+				},
+				{
+					"line": 355, "columns": [18]
+				},
+				{
+					"line": 356, "columns": [18]
+				},
+				{
+					"line": 1037, "columns": [12, 9]
+				}
+			],
+			"successors": [84, 81],
+			"ir": [
+				"%add.ptr.i.i = getelementptr i8, ptr %obj, i64 -16, !dbg !632",
+				"%0 = getelementptr i8, ptr %obj, i64 -8, !dbg !633",
+				"%call.val.i = load i64, ptr %0, align 8, !dbg !633, !tbaa !634",
+				"%and.i.i = and i64 %call.val.i, -4, !dbg !647",
+				"%1 = inttoptr i64 %and.i.i to ptr, !dbg !648",
+				"%call.val8.i = load i64, ptr %add.ptr.i.i, align 8, !dbg !649, !tbaa !650",
+				"%and.i9.i = and i64 %call.val8.i, -4, !dbg !657",
+				"%2 = inttoptr i64 %and.i9.i to ptr, !dbg !658",
+				"%3 = load i64, ptr %1, align 8, !dbg !668, !tbaa !650",
+				"%and.i10.i = and i64 %3, 3, !dbg !669",
+				"%or.i.i = or i64 %and.i10.i, %and.i9.i, !dbg !670",
+				"store i64 %or.i.i, ptr %1, align 8, !dbg !671, !tbaa !650",
+				"%_gc_prev.i.i = getelementptr inbounds %struct.PyGC_Head, ptr %2, i64 0, i32 1, !dbg !679",
+				"%4 = load i64, ptr %_gc_prev.i.i, align 8, !dbg !679, !tbaa !634",
+				"%and.i11.i = and i64 %4, 3, !dbg !680",
+				"%or.i12.i = or i64 %and.i11.i, %and.i.i, !dbg !681",
+				"store i64 %or.i12.i, ptr %_gc_prev.i.i, align 8, !dbg !682, !tbaa !634",
+				"store i64 0, ptr %add.ptr.i.i, align 8, !dbg !683, !tbaa !650",
+				"%5 = load i64, ptr %0, align 8, !dbg !684, !tbaa !634",
+				"%and.i = and i64 %5, 1, !dbg !684",
+				"store i64 %and.i, ptr %0, align 8, !dbg !684, !tbaa !634",
+				"%wrapped = getelementptr inbounds %struct.anextawaitableobject, ptr %obj, i64 0, i32 1, !dbg !685",
+				"%6 = load ptr, ptr %wrapped, align 8, !dbg !685, !tbaa !686",
+				"%cmp.not.i = icmp eq ptr %6, null, !dbg !695",
+				"br i1 %cmp.not.i, label %Py_XDECREF.exit, label %if.then.i, !dbg !697"
+			]
+		},
+		{
+			"function": "anextawaitable_dealloc",
+			"id": 81,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [82, 84],
+			"ir": [
+				"%op.val.i.i = load i64, ptr %6, align 8, !dbg !704, !tbaa !706",
+				"%7 = and i64 %op.val.i.i, 2147483648, !dbg !712",
+				"%cmp.i.not.i.i = icmp eq i64 %7, 0, !dbg !712",
+				"br i1 %cmp.i.not.i.i, label %if.end.i.i, label %Py_XDECREF.exit, !dbg !713"
+			]
+		},
+		{
+			"function": "anextawaitable_dealloc",
+			"id": 82,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [83, 84],
+			"ir": [
+				"%dec.i.i = add i64 %op.val.i.i, -1, !dbg !714",
+				"store i64 %dec.i.i, ptr %6, align 8, !dbg !714, !tbaa !706",
+				"%cmp.i.i = icmp eq i64 %dec.i.i, 0, !dbg !716",
+				"br i1 %cmp.i.i, label %if.then1.i.i, label %Py_XDECREF.exit, !dbg !717"
+			]
+		},
+		{
+			"function": "anextawaitable_dealloc",
+			"id": 83,
+			"name": "if.then1.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [84],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %6) #4, !dbg !718",
+				"br label %Py_XDECREF.exit, !dbg !720"
+			]
+		},
+		{
+			"function": "anextawaitable_dealloc",
+			"id": 84,
+			"name": "Py_XDECREF.exit",
+			"debug": [
+				{
+					"line": 312, "columns": [5]
+				},
+				{
+					"line": 1037, "columns": [12, 9]
+				}
+			],
+			"successors": [88, 85],
+			"ir": [
+				"%default_value = getelementptr inbounds %struct.anextawaitableobject, ptr %obj, i64 0, i32 2, !dbg !721",
+				"%8 = load ptr, ptr %default_value, align 8, !dbg !721, !tbaa !722",
+				"%cmp.not.i4 = icmp eq ptr %8, null, !dbg !725",
+				"br i1 %cmp.not.i4, label %Py_XDECREF.exit12, label %if.then.i7, !dbg !726"
+			]
+		},
+		{
+			"function": "anextawaitable_dealloc",
+			"id": 85,
+			"name": "if.then.i7",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [86, 88],
+			"ir": [
+				"%op.val.i.i5 = load i64, ptr %8, align 8, !dbg !729, !tbaa !706",
+				"%9 = and i64 %op.val.i.i5, 2147483648, !dbg !732",
+				"%cmp.i.not.i.i6 = icmp eq i64 %9, 0, !dbg !732",
+				"br i1 %cmp.i.not.i.i6, label %if.end.i.i10, label %Py_XDECREF.exit12, !dbg !733"
+			]
+		},
+		{
+			"function": "anextawaitable_dealloc",
+			"id": 86,
+			"name": "if.end.i.i10",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [87, 88],
+			"ir": [
+				"%dec.i.i8 = add i64 %op.val.i.i5, -1, !dbg !734",
+				"store i64 %dec.i.i8, ptr %8, align 8, !dbg !734, !tbaa !706",
+				"%cmp.i.i9 = icmp eq i64 %dec.i.i8, 0, !dbg !735",
+				"br i1 %cmp.i.i9, label %if.then1.i.i11, label %Py_XDECREF.exit12, !dbg !736"
+			]
+		},
+		{
+			"function": "anextawaitable_dealloc",
+			"id": 87,
+			"name": "if.then1.i.i11",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [88],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %8) #4, !dbg !737",
+				"br label %Py_XDECREF.exit12, !dbg !738"
+			]
+		},
+		{
+			"function": "anextawaitable_dealloc",
+			"id": 88,
+			"name": "Py_XDECREF.exit12",
+			"debug": [
+				{
+					"line": 313, "columns": [5]
+				},
+				{
+					"line": 314, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @PyObject_GC_Del(ptr noundef nonnull %obj) #4, !dbg !739",
+				"ret void, !dbg !740"
+			]
+		},
+		{
+			"function": "anextawaitable_traverse",
+			"id": 89,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 319, "columns": [5]
+				}
+			],
+			"successors": [91, 90],
+			"ir": [
+				"%wrapped = getelementptr inbounds %struct.anextawaitableobject, ptr %obj, i64 0, i32 1, !dbg !625",
+				"%0 = load ptr, ptr %wrapped, align 8, !dbg !625, !tbaa !626",
+				"%tobool.not = icmp eq ptr %0, null, !dbg !625",
+				"br i1 %tobool.not, label %do.body5, label %if.then, !dbg !632"
+			]
+		},
+		{
+			"function": "anextawaitable_traverse",
+			"id": 90,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 319, "columns": [5]
+				}
+			],
+			"successors": [91, 94],
+			"ir": [
+				"%call = tail call i32 %visit(ptr noundef nonnull %0, ptr noundef %arg) #4, !dbg !633",
+				"%tobool2.not.not = icmp eq i32 %call, 0, !dbg !635",
+				"br i1 %tobool2.not.not, label %do.body5, label %return"
+			]
+		},
+		{
+			"function": "anextawaitable_traverse",
+			"id": 91,
+			"name": "do.body5",
+			"debug": [
+				{
+					"line": 320, "columns": [5]
+				}
+			],
+			"successors": [93, 92],
+			"ir": [
+				"%default_value = getelementptr inbounds %struct.anextawaitableobject, ptr %obj, i64 0, i32 2, !dbg !637",
+				"%1 = load ptr, ptr %default_value, align 8, !dbg !637, !tbaa !638",
+				"%tobool6.not = icmp eq ptr %1, null, !dbg !637",
+				"br i1 %tobool6.not, label %do.end18, label %if.then7, !dbg !639"
+			]
+		},
+		{
+			"function": "anextawaitable_traverse",
+			"id": 92,
+			"name": "if.then7",
+			"debug": [
+				{
+					"line": 320, "columns": [5]
+				}
+			],
+			"successors": [93, 94],
+			"ir": [
+				"%call10 = tail call i32 %visit(ptr noundef nonnull %1, ptr noundef %arg) #4, !dbg !640",
+				"%tobool11.not.not = icmp eq i32 %call10, 0, !dbg !642",
+				"br i1 %tobool11.not.not, label %do.end18, label %return"
+			]
+		},
+		{
+			"function": "anextawaitable_traverse",
+			"id": 93,
+			"name": "do.end18",
+			"debug": [
+				{
+					"line": 321, "columns": [5]
+				}
+			],
+			"successors": [94],
+			"ir": [
+				"br label %return, !dbg !644"
+			]
+		},
+		{
+			"function": "anextawaitable_traverse",
+			"id": 94,
+			"name": "return",
+			"debug": [
+				{
+					"line": 322, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.3 = phi i32 [ %call, %if.then ], [ %call10, %if.then7 ], [ 0, %do.end18 ], !dbg !624",
+				"ret i32 %retval.3, !dbg !645"
+			]
+		},
+		{
+			"function": "anextawaitable_iternext",
+			"id": 95,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 377, "columns": [27]
+				},
+				{
+					"line": 378, "columns": [19, 9]
+				}
+			],
+			"successors": [102, 96],
+			"ir": [
+				"%0 = getelementptr i8, ptr %obj, i64 16, !dbg !617",
+				"%obj.val = load ptr, ptr %0, align 8, !dbg !617, !tbaa !618",
+				"%call = tail call fastcc ptr @anextawaitable_getiter(ptr %obj.val), !dbg !617",
+				"%cmp = icmp eq ptr %call, null, !dbg !624",
+				"br i1 %cmp, label %cleanup10, label %if.end, !dbg !626"
+			]
+		},
+		{
+			"function": "anextawaitable_iternext",
+			"id": 96,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 381, "columns": [26, 46, 24]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [97, 99],
+			"ir": [
+				"%1 = getelementptr i8, ptr %call, i64 8, !dbg !627",
+				"%call.val = load ptr, ptr %1, align 8, !dbg !627, !tbaa !628",
+				"%tp_iternext = getelementptr inbounds %struct._typeobject, ptr %call.val, i64 0, i32 26, !dbg !629",
+				"%2 = load ptr, ptr %tp_iternext, align 8, !dbg !629, !tbaa !630",
+				"%call2 = tail call ptr %2(ptr noundef nonnull %call) #4, !dbg !636",
+				"%op.val.i = load i64, ptr %call, align 8, !dbg !642, !tbaa !644",
+				"%3 = and i64 %op.val.i, 2147483648, !dbg !650",
+				"%cmp.i.not.i = icmp eq i64 %3, 0, !dbg !650",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %Py_DECREF.exit, !dbg !651"
+			]
+		},
+		{
+			"function": "anextawaitable_iternext",
+			"id": 97,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [98, 99],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !652",
+				"store i64 %dec.i, ptr %call, align 8, !dbg !652, !tbaa !644",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !654",
+				"br i1 %cmp.i, label %if.then1.i, label %Py_DECREF.exit, !dbg !655"
+			]
+		},
+		{
+			"function": "anextawaitable_iternext",
+			"id": 98,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [99],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call) #4, !dbg !656",
+				"br label %Py_DECREF.exit, !dbg !658"
+			]
+		},
+		{
+			"function": "anextawaitable_iternext",
+			"id": 99,
+			"name": "Py_DECREF.exit",
+			"debug": [
+				{
+					"line": 383, "columns": [16, 9]
+				}
+			],
+			"successors": [100, 102],
+			"ir": [
+				"%cmp3.not = icmp eq ptr %call2, null, !dbg !659",
+				"br i1 %cmp3.not, label %if.end5, label %cleanup10, !dbg !661"
+			]
+		},
+		{
+			"function": "anextawaitable_iternext",
+			"id": 100,
+			"name": "if.end5",
+			"debug": [
+				{
+					"line": 386, "columns": [32, 9]
+				}
+			],
+			"successors": [102, 101],
+			"ir": [
+				"%4 = load ptr, ptr @PyExc_StopAsyncIteration, align 8, !dbg !662, !tbaa !664",
+				"%call6 = tail call i32 @PyErr_ExceptionMatches(ptr noundef %4) #4, !dbg !665",
+				"%tobool.not = icmp eq i32 %call6, 0, !dbg !665",
+				"br i1 %tobool.not, label %cleanup10, label %if.then7, !dbg !666"
+			]
+		},
+		{
+			"function": "anextawaitable_iternext",
+			"id": 101,
+			"name": "if.then7",
+			"debug": [
+				{
+					"line": 387, "columns": [43, 9]
+				},
+				{
+					"line": 388, "columns": [5]
+				}
+			],
+			"successors": [102],
+			"ir": [
+				"%default_value = getelementptr inbounds %struct.anextawaitableobject, ptr %obj, i64 0, i32 2, !dbg !667",
+				"%5 = load ptr, ptr %default_value, align 8, !dbg !667, !tbaa !669",
+				"%call8 = tail call i32 @_PyGen_SetStopIterationValue(ptr noundef %5) #4, !dbg !670",
+				"br label %cleanup10, !dbg !671"
+			]
+		},
+		{
+			"function": "anextawaitable_iternext",
+			"id": 102,
+			"name": "cleanup10",
+			"debug": [
+				{
+					"line": 390, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %entry ], [ %call2, %Py_DECREF.exit ], [ null, %if.then7 ], [ null, %if.end5 ], !dbg !616",
+				"ret ptr %retval.1, !dbg !672"
+			]
+		},
+		{
+			"function": "PyAnextAwaitable_New",
+			"id": 103,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 503, "columns": [35]
+				},
+				{
+					"line": 505, "columns": [15, 9]
+				}
+			],
+			"successors": [109, 104],
+			"ir": [
+				"%call = tail call ptr @_PyObject_GC_New(ptr noundef nonnull @_PyAnextAwaitable_Type) #4, !dbg !615",
+				"%cmp = icmp eq ptr %call, null, !dbg !616",
+				"br i1 %cmp, label %cleanup, label %if.end, !dbg !618"
+			]
+		},
+		{
+			"function": "PyAnextAwaitable_New",
+			"id": 104,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [106, 105],
+			"ir": [
+				"%0 = load i32, ptr %awaitable, align 8, !dbg !631, !tbaa !632",
+				"%add.i.i = add i32 %0, 1, !dbg !635",
+				"%cmp.i.i = icmp eq i32 %add.i.i, 0, !dbg !636",
+				"br i1 %cmp.i.i, label %_Py_NewRef.exit, label %if.end.i.i, !dbg !638"
+			]
+		},
+		{
+			"function": "PyAnextAwaitable_New",
+			"id": 105,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [106],
+			"ir": [
+				"store i32 %add.i.i, ptr %awaitable, align 8, !dbg !639, !tbaa !632",
+				"br label %_Py_NewRef.exit, !dbg !640"
+			]
+		},
+		{
+			"function": "PyAnextAwaitable_New",
+			"id": 106,
+			"name": "_Py_NewRef.exit",
+			"debug": [
+				{
+					"line": 508, "columns": [12, 20]
+				},
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [108, 107],
+			"ir": [
+				"%wrapped = getelementptr inbounds %struct.anextawaitableobject, ptr %call, i64 0, i32 1, !dbg !641",
+				"store ptr %awaitable, ptr %wrapped, align 8, !dbg !642, !tbaa !643",
+				"%1 = load i32, ptr %default_value, align 8, !dbg !651, !tbaa !632",
+				"%add.i.i8 = add i32 %1, 1, !dbg !652",
+				"%cmp.i.i9 = icmp eq i32 %add.i.i8, 0, !dbg !653",
+				"br i1 %cmp.i.i9, label %_Py_NewRef.exit11, label %if.end.i.i10, !dbg !654"
+			]
+		},
+		{
+			"function": "PyAnextAwaitable_New",
+			"id": 107,
+			"name": "if.end.i.i10",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [108],
+			"ir": [
+				"store i32 %add.i.i8, ptr %default_value, align 8, !dbg !655, !tbaa !632",
+				"br label %_Py_NewRef.exit11, !dbg !656"
+			]
+		},
+		{
+			"function": "PyAnextAwaitable_New",
+			"id": 108,
+			"name": "_Py_NewRef.exit11",
+			"debug": [
+				{
+					"line": 29, "columns": [28]
+				},
+				{
+					"line": 137, "columns": [12]
+				},
+				{
+					"line": 161, "columns": [23]
+				},
+				{
+					"line": 163, "columns": [25, 34, 54, 18]
+				},
+				{
+					"line": 175, "columns": [26, 35, 55, 18]
+				},
+				{
+					"line": 211, "columns": [20]
+				},
+				{
+					"line": 316, "columns": [42]
+				},
+				{
+					"line": 317, "columns": [49, 23]
+				},
+				{
+					"line": 321, "columns": [21, 58, 47, 45, 18]
+				},
+				{
+					"line": 322, "columns": [27]
+				},
+				{
+					"line": 509, "columns": [12, 26]
+				},
+				{
+					"line": 511, "columns": [5]
+				}
+			],
+			"successors": [109],
+			"ir": [
+				"%default_value3 = getelementptr inbounds %struct.anextawaitableobject, ptr %call, i64 0, i32 2, !dbg !657",
+				"store ptr %default_value, ptr %default_value3, align 8, !dbg !658, !tbaa !659",
+				"%add.ptr.i.i = getelementptr i8, ptr %call, i64 -16, !dbg !6939",
+				"%2 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6940",
+				"%3 = load ptr, ptr %2, align 8, !dbg !6940, !tbaa !6953",
+				"%interp.i.i = getelementptr inbounds %struct._ts, ptr %3, i64 0, i32 2, !dbg !6955",
+				"%4 = load ptr, ptr %interp.i.i, align 8, !dbg !6955, !tbaa !6956",
+				"%young.i = getelementptr inbounds %struct._is, ptr %4, i64 0, i32 13, i32 4, !dbg !6963",
+				"%_gc_prev.i = getelementptr inbounds %struct._is, ptr %4, i64 0, i32 13, i32 4, i32 0, i32 1, !dbg !6964",
+				"%5 = load i64, ptr %_gc_prev.i, align 8, !dbg !6964, !tbaa !6965",
+				"%6 = inttoptr i64 %5 to ptr, !dbg !6967",
+				"%7 = ptrtoint ptr %add.ptr.i.i to i64, !dbg !6977",
+				"%8 = load i64, ptr %6, align 8, !dbg !6978, !tbaa !6979",
+				"%and.i.i = and i64 %8, 3, !dbg !6980",
+				"%or.i.i = or i64 %and.i.i, %7, !dbg !6981",
+				"store i64 %or.i.i, ptr %6, align 8, !dbg !6982, !tbaa !6979",
+				"%_gc_prev.i.i = getelementptr i8, ptr %call, i64 -8, !dbg !6990",
+				"%9 = load i64, ptr %_gc_prev.i.i, align 8, !dbg !6990, !tbaa !6965",
+				"%and.i12.i = and i64 %9, 3, !dbg !6991",
+				"%or.i13.i = or i64 %and.i12.i, %5, !dbg !6992",
+				"store i64 %or.i13.i, ptr %_gc_prev.i.i, align 8, !dbg !6993, !tbaa !6965",
+				"%10 = ptrtoint ptr %young.i to i64, !dbg !6994",
+				"%visited_space.i = getelementptr inbounds %struct._is, ptr %4, i64 0, i32 13, i32 13, !dbg !6995",
+				"%11 = load i32, ptr %visited_space.i, align 8, !dbg !6995, !tbaa !6996",
+				"%conv.i = sext i32 %11 to i64, !dbg !7052",
+				"%or.i = or i64 %conv.i, %10, !dbg !7053",
+				"store i64 %or.i, ptr %add.ptr.i.i, align 8, !dbg !7054, !tbaa !6979",
+				"store i64 %7, ptr %_gc_prev.i, align 8, !dbg !7055, !tbaa !6965",
+				"br label %cleanup, !dbg !7056"
+			]
+		},
+		{
+			"function": "PyAnextAwaitable_New",
+			"id": 109,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 512, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret ptr %call, !dbg !7057"
+			]
+		},
+		{
+			"function": "iter_len",
+			"id": 110,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 86, "columns": [13, 9]
+				}
+			],
+			"successors": [115, 111],
+			"ir": [
+				"%it_seq = getelementptr inbounds %struct.seqiterobject, ptr %it, i64 0, i32 2, !dbg !618",
+				"%0 = load ptr, ptr %it_seq, align 8, !dbg !618, !tbaa !620",
+				"%tobool.not = icmp eq ptr %0, null, !dbg !627",
+				"br i1 %tobool.not, label %if.end12, label %if.then, !dbg !628"
+			]
+		},
+		{
+			"function": "iter_len",
+			"id": 111,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 87, "columns": [13]
+				}
+			],
+			"successors": [116, 112],
+			"ir": [
+				"%call = tail call i32 @_PyObject_HasLen(ptr noundef nonnull %0) #4, !dbg !629",
+				"%tobool2.not = icmp eq i32 %call, 0, !dbg !629",
+				"br i1 %tobool2.not, label %cleanup, label %if.then3, !dbg !632"
+			]
+		},
+		{
+			"function": "iter_len",
+			"id": 112,
+			"name": "if.then3",
+			"debug": [
+				{
+					"line": 88, "columns": [43, 23]
+				},
+				{
+					"line": 89, "columns": [25, 17]
+				}
+			],
+			"successors": [116, 113],
+			"ir": [
+				"%1 = load ptr, ptr %it_seq, align 8, !dbg !633, !tbaa !620",
+				"%call5 = tail call i64 @PySequence_Size(ptr noundef %1) #4, !dbg !635",
+				"%cmp = icmp eq i64 %call5, -1, !dbg !636",
+				"br i1 %cmp, label %cleanup, label %if.end7, !dbg !638"
+			]
+		},
+		{
+			"function": "iter_len",
+			"id": 113,
+			"name": "if.end7",
+			"debug": [
+				{
+					"line": 95, "columns": [29, 23]
+				},
+				{
+					"line": 96, "columns": [17, 13]
+				}
+			],
+			"successors": [114, 115],
+			"ir": [
+				"%it_index = getelementptr inbounds %struct.seqiterobject, ptr %it, i64 0, i32 1, !dbg !639",
+				"%2 = load i64, ptr %it_index, align 8, !dbg !639, !tbaa !640",
+				"%sub = sub i64 %call5, %2, !dbg !641",
+				"%cmp8 = icmp sgt i64 %sub, -1, !dbg !642",
+				"br i1 %cmp8, label %if.then9, label %if.end12, !dbg !644"
+			]
+		},
+		{
+			"function": "iter_len",
+			"id": 114,
+			"name": "if.then9",
+			"debug": [
+				{
+					"line": 97, "columns": [20, 13]
+				}
+			],
+			"successors": [116],
+			"ir": [
+				"%call10 = tail call ptr @PyLong_FromSsize_t(i64 noundef %sub) #4, !dbg !645",
+				"br label %cleanup, !dbg !646"
+			]
+		},
+		{
+			"function": "iter_len",
+			"id": 115,
+			"name": "if.end12",
+			"debug": [
+				{
+					"line": 99, "columns": [12, 5]
+				}
+			],
+			"successors": [116],
+			"ir": [
+				"%call13 = tail call ptr @PyLong_FromLong(i64 noundef 0) #4, !dbg !647",
+				"br label %cleanup, !dbg !648"
+			]
+		},
+		{
+			"function": "iter_len",
+			"id": 116,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 100, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call10, %if.then9 ], [ %call13, %if.end12 ], [ null, %if.then3 ], [ @_Py_NotImplementedStruct, %if.then ], !dbg !617",
+				"ret ptr %retval.0, !dbg !649"
+			]
+		},
+		{
+			"function": "iter_reduce",
+			"id": 117,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 107, "columns": [22]
+				},
+				{
+					"line": 113, "columns": [13, 20, 9]
+				}
+			],
+			"successors": [119, 118],
+			"ir": [
+				"%call = tail call ptr @_PyEval_GetBuiltin(ptr noundef nonnull getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 40, i32 0, i32 3, i32 1, i32 450)) #4, !dbg !617",
+				"%it_seq = getelementptr inbounds %struct.seqiterobject, ptr %it, i64 0, i32 2, !dbg !618",
+				"%0 = load ptr, ptr %it_seq, align 8, !dbg !618, !tbaa !620",
+				"%cmp.not = icmp eq ptr %0, null, !dbg !627",
+				"br i1 %cmp.not, label %if.else, label %if.then, !dbg !628"
+			]
+		},
+		{
+			"function": "iter_reduce",
+			"id": 118,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 114, "columns": [61, 16, 9]
+				}
+			],
+			"successors": [120],
+			"ir": [
+				"%it_index = getelementptr inbounds %struct.seqiterobject, ptr %it, i64 0, i32 1, !dbg !629",
+				"%1 = load i64, ptr %it_index, align 8, !dbg !629, !tbaa !630",
+				"%call2 = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.8, ptr noundef %call, ptr noundef nonnull %0, i64 noundef %1) #4, !dbg !631",
+				"br label %cleanup, !dbg !632"
+			]
+		},
+		{
+			"function": "iter_reduce",
+			"id": 119,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 116, "columns": [16, 9]
+				}
+			],
+			"successors": [120],
+			"ir": [
+				"%call3 = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.9, ptr noundef %call) #4, !dbg !633",
+				"br label %cleanup, !dbg !634"
+			]
+		},
+		{
+			"function": "iter_reduce",
+			"id": 120,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 117, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call2, %if.then ], [ %call3, %if.else ], !dbg !635",
+				"ret ptr %retval.0, !dbg !636"
+			]
+		},
+		{
+			"function": "iter_setstate",
+			"id": 121,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 124, "columns": [24]
+				},
+				{
+					"line": 125, "columns": [15, 21]
+				}
+			],
+			"successors": [122, 123],
+			"ir": [
+				"%call = tail call i64 @PyLong_AsSsize_t(ptr noundef %state) #4, !dbg !617",
+				"%cmp = icmp eq i64 %call, -1, !dbg !618",
+				"br i1 %cmp, label %land.lhs.true, label %if.end, !dbg !620"
+			]
+		},
+		{
+			"function": "iter_setstate",
+			"id": 122,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 125, "columns": [24, 9]
+				}
+			],
+			"successors": [123, 125],
+			"ir": [
+				"%call1 = tail call ptr @PyErr_Occurred() #4, !dbg !621",
+				"%tobool.not = icmp eq ptr %call1, null, !dbg !621",
+				"br i1 %tobool.not, label %if.end, label %cleanup, !dbg !622"
+			]
+		},
+		{
+			"function": "iter_setstate",
+			"id": 123,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 127, "columns": [13, 20, 9]
+				}
+			],
+			"successors": [125, 124],
+			"ir": [
+				"%it_seq = getelementptr inbounds %struct.seqiterobject, ptr %it, i64 0, i32 2, !dbg !623",
+				"%0 = load ptr, ptr %it_seq, align 8, !dbg !623, !tbaa !625",
+				"%cmp2.not = icmp eq ptr %0, null, !dbg !632",
+				"br i1 %cmp2.not, label %cleanup, label %if.then3, !dbg !633"
+			]
+		},
+		{
+			"function": "iter_setstate",
+			"id": 124,
+			"name": "if.then3",
+			"debug": [
+				{
+					"line": 128, "columns": [13]
+				},
+				{
+					"line": 130, "columns": [13, 22]
+				},
+				{
+					"line": 131, "columns": [5]
+				}
+			],
+			"successors": [125],
+			"ir": [
+				"%spec.store.select = tail call i64 @llvm.smax.i64(i64 %call, i64 0), !dbg !634",
+				"%it_index = getelementptr inbounds %struct.seqiterobject, ptr %it, i64 0, i32 1, !dbg !636",
+				"store i64 %spec.store.select, ptr %it_index, align 8, !dbg !637, !tbaa !638",
+				"br label %cleanup, !dbg !639"
+			]
+		},
+		{
+			"function": "iter_setstate",
+			"id": 125,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 133, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ null, %land.lhs.true ], [ @_Py_NoneStruct, %if.then3 ], [ @_Py_NoneStruct, %if.end ], !dbg !616",
+				"ret ptr %retval.0, !dbg !640"
+			]
+		},
+		{
+			"function": "calliter_reduce",
+			"id": 126,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 249, "columns": [22]
+				},
+				{
+					"line": 255, "columns": [13, 25, 33]
+				}
+			],
+			"successors": [129, 127],
+			"ir": [
+				"%call = tail call ptr @_PyEval_GetBuiltin(ptr noundef nonnull getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 40, i32 0, i32 3, i32 1, i32 450)) #4, !dbg !617",
+				"%it_callable = getelementptr inbounds %struct.calliterobject, ptr %it, i64 0, i32 1, !dbg !618",
+				"%0 = load ptr, ptr %it_callable, align 8, !dbg !618, !tbaa !620",
+				"%cmp.not = icmp eq ptr %0, null, !dbg !626",
+				"br i1 %cmp.not, label %if.else, label %land.lhs.true, !dbg !627"
+			]
+		},
+		{
+			"function": "calliter_reduce",
+			"id": 127,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 255, "columns": [40, 52, 9]
+				}
+			],
+			"successors": [129, 128],
+			"ir": [
+				"%it_sentinel = getelementptr inbounds %struct.calliterobject, ptr %it, i64 0, i32 2, !dbg !628",
+				"%1 = load ptr, ptr %it_sentinel, align 8, !dbg !628, !tbaa !629",
+				"%cmp1.not = icmp eq ptr %1, null, !dbg !630",
+				"br i1 %cmp1.not, label %if.else, label %if.then, !dbg !631"
+			]
+		},
+		{
+			"function": "calliter_reduce",
+			"id": 128,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 256, "columns": [16, 9]
+				}
+			],
+			"successors": [130],
+			"ir": [
+				"%call4 = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.10, ptr noundef %call, ptr noundef nonnull %0, ptr noundef nonnull %1) #4, !dbg !632",
+				"br label %cleanup, !dbg !633"
+			]
+		},
+		{
+			"function": "calliter_reduce",
+			"id": 129,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 258, "columns": [16, 9]
+				}
+			],
+			"successors": [130],
+			"ir": [
+				"%call5 = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.9, ptr noundef %call) #4, !dbg !634",
+				"br label %cleanup, !dbg !635"
+			]
+		},
+		{
+			"function": "calliter_reduce",
+			"id": 130,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 259, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call4, %if.then ], [ %call5, %if.else ], !dbg !636",
+				"ret ptr %retval.0, !dbg !637"
+			]
+		},
+		{
+			"function": "anextawaitable_getiter",
+			"id": 131,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 328, "columns": [27]
+				},
+				{
+					"line": 329, "columns": [19, 9]
+				}
+			],
+			"successors": [143, 132],
+			"ir": [
+				"%call = tail call ptr @_PyCoro_GetAwaitableIter(ptr noundef %obj.16.val) #4, !dbg !623",
+				"%cmp = icmp eq ptr %call, null, !dbg !624",
+				"br i1 %cmp, label %cleanup14, label %if.end, !dbg !626"
+			]
+		},
+		{
+			"function": "anextawaitable_getiter",
+			"id": 132,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 332, "columns": [9, 29, 41]
+				}
+			],
+			"successors": [133, 143],
+			"ir": [
+				"%0 = getelementptr i8, ptr %call, i64 8, !dbg !627",
+				"%call.val25 = load ptr, ptr %0, align 8, !dbg !627, !tbaa !628",
+				"%tp_iternext = getelementptr inbounds %struct._typeobject, ptr %call.val25, i64 0, i32 26, !dbg !633",
+				"%1 = load ptr, ptr %tp_iternext, align 8, !dbg !633, !tbaa !634",
+				"%cmp2 = icmp eq ptr %1, null, !dbg !640",
+				"br i1 %cmp2, label %if.then3, label %cleanup14, !dbg !641"
+			]
+		},
+		{
+			"function": "anextawaitable_getiter",
+			"id": 133,
+			"name": "if.then3",
+			"debug": [
+				{
+					"line": 337, "columns": [48, 61]
+				},
+				{
+					"line": 338, "columns": [35]
+				},
+				{
+					"line": 339, "columns": [27, 13]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [134, 136],
+			"ir": [
+				"%tp_as_async = getelementptr inbounds %struct._typeobject, ptr %call.val25, i64 0, i32 8, !dbg !642",
+				"%2 = load ptr, ptr %tp_as_async, align 8, !dbg !642, !tbaa !643",
+				"%3 = load ptr, ptr %2, align 8, !dbg !644, !tbaa !645",
+				"%call5 = tail call ptr %3(ptr noundef nonnull %call) #4, !dbg !648",
+				"%cmp6 = icmp eq ptr %call5, null, !dbg !649",
+				"%op.val.i = load i64, ptr %call, align 8, !dbg !651, !tbaa !656",
+				"%4 = and i64 %op.val.i, 2147483648, !dbg !667",
+				"%cmp.i.not.i = icmp eq i64 %4, 0, !dbg !667",
+				"br i1 %cmp6, label %if.then7, label %do.body, !dbg !668"
+			]
+		},
+		{
+			"function": "anextawaitable_getiter",
+			"id": 134,
+			"name": "if.then7",
+			"debug": [
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [135, 143],
+			"ir": [
+				"br i1 %cmp.i.not.i, label %if.end.i, label %cleanup14, !dbg !670"
+			]
+		},
+		{
+			"function": "anextawaitable_getiter",
+			"id": 135,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [142, 143],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !671",
+				"store i64 %dec.i, ptr %call, align 8, !dbg !671, !tbaa !656",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !673",
+				"br i1 %cmp.i, label %cleanup14.sink.split, label %cleanup14, !dbg !674"
+			]
+		},
+		{
+			"function": "anextawaitable_getiter",
+			"id": 136,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [137, 139],
+			"ir": [
+				"br i1 %cmp.i.not.i, label %if.end.i30, label %Py_DECREF.exit32, !dbg !677"
+			]
+		},
+		{
+			"function": "anextawaitable_getiter",
+			"id": 137,
+			"name": "if.end.i30",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [138, 139],
+			"ir": [
+				"%dec.i28 = add i64 %op.val.i, -1, !dbg !678",
+				"store i64 %dec.i28, ptr %call, align 8, !dbg !678, !tbaa !656",
+				"%cmp.i29 = icmp eq i64 %dec.i28, 0, !dbg !679",
+				"br i1 %cmp.i29, label %if.then1.i31, label %Py_DECREF.exit32, !dbg !680"
+			]
+		},
+		{
+			"function": "anextawaitable_getiter",
+			"id": 138,
+			"name": "if.then1.i31",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [139],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call) #4, !dbg !681",
+				"br label %Py_DECREF.exit32, !dbg !683"
+			]
+		},
+		{
+			"function": "anextawaitable_getiter",
+			"id": 139,
+			"name": "Py_DECREF.exit32",
+			"debug": [
+				{
+					"line": 344, "columns": [14, 13]
+				}
+			],
+			"successors": [140, 143],
+			"ir": [
+				"%call9 = tail call i32 @PyIter_Check(ptr noundef nonnull %call5) #4, !dbg !684",
+				"%tobool.not = icmp eq i32 %call9, 0, !dbg !684",
+				"br i1 %tobool.not, label %if.then10, label %cleanup14, !dbg !686"
+			]
+		},
+		{
+			"function": "anextawaitable_getiter",
+			"id": 140,
+			"name": "if.then10",
+			"debug": [
+				{
+					"line": 345, "columns": [29, 13]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [141, 143],
+			"ir": [
+				"%5 = load ptr, ptr @PyExc_TypeError, align 8, !dbg !687, !tbaa !689",
+				"tail call void @PyErr_SetString(ptr noundef %5, ptr noundef nonnull @.str.11) #4, !dbg !690",
+				"%op.val.i33 = load i64, ptr %call5, align 8, !dbg !693, !tbaa !656",
+				"%6 = and i64 %op.val.i33, 2147483648, !dbg !696",
+				"%cmp.i.not.i34 = icmp eq i64 %6, 0, !dbg !696",
+				"br i1 %cmp.i.not.i34, label %if.end.i37, label %cleanup14, !dbg !697"
+			]
+		},
+		{
+			"function": "anextawaitable_getiter",
+			"id": 141,
+			"name": "if.end.i37",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [142, 143],
+			"ir": [
+				"%dec.i35 = add i64 %op.val.i33, -1, !dbg !698",
+				"store i64 %dec.i35, ptr %call5, align 8, !dbg !698, !tbaa !656",
+				"%cmp.i36 = icmp eq i64 %dec.i35, 0, !dbg !699",
+				"br i1 %cmp.i36, label %cleanup14.sink.split, label %cleanup14, !dbg !700"
+			]
+		},
+		{
+			"function": "anextawaitable_getiter",
+			"id": 142,
+			"name": "cleanup14.sink.split",
+			"debug": [
+				{
+					"line": 352, "columns": [1]
+				},
+				{
+					"line": 945, "columns": [9]
+				}
+			],
+			"successors": [143],
+			"ir": [
+				"%call5.sink = phi ptr [ %call, %if.end.i ], [ %call5, %if.end.i37 ]",
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call5.sink) #4, !dbg !701",
+				"br label %cleanup14, !dbg !702"
+			]
+		},
+		{
+			"function": "anextawaitable_getiter",
+			"id": 143,
+			"name": "cleanup14",
+			"debug": [
+				{
+					"line": 352, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %entry ], [ %call, %if.end ], [ %call5, %Py_DECREF.exit32 ], [ null, %if.then7 ], [ null, %if.end.i ], [ null, %if.then10 ], [ null, %if.end.i37 ], [ null, %cleanup14.sink.split ], !dbg !622",
+				"ret ptr %retval.1, !dbg !702"
+			]
+		},
+		{
+			"function": "anextawaitable_send",
+			"id": 144,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 395, "columns": [27]
+				},
+				{
+					"line": 396, "columns": [19, 9]
+				}
+			],
+			"successors": [151, 145],
+			"ir": [
+				"%0 = getelementptr i8, ptr %obj, i64 16, !dbg !627",
+				"%obj.val.i = load ptr, ptr %0, align 8, !dbg !627, !tbaa !628",
+				"%call.i = tail call fastcc ptr @anextawaitable_getiter(ptr %obj.val.i), !dbg !627",
+				"%cmp.i = icmp eq ptr %call.i, null, !dbg !634",
+				"br i1 %cmp.i, label %anextawaitable_proxy.exit, label %if.end.i, !dbg !636"
+			]
+		},
+		{
+			"function": "anextawaitable_send",
+			"id": 145,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 399, "columns": [21]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [146, 148],
+			"ir": [
+				"%call1.i = tail call ptr (ptr, ptr, ptr, ...) @PyObject_CallMethod(ptr noundef nonnull %call.i, ptr noundef nonnull @.str.12, ptr noundef nonnull @.str.15, ptr noundef %arg) #4, !dbg !637",
+				"%op.val.i.i = load i64, ptr %call.i, align 8, !dbg !643, !tbaa !645",
+				"%1 = and i64 %op.val.i.i, 2147483648, !dbg !651",
+				"%cmp.i.not.i.i = icmp eq i64 %1, 0, !dbg !651",
+				"br i1 %cmp.i.not.i.i, label %if.end.i.i, label %Py_DECREF.exit.i, !dbg !652"
+			]
+		},
+		{
+			"function": "anextawaitable_send",
+			"id": 146,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [147, 148],
+			"ir": [
+				"%dec.i.i = add i64 %op.val.i.i, -1, !dbg !653",
+				"store i64 %dec.i.i, ptr %call.i, align 8, !dbg !653, !tbaa !645",
+				"%cmp.i.i = icmp eq i64 %dec.i.i, 0, !dbg !655",
+				"br i1 %cmp.i.i, label %if.then1.i.i, label %Py_DECREF.exit.i, !dbg !656"
+			]
+		},
+		{
+			"function": "anextawaitable_send",
+			"id": 147,
+			"name": "if.then1.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [148],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i) #4, !dbg !657",
+				"br label %Py_DECREF.exit.i, !dbg !659"
+			]
+		},
+		{
+			"function": "anextawaitable_send",
+			"id": 148,
+			"name": "Py_DECREF.exit.i",
+			"debug": [
+				{
+					"line": 401, "columns": [13, 9]
+				}
+			],
+			"successors": [149, 151],
+			"ir": [
+				"%cmp2.not.i = icmp eq ptr %call1.i, null, !dbg !660",
+				"br i1 %cmp2.not.i, label %if.end4.i, label %anextawaitable_proxy.exit, !dbg !662"
+			]
+		},
+		{
+			"function": "anextawaitable_send",
+			"id": 149,
+			"name": "if.end4.i",
+			"debug": [
+				{
+					"line": 404, "columns": [32, 9]
+				}
+			],
+			"successors": [151, 150],
+			"ir": [
+				"%2 = load ptr, ptr @PyExc_StopAsyncIteration, align 8, !dbg !663, !tbaa !665",
+				"%call5.i = tail call i32 @PyErr_ExceptionMatches(ptr noundef %2) #4, !dbg !666",
+				"%tobool.not.i = icmp eq i32 %call5.i, 0, !dbg !666",
+				"br i1 %tobool.not.i, label %anextawaitable_proxy.exit, label %if.then6.i, !dbg !667"
+			]
+		},
+		{
+			"function": "anextawaitable_send",
+			"id": 150,
+			"name": "if.then6.i",
+			"debug": [
+				{
+					"line": 410, "columns": [43, 9]
+				},
+				{
+					"line": 411, "columns": [5]
+				}
+			],
+			"successors": [151],
+			"ir": [
+				"%default_value.i = getelementptr inbounds %struct.anextawaitableobject, ptr %obj, i64 0, i32 2, !dbg !668",
+				"%3 = load ptr, ptr %default_value.i, align 8, !dbg !668, !tbaa !670",
+				"%call7.i = tail call i32 @_PyGen_SetStopIterationValue(ptr noundef %3) #4, !dbg !671",
+				"br label %anextawaitable_proxy.exit, !dbg !672"
+			]
+		},
+		{
+			"function": "anextawaitable_send",
+			"id": 151,
+			"name": "anextawaitable_proxy.exit",
+			"debug": [
+				{
+					"line": 418, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1.i = phi ptr [ null, %entry ], [ %call1.i, %Py_DECREF.exit.i ], [ null, %if.then6.i ], [ null, %if.end4.i ], !dbg !625",
+				"ret ptr %retval.1.i, !dbg !673"
+			]
+		},
+		{
+			"function": "anextawaitable_throw",
+			"id": 152,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 395, "columns": [27]
+				},
+				{
+					"line": 396, "columns": [19, 9]
+				}
+			],
+			"successors": [159, 153],
+			"ir": [
+				"%0 = getelementptr i8, ptr %obj, i64 16, !dbg !627",
+				"%obj.val.i = load ptr, ptr %0, align 8, !dbg !627, !tbaa !628",
+				"%call.i = tail call fastcc ptr @anextawaitable_getiter(ptr %obj.val.i), !dbg !627",
+				"%cmp.i = icmp eq ptr %call.i, null, !dbg !634",
+				"br i1 %cmp.i, label %anextawaitable_proxy.exit, label %if.end.i, !dbg !636"
+			]
+		},
+		{
+			"function": "anextawaitable_throw",
+			"id": 153,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 399, "columns": [21]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [154, 156],
+			"ir": [
+				"%call1.i = tail call ptr (ptr, ptr, ptr, ...) @PyObject_CallMethod(ptr noundef nonnull %call.i, ptr noundef nonnull @.str.13, ptr noundef nonnull @.str.15, ptr noundef %arg) #4, !dbg !637",
+				"%op.val.i.i = load i64, ptr %call.i, align 8, !dbg !643, !tbaa !645",
+				"%1 = and i64 %op.val.i.i, 2147483648, !dbg !651",
+				"%cmp.i.not.i.i = icmp eq i64 %1, 0, !dbg !651",
+				"br i1 %cmp.i.not.i.i, label %if.end.i.i, label %Py_DECREF.exit.i, !dbg !652"
+			]
+		},
+		{
+			"function": "anextawaitable_throw",
+			"id": 154,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [155, 156],
+			"ir": [
+				"%dec.i.i = add i64 %op.val.i.i, -1, !dbg !653",
+				"store i64 %dec.i.i, ptr %call.i, align 8, !dbg !653, !tbaa !645",
+				"%cmp.i.i = icmp eq i64 %dec.i.i, 0, !dbg !655",
+				"br i1 %cmp.i.i, label %if.then1.i.i, label %Py_DECREF.exit.i, !dbg !656"
+			]
+		},
+		{
+			"function": "anextawaitable_throw",
+			"id": 155,
+			"name": "if.then1.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [156],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i) #4, !dbg !657",
+				"br label %Py_DECREF.exit.i, !dbg !659"
+			]
+		},
+		{
+			"function": "anextawaitable_throw",
+			"id": 156,
+			"name": "Py_DECREF.exit.i",
+			"debug": [
+				{
+					"line": 401, "columns": [13, 9]
+				}
+			],
+			"successors": [157, 159],
+			"ir": [
+				"%cmp2.not.i = icmp eq ptr %call1.i, null, !dbg !660",
+				"br i1 %cmp2.not.i, label %if.end4.i, label %anextawaitable_proxy.exit, !dbg !662"
+			]
+		},
+		{
+			"function": "anextawaitable_throw",
+			"id": 157,
+			"name": "if.end4.i",
+			"debug": [
+				{
+					"line": 404, "columns": [32, 9]
+				}
+			],
+			"successors": [159, 158],
+			"ir": [
+				"%2 = load ptr, ptr @PyExc_StopAsyncIteration, align 8, !dbg !663, !tbaa !665",
+				"%call5.i = tail call i32 @PyErr_ExceptionMatches(ptr noundef %2) #4, !dbg !666",
+				"%tobool.not.i = icmp eq i32 %call5.i, 0, !dbg !666",
+				"br i1 %tobool.not.i, label %anextawaitable_proxy.exit, label %if.then6.i, !dbg !667"
+			]
+		},
+		{
+			"function": "anextawaitable_throw",
+			"id": 158,
+			"name": "if.then6.i",
+			"debug": [
+				{
+					"line": 410, "columns": [43, 9]
+				},
+				{
+					"line": 411, "columns": [5]
+				}
+			],
+			"successors": [159],
+			"ir": [
+				"%default_value.i = getelementptr inbounds %struct.anextawaitableobject, ptr %obj, i64 0, i32 2, !dbg !668",
+				"%3 = load ptr, ptr %default_value.i, align 8, !dbg !668, !tbaa !670",
+				"%call7.i = tail call i32 @_PyGen_SetStopIterationValue(ptr noundef %3) #4, !dbg !671",
+				"br label %anextawaitable_proxy.exit, !dbg !672"
+			]
+		},
+		{
+			"function": "anextawaitable_throw",
+			"id": 159,
+			"name": "anextawaitable_proxy.exit",
+			"debug": [
+				{
+					"line": 424, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1.i = phi ptr [ null, %entry ], [ %call1.i, %Py_DECREF.exit.i ], [ null, %if.then6.i ], [ null, %if.end4.i ], !dbg !625",
+				"ret ptr %retval.1.i, !dbg !673"
+			]
+		},
+		{
+			"function": "anextawaitable_close",
+			"id": 160,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 395, "columns": [27]
+				},
+				{
+					"line": 396, "columns": [19, 9]
+				}
+			],
+			"successors": [167, 161],
+			"ir": [
+				"%0 = getelementptr i8, ptr %obj, i64 16, !dbg !627",
+				"%obj.val.i = load ptr, ptr %0, align 8, !dbg !627, !tbaa !628",
+				"%call.i = tail call fastcc ptr @anextawaitable_getiter(ptr %obj.val.i), !dbg !627",
+				"%cmp.i = icmp eq ptr %call.i, null, !dbg !634",
+				"br i1 %cmp.i, label %anextawaitable_proxy.exit, label %if.end.i, !dbg !636"
+			]
+		},
+		{
+			"function": "anextawaitable_close",
+			"id": 161,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 399, "columns": [21]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [162, 164],
+			"ir": [
+				"%call1.i = tail call ptr (ptr, ptr, ptr, ...) @PyObject_CallMethod(ptr noundef nonnull %call.i, ptr noundef nonnull @.str.14, ptr noundef nonnull @.str.15, ptr noundef %arg) #4, !dbg !637",
+				"%op.val.i.i = load i64, ptr %call.i, align 8, !dbg !643, !tbaa !645",
+				"%1 = and i64 %op.val.i.i, 2147483648, !dbg !651",
+				"%cmp.i.not.i.i = icmp eq i64 %1, 0, !dbg !651",
+				"br i1 %cmp.i.not.i.i, label %if.end.i.i, label %Py_DECREF.exit.i, !dbg !652"
+			]
+		},
+		{
+			"function": "anextawaitable_close",
+			"id": 162,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [163, 164],
+			"ir": [
+				"%dec.i.i = add i64 %op.val.i.i, -1, !dbg !653",
+				"store i64 %dec.i.i, ptr %call.i, align 8, !dbg !653, !tbaa !645",
+				"%cmp.i.i = icmp eq i64 %dec.i.i, 0, !dbg !655",
+				"br i1 %cmp.i.i, label %if.then1.i.i, label %Py_DECREF.exit.i, !dbg !656"
+			]
+		},
+		{
+			"function": "anextawaitable_close",
+			"id": 163,
+			"name": "if.then1.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [164],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i) #4, !dbg !657",
+				"br label %Py_DECREF.exit.i, !dbg !659"
+			]
+		},
+		{
+			"function": "anextawaitable_close",
+			"id": 164,
+			"name": "Py_DECREF.exit.i",
+			"debug": [
+				{
+					"line": 401, "columns": [13, 9]
+				}
+			],
+			"successors": [165, 167],
+			"ir": [
+				"%cmp2.not.i = icmp eq ptr %call1.i, null, !dbg !660",
+				"br i1 %cmp2.not.i, label %if.end4.i, label %anextawaitable_proxy.exit, !dbg !662"
+			]
+		},
+		{
+			"function": "anextawaitable_close",
+			"id": 165,
+			"name": "if.end4.i",
+			"debug": [
+				{
+					"line": 404, "columns": [32, 9]
+				}
+			],
+			"successors": [167, 166],
+			"ir": [
+				"%2 = load ptr, ptr @PyExc_StopAsyncIteration, align 8, !dbg !663, !tbaa !665",
+				"%call5.i = tail call i32 @PyErr_ExceptionMatches(ptr noundef %2) #4, !dbg !666",
+				"%tobool.not.i = icmp eq i32 %call5.i, 0, !dbg !666",
+				"br i1 %tobool.not.i, label %anextawaitable_proxy.exit, label %if.then6.i, !dbg !667"
+			]
+		},
+		{
+			"function": "anextawaitable_close",
+			"id": 166,
+			"name": "if.then6.i",
+			"debug": [
+				{
+					"line": 410, "columns": [43, 9]
+				},
+				{
+					"line": 411, "columns": [5]
+				}
+			],
+			"successors": [167],
+			"ir": [
+				"%default_value.i = getelementptr inbounds %struct.anextawaitableobject, ptr %obj, i64 0, i32 2, !dbg !668",
+				"%3 = load ptr, ptr %default_value.i, align 8, !dbg !668, !tbaa !670",
+				"%call7.i = tail call i32 @_PyGen_SetStopIterationValue(ptr noundef %3) #4, !dbg !671",
+				"br label %anextawaitable_proxy.exit, !dbg !672"
+			]
+		},
+		{
+			"function": "anextawaitable_close",
+			"id": 167,
+			"name": "anextawaitable_proxy.exit",
+			"debug": [
+				{
+					"line": 430, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1.i = phi ptr [ null, %entry ], [ %call1.i, %Py_DECREF.exit.i ], [ null, %if.then6.i ], [ null, %if.end4.i ], !dbg !625",
+				"ret ptr %retval.1.i, !dbg !673"
+			]
+		}
+	]
+}

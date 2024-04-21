@@ -1,0 +1,744 @@
+{
+	"blocks": [
+		{
+			"function": "_PyTestLimitedCAPI_Init_ByteArray",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 118, "columns": [9]
+				},
+				{
+					"line": 123, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call i32 @PyModule_AddFunctions(ptr noundef %m, ptr noundef nonnull @test_methods) #5, !dbg !136",
+				"%call.lobit = ashr i32 %call, 31, !dbg !135",
+				"ret i32 %call.lobit, !dbg !138"
+			]
+		},
+		{
+			"function": "bytearray_check",
+			"id": 1,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 9, "columns": [5]
+				},
+				{
+					"line": 10, "columns": [28]
+				},
+				{
+					"line": 365, "columns": [24]
+				},
+				{
+					"line": 538, "columns": [33]
+				}
+			],
+			"successors": [3, 2],
+			"ir": [
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !135",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !138",
+				"%0 = getelementptr i8, ptr %spec.store.select, i64 8, !dbg !139",
+				"%spec.store.select.val = load ptr, ptr %0, align 8, !dbg !139, !tbaa !140",
+				"%cmp.i.not.i = icmp eq ptr %spec.store.select.val, @PyByteArray_Type, !dbg !159",
+				"br i1 %cmp.i.not.i, label %PyObject_TypeCheck.exit, label %lor.rhs.i, !dbg !160"
+			]
+		},
+		{
+			"function": "bytearray_check",
+			"id": 2,
+			"name": "lor.rhs.i",
+			"debug": [
+				{
+					"line": 538, "columns": [36, 33]
+				}
+			],
+			"successors": [3],
+			"ir": [
+				"%call2.i = tail call i32 @PyType_IsSubtype(ptr noundef %spec.store.select.val, ptr noundef nonnull @PyByteArray_Type) #5, !dbg !161",
+				"%tobool3.i = icmp ne i32 %call2.i, 0, !dbg !160",
+				"%1 = zext i1 %tobool3.i to i64",
+				"br label %PyObject_TypeCheck.exit, !dbg !160"
+			]
+		},
+		{
+			"function": "bytearray_check",
+			"id": 3,
+			"name": "PyObject_TypeCheck.exit",
+			"debug": [
+				{
+					"line": 10, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%lor.ext.i = phi i64 [ 1, %entry ], [ %1, %lor.rhs.i ]",
+				"%call1 = tail call ptr @PyLong_FromLong(i64 noundef %lor.ext.i) #5, !dbg !162",
+				"ret ptr %call1, !dbg !163"
+			]
+		},
+		{
+			"function": "bytearray_checkexact",
+			"id": 4,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 17, "columns": [5]
+				},
+				{
+					"line": 18, "columns": [28, 12, 5]
+				},
+				{
+					"line": 365, "columns": [24]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !135",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !138",
+				"%0 = getelementptr i8, ptr %spec.store.select, i64 8, !dbg !139",
+				"%spec.store.select.val = load ptr, ptr %0, align 8, !dbg !139, !tbaa !140",
+				"%cmp.i = icmp eq ptr %spec.store.select.val, @PyByteArray_Type, !dbg !153",
+				"%conv = zext i1 %cmp.i to i64",
+				"%call1 = tail call ptr @PyLong_FromLong(i64 noundef %conv) #5, !dbg !154",
+				"ret ptr %call1, !dbg !155"
+			]
+		},
+		{
+			"function": "bytearray_fromstringandsize",
+			"id": 5,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 25, "columns": [5]
+				},
+				{
+					"line": 26, "columns": [5]
+				},
+				{
+					"line": 27, "columns": [5, 16]
+				},
+				{
+					"line": 29, "columns": [10, 9]
+				}
+			],
+			"successors": [9, 6],
+			"ir": [
+				"%s = alloca ptr, align 8",
+				"%bsize = alloca i64, align 8",
+				"%size = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %s) #5, !dbg !138",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %bsize) #5, !dbg !139",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %size) #5, !dbg !140",
+				"store i64 -100, ptr %size, align 8, !dbg !141, !tbaa !142",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.8, ptr noundef nonnull %s, ptr noundef nonnull %bsize, ptr noundef nonnull %size) #5, !dbg !146",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !146",
+				"br i1 %tobool.not, label %cleanup, label %if.end, !dbg !148"
+			]
+		},
+		{
+			"function": "bytearray_fromstringandsize",
+			"id": 6,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 33, "columns": [9, 14]
+				}
+			],
+			"successors": [7, 8],
+			"ir": [
+				"%0 = load i64, ptr %size, align 8, !dbg !149, !tbaa !142",
+				"%cmp = icmp eq i64 %0, -100, !dbg !151",
+				"br i1 %cmp, label %if.then1, label %if.end2, !dbg !152"
+			]
+		},
+		{
+			"function": "bytearray_fromstringandsize",
+			"id": 7,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 34, "columns": [16, 14]
+				},
+				{
+					"line": 35, "columns": [5]
+				}
+			],
+			"successors": [8],
+			"ir": [
+				"%1 = load i64, ptr %bsize, align 8, !dbg !153, !tbaa !142",
+				"store i64 %1, ptr %size, align 8, !dbg !155, !tbaa !142",
+				"br label %if.end2, !dbg !156"
+			]
+		},
+		{
+			"function": "bytearray_fromstringandsize",
+			"id": 8,
+			"name": "if.end2",
+			"debug": [
+				{
+					"line": 36, "columns": [45, 42, 12, 5]
+				}
+			],
+			"successors": [9],
+			"ir": [
+				"%2 = phi i64 [ %1, %if.then1 ], [ %0, %if.end ], !dbg !157",
+				"%3 = load ptr, ptr %s, align 8, !dbg !158, !tbaa !159",
+				"%call3 = call ptr @PyByteArray_FromStringAndSize(ptr noundef %3, i64 noundef %2) #5, !dbg !161",
+				"br label %cleanup, !dbg !162"
+			]
+		},
+		{
+			"function": "bytearray_fromstringandsize",
+			"id": 9,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 37, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call3, %if.end2 ], [ null, %entry ], !dbg !137",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %size) #5, !dbg !163",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %bsize) #5, !dbg !163",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %s) #5, !dbg !163",
+				"ret ptr %retval.0, !dbg !163"
+			]
+		},
+		{
+			"function": "bytearray_fromobject",
+			"id": 10,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 43, "columns": [5]
+				},
+				{
+					"line": 44, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%cmp = icmp eq ptr %arg, @_Py_NoneStruct, !dbg !135",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %arg, !dbg !138",
+				"%call = tail call ptr @PyByteArray_FromObject(ptr noundef %spec.store.select) #5, !dbg !139",
+				"ret ptr %call, !dbg !140"
+			]
+		},
+		{
+			"function": "bytearray_size",
+			"id": 11,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 51, "columns": [5]
+				},
+				{
+					"line": 52, "columns": [5]
+				}
+			],
+			"successors": [12, 14],
+			"ir": [
+				"%cmp = icmp eq ptr %arg, @_Py_NoneStruct, !dbg !137",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %arg, !dbg !140",
+				"%call = tail call i64 @PyByteArray_Size(ptr noundef %spec.store.select) #5, !dbg !141",
+				"%cmp2 = icmp eq i64 %call, -1, !dbg !143",
+				"%call4 = tail call ptr @PyErr_Occurred() #5, !dbg !141",
+				"%tobool.not = icmp eq ptr %call4, null, !dbg !141",
+				"br i1 %cmp2, label %if.then3, label %if.end5, !dbg !141"
+			]
+		},
+		{
+			"function": "bytearray_size",
+			"id": 12,
+			"name": "if.then3",
+			"debug": [
+				{
+					"line": 52, "columns": [5]
+				}
+			],
+			"successors": [13, 17],
+			"ir": [
+				"br i1 %tobool.not, label %cond.false, label %cleanup, !dbg !145"
+			]
+		},
+		{
+			"function": "bytearray_size",
+			"id": 13,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 52, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.9, ptr noundef nonnull @.str.10, i32 noundef 52, ptr noundef nonnull @__PRETTY_FUNCTION__.bytearray_size) #6, !dbg !145",
+				"unreachable, !dbg !145"
+			]
+		},
+		{
+			"function": "bytearray_size",
+			"id": 14,
+			"name": "if.end5",
+			"debug": [
+				{
+					"line": 52, "columns": [5]
+				}
+			],
+			"successors": [16, 15],
+			"ir": [
+				"br i1 %tobool.not, label %cond.end10, label %cond.false9, !dbg !141"
+			]
+		},
+		{
+			"function": "bytearray_size",
+			"id": 15,
+			"name": "cond.false9",
+			"debug": [
+				{
+					"line": 52, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.11, ptr noundef nonnull @.str.10, i32 noundef 52, ptr noundef nonnull @__PRETTY_FUNCTION__.bytearray_size) #6, !dbg !141",
+				"unreachable, !dbg !141"
+			]
+		},
+		{
+			"function": "bytearray_size",
+			"id": 16,
+			"name": "cond.end10",
+			"debug": [
+				{
+					"line": 52, "columns": [5]
+				}
+			],
+			"successors": [17],
+			"ir": [
+				"%call11 = tail call ptr @PyLong_FromSsize_t(i64 noundef %call) #5, !dbg !141",
+				"br label %cleanup, !dbg !141"
+			]
+		},
+		{
+			"function": "bytearray_size",
+			"id": 17,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 52, "columns": [5]
+				},
+				{
+					"line": 53, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call11, %cond.end10 ], [ null, %if.then3 ], !dbg !141",
+				"ret ptr %retval.0, !dbg !147"
+			]
+		},
+		{
+			"function": "bytearray_asstring",
+			"id": 18,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 59, "columns": [5]
+				},
+				{
+					"line": 60, "columns": [5]
+				},
+				{
+					"line": 63, "columns": [10, 9]
+				}
+			],
+			"successors": [23, 19],
+			"ir": [
+				"%obj = alloca ptr, align 8",
+				"%buflen = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %obj) #5, !dbg !138",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %buflen) #5, !dbg !139",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.12, ptr noundef nonnull %obj, ptr noundef nonnull %buflen) #5, !dbg !140",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !140",
+				"br i1 %tobool.not, label %cleanup, label %do.body, !dbg !142"
+			]
+		},
+		{
+			"function": "bytearray_asstring",
+			"id": 19,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 66, "columns": [5]
+				}
+			],
+			"successors": [20, 21],
+			"ir": [
+				"%0 = load ptr, ptr %obj, align 8, !dbg !143, !tbaa !146",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !143",
+				"br i1 %cmp, label %if.then1, label %do.end, !dbg !150"
+			]
+		},
+		{
+			"function": "bytearray_asstring",
+			"id": 20,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 66, "columns": [5]
+				}
+			],
+			"successors": [21],
+			"ir": [
+				"store ptr null, ptr %obj, align 8, !dbg !151, !tbaa !146",
+				"br label %do.end, !dbg !151"
+			]
+		},
+		{
+			"function": "bytearray_asstring",
+			"id": 21,
+			"name": "do.end",
+			"debug": [
+				{
+					"line": 67, "columns": [30, 9]
+				},
+				{
+					"line": 68, "columns": [11, 9]
+				}
+			],
+			"successors": [23, 22],
+			"ir": [
+				"%1 = phi ptr [ null, %if.then1 ], [ %0, %do.body ], !dbg !153",
+				"%call3 = call ptr @PyByteArray_AsString(ptr noundef %1) #5, !dbg !154",
+				"%cmp4 = icmp eq ptr %call3, null, !dbg !155",
+				"br i1 %cmp4, label %cleanup, label %if.end6, !dbg !157"
+			]
+		},
+		{
+			"function": "bytearray_asstring",
+			"id": 22,
+			"name": "if.end6",
+			"debug": [
+				{
+					"line": 71, "columns": [45, 12, 5]
+				}
+			],
+			"successors": [23],
+			"ir": [
+				"%2 = load i64, ptr %buflen, align 8, !dbg !158, !tbaa !159",
+				"%call7 = call ptr @PyByteArray_FromStringAndSize(ptr noundef nonnull %call3, i64 noundef %2) #5, !dbg !161",
+				"br label %cleanup, !dbg !162"
+			]
+		},
+		{
+			"function": "bytearray_asstring",
+			"id": 23,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 72, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call7, %if.end6 ], [ null, %entry ], [ null, %do.end ], !dbg !137",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %buflen) #5, !dbg !163",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %obj) #5, !dbg !163",
+				"ret ptr %retval.0, !dbg !163"
+			]
+		},
+		{
+			"function": "bytearray_concat",
+			"id": 24,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 78, "columns": [5]
+				},
+				{
+					"line": 80, "columns": [10, 9]
+				}
+			],
+			"successors": [30, 25],
+			"ir": [
+				"%left = alloca ptr, align 8",
+				"%right = alloca ptr, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %left) #5, !dbg !137",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %right) #5, !dbg !137",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.13, ptr noundef nonnull %left, ptr noundef nonnull %right) #5, !dbg !138",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !138",
+				"br i1 %tobool.not, label %cleanup, label %do.body, !dbg !140"
+			]
+		},
+		{
+			"function": "bytearray_concat",
+			"id": 25,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 83, "columns": [5]
+				}
+			],
+			"successors": [26, 27],
+			"ir": [
+				"%0 = load ptr, ptr %left, align 8, !dbg !141, !tbaa !144",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !141",
+				"br i1 %cmp, label %if.then1, label %do.body3, !dbg !148"
+			]
+		},
+		{
+			"function": "bytearray_concat",
+			"id": 26,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 83, "columns": [5]
+				}
+			],
+			"successors": [27],
+			"ir": [
+				"store ptr null, ptr %left, align 8, !dbg !149, !tbaa !144",
+				"br label %do.body3, !dbg !149"
+			]
+		},
+		{
+			"function": "bytearray_concat",
+			"id": 27,
+			"name": "do.body3",
+			"debug": [
+				{
+					"line": 84, "columns": [5]
+				}
+			],
+			"successors": [28, 29],
+			"ir": [
+				"%1 = phi ptr [ %0, %do.body ], [ null, %if.then1 ]",
+				"%2 = load ptr, ptr %right, align 8, !dbg !151, !tbaa !144",
+				"%cmp4 = icmp eq ptr %2, @_Py_NoneStruct, !dbg !151",
+				"br i1 %cmp4, label %if.then5, label %do.end8, !dbg !154"
+			]
+		},
+		{
+			"function": "bytearray_concat",
+			"id": 28,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 84, "columns": [5]
+				}
+			],
+			"successors": [29],
+			"ir": [
+				"store ptr null, ptr %right, align 8, !dbg !155, !tbaa !144",
+				"br label %do.end8, !dbg !155"
+			]
+		},
+		{
+			"function": "bytearray_concat",
+			"id": 29,
+			"name": "do.end8",
+			"debug": [
+				{
+					"line": 85, "columns": [37, 12, 5]
+				}
+			],
+			"successors": [30],
+			"ir": [
+				"%3 = phi ptr [ null, %if.then5 ], [ %2, %do.body3 ], !dbg !157",
+				"%call9 = call ptr @PyByteArray_Concat(ptr noundef %1, ptr noundef %3) #5, !dbg !158",
+				"br label %cleanup, !dbg !159"
+			]
+		},
+		{
+			"function": "bytearray_concat",
+			"id": 30,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 86, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call9, %do.end8 ], [ null, %entry ], !dbg !136",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %right) #5, !dbg !160",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %left) #5, !dbg !160",
+				"ret ptr %retval.0, !dbg !160"
+			]
+		},
+		{
+			"function": "bytearray_resize",
+			"id": 31,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 92, "columns": [5]
+				},
+				{
+					"line": 93, "columns": [5]
+				},
+				{
+					"line": 95, "columns": [10, 9]
+				}
+			],
+			"successors": [40, 32],
+			"ir": [
+				"%obj = alloca ptr, align 8",
+				"%size = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %obj) #5, !dbg !139",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %size) #5, !dbg !140",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.12, ptr noundef nonnull %obj, ptr noundef nonnull %size) #5, !dbg !141",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !141",
+				"br i1 %tobool.not, label %cleanup18, label %do.body, !dbg !143"
+			]
+		},
+		{
+			"function": "bytearray_resize",
+			"id": 32,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 98, "columns": [5]
+				}
+			],
+			"successors": [33, 34],
+			"ir": [
+				"%0 = load ptr, ptr %obj, align 8, !dbg !144, !tbaa !147",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !144",
+				"br i1 %cmp, label %if.then1, label %do.body3, !dbg !151"
+			]
+		},
+		{
+			"function": "bytearray_resize",
+			"id": 33,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 98, "columns": [5]
+				}
+			],
+			"successors": [34],
+			"ir": [
+				"store ptr null, ptr %obj, align 8, !dbg !152, !tbaa !147",
+				"br label %do.body3, !dbg !152"
+			]
+		},
+		{
+			"function": "bytearray_resize",
+			"id": 34,
+			"name": "do.body3",
+			"debug": [
+				{
+					"line": 99, "columns": [5]
+				}
+			],
+			"successors": [35, 37],
+			"ir": [
+				"%1 = phi ptr [ %0, %do.body ], [ null, %if.then1 ], !dbg !154",
+				"%2 = load i64, ptr %size, align 8, !dbg !154, !tbaa !155",
+				"%call4 = call i32 @PyByteArray_Resize(ptr noundef %1, i64 noundef %2) #5, !dbg !154",
+				"%cmp5 = icmp eq i32 %call4, -1, !dbg !158",
+				"%call7 = call ptr @PyErr_Occurred() #5, !dbg !154",
+				"%tobool8.not = icmp eq ptr %call7, null, !dbg !154",
+				"br i1 %cmp5, label %if.then6, label %if.end9, !dbg !154"
+			]
+		},
+		{
+			"function": "bytearray_resize",
+			"id": 35,
+			"name": "if.then6",
+			"debug": [
+				{
+					"line": 99, "columns": [5]
+				}
+			],
+			"successors": [36, 40],
+			"ir": [
+				"br i1 %tobool8.not, label %cond.false, label %cleanup18, !dbg !160"
+			]
+		},
+		{
+			"function": "bytearray_resize",
+			"id": 36,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 99, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.9, ptr noundef nonnull @.str.10, i32 noundef 99, ptr noundef nonnull @__PRETTY_FUNCTION__.bytearray_resize) #6, !dbg !160",
+				"unreachable, !dbg !160"
+			]
+		},
+		{
+			"function": "bytearray_resize",
+			"id": 37,
+			"name": "if.end9",
+			"debug": [
+				{
+					"line": 99, "columns": [5]
+				}
+			],
+			"successors": [39, 38],
+			"ir": [
+				"br i1 %tobool8.not, label %cond.end14, label %cond.false13, !dbg !154"
+			]
+		},
+		{
+			"function": "bytearray_resize",
+			"id": 38,
+			"name": "cond.false13",
+			"debug": [
+				{
+					"line": 99, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.11, ptr noundef nonnull @.str.10, i32 noundef 99, ptr noundef nonnull @__PRETTY_FUNCTION__.bytearray_resize) #6, !dbg !154",
+				"unreachable, !dbg !154"
+			]
+		},
+		{
+			"function": "bytearray_resize",
+			"id": 39,
+			"name": "cond.end14",
+			"debug": [
+				{
+					"line": 99, "columns": [5]
+				}
+			],
+			"successors": [40],
+			"ir": [
+				"%conv = sext i32 %call4 to i64, !dbg !154",
+				"%call15 = call ptr @PyLong_FromLong(i64 noundef %conv) #5, !dbg !154",
+				"br label %cleanup18, !dbg !154"
+			]
+		},
+		{
+			"function": "bytearray_resize",
+			"id": 40,
+			"name": "cleanup18",
+			"debug": [
+				{
+					"line": 100, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %entry ], [ %call15, %cond.end14 ], [ null, %if.then6 ], !dbg !138",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %size) #5, !dbg !162",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %obj) #5, !dbg !162",
+				"ret ptr %retval.1, !dbg !162"
+			]
+		}
+	]
+}

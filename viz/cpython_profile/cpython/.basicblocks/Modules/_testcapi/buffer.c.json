@@ -1,0 +1,651 @@
+{
+	"blocks": [
+		{
+			"function": "_PyTestCapi_Init_Buffer",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 96, "columns": [9, 36]
+				}
+			],
+			"successors": [2, 1],
+			"ir": [
+				"%call = tail call i32 @PyType_Ready(ptr noundef nonnull @testBufType) #4, !dbg !407",
+				"%cmp = icmp slt i32 %call, 0, !dbg !409",
+				"br i1 %cmp, label %return, label %if.end, !dbg !410"
+			]
+		},
+		{
+			"function": "_PyTestCapi_Init_Buffer",
+			"id": 1,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 99, "columns": [9]
+				}
+			],
+			"successors": [2],
+			"ir": [
+				"%call1 = tail call i32 @PyModule_AddObjectRef(ptr noundef %m, ptr noundef nonnull @.str, ptr noundef nonnull @testBufType) #4, !dbg !411",
+				"%tobool.not = icmp ne i32 %call1, 0, !dbg !411",
+				"%. = sext i1 %tobool.not to i32, !dbg !406",
+				"br label %return, !dbg !406"
+			]
+		},
+		{
+			"function": "_PyTestCapi_Init_Buffer",
+			"id": 2,
+			"name": "return",
+			"debug": [
+				{
+					"line": 104, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ -1, %entry ], [ %., %if.end ], !dbg !406",
+				"ret i32 %retval.0, !dbg !413"
+			]
+		},
+		{
+			"function": "testbuf_dealloc",
+			"id": 3,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 48, "columns": [5]
+				},
+				{
+					"line": 49, "columns": [5]
+				},
+				{
+					"line": 1037, "columns": [12, 9]
+				}
+			],
+			"successors": [7, 4],
+			"ir": [
+				"tail call void @PyObject_GC_UnTrack(ptr noundef %self) #4, !dbg !409",
+				"%obj = getelementptr inbounds %struct.testBufObject, ptr %self, i64 0, i32 1, !dbg !410",
+				"%0 = load ptr, ptr %obj, align 8, !dbg !410, !tbaa !411",
+				"%cmp.not.i = icmp eq ptr %0, null, !dbg !423",
+				"br i1 %cmp.not.i, label %Py_XDECREF.exit, label %if.then.i, !dbg !425"
+			]
+		},
+		{
+			"function": "testbuf_dealloc",
+			"id": 4,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [5, 7],
+			"ir": [
+				"%op.val.i.i = load i64, ptr %0, align 8, !dbg !432, !tbaa !434",
+				"%1 = and i64 %op.val.i.i, 2147483648, !dbg !440",
+				"%cmp.i.not.i.i = icmp eq i64 %1, 0, !dbg !440",
+				"br i1 %cmp.i.not.i.i, label %if.end.i.i, label %Py_XDECREF.exit, !dbg !441"
+			]
+		},
+		{
+			"function": "testbuf_dealloc",
+			"id": 5,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [6, 7],
+			"ir": [
+				"%dec.i.i = add i64 %op.val.i.i, -1, !dbg !442",
+				"store i64 %dec.i.i, ptr %0, align 8, !dbg !442, !tbaa !434",
+				"%cmp.i.i = icmp eq i64 %dec.i.i, 0, !dbg !444",
+				"br i1 %cmp.i.i, label %if.then1.i.i, label %Py_XDECREF.exit, !dbg !445"
+			]
+		},
+		{
+			"function": "testbuf_dealloc",
+			"id": 6,
+			"name": "if.then1.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [7],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %0) #4, !dbg !446",
+				"br label %Py_XDECREF.exit, !dbg !448"
+			]
+		},
+		{
+			"function": "testbuf_dealloc",
+			"id": 7,
+			"name": "Py_XDECREF.exit",
+			"debug": [
+				{
+					"line": 50, "columns": [5, 20]
+				},
+				{
+					"line": 51, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%2 = getelementptr i8, ptr %self, i64 8, !dbg !449",
+				"%self.val = load ptr, ptr %2, align 8, !dbg !449, !tbaa !450",
+				"%tp_free = getelementptr inbounds %struct._typeobject, ptr %self.val, i64 0, i32 38, !dbg !451",
+				"%3 = load ptr, ptr %tp_free, align 8, !dbg !451, !tbaa !452",
+				"tail call void %3(ptr noundef nonnull %self) #4, !dbg !449",
+				"ret void, !dbg !457"
+			]
+		},
+		{
+			"function": "testbuf_traverse",
+			"id": 8,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 34, "columns": [5]
+				}
+			],
+			"successors": [10, 9],
+			"ir": [
+				"%obj = getelementptr inbounds %struct.testBufObject, ptr %self, i64 0, i32 1, !dbg !415",
+				"%0 = load ptr, ptr %obj, align 8, !dbg !415, !tbaa !416",
+				"%tobool.not = icmp eq ptr %0, null, !dbg !415",
+				"br i1 %tobool.not, label %do.end, label %if.then, !dbg !423"
+			]
+		},
+		{
+			"function": "testbuf_traverse",
+			"id": 9,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 34, "columns": [5]
+				}
+			],
+			"successors": [10, 11],
+			"ir": [
+				"%call = tail call i32 %visit(ptr noundef nonnull %0, ptr noundef %arg) #4, !dbg !424",
+				"%tobool2.not.not = icmp eq i32 %call, 0, !dbg !426",
+				"br i1 %tobool2.not.not, label %do.end, label %return"
+			]
+		},
+		{
+			"function": "testbuf_traverse",
+			"id": 10,
+			"name": "do.end",
+			"debug": [
+				{
+					"line": 35, "columns": [5]
+				}
+			],
+			"successors": [11],
+			"ir": [
+				"br label %return, !dbg !428"
+			]
+		},
+		{
+			"function": "testbuf_traverse",
+			"id": 11,
+			"name": "return",
+			"debug": [
+				{
+					"line": 36, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi i32 [ %call, %if.then ], [ 0, %do.end ], !dbg !414",
+				"ret i32 %retval.1, !dbg !429"
+			]
+		},
+		{
+			"function": "testbuf_clear",
+			"id": 12,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 41, "columns": [5]
+				}
+			],
+			"successors": [16, 13],
+			"ir": [
+				"%obj = getelementptr inbounds %struct.testBufObject, ptr %self, i64 0, i32 1, !dbg !412",
+				"%0 = load ptr, ptr %obj, align 8, !dbg !412, !tbaa !414",
+				"%cmp.not = icmp eq ptr %0, null, !dbg !418",
+				"br i1 %cmp.not, label %if.end, label %if.then, !dbg !412"
+			]
+		},
+		{
+			"function": "testbuf_clear",
+			"id": 13,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 41, "columns": [5]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [14, 16],
+			"ir": [
+				"store ptr null, ptr %obj, align 8, !dbg !420, !tbaa !414",
+				"%op.val.i = load i64, ptr %0, align 8, !dbg !427, !tbaa !429",
+				"%1 = and i64 %op.val.i, 2147483648, !dbg !435",
+				"%cmp.i.not.i = icmp eq i64 %1, 0, !dbg !435",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %if.end, !dbg !436"
+			]
+		},
+		{
+			"function": "testbuf_clear",
+			"id": 14,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [15, 16],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !437",
+				"store i64 %dec.i, ptr %0, align 8, !dbg !437, !tbaa !429",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !439",
+				"br i1 %cmp.i, label %if.then1.i, label %if.end, !dbg !440"
+			]
+		},
+		{
+			"function": "testbuf_clear",
+			"id": 15,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [16],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %0) #4, !dbg !441",
+				"br label %if.end, !dbg !443"
+			]
+		},
+		{
+			"function": "testbuf_clear",
+			"id": 16,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 42, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret i32 0, !dbg !444"
+			]
+		},
+		{
+			"function": "testbuf_new",
+			"id": 17,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 17, "columns": [21]
+				},
+				{
+					"line": 18, "columns": [13, 9]
+				}
+			],
+			"successors": [23, 18],
+			"ir": [
+				"%call = tail call ptr @PyBytes_FromString(ptr noundef nonnull @.str.5) #4, !dbg !411",
+				"%cmp = icmp eq ptr %call, null, !dbg !412",
+				"br i1 %cmp, label %cleanup6, label %if.end, !dbg !414"
+			]
+		},
+		{
+			"function": "testbuf_new",
+			"id": 18,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 21, "columns": [50, 44]
+				},
+				{
+					"line": 22, "columns": [14, 9]
+				}
+			],
+			"successors": [19, 22],
+			"ir": [
+				"%tp_alloc = getelementptr inbounds %struct._typeobject, ptr %type, i64 0, i32 36, !dbg !415",
+				"%0 = load ptr, ptr %tp_alloc, align 8, !dbg !415, !tbaa !416",
+				"%call1 = tail call ptr %0(ptr noundef %type, i64 noundef 0) #4, !dbg !426",
+				"%cmp2 = icmp eq ptr %call1, null, !dbg !427",
+				"br i1 %cmp2, label %if.then3, label %if.end4, !dbg !429"
+			]
+		},
+		{
+			"function": "testbuf_new",
+			"id": 19,
+			"name": "if.then3",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [20, 23],
+			"ir": [
+				"%op.val.i = load i64, ptr %call, align 8, !dbg !436, !tbaa !438",
+				"%1 = and i64 %op.val.i, 2147483648, !dbg !444",
+				"%cmp.i.not.i = icmp eq i64 %1, 0, !dbg !444",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %cleanup6, !dbg !445"
+			]
+		},
+		{
+			"function": "testbuf_new",
+			"id": 20,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [21, 23],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !446",
+				"store i64 %dec.i, ptr %call, align 8, !dbg !446, !tbaa !438",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !448",
+				"br i1 %cmp.i, label %if.then1.i, label %cleanup6, !dbg !449"
+			]
+		},
+		{
+			"function": "testbuf_new",
+			"id": 21,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [23],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call) #4, !dbg !450",
+				"br label %cleanup6, !dbg !452"
+			]
+		},
+		{
+			"function": "testbuf_new",
+			"id": 22,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 26, "columns": [11, 15]
+				},
+				{
+					"line": 27, "columns": [11, 22]
+				},
+				{
+					"line": 28, "columns": [5]
+				}
+			],
+			"successors": [23],
+			"ir": [
+				"%obj5 = getelementptr inbounds %struct.testBufObject, ptr %call1, i64 0, i32 1, !dbg !453",
+				"store ptr %call, ptr %obj5, align 8, !dbg !454, !tbaa !455",
+				"%references = getelementptr inbounds %struct.testBufObject, ptr %call1, i64 0, i32 2, !dbg !457",
+				"store i64 0, ptr %references, align 8, !dbg !458, !tbaa !459",
+				"br label %cleanup6, !dbg !460"
+			]
+		},
+		{
+			"function": "testbuf_new",
+			"id": 23,
+			"name": "cleanup6",
+			"debug": [
+				{
+					"line": 29, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %entry ], [ %call1, %if.end4 ], [ null, %if.then3 ], [ null, %if.end.i ], [ null, %if.then1.i ], !dbg !410",
+				"ret ptr %retval.1, !dbg !461"
+			]
+		},
+		{
+			"function": "testbuf_getbuf",
+			"id": 24,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 56, "columns": [40, 15]
+				},
+				{
+					"line": 57, "columns": [13, 9]
+				}
+			],
+			"successors": [25, 31],
+			"ir": [
+				"%obj = getelementptr inbounds %struct.testBufObject, ptr %self, i64 0, i32 1, !dbg !417",
+				"%0 = load ptr, ptr %obj, align 8, !dbg !417, !tbaa !418",
+				"%call = tail call i32 @PyObject_GetBuffer(ptr noundef %0, ptr noundef %view, i32 noundef %flags) #4, !dbg !425",
+				"%cmp = icmp eq i32 %call, 0, !dbg !426",
+				"br i1 %cmp, label %do.body, label %if.end, !dbg !427"
+			]
+		},
+		{
+			"function": "testbuf_getbuf",
+			"id": 25,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 58, "columns": [9]
+				},
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [27, 26],
+			"ir": [
+				"%obj1 = getelementptr inbounds %struct.Py_buffer, ptr %view, i64 0, i32 1, !dbg !428",
+				"%1 = load ptr, ptr %obj1, align 8, !dbg !428, !tbaa !430",
+				"%2 = load i32, ptr %self, align 8, !dbg !443, !tbaa !444",
+				"%add.i.i = add i32 %2, 1, !dbg !445",
+				"%cmp.i.i = icmp eq i32 %add.i.i, 0, !dbg !446",
+				"br i1 %cmp.i.i, label %_Py_NewRef.exit, label %if.end.i.i, !dbg !448"
+			]
+		},
+		{
+			"function": "testbuf_getbuf",
+			"id": 26,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [27],
+			"ir": [
+				"store i32 %add.i.i, ptr %self, align 8, !dbg !449, !tbaa !444",
+				"br label %_Py_NewRef.exit, !dbg !450"
+			]
+		},
+		{
+			"function": "testbuf_getbuf",
+			"id": 27,
+			"name": "_Py_NewRef.exit",
+			"debug": [
+				{
+					"line": 58, "columns": [9]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [28, 30],
+			"ir": [
+				"store ptr %self, ptr %obj1, align 8, !dbg !428, !tbaa !430",
+				"%op.val.i = load i64, ptr %1, align 8, !dbg !456, !tbaa !444",
+				"%3 = and i64 %op.val.i, 2147483648, !dbg !463",
+				"%cmp.i.not.i = icmp eq i64 %3, 0, !dbg !463",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %Py_DECREF.exit, !dbg !464"
+			]
+		},
+		{
+			"function": "testbuf_getbuf",
+			"id": 28,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [29, 30],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !465",
+				"store i64 %dec.i, ptr %1, align 8, !dbg !465, !tbaa !444",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !467",
+				"br i1 %cmp.i, label %if.then1.i, label %Py_DECREF.exit, !dbg !468"
+			]
+		},
+		{
+			"function": "testbuf_getbuf",
+			"id": 29,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [30],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %1) #4, !dbg !469",
+				"br label %Py_DECREF.exit, !dbg !471"
+			]
+		},
+		{
+			"function": "testbuf_getbuf",
+			"id": 30,
+			"name": "Py_DECREF.exit",
+			"debug": [
+				{
+					"line": 59, "columns": [15, 25]
+				},
+				{
+					"line": 60, "columns": [5]
+				}
+			],
+			"successors": [31],
+			"ir": [
+				"%references = getelementptr inbounds %struct.testBufObject, ptr %self, i64 0, i32 2, !dbg !472",
+				"%4 = load i64, ptr %references, align 8, !dbg !473, !tbaa !474",
+				"%inc = add i64 %4, 1, !dbg !473",
+				"store i64 %inc, ptr %references, align 8, !dbg !473, !tbaa !474",
+				"br label %if.end, !dbg !475"
+			]
+		},
+		{
+			"function": "testbuf_getbuf",
+			"id": 31,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 61, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret i32 %call, !dbg !476"
+			]
+		},
+		{
+			"function": "testbuf_releasebuf",
+			"id": 32,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 67, "columns": [11, 21]
+				},
+				{
+					"line": 68, "columns": [5]
+				}
+			],
+			"successors": [34, 33],
+			"ir": [
+				"%references = getelementptr inbounds %struct.testBufObject, ptr %self, i64 0, i32 2, !dbg !410",
+				"%0 = load i64, ptr %references, align 8, !dbg !411, !tbaa !412",
+				"%dec = add i64 %0, -1, !dbg !411",
+				"store i64 %dec, ptr %references, align 8, !dbg !411, !tbaa !412",
+				"%cmp = icmp sgt i64 %dec, -1, !dbg !419",
+				"br i1 %cmp, label %cond.end, label %cond.false, !dbg !419"
+			]
+		},
+		{
+			"function": "testbuf_releasebuf",
+			"id": 33,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 68, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.2, ptr noundef nonnull @.str.3, i32 noundef 68, ptr noundef nonnull @__PRETTY_FUNCTION__.testbuf_releasebuf) #4, !dbg !419",
+				"unreachable, !dbg !419"
+			]
+		},
+		{
+			"function": "testbuf_releasebuf",
+			"id": 34,
+			"name": "cond.end",
+			"debug": [
+				{
+					"line": 69, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !420"
+			]
+		}
+	]
+}

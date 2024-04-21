@@ -1,0 +1,2762 @@
+{
+	"blocks": [
+		{
+			"function": "_PyMutex_LockSlow",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 53, "columns": [5]
+				},
+				{
+					"line": 54, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call i32 @_PyMutex_LockTimed(ptr noundef %m, i64 noundef -1, i32 noundef 1), !dbg !115",
+				"ret void, !dbg !116"
+			]
+		},
+		{
+			"function": "_PyMutex_LockTimed",
+			"id": 1,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 60, "columns": [12, 26, 9]
+				},
+				{
+					"line": 331, "columns": [10]
+				}
+			],
+			"successors": [2, 4],
+			"ir": [
+				"%entry19 = alloca %struct.mutex_entry, align 8",
+				"%newv = alloca i8, align 1",
+				"%0 = load atomic i8, ptr %m monotonic, align 1, !dbg !148",
+				"%1 = and i8 %0, 1, !dbg !149",
+				"%cmp = icmp eq i8 %1, 0, !dbg !151",
+				"br i1 %cmp, label %if.then, label %if.else, !dbg !152"
+			]
+		},
+		{
+			"function": "_PyMutex_LockTimed",
+			"id": 2,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 61, "columns": [59]
+				},
+				{
+					"line": 105, "columns": [10]
+				}
+			],
+			"successors": [37, 3],
+			"ir": [
+				"%or = or i8 %0, 1, !dbg !153",
+				"%2 = cmpxchg ptr %m, i8 %0, i8 %or seq_cst seq_cst, align 1, !dbg !166",
+				"%3 = extractvalue { i8, i1 } %2, 1, !dbg !166",
+				"br i1 %3, label %cleanup105, label %_Py_atomic_compare_exchange_uint8.exit.thread, !dbg !166"
+			]
+		},
+		{
+			"function": "_PyMutex_LockTimed",
+			"id": 3,
+			"name": "_Py_atomic_compare_exchange_uint8.exit.thread",
+			"debug": [
+				{
+					"line": 61, "columns": [13]
+				},
+				{
+					"line": 105, "columns": [10]
+				}
+			],
+			"successors": [5],
+			"ir": [
+				"%4 = extractvalue { i8, i1 } %2, 0, !dbg !166",
+				"br label %if.end12, !dbg !167"
+			]
+		},
+		{
+			"function": "_PyMutex_LockTimed",
+			"id": 4,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 65, "columns": [22, 14]
+				}
+			],
+			"successors": [37, 5],
+			"ir": [
+				"%cmp8 = icmp eq i64 %timeout, 0, !dbg !168",
+				"br i1 %cmp8, label %cleanup105, label %if.end12, !dbg !170"
+			]
+		},
+		{
+			"function": "_PyMutex_LockTimed",
+			"id": 5,
+			"name": "if.end12",
+			"debug": [
+				{
+					"line": 59, "columns": [13]
+				},
+				{
+					"line": 69, "columns": [20]
+				},
+				{
+					"line": 71, "columns": [17, 9]
+				}
+			],
+			"successors": [6, 7],
+			"ir": [
+				"%v.1 = phi i8 [ %0, %if.else ], [ %4, %_Py_atomic_compare_exchange_uint8.exit.thread ], !dbg !171",
+				"%call13 = tail call i64 @_PyTime_MonotonicUnchecked() #9, !dbg !172",
+				"%cmp14 = icmp sgt i64 %timeout, 0, !dbg !173",
+				"br i1 %cmp14, label %if.then16, label %if.end18, !dbg !175"
+			]
+		},
+		{
+			"function": "_PyMutex_LockTimed",
+			"id": 6,
+			"name": "if.then16",
+			"debug": [
+				{
+					"line": 72, "columns": [19]
+				},
+				{
+					"line": 73, "columns": [5]
+				}
+			],
+			"successors": [7],
+			"ir": [
+				"%call17 = tail call i64 @_PyTime_Add(i64 noundef %call13, i64 noundef %timeout) #9, !dbg !176",
+				"br label %if.end18, !dbg !178"
+			]
+		},
+		{
+			"function": "_PyMutex_LockTimed",
+			"id": 7,
+			"name": "if.end18",
+			"debug": [
+				{
+					"line": 75, "columns": [5, 24, 32]
+				},
+				{
+					"line": 76, "columns": [32]
+				},
+				{
+					"line": 119, "columns": [18]
+				}
+			],
+			"successors": [8, 21],
+			"ir": [
+				"%endtime.0 = phi i64 [ %call17, %if.then16 ], [ 0, %if.end12 ], !dbg !137",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %entry19) #9, !dbg !179",
+				"%add = add i64 %call13, 1000000, !dbg !181",
+				"store i64 %add, ptr %entry19, align 8, !dbg !182, !tbaa !183",
+				"%handed_off = getelementptr inbounds %struct.mutex_entry, ptr %entry19, i64 0, i32 1, !dbg !182",
+				"store i32 0, ptr %handed_off, align 8, !dbg !182, !tbaa !189",
+				"%and59 = and i32 %flags, 1",
+				"%and74 = and i32 %flags, 2",
+				"%tobool75.not = icmp eq i32 %and74, 0",
+				"br i1 %tobool75.not, label %for.cond.outer.us, label %for.cond.outer, !dbg !190"
+			]
+		},
+		{
+			"function": "_PyMutex_LockTimed",
+			"id": 8,
+			"name": "for.cond.outer.us",
+			"debug": [
+				{
+					"line": 82, "columns": [16, 30, 13]
+				}
+			],
+			"successors": [19, 9],
+			"ir": [
+				"%v.2.ph.us = phi i8 [ %v.6.us, %cleanup100.us ], [ %v.1, %if.end18 ]",
+				"%timeout.addr.0.ph.us = phi i64 [ %timeout.addr.3.us, %cleanup100.us ], [ %timeout, %if.end18 ]",
+				"%5 = and i8 %v.2.ph.us, 1, !dbg !192",
+				"%cmp22147.us = icmp eq i8 %5, 0, !dbg !194",
+				"br i1 %cmp22147.us, label %if.then24.us, label %if.end40.us, !dbg !195"
+			]
+		},
+		{
+			"function": "_PyMutex_LockTimed",
+			"id": 9,
+			"name": "if.end40.us",
+			"debug": [
+				{
+					"line": 59, "columns": [13]
+				},
+				{
+					"line": 97, "columns": [21, 13]
+				}
+			],
+			"successors": [36, 10],
+			"ir": [
+				"%v.2.lcssa.us = phi i8 [ %v.2.ph.us, %for.cond.outer.us ], [ %14, %_Py_atomic_compare_exchange_uint8.exit124.us ], !dbg !171",
+				"%cmp41.us = icmp eq i64 %timeout.addr.0.ph.us, 0, !dbg !196",
+				"br i1 %cmp41.us, label %cleanup101, label %if.end44.us, !dbg !198"
+			]
+		},
+		{
+			"function": "_PyMutex_LockTimed",
+			"id": 10,
+			"name": "if.end44.us",
+			"debug": [
+				{
+					"line": 101, "columns": [9, 17]
+				},
+				{
+					"line": 102, "columns": [17, 13]
+				}
+			],
+			"successors": [11, 13],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %newv) #9, !dbg !199",
+				"store i8 %v.2.lcssa.us, ptr %newv, align 1, !dbg !201, !tbaa !202",
+				"%6 = and i8 %v.2.lcssa.us, 2, !dbg !203",
+				"%tobool47.not.us = icmp eq i8 %6, 0, !dbg !203",
+				"br i1 %tobool47.not.us, label %if.then48.us, label %if.end57.us, !dbg !205"
+			]
+		},
+		{
+			"function": "_PyMutex_LockTimed",
+			"id": 11,
+			"name": "if.then48.us",
+			"debug": [
+				{
+					"line": 104, "columns": [22, 18]
+				},
+				{
+					"line": 105, "columns": [10]
+				}
+			],
+			"successors": [13, 12],
+			"ir": [
+				"%or50.us = or i8 %v.2.lcssa.us, 2, !dbg !206",
+				"store i8 %or50.us, ptr %newv, align 1, !dbg !208, !tbaa !202",
+				"%7 = cmpxchg ptr %m, i8 %v.2.lcssa.us, i8 %or50.us seq_cst seq_cst, align 1, !dbg !212",
+				"%8 = extractvalue { i8, i1 } %7, 1, !dbg !212",
+				"br i1 %8, label %if.end57.us, label %_Py_atomic_compare_exchange_uint8.exit127.thread.us, !dbg !212"
+			]
+		},
+		{
+			"function": "_PyMutex_LockTimed",
+			"id": 12,
+			"name": "_Py_atomic_compare_exchange_uint8.exit127.thread.us",
+			"debug": [
+				{
+					"line": 105, "columns": [10, 17]
+				}
+			],
+			"successors": [18],
+			"ir": [
+				"%9 = extractvalue { i8, i1 } %7, 0, !dbg !212",
+				"br label %cleanup100.us, !dbg !213"
+			]
+		},
+		{
+			"function": "_PyMutex_LockTimed",
+			"id": 13,
+			"name": "if.end57.us",
+			"debug": [
+				{
+					"line": 110, "columns": [19]
+				},
+				{
+					"line": 112, "columns": [13]
+				}
+			],
+			"successors": [15, 14, 34],
+			"ir": [
+				"%call62.us = call i32 @_PyParkingLot_Park(ptr noundef nonnull %m, ptr noundef nonnull %newv, i64 noundef 1, i64 noundef %timeout.addr.0.ph.us, ptr noundef nonnull %entry19, i32 noundef %and59) #9, !dbg !214",
+				"switch i32 %call62.us, label %if.end88.us [\n    i32 0, label %if.then65.us\n    i32 -2, label %cleanup100.thread\n  ], !dbg !215"
+			]
+		},
+		{
+			"function": "_PyMutex_LockTimed",
+			"id": 14,
+			"name": "if.then65.us",
+			"debug": [
+				{
+					"line": 113, "columns": [23, 17]
+				}
+			],
+			"successors": [15, 34],
+			"ir": [
+				"%10 = load i32, ptr %handed_off, align 8, !dbg !216, !tbaa !189",
+				"%tobool67.not.us = icmp eq i32 %10, 0, !dbg !219",
+				"br i1 %tobool67.not.us, label %if.end88.us, label %cleanup100.thread, !dbg !220"
+			]
+		},
+		{
+			"function": "_PyMutex_LockTimed",
+			"id": 15,
+			"name": "if.end88.us",
+			"debug": [
+				{
+					"line": 129, "columns": [21, 13]
+				}
+			],
+			"successors": [16, 17],
+			"ir": [
+				"%cmp89.us = icmp sgt i64 %timeout.addr.0.ph.us, 0, !dbg !221",
+				"br i1 %cmp89.us, label %if.then91.us, label %if.end97.us, !dbg !223"
+			]
+		},
+		{
+			"function": "_PyMutex_LockTimed",
+			"id": 16,
+			"name": "if.then91.us",
+			"debug": [
+				{
+					"line": 130, "columns": [23]
+				},
+				{
+					"line": 131, "columns": [17]
+				},
+				{
+					"line": 135, "columns": [9]
+				}
+			],
+			"successors": [17],
+			"ir": [
+				"%call92.us = call i64 @_PyDeadline_Get(i64 noundef %endtime.0) #9, !dbg !224",
+				"%spec.store.select.us = call i64 @llvm.smax.i64(i64 %call92.us, i64 0), !dbg !226",
+				"br label %if.end97.us, !dbg !227"
+			]
+		},
+		{
+			"function": "_PyMutex_LockTimed",
+			"id": 17,
+			"name": "if.end97.us",
+			"debug": [
+				{
+					"line": 138, "columns": [5]
+				},
+				{
+					"line": 331, "columns": [10]
+				}
+			],
+			"successors": [18],
+			"ir": [
+				"%timeout.addr.1.us = phi i64 [ %spec.store.select.us, %if.then91.us ], [ %timeout.addr.0.ph.us, %if.end88.us ]",
+				"%11 = load atomic i8, ptr %m monotonic, align 1, !dbg !230",
+				"br label %cleanup100.us, !dbg !231"
+			]
+		},
+		{
+			"function": "_PyMutex_LockTimed",
+			"id": 18,
+			"name": "cleanup100.us",
+			"debug": [
+				{
+					"line": 138, "columns": [5]
+				}
+			],
+			"successors": [8],
+			"ir": [
+				"%v.6.us = phi i8 [ %11, %if.end97.us ], [ %9, %_Py_atomic_compare_exchange_uint8.exit127.thread.us ], !dbg !137",
+				"%timeout.addr.3.us = phi i64 [ %timeout.addr.1.us, %if.end97.us ], [ %timeout.addr.0.ph.us, %_Py_atomic_compare_exchange_uint8.exit127.thread.us ]",
+				"call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %newv) #9, !dbg !231",
+				"br label %for.cond.outer.us"
+			]
+		},
+		{
+			"function": "_PyMutex_LockTimed",
+			"id": 19,
+			"name": "if.then24.us",
+			"debug": [
+				{
+					"line": 84, "columns": [63]
+				},
+				{
+					"line": 105, "columns": [10]
+				}
+			],
+			"successors": [36, 20],
+			"ir": [
+				"%v.2148.us = phi i8 [ %14, %_Py_atomic_compare_exchange_uint8.exit124.us ], [ %v.2.ph.us, %for.cond.outer.us ]",
+				"%or27.us = or i8 %v.2148.us, 1, !dbg !232",
+				"%12 = cmpxchg ptr %m, i8 %v.2148.us, i8 %or27.us seq_cst seq_cst, align 1, !dbg !237",
+				"%13 = extractvalue { i8, i1 } %12, 1, !dbg !237",
+				"br i1 %13, label %cleanup101, label %_Py_atomic_compare_exchange_uint8.exit124.us, !dbg !237"
+			]
+		},
+		{
+			"function": "_PyMutex_LockTimed",
+			"id": 20,
+			"name": "_Py_atomic_compare_exchange_uint8.exit124.us",
+			"debug": [
+				{
+					"line": 82, "columns": [16, 30, 13]
+				},
+				{
+					"line": 105, "columns": [10]
+				}
+			],
+			"successors": [19, 9],
+			"ir": [
+				"%14 = extractvalue { i8, i1 } %12, 0, !dbg !237",
+				"%15 = and i8 %14, 1, !dbg !192",
+				"%cmp22.us = icmp eq i8 %15, 0, !dbg !194",
+				"br i1 %cmp22.us, label %if.then24.us, label %if.end40.us, !dbg !195"
+			]
+		},
+		{
+			"function": "_PyMutex_LockTimed",
+			"id": 21,
+			"name": "for.cond.outer",
+			"debug": [
+				{
+					"line": 82, "columns": [16, 30, 13]
+				}
+			],
+			"successors": [22, 24],
+			"ir": [
+				"%v.2.ph = phi i8 [ %v.6, %cleanup100 ], [ %v.1, %if.end18 ]",
+				"%timeout.addr.0.ph = phi i64 [ %timeout.addr.3, %cleanup100 ], [ %timeout, %if.end18 ]",
+				"%16 = and i8 %v.2.ph, 1, !dbg !192",
+				"%cmp22147 = icmp eq i8 %16, 0, !dbg !194",
+				"br i1 %cmp22147, label %if.then24, label %if.end40, !dbg !195"
+			]
+		},
+		{
+			"function": "_PyMutex_LockTimed",
+			"id": 22,
+			"name": "if.then24",
+			"debug": [
+				{
+					"line": 84, "columns": [63]
+				},
+				{
+					"line": 105, "columns": [10]
+				}
+			],
+			"successors": [36, 23],
+			"ir": [
+				"%v.2148 = phi i8 [ %19, %_Py_atomic_compare_exchange_uint8.exit124 ], [ %v.2.ph, %for.cond.outer ]",
+				"%or27 = or i8 %v.2148, 1, !dbg !232",
+				"%17 = cmpxchg ptr %m, i8 %v.2148, i8 %or27 seq_cst seq_cst, align 1, !dbg !237",
+				"%18 = extractvalue { i8, i1 } %17, 1, !dbg !237",
+				"br i1 %18, label %cleanup101, label %_Py_atomic_compare_exchange_uint8.exit124, !dbg !237"
+			]
+		},
+		{
+			"function": "_PyMutex_LockTimed",
+			"id": 23,
+			"name": "_Py_atomic_compare_exchange_uint8.exit124",
+			"debug": [
+				{
+					"line": 82, "columns": [16, 30, 13]
+				},
+				{
+					"line": 105, "columns": [10]
+				}
+			],
+			"successors": [22, 24],
+			"ir": [
+				"%19 = extractvalue { i8, i1 } %17, 0, !dbg !237",
+				"%20 = and i8 %19, 1, !dbg !192",
+				"%cmp22 = icmp eq i8 %20, 0, !dbg !194",
+				"br i1 %cmp22, label %if.then24, label %if.end40, !dbg !195"
+			]
+		},
+		{
+			"function": "_PyMutex_LockTimed",
+			"id": 24,
+			"name": "if.end40",
+			"debug": [
+				{
+					"line": 59, "columns": [13]
+				},
+				{
+					"line": 97, "columns": [21, 13]
+				}
+			],
+			"successors": [36, 25],
+			"ir": [
+				"%v.2.lcssa = phi i8 [ %v.2.ph, %for.cond.outer ], [ %19, %_Py_atomic_compare_exchange_uint8.exit124 ], !dbg !171",
+				"%cmp41 = icmp eq i64 %timeout.addr.0.ph, 0, !dbg !196",
+				"br i1 %cmp41, label %cleanup101, label %if.end44, !dbg !198"
+			]
+		},
+		{
+			"function": "_PyMutex_LockTimed",
+			"id": 25,
+			"name": "if.end44",
+			"debug": [
+				{
+					"line": 101, "columns": [9, 17]
+				},
+				{
+					"line": 102, "columns": [17, 13]
+				}
+			],
+			"successors": [26, 28],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %newv) #9, !dbg !199",
+				"store i8 %v.2.lcssa, ptr %newv, align 1, !dbg !201, !tbaa !202",
+				"%21 = and i8 %v.2.lcssa, 2, !dbg !203",
+				"%tobool47.not = icmp eq i8 %21, 0, !dbg !203",
+				"br i1 %tobool47.not, label %if.then48, label %if.end57, !dbg !205"
+			]
+		},
+		{
+			"function": "_PyMutex_LockTimed",
+			"id": 26,
+			"name": "if.then48",
+			"debug": [
+				{
+					"line": 104, "columns": [22, 18]
+				},
+				{
+					"line": 105, "columns": [10]
+				}
+			],
+			"successors": [28, 27],
+			"ir": [
+				"%or50 = or i8 %v.2.lcssa, 2, !dbg !206",
+				"store i8 %or50, ptr %newv, align 1, !dbg !208, !tbaa !202",
+				"%22 = cmpxchg ptr %m, i8 %v.2.lcssa, i8 %or50 seq_cst seq_cst, align 1, !dbg !212",
+				"%23 = extractvalue { i8, i1 } %22, 1, !dbg !212",
+				"br i1 %23, label %if.end57, label %_Py_atomic_compare_exchange_uint8.exit127.thread, !dbg !212"
+			]
+		},
+		{
+			"function": "_PyMutex_LockTimed",
+			"id": 27,
+			"name": "_Py_atomic_compare_exchange_uint8.exit127.thread",
+			"debug": [
+				{
+					"line": 105, "columns": [10, 17]
+				}
+			],
+			"successors": [35],
+			"ir": [
+				"%24 = extractvalue { i8, i1 } %22, 0, !dbg !212",
+				"br label %cleanup100, !dbg !213"
+			]
+		},
+		{
+			"function": "_PyMutex_LockTimed",
+			"id": 28,
+			"name": "if.end57",
+			"debug": [
+				{
+					"line": 110, "columns": [19]
+				},
+				{
+					"line": 112, "columns": [13]
+				}
+			],
+			"successors": [31, 29, 30, 34],
+			"ir": [
+				"%call62 = call i32 @_PyParkingLot_Park(ptr noundef nonnull %m, ptr noundef nonnull %newv, i64 noundef 1, i64 noundef %timeout.addr.0.ph, ptr noundef nonnull %entry19, i32 noundef %and59) #9, !dbg !214",
+				"switch i32 %call62, label %if.end88 [\n    i32 0, label %if.then65\n    i32 -3, label %land.lhs.true73\n    i32 -2, label %cleanup100.thread\n  ], !dbg !215"
+			]
+		},
+		{
+			"function": "_PyMutex_LockTimed",
+			"id": 29,
+			"name": "if.then65",
+			"debug": [
+				{
+					"line": 113, "columns": [23, 17]
+				}
+			],
+			"successors": [31, 34],
+			"ir": [
+				"%25 = load i32, ptr %handed_off, align 8, !dbg !216, !tbaa !189",
+				"%tobool67.not = icmp eq i32 %25, 0, !dbg !219",
+				"br i1 %tobool67.not, label %if.end88, label %cleanup100.thread, !dbg !220"
+			]
+		},
+		{
+			"function": "_PyMutex_LockTimed",
+			"id": 30,
+			"name": "land.lhs.true73",
+			"debug": [
+				{
+					"line": 120, "columns": [17, 39]
+				}
+			],
+			"successors": [34, 31],
+			"ir": [
+				"%call77 = call i32 @Py_MakePendingCalls() #9, !dbg !238",
+				"%cmp78 = icmp slt i32 %call77, 0, !dbg !242",
+				"br i1 %cmp78, label %cleanup100.thread, label %if.end88, !dbg !243"
+			]
+		},
+		{
+			"function": "_PyMutex_LockTimed",
+			"id": 31,
+			"name": "if.end88",
+			"debug": [
+				{
+					"line": 129, "columns": [21, 13]
+				}
+			],
+			"successors": [32, 33],
+			"ir": [
+				"%cmp89 = icmp sgt i64 %timeout.addr.0.ph, 0, !dbg !221",
+				"br i1 %cmp89, label %if.then91, label %if.end97, !dbg !223"
+			]
+		},
+		{
+			"function": "_PyMutex_LockTimed",
+			"id": 32,
+			"name": "if.then91",
+			"debug": [
+				{
+					"line": 130, "columns": [23]
+				},
+				{
+					"line": 131, "columns": [17]
+				},
+				{
+					"line": 135, "columns": [9]
+				}
+			],
+			"successors": [33],
+			"ir": [
+				"%call92 = call i64 @_PyDeadline_Get(i64 noundef %endtime.0) #9, !dbg !224",
+				"%spec.store.select = call i64 @llvm.smax.i64(i64 %call92, i64 0), !dbg !226",
+				"br label %if.end97, !dbg !227"
+			]
+		},
+		{
+			"function": "_PyMutex_LockTimed",
+			"id": 33,
+			"name": "if.end97",
+			"debug": [
+				{
+					"line": 138, "columns": [5]
+				},
+				{
+					"line": 331, "columns": [10]
+				}
+			],
+			"successors": [35],
+			"ir": [
+				"%timeout.addr.1 = phi i64 [ %spec.store.select, %if.then91 ], [ %timeout.addr.0.ph, %if.end88 ]",
+				"%26 = load atomic i8, ptr %m monotonic, align 1, !dbg !230",
+				"br label %cleanup100, !dbg !231"
+			]
+		},
+		{
+			"function": "_PyMutex_LockTimed",
+			"id": 34,
+			"name": "cleanup100.thread",
+			"debug": [
+				{
+					"line": 138, "columns": [5]
+				}
+			],
+			"successors": [36],
+			"ir": [
+				"%.us-phi = phi i32 [ 0, %if.end57.us ], [ 1, %if.then65.us ], [ 0, %if.end57 ], [ 2, %land.lhs.true73 ], [ 1, %if.then65 ]",
+				"call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %newv) #9, !dbg !231",
+				"br label %cleanup101"
+			]
+		},
+		{
+			"function": "_PyMutex_LockTimed",
+			"id": 35,
+			"name": "cleanup100",
+			"debug": [
+				{
+					"line": 138, "columns": [5]
+				}
+			],
+			"successors": [21],
+			"ir": [
+				"%v.6 = phi i8 [ %26, %if.end97 ], [ %24, %_Py_atomic_compare_exchange_uint8.exit127.thread ], !dbg !137",
+				"%timeout.addr.3 = phi i64 [ %timeout.addr.1, %if.end97 ], [ %timeout.addr.0.ph, %_Py_atomic_compare_exchange_uint8.exit127.thread ]",
+				"call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %newv) #9, !dbg !231",
+				"br label %for.cond.outer"
+			]
+		},
+		{
+			"function": "_PyMutex_LockTimed",
+			"id": 36,
+			"name": "cleanup101",
+			"debug": [
+				{
+					"line": 139, "columns": [1]
+				}
+			],
+			"successors": [37],
+			"ir": [
+				"%retval.3 = phi i32 [ %.us-phi, %cleanup100.thread ], [ 1, %if.then24.us ], [ 0, %if.end40.us ], [ 1, %if.then24 ], [ 0, %if.end40 ], !dbg !200",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %entry19) #9, !dbg !244",
+				"br label %cleanup105"
+			]
+		},
+		{
+			"function": "_PyMutex_LockTimed",
+			"id": 37,
+			"name": "cleanup105",
+			"debug": [
+				{
+					"line": 139, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.4 = phi i32 [ %retval.3, %cleanup101 ], [ 0, %if.else ], [ 1, %if.then ], !dbg !137",
+				"ret i32 %retval.4, !dbg !244"
+			]
+		},
+		{
+			"function": "_PyMutex_TryUnlock",
+			"id": 38,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 165, "columns": [14, 16, 30, 13]
+				},
+				{
+					"line": 272, "columns": [10]
+				}
+			],
+			"successors": [43, 39],
+			"ir": [
+				"%0 = load atomic i8, ptr %m seq_cst, align 1, !dbg !126",
+				"%conv21 = zext i8 %0 to i32, !dbg !127",
+				"%and22 = and i32 %conv21, 1, !dbg !132",
+				"%cmp23 = icmp eq i32 %and22, 0, !dbg !133",
+				"br i1 %cmp23, label %cleanup, label %if.else, !dbg !134"
+			]
+		},
+		{
+			"function": "_PyMutex_TryUnlock",
+			"id": 39,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 169, "columns": [21, 18]
+				}
+			],
+			"successors": [41, 40],
+			"ir": [
+				"%conv25 = phi i32 [ %conv, %_Py_atomic_compare_exchange_uint8.exit ], [ %conv21, %entry ]",
+				"%v.024 = phi i8 [ %3, %_Py_atomic_compare_exchange_uint8.exit ], [ %0, %entry ]",
+				"%and4 = and i32 %conv25, 2, !dbg !135",
+				"%tobool.not = icmp eq i32 %and4, 0, !dbg !135",
+				"br i1 %tobool.not, label %if.else7, label %if.then5, !dbg !137"
+			]
+		},
+		{
+			"function": "_PyMutex_TryUnlock",
+			"id": 40,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 171, "columns": [13]
+				},
+				{
+					"line": 172, "columns": [13]
+				}
+			],
+			"successors": [43],
+			"ir": [
+				"tail call void @_PyParkingLot_Unpark(ptr noundef nonnull %m, ptr noundef nonnull @mutex_unpark, ptr noundef nonnull %m) #9, !dbg !138",
+				"br label %cleanup, !dbg !140"
+			]
+		},
+		{
+			"function": "_PyMutex_TryUnlock",
+			"id": 41,
+			"name": "if.else7",
+			"debug": [
+				{
+					"line": 105, "columns": [10]
+				}
+			],
+			"successors": [43, 42],
+			"ir": [
+				"%1 = cmpxchg ptr %m, i8 %v.024, i8 0 seq_cst seq_cst, align 1, !dbg !152",
+				"%2 = extractvalue { i8, i1 } %1, 1, !dbg !152",
+				"br i1 %2, label %cleanup, label %_Py_atomic_compare_exchange_uint8.exit, !dbg !152"
+			]
+		},
+		{
+			"function": "_PyMutex_TryUnlock",
+			"id": 42,
+			"name": "_Py_atomic_compare_exchange_uint8.exit",
+			"debug": [
+				{
+					"line": 105, "columns": [10]
+				},
+				{
+					"line": 165, "columns": [14, 16, 30, 13]
+				}
+			],
+			"successors": [43, 39],
+			"ir": [
+				"%3 = extractvalue { i8, i1 } %1, 0, !dbg !152",
+				"%conv = zext i8 %3 to i32, !dbg !127",
+				"%and = and i32 %conv, 1, !dbg !132",
+				"%cmp = icmp eq i32 %and, 0, !dbg !133",
+				"br i1 %cmp, label %cleanup, label %if.else, !dbg !134"
+			]
+		},
+		{
+			"function": "_PyMutex_TryUnlock",
+			"id": 43,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 179, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ 0, %if.then5 ], [ -1, %entry ], [ -1, %_Py_atomic_compare_exchange_uint8.exit ], [ 0, %if.else7 ], !dbg !153",
+				"ret i32 %retval.0, !dbg !154"
+			]
+		},
+		{
+			"function": "mutex_unpark",
+			"id": 44,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 145, "columns": [9]
+				}
+			],
+			"successors": [46, 45],
+			"ir": [
+				"%tobool.not = icmp eq ptr %entry1, null, !dbg !127",
+				"br i1 %tobool.not, label %if.end12, label %if.then, !dbg !128"
+			]
+		},
+		{
+			"function": "mutex_unpark",
+			"id": 45,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 146, "columns": [24]
+				},
+				{
+					"line": 147, "columns": [43, 34]
+				},
+				{
+					"line": 149, "columns": [16, 27]
+				},
+				{
+					"line": 150, "columns": [13]
+				},
+				{
+					"line": 153, "columns": [13]
+				},
+				{
+					"line": 156, "columns": [5]
+				}
+			],
+			"successors": [46],
+			"ir": [
+				"%call = tail call i64 @_PyTime_MonotonicUnchecked() #9, !dbg !129",
+				"%0 = load i64, ptr %entry1, align 8, !dbg !131, !tbaa !132",
+				"%cmp = icmp sgt i64 %call, %0, !dbg !138",
+				"%conv = zext i1 %cmp to i32, !dbg !138",
+				"%handed_off = getelementptr inbounds %struct.mutex_entry, ptr %entry1, i64 0, i32 1, !dbg !139",
+				"store i32 %conv, ptr %handed_off, align 8, !dbg !140, !tbaa !141",
+				"%spec.select = zext i1 %cmp to i8, !dbg !142",
+				"%tobool6.not = icmp eq i32 %has_more_waiters, 0, !dbg !143",
+				"%1 = or i8 %spec.select, 2, !dbg !145",
+				"%v.1 = select i1 %tobool6.not, i8 %spec.select, i8 %1, !dbg !145",
+				"br label %if.end12, !dbg !146"
+			]
+		},
+		{
+			"function": "mutex_unpark",
+			"id": 46,
+			"name": "if.end12",
+			"debug": [
+				{
+					"line": 158, "columns": [1]
+				},
+				{
+					"line": 394, "columns": [3]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%v.2 = phi i8 [ %v.1, %if.then ], [ 0, %entry ], !dbg !126",
+				"store atomic i8 %v.2, ptr %m seq_cst, align 1, !dbg !157",
+				"ret void, !dbg !158"
+			]
+		},
+		{
+			"function": "_PyMutex_UnlockSlow",
+			"id": 47,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 165, "columns": [14, 16, 30, 13]
+				},
+				{
+					"line": 272, "columns": [10]
+				}
+			],
+			"successors": [52, 48],
+			"ir": [
+				"%0 = load atomic i8, ptr %m seq_cst, align 1, !dbg !134",
+				"%conv21.i = zext i8 %0 to i32, !dbg !135",
+				"%and22.i = and i32 %conv21.i, 1, !dbg !140",
+				"%cmp23.i = icmp eq i32 %and22.i, 0, !dbg !141",
+				"br i1 %cmp23.i, label %if.then, label %if.else.i, !dbg !142"
+			]
+		},
+		{
+			"function": "_PyMutex_UnlockSlow",
+			"id": 48,
+			"name": "if.else.i",
+			"debug": [
+				{
+					"line": 169, "columns": [21, 18]
+				}
+			],
+			"successors": [50, 49],
+			"ir": [
+				"%conv25.i = phi i32 [ %conv.i, %_Py_atomic_compare_exchange_uint8.exit.i ], [ %conv21.i, %entry ]",
+				"%v.024.i = phi i8 [ %3, %_Py_atomic_compare_exchange_uint8.exit.i ], [ %0, %entry ]",
+				"%and4.i = and i32 %conv25.i, 2, !dbg !143",
+				"%tobool.not.i = icmp eq i32 %and4.i, 0, !dbg !143",
+				"br i1 %tobool.not.i, label %if.else7.i, label %if.then5.i, !dbg !145"
+			]
+		},
+		{
+			"function": "_PyMutex_UnlockSlow",
+			"id": 49,
+			"name": "if.then5.i",
+			"debug": [
+				{
+					"line": 171, "columns": [13]
+				},
+				{
+					"line": 172, "columns": [13]
+				}
+			],
+			"successors": [53],
+			"ir": [
+				"tail call void @_PyParkingLot_Unpark(ptr noundef nonnull %m, ptr noundef nonnull @mutex_unpark, ptr noundef nonnull %m) #9, !dbg !146",
+				"br label %if.end, !dbg !148"
+			]
+		},
+		{
+			"function": "_PyMutex_UnlockSlow",
+			"id": 50,
+			"name": "if.else7.i",
+			"debug": [
+				{
+					"line": 105, "columns": [10]
+				}
+			],
+			"successors": [53, 51],
+			"ir": [
+				"%1 = cmpxchg ptr %m, i8 %v.024.i, i8 0 seq_cst seq_cst, align 1, !dbg !160",
+				"%2 = extractvalue { i8, i1 } %1, 1, !dbg !160",
+				"br i1 %2, label %if.end, label %_Py_atomic_compare_exchange_uint8.exit.i, !dbg !160"
+			]
+		},
+		{
+			"function": "_PyMutex_UnlockSlow",
+			"id": 51,
+			"name": "_Py_atomic_compare_exchange_uint8.exit.i",
+			"debug": [
+				{
+					"line": 105, "columns": [10]
+				},
+				{
+					"line": 165, "columns": [14, 16, 30, 13]
+				}
+			],
+			"successors": [52, 48],
+			"ir": [
+				"%3 = extractvalue { i8, i1 } %1, 0, !dbg !160",
+				"%conv.i = zext i8 %3 to i32, !dbg !135",
+				"%and.i = and i32 %conv.i, 1, !dbg !140",
+				"%cmp.i = icmp eq i32 %and.i, 0, !dbg !141",
+				"br i1 %cmp.i, label %if.then, label %if.else.i, !dbg !142"
+			]
+		},
+		{
+			"function": "_PyMutex_UnlockSlow",
+			"id": 52,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 185, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @_Py_FatalErrorFunc(ptr noundef nonnull @__func__._PyMutex_UnlockSlow, ptr noundef nonnull @.str) #10, !dbg !161",
+				"unreachable, !dbg !161"
+			]
+		},
+		{
+			"function": "_PyMutex_UnlockSlow",
+			"id": 53,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 187, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !163"
+			]
+		},
+		{
+			"function": "_PyRawMutex_LockSlow",
+			"id": 54,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 199, "columns": [5, 28]
+				},
+				{
+					"line": 200, "columns": [31, 5]
+				},
+				{
+					"line": 203, "columns": [5]
+				},
+				{
+					"line": 288, "columns": [10]
+				}
+			],
+			"successors": [55],
+			"ir": [
+				"%waiter = alloca %struct.raw_mutex_entry, align 8",
+				"call void @llvm.lifetime.start.p0(i64 40, ptr nonnull %waiter) #9, !dbg !117",
+				"%sema = getelementptr inbounds %struct.raw_mutex_entry, ptr %waiter, i64 0, i32 1, !dbg !119",
+				"call void @_PySemaphore_Init(ptr noundef nonnull %sema) #9, !dbg !120",
+				"%0 = load atomic i64, ptr %m seq_cst, align 8, !dbg !131",
+				"%1 = ptrtoint ptr %waiter to i64",
+				"%or7 = or i64 %1, 1",
+				"br label %for.cond.outer, !dbg !132"
+			]
+		},
+		{
+			"function": "_PyRawMutex_LockSlow",
+			"id": 55,
+			"name": "for.cond.outer",
+			"debug": [
+				{
+					"line": 204, "columns": [13]
+				}
+			],
+			"successors": [56],
+			"ir": [
+				"%v.0.ph = phi i64 [ %0, %entry ], [ %v.0.ph.be, %for.cond.outer.backedge ]",
+				"%and = and i64 %v.0.ph, 1",
+				"%cmp = icmp eq i64 %and, 0",
+				"%and6 = and i64 %v.0.ph, -2",
+				"%2 = inttoptr i64 %and6 to ptr",
+				"br label %for.cond, !dbg !133"
+			]
+		},
+		{
+			"function": "_PyRawMutex_LockSlow",
+			"id": 56,
+			"name": "for.cond",
+			"debug": [
+				{
+					"line": 204, "columns": [13]
+				}
+			],
+			"successors": [57, 59],
+			"ir": [
+				"br i1 %cmp, label %if.then, label %if.end5, !dbg !133"
+			]
+		},
+		{
+			"function": "_PyRawMutex_LockSlow",
+			"id": 57,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 125, "columns": [10]
+				},
+				{
+					"line": 206, "columns": [65]
+				}
+			],
+			"successors": [61, 58],
+			"ir": [
+				"%or = or i64 %v.0.ph, 1, !dbg !134",
+				"%3 = cmpxchg ptr %m, i64 %v.0.ph, i64 %or seq_cst seq_cst, align 8, !dbg !148",
+				"%4 = extractvalue { i64, i1 } %3, 1, !dbg !148",
+				"br i1 %4, label %for.end, label %for.cond.outer.backedge, !dbg !148"
+			]
+		},
+		{
+			"function": "_PyRawMutex_LockSlow",
+			"id": 58,
+			"name": "for.cond.outer.backedge",
+			"debug": [
+				{
+					"line": 125, "columns": [10]
+				},
+				{
+					"line": 204, "columns": [13]
+				}
+			],
+			"successors": [55],
+			"ir": [
+				"%.pn = phi { i64, i1 } [ %3, %if.then ], [ %5, %if.end5 ]",
+				"%v.0.ph.be = extractvalue { i64, i1 } %.pn, 0, !dbg !149",
+				"br label %for.cond.outer, !dbg !133"
+			]
+		},
+		{
+			"function": "_PyRawMutex_LockSlow",
+			"id": 59,
+			"name": "if.end5",
+			"debug": [
+				{
+					"line": 125, "columns": [10]
+				},
+				{
+					"line": 213, "columns": [21]
+				}
+			],
+			"successors": [60, 58],
+			"ir": [
+				"store ptr %2, ptr %waiter, align 8, !dbg !151, !tbaa !152",
+				"%5 = cmpxchg ptr %m, i64 %v.0.ph, i64 %or7 seq_cst seq_cst, align 8, !dbg !161",
+				"%6 = extractvalue { i64, i1 } %5, 1, !dbg !161",
+				"br i1 %6, label %if.end12, label %for.cond.outer.backedge, !dbg !161"
+			]
+		},
+		{
+			"function": "_PyRawMutex_LockSlow",
+			"id": 60,
+			"name": "if.end12",
+			"debug": [
+				{
+					"line": 221, "columns": [9]
+				},
+				{
+					"line": 222, "columns": [5]
+				}
+			],
+			"successors": [56],
+			"ir": [
+				"%call14 = call i32 @_PySemaphore_Wait(ptr noundef nonnull %sema, i64 noundef -1, i32 noundef 0) #9, !dbg !162",
+				"br label %for.cond, !dbg !163"
+			]
+		},
+		{
+			"function": "_PyRawMutex_LockSlow",
+			"id": 61,
+			"name": "for.end",
+			"debug": [
+				{
+					"line": 224, "columns": [5]
+				},
+				{
+					"line": 225, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @_PySemaphore_Destroy(ptr noundef nonnull %sema) #9, !dbg !164",
+				"call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %waiter) #9, !dbg !165",
+				"ret void, !dbg !165"
+			]
+		},
+		{
+			"function": "_PyRawMutex_UnlockSlow",
+			"id": 62,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 232, "columns": [16, 30, 13]
+				},
+				{
+					"line": 288, "columns": [10]
+				}
+			],
+			"successors": [63, 64],
+			"ir": [
+				"%0 = load atomic i64, ptr %m seq_cst, align 8, !dbg !129",
+				"%and37 = and i64 %0, 1, !dbg !130",
+				"%cmp38 = icmp eq i64 %and37, 0, !dbg !132",
+				"br i1 %cmp38, label %if.then, label %if.end, !dbg !133"
+			]
+		},
+		{
+			"function": "_PyRawMutex_UnlockSlow",
+			"id": 63,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 233, "columns": [13]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @_Py_FatalErrorFunc(ptr noundef nonnull @__func__._PyRawMutex_UnlockSlow, ptr noundef nonnull @.str) #9, !dbg !134",
+				"unreachable, !dbg !134"
+			]
+		},
+		{
+			"function": "_PyRawMutex_UnlockSlow",
+			"id": 64,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 236, "columns": [71]
+				},
+				{
+					"line": 237, "columns": [13]
+				}
+			],
+			"successors": [67, 65],
+			"ir": [
+				"%v.039 = phi i64 [ %v.3, %if.end14 ], [ %0, %entry ]",
+				"%and2 = and i64 %v.039, -2, !dbg !136",
+				"%tobool.not = icmp eq i64 %and2, 0, !dbg !138",
+				"br i1 %tobool.not, label %if.else, label %if.then3, !dbg !139"
+			]
+		},
+		{
+			"function": "_PyRawMutex_UnlockSlow",
+			"id": 65,
+			"name": "if.then3",
+			"debug": [
+				{
+					"line": 125, "columns": [10]
+				},
+				{
+					"line": 236, "columns": [42]
+				},
+				{
+					"line": 238, "columns": [56, 37]
+				}
+			],
+			"successors": [66, 68],
+			"ir": [
+				"%1 = inttoptr i64 %and2 to ptr, !dbg !140",
+				"%2 = load ptr, ptr %1, align 8, !dbg !141, !tbaa !142",
+				"%3 = ptrtoint ptr %2 to i64, !dbg !148",
+				"%4 = cmpxchg ptr %m, i64 %v.039, i64 %3 seq_cst seq_cst, align 8, !dbg !161",
+				"%5 = extractvalue { i64, i1 } %4, 1, !dbg !161",
+				"br i1 %5, label %if.then7, label %if.end14, !dbg !161"
+			]
+		},
+		{
+			"function": "_PyRawMutex_UnlockSlow",
+			"id": 66,
+			"name": "if.then7",
+			"debug": [
+				{
+					"line": 240, "columns": [46, 17]
+				}
+			],
+			"successors": [69],
+			"ir": [
+				"%sema = getelementptr inbounds %struct.raw_mutex_entry, ptr %1, i64 0, i32 1, !dbg !162",
+				"tail call void @_PySemaphore_Wakeup(ptr noundef nonnull %sema) #10, !dbg !164",
+				"br label %cleanup18.critedge"
+			]
+		},
+		{
+			"function": "_PyRawMutex_UnlockSlow",
+			"id": 67,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 125, "columns": [10]
+				}
+			],
+			"successors": [69, 68],
+			"ir": [
+				"%6 = cmpxchg ptr %m, i64 %v.039, i64 0 seq_cst seq_cst, align 8, !dbg !169",
+				"%7 = extractvalue { i64, i1 } %6, 1, !dbg !169",
+				"br i1 %7, label %cleanup18.critedge, label %if.end14, !dbg !169"
+			]
+		},
+		{
+			"function": "_PyRawMutex_UnlockSlow",
+			"id": 68,
+			"name": "if.end14",
+			"debug": [
+				{
+					"line": 230, "columns": [15]
+				},
+				{
+					"line": 232, "columns": [16, 30, 13]
+				}
+			],
+			"successors": [63, 64],
+			"ir": [
+				"%.pn = phi { i64, i1 } [ %4, %if.then3 ], [ %6, %if.else ]",
+				"%v.3 = extractvalue { i64, i1 } %.pn, 0, !dbg !170",
+				"%and = and i64 %v.3, 1, !dbg !130",
+				"%cmp = icmp eq i64 %and, 0, !dbg !132",
+				"br i1 %cmp, label %if.then, label %if.end, !dbg !133, !llvm.loop !171"
+			]
+		},
+		{
+			"function": "_PyRawMutex_UnlockSlow",
+			"id": 69,
+			"name": "cleanup18.critedge",
+			"debug": [
+				{
+					"line": 250, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !174"
+			]
+		},
+		{
+			"function": "_PyEvent_IsSet",
+			"id": 70,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 256, "columns": [14, 5]
+				},
+				{
+					"line": 272, "columns": [10]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = load atomic i8, ptr %evt seq_cst, align 1, !dbg !126",
+				"%cmp = icmp eq i8 %0, 1, !dbg !127",
+				"%conv2 = zext i1 %cmp to i32, !dbg !127",
+				"ret i32 %conv2, !dbg !128"
+			]
+		},
+		{
+			"function": "_PyEvent_Notify",
+			"id": 71,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 171, "columns": [10]
+				},
+				{
+					"line": 263, "columns": [9]
+				}
+			],
+			"successors": [73, 72],
+			"ir": [
+				"%0 = atomicrmw xchg ptr %evt, i8 1 seq_cst, align 1, !dbg !126",
+				"%switch = icmp ult i8 %0, 2, !dbg !127",
+				"br i1 %switch, label %cleanup, label %if.else6, !dbg !127"
+			]
+		},
+		{
+			"function": "_PyEvent_Notify",
+			"id": 72,
+			"name": "if.else6",
+			"debug": [
+				{
+					"line": 273, "columns": [9]
+				},
+				{
+					"line": 275, "columns": [1]
+				}
+			],
+			"successors": [73],
+			"ir": [
+				"tail call void @_PyParkingLot_UnparkAll(ptr noundef %evt) #9, !dbg !128",
+				"br label %cleanup, !dbg !132"
+			]
+		},
+		{
+			"function": "_PyEvent_Notify",
+			"id": 73,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 275, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !132"
+			]
+		},
+		{
+			"function": "PyEvent_Wait",
+			"id": 74,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 280, "columns": [5]
+				}
+			],
+			"successors": [75],
+			"ir": [
+				"%expected.i = alloca i8, align 1",
+				"br label %for.cond.i, !dbg !115"
+			]
+		},
+		{
+			"function": "PyEvent_Wait",
+			"id": 75,
+			"name": "for.cond.i",
+			"debug": [
+				{
+					"line": 272, "columns": [10]
+				},
+				{
+					"line": 289, "columns": [13]
+				}
+			],
+			"successors": [78, 79, 76],
+			"ir": [
+				"%0 = load atomic i8, ptr %evt seq_cst, align 1, !dbg !138",
+				"switch i8 %0, label %PyEvent_WaitTimed.exit [\n    i8 1, label %while.end\n    i8 0, label %if.then6.i\n  ], !dbg !140"
+			]
+		},
+		{
+			"function": "PyEvent_Wait",
+			"id": 76,
+			"name": "if.then6.i",
+			"debug": [
+				{
+					"line": 105, "columns": [10]
+				},
+				{
+					"line": 294, "columns": [17]
+				}
+			],
+			"successors": [78, 77],
+			"ir": [
+				"%1 = cmpxchg ptr %evt, i8 0, i8 2 seq_cst seq_cst, align 1, !dbg !154",
+				"%2 = extractvalue { i8, i1 } %1, 1, !dbg !154",
+				"br i1 %2, label %PyEvent_WaitTimed.exit, label %for.cond.i.backedge, !dbg !155"
+			]
+		},
+		{
+			"function": "PyEvent_Wait",
+			"id": 77,
+			"name": "for.cond.i.backedge",
+			"debug": [
+			],
+			"successors": [75],
+			"ir": [
+				"br label %for.cond.i, !dbg !124, !llvm.loop !156"
+			]
+		},
+		{
+			"function": "PyEvent_Wait",
+			"id": 78,
+			"name": "PyEvent_WaitTimed.exit",
+			"debug": [
+				{
+					"line": 272, "columns": [10]
+				},
+				{
+					"line": 280, "columns": [5]
+				},
+				{
+					"line": 299, "columns": [9, 17]
+				},
+				{
+					"line": 300, "columns": [16]
+				},
+				{
+					"line": 303, "columns": [47]
+				},
+				{
+					"line": 304, "columns": [5]
+				}
+			],
+			"successors": [79, 77],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %expected.i) #9, !dbg !159",
+				"store i8 2, ptr %expected.i, align 1, !dbg !160, !tbaa !161",
+				"%call13.i = call i32 @_PyParkingLot_Park(ptr noundef nonnull %evt, ptr noundef nonnull %expected.i, i64 noundef 1, i64 noundef -1, ptr noundef null, i32 noundef 1) #9, !dbg !164",
+				"%3 = load atomic i8, ptr %evt seq_cst, align 1, !dbg !167",
+				"%cmp17.i.not = icmp eq i8 %3, 1, !dbg !168",
+				"call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %expected.i) #9, !dbg !169",
+				"br i1 %cmp17.i.not, label %while.end, label %for.cond.i.backedge, !dbg !115"
+			]
+		},
+		{
+			"function": "PyEvent_Wait",
+			"id": 79,
+			"name": "while.end",
+			"debug": [
+				{
+					"line": 282, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !170"
+			]
+		},
+		{
+			"function": "PyEvent_WaitTimed",
+			"id": 80,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 287, "columns": [5]
+				}
+			],
+			"successors": [81],
+			"ir": [
+				"%expected = alloca i8, align 1",
+				"br label %for.cond, !dbg !121"
+			]
+		},
+		{
+			"function": "PyEvent_WaitTimed",
+			"id": 81,
+			"name": "for.cond",
+			"debug": [
+				{
+					"line": 272, "columns": [10]
+				},
+				{
+					"line": 289, "columns": [13]
+				}
+			],
+			"successors": [83, 84, 82],
+			"ir": [
+				"%0 = load atomic i8, ptr %evt seq_cst, align 1, !dbg !132",
+				"switch i8 %0, label %if.end11 [\n    i8 1, label %return\n    i8 0, label %if.then6\n  ], !dbg !134"
+			]
+		},
+		{
+			"function": "PyEvent_WaitTimed",
+			"id": 82,
+			"name": "if.then6",
+			"debug": [
+				{
+					"line": 105, "columns": [10]
+				},
+				{
+					"line": 294, "columns": [17]
+				}
+			],
+			"successors": [83, 81],
+			"ir": [
+				"%1 = cmpxchg ptr %evt, i8 0, i8 2 seq_cst seq_cst, align 1, !dbg !148",
+				"%2 = extractvalue { i8, i1 } %1, 1, !dbg !148",
+				"br i1 %2, label %if.end11, label %for.cond, !dbg !149, !llvm.loop !150"
+			]
+		},
+		{
+			"function": "PyEvent_WaitTimed",
+			"id": 83,
+			"name": "if.end11",
+			"debug": [
+				{
+					"line": 272, "columns": [10]
+				},
+				{
+					"line": 299, "columns": [9, 17]
+				},
+				{
+					"line": 300, "columns": [16]
+				},
+				{
+					"line": 303, "columns": [47]
+				},
+				{
+					"line": 304, "columns": [5]
+				}
+			],
+			"successors": [84],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %expected) #9, !dbg !153",
+				"store i8 2, ptr %expected, align 1, !dbg !154, !tbaa !155",
+				"%call13 = call i32 @_PyParkingLot_Park(ptr noundef nonnull %evt, ptr noundef nonnull %expected, i64 noundef 1, i64 noundef %timeout_ns, ptr noundef null, i32 noundef 1) #9, !dbg !158",
+				"%3 = load atomic i8, ptr %evt seq_cst, align 1, !dbg !161",
+				"%cmp17 = icmp eq i8 %3, 1, !dbg !162",
+				"%conv18 = zext i1 %cmp17 to i32, !dbg !162",
+				"call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %expected) #9, !dbg !163",
+				"br label %return"
+			]
+		},
+		{
+			"function": "PyEvent_WaitTimed",
+			"id": 84,
+			"name": "return",
+			"debug": [
+				{
+					"line": 305, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1.ph = phi i32 [ %conv18, %if.end11 ], [ 1, %for.cond ]",
+				"ret i32 %retval.1.ph, !dbg !164"
+			]
+		},
+		{
+			"function": "_PyOnceFlag_CallOnceSlow",
+			"id": 85,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 272, "columns": [10]
+				},
+				{
+					"line": 334, "columns": [5]
+				},
+				{
+					"line": 335, "columns": [5]
+				}
+			],
+			"successors": [87],
+			"ir": [
+				"%v = alloca i8, align 1",
+				"call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %v) #9, !dbg !131",
+				"%0 = load atomic i8, ptr %flag seq_cst, align 1, !dbg !142",
+				"br label %for.cond, !dbg !143"
+			]
+		},
+		{
+			"function": "_PyOnceFlag_CallOnceSlow",
+			"id": 86,
+			"name": "for.condthread-pre-split",
+			"debug": [
+				{
+					"line": 105, "columns": [10]
+				},
+				{
+					"line": 336, "columns": [13]
+				}
+			],
+			"successors": [98],
+			"ir": [
+				"%.pn = phi { i8, i1 } [ %1, %if.then ], [ %6, %if.then16 ]",
+				"%storemerge = extractvalue { i8, i1 } %.pn, 0, !dbg !144",
+				"br label %for.cond.backedge, !dbg !154"
+			]
+		},
+		{
+			"function": "_PyOnceFlag_CallOnceSlow",
+			"id": 87,
+			"name": "for.cond",
+			"debug": [
+				{
+					"line": 336, "columns": [13]
+				}
+			],
+			"successors": [94, 88, 99],
+			"ir": [
+				"%storemerge46 = phi i8 [ %0, %entry ], [ %storemerge46.be, %for.cond.backedge ], !dbg !130",
+				"store i8 %storemerge46, ptr %v, align 1, !dbg !130",
+				"switch i8 %storemerge46, label %if.end13 [\n    i8 0, label %if.then\n    i8 4, label %cleanup29\n  ], !dbg !155"
+			]
+		},
+		{
+			"function": "_PyOnceFlag_CallOnceSlow",
+			"id": 88,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 105, "columns": [10]
+				}
+			],
+			"successors": [89, 86],
+			"ir": [
+				"%1 = cmpxchg ptr %flag, i8 0, i8 1 seq_cst seq_cst, align 1, !dbg !159",
+				"%2 = extractvalue { i8, i1 } %1, 1, !dbg !159",
+				"br i1 %2, label %if.end, label %for.condthread-pre-split, !dbg !159"
+			]
+		},
+		{
+			"function": "_PyOnceFlag_CallOnceSlow",
+			"id": 89,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 313, "columns": [5]
+				},
+				{
+					"line": 340, "columns": [23]
+				}
+			],
+			"successors": [91, 92, 90],
+			"ir": [
+				"%call6 = call i32 %fn(ptr noundef %arg) #9, !dbg !160",
+				"switch i32 %call6, label %sw.default.i [\n    i32 -1, label %sw.epilog.i\n    i32 0, label %sw.bb1.split.i\n  ], !dbg !172"
+			]
+		},
+		{
+			"function": "_PyOnceFlag_CallOnceSlow",
+			"id": 90,
+			"name": "sw.bb1.split.i",
+			"debug": [
+				{
+					"line": 315, "columns": [52]
+				}
+			],
+			"successors": [92],
+			"ir": [
+				"br label %sw.epilog.i, !dbg !181"
+			]
+		},
+		{
+			"function": "_PyOnceFlag_CallOnceSlow",
+			"id": 91,
+			"name": "sw.default.i",
+			"debug": [
+				{
+					"line": 317, "columns": [13]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @_Py_FatalErrorFunc(ptr noundef nonnull @__func__.unlock_once, ptr noundef nonnull @.str.1) #10, !dbg !183",
+				"unreachable, !dbg !183"
+			]
+		},
+		{
+			"function": "_PyOnceFlag_CallOnceSlow",
+			"id": 92,
+			"name": "sw.epilog.i",
+			"debug": [
+				{
+					"line": 171, "columns": [10]
+				},
+				{
+					"line": 324, "columns": [20, 38, 9]
+				}
+			],
+			"successors": [99, 93],
+			"ir": [
+				"%.sink.i = phi i8 [ 4, %sw.bb1.split.i ], [ 0, %if.end ]",
+				"%3 = atomicrmw xchg ptr %flag, i8 %.sink.i seq_cst, align 1, !dbg !185",
+				"%4 = and i8 %3, 2, !dbg !187",
+				"%cmp.not.i = icmp eq i8 %4, 0, !dbg !189",
+				"br i1 %cmp.not.i, label %cleanup29, label %if.then.i, !dbg !190"
+			]
+		},
+		{
+			"function": "_PyOnceFlag_CallOnceSlow",
+			"id": 93,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 326, "columns": [9]
+				},
+				{
+					"line": 327, "columns": [5]
+				}
+			],
+			"successors": [99],
+			"ir": [
+				"call void @_PyParkingLot_UnparkAll(ptr noundef nonnull %flag) #9, !dbg !191",
+				"br label %cleanup29, !dbg !193"
+			]
+		},
+		{
+			"function": "_PyOnceFlag_CallOnceSlow",
+			"id": 94,
+			"name": "if.end13",
+			"debug": [
+				{
+					"line": 350, "columns": [17, 13]
+				}
+			],
+			"successors": [95, 97],
+			"ir": [
+				"%5 = and i8 %storemerge46, 2, !dbg !194",
+				"%tobool15.not = icmp eq i8 %5, 0, !dbg !194",
+				"br i1 %tobool15.not, label %if.then16, label %if.end24, !dbg !195"
+			]
+		},
+		{
+			"function": "_PyOnceFlag_CallOnceSlow",
+			"id": 95,
+			"name": "if.then16",
+			"debug": [
+				{
+					"line": 105, "columns": [10]
+				},
+				{
+					"line": 352, "columns": [35]
+				}
+			],
+			"successors": [96, 86],
+			"ir": [
+				"%or = or i8 %storemerge46, 2, !dbg !196",
+				"%6 = cmpxchg ptr %flag, i8 %storemerge46, i8 %or seq_cst seq_cst, align 1, !dbg !201",
+				"%7 = extractvalue { i8, i1 } %6, 1, !dbg !201",
+				"br i1 %7, label %cleanup.thread, label %for.condthread-pre-split, !dbg !201"
+			]
+		},
+		{
+			"function": "_PyOnceFlag_CallOnceSlow",
+			"id": 96,
+			"name": "cleanup.thread",
+			"debug": [
+				{
+					"line": 356, "columns": [15]
+				}
+			],
+			"successors": [97],
+			"ir": [
+				"store i8 %or, ptr %v, align 1, !dbg !202, !tbaa !203",
+				"br label %if.end24"
+			]
+		},
+		{
+			"function": "_PyOnceFlag_CallOnceSlow",
+			"id": 97,
+			"name": "if.end24",
+			"debug": [
+				{
+					"line": 272, "columns": [10]
+				},
+				{
+					"line": 335, "columns": [5]
+				},
+				{
+					"line": 360, "columns": [9]
+				}
+			],
+			"successors": [98],
+			"ir": [
+				"%call26 = call i32 @_PyParkingLot_Park(ptr noundef nonnull %flag, ptr noundef nonnull %v, i64 noundef 1, i64 noundef -1, ptr noundef null, i32 noundef 1) #9, !dbg !206",
+				"%8 = load atomic i8, ptr %flag seq_cst, align 1, !dbg !209",
+				"br label %for.cond.backedge, !dbg !210"
+			]
+		},
+		{
+			"function": "_PyOnceFlag_CallOnceSlow",
+			"id": 98,
+			"name": "for.cond.backedge",
+			"debug": [
+			],
+			"successors": [87],
+			"ir": [
+				"%storemerge46.be = phi i8 [ %storemerge, %for.condthread-pre-split ], [ %8, %if.end24 ]",
+				"br label %for.cond, !dbg !130, !llvm.loop !211"
+			]
+		},
+		{
+			"function": "_PyOnceFlag_CallOnceSlow",
+			"id": 99,
+			"name": "cleanup29",
+			"debug": [
+				{
+					"line": 363, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ %call6, %sw.epilog.i ], [ %call6, %if.then.i ], [ 0, %for.cond ], !dbg !153",
+				"call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %v) #9, !dbg !214",
+				"ret i32 %retval.0, !dbg !214"
+			]
+		},
+		{
+			"function": "_PyRWMutex_RLock",
+			"id": 100,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 347, "columns": [10]
+				},
+				{
+					"line": 397, "columns": [5]
+				}
+			],
+			"successors": [101],
+			"ir": [
+				"%bits.addr.i16 = alloca i64, align 8",
+				"%bits.addr.i = alloca i64, align 8",
+				"%0 = load atomic i64, ptr %rwmutex monotonic, align 8, !dbg !129",
+				"br label %for.cond, !dbg !130"
+			]
+		},
+		{
+			"function": "_PyRWMutex_RLock",
+			"id": 101,
+			"name": "for.cond",
+			"debug": [
+				{
+					"line": 398, "columns": [19, 13]
+				}
+			],
+			"successors": [109, 102],
+			"ir": [
+				"%bits.0 = phi i64 [ %0, %entry ], [ %bits.0.be, %for.cond.backedge ], !dbg !118",
+				"%and = and i64 %bits.0, 1, !dbg !131",
+				"%tobool.not = icmp eq i64 %and, 0, !dbg !131",
+				"br i1 %tobool.not, label %if.else, label %if.then, !dbg !132"
+			]
+		},
+		{
+			"function": "_PyRWMutex_RLock",
+			"id": 102,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 373, "columns": [15, 33, 9]
+				}
+			],
+			"successors": [103, 106],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %bits.addr.i), !dbg !133",
+				"store i64 %bits.0, ptr %bits.addr.i, align 8, !tbaa !145",
+				"%and.i = and i64 %bits.0, 2, !dbg !149",
+				"%cmp.i = icmp eq i64 %and.i, 0, !dbg !150",
+				"br i1 %cmp.i, label %if.then.i, label %if.end3.i, !dbg !151"
+			]
+		},
+		{
+			"function": "_PyRWMutex_RLock",
+			"id": 103,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 125, "columns": [10]
+				},
+				{
+					"line": 374, "columns": [33]
+				}
+			],
+			"successors": [104, 105],
+			"ir": [
+				"%or.i = or i64 %bits.0, 2, !dbg !152",
+				"%1 = cmpxchg ptr %rwmutex, i64 %bits.0, i64 %or.i seq_cst seq_cst, align 8, !dbg !165",
+				"%2 = extractvalue { i64, i1 } %1, 1, !dbg !165",
+				"br i1 %2, label %cleanup.thread.i, label %cleanup.i, !dbg !165"
+			]
+		},
+		{
+			"function": "_PyRWMutex_RLock",
+			"id": 104,
+			"name": "cleanup.thread.i",
+			"debug": [
+				{
+					"line": 379, "columns": [14]
+				}
+			],
+			"successors": [106],
+			"ir": [
+				"store i64 %or.i, ptr %bits.addr.i, align 8, !dbg !166, !tbaa !145",
+				"br label %if.end3.i"
+			]
+		},
+		{
+			"function": "_PyRWMutex_RLock",
+			"id": 105,
+			"name": "cleanup.i",
+			"debug": [
+				{
+					"line": 125, "columns": [10]
+				}
+			],
+			"successors": [107],
+			"ir": [
+				"%3 = extractvalue { i64, i1 } %1, 0, !dbg !165",
+				"br label %rwmutex_set_parked_and_wait.exit"
+			]
+		},
+		{
+			"function": "_PyRWMutex_RLock",
+			"id": 106,
+			"name": "if.end3.i",
+			"debug": [
+				{
+					"line": 347, "columns": [10]
+				},
+				{
+					"line": 382, "columns": [5]
+				},
+				{
+					"line": 383, "columns": [5]
+				}
+			],
+			"successors": [107],
+			"ir": [
+				"%call5.i = call i32 @_PyParkingLot_Park(ptr noundef nonnull %rwmutex, ptr noundef nonnull %bits.addr.i, i64 noundef 8, i64 noundef -1, ptr noundef null, i32 noundef 1) #9, !dbg !167",
+				"%4 = load atomic i64, ptr %rwmutex monotonic, align 8, !dbg !170",
+				"br label %rwmutex_set_parked_and_wait.exit, !dbg !171"
+			]
+		},
+		{
+			"function": "_PyRWMutex_RLock",
+			"id": 107,
+			"name": "rwmutex_set_parked_and_wait.exit",
+			"debug": [
+				{
+					"line": 384, "columns": [1]
+				},
+				{
+					"line": 401, "columns": [13]
+				}
+			],
+			"successors": [108],
+			"ir": [
+				"%retval.1.i = phi i64 [ %3, %cleanup.i ], [ %4, %if.end3.i ]",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %bits.addr.i), !dbg !172",
+				"br label %for.cond.backedge, !dbg !173"
+			]
+		},
+		{
+			"function": "_PyRWMutex_RLock",
+			"id": 108,
+			"name": "for.cond.backedge",
+			"debug": [
+			],
+			"successors": [101],
+			"ir": [
+				"%bits.0.be = phi i64 [ %8, %_Py_atomic_compare_exchange_uintptr.exit ], [ %5, %rwmutex_set_parked_and_wait.exit26 ], [ %retval.1.i, %rwmutex_set_parked_and_wait.exit ]",
+				"br label %for.cond, !dbg !118, !llvm.loop !174"
+			]
+		},
+		{
+			"function": "_PyRWMutex_RLock",
+			"id": 109,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 403, "columns": [24, 18]
+				}
+			],
+			"successors": [111, 110],
+			"ir": [
+				"%and3 = and i64 %bits.0, 2, !dbg !177",
+				"%tobool4.not = icmp eq i64 %and3, 0, !dbg !177",
+				"br i1 %tobool4.not, label %if.else7, label %rwmutex_set_parked_and_wait.exit26, !dbg !178"
+			]
+		},
+		{
+			"function": "_PyRWMutex_RLock",
+			"id": 110,
+			"name": "rwmutex_set_parked_and_wait.exit26",
+			"debug": [
+				{
+					"line": 347, "columns": [10]
+				},
+				{
+					"line": 382, "columns": [5]
+				},
+				{
+					"line": 384, "columns": [1]
+				},
+				{
+					"line": 409, "columns": [13]
+				}
+			],
+			"successors": [108],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %bits.addr.i16), !dbg !179",
+				"store i64 %bits.0, ptr %bits.addr.i16, align 8, !tbaa !145",
+				"%call5.i23 = call i32 @_PyParkingLot_Park(ptr noundef nonnull %rwmutex, ptr noundef nonnull %bits.addr.i16, i64 noundef 8, i64 noundef -1, ptr noundef null, i32 noundef 1) #9, !dbg !182",
+				"%5 = load atomic i64, ptr %rwmutex monotonic, align 8, !dbg !185",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %bits.addr.i16), !dbg !186",
+				"br label %for.cond.backedge, !dbg !187"
+			]
+		},
+		{
+			"function": "_PyRWMutex_RLock",
+			"id": 111,
+			"name": "if.else7",
+			"debug": [
+				{
+					"line": 125, "columns": [10]
+				},
+				{
+					"line": 414, "columns": [37]
+				}
+			],
+			"successors": [113, 112],
+			"ir": [
+				"%add = add i64 %bits.0, 4, !dbg !188",
+				"%6 = cmpxchg ptr %rwmutex, i64 %bits.0, i64 %add seq_cst seq_cst, align 8, !dbg !193",
+				"%7 = extractvalue { i64, i1 } %6, 1, !dbg !193",
+				"br i1 %7, label %cleanup12, label %_Py_atomic_compare_exchange_uintptr.exit, !dbg !193"
+			]
+		},
+		{
+			"function": "_PyRWMutex_RLock",
+			"id": 112,
+			"name": "_Py_atomic_compare_exchange_uintptr.exit",
+			"debug": [
+				{
+					"line": 125, "columns": [10]
+				}
+			],
+			"successors": [108],
+			"ir": [
+				"%8 = extractvalue { i64, i1 } %6, 0, !dbg !193",
+				"br label %for.cond.backedge"
+			]
+		},
+		{
+			"function": "_PyRWMutex_RLock",
+			"id": 113,
+			"name": "cleanup12",
+			"debug": [
+				{
+					"line": 422, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !194"
+			]
+		},
+		{
+			"function": "_PyRWMutex_RUnlock",
+			"id": 114,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 59, "columns": [10]
+				},
+				{
+					"line": 431, "columns": [41]
+				}
+			],
+			"successors": [115, 116],
+			"ir": [
+				"%0 = atomicrmw add ptr %rwmutex, i64 -4 seq_cst, align 8, !dbg !122",
+				"%1 = and i64 %0, -2, !dbg !123",
+				"%or.cond.not = icmp eq i64 %1, 6, !dbg !123",
+				"br i1 %or.cond.not, label %if.then, label %cleanup, !dbg !123"
+			]
+		},
+		{
+			"function": "_PyRWMutex_RUnlock",
+			"id": 115,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 432, "columns": [9]
+				},
+				{
+					"line": 433, "columns": [9]
+				}
+			],
+			"successors": [116],
+			"ir": [
+				"tail call void @_PyParkingLot_UnparkAll(ptr noundef %rwmutex) #9, !dbg !125",
+				"br label %cleanup, !dbg !127"
+			]
+		},
+		{
+			"function": "_PyRWMutex_RUnlock",
+			"id": 116,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 435, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !128"
+			]
+		},
+		{
+			"function": "_PyRWMutex_Lock",
+			"id": 117,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 347, "columns": [10]
+				},
+				{
+					"line": 441, "columns": [5]
+				}
+			],
+			"successors": [118],
+			"ir": [
+				"%bits.addr.i = alloca i64, align 8",
+				"%0 = load atomic i64, ptr %rwmutex monotonic, align 8, !dbg !122",
+				"br label %for.cond, !dbg !123"
+			]
+		},
+		{
+			"function": "_PyRWMutex_Lock",
+			"id": 118,
+			"name": "for.cond",
+			"debug": [
+				{
+					"line": 444, "columns": [19, 38, 13]
+				}
+			],
+			"successors": [119, 122],
+			"ir": [
+				"%bits.0 = phi i64 [ %0, %entry ], [ %bits.0.be, %for.cond.backedge ], !dbg !111",
+				"%and = and i64 %bits.0, -3, !dbg !124",
+				"%cmp = icmp eq i64 %and, 0, !dbg !129",
+				"br i1 %cmp, label %if.then, label %if.end5, !dbg !130"
+			]
+		},
+		{
+			"function": "_PyRWMutex_Lock",
+			"id": 119,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 125, "columns": [10]
+				},
+				{
+					"line": 447, "columns": [59]
+				}
+			],
+			"successors": [121, 120],
+			"ir": [
+				"%or = or i64 %bits.0, 1, !dbg !131",
+				"%1 = cmpxchg ptr %rwmutex, i64 %bits.0, i64 %or seq_cst seq_cst, align 8, !dbg !144",
+				"%2 = extractvalue { i64, i1 } %1, 1, !dbg !144",
+				"br i1 %2, label %if.end, label %_Py_atomic_compare_exchange_uintptr.exit, !dbg !144"
+			]
+		},
+		{
+			"function": "_PyRWMutex_Lock",
+			"id": 120,
+			"name": "_Py_atomic_compare_exchange_uintptr.exit",
+			"debug": [
+				{
+					"line": 125, "columns": [10]
+				}
+			],
+			"successors": [128],
+			"ir": [
+				"%3 = extractvalue { i64, i1 } %1, 0, !dbg !144",
+				"br label %for.cond.backedge"
+			]
+		},
+		{
+			"function": "_PyRWMutex_Lock",
+			"id": 121,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 456, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !145"
+			]
+		},
+		{
+			"function": "_PyRWMutex_Lock",
+			"id": 122,
+			"name": "if.end5",
+			"debug": [
+				{
+					"line": 373, "columns": [15, 33, 9]
+				}
+			],
+			"successors": [123, 126],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %bits.addr.i), !dbg !146",
+				"store i64 %bits.0, ptr %bits.addr.i, align 8, !tbaa !157",
+				"%and.i = and i64 %bits.0, 2, !dbg !161",
+				"%cmp.i = icmp eq i64 %and.i, 0, !dbg !162",
+				"br i1 %cmp.i, label %if.then.i, label %if.end3.i, !dbg !163"
+			]
+		},
+		{
+			"function": "_PyRWMutex_Lock",
+			"id": 123,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 125, "columns": [10]
+				},
+				{
+					"line": 374, "columns": [33]
+				}
+			],
+			"successors": [124, 125],
+			"ir": [
+				"%or.i = or i64 %bits.0, 2, !dbg !164",
+				"%4 = cmpxchg ptr %rwmutex, i64 %bits.0, i64 %or.i seq_cst seq_cst, align 8, !dbg !169",
+				"%5 = extractvalue { i64, i1 } %4, 1, !dbg !169",
+				"br i1 %5, label %cleanup.thread.i, label %cleanup.i, !dbg !169"
+			]
+		},
+		{
+			"function": "_PyRWMutex_Lock",
+			"id": 124,
+			"name": "cleanup.thread.i",
+			"debug": [
+				{
+					"line": 379, "columns": [14]
+				}
+			],
+			"successors": [126],
+			"ir": [
+				"store i64 %or.i, ptr %bits.addr.i, align 8, !dbg !170, !tbaa !157",
+				"br label %if.end3.i"
+			]
+		},
+		{
+			"function": "_PyRWMutex_Lock",
+			"id": 125,
+			"name": "cleanup.i",
+			"debug": [
+				{
+					"line": 125, "columns": [10]
+				}
+			],
+			"successors": [127],
+			"ir": [
+				"%6 = extractvalue { i64, i1 } %4, 0, !dbg !169",
+				"br label %rwmutex_set_parked_and_wait.exit"
+			]
+		},
+		{
+			"function": "_PyRWMutex_Lock",
+			"id": 126,
+			"name": "if.end3.i",
+			"debug": [
+				{
+					"line": 347, "columns": [10]
+				},
+				{
+					"line": 382, "columns": [5]
+				},
+				{
+					"line": 383, "columns": [5]
+				}
+			],
+			"successors": [127],
+			"ir": [
+				"%call5.i = call i32 @_PyParkingLot_Park(ptr noundef nonnull %rwmutex, ptr noundef nonnull %bits.addr.i, i64 noundef 8, i64 noundef -1, ptr noundef null, i32 noundef 1) #9, !dbg !171",
+				"%7 = load atomic i64, ptr %rwmutex monotonic, align 8, !dbg !174",
+				"br label %rwmutex_set_parked_and_wait.exit, !dbg !175"
+			]
+		},
+		{
+			"function": "_PyRWMutex_Lock",
+			"id": 127,
+			"name": "rwmutex_set_parked_and_wait.exit",
+			"debug": [
+				{
+					"line": 384, "columns": [1]
+				},
+				{
+					"line": 441, "columns": [5]
+				}
+			],
+			"successors": [128],
+			"ir": [
+				"%retval.1.i = phi i64 [ %6, %cleanup.i ], [ %7, %if.end3.i ]",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %bits.addr.i), !dbg !176",
+				"br label %for.cond.backedge, !dbg !177"
+			]
+		},
+		{
+			"function": "_PyRWMutex_Lock",
+			"id": 128,
+			"name": "for.cond.backedge",
+			"debug": [
+			],
+			"successors": [118],
+			"ir": [
+				"%bits.0.be = phi i64 [ %3, %_Py_atomic_compare_exchange_uintptr.exit ], [ %retval.1.i, %rwmutex_set_parked_and_wait.exit ]",
+				"br label %for.cond, !dbg !111, !llvm.loop !178"
+			]
+		},
+		{
+			"function": "_PyRWMutex_Unlock",
+			"id": 129,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 187, "columns": [10]
+				},
+				{
+					"line": 466, "columns": [19, 37, 9]
+				}
+			],
+			"successors": [131, 130],
+			"ir": [
+				"%0 = atomicrmw xchg ptr %rwmutex, i64 0 seq_cst, align 8, !dbg !122",
+				"%and = and i64 %0, 2, !dbg !123",
+				"%cmp.not = icmp eq i64 %and, 0, !dbg !125",
+				"br i1 %cmp.not, label %if.end, label %if.then, !dbg !126"
+			]
+		},
+		{
+			"function": "_PyRWMutex_Unlock",
+			"id": 130,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 467, "columns": [9]
+				},
+				{
+					"line": 468, "columns": [5]
+				}
+			],
+			"successors": [131],
+			"ir": [
+				"tail call void @_PyParkingLot_UnparkAll(ptr noundef %rwmutex) #9, !dbg !127",
+				"br label %if.end, !dbg !129"
+			]
+		},
+		{
+			"function": "_PyRWMutex_Unlock",
+			"id": 131,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 469, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !130"
+			]
+		},
+		{
+			"function": "_PySeqLock_LockWrite",
+			"id": 132,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 339, "columns": [10]
+				},
+				{
+					"line": 477, "columns": [5]
+				}
+			],
+			"successors": [133],
+			"ir": [
+				"%0 = load atomic i32, ptr %seqlock monotonic, align 4, !dbg !125",
+				"br label %while.cond, !dbg !126"
+			]
+		},
+		{
+			"function": "_PySeqLock_LockWrite",
+			"id": 133,
+			"name": "while.cond",
+			"debug": [
+				{
+					"line": 476, "columns": [14]
+				},
+				{
+					"line": 478, "columns": [13]
+				}
+			],
+			"successors": [135, 134],
+			"ir": [
+				"%prev.0 = phi i32 [ %0, %entry ], [ %prev.0.be, %while.cond.backedge ], !dbg !127",
+				"%and = and i32 %prev.0, 1, !dbg !128",
+				"%tobool.not = icmp eq i32 %and, 0, !dbg !128",
+				"br i1 %tobool.not, label %if.else, label %if.then, !dbg !131"
+			]
+		},
+		{
+			"function": "_PySeqLock_LockWrite",
+			"id": 134,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 46, "columns": [5]
+				},
+				{
+					"line": 339, "columns": [10]
+				},
+				{
+					"line": 482, "columns": [9]
+				}
+			],
+			"successors": [137],
+			"ir": [
+				"%call.i = tail call i32 @sched_yield() #9, !dbg !132",
+				"%1 = load atomic i32, ptr %seqlock monotonic, align 4, !dbg !141",
+				"br label %while.cond.backedge, !dbg !142"
+			]
+		},
+		{
+			"function": "_PySeqLock_LockWrite",
+			"id": 135,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 115, "columns": [10]
+				},
+				{
+					"line": 483, "columns": [85]
+				}
+			],
+			"successors": [138, 136],
+			"ir": [
+				"%add = add nuw i32 %prev.0, 1, !dbg !143",
+				"%2 = cmpxchg ptr %seqlock, i32 %prev.0, i32 %add seq_cst seq_cst, align 4, !dbg !155",
+				"%3 = extractvalue { i32, i1 } %2, 1, !dbg !155",
+				"br i1 %3, label %while.end, label %if.else7, !dbg !155"
+			]
+		},
+		{
+			"function": "_PySeqLock_LockWrite",
+			"id": 136,
+			"name": "if.else7",
+			"debug": [
+				{
+					"line": 46, "columns": [5]
+				},
+				{
+					"line": 115, "columns": [10]
+				}
+			],
+			"successors": [137],
+			"ir": [
+				"%4 = extractvalue { i32, i1 } %2, 0, !dbg !155",
+				"%call.i11 = tail call i32 @sched_yield() #9, !dbg !156",
+				"br label %while.cond.backedge"
+			]
+		},
+		{
+			"function": "_PySeqLock_LockWrite",
+			"id": 137,
+			"name": "while.cond.backedge",
+			"debug": [
+			],
+			"successors": [133],
+			"ir": [
+				"%prev.0.be = phi i32 [ %4, %if.else7 ], [ %1, %if.then ]",
+				"br label %while.cond, !dbg !114, !llvm.loop !159"
+			]
+		},
+		{
+			"function": "_PySeqLock_LockWrite",
+			"id": 138,
+			"name": "while.end",
+			"debug": [
+				{
+					"line": 491, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !161"
+			]
+		},
+		{
+			"function": "_PySeqLock_AbandonWrite",
+			"id": 139,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 402, "columns": [3]
+				},
+				{
+					"line": 495, "columns": [33, 42]
+				},
+				{
+					"line": 498, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = load i32, ptr %seqlock, align 4, !dbg !115, !tbaa !116",
+				"%sub = add i32 %0, -1, !dbg !121",
+				"store atomic i32 %sub, ptr %seqlock seq_cst, align 4, !dbg !132",
+				"ret void, !dbg !133"
+			]
+		},
+		{
+			"function": "_PySeqLock_UnlockWrite",
+			"id": 140,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 402, "columns": [3]
+				},
+				{
+					"line": 502, "columns": [33, 42]
+				},
+				{
+					"line": 505, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = load i32, ptr %seqlock, align 4, !dbg !115, !tbaa !116",
+				"%add = add i32 %0, 1, !dbg !121",
+				"store atomic i32 %add, ptr %seqlock seq_cst, align 4, !dbg !132",
+				"ret void, !dbg !133"
+			]
+		},
+		{
+			"function": "_PySeqLock_BeginRead",
+			"id": 141,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 510, "columns": [12, 5]
+				},
+				{
+					"line": 521, "columns": [10]
+				}
+			],
+			"successors": [143, 142],
+			"ir": [
+				"%0 = load atomic i32, ptr %seqlock acquire, align 4, !dbg !125",
+				"%and6 = and i32 %0, 1, !dbg !126",
+				"%tobool.not7 = icmp eq i32 %and6, 0, !dbg !127",
+				"br i1 %tobool.not7, label %while.end, label %while.body, !dbg !127"
+			]
+		},
+		{
+			"function": "_PySeqLock_BeginRead",
+			"id": 142,
+			"name": "while.body",
+			"debug": [
+				{
+					"line": 46, "columns": [5]
+				},
+				{
+					"line": 510, "columns": [12, 5]
+				},
+				{
+					"line": 521, "columns": [10]
+				}
+			],
+			"successors": [143, 142],
+			"ir": [
+				"%call.i = tail call i32 @sched_yield() #9, !dbg !128",
+				"%1 = load atomic i32, ptr %seqlock acquire, align 4, !dbg !137",
+				"%and = and i32 %1, 1, !dbg !126",
+				"%tobool.not = icmp eq i32 %and, 0, !dbg !127",
+				"br i1 %tobool.not, label %while.end, label %while.body, !dbg !127, !llvm.loop !138"
+			]
+		},
+		{
+			"function": "_PySeqLock_BeginRead",
+			"id": 143,
+			"name": "while.end",
+			"debug": [
+				{
+					"line": 515, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%sequence.0.lcssa = phi i32 [ %0, %entry ], [ %1, %while.body ], !dbg !114",
+				"ret i32 %sequence.0.lcssa, !dbg !141"
+			]
+		},
+		{
+			"function": "_PySeqLock_EndRead",
+			"id": 144,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 521, "columns": [10]
+				},
+				{
+					"line": 522, "columns": [61, 10]
+				}
+			],
+			"successors": [146, 145],
+			"ir": [
+				"%0 = load atomic i32, ptr %seqlock acquire, align 4, !dbg !126",
+				"%cmp = icmp eq i32 %0, %previous, !dbg !127",
+				"br i1 %cmp, label %return, label %if.end, !dbg !128"
+			]
+		},
+		{
+			"function": "_PySeqLock_EndRead",
+			"id": 145,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 46, "columns": [5]
+				},
+				{
+					"line": 527, "columns": [6]
+				}
+			],
+			"successors": [146],
+			"ir": [
+				"%call.i = tail call i32 @sched_yield() #9, !dbg !129",
+				"br label %return, !dbg !135"
+			]
+		},
+		{
+			"function": "_PySeqLock_EndRead",
+			"id": 146,
+			"name": "return",
+			"debug": [
+				{
+					"line": 528, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ 0, %if.end ], [ 1, %entry ], !dbg !114",
+				"ret i32 %retval.0, !dbg !136"
+			]
+		},
+		{
+			"function": "_PySeqLock_AfterFork",
+			"id": 147,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 534, "columns": [10]
+				}
+			],
+			"successors": [149, 148],
+			"ir": [
+				"%0 = load i32, ptr %seqlock, align 4, !dbg !114, !tbaa !116",
+				"%and = and i32 %0, 1, !dbg !114",
+				"%tobool.not = icmp eq i32 %and, 0, !dbg !114",
+				"br i1 %tobool.not, label %return, label %if.then, !dbg !121"
+			]
+		},
+		{
+			"function": "_PySeqLock_AfterFork",
+			"id": 148,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 535, "columns": [27]
+				},
+				{
+					"line": 536, "columns": [9]
+				}
+			],
+			"successors": [149],
+			"ir": [
+				"store i32 0, ptr %seqlock, align 4, !dbg !122, !tbaa !116",
+				"br label %return, !dbg !124"
+			]
+		},
+		{
+			"function": "_PySeqLock_AfterFork",
+			"id": 149,
+			"name": "return",
+			"debug": [
+				{
+					"line": 540, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ 1, %if.then ], [ 0, %entry ], !dbg !113",
+				"ret i32 %retval.0, !dbg !125"
+			]
+		}
+	]
+}

@@ -1,0 +1,857 @@
+{
+	"blocks": [
+		{
+			"function": "PyOS_StdioReadline",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 260, "columns": [29]
+				},
+				{
+					"line": 308, "columns": [5]
+				},
+				{
+					"line": 309, "columns": [9]
+				}
+			],
+			"successors": [2, 1],
+			"ir": [
+				"%0 = load ptr, ptr @_PyOS_ReadlineTState, align 8, !dbg !6794, !tbaa !6795",
+				"%call = tail call i32 @fflush(ptr noundef %sys_stdout), !dbg !6799",
+				"%tobool.not = icmp eq ptr %prompt, null, !dbg !6800",
+				"br i1 %tobool.not, label %if.end, label %if.then, !dbg !6802"
+			]
+		},
+		{
+			"function": "PyOS_StdioReadline",
+			"id": 1,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 310, "columns": [17, 9]
+				},
+				{
+					"line": 311, "columns": [5]
+				}
+			],
+			"successors": [2],
+			"ir": [
+				"%1 = load ptr, ptr @stderr, align 8, !dbg !6803, !tbaa !6795",
+				"%fputs = tail call i32 @fputs(ptr nonnull %prompt, ptr %1) #10, !dbg !6805",
+				"br label %if.end, !dbg !6806"
+			]
+		},
+		{
+			"function": "PyOS_StdioReadline",
+			"id": 2,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 312, "columns": [12, 5]
+				},
+				{
+					"line": 316, "columns": [5]
+				}
+			],
+			"successors": [3],
+			"ir": [
+				"%2 = load ptr, ptr @stderr, align 8, !dbg !6807, !tbaa !6795",
+				"%call2 = tail call i32 @fflush(ptr noundef %2), !dbg !6808",
+				"%interp.i = getelementptr inbounds %struct._ts, ptr %0, i64 0, i32 2",
+				"br label %do.body, !dbg !6809"
+			]
+		},
+		{
+			"function": "PyOS_StdioReadline",
+			"id": 3,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 314, "columns": [7]
+				},
+				{
+					"line": 315, "columns": [7]
+				},
+				{
+					"line": 317, "columns": [26, 23]
+				},
+				{
+					"line": 318, "columns": [18, 13]
+				}
+			],
+			"successors": [4, 5],
+			"ir": [
+				"%p.0 = phi ptr [ null, %if.end ], [ %call8, %do.cond ], !dbg !6810",
+				"%n.0 = phi i64 [ 0, %if.end ], [ %add25, %do.cond ], !dbg !6811",
+				"%cmp.not = icmp eq i64 %n.0, 0, !dbg !6812",
+				"%add = add i64 %n.0, 2, !dbg !6813",
+				"%cond = select i1 %cmp.not, i64 100, i64 %add, !dbg !6813",
+				"%cmp3 = icmp ugt i64 %cond, 2147483647, !dbg !6815",
+				"br i1 %cmp3, label %if.then4, label %if.end6, !dbg !6817"
+			]
+		},
+		{
+			"function": "PyOS_StdioReadline",
+			"id": 4,
+			"name": "if.then4",
+			"debug": [
+				{
+					"line": 319, "columns": [13]
+				},
+				{
+					"line": 320, "columns": [13]
+				},
+				{
+					"line": 321, "columns": [29, 13]
+				},
+				{
+					"line": 322, "columns": [13]
+				},
+				{
+					"line": 323, "columns": [13]
+				}
+			],
+			"successors": [22],
+			"ir": [
+				"tail call void @PyMem_RawFree(ptr noundef %p.0) #11, !dbg !6818",
+				"tail call void @PyEval_RestoreThread(ptr noundef %0) #11, !dbg !6820",
+				"%3 = load ptr, ptr @PyExc_OverflowError, align 8, !dbg !6821, !tbaa !6795",
+				"tail call void @PyErr_SetString(ptr noundef %3, ptr noundef nonnull @.str.1) #11, !dbg !6822",
+				"%call5 = tail call ptr @PyEval_SaveThread() #11, !dbg !6823",
+				"br label %cleanup39, !dbg !6824"
+			]
+		},
+		{
+			"function": "PyOS_StdioReadline",
+			"id": 5,
+			"name": "if.end6",
+			"debug": [
+				{
+					"line": 325, "columns": [44, 22]
+				},
+				{
+					"line": 326, "columns": [16, 13]
+				}
+			],
+			"successors": [6, 7],
+			"ir": [
+				"%add7 = add i64 %cond, %n.0, !dbg !6825",
+				"%call8 = tail call ptr @PyMem_RawRealloc(ptr noundef %p.0, i64 noundef %add7) #11, !dbg !6826",
+				"%cmp9 = icmp eq ptr %call8, null, !dbg !6827",
+				"br i1 %cmp9, label %if.then10, label %if.end13, !dbg !6829"
+			]
+		},
+		{
+			"function": "PyOS_StdioReadline",
+			"id": 6,
+			"name": "if.then10",
+			"debug": [
+				{
+					"line": 327, "columns": [13]
+				},
+				{
+					"line": 328, "columns": [13]
+				},
+				{
+					"line": 329, "columns": [13]
+				},
+				{
+					"line": 330, "columns": [13]
+				},
+				{
+					"line": 331, "columns": [13]
+				}
+			],
+			"successors": [22],
+			"ir": [
+				"tail call void @PyMem_RawFree(ptr noundef %p.0) #11, !dbg !6830",
+				"tail call void @PyEval_RestoreThread(ptr noundef %0) #11, !dbg !6832",
+				"%call11 = tail call ptr @PyErr_NoMemory() #11, !dbg !6833",
+				"%call12 = tail call ptr @PyEval_SaveThread() #11, !dbg !6834",
+				"br label %cleanup39, !dbg !6835"
+			]
+		},
+		{
+			"function": "PyOS_StdioReadline",
+			"id": 7,
+			"name": "if.end13",
+			"debug": [
+				{
+					"line": 53, "columns": [5]
+				},
+				{
+					"line": 334, "columns": [38, 43]
+				}
+			],
+			"successors": [8],
+			"ir": [
+				"%add.ptr = getelementptr i8, ptr %call8, i64 %n.0, !dbg !6836",
+				"%conv = trunc i64 %cond to i32, !dbg !6837",
+				"br label %while.body.i, !dbg !6854"
+			]
+		},
+		{
+			"function": "PyOS_StdioReadline",
+			"id": 8,
+			"name": "while.body.i",
+			"debug": [
+				{
+					"line": 54, "columns": [13, 28, 36]
+				}
+			],
+			"successors": [11, 9],
+			"ir": [
+				"%4 = load ptr, ptr @PyOS_InputHook, align 8, !dbg !6855, !tbaa !6795",
+				"%cmp.not.i = icmp eq ptr %4, null, !dbg !6857",
+				"br i1 %cmp.not.i, label %if.end.i, label %land.lhs.true.i, !dbg !6858"
+			]
+		},
+		{
+			"function": "PyOS_StdioReadline",
+			"id": 9,
+			"name": "land.lhs.true.i",
+			"debug": [
+				{
+					"line": 54, "columns": [13]
+				},
+				{
+					"line": 56, "columns": [43]
+				},
+				{
+					"line": 60, "columns": [36]
+				},
+				{
+					"line": 66, "columns": [20]
+				}
+			],
+			"successors": [10, 11],
+			"ir": [
+				"%5 = load ptr, ptr %interp.i, align 8, !dbg !6859, !tbaa !6860",
+				"%6 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 8, i32 2), align 8, !dbg !6875, !tbaa !6881",
+				"%cmp.i.not.i = icmp eq ptr %6, %5, !dbg !7008",
+				"br i1 %cmp.i.not.i, label %if.then.i, label %if.end.i, !dbg !7009"
+			]
+		},
+		{
+			"function": "PyOS_StdioReadline",
+			"id": 10,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 58, "columns": [19]
+				},
+				{
+					"line": 59, "columns": [9]
+				}
+			],
+			"successors": [11],
+			"ir": [
+				"%call1.i = tail call i32 %4() #11, !dbg !7010",
+				"br label %if.end.i, !dbg !7012"
+			]
+		},
+		{
+			"function": "PyOS_StdioReadline",
+			"id": 11,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 61, "columns": [9, 15]
+				},
+				{
+					"line": 62, "columns": [9]
+				},
+				{
+					"line": 63, "columns": [19]
+				},
+				{
+					"line": 64, "columns": [15, 13]
+				}
+			],
+			"successors": [12, 19],
+			"ir": [
+				"%call2.i = tail call ptr @__errno_location() #12, !dbg !7013",
+				"store i32 0, ptr %call2.i, align 4, !dbg !7014, !tbaa !7015",
+				"tail call void @clearerr(ptr noundef %sys_stdin) #11, !dbg !7016",
+				"%call3.i = tail call ptr @fgets(ptr noundef %add.ptr, i32 noundef %conv, ptr noundef %sys_stdin), !dbg !7017",
+				"%cmp4.not.i = icmp eq ptr %call3.i, null, !dbg !7019",
+				"br i1 %cmp4.not.i, label %if.end6.i, label %do.cond, !dbg !7021"
+			]
+		},
+		{
+			"function": "PyOS_StdioReadline",
+			"id": 12,
+			"name": "if.end6.i",
+			"debug": [
+				{
+					"line": 67, "columns": [19]
+				},
+				{
+					"line": 95, "columns": [13]
+				}
+			],
+			"successors": [14, 13],
+			"ir": [
+				"%7 = load i32, ptr %call2.i, align 4, !dbg !7022, !tbaa !7015",
+				"%call8.i = tail call i32 @feof(ptr noundef %sys_stdin) #11, !dbg !7023",
+				"%tobool9.not.i = icmp eq i32 %call8.i, 0, !dbg !7023",
+				"br i1 %tobool9.not.i, label %if.end11.i, label %if.then10.i, !dbg !7025"
+			]
+		},
+		{
+			"function": "PyOS_StdioReadline",
+			"id": 13,
+			"name": "if.then10.i",
+			"debug": [
+				{
+					"line": 96, "columns": [13]
+				},
+				{
+					"line": 97, "columns": [13]
+				}
+			],
+			"successors": [18],
+			"ir": [
+				"tail call void @clearerr(ptr noundef %sys_stdin) #11, !dbg !7026",
+				"br label %cleanup26, !dbg !7028"
+			]
+		},
+		{
+			"function": "PyOS_StdioReadline",
+			"id": 14,
+			"name": "if.end11.i",
+			"debug": [
+				{
+					"line": 101, "columns": [17, 13]
+				}
+			],
+			"successors": [16, 15],
+			"ir": [
+				"%cmp12.i = icmp eq i32 %7, 4, !dbg !7029",
+				"br i1 %cmp12.i, label %cleanup25.i, label %if.end19.i, !dbg !7030"
+			]
+		},
+		{
+			"function": "PyOS_StdioReadline",
+			"id": 15,
+			"name": "if.end19.i",
+			"debug": [
+				{
+					"line": 114, "columns": [13]
+				}
+			],
+			"successors": [18, 17],
+			"ir": [
+				"%call20.i = tail call i32 @_PyOS_InterruptOccurred(ptr noundef %0) #11, !dbg !7031",
+				"%tobool21.not.i = icmp eq i32 %call20.i, 0, !dbg !7031",
+				"br i1 %tobool21.not.i, label %cleanup26, label %if.then17, !dbg !7018"
+			]
+		},
+		{
+			"function": "PyOS_StdioReadline",
+			"id": 16,
+			"name": "cleanup25.i",
+			"debug": [
+				{
+					"line": 102, "columns": [13]
+				},
+				{
+					"line": 103, "columns": [21]
+				},
+				{
+					"line": 104, "columns": [13]
+				},
+				{
+					"line": 106, "columns": [19]
+				}
+			],
+			"successors": [8, 17],
+			"ir": [
+				"tail call void @PyEval_RestoreThread(ptr noundef %0) #11, !dbg !7033",
+				"%call14.i = tail call i32 @PyErr_CheckSignals() #11, !dbg !7034",
+				"%call15.i = tail call ptr @PyEval_SaveThread() #11, !dbg !7036",
+				"%cmp16.i = icmp sgt i32 %call14.i, -1, !dbg !7037",
+				"br i1 %cmp16.i, label %while.body.i, label %if.then17"
+			]
+		},
+		{
+			"function": "PyOS_StdioReadline",
+			"id": 17,
+			"name": "if.then17",
+			"debug": [
+				{
+					"line": 337, "columns": [13]
+				},
+				{
+					"line": 338, "columns": [13]
+				}
+			],
+			"successors": [22],
+			"ir": [
+				"tail call void @PyMem_RawFree(ptr noundef nonnull %call8) #11, !dbg !7039",
+				"br label %cleanup39, !dbg !7042"
+			]
+		},
+		{
+			"function": "PyOS_StdioReadline",
+			"id": 18,
+			"name": "cleanup26",
+			"debug": [
+				{
+					"line": 341, "columns": [18]
+				}
+			],
+			"successors": [20],
+			"ir": [
+				"store i8 0, ptr %add.ptr, align 1, !dbg !7043, !tbaa !7046",
+				"br label %do.end"
+			]
+		},
+		{
+			"function": "PyOS_StdioReadline",
+			"id": 19,
+			"name": "do.cond",
+			"debug": [
+				{
+					"line": 344, "columns": [14, 11]
+				},
+				{
+					"line": 345, "columns": [17, 14, 21, 5]
+				}
+			],
+			"successors": [20, 3],
+			"ir": [
+				"%call24 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %add.ptr) #13, !dbg !7047",
+				"%add25 = add i64 %call24, %n.0, !dbg !7048",
+				"%sub = add i64 %add25, -1, !dbg !7049",
+				"%arrayidx27 = getelementptr i8, ptr %call8, i64 %sub, !dbg !7050",
+				"%8 = load i8, ptr %arrayidx27, align 1, !dbg !7050, !tbaa !7046",
+				"%cmp29.not = icmp eq i8 %8, 10, !dbg !7051",
+				"br i1 %cmp29.not, label %do.end, label %do.body, !dbg !7052, !llvm.loop !7053"
+			]
+		},
+		{
+			"function": "PyOS_StdioReadline",
+			"id": 20,
+			"name": "do.end",
+			"debug": [
+				{
+					"line": 347, "columns": [39, 18]
+				},
+				{
+					"line": 348, "columns": [12, 9]
+				}
+			],
+			"successors": [21, 22],
+			"ir": [
+				"%n.283 = phi i64 [ %n.0, %cleanup26 ], [ %add25, %do.cond ]",
+				"%add31 = add i64 %n.283, 1, !dbg !7056",
+				"%call32 = tail call ptr @PyMem_RawRealloc(ptr noundef nonnull %call8, i64 noundef %add31) #11, !dbg !7057",
+				"%cmp33 = icmp eq ptr %call32, null, !dbg !7058",
+				"br i1 %cmp33, label %if.then35, label %cleanup39, !dbg !7060"
+			]
+		},
+		{
+			"function": "PyOS_StdioReadline",
+			"id": 21,
+			"name": "if.then35",
+			"debug": [
+				{
+					"line": 349, "columns": [9]
+				},
+				{
+					"line": 350, "columns": [9]
+				},
+				{
+					"line": 351, "columns": [9]
+				},
+				{
+					"line": 352, "columns": [9]
+				},
+				{
+					"line": 353, "columns": [9]
+				}
+			],
+			"successors": [22],
+			"ir": [
+				"tail call void @PyMem_RawFree(ptr noundef nonnull %call8) #11, !dbg !7061",
+				"tail call void @PyEval_RestoreThread(ptr noundef %0) #11, !dbg !7063",
+				"%call36 = tail call ptr @PyErr_NoMemory() #11, !dbg !7064",
+				"%call37 = tail call ptr @PyEval_SaveThread() #11, !dbg !7065",
+				"br label %cleanup39, !dbg !7066"
+			]
+		},
+		{
+			"function": "PyOS_StdioReadline",
+			"id": 22,
+			"name": "cleanup39",
+			"debug": [
+				{
+					"line": 356, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.3 = phi ptr [ null, %if.then35 ], [ %call32, %do.end ], [ null, %if.then4 ], [ null, %if.then10 ], [ null, %if.then17 ], !dbg !6793",
+				"ret ptr %retval.3, !dbg !7067"
+			]
+		},
+		{
+			"function": "PyOS_Readline",
+			"id": 23,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 137, "columns": [12]
+				},
+				{
+					"line": 376, "columns": [9, 30]
+				}
+			],
+			"successors": [24, 25],
+			"ir": [
+				"%0 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6793",
+				"%1 = load ptr, ptr %0, align 8, !dbg !6793, !tbaa !6800",
+				"%2 = load ptr, ptr @_PyOS_ReadlineTState, align 8, !dbg !6804, !tbaa !6800",
+				"%cmp = icmp eq ptr %2, %1, !dbg !6806",
+				"br i1 %cmp, label %if.then, label %if.end, !dbg !6807"
+			]
+		},
+		{
+			"function": "PyOS_Readline",
+			"id": 24,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 377, "columns": [25, 9]
+				},
+				{
+					"line": 379, "columns": [9]
+				}
+			],
+			"successors": [40],
+			"ir": [
+				"%3 = load ptr, ptr @PyExc_RuntimeError, align 8, !dbg !6808, !tbaa !6800",
+				"tail call void @PyErr_SetString(ptr noundef %3, ptr noundef nonnull @.str.2) #10, !dbg !6810",
+				"br label %cleanup, !dbg !6811"
+			]
+		},
+		{
+			"function": "PyOS_Readline",
+			"id": 25,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 383, "columns": [9, 38]
+				}
+			],
+			"successors": [26, 27],
+			"ir": [
+				"%4 = load ptr, ptr @PyOS_ReadlineFunctionPointer, align 8, !dbg !6812, !tbaa !6800",
+				"%cmp1 = icmp eq ptr %4, null, !dbg !6814",
+				"br i1 %cmp1, label %if.then2, label %if.end3, !dbg !6815"
+			]
+		},
+		{
+			"function": "PyOS_Readline",
+			"id": 26,
+			"name": "if.then2",
+			"debug": [
+				{
+					"line": 384, "columns": [38]
+				},
+				{
+					"line": 385, "columns": [5]
+				}
+			],
+			"successors": [27],
+			"ir": [
+				"store ptr @PyOS_StdioReadline, ptr @PyOS_ReadlineFunctionPointer, align 8, !dbg !6816, !tbaa !6800",
+				"br label %if.end3, !dbg !6818"
+			]
+		},
+		{
+			"function": "PyOS_Readline",
+			"id": 27,
+			"name": "if.end3",
+			"debug": [
+				{
+					"line": 387, "columns": [9, 28]
+				}
+			],
+			"successors": [28, 30],
+			"ir": [
+				"%5 = load ptr, ptr @_PyOS_ReadlineLock, align 8, !dbg !6819, !tbaa !6800",
+				"%cmp4 = icmp eq ptr %5, null, !dbg !6821",
+				"br i1 %cmp4, label %if.then5, label %if.end10, !dbg !6822"
+			]
+		},
+		{
+			"function": "PyOS_Readline",
+			"id": 28,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 388, "columns": [30, 28]
+				},
+				{
+					"line": 389, "columns": [32, 13]
+				}
+			],
+			"successors": [29, 30],
+			"ir": [
+				"%call6 = tail call ptr @PyThread_allocate_lock() #10, !dbg !6823",
+				"store ptr %call6, ptr @_PyOS_ReadlineLock, align 8, !dbg !6825, !tbaa !6800",
+				"%cmp7 = icmp eq ptr %call6, null, !dbg !6826",
+				"br i1 %cmp7, label %if.then8, label %if.end10, !dbg !6828"
+			]
+		},
+		{
+			"function": "PyOS_Readline",
+			"id": 29,
+			"name": "if.then8",
+			"debug": [
+				{
+					"line": 390, "columns": [29, 13]
+				},
+				{
+					"line": 391, "columns": [13]
+				}
+			],
+			"successors": [40],
+			"ir": [
+				"%6 = load ptr, ptr @PyExc_MemoryError, align 8, !dbg !6829, !tbaa !6800",
+				"tail call void @PyErr_SetString(ptr noundef %6, ptr noundef nonnull @.str.3) #10, !dbg !6831",
+				"br label %cleanup, !dbg !6832"
+			]
+		},
+		{
+			"function": "PyOS_Readline",
+			"id": 30,
+			"name": "if.end10",
+			"debug": [
+				{
+					"line": 395, "columns": [26]
+				},
+				{
+					"line": 396, "columns": [5]
+				},
+				{
+					"line": 397, "columns": [27, 5]
+				},
+				{
+					"line": 404, "columns": [17, 10, 36]
+				}
+			],
+			"successors": [33, 31],
+			"ir": [
+				"store ptr %1, ptr @_PyOS_ReadlineTState, align 8, !dbg !6833, !tbaa !6800",
+				"%call11 = tail call ptr @PyEval_SaveThread() #10, !dbg !6834",
+				"%7 = load ptr, ptr @_PyOS_ReadlineLock, align 8, !dbg !6836, !tbaa !6800",
+				"%call12 = tail call i32 @PyThread_acquire_lock(ptr noundef %7, i32 noundef 1) #10, !dbg !6837",
+				"%call13 = tail call i32 @fileno(ptr noundef %sys_stdin) #10, !dbg !6838",
+				"%call14 = tail call i32 @isatty(i32 noundef %call13) #10, !dbg !6840",
+				"%tobool.not = icmp eq i32 %call14, 0, !dbg !6840",
+				"br i1 %tobool.not, label %if.then21, label %lor.lhs.false, !dbg !6841"
+			]
+		},
+		{
+			"function": "PyOS_Readline",
+			"id": 31,
+			"name": "lor.lhs.false",
+			"debug": [
+				{
+					"line": 404, "columns": [47, 40, 67]
+				}
+			],
+			"successors": [33, 32],
+			"ir": [
+				"%call15 = tail call i32 @fileno(ptr noundef %sys_stdout) #10, !dbg !6842",
+				"%call16 = tail call i32 @isatty(i32 noundef %call15) #10, !dbg !6843",
+				"%tobool17.not = icmp eq i32 %call16, 0, !dbg !6843",
+				"br i1 %tobool17.not, label %if.then21, label %lor.lhs.false18, !dbg !6844"
+			]
+		},
+		{
+			"function": "PyOS_Readline",
+			"id": 32,
+			"name": "lor.lhs.false18",
+			"debug": [
+				{
+					"line": 60, "columns": [36]
+				},
+				{
+					"line": 66, "columns": [20]
+				},
+				{
+					"line": 404, "columns": [9]
+				},
+				{
+					"line": 414, "columns": [40]
+				}
+			],
+			"successors": [34, 33],
+			"ir": [
+				"%interp = getelementptr inbounds %struct._ts, ptr %1, i64 0, i32 2, !dbg !6845",
+				"%8 = load ptr, ptr %interp, align 8, !dbg !6845, !tbaa !6846",
+				"%9 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 8, i32 2), align 8, !dbg !6860, !tbaa !6865",
+				"%cmp.i.not = icmp eq ptr %9, %8, !dbg !6992",
+				"br i1 %cmp.i.not, label %if.else, label %if.then21, !dbg !6993"
+			]
+		},
+		{
+			"function": "PyOS_Readline",
+			"id": 33,
+			"name": "if.then21",
+			"debug": [
+				{
+					"line": 416, "columns": [14]
+				},
+				{
+					"line": 417, "columns": [5]
+				}
+			],
+			"successors": [35],
+			"ir": [
+				"%call22 = tail call ptr @PyOS_StdioReadline(ptr noundef %sys_stdin, ptr noundef %sys_stdout, ptr noundef %prompt), !dbg !6994",
+				"br label %if.end24, !dbg !6996"
+			]
+		},
+		{
+			"function": "PyOS_Readline",
+			"id": 34,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 419, "columns": [16, 14]
+				}
+			],
+			"successors": [35],
+			"ir": [
+				"%10 = load ptr, ptr @PyOS_ReadlineFunctionPointer, align 8, !dbg !6997, !tbaa !6800",
+				"%call23 = tail call ptr %10(ptr noundef %sys_stdin, ptr noundef %sys_stdout, ptr noundef %prompt) #10, !dbg !6999",
+				"br label %if.end24"
+			]
+		},
+		{
+			"function": "PyOS_Readline",
+			"id": 35,
+			"name": "if.end24",
+			"debug": [
+				{
+					"line": 421, "columns": [5]
+				},
+				{
+					"line": 423, "columns": [27, 5]
+				},
+				{
+					"line": 425, "columns": [26]
+				},
+				{
+					"line": 427, "columns": [12, 9]
+				}
+			],
+			"successors": [40, 36],
+			"ir": [
+				"%rv.0 = phi ptr [ %call23, %if.else ], [ %call22, %if.then21 ], !dbg !7000",
+				"tail call void @PyEval_RestoreThread(ptr noundef %call11) #10, !dbg !7001",
+				"%11 = load ptr, ptr @_PyOS_ReadlineLock, align 8, !dbg !7002, !tbaa !6800",
+				"tail call void @PyThread_release_lock(ptr noundef %11) #10, !dbg !7003",
+				"store ptr null, ptr @_PyOS_ReadlineTState, align 8, !dbg !7004, !tbaa !6800",
+				"%cmp25 = icmp eq ptr %rv.0, null, !dbg !7005",
+				"br i1 %cmp25, label %cleanup, label %if.end27, !dbg !7007"
+			]
+		},
+		{
+			"function": "PyOS_Readline",
+			"id": 36,
+			"name": "if.end27",
+			"debug": [
+				{
+					"line": 430, "columns": [11, 22]
+				},
+				{
+					"line": 431, "columns": [11]
+				},
+				{
+					"line": 432, "columns": [13, 9]
+				}
+			],
+			"successors": [38, 37],
+			"ir": [
+				"%call28 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %rv.0) #11, !dbg !7008",
+				"%add = add i64 %call28, 1, !dbg !7009",
+				"%call29 = tail call ptr @PyMem_Malloc(i64 noundef %add) #10, !dbg !7010",
+				"%cmp30.not = icmp eq ptr %call29, null, !dbg !7011",
+				"br i1 %cmp30.not, label %if.else32, label %if.then31, !dbg !7013"
+			]
+		},
+		{
+			"function": "PyOS_Readline",
+			"id": 37,
+			"name": "if.then31",
+			"debug": [
+				{
+					"line": 433, "columns": [9]
+				},
+				{
+					"line": 434, "columns": [5]
+				}
+			],
+			"successors": [39],
+			"ir": [
+				"tail call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 1 %call29, ptr nonnull align 1 %rv.0, i64 %add, i1 false), !dbg !7014",
+				"br label %if.end34, !dbg !7016"
+			]
+		},
+		{
+			"function": "PyOS_Readline",
+			"id": 38,
+			"name": "if.else32",
+			"debug": [
+				{
+					"line": 436, "columns": [9]
+				}
+			],
+			"successors": [39],
+			"ir": [
+				"%call33 = tail call ptr @PyErr_NoMemory() #10, !dbg !7017",
+				"br label %if.end34"
+			]
+		},
+		{
+			"function": "PyOS_Readline",
+			"id": 39,
+			"name": "if.end34",
+			"debug": [
+				{
+					"line": 438, "columns": [5]
+				},
+				{
+					"line": 440, "columns": [5]
+				}
+			],
+			"successors": [40],
+			"ir": [
+				"tail call void @PyMem_RawFree(ptr noundef nonnull %rv.0) #10, !dbg !7019",
+				"br label %cleanup, !dbg !7020"
+			]
+		},
+		{
+			"function": "PyOS_Readline",
+			"id": 40,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 441, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ null, %if.then ], [ null, %if.then8 ], [ %call29, %if.end34 ], [ null, %if.end24 ], !dbg !6792",
+				"ret ptr %retval.0, !dbg !7021"
+			]
+		}
+	]
+}

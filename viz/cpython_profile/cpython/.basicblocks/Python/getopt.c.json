@@ -1,0 +1,737 @@
+{
+	"blocks": [
+		{
+			"function": "_PyOS_ResetGetOpt",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 54, "columns": [18]
+				},
+				{
+					"line": 55, "columns": [18]
+				},
+				{
+					"line": 56, "columns": [18]
+				},
+				{
+					"line": 57, "columns": [13]
+				},
+				{
+					"line": 58, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"store i32 1, ptr @_PyOS_opterr, align 4, !dbg !120, !tbaa !121",
+				"store i64 1, ptr @_PyOS_optind, align 8, !dbg !125, !tbaa !126",
+				"store ptr null, ptr @_PyOS_optarg, align 8, !dbg !128, !tbaa !129",
+				"store ptr @.str, ptr @opt_ptr, align 8, !dbg !131, !tbaa !129",
+				"ret void, !dbg !132"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 1,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 65, "columns": [10, 9, 18]
+				}
+			],
+			"successors": [2, 10],
+			"ir": [
+				"%0 = load ptr, ptr @opt_ptr, align 8, !dbg !134, !tbaa !136",
+				"%1 = load i32, ptr %0, align 4, !dbg !140, !tbaa !141",
+				"%cmp = icmp eq i32 %1, 0, !dbg !143",
+				"br i1 %cmp, label %if.then, label %if.end32, !dbg !144"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 2,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 67, "columns": [13, 26]
+				}
+			],
+			"successors": [3, 38],
+			"ir": [
+				"%2 = load i64, ptr @_PyOS_optind, align 8, !dbg !145, !tbaa !148",
+				"%cmp1.not = icmp slt i64 %2, %argc, !dbg !150",
+				"br i1 %cmp1.not, label %if.else, label %cleanup116, !dbg !151"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 3,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 76, "columns": [18, 40, 48]
+				}
+			],
+			"successors": [4, 38],
+			"ir": [
+				"%arrayidx = getelementptr ptr, ptr %argv, i64 %2, !dbg !152",
+				"%3 = load ptr, ptr %arrayidx, align 8, !dbg !152, !tbaa !136",
+				"%4 = load i32, ptr %3, align 4, !dbg !152, !tbaa !141",
+				"%cmp4.not = icmp eq i32 %4, 45, !dbg !154",
+				"br i1 %cmp4.not, label %lor.lhs.false, label %cleanup116, !dbg !155"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 4,
+			"name": "lor.lhs.false",
+			"debug": [
+				{
+					"line": 76, "columns": [18]
+				},
+				{
+					"line": 77, "columns": [18, 40]
+				}
+			],
+			"successors": [38, 5],
+			"ir": [
+				"%arrayidx6 = getelementptr i32, ptr %3, i64 1, !dbg !156",
+				"%5 = load i32, ptr %arrayidx6, align 4, !dbg !156, !tbaa !141",
+				"%cmp7 = icmp eq i32 %5, 0, !dbg !157",
+				"br i1 %cmp7, label %cleanup116, label %if.else9, !dbg !158"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 5,
+			"name": "if.else9",
+			"debug": [
+				{
+					"line": 80, "columns": [18, 52]
+				}
+			],
+			"successors": [6, 7],
+			"ir": [
+				"%call = tail call i32 @wcscmp(ptr noundef nonnull %3, ptr noundef nonnull @.str.1) #6, !dbg !159",
+				"%cmp11 = icmp eq i32 %call, 0, !dbg !161",
+				"br i1 %cmp11, label %if.then12, label %if.else13, !dbg !162"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 6,
+			"name": "if.then12",
+			"debug": [
+				{
+					"line": 81, "columns": [13]
+				},
+				{
+					"line": 82, "columns": [13]
+				}
+			],
+			"successors": [38],
+			"ir": [
+				"%inc = add nsw i64 %2, 1, !dbg !163",
+				"store i64 %inc, ptr @_PyOS_optind, align 8, !dbg !163, !tbaa !148",
+				"br label %cleanup116, !dbg !165"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 7,
+			"name": "if.else13",
+			"debug": [
+				{
+					"line": 85, "columns": [18, 56]
+				}
+			],
+			"successors": [8, 9],
+			"ir": [
+				"%call15 = tail call i32 @wcscmp(ptr noundef nonnull %3, ptr noundef nonnull @.str.2) #6, !dbg !166",
+				"%cmp16 = icmp eq i32 %call15, 0, !dbg !168",
+				"br i1 %cmp16, label %if.then17, label %if.else19, !dbg !169"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 8,
+			"name": "if.then17",
+			"debug": [
+				{
+					"line": 86, "columns": [13]
+				},
+				{
+					"line": 87, "columns": [13]
+				}
+			],
+			"successors": [38],
+			"ir": [
+				"%inc18 = add nsw i64 %2, 1, !dbg !170",
+				"store i64 %inc18, ptr @_PyOS_optind, align 8, !dbg !170, !tbaa !148",
+				"br label %cleanup116, !dbg !172"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 9,
+			"name": "if.else19",
+			"debug": [
+				{
+					"line": 90, "columns": [18, 59]
+				}
+			],
+			"successors": [38, 10],
+			"ir": [
+				"%call21 = tail call i32 @wcscmp(ptr noundef nonnull %3, ptr noundef nonnull @.str.3) #6, !dbg !173",
+				"%cmp22 = icmp eq i32 %call21, 0, !dbg !175",
+				"%inc24 = add nsw i64 %2, 1, !dbg !176",
+				"store i64 %inc24, ptr @_PyOS_optind, align 8, !dbg !176, !tbaa !148",
+				"br i1 %cmp22, label %cleanup116, label %if.end32, !dbg !177"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 10,
+			"name": "if.end32",
+			"debug": [
+				{
+					"line": 98, "columns": [19, 27, 9]
+				}
+			],
+			"successors": [28, 26, 11],
+			"ir": [
+				"%6 = phi i32 [ %1, %entry ], [ %5, %if.else19 ], !dbg !178",
+				"%7 = phi ptr [ %0, %entry ], [ %arrayidx6, %if.else19 ], !dbg !180",
+				"%incdec.ptr = getelementptr i32, ptr %7, i64 1, !dbg !180",
+				"store ptr %incdec.ptr, ptr @opt_ptr, align 8, !dbg !180, !tbaa !136",
+				"switch i32 %6, label %if.end85 [\n    i32 74, label %if.then80\n    i32 45, label %if.then37\n  ], !dbg !181"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 11,
+			"name": "if.then37",
+			"debug": [
+				{
+					"line": 103, "columns": [13, 22]
+				}
+			],
+			"successors": [12, 14],
+			"ir": [
+				"%8 = load i32, ptr %incdec.ptr, align 4, !dbg !182, !tbaa !141",
+				"%cmp38 = icmp eq i32 %8, 0, !dbg !184",
+				"br i1 %cmp38, label %if.then39, label %if.end43, !dbg !185"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 12,
+			"name": "if.then39",
+			"debug": [
+				{
+					"line": 104, "columns": [17]
+				}
+			],
+			"successors": [38, 13],
+			"ir": [
+				"%9 = load i32, ptr @_PyOS_opterr, align 4, !dbg !186, !tbaa !141",
+				"%tobool.not = icmp eq i32 %9, 0, !dbg !186",
+				"br i1 %tobool.not, label %cleanup116, label %if.then40, !dbg !189"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 13,
+			"name": "if.then40",
+			"debug": [
+				{
+					"line": 105, "columns": [25, 17]
+				},
+				{
+					"line": 106, "columns": [13]
+				}
+			],
+			"successors": [38],
+			"ir": [
+				"%10 = load ptr, ptr @stderr, align 8, !dbg !190, !tbaa !136",
+				"%11 = tail call i64 @fwrite(ptr nonnull @.str.4, i64 21, i64 1, ptr %10) #7, !dbg !192",
+				"br label %cleanup116, !dbg !193"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 14,
+			"name": "if.end43",
+			"debug": [
+				{
+					"line": 109, "columns": [20]
+				},
+				{
+					"line": 112, "columns": [18, 17]
+				}
+			],
+			"successors": [20, 18],
+			"ir": [
+				"store i32 0, ptr %longindex, align 4, !dbg !194, !tbaa !141",
+				"%call47151 = tail call i32 @wcscmp(ptr noundef nonnull @.str.11, ptr noundef nonnull %incdec.ptr) #6, !dbg !196",
+				"%tobool48.not152 = icmp eq i32 %call47151, 0, !dbg !196",
+				"br i1 %tobool48.not152, label %if.end62, label %for.inc, !dbg !201"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 15,
+			"name": "for.inc.1",
+			"debug": [
+				{
+					"line": 111, "columns": [70]
+				},
+				{
+					"line": 112, "columns": [18, 17]
+				}
+			],
+			"successors": [20, 16],
+			"ir": [
+				"store i32 2, ptr %longindex, align 4, !dbg !202, !tbaa !141",
+				"%call47.1 = tail call i32 @wcscmp(ptr noundef nonnull @.str.13, ptr noundef nonnull %incdec.ptr) #6, !dbg !196",
+				"%tobool48.not.1 = icmp eq i32 %call47.1, 0, !dbg !196",
+				"br i1 %tobool48.not.1, label %if.end62, label %for.inc.2, !dbg !201, !llvm.loop !203"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 16,
+			"name": "for.inc.2",
+			"debug": [
+				{
+					"line": 111, "columns": [70]
+				},
+				{
+					"line": 112, "columns": [18, 17]
+				}
+			],
+			"successors": [20, 17],
+			"ir": [
+				"store i32 3, ptr %longindex, align 4, !dbg !202, !tbaa !141",
+				"%call47.2 = tail call i32 @wcscmp(ptr noundef nonnull @.str.14, ptr noundef nonnull %incdec.ptr) #6, !dbg !196",
+				"%tobool48.not.2 = icmp eq i32 %call47.2, 0, !dbg !196",
+				"br i1 %tobool48.not.2, label %if.end62, label %for.inc.3, !dbg !201, !llvm.loop !203"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 17,
+			"name": "for.inc.3",
+			"debug": [
+				{
+					"line": 111, "columns": [70]
+				},
+				{
+					"line": 116, "columns": [17]
+				}
+			],
+			"successors": [38, 19],
+			"ir": [
+				"store i32 4, ptr %longindex, align 4, !dbg !202, !tbaa !141",
+				"%12 = load i32, ptr @_PyOS_opterr, align 4, !dbg !207, !tbaa !141",
+				"%tobool57.not = icmp eq i32 %12, 0, !dbg !207",
+				"br i1 %tobool57.not, label %cleanup116, label %if.then58, !dbg !211"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 18,
+			"name": "for.inc",
+			"debug": [
+				{
+					"line": 111, "columns": [70]
+				},
+				{
+					"line": 112, "columns": [18, 17]
+				}
+			],
+			"successors": [20, 15],
+			"ir": [
+				"store i32 1, ptr %longindex, align 4, !dbg !202, !tbaa !141",
+				"%call47 = tail call i32 @wcscmp(ptr noundef nonnull @.str.12, ptr noundef nonnull %incdec.ptr) #6, !dbg !196",
+				"%tobool48.not = icmp eq i32 %call47, 0, !dbg !196",
+				"br i1 %tobool48.not, label %if.end62, label %for.inc.1, !dbg !201, !llvm.loop !203"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 19,
+			"name": "if.then58",
+			"debug": [
+				{
+					"line": 117, "columns": [25, 62, 75, 57, 17]
+				},
+				{
+					"line": 118, "columns": [13]
+				}
+			],
+			"successors": [38],
+			"ir": [
+				"%13 = load ptr, ptr @stderr, align 8, !dbg !212, !tbaa !136",
+				"%14 = load i64, ptr @_PyOS_optind, align 8, !dbg !214, !tbaa !148",
+				"%sub = add i64 %14, -1, !dbg !215",
+				"%arrayidx59 = getelementptr ptr, ptr %argv, i64 %sub, !dbg !216",
+				"%15 = load ptr, ptr %arrayidx59, align 8, !dbg !216, !tbaa !136",
+				"%call60 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %13, ptr noundef nonnull @.str.5, ptr noundef %15) #7, !dbg !217",
+				"br label %cleanup116, !dbg !218"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 20,
+			"name": "if.end62",
+			"debug": [
+				{
+					"line": 121, "columns": [17]
+				},
+				{
+					"line": 122, "columns": [19, 14, 13]
+				}
+			],
+			"successors": [21, 22],
+			"ir": [
+				"%opt.0147.lcssa = phi ptr [ @longopts, %if.end43 ], [ getelementptr inbounds ([5 x %struct._PyOS_LongOption], ptr @longopts, i64 0, i64 1), %for.inc ], [ getelementptr inbounds ([5 x %struct._PyOS_LongOption], ptr @longopts, i64 0, i64 2), %for.inc.1 ], [ getelementptr inbounds ([5 x %struct._PyOS_LongOption], ptr @longopts, i64 0, i64 3), %for.inc.2 ]",
+				"store ptr @.str, ptr @opt_ptr, align 8, !dbg !219, !tbaa !136",
+				"%has_arg = getelementptr inbounds %struct._PyOS_LongOption, ptr %opt.0147.lcssa, i64 0, i32 1, !dbg !220",
+				"%16 = load i32, ptr %has_arg, align 8, !dbg !220, !tbaa !222",
+				"%tobool63.not = icmp eq i32 %16, 0, !dbg !224",
+				"br i1 %tobool63.not, label %if.then64, label %if.end65, !dbg !225"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 21,
+			"name": "if.then64",
+			"debug": [
+				{
+					"line": 123, "columns": [25, 13]
+				}
+			],
+			"successors": [38],
+			"ir": [
+				"%val = getelementptr inbounds %struct._PyOS_LongOption, ptr %opt.0147.lcssa, i64 0, i32 2, !dbg !226",
+				"%17 = load i32, ptr %val, align 4, !dbg !226, !tbaa !228",
+				"br label %cleanup116, !dbg !229"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 22,
+			"name": "if.end65",
+			"debug": [
+				{
+					"line": 125, "columns": [13, 26]
+				}
+			],
+			"successors": [25, 23],
+			"ir": [
+				"%18 = load i64, ptr @_PyOS_optind, align 8, !dbg !230, !tbaa !148",
+				"%cmp66.not = icmp slt i64 %18, %argc, !dbg !232",
+				"br i1 %cmp66.not, label %if.end74, label %if.then67, !dbg !233"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 23,
+			"name": "if.then67",
+			"debug": [
+				{
+					"line": 126, "columns": [17]
+				}
+			],
+			"successors": [38, 24],
+			"ir": [
+				"%19 = load i32, ptr @_PyOS_opterr, align 4, !dbg !234, !tbaa !141",
+				"%tobool68.not = icmp eq i32 %19, 0, !dbg !234",
+				"br i1 %tobool68.not, label %cleanup116, label %if.then69, !dbg !237"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 24,
+			"name": "if.then69",
+			"debug": [
+				{
+					"line": 127, "columns": [25, 17]
+				},
+				{
+					"line": 128, "columns": [43, 25]
+				},
+				{
+					"line": 129, "columns": [13]
+				}
+			],
+			"successors": [38],
+			"ir": [
+				"%20 = load ptr, ptr @stderr, align 8, !dbg !238, !tbaa !136",
+				"%sub70 = add i64 %18, -1, !dbg !240",
+				"%arrayidx71 = getelementptr ptr, ptr %argv, i64 %sub70, !dbg !241",
+				"%21 = load ptr, ptr %arrayidx71, align 8, !dbg !241, !tbaa !136",
+				"%call72 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %20, ptr noundef nonnull @.str.6, ptr noundef %21) #7, !dbg !242",
+				"br label %cleanup116, !dbg !243"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 25,
+			"name": "if.end74",
+			"debug": [
+				{
+					"line": 132, "columns": [41, 24, 22]
+				},
+				{
+					"line": 133, "columns": [21, 9]
+				}
+			],
+			"successors": [38],
+			"ir": [
+				"%inc75 = add nsw i64 %18, 1, !dbg !244",
+				"store i64 %inc75, ptr @_PyOS_optind, align 8, !dbg !244, !tbaa !148",
+				"%arrayidx76 = getelementptr ptr, ptr %argv, i64 %18, !dbg !245",
+				"%22 = load ptr, ptr %arrayidx76, align 8, !dbg !245, !tbaa !136",
+				"store ptr %22, ptr @_PyOS_optarg, align 8, !dbg !246, !tbaa !136",
+				"%val77 = getelementptr inbounds %struct._PyOS_LongOption, ptr %opt.0147.lcssa, i64 0, i32 2, !dbg !247",
+				"%23 = load i32, ptr %val77, align 4, !dbg !247, !tbaa !228",
+				"br label %cleanup116, !dbg !248"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 26,
+			"name": "if.then80",
+			"debug": [
+				{
+					"line": 137, "columns": [13]
+				}
+			],
+			"successors": [38, 27],
+			"ir": [
+				"%24 = load i32, ptr @_PyOS_opterr, align 4, !dbg !249, !tbaa !141",
+				"%tobool81.not = icmp eq i32 %24, 0, !dbg !249",
+				"br i1 %tobool81.not, label %cleanup116, label %if.then82, !dbg !253"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 27,
+			"name": "if.then82",
+			"debug": [
+				{
+					"line": 138, "columns": [21, 13]
+				},
+				{
+					"line": 139, "columns": [9]
+				}
+			],
+			"successors": [38],
+			"ir": [
+				"%25 = load ptr, ptr @stderr, align 8, !dbg !254, !tbaa !136",
+				"%26 = tail call i64 @fwrite(ptr nonnull @.str.7, i64 26, i64 1, ptr %25) #7, !dbg !256",
+				"br label %cleanup116, !dbg !257"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 28,
+			"name": "if.end85",
+			"debug": [
+				{
+					"line": 143, "columns": [16, 44, 9]
+				}
+			],
+			"successors": [29, 31],
+			"ir": [
+				"%call86 = tail call ptr @wcschr(ptr noundef nonnull @.str.8, i32 noundef %6) #6, !dbg !258",
+				"%cmp87 = icmp eq ptr %call86, null, !dbg !260",
+				"br i1 %cmp87, label %if.then88, label %if.end94, !dbg !261"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 29,
+			"name": "if.then88",
+			"debug": [
+				{
+					"line": 144, "columns": [13]
+				}
+			],
+			"successors": [38, 30],
+			"ir": [
+				"%27 = load i32, ptr @_PyOS_opterr, align 4, !dbg !262, !tbaa !141",
+				"%tobool89.not = icmp eq i32 %27, 0, !dbg !262",
+				"br i1 %tobool89.not, label %cleanup116, label %if.then90, !dbg !265"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 30,
+			"name": "if.then90",
+			"debug": [
+				{
+					"line": 145, "columns": [21, 54, 13]
+				},
+				{
+					"line": 146, "columns": [9]
+				}
+			],
+			"successors": [38],
+			"ir": [
+				"%28 = load ptr, ptr @stderr, align 8, !dbg !266, !tbaa !136",
+				"%sext145 = shl i32 %6, 24, !dbg !268",
+				"%conv91 = ashr exact i32 %sext145, 24, !dbg !268",
+				"%call92 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %28, ptr noundef nonnull @.str.9, i32 noundef %conv91) #7, !dbg !269",
+				"br label %cleanup116, !dbg !270"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 31,
+			"name": "if.end94",
+			"debug": [
+				{
+					"line": 150, "columns": [15, 9, 20]
+				}
+			],
+			"successors": [32, 38],
+			"ir": [
+				"%add.ptr = getelementptr i32, ptr %call86, i64 1, !dbg !271",
+				"%29 = load i32, ptr %add.ptr, align 4, !dbg !273, !tbaa !141",
+				"%cmp95 = icmp eq i32 %29, 58, !dbg !274",
+				"br i1 %cmp95, label %if.then97, label %cleanup116, !dbg !275"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 32,
+			"name": "if.then97",
+			"debug": [
+				{
+					"line": 151, "columns": [13, 22]
+				}
+			],
+			"successors": [34, 33],
+			"ir": [
+				"%30 = load i32, ptr %incdec.ptr, align 4, !dbg !276, !tbaa !141",
+				"%cmp98.not = icmp eq i32 %30, 0, !dbg !279",
+				"br i1 %cmp98.not, label %if.else101, label %if.then100, !dbg !280"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 33,
+			"name": "if.then100",
+			"debug": [
+				{
+					"line": 152, "columns": [27]
+				},
+				{
+					"line": 153, "columns": [21]
+				},
+				{
+					"line": 154, "columns": [9]
+				}
+			],
+			"successors": [38],
+			"ir": [
+				"store ptr %incdec.ptr, ptr @_PyOS_optarg, align 8, !dbg !281, !tbaa !136",
+				"store ptr @.str, ptr @opt_ptr, align 8, !dbg !283, !tbaa !136",
+				"br label %cleanup116, !dbg !284"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 34,
+			"name": "if.else101",
+			"debug": [
+				{
+					"line": 157, "columns": [17, 30]
+				}
+			],
+			"successors": [37, 35],
+			"ir": [
+				"%31 = load i64, ptr @_PyOS_optind, align 8, !dbg !285, !tbaa !148",
+				"%cmp102.not = icmp slt i64 %31, %argc, !dbg !288",
+				"br i1 %cmp102.not, label %if.end111, label %if.then104, !dbg !289"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 35,
+			"name": "if.then104",
+			"debug": [
+				{
+					"line": 158, "columns": [21]
+				}
+			],
+			"successors": [38, 36],
+			"ir": [
+				"%32 = load i32, ptr @_PyOS_opterr, align 4, !dbg !290, !tbaa !141",
+				"%tobool105.not = icmp eq i32 %32, 0, !dbg !290",
+				"br i1 %tobool105.not, label %cleanup116, label %if.then106, !dbg !293"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 36,
+			"name": "if.then106",
+			"debug": [
+				{
+					"line": 159, "columns": [29, 21]
+				},
+				{
+					"line": 160, "columns": [67]
+				},
+				{
+					"line": 161, "columns": [17]
+				}
+			],
+			"successors": [38],
+			"ir": [
+				"%33 = load ptr, ptr @stderr, align 8, !dbg !294, !tbaa !136",
+				"%sext = shl i32 %6, 24, !dbg !296",
+				"%conv108 = ashr exact i32 %sext, 24, !dbg !296",
+				"%call109 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %33, ptr noundef nonnull @.str.10, i32 noundef %conv108) #7, !dbg !297",
+				"br label %cleanup116, !dbg !298"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 37,
+			"name": "if.end111",
+			"debug": [
+				{
+					"line": 165, "columns": [45, 28, 26]
+				}
+			],
+			"successors": [38],
+			"ir": [
+				"%inc112 = add nsw i64 %31, 1, !dbg !299",
+				"store i64 %inc112, ptr @_PyOS_optind, align 8, !dbg !299, !tbaa !148",
+				"%arrayidx113 = getelementptr ptr, ptr %argv, i64 %31, !dbg !300",
+				"%34 = load ptr, ptr %arrayidx113, align 8, !dbg !300, !tbaa !136",
+				"store ptr %34, ptr @_PyOS_optarg, align 8, !dbg !301, !tbaa !136",
+				"br label %cleanup116"
+			]
+		},
+		{
+			"function": "_PyOS_GetOpt",
+			"id": 38,
+			"name": "cleanup116",
+			"debug": [
+				{
+					"line": 170, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi i32 [ -1, %if.then12 ], [ 104, %if.then17 ], [ -1, %if.then ], [ -1, %lor.lhs.false ], [ -1, %if.else ], [ -1, %if.then40 ], [ -1, %if.then39 ], [ %23, %if.end74 ], [ %17, %if.then64 ], [ 95, %if.then58 ], [ 95, %for.inc.3 ], [ 95, %if.then69 ], [ 95, %if.then67 ], [ 95, %if.then82 ], [ 95, %if.then80 ], [ 95, %if.then90 ], [ 95, %if.then88 ], [ 95, %if.then106 ], [ 95, %if.then104 ], [ %6, %if.then100 ], [ %6, %if.end111 ], [ %6, %if.end94 ], [ 86, %if.else19 ], !dbg !133",
+				"ret i32 %retval.1, !dbg !302"
+			]
+		}
+	]
+}

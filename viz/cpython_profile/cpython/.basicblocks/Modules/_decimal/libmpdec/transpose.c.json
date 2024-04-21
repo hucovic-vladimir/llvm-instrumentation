@@ -1,0 +1,1916 @@
+{
+	"blocks": [
+		{
+			"function": "std_trans",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 58, "columns": [19, 5]
+				}
+			],
+			"successors": [11, 1],
+			"ir": [
+				"%src26 = ptrtoint ptr %src to i64, !dbg !63",
+				"%dest25 = ptrtoint ptr %dest to i64, !dbg !63",
+				"%cmp21.not = icmp eq i64 %rows, 0, !dbg !63",
+				"%cmp217.not = icmp eq i64 %cols, 0",
+				"%or.cond = or i1 %cmp21.not, %cmp217.not, !dbg !66",
+				"br i1 %or.cond, label %for.end8, label %for.body.us.preheader, !dbg !66"
+			]
+		},
+		{
+			"function": "std_trans",
+			"id": 1,
+			"name": "for.body.us.preheader",
+			"debug": [
+				{
+					"line": 58, "columns": [5]
+				},
+				{
+					"line": 59, "columns": [18]
+				}
+			],
+			"successors": [2],
+			"ir": [
+				"%0 = shl i64 %cols, 3, !dbg !67",
+				"%min.iters.check = icmp ult i64 %cols, 6",
+				"%ident.check.not = icmp ne i64 %rows, 1",
+				"%or.cond32.not34 = or i1 %min.iters.check, %ident.check.not",
+				"%n.vec = and i64 %cols, -4",
+				"%1 = mul i64 %n.vec, %rows",
+				"%cmp.n = icmp eq i64 %n.vec, %cols",
+				"%xtraiter = and i64 %cols, 3",
+				"%lcmp.mod.not = icmp eq i64 %xtraiter, 0",
+				"br label %for.body.us, !dbg !66"
+			]
+		},
+		{
+			"function": "std_trans",
+			"id": 2,
+			"name": "for.body.us",
+			"debug": [
+				{
+					"line": 59, "columns": [18]
+				},
+				{
+					"line": 61, "columns": [9]
+				}
+			],
+			"successors": [6, 3],
+			"ir": [
+				"%r.022.us = phi i64 [ %inc7.us, %for.cond1.for.inc6_crit_edge.us ], [ 0, %for.body.us.preheader ]",
+				"%2 = shl i64 %r.022.us, 3, !dbg !67",
+				"%3 = add i64 %2, %dest25, !dbg !67",
+				"%4 = mul i64 %0, %r.022.us, !dbg !67",
+				"%5 = add i64 %4, %src26, !dbg !67",
+				"%mul.us = mul i64 %r.022.us, %cols, !dbg !67",
+				"%6 = sub i64 %3, %5, !dbg !69",
+				"%diff.check = icmp ult i64 %6, 32, !dbg !69",
+				"%or.cond33 = or i1 %or.cond32.not34, %diff.check, !dbg !69",
+				"br i1 %or.cond33, label %for.body3.us.preheader, label %vector.ph, !dbg !69"
+			]
+		},
+		{
+			"function": "std_trans",
+			"id": 3,
+			"name": "vector.ph",
+			"debug": [
+				{
+					"line": 61, "columns": [9]
+				}
+			],
+			"successors": [4],
+			"ir": [
+				"%ind.end = add i64 %mul.us, %n.vec, !dbg !69",
+				"%ind.end28 = add i64 %r.022.us, %1, !dbg !69",
+				"br label %vector.body, !dbg !69"
+			]
+		},
+		{
+			"function": "std_trans",
+			"id": 4,
+			"name": "vector.body",
+			"debug": [
+				{
+					"line": 61, "columns": [32, 9]
+				},
+				{
+					"line": 62, "columns": [27, 13, 25]
+				}
+			],
+			"successors": [5, 4],
+			"ir": [
+				"%index = phi i64 [ 0, %vector.ph ], [ %index.next, %vector.body ], !dbg !71",
+				"%7 = mul i64 %index, %rows, !dbg !69",
+				"%offset.idx = add i64 %r.022.us, %7, !dbg !69",
+				"%offset.idx30 = add i64 %mul.us, %index, !dbg !69",
+				"%8 = getelementptr i64, ptr %src, i64 %offset.idx30, !dbg !73",
+				"%wide.load = load <2 x i64>, ptr %8, align 8, !dbg !73, !tbaa !75",
+				"%9 = getelementptr i64, ptr %8, i64 2, !dbg !73",
+				"%wide.load31 = load <2 x i64>, ptr %9, align 8, !dbg !73, !tbaa !75",
+				"%10 = getelementptr i64, ptr %dest, i64 %offset.idx, !dbg !79",
+				"store <2 x i64> %wide.load, ptr %10, align 8, !dbg !80, !tbaa !75",
+				"%11 = getelementptr i64, ptr %10, i64 2, !dbg !80",
+				"store <2 x i64> %wide.load31, ptr %11, align 8, !dbg !80, !tbaa !75",
+				"%index.next = add nuw i64 %index, 4, !dbg !71",
+				"%12 = icmp eq i64 %index.next, %n.vec, !dbg !71",
+				"br i1 %12, label %middle.block, label %vector.body, !dbg !71, !llvm.loop !81"
+			]
+		},
+		{
+			"function": "std_trans",
+			"id": 5,
+			"name": "middle.block",
+			"debug": [
+				{
+					"line": 61, "columns": [9]
+				}
+			],
+			"successors": [10, 6],
+			"ir": [
+				"br i1 %cmp.n, label %for.cond1.for.inc6_crit_edge.us, label %for.body3.us.preheader, !dbg !69"
+			]
+		},
+		{
+			"function": "std_trans",
+			"id": 6,
+			"name": "for.body3.us.preheader",
+			"debug": [
+				{
+					"line": 61, "columns": [9]
+				}
+			],
+			"successors": [8, 7],
+			"ir": [
+				"%c.020.us.ph = phi i64 [ 0, %for.body.us ], [ %n.vec, %middle.block ]",
+				"%isrc.019.us.ph = phi i64 [ %mul.us, %for.body.us ], [ %ind.end, %middle.block ]",
+				"%idest.018.us.ph = phi i64 [ %r.022.us, %for.body.us ], [ %ind.end28, %middle.block ]",
+				"%13 = xor i64 %c.020.us.ph, -1, !dbg !69",
+				"%14 = add i64 %13, %cols, !dbg !69",
+				"br i1 %lcmp.mod.not, label %for.body3.us.prol.loopexit, label %for.body3.us.prol, !dbg !69"
+			]
+		},
+		{
+			"function": "std_trans",
+			"id": 7,
+			"name": "for.body3.us.prol",
+			"debug": [
+				{
+					"line": 61, "columns": [32, 9]
+				},
+				{
+					"line": 62, "columns": [27, 13, 25]
+				},
+				{
+					"line": 63, "columns": [18]
+				},
+				{
+					"line": 64, "columns": [19]
+				}
+			],
+			"successors": [8, 7],
+			"ir": [
+				"%c.020.us.prol = phi i64 [ %inc.us.prol, %for.body3.us.prol ], [ %c.020.us.ph, %for.body3.us.preheader ]",
+				"%isrc.019.us.prol = phi i64 [ %add.us.prol, %for.body3.us.prol ], [ %isrc.019.us.ph, %for.body3.us.preheader ]",
+				"%idest.018.us.prol = phi i64 [ %add5.us.prol, %for.body3.us.prol ], [ %idest.018.us.ph, %for.body3.us.preheader ]",
+				"%prol.iter = phi i64 [ %prol.iter.next, %for.body3.us.prol ], [ 0, %for.body3.us.preheader ]",
+				"%arrayidx.us.prol = getelementptr i64, ptr %src, i64 %isrc.019.us.prol, !dbg !73",
+				"%15 = load i64, ptr %arrayidx.us.prol, align 8, !dbg !73, !tbaa !75",
+				"%arrayidx4.us.prol = getelementptr i64, ptr %dest, i64 %idest.018.us.prol, !dbg !79",
+				"store i64 %15, ptr %arrayidx4.us.prol, align 8, !dbg !80, !tbaa !75",
+				"%add.us.prol = add i64 %isrc.019.us.prol, 1, !dbg !86",
+				"%add5.us.prol = add i64 %idest.018.us.prol, %rows, !dbg !87",
+				"%inc.us.prol = add nuw i64 %c.020.us.prol, 1, !dbg !71",
+				"%prol.iter.next = add i64 %prol.iter, 1, !dbg !69",
+				"%prol.iter.cmp.not = icmp eq i64 %prol.iter.next, %xtraiter, !dbg !69",
+				"br i1 %prol.iter.cmp.not, label %for.body3.us.prol.loopexit, label %for.body3.us.prol, !dbg !69, !llvm.loop !88"
+			]
+		},
+		{
+			"function": "std_trans",
+			"id": 8,
+			"name": "for.body3.us.prol.loopexit",
+			"debug": [
+				{
+					"line": 61, "columns": [9]
+				}
+			],
+			"successors": [10, 9],
+			"ir": [
+				"%c.020.us.unr = phi i64 [ %c.020.us.ph, %for.body3.us.preheader ], [ %inc.us.prol, %for.body3.us.prol ]",
+				"%isrc.019.us.unr = phi i64 [ %isrc.019.us.ph, %for.body3.us.preheader ], [ %add.us.prol, %for.body3.us.prol ]",
+				"%idest.018.us.unr = phi i64 [ %idest.018.us.ph, %for.body3.us.preheader ], [ %add5.us.prol, %for.body3.us.prol ]",
+				"%16 = icmp ult i64 %14, 3, !dbg !69",
+				"br i1 %16, label %for.cond1.for.inc6_crit_edge.us, label %for.body3.us, !dbg !69"
+			]
+		},
+		{
+			"function": "std_trans",
+			"id": 9,
+			"name": "for.body3.us",
+			"debug": [
+				{
+					"line": 61, "columns": [32, 23, 9]
+				},
+				{
+					"line": 62, "columns": [27, 13, 25]
+				},
+				{
+					"line": 63, "columns": [18]
+				},
+				{
+					"line": 64, "columns": [19]
+				}
+			],
+			"successors": [10, 9],
+			"ir": [
+				"%c.020.us = phi i64 [ %inc.us.3, %for.body3.us ], [ %c.020.us.unr, %for.body3.us.prol.loopexit ]",
+				"%isrc.019.us = phi i64 [ %add.us.3, %for.body3.us ], [ %isrc.019.us.unr, %for.body3.us.prol.loopexit ]",
+				"%idest.018.us = phi i64 [ %add5.us.3, %for.body3.us ], [ %idest.018.us.unr, %for.body3.us.prol.loopexit ]",
+				"%arrayidx.us = getelementptr i64, ptr %src, i64 %isrc.019.us, !dbg !73",
+				"%17 = load i64, ptr %arrayidx.us, align 8, !dbg !73, !tbaa !75",
+				"%arrayidx4.us = getelementptr i64, ptr %dest, i64 %idest.018.us, !dbg !79",
+				"store i64 %17, ptr %arrayidx4.us, align 8, !dbg !80, !tbaa !75",
+				"%add.us = add i64 %isrc.019.us, 1, !dbg !86",
+				"%add5.us = add i64 %idest.018.us, %rows, !dbg !87",
+				"%arrayidx.us.1 = getelementptr i64, ptr %src, i64 %add.us, !dbg !73",
+				"%18 = load i64, ptr %arrayidx.us.1, align 8, !dbg !73, !tbaa !75",
+				"%arrayidx4.us.1 = getelementptr i64, ptr %dest, i64 %add5.us, !dbg !79",
+				"store i64 %18, ptr %arrayidx4.us.1, align 8, !dbg !80, !tbaa !75",
+				"%add.us.1 = add i64 %isrc.019.us, 2, !dbg !86",
+				"%add5.us.1 = add i64 %add5.us, %rows, !dbg !87",
+				"%arrayidx.us.2 = getelementptr i64, ptr %src, i64 %add.us.1, !dbg !73",
+				"%19 = load i64, ptr %arrayidx.us.2, align 8, !dbg !73, !tbaa !75",
+				"%arrayidx4.us.2 = getelementptr i64, ptr %dest, i64 %add5.us.1, !dbg !79",
+				"store i64 %19, ptr %arrayidx4.us.2, align 8, !dbg !80, !tbaa !75",
+				"%add.us.2 = add i64 %isrc.019.us, 3, !dbg !86",
+				"%add5.us.2 = add i64 %add5.us.1, %rows, !dbg !87",
+				"%arrayidx.us.3 = getelementptr i64, ptr %src, i64 %add.us.2, !dbg !73",
+				"%20 = load i64, ptr %arrayidx.us.3, align 8, !dbg !73, !tbaa !75",
+				"%arrayidx4.us.3 = getelementptr i64, ptr %dest, i64 %add5.us.2, !dbg !79",
+				"store i64 %20, ptr %arrayidx4.us.3, align 8, !dbg !80, !tbaa !75",
+				"%add.us.3 = add i64 %isrc.019.us, 4, !dbg !86",
+				"%add5.us.3 = add i64 %add5.us.2, %rows, !dbg !87",
+				"%inc.us.3 = add nuw i64 %c.020.us, 4, !dbg !71",
+				"%exitcond.not.3 = icmp eq i64 %inc.us.3, %cols, !dbg !90",
+				"br i1 %exitcond.not.3, label %for.cond1.for.inc6_crit_edge.us, label %for.body3.us, !dbg !69, !llvm.loop !91"
+			]
+		},
+		{
+			"function": "std_trans",
+			"id": 10,
+			"name": "for.cond1.for.inc6_crit_edge.us",
+			"debug": [
+				{
+					"line": 58, "columns": [28, 19, 5]
+				}
+			],
+			"successors": [11, 2],
+			"ir": [
+				"%inc7.us = add nuw i64 %r.022.us, 1, !dbg !92",
+				"%exitcond24.not = icmp eq i64 %inc7.us, %rows, !dbg !63",
+				"br i1 %exitcond24.not, label %for.end8, label %for.body.us, !dbg !66, !llvm.loop !93"
+			]
+		},
+		{
+			"function": "std_trans",
+			"id": 11,
+			"name": "for.end8",
+			"debug": [
+				{
+					"line": 67, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !95"
+			]
+		},
+		{
+			"function": "transpose_pow2",
+			"id": 12,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 56, "columns": [25]
+				},
+				{
+					"line": 621, "columns": [9]
+				}
+			],
+			"successors": [13, 14],
+			"ir": [
+				"%umul.i = tail call { i64, i1 } @llvm.umul.with.overflow.i64(i64 %cols, i64 %rows), !dbg !81",
+				"%0 = extractvalue { i64, i1 } %umul.i, 1, !dbg !81",
+				"br i1 %0, label %do.body.i, label %mul_size_t.exit, !dbg !82"
+			]
+		},
+		{
+			"function": "transpose_pow2",
+			"id": 13,
+			"name": "do.body.i",
+			"debug": [
+				{
+					"line": 622, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%1 = load ptr, ptr @stderr, align 8, !dbg !83, !tbaa !87",
+				"%call.i = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %1, ptr noundef nonnull @.str, ptr noundef nonnull @.str.1, i32 noundef 622) #12, !dbg !83",
+				"%2 = load ptr, ptr @stderr, align 8, !dbg !83, !tbaa !87",
+				"%3 = tail call i64 @fwrite(ptr nonnull @.str.2, i64 41, i64 1, ptr %2) #12, !dbg !83",
+				"%4 = load ptr, ptr @stderr, align 8, !dbg !83, !tbaa !87",
+				"%call2.i = tail call i32 @fputc(i32 noundef 10, ptr noundef %4), !dbg !83",
+				"tail call void @abort() #13, !dbg !83",
+				"unreachable, !dbg !83"
+			]
+		},
+		{
+			"function": "transpose_pow2",
+			"id": 14,
+			"name": "mul_size_t.exit",
+			"debug": [
+				{
+					"line": 56, "columns": [25]
+				},
+				{
+					"line": 254, "columns": [14, 9]
+				}
+			],
+			"successors": [15, 16],
+			"ir": [
+				"%umul.value.i = extractvalue { i64, i1 } %umul.i, 0, !dbg !81",
+				"%cmp = icmp eq i64 %cols, %rows, !dbg !91",
+				"br i1 %cmp, label %if.then, label %if.else, !dbg !93"
+			]
+		},
+		{
+			"function": "transpose_pow2",
+			"id": 15,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 255, "columns": [9]
+				},
+				{
+					"line": 256, "columns": [5]
+				}
+			],
+			"successors": [26],
+			"ir": [
+				"tail call fastcc void @squaretrans_pow2(ptr noundef %matrix, i64 noundef %cols), !dbg !94",
+				"br label %if.end19, !dbg !96"
+			]
+		},
+		{
+			"function": "transpose_pow2",
+			"id": 16,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 56, "columns": [25]
+				},
+				{
+					"line": 621, "columns": [9]
+				}
+			],
+			"successors": [17, 18],
+			"ir": [
+				"%5 = icmp slt i64 %rows, 0, !dbg !102",
+				"br i1 %5, label %do.body.i47, label %mul_size_t.exit49, !dbg !103"
+			]
+		},
+		{
+			"function": "transpose_pow2",
+			"id": 17,
+			"name": "do.body.i47",
+			"debug": [
+				{
+					"line": 622, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%6 = load ptr, ptr @stderr, align 8, !dbg !104, !tbaa !87",
+				"%call.i45 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %6, ptr noundef nonnull @.str, ptr noundef nonnull @.str.1, i32 noundef 622) #12, !dbg !104",
+				"%7 = load ptr, ptr @stderr, align 8, !dbg !104, !tbaa !87",
+				"%8 = tail call i64 @fwrite(ptr nonnull @.str.2, i64 41, i64 1, ptr %7) #12, !dbg !104",
+				"%9 = load ptr, ptr @stderr, align 8, !dbg !104, !tbaa !87",
+				"%call2.i46 = tail call i32 @fputc(i32 noundef 10, ptr noundef %9), !dbg !104",
+				"tail call void @abort() #13, !dbg !104",
+				"unreachable, !dbg !104"
+			]
+		},
+		{
+			"function": "transpose_pow2",
+			"id": 18,
+			"name": "mul_size_t.exit49",
+			"debug": [
+				{
+					"line": 56, "columns": [25]
+				},
+				{
+					"line": 257, "columns": [19, 14]
+				}
+			],
+			"successors": [19, 21],
+			"ir": [
+				"%umul.value.i48 = shl nuw i64 %rows, 1, !dbg !102",
+				"%cmp2 = icmp eq i64 %umul.value.i48, %cols, !dbg !105",
+				"br i1 %cmp2, label %if.then3, label %if.else6, !dbg !106"
+			]
+		},
+		{
+			"function": "transpose_pow2",
+			"id": 19,
+			"name": "if.then3",
+			"debug": [
+				{
+					"line": 258, "columns": [14, 13]
+				}
+			],
+			"successors": [27, 20],
+			"ir": [
+				"%call4 = tail call fastcc i32 @swap_halfrows_pow2(ptr noundef %matrix, i64 noundef %rows, i64 noundef %cols, i32 noundef 0), !dbg !107, !range !110",
+				"%tobool.not = icmp eq i32 %call4, 0, !dbg !107",
+				"br i1 %tobool.not, label %cleanup, label %if.end, !dbg !111"
+			]
+		},
+		{
+			"function": "transpose_pow2",
+			"id": 20,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 261, "columns": [9]
+				},
+				{
+					"line": 262, "columns": [38, 32, 9]
+				},
+				{
+					"line": 263, "columns": [5]
+				}
+			],
+			"successors": [26],
+			"ir": [
+				"tail call fastcc void @squaretrans_pow2(ptr noundef %matrix, i64 noundef %rows), !dbg !112",
+				"%div43 = lshr i64 %umul.value.i, 1, !dbg !113",
+				"%add.ptr = getelementptr i64, ptr %matrix, i64 %div43, !dbg !114",
+				"tail call fastcc void @squaretrans_pow2(ptr noundef %add.ptr, i64 noundef %rows), !dbg !115",
+				"br label %if.end19, !dbg !116"
+			]
+		},
+		{
+			"function": "transpose_pow2",
+			"id": 21,
+			"name": "if.else6",
+			"debug": [
+				{
+					"line": 56, "columns": [25]
+				},
+				{
+					"line": 621, "columns": [9]
+				}
+			],
+			"successors": [22, 23],
+			"ir": [
+				"%10 = icmp slt i64 %cols, 0, !dbg !122",
+				"br i1 %10, label %do.body.i53, label %mul_size_t.exit55, !dbg !123"
+			]
+		},
+		{
+			"function": "transpose_pow2",
+			"id": 22,
+			"name": "do.body.i53",
+			"debug": [
+				{
+					"line": 622, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%11 = load ptr, ptr @stderr, align 8, !dbg !124, !tbaa !87",
+				"%call.i51 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %11, ptr noundef nonnull @.str, ptr noundef nonnull @.str.1, i32 noundef 622) #12, !dbg !124",
+				"%12 = load ptr, ptr @stderr, align 8, !dbg !124, !tbaa !87",
+				"%13 = tail call i64 @fwrite(ptr nonnull @.str.2, i64 41, i64 1, ptr %12) #12, !dbg !124",
+				"%14 = load ptr, ptr @stderr, align 8, !dbg !124, !tbaa !87",
+				"%call2.i52 = tail call i32 @fputc(i32 noundef 10, ptr noundef %14), !dbg !124",
+				"tail call void @abort() #13, !dbg !124",
+				"unreachable, !dbg !124"
+			]
+		},
+		{
+			"function": "transpose_pow2",
+			"id": 23,
+			"name": "mul_size_t.exit55",
+			"debug": [
+				{
+					"line": 56, "columns": [25]
+				},
+				{
+					"line": 264, "columns": [19, 14]
+				}
+			],
+			"successors": [24, 25],
+			"ir": [
+				"%umul.value.i54 = shl nuw i64 %cols, 1, !dbg !122",
+				"%cmp8 = icmp eq i64 %umul.value.i54, %rows, !dbg !125",
+				"br i1 %cmp8, label %if.then9, label %if.else16, !dbg !126"
+			]
+		},
+		{
+			"function": "transpose_pow2",
+			"id": 24,
+			"name": "if.then9",
+			"debug": [
+				{
+					"line": 265, "columns": [9]
+				},
+				{
+					"line": 266, "columns": [38, 32, 9]
+				},
+				{
+					"line": 267, "columns": [14, 13]
+				}
+			],
+			"successors": [27, 26],
+			"ir": [
+				"tail call fastcc void @squaretrans_pow2(ptr noundef %matrix, i64 noundef %cols), !dbg !127",
+				"%div1042 = lshr i64 %umul.value.i, 1, !dbg !129",
+				"%add.ptr11 = getelementptr i64, ptr %matrix, i64 %div1042, !dbg !130",
+				"tail call fastcc void @squaretrans_pow2(ptr noundef %add.ptr11, i64 noundef %cols), !dbg !131",
+				"%call12 = tail call fastcc i32 @swap_halfrows_pow2(ptr noundef %matrix, i64 noundef %cols, i64 noundef %rows, i32 noundef 1), !dbg !132, !range !110",
+				"%tobool13.not = icmp eq i32 %call12, 0, !dbg !132",
+				"br i1 %tobool13.not, label %cleanup, label %if.end19, !dbg !134"
+			]
+		},
+		{
+			"function": "transpose_pow2",
+			"id": 25,
+			"name": "if.else16",
+			"debug": [
+				{
+					"line": 272, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @abort() #13, !dbg !135",
+				"unreachable, !dbg !135"
+			]
+		},
+		{
+			"function": "transpose_pow2",
+			"id": 26,
+			"name": "if.end19",
+			"debug": [
+				{
+					"line": 275, "columns": [5]
+				}
+			],
+			"successors": [27],
+			"ir": [
+				"br label %cleanup, !dbg !137"
+			]
+		},
+		{
+			"function": "transpose_pow2",
+			"id": 27,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 276, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ 1, %if.end19 ], [ 0, %if.then3 ], [ 0, %if.then9 ], !dbg !59",
+				"ret i32 %retval.0, !dbg !138"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 28,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 179, "columns": [5, 16]
+				},
+				{
+					"line": 180, "columns": [5, 16]
+				},
+				{
+					"line": 186, "columns": [5]
+				}
+			],
+			"successors": [29],
+			"ir": [
+				"%buf1 = alloca [16384 x i64], align 16",
+				"%buf2 = alloca [16384 x i64], align 16",
+				"call void @llvm.lifetime.start.p0(i64 131072, ptr nonnull %buf1) #12, !dbg !68",
+				"call void @llvm.lifetime.start.p0(i64 131072, ptr nonnull %buf2) #12, !dbg !70",
+				"br label %while.cond, !dbg !72"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 29,
+			"name": "while.cond",
+			"debug": [
+				{
+					"line": 186, "columns": [14, 24, 5]
+				}
+			],
+			"successors": [29, 30],
+			"ir": [
+				"%b.0 = phi i64 [ %size, %entry ], [ %shr, %while.cond ], !dbg !67",
+				"%cmp = icmp ugt i64 %b.0, 128, !dbg !73",
+				"%shr = lshr i64 %b.0, 1, !dbg !74",
+				"br i1 %cmp, label %while.cond, label %for.cond.preheader, !dbg !72, !llvm.loop !75"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 30,
+			"name": "for.cond.preheader",
+			"debug": [
+				{
+					"line": 188, "columns": [19, 5]
+				}
+			],
+			"successors": [71, 31],
+			"ir": [
+				"%cmp1196.not = icmp eq i64 %size, 0, !dbg !78",
+				"br i1 %cmp1196.not, label %for.end71, label %for.cond2.preheader.lr.ph, !dbg !81"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 31,
+			"name": "for.cond2.preheader.lr.ph",
+			"debug": [
+				{
+					"line": 188, "columns": [5]
+				}
+			],
+			"successors": [32],
+			"ir": [
+				"%cmp7174.not = icmp eq i64 %b.0, 0",
+				"%mul9 = shl nuw nsw i64 %b.0, 3",
+				"%xtraiter = and i64 %b.0, 3",
+				"%0 = icmp ult i64 %b.0, 4",
+				"%unroll_iter = and i64 %b.0, -4",
+				"%lcmp.mod.not = icmp eq i64 %xtraiter, 0",
+				"%xtraiter206 = and i64 %b.0, 3",
+				"%1 = icmp ult i64 %b.0, 4",
+				"%unroll_iter209 = and i64 %b.0, -4",
+				"%lcmp.mod208.not = icmp eq i64 %xtraiter206, 0",
+				"%xtraiter211 = and i64 %b.0, 3",
+				"%2 = icmp ult i64 %b.0, 4",
+				"%unroll_iter214 = and i64 %b.0, -4",
+				"%lcmp.mod213.not = icmp eq i64 %xtraiter211, 0",
+				"%xtraiter216 = and i64 %b.0, 3",
+				"%3 = icmp ult i64 %b.0, 4",
+				"%unroll_iter219 = and i64 %b.0, -4",
+				"%lcmp.mod218.not = icmp eq i64 %xtraiter216, 0",
+				"%xtraiter221 = and i64 %b.0, 3",
+				"%4 = icmp ult i64 %b.0, 4",
+				"%unroll_iter224 = and i64 %b.0, -4",
+				"%lcmp.mod223.not = icmp eq i64 %xtraiter221, 0",
+				"br label %for.cond2.preheader, !dbg !81"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 32,
+			"name": "for.cond2.preheader",
+			"debug": [
+				{
+					"line": 190, "columns": [9]
+				}
+			],
+			"successors": [33],
+			"ir": [
+				"%r.0197 = phi i64 [ 0, %for.cond2.preheader.lr.ph ], [ %add70, %for.cond2.for.inc69_crit_edge ]",
+				"%invariant.gep = getelementptr i64, ptr %matrix, i64 %r.0197, !dbg !82",
+				"%mul = mul i64 %r.0197, %size",
+				"%add.ptr = getelementptr i64, ptr %matrix, i64 %mul",
+				"br label %for.body4, !dbg !82"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 33,
+			"name": "for.body4",
+			"debug": [
+				{
+					"line": 192, "columns": [36]
+				},
+				{
+					"line": 194, "columns": [13]
+				}
+			],
+			"successors": [43, 34],
+			"ir": [
+				"%c.0195 = phi i64 [ %r.0197, %for.cond2.preheader ], [ %add, %for.inc67 ]",
+				"%add.ptr5 = getelementptr i64, ptr %add.ptr, i64 %c.0195, !dbg !85",
+				"br i1 %cmp7174.not, label %squaretrans.exit, label %for.body8.preheader, !dbg !88"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 34,
+			"name": "for.body8.preheader",
+			"debug": [
+				{
+					"line": 194, "columns": [13]
+				}
+			],
+			"successors": [36, 35],
+			"ir": [
+				"br i1 %0, label %for.end.unr-lcssa, label %for.body8, !dbg !88"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 35,
+			"name": "for.body8",
+			"debug": [
+				{
+					"line": 194, "columns": [13]
+				},
+				{
+					"line": 195, "columns": [17]
+				},
+				{
+					"line": 196, "columns": [22]
+				},
+				{
+					"line": 197, "columns": [20]
+				}
+			],
+			"successors": [36, 35],
+			"ir": [
+				"%from.0176 = phi ptr [ %add.ptr10.3, %for.body8 ], [ %add.ptr5, %for.body8.preheader ]",
+				"%to.0175 = phi ptr [ %add.ptr11.3, %for.body8 ], [ %buf1, %for.body8.preheader ]",
+				"%niter = phi i64 [ %niter.next.3, %for.body8 ], [ 0, %for.body8.preheader ]",
+				"call void @llvm.memcpy.p0.p0.i64(ptr align 8 %to.0175, ptr align 8 %from.0176, i64 %mul9, i1 false), !dbg !90",
+				"%add.ptr10 = getelementptr i64, ptr %from.0176, i64 %size, !dbg !93",
+				"%add.ptr11 = getelementptr i64, ptr %to.0175, i64 %b.0, !dbg !94",
+				"call void @llvm.memcpy.p0.p0.i64(ptr align 8 %add.ptr11, ptr align 8 %add.ptr10, i64 %mul9, i1 false), !dbg !90",
+				"%add.ptr10.1 = getelementptr i64, ptr %add.ptr10, i64 %size, !dbg !93",
+				"%add.ptr11.1 = getelementptr i64, ptr %add.ptr11, i64 %b.0, !dbg !94",
+				"call void @llvm.memcpy.p0.p0.i64(ptr align 8 %add.ptr11.1, ptr align 8 %add.ptr10.1, i64 %mul9, i1 false), !dbg !90",
+				"%add.ptr10.2 = getelementptr i64, ptr %add.ptr10.1, i64 %size, !dbg !93",
+				"%add.ptr11.2 = getelementptr i64, ptr %add.ptr11.1, i64 %b.0, !dbg !94",
+				"call void @llvm.memcpy.p0.p0.i64(ptr align 8 %add.ptr11.2, ptr align 8 %add.ptr10.2, i64 %mul9, i1 false), !dbg !90",
+				"%add.ptr10.3 = getelementptr i64, ptr %add.ptr10.2, i64 %size, !dbg !93",
+				"%add.ptr11.3 = getelementptr i64, ptr %add.ptr11.2, i64 %b.0, !dbg !94",
+				"%niter.next.3 = add i64 %niter, 4, !dbg !88",
+				"%niter.ncmp.3 = icmp eq i64 %niter.next.3, %unroll_iter, !dbg !88",
+				"br i1 %niter.ncmp.3, label %for.end.unr-lcssa, label %for.body8, !dbg !88, !llvm.loop !95"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 36,
+			"name": "for.end.unr-lcssa",
+			"debug": [
+				{
+					"line": 194, "columns": [13]
+				}
+			],
+			"successors": [38, 37],
+			"ir": [
+				"%from.0176.unr = phi ptr [ %add.ptr5, %for.body8.preheader ], [ %add.ptr10.3, %for.body8 ]",
+				"%to.0175.unr = phi ptr [ %buf1, %for.body8.preheader ], [ %add.ptr11.3, %for.body8 ]",
+				"br i1 %lcmp.mod.not, label %for.end, label %for.body8.epil, !dbg !88"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 37,
+			"name": "for.body8.epil",
+			"debug": [
+				{
+					"line": 194, "columns": [13]
+				},
+				{
+					"line": 195, "columns": [17]
+				},
+				{
+					"line": 196, "columns": [22]
+				},
+				{
+					"line": 197, "columns": [20]
+				}
+			],
+			"successors": [38, 37],
+			"ir": [
+				"%from.0176.epil = phi ptr [ %add.ptr10.epil, %for.body8.epil ], [ %from.0176.unr, %for.end.unr-lcssa ]",
+				"%to.0175.epil = phi ptr [ %add.ptr11.epil, %for.body8.epil ], [ %to.0175.unr, %for.end.unr-lcssa ]",
+				"%epil.iter = phi i64 [ %epil.iter.next, %for.body8.epil ], [ 0, %for.end.unr-lcssa ]",
+				"call void @llvm.memcpy.p0.p0.i64(ptr align 8 %to.0175.epil, ptr align 8 %from.0176.epil, i64 %mul9, i1 false), !dbg !90",
+				"%add.ptr10.epil = getelementptr i64, ptr %from.0176.epil, i64 %size, !dbg !93",
+				"%add.ptr11.epil = getelementptr i64, ptr %to.0175.epil, i64 %b.0, !dbg !94",
+				"%epil.iter.next = add i64 %epil.iter, 1, !dbg !88",
+				"%epil.iter.cmp.not = icmp eq i64 %epil.iter.next, %xtraiter, !dbg !88",
+				"br i1 %epil.iter.cmp.not, label %for.end, label %for.body8.epil, !dbg !88, !llvm.loop !97"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 38,
+			"name": "for.end",
+			"debug": [
+				{
+					"line": 157, "columns": [5]
+				}
+			],
+			"successors": [43, 40],
+			"ir": [
+				"br i1 %cmp7174.not, label %squaretrans.exit, label %for.body.i, !dbg !110"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 39,
+			"name": "for.cond.loopexit.i",
+			"debug": [
+				{
+					"line": 157, "columns": [19, 5]
+				}
+			],
+			"successors": [43, 40],
+			"ir": [
+				"%exitcond.not.i = icmp eq i64 %add.i, %b.0, !dbg !112",
+				"br i1 %exitcond.not.i, label %squaretrans.exit, label %for.body.i, !dbg !110, !llvm.loop !114"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 40,
+			"name": "for.body.i",
+			"debug": [
+				{
+					"line": 158, "columns": [14]
+				},
+				{
+					"line": 161, "columns": [25, 9]
+				}
+			],
+			"successors": [41, 39],
+			"ir": [
+				"%r.040.i = phi i64 [ %add.i, %for.cond.loopexit.i ], [ 0, %for.end ]",
+				"%add.i = add nuw nsw i64 %r.040.i, 1, !dbg !116",
+				"%cmp635.i = icmp ult i64 %add.i, %b.0, !dbg !118",
+				"br i1 %cmp635.i, label %for.body7.preheader.i, label %for.cond.loopexit.i, !dbg !121"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 41,
+			"name": "for.body7.preheader.i",
+			"debug": [
+				{
+					"line": 159, "columns": [17, 23]
+				},
+				{
+					"line": 160, "columns": [18, 24]
+				},
+				{
+					"line": 161, "columns": [9]
+				}
+			],
+			"successors": [42],
+			"ir": [
+				"%mul2.i = mul nuw nsw i64 %add.i, %b.0, !dbg !122",
+				"%add3.i = add nuw nsw i64 %mul2.i, %r.040.i, !dbg !123",
+				"%mul.i = mul nuw nsw i64 %r.040.i, %b.0, !dbg !124",
+				"%add1.i = add nuw nsw i64 %mul.i, %add.i, !dbg !125",
+				"br label %for.body7.i, !dbg !121"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 42,
+			"name": "for.body7.i",
+			"debug": [
+				{
+					"line": 161, "columns": [34, 25, 9]
+				},
+				{
+					"line": 162, "columns": [19]
+				},
+				{
+					"line": 163, "columns": [25, 23]
+				},
+				{
+					"line": 164, "columns": [24]
+				},
+				{
+					"line": 165, "columns": [18]
+				},
+				{
+					"line": 166, "columns": [19]
+				}
+			],
+			"successors": [42, 39],
+			"ir": [
+				"%c.038.i = phi i64 [ %inc.i, %for.body7.i ], [ %add.i, %for.body7.preheader.i ]",
+				"%isrc.037.i = phi i64 [ %add11.i, %for.body7.i ], [ %add1.i, %for.body7.preheader.i ]",
+				"%idest.036.i = phi i64 [ %add12.i, %for.body7.i ], [ %add3.i, %for.body7.preheader.i ]",
+				"%arrayidx.i = getelementptr i64, ptr %buf1, i64 %isrc.037.i, !dbg !126",
+				"%5 = load i64, ptr %arrayidx.i, align 8, !dbg !126, !tbaa !128",
+				"%arrayidx8.i = getelementptr i64, ptr %buf1, i64 %idest.036.i, !dbg !132",
+				"%6 = load i64, ptr %arrayidx8.i, align 8, !dbg !132, !tbaa !128",
+				"store i64 %6, ptr %arrayidx.i, align 8, !dbg !133, !tbaa !128",
+				"store i64 %5, ptr %arrayidx8.i, align 8, !dbg !134, !tbaa !128",
+				"%add11.i = add i64 %isrc.037.i, 1, !dbg !135",
+				"%add12.i = add i64 %idest.036.i, %b.0, !dbg !136",
+				"%inc.i = add nuw nsw i64 %c.038.i, 1, !dbg !137",
+				"%cmp6.i = icmp ult i64 %inc.i, %b.0, !dbg !118",
+				"br i1 %cmp6.i, label %for.body7.i, label %for.cond.loopexit.i, !dbg !121, !llvm.loop !138"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 43,
+			"name": "squaretrans.exit",
+			"debug": [
+				{
+					"line": 201, "columns": [19, 17]
+				}
+			],
+			"successors": [44, 47],
+			"ir": [
+				"%cmp13 = icmp eq i64 %r.0197, %c.0195, !dbg !140",
+				"br i1 %cmp13, label %for.cond18.preheader, label %if.else, !dbg !142"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 44,
+			"name": "for.cond18.preheader",
+			"debug": [
+				{
+					"line": 204, "columns": [17]
+				}
+			],
+			"successors": [69, 45],
+			"ir": [
+				"br i1 %cmp7174.not, label %for.inc67, label %for.body20.preheader, !dbg !143"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 45,
+			"name": "for.body20.preheader",
+			"debug": [
+				{
+					"line": 204, "columns": [17]
+				}
+			],
+			"successors": [65, 46],
+			"ir": [
+				"br i1 %4, label %for.inc67.loopexit.unr-lcssa, label %for.body20, !dbg !143"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 46,
+			"name": "for.body20",
+			"debug": [
+				{
+					"line": 204, "columns": [17]
+				},
+				{
+					"line": 205, "columns": [21]
+				},
+				{
+					"line": 206, "columns": [26]
+				},
+				{
+					"line": 207, "columns": [24]
+				}
+			],
+			"successors": [65, 46],
+			"ir": [
+				"%from.1192 = phi ptr [ %add.ptr22.3, %for.body20 ], [ %buf1, %for.body20.preheader ]",
+				"%to.1191 = phi ptr [ %add.ptr23.3, %for.body20 ], [ %add.ptr5, %for.body20.preheader ]",
+				"%niter225 = phi i64 [ %niter225.next.3, %for.body20 ], [ 0, %for.body20.preheader ]",
+				"call void @llvm.memcpy.p0.p0.i64(ptr align 8 %to.1191, ptr align 8 %from.1192, i64 %mul9, i1 false), !dbg !146",
+				"%add.ptr22 = getelementptr i64, ptr %from.1192, i64 %b.0, !dbg !149",
+				"%add.ptr23 = getelementptr i64, ptr %to.1191, i64 %size, !dbg !150",
+				"call void @llvm.memcpy.p0.p0.i64(ptr align 8 %add.ptr23, ptr align 8 %add.ptr22, i64 %mul9, i1 false), !dbg !146",
+				"%add.ptr22.1 = getelementptr i64, ptr %add.ptr22, i64 %b.0, !dbg !149",
+				"%add.ptr23.1 = getelementptr i64, ptr %add.ptr23, i64 %size, !dbg !150",
+				"call void @llvm.memcpy.p0.p0.i64(ptr align 8 %add.ptr23.1, ptr align 8 %add.ptr22.1, i64 %mul9, i1 false), !dbg !146",
+				"%add.ptr22.2 = getelementptr i64, ptr %add.ptr22.1, i64 %b.0, !dbg !149",
+				"%add.ptr23.2 = getelementptr i64, ptr %add.ptr23.1, i64 %size, !dbg !150",
+				"call void @llvm.memcpy.p0.p0.i64(ptr align 8 %add.ptr23.2, ptr align 8 %add.ptr22.2, i64 %mul9, i1 false), !dbg !146",
+				"%add.ptr22.3 = getelementptr i64, ptr %add.ptr22.2, i64 %b.0, !dbg !149",
+				"%add.ptr23.3 = getelementptr i64, ptr %add.ptr23.2, i64 %size, !dbg !150",
+				"%niter225.next.3 = add i64 %niter225, 4, !dbg !143",
+				"%niter225.ncmp.3 = icmp eq i64 %niter225.next.3, %unroll_iter224, !dbg !143",
+				"br i1 %niter225.ncmp.3, label %for.inc67.loopexit.unr-lcssa, label %for.body20, !dbg !143, !llvm.loop !151"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 47,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 212, "columns": [34, 40]
+				},
+				{
+					"line": 214, "columns": [17]
+				}
+			],
+			"successors": [69, 48],
+			"ir": [
+				"%mul27 = mul i64 %c.0195, %size, !dbg !153",
+				"%gep = getelementptr i64, ptr %invariant.gep, i64 %mul27, !dbg !155",
+				"br i1 %cmp7174.not, label %for.inc67, label %for.body33.preheader, !dbg !156"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 48,
+			"name": "for.body33.preheader",
+			"debug": [
+				{
+					"line": 214, "columns": [17]
+				}
+			],
+			"successors": [50, 49],
+			"ir": [
+				"br i1 %1, label %for.end39.unr-lcssa, label %for.body33, !dbg !156"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 49,
+			"name": "for.body33",
+			"debug": [
+				{
+					"line": 214, "columns": [17]
+				},
+				{
+					"line": 215, "columns": [21]
+				},
+				{
+					"line": 216, "columns": [26]
+				},
+				{
+					"line": 217, "columns": [24]
+				}
+			],
+			"successors": [50, 49],
+			"ir": [
+				"%from.2180 = phi ptr [ %add.ptr35.3, %for.body33 ], [ %gep, %for.body33.preheader ]",
+				"%to.2179 = phi ptr [ %add.ptr36.3, %for.body33 ], [ %buf2, %for.body33.preheader ]",
+				"%niter210 = phi i64 [ %niter210.next.3, %for.body33 ], [ 0, %for.body33.preheader ]",
+				"call void @llvm.memcpy.p0.p0.i64(ptr align 8 %to.2179, ptr align 8 %from.2180, i64 %mul9, i1 false), !dbg !158",
+				"%add.ptr35 = getelementptr i64, ptr %from.2180, i64 %size, !dbg !161",
+				"%add.ptr36 = getelementptr i64, ptr %to.2179, i64 %b.0, !dbg !162",
+				"call void @llvm.memcpy.p0.p0.i64(ptr align 8 %add.ptr36, ptr align 8 %add.ptr35, i64 %mul9, i1 false), !dbg !158",
+				"%add.ptr35.1 = getelementptr i64, ptr %add.ptr35, i64 %size, !dbg !161",
+				"%add.ptr36.1 = getelementptr i64, ptr %add.ptr36, i64 %b.0, !dbg !162",
+				"call void @llvm.memcpy.p0.p0.i64(ptr align 8 %add.ptr36.1, ptr align 8 %add.ptr35.1, i64 %mul9, i1 false), !dbg !158",
+				"%add.ptr35.2 = getelementptr i64, ptr %add.ptr35.1, i64 %size, !dbg !161",
+				"%add.ptr36.2 = getelementptr i64, ptr %add.ptr36.1, i64 %b.0, !dbg !162",
+				"call void @llvm.memcpy.p0.p0.i64(ptr align 8 %add.ptr36.2, ptr align 8 %add.ptr35.2, i64 %mul9, i1 false), !dbg !158",
+				"%add.ptr35.3 = getelementptr i64, ptr %add.ptr35.2, i64 %size, !dbg !161",
+				"%add.ptr36.3 = getelementptr i64, ptr %add.ptr36.2, i64 %b.0, !dbg !162",
+				"%niter210.next.3 = add i64 %niter210, 4, !dbg !156",
+				"%niter210.ncmp.3 = icmp eq i64 %niter210.next.3, %unroll_iter209, !dbg !156",
+				"br i1 %niter210.ncmp.3, label %for.end39.unr-lcssa, label %for.body33, !dbg !156, !llvm.loop !163"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 50,
+			"name": "for.end39.unr-lcssa",
+			"debug": [
+				{
+					"line": 214, "columns": [17]
+				}
+			],
+			"successors": [52, 51],
+			"ir": [
+				"%from.2180.unr = phi ptr [ %gep, %for.body33.preheader ], [ %add.ptr35.3, %for.body33 ]",
+				"%to.2179.unr = phi ptr [ %buf2, %for.body33.preheader ], [ %add.ptr36.3, %for.body33 ]",
+				"br i1 %lcmp.mod208.not, label %for.end39, label %for.body33.epil, !dbg !156"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 51,
+			"name": "for.body33.epil",
+			"debug": [
+				{
+					"line": 214, "columns": [17]
+				},
+				{
+					"line": 215, "columns": [21]
+				},
+				{
+					"line": 216, "columns": [26]
+				},
+				{
+					"line": 217, "columns": [24]
+				}
+			],
+			"successors": [52, 51],
+			"ir": [
+				"%from.2180.epil = phi ptr [ %add.ptr35.epil, %for.body33.epil ], [ %from.2180.unr, %for.end39.unr-lcssa ]",
+				"%to.2179.epil = phi ptr [ %add.ptr36.epil, %for.body33.epil ], [ %to.2179.unr, %for.end39.unr-lcssa ]",
+				"%epil.iter207 = phi i64 [ %epil.iter207.next, %for.body33.epil ], [ 0, %for.end39.unr-lcssa ]",
+				"call void @llvm.memcpy.p0.p0.i64(ptr align 8 %to.2179.epil, ptr align 8 %from.2180.epil, i64 %mul9, i1 false), !dbg !158",
+				"%add.ptr35.epil = getelementptr i64, ptr %from.2180.epil, i64 %size, !dbg !161",
+				"%add.ptr36.epil = getelementptr i64, ptr %to.2179.epil, i64 %b.0, !dbg !162",
+				"%epil.iter207.next = add i64 %epil.iter207, 1, !dbg !156",
+				"%epil.iter207.cmp.not = icmp eq i64 %epil.iter207.next, %xtraiter206, !dbg !156",
+				"br i1 %epil.iter207.cmp.not, label %for.end39, label %for.body33.epil, !dbg !156, !llvm.loop !165"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 52,
+			"name": "for.end39",
+			"debug": [
+				{
+					"line": 157, "columns": [5]
+				}
+			],
+			"successors": [69, 54],
+			"ir": [
+				"br i1 %cmp7174.not, label %for.inc67, label %for.body.i156, !dbg !168"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 53,
+			"name": "for.cond.loopexit.i152",
+			"debug": [
+				{
+					"line": 157, "columns": [19, 5]
+				}
+			],
+			"successors": [57, 54],
+			"ir": [
+				"%exitcond.not.i151 = icmp eq i64 %add.i154, %b.0, !dbg !169",
+				"br i1 %exitcond.not.i151, label %squaretrans.exit172, label %for.body.i156, !dbg !168, !llvm.loop !170"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 54,
+			"name": "for.body.i156",
+			"debug": [
+				{
+					"line": 158, "columns": [14]
+				},
+				{
+					"line": 161, "columns": [25, 9]
+				}
+			],
+			"successors": [55, 53],
+			"ir": [
+				"%r.040.i153 = phi i64 [ %add.i154, %for.cond.loopexit.i152 ], [ 0, %for.end39 ]",
+				"%add.i154 = add nuw nsw i64 %r.040.i153, 1, !dbg !172",
+				"%cmp635.i155 = icmp ult i64 %add.i154, %b.0, !dbg !173",
+				"br i1 %cmp635.i155, label %for.body7.preheader.i161, label %for.cond.loopexit.i152, !dbg !174"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 55,
+			"name": "for.body7.preheader.i161",
+			"debug": [
+				{
+					"line": 159, "columns": [17, 23]
+				},
+				{
+					"line": 160, "columns": [18, 24]
+				},
+				{
+					"line": 161, "columns": [9]
+				}
+			],
+			"successors": [56],
+			"ir": [
+				"%mul2.i157 = mul nuw nsw i64 %add.i154, %b.0, !dbg !175",
+				"%add3.i158 = add nuw nsw i64 %mul2.i157, %r.040.i153, !dbg !176",
+				"%mul.i159 = mul nuw nsw i64 %r.040.i153, %b.0, !dbg !177",
+				"%add1.i160 = add nuw nsw i64 %mul.i159, %add.i154, !dbg !178",
+				"br label %for.body7.i171, !dbg !174"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 56,
+			"name": "for.body7.i171",
+			"debug": [
+				{
+					"line": 161, "columns": [34, 25, 9]
+				},
+				{
+					"line": 162, "columns": [19]
+				},
+				{
+					"line": 163, "columns": [25, 23]
+				},
+				{
+					"line": 164, "columns": [24]
+				},
+				{
+					"line": 165, "columns": [18]
+				},
+				{
+					"line": 166, "columns": [19]
+				}
+			],
+			"successors": [56, 53],
+			"ir": [
+				"%c.038.i162 = phi i64 [ %inc.i169, %for.body7.i171 ], [ %add.i154, %for.body7.preheader.i161 ]",
+				"%isrc.037.i163 = phi i64 [ %add11.i167, %for.body7.i171 ], [ %add1.i160, %for.body7.preheader.i161 ]",
+				"%idest.036.i164 = phi i64 [ %add12.i168, %for.body7.i171 ], [ %add3.i158, %for.body7.preheader.i161 ]",
+				"%arrayidx.i165 = getelementptr i64, ptr %buf2, i64 %isrc.037.i163, !dbg !179",
+				"%7 = load i64, ptr %arrayidx.i165, align 8, !dbg !179, !tbaa !128",
+				"%arrayidx8.i166 = getelementptr i64, ptr %buf2, i64 %idest.036.i164, !dbg !180",
+				"%8 = load i64, ptr %arrayidx8.i166, align 8, !dbg !180, !tbaa !128",
+				"store i64 %8, ptr %arrayidx.i165, align 8, !dbg !181, !tbaa !128",
+				"store i64 %7, ptr %arrayidx8.i166, align 8, !dbg !182, !tbaa !128",
+				"%add11.i167 = add i64 %isrc.037.i163, 1, !dbg !183",
+				"%add12.i168 = add i64 %idest.036.i164, %b.0, !dbg !184",
+				"%inc.i169 = add nuw nsw i64 %c.038.i162, 1, !dbg !185",
+				"%cmp6.i170 = icmp ult i64 %inc.i169, %b.0, !dbg !173",
+				"br i1 %cmp6.i170, label %for.body7.i171, label %for.cond.loopexit.i152, !dbg !174, !llvm.loop !186"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 57,
+			"name": "squaretrans.exit172",
+			"debug": [
+				{
+					"line": 223, "columns": [17]
+				}
+			],
+			"successors": [69, 58],
+			"ir": [
+				"br i1 %cmp7174.not, label %for.inc67, label %for.body47.preheader, !dbg !188"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 58,
+			"name": "for.body47.preheader",
+			"debug": [
+				{
+					"line": 223, "columns": [17]
+				}
+			],
+			"successors": [59, 63],
+			"ir": [
+				"br i1 %2, label %for.cond58.preheader.unr-lcssa, label %for.body47, !dbg !188"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 59,
+			"name": "for.cond58.preheader.unr-lcssa",
+			"debug": [
+				{
+					"line": 223, "columns": [17]
+				}
+			],
+			"successors": [61, 60],
+			"ir": [
+				"%from.3184.unr = phi ptr [ %buf1, %for.body47.preheader ], [ %add.ptr49.3, %for.body47 ]",
+				"%to.3183.unr = phi ptr [ %gep, %for.body47.preheader ], [ %add.ptr50.3, %for.body47 ]",
+				"br i1 %lcmp.mod213.not, label %for.cond58.preheader, label %for.body47.epil, !dbg !188"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 60,
+			"name": "for.body47.epil",
+			"debug": [
+				{
+					"line": 223, "columns": [17]
+				},
+				{
+					"line": 224, "columns": [21]
+				},
+				{
+					"line": 225, "columns": [26]
+				},
+				{
+					"line": 226, "columns": [24]
+				}
+			],
+			"successors": [61, 60],
+			"ir": [
+				"%from.3184.epil = phi ptr [ %add.ptr49.epil, %for.body47.epil ], [ %from.3184.unr, %for.cond58.preheader.unr-lcssa ]",
+				"%to.3183.epil = phi ptr [ %add.ptr50.epil, %for.body47.epil ], [ %to.3183.unr, %for.cond58.preheader.unr-lcssa ]",
+				"%epil.iter212 = phi i64 [ %epil.iter212.next, %for.body47.epil ], [ 0, %for.cond58.preheader.unr-lcssa ]",
+				"call void @llvm.memcpy.p0.p0.i64(ptr align 8 %to.3183.epil, ptr align 8 %from.3184.epil, i64 %mul9, i1 false), !dbg !190",
+				"%add.ptr49.epil = getelementptr i64, ptr %from.3184.epil, i64 %b.0, !dbg !193",
+				"%add.ptr50.epil = getelementptr i64, ptr %to.3183.epil, i64 %size, !dbg !194",
+				"%epil.iter212.next = add i64 %epil.iter212, 1, !dbg !188",
+				"%epil.iter212.cmp.not = icmp eq i64 %epil.iter212.next, %xtraiter211, !dbg !188",
+				"br i1 %epil.iter212.cmp.not, label %for.cond58.preheader, label %for.body47.epil, !dbg !188, !llvm.loop !195"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 61,
+			"name": "for.cond58.preheader",
+			"debug": [
+				{
+					"line": 231, "columns": [17]
+				}
+			],
+			"successors": [69, 62],
+			"ir": [
+				"br i1 %cmp7174.not, label %for.inc67, label %for.body60.preheader, !dbg !196"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 62,
+			"name": "for.body60.preheader",
+			"debug": [
+				{
+					"line": 231, "columns": [17]
+				}
+			],
+			"successors": [67, 64],
+			"ir": [
+				"br i1 %3, label %for.inc67.loopexit205.unr-lcssa, label %for.body60, !dbg !196"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 63,
+			"name": "for.body47",
+			"debug": [
+				{
+					"line": 223, "columns": [17]
+				},
+				{
+					"line": 224, "columns": [21]
+				},
+				{
+					"line": 225, "columns": [26]
+				},
+				{
+					"line": 226, "columns": [24]
+				}
+			],
+			"successors": [59, 63],
+			"ir": [
+				"%from.3184 = phi ptr [ %add.ptr49.3, %for.body47 ], [ %buf1, %for.body47.preheader ]",
+				"%to.3183 = phi ptr [ %add.ptr50.3, %for.body47 ], [ %gep, %for.body47.preheader ]",
+				"%niter215 = phi i64 [ %niter215.next.3, %for.body47 ], [ 0, %for.body47.preheader ]",
+				"call void @llvm.memcpy.p0.p0.i64(ptr align 8 %to.3183, ptr align 8 %from.3184, i64 %mul9, i1 false), !dbg !190",
+				"%add.ptr49 = getelementptr i64, ptr %from.3184, i64 %b.0, !dbg !193",
+				"%add.ptr50 = getelementptr i64, ptr %to.3183, i64 %size, !dbg !194",
+				"call void @llvm.memcpy.p0.p0.i64(ptr align 8 %add.ptr50, ptr align 8 %add.ptr49, i64 %mul9, i1 false), !dbg !190",
+				"%add.ptr49.1 = getelementptr i64, ptr %add.ptr49, i64 %b.0, !dbg !193",
+				"%add.ptr50.1 = getelementptr i64, ptr %add.ptr50, i64 %size, !dbg !194",
+				"call void @llvm.memcpy.p0.p0.i64(ptr align 8 %add.ptr50.1, ptr align 8 %add.ptr49.1, i64 %mul9, i1 false), !dbg !190",
+				"%add.ptr49.2 = getelementptr i64, ptr %add.ptr49.1, i64 %b.0, !dbg !193",
+				"%add.ptr50.2 = getelementptr i64, ptr %add.ptr50.1, i64 %size, !dbg !194",
+				"call void @llvm.memcpy.p0.p0.i64(ptr align 8 %add.ptr50.2, ptr align 8 %add.ptr49.2, i64 %mul9, i1 false), !dbg !190",
+				"%add.ptr49.3 = getelementptr i64, ptr %add.ptr49.2, i64 %b.0, !dbg !193",
+				"%add.ptr50.3 = getelementptr i64, ptr %add.ptr50.2, i64 %size, !dbg !194",
+				"%niter215.next.3 = add i64 %niter215, 4, !dbg !188",
+				"%niter215.ncmp.3 = icmp eq i64 %niter215.next.3, %unroll_iter214, !dbg !188",
+				"br i1 %niter215.ncmp.3, label %for.cond58.preheader.unr-lcssa, label %for.body47, !dbg !188, !llvm.loop !198"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 64,
+			"name": "for.body60",
+			"debug": [
+				{
+					"line": 231, "columns": [17]
+				},
+				{
+					"line": 232, "columns": [21]
+				},
+				{
+					"line": 233, "columns": [26]
+				},
+				{
+					"line": 234, "columns": [24]
+				}
+			],
+			"successors": [67, 64],
+			"ir": [
+				"%from.4188 = phi ptr [ %add.ptr62.3, %for.body60 ], [ %buf2, %for.body60.preheader ]",
+				"%to.4187 = phi ptr [ %add.ptr63.3, %for.body60 ], [ %add.ptr5, %for.body60.preheader ]",
+				"%niter220 = phi i64 [ %niter220.next.3, %for.body60 ], [ 0, %for.body60.preheader ]",
+				"call void @llvm.memcpy.p0.p0.i64(ptr align 8 %to.4187, ptr align 8 %from.4188, i64 %mul9, i1 false), !dbg !200",
+				"%add.ptr62 = getelementptr i64, ptr %from.4188, i64 %b.0, !dbg !203",
+				"%add.ptr63 = getelementptr i64, ptr %to.4187, i64 %size, !dbg !204",
+				"call void @llvm.memcpy.p0.p0.i64(ptr align 8 %add.ptr63, ptr align 8 %add.ptr62, i64 %mul9, i1 false), !dbg !200",
+				"%add.ptr62.1 = getelementptr i64, ptr %add.ptr62, i64 %b.0, !dbg !203",
+				"%add.ptr63.1 = getelementptr i64, ptr %add.ptr63, i64 %size, !dbg !204",
+				"call void @llvm.memcpy.p0.p0.i64(ptr align 8 %add.ptr63.1, ptr align 8 %add.ptr62.1, i64 %mul9, i1 false), !dbg !200",
+				"%add.ptr62.2 = getelementptr i64, ptr %add.ptr62.1, i64 %b.0, !dbg !203",
+				"%add.ptr63.2 = getelementptr i64, ptr %add.ptr63.1, i64 %size, !dbg !204",
+				"call void @llvm.memcpy.p0.p0.i64(ptr align 8 %add.ptr63.2, ptr align 8 %add.ptr62.2, i64 %mul9, i1 false), !dbg !200",
+				"%add.ptr62.3 = getelementptr i64, ptr %add.ptr62.2, i64 %b.0, !dbg !203",
+				"%add.ptr63.3 = getelementptr i64, ptr %add.ptr63.2, i64 %size, !dbg !204",
+				"%niter220.next.3 = add i64 %niter220, 4, !dbg !196",
+				"%niter220.ncmp.3 = icmp eq i64 %niter220.next.3, %unroll_iter219, !dbg !196",
+				"br i1 %niter220.ncmp.3, label %for.inc67.loopexit205.unr-lcssa, label %for.body60, !dbg !196, !llvm.loop !205"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 65,
+			"name": "for.inc67.loopexit.unr-lcssa",
+			"debug": [
+				{
+					"line": 204, "columns": [17]
+				}
+			],
+			"successors": [69, 66],
+			"ir": [
+				"%from.1192.unr = phi ptr [ %buf1, %for.body20.preheader ], [ %add.ptr22.3, %for.body20 ]",
+				"%to.1191.unr = phi ptr [ %add.ptr5, %for.body20.preheader ], [ %add.ptr23.3, %for.body20 ]",
+				"br i1 %lcmp.mod223.not, label %for.inc67, label %for.body20.epil, !dbg !143"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 66,
+			"name": "for.body20.epil",
+			"debug": [
+				{
+					"line": 204, "columns": [17]
+				},
+				{
+					"line": 205, "columns": [21]
+				},
+				{
+					"line": 206, "columns": [26]
+				},
+				{
+					"line": 207, "columns": [24]
+				}
+			],
+			"successors": [69, 66],
+			"ir": [
+				"%from.1192.epil = phi ptr [ %add.ptr22.epil, %for.body20.epil ], [ %from.1192.unr, %for.inc67.loopexit.unr-lcssa ]",
+				"%to.1191.epil = phi ptr [ %add.ptr23.epil, %for.body20.epil ], [ %to.1191.unr, %for.inc67.loopexit.unr-lcssa ]",
+				"%epil.iter222 = phi i64 [ %epil.iter222.next, %for.body20.epil ], [ 0, %for.inc67.loopexit.unr-lcssa ]",
+				"call void @llvm.memcpy.p0.p0.i64(ptr align 8 %to.1191.epil, ptr align 8 %from.1192.epil, i64 %mul9, i1 false), !dbg !146",
+				"%add.ptr22.epil = getelementptr i64, ptr %from.1192.epil, i64 %b.0, !dbg !149",
+				"%add.ptr23.epil = getelementptr i64, ptr %to.1191.epil, i64 %size, !dbg !150",
+				"%epil.iter222.next = add i64 %epil.iter222, 1, !dbg !143",
+				"%epil.iter222.cmp.not = icmp eq i64 %epil.iter222.next, %xtraiter221, !dbg !143",
+				"br i1 %epil.iter222.cmp.not, label %for.inc67, label %for.body20.epil, !dbg !143, !llvm.loop !207"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 67,
+			"name": "for.inc67.loopexit205.unr-lcssa",
+			"debug": [
+				{
+					"line": 231, "columns": [17]
+				}
+			],
+			"successors": [69, 68],
+			"ir": [
+				"%from.4188.unr = phi ptr [ %buf2, %for.body60.preheader ], [ %add.ptr62.3, %for.body60 ]",
+				"%to.4187.unr = phi ptr [ %add.ptr5, %for.body60.preheader ], [ %add.ptr63.3, %for.body60 ]",
+				"br i1 %lcmp.mod218.not, label %for.inc67, label %for.body60.epil, !dbg !196"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 68,
+			"name": "for.body60.epil",
+			"debug": [
+				{
+					"line": 231, "columns": [17]
+				},
+				{
+					"line": 232, "columns": [21]
+				},
+				{
+					"line": 233, "columns": [26]
+				},
+				{
+					"line": 234, "columns": [24]
+				}
+			],
+			"successors": [69, 68],
+			"ir": [
+				"%from.4188.epil = phi ptr [ %add.ptr62.epil, %for.body60.epil ], [ %from.4188.unr, %for.inc67.loopexit205.unr-lcssa ]",
+				"%to.4187.epil = phi ptr [ %add.ptr63.epil, %for.body60.epil ], [ %to.4187.unr, %for.inc67.loopexit205.unr-lcssa ]",
+				"%epil.iter217 = phi i64 [ %epil.iter217.next, %for.body60.epil ], [ 0, %for.inc67.loopexit205.unr-lcssa ]",
+				"call void @llvm.memcpy.p0.p0.i64(ptr align 8 %to.4187.epil, ptr align 8 %from.4188.epil, i64 %mul9, i1 false), !dbg !200",
+				"%add.ptr62.epil = getelementptr i64, ptr %from.4188.epil, i64 %b.0, !dbg !203",
+				"%add.ptr63.epil = getelementptr i64, ptr %to.4187.epil, i64 %size, !dbg !204",
+				"%epil.iter217.next = add i64 %epil.iter217, 1, !dbg !196",
+				"%epil.iter217.cmp.not = icmp eq i64 %epil.iter217.next, %xtraiter216, !dbg !196",
+				"br i1 %epil.iter217.cmp.not, label %for.inc67, label %for.body60.epil, !dbg !196, !llvm.loop !208"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 69,
+			"name": "for.inc67",
+			"debug": [
+				{
+					"line": 190, "columns": [33, 23, 9]
+				}
+			],
+			"successors": [33, 70],
+			"ir": [
+				"%add = add i64 %c.0195, %b.0, !dbg !209",
+				"%cmp3 = icmp ult i64 %add, %size, !dbg !210",
+				"br i1 %cmp3, label %for.body4, label %for.cond2.for.inc69_crit_edge, !dbg !82, !llvm.loop !211"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 70,
+			"name": "for.cond2.for.inc69_crit_edge",
+			"debug": [
+				{
+					"line": 188, "columns": [29, 19, 5]
+				}
+			],
+			"successors": [32, 71],
+			"ir": [
+				"%add70 = add i64 %r.0197, %b.0, !dbg !213",
+				"%cmp1 = icmp ult i64 %add70, %size, !dbg !78",
+				"br i1 %cmp1, label %for.cond2.preheader, label %for.end71, !dbg !81, !llvm.loop !214"
+			]
+		},
+		{
+			"function": "squaretrans_pow2",
+			"id": 71,
+			"name": "for.end71",
+			"debug": [
+				{
+					"line": 240, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 131072, ptr nonnull %buf2) #12, !dbg !216",
+				"call void @llvm.lifetime.end.p0(i64 131072, ptr nonnull %buf1) #12, !dbg !216",
+				"ret void, !dbg !216"
+			]
+		},
+		{
+			"function": "swap_halfrows_pow2",
+			"id": 72,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 56, "columns": [27]
+				},
+				{
+					"line": 77, "columns": [5, 16]
+				},
+				{
+					"line": 78, "columns": [5, 16]
+				},
+				{
+					"line": 90, "columns": [13]
+				},
+				{
+					"line": 100, "columns": [14]
+				},
+				{
+					"line": 103, "columns": [32, 48, 17, 68, 9]
+				}
+			],
+			"successors": [83, 73],
+			"ir": [
+				"%buf1 = alloca [4096 x i64], align 16",
+				"%buf2 = alloca [4096 x i64], align 16",
+				"call void @llvm.lifetime.start.p0(i64 32768, ptr nonnull %buf1) #12, !dbg !79",
+				"call void @llvm.lifetime.start.p0(i64 32768, ptr nonnull %buf2) #12, !dbg !81",
+				"%cmp = icmp eq i32 %dir, 0, !dbg !83",
+				"%0 = zext i64 %rows to i128, !dbg !85",
+				"%sub = add i64 %cols, -1, !dbg !114",
+				"%div117 = lshr i64 %rows, 3, !dbg !115",
+				"%add = add nuw nsw i64 %div117, 1, !dbg !117",
+				"%call = tail call ptr @mpd_calloc(i64 noundef %add, i64 noundef 8) #12, !dbg !118",
+				"%cmp5 = icmp eq ptr %call, null, !dbg !119",
+				"br i1 %cmp5, label %cleanup, label %for.cond.preheader, !dbg !120"
+			]
+		},
+		{
+			"function": "swap_halfrows_pow2",
+			"id": 73,
+			"name": "for.cond.preheader",
+			"debug": [
+				{
+					"line": 107, "columns": [21, 5]
+				}
+			],
+			"successors": [82, 74],
+			"ir": [
+				"%cmp8.not152 = icmp eq i64 %rows, 0, !dbg !121",
+				"br i1 %cmp8.not152, label %for.end53, label %for.body.lr.ph, !dbg !122"
+			]
+		},
+		{
+			"function": "swap_halfrows_pow2",
+			"id": 74,
+			"name": "for.body.lr.ph",
+			"debug": [
+				{
+					"line": 115, "columns": [9]
+				}
+			],
+			"successors": [82, 75],
+			"ir": [
+				"%div15119 = lshr i64 %cols, 1",
+				"%cmp16148.not = icmp ult i64 %cols, 2",
+				"%conv1.i.i = select i1 %cmp, i128 %0, i128 2",
+				"%conv2.i3.i = zext i64 %sub to i128",
+				"br i1 %cmp16148.not, label %for.end53, label %for.body.us, !dbg !123"
+			]
+		},
+		{
+			"function": "swap_halfrows_pow2",
+			"id": 75,
+			"name": "for.body.us",
+			"debug": [
+				{
+					"line": 109, "columns": [20, 13, 41, 30, 28]
+				}
+			],
+			"successors": [79, 76],
+			"ir": [
+				"%hn.0153.us = phi i64 [ %add52.us, %for.inc51.us ], [ 1, %for.body.lr.ph ]",
+				"%div9118.us = lshr i64 %hn.0153.us, 6, !dbg !124",
+				"%arrayidx.us = getelementptr i64, ptr %call, i64 %div9118.us, !dbg !126",
+				"%1 = load i64, ptr %arrayidx.us, align 8, !dbg !126, !tbaa !127",
+				"%rem.us = and i64 %hn.0153.us, 63, !dbg !131",
+				"%arrayidx10.us = getelementptr [0 x i64], ptr @mpd_bits, i64 0, i64 %rem.us, !dbg !132",
+				"%2 = load i64, ptr %arrayidx10.us, align 8, !dbg !132, !tbaa !127",
+				"%and.us = and i64 %2, %1, !dbg !133",
+				"%tobool.not.us = icmp eq i64 %and.us, 0, !dbg !133",
+				"br i1 %tobool.not.us, label %for.cond14.preheader.us, label %for.inc51.us, !dbg !134"
+			]
+		},
+		{
+			"function": "swap_halfrows_pow2",
+			"id": 76,
+			"name": "for.inc51.us",
+			"debug": [
+				{
+					"line": 107, "columns": [33, 21, 5]
+				}
+			],
+			"successors": [82, 75],
+			"ir": [
+				"%add52.us = add i64 %hn.0153.us, 2, !dbg !135",
+				"%cmp8.not.us = icmp ugt i64 %add52.us, %rows, !dbg !121",
+				"br i1 %cmp8.not.us, label %for.end53, label %for.body.us, !dbg !122, !llvm.loop !136"
+			]
+		},
+		{
+			"function": "swap_halfrows_pow2",
+			"id": 77,
+			"name": "for.body17.us155",
+			"debug": [
+				{
+					"line": 117, "columns": [30, 34, 22]
+				},
+				{
+					"line": 120, "columns": [46, 31, 13]
+				},
+				{
+					"line": 126, "columns": [13]
+				}
+			],
+			"successors": [78],
+			"ir": [
+				"%offset.0151.us156 = phi i64 [ %add18.us159, %while.cond.while.end_crit_edge.us ], [ 0, %for.cond14.preheader.us ]",
+				"%writebuf.0150.us157 = phi ptr [ %readbuf.1142.us, %while.cond.while.end_crit_edge.us ], [ %buf2, %for.cond14.preheader.us ]",
+				"%readbuf.0149.us158 = phi ptr [ %writebuf.1143.us, %while.cond.while.end_crit_edge.us ], [ %buf1, %for.cond14.preheader.us ]",
+				"%add18.us159 = add nuw i64 %offset.0151.us156, 4096, !dbg !139",
+				"%cmp20.us160 = icmp ult i64 %add18.us159, %div15119, !dbg !140",
+				"%sub22.us161 = sub nsw i64 %div15119, %offset.0151.us156, !dbg !141",
+				"%3 = shl i64 %sub22.us161, 3, !dbg !142",
+				"%add.ptr24.us162 = getelementptr i64, ptr %add.ptr.us, i64 %offset.0151.us156, !dbg !143",
+				"%mul25.us163 = select i1 %cmp20.us160, i64 32768, i64 %3, !dbg !142",
+				"call void @llvm.memcpy.p0.p0.i64(ptr align 8 %readbuf.0149.us158, ptr align 8 %add.ptr24.us162, i64 %mul25.us163, i1 false), !dbg !144",
+				"%invariant.gep = getelementptr i64, ptr %matrix, i64 %offset.0151.us156, !dbg !159",
+				"br label %while.body.us, !dbg !159"
+			]
+		},
+		{
+			"function": "swap_halfrows_pow2",
+			"id": 78,
+			"name": "while.body.us",
+			"debug": [
+				{
+					"line": 56, "columns": [10, 25]
+				},
+				{
+					"line": 59, "columns": [11]
+				},
+				{
+					"line": 69, "columns": [26, 10]
+				},
+				{
+					"line": 70, "columns": [10]
+				},
+				{
+					"line": 126, "columns": [25, 13]
+				},
+				{
+					"line": 128, "columns": [35, 17]
+				},
+				{
+					"line": 129, "columns": [17]
+				},
+				{
+					"line": 132, "columns": [50, 37, 26, 17, 34]
+				}
+			],
+			"successors": [80, 78],
+			"ir": [
+				"%4 = phi i64 [ %div28121.pn139.us, %for.body17.us155 ], [ %div28121.pn.us, %while.body.us ]",
+				"%next.0144.us = phi i64 [ %conv6.i.i.us, %for.body17.us155 ], [ %conv6.i.i131.us, %while.body.us ]",
+				"%writebuf.1143.us = phi ptr [ %readbuf.0149.us158, %for.body17.us155 ], [ %readbuf.1142.us, %while.body.us ]",
+				"%readbuf.1142.us = phi ptr [ %writebuf.0150.us157, %for.body17.us155 ], [ %writebuf.1143.us, %while.body.us ]",
+				"%gep = getelementptr i64, ptr %invariant.gep, i64 %4, !dbg !160",
+				"call void @llvm.memcpy.p0.p0.i64(ptr align 8 %readbuf.1142.us, ptr align 8 %gep, i64 %mul25.us163, i1 false), !dbg !162",
+				"call void @llvm.memcpy.p0.p0.i64(ptr align 8 %gep, ptr align 8 %writebuf.1143.us, i64 %mul25.us163, i1 false), !dbg !163",
+				"%rem35.us = and i64 %next.0144.us, 63, !dbg !164",
+				"%arrayidx36.us = getelementptr [0 x i64], ptr @mpd_bits, i64 0, i64 %rem35.us, !dbg !165",
+				"%5 = load i64, ptr %arrayidx36.us, align 8, !dbg !165, !tbaa !127",
+				"%div37122.us = lshr i64 %next.0144.us, 6, !dbg !166",
+				"%arrayidx38.us = getelementptr i64, ptr %call, i64 %div37122.us, !dbg !167",
+				"%6 = load i64, ptr %arrayidx38.us, align 8, !dbg !168, !tbaa !127",
+				"%or.us = or i64 %6, %5, !dbg !168",
+				"store i64 %or.us, ptr %arrayidx38.us, align 8, !dbg !168, !tbaa !127",
+				"%conv.i.i124.us = zext i64 %next.0144.us to i128, !dbg !173",
+				"%mul.i.i126.us = mul nuw i128 %conv1.i.i, %conv.i.i124.us, !dbg !174",
+				"%conv3.i.i127.us = trunc i128 %mul.i.i126.us to i64, !dbg !175",
+				"%div.i.i129.us = udiv i128 %mul.i.i126.us, %conv2.i3.i, !dbg !178",
+				"%conv3.i4.i130.us = trunc i128 %div.i.i129.us to i64, !dbg !179",
+				"%7 = mul i64 %sub, %conv3.i4.i130.us, !dbg !180",
+				"%conv6.i.i131.us = sub i64 %conv3.i.i127.us, %7, !dbg !180",
+				"%div28121.pn.in.us = mul i64 %conv6.i.i131.us, %cols, !dbg !181",
+				"%div28121.pn.us = lshr i64 %div28121.pn.in.us, 1, !dbg !181",
+				"%cmp30.not.us = icmp eq i64 %conv6.i.i131.us, %hn.0153.us, !dbg !182",
+				"br i1 %cmp30.not.us, label %while.cond.while.end_crit_edge.us, label %while.body.us, !dbg !159, !llvm.loop !183"
+			]
+		},
+		{
+			"function": "swap_halfrows_pow2",
+			"id": 79,
+			"name": "for.cond14.preheader.us",
+			"debug": [
+				{
+					"line": 126, "columns": [13]
+				}
+			],
+			"successors": [81, 77],
+			"ir": [
+				"%mul.us = mul i64 %hn.0153.us, %cols",
+				"%div23120.us = lshr i64 %mul.us, 1",
+				"%add.ptr.us = getelementptr i64, ptr %matrix, i64 %div23120.us",
+				"%conv.i.i.us = zext i64 %hn.0153.us to i128",
+				"%mul.i.i.us = mul nuw i128 %conv1.i.i, %conv.i.i.us",
+				"%conv3.i.i.us = trunc i128 %mul.i.i.us to i64",
+				"%div.i.i.us = udiv i128 %mul.i.i.us, %conv2.i3.i",
+				"%conv3.i4.i.us = trunc i128 %div.i.i.us to i64",
+				"%8 = mul i64 %sub, %conv3.i4.i.us",
+				"%conv6.i.i.us = sub i64 %conv3.i.i.us, %8",
+				"%div28121.pn.in138.us = mul i64 %conv6.i.i.us, %cols",
+				"%div28121.pn139.us = lshr i64 %div28121.pn.in138.us, 1",
+				"%hp.0140.us = getelementptr i64, ptr %matrix, i64 %div28121.pn139.us",
+				"%cmp30.not141.us = icmp eq i64 %conv6.i.i.us, %hn.0153.us",
+				"br i1 %cmp30.not141.us, label %for.body17.us.us, label %for.body17.us155, !dbg !159"
+			]
+		},
+		{
+			"function": "swap_halfrows_pow2",
+			"id": 80,
+			"name": "while.cond.while.end_crit_edge.us",
+			"debug": [
+				{
+					"line": 115, "columns": [9]
+				},
+				{
+					"line": 139, "columns": [22, 13]
+				},
+				{
+					"line": 141, "columns": [28]
+				}
+			],
+			"successors": [77, 76],
+			"ir": [
+				"%hp.0.us = getelementptr i64, ptr %matrix, i64 %div28121.pn.us, !dbg !181",
+				"%add.ptr43.us164 = getelementptr i64, ptr %hp.0.us, i64 %offset.0151.us156, !dbg !185",
+				"call void @llvm.memcpy.p0.p0.i64(ptr align 8 %add.ptr43.us164, ptr align 8 %readbuf.1142.us, i64 %mul25.us163, i1 false), !dbg !186",
+				"%9 = load i64, ptr %arrayidx.us, align 8, !dbg !187, !tbaa !127",
+				"%or49.us165 = or i64 %9, %2, !dbg !187",
+				"store i64 %or49.us165, ptr %arrayidx.us, align 8, !dbg !187, !tbaa !127",
+				"br i1 %cmp20.us160, label %for.body17.us155, label %for.inc51.us, !dbg !123, !llvm.loop !188"
+			]
+		},
+		{
+			"function": "swap_halfrows_pow2",
+			"id": 81,
+			"name": "for.body17.us.us",
+			"debug": [
+				{
+					"line": 115, "columns": [9]
+				},
+				{
+					"line": 117, "columns": [30, 34, 22]
+				},
+				{
+					"line": 120, "columns": [46, 31, 13]
+				},
+				{
+					"line": 139, "columns": [22, 13]
+				},
+				{
+					"line": 141, "columns": [28]
+				}
+			],
+			"successors": [81, 76],
+			"ir": [
+				"%offset.0151.us.us = phi i64 [ %add18.us.us, %for.body17.us.us ], [ 0, %for.cond14.preheader.us ]",
+				"%writebuf.0150.us.us = phi ptr [ %readbuf.0149.us.us, %for.body17.us.us ], [ %buf2, %for.cond14.preheader.us ]",
+				"%readbuf.0149.us.us = phi ptr [ %writebuf.0150.us.us, %for.body17.us.us ], [ %buf1, %for.cond14.preheader.us ]",
+				"%add18.us.us = add nuw i64 %offset.0151.us.us, 4096, !dbg !139",
+				"%cmp20.us.us = icmp ult i64 %add18.us.us, %div15119, !dbg !140",
+				"%sub22.us.us = sub nsw i64 %div15119, %offset.0151.us.us, !dbg !141",
+				"%10 = shl i64 %sub22.us.us, 3, !dbg !142",
+				"%add.ptr24.us.us = getelementptr i64, ptr %add.ptr.us, i64 %offset.0151.us.us, !dbg !143",
+				"%mul25.us.us = select i1 %cmp20.us.us, i64 32768, i64 %10, !dbg !142",
+				"call void @llvm.memcpy.p0.p0.i64(ptr align 8 %readbuf.0149.us.us, ptr align 8 %add.ptr24.us.us, i64 %mul25.us.us, i1 false), !dbg !144",
+				"%add.ptr43.us.us = getelementptr i64, ptr %hp.0140.us, i64 %offset.0151.us.us, !dbg !185",
+				"tail call void @llvm.memmove.p0.p0.i64(ptr align 8 %add.ptr43.us.us, ptr align 8 %add.ptr24.us.us, i64 %mul25.us.us, i1 false), !dbg !186",
+				"%11 = load i64, ptr %arrayidx.us, align 8, !dbg !187, !tbaa !127",
+				"%or49.us.us = or i64 %11, %2, !dbg !187",
+				"store i64 %or49.us.us, ptr %arrayidx.us, align 8, !dbg !187, !tbaa !127",
+				"br i1 %cmp20.us.us, label %for.body17.us.us, label %for.inc51.us, !dbg !123, !llvm.loop !188"
+			]
+		},
+		{
+			"function": "swap_halfrows_pow2",
+			"id": 82,
+			"name": "for.end53",
+			"debug": [
+				{
+					"line": 145, "columns": [5]
+				},
+				{
+					"line": 146, "columns": [5]
+				}
+			],
+			"successors": [83],
+			"ir": [
+				"%12 = load ptr, ptr @mpd_free, align 8, !dbg !190, !tbaa !191",
+				"tail call void %12(ptr noundef nonnull %call) #12, !dbg !190",
+				"br label %cleanup, !dbg !193"
+			]
+		},
+		{
+			"function": "swap_halfrows_pow2",
+			"id": 83,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 147, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ 1, %for.end53 ], [ 0, %entry ], !dbg !78",
+				"call void @llvm.lifetime.end.p0(i64 32768, ptr nonnull %buf2) #12, !dbg !194",
+				"call void @llvm.lifetime.end.p0(i64 32768, ptr nonnull %buf1) #12, !dbg !194",
+				"ret i32 %retval.0, !dbg !194"
+			]
+		}
+	]
+}

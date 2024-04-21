@@ -1,0 +1,1143 @@
+{
+	"blocks": [
+		{
+			"function": "_Py_CalculateSuggestions",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 133, "columns": [27]
+				},
+				{
+					"line": 134, "columns": [18, 9]
+				}
+			],
+			"successors": [18, 1],
+			"ir": [
+				"%name_size = alloca i64, align 8",
+				"%item_size = alloca i64, align 8",
+				"%0 = getelementptr i8, ptr %dir, i64 16, !dbg !380",
+				"%dir.val = load i64, ptr %0, align 8, !dbg !380, !tbaa !381",
+				"%cmp = icmp sgt i64 %dir.val, 749, !dbg !388",
+				"br i1 %cmp, label %cleanup46, label %if.end, !dbg !390"
+			]
+		},
+		{
+			"function": "_Py_CalculateSuggestions",
+			"id": 1,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 140, "columns": [5]
+				},
+				{
+					"line": 141, "columns": [28]
+				},
+				{
+					"line": 142, "columns": [18, 9]
+				}
+			],
+			"successors": [17, 2],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %name_size) #5, !dbg !391",
+				"%call1 = call ptr @PyUnicode_AsUTF8AndSize(ptr noundef %name, ptr noundef nonnull %name_size) #5, !dbg !392",
+				"%cmp2 = icmp eq ptr %call1, null, !dbg !393",
+				"br i1 %cmp2, label %cleanup42, label %if.end4, !dbg !395"
+			]
+		},
+		{
+			"function": "_Py_CalculateSuggestions",
+			"id": 2,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 145, "columns": [22]
+				},
+				{
+					"line": 146, "columns": [16, 9]
+				}
+			],
+			"successors": [6, 3],
+			"ir": [
+				"%call5 = call ptr @PyMem_Malloc(i64 noundef 320) #5, !dbg !396",
+				"%cmp6 = icmp eq ptr %call5, null, !dbg !397",
+				"br i1 %cmp6, label %if.then7, label %for.cond.preheader, !dbg !399"
+			]
+		},
+		{
+			"function": "_Py_CalculateSuggestions",
+			"id": 3,
+			"name": "for.cond.preheader",
+			"debug": [
+				{
+					"line": 149, "columns": [23, 5]
+				}
+			],
+			"successors": [5, 4],
+			"ir": [
+				"%cmp10.not80 = icmp sgt i64 %dir.val, 0, !dbg !401",
+				"br i1 %cmp10.not80, label %for.body.lr.ph, label %for.end.thread, !dbg !402"
+			]
+		},
+		{
+			"function": "_Py_CalculateSuggestions",
+			"id": 4,
+			"name": "for.end.thread",
+			"debug": [
+				{
+					"line": 175, "columns": [5]
+				},
+				{
+					"line": 1027, "columns": [9]
+				}
+			],
+			"successors": [17],
+			"ir": [
+				"call void @PyMem_Free(ptr noundef nonnull %call5) #5, !dbg !403",
+				"br label %cleanup42, !dbg !414"
+			]
+		},
+		{
+			"function": "_Py_CalculateSuggestions",
+			"id": 5,
+			"name": "for.body.lr.ph",
+			"debug": [
+				{
+					"line": 149, "columns": [5]
+				}
+			],
+			"successors": [7],
+			"ir": [
+				"%ob_item = getelementptr inbounds %struct.PyListObject, ptr %dir, i64 0, i32 1",
+				"br label %for.body, !dbg !402"
+			]
+		},
+		{
+			"function": "_Py_CalculateSuggestions",
+			"id": 6,
+			"name": "if.then7",
+			"debug": [
+				{
+					"line": 147, "columns": [16, 9]
+				}
+			],
+			"successors": [17],
+			"ir": [
+				"%call8 = call ptr @PyErr_NoMemory() #5, !dbg !415",
+				"br label %cleanup42, !dbg !417"
+			]
+		},
+		{
+			"function": "_Py_CalculateSuggestions",
+			"id": 7,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 150, "columns": [26]
+				},
+				{
+					"line": 151, "columns": [13]
+				}
+			],
+			"successors": [8, 13],
+			"ir": [
+				"%conv84 = phi i64 [ 0, %for.body.lr.ph ], [ %conv, %for.inc ]",
+				"%suggestion_distance.083 = phi i64 [ 9223372036854775807, %for.body.lr.ph ], [ %suggestion_distance.473, %for.inc ]",
+				"%suggestion.082 = phi ptr [ null, %for.body.lr.ph ], [ %suggestion.472, %for.inc ]",
+				"%1 = load ptr, ptr %ob_item, align 8, !dbg !418, !tbaa !419",
+				"%arrayidx = getelementptr ptr, ptr %1, i64 %conv84, !dbg !418",
+				"%2 = load ptr, ptr %arrayidx, align 8, !dbg !418, !tbaa !421",
+				"%call12 = call i32 @_PyUnicode_Equal(ptr noundef %name, ptr noundef %2) #5, !dbg !423",
+				"%tobool.not = icmp eq i32 %call12, 0, !dbg !423",
+				"br i1 %tobool.not, label %if.end14, label %for.inc, !dbg !425"
+			]
+		},
+		{
+			"function": "_Py_CalculateSuggestions",
+			"id": 8,
+			"name": "if.end14",
+			"debug": [
+				{
+					"line": 154, "columns": [9]
+				},
+				{
+					"line": 155, "columns": [32]
+				},
+				{
+					"line": 156, "columns": [22, 13]
+				}
+			],
+			"successors": [12, 9],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %item_size) #5, !dbg !426",
+				"%call15 = call ptr @PyUnicode_AsUTF8AndSize(ptr noundef %2, ptr noundef nonnull %item_size) #5, !dbg !427",
+				"%cmp16 = icmp eq ptr %call15, null, !dbg !428",
+				"br i1 %cmp16, label %cleanup38.thread, label %if.end19, !dbg !430"
+			]
+		},
+		{
+			"function": "_Py_CalculateSuggestions",
+			"id": 9,
+			"name": "if.end19",
+			"debug": [
+				{
+					"line": 161, "columns": [36, 48, 46, 63, 75]
+				},
+				{
+					"line": 163, "columns": [24]
+				},
+				{
+					"line": 165, "columns": [13]
+				},
+				{
+					"line": 167, "columns": [30, 13]
+				}
+			],
+			"successors": [11, 10],
+			"ir": [
+				"%3 = load i64, ptr %name_size, align 8, !dbg !431, !tbaa !432",
+				"%4 = load i64, ptr %item_size, align 8, !dbg !433, !tbaa !432",
+				"%add = add i64 %4, %3, !dbg !434",
+				"%add20 = shl i64 %add, 1, !dbg !435",
+				"%mul = add i64 %add20, 6, !dbg !435",
+				"%div = sdiv i64 %mul, 6, !dbg !436",
+				"%sub = add i64 %suggestion_distance.083, -1, !dbg !437",
+				"%cond = call i64 @llvm.smin.i64(i64 %div, i64 %sub), !dbg !437",
+				"%call24 = call fastcc i64 @levenshtein_distance(ptr noundef nonnull %call1, i64 noundef %3, ptr noundef nonnull %call15, i64 noundef %4, i64 noundef %cond, ptr noundef nonnull %call5), !dbg !438",
+				"%cmp25 = icmp sgt i64 %call24, %cond, !dbg !439",
+				"br i1 %cmp25, label %cleanup37.thread74, label %if.end28, !dbg !441"
+			]
+		},
+		{
+			"function": "_Py_CalculateSuggestions",
+			"id": 10,
+			"name": "if.end28",
+			"debug": [
+				{
+					"line": 170, "columns": [14, 25]
+				},
+				{
+					"line": 174, "columns": [5]
+				}
+			],
+			"successors": [11],
+			"ir": [
+				"%tobool29.not = icmp eq ptr %suggestion.082, null, !dbg !442",
+				"%cmp30 = icmp slt i64 %call24, %suggestion_distance.083",
+				"%or.cond = select i1 %tobool29.not, i1 true, i1 %cmp30, !dbg !444",
+				"%suggestion.1 = select i1 %or.cond, ptr %2, ptr %suggestion.082, !dbg !444",
+				"%suggestion_distance.1 = select i1 %or.cond, i64 %call24, i64 %suggestion_distance.083, !dbg !444",
+				"br label %cleanup37.thread74, !dbg !445"
+			]
+		},
+		{
+			"function": "_Py_CalculateSuggestions",
+			"id": 11,
+			"name": "cleanup37.thread74",
+			"debug": [
+				{
+					"line": 174, "columns": [5]
+				}
+			],
+			"successors": [13],
+			"ir": [
+				"%suggestion.3.ph = phi ptr [ %suggestion.082, %if.end19 ], [ %suggestion.1, %if.end28 ]",
+				"%suggestion_distance.3.ph = phi i64 [ %suggestion_distance.083, %if.end19 ], [ %suggestion_distance.1, %if.end28 ]",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %item_size) #5, !dbg !445",
+				"br label %for.inc"
+			]
+		},
+		{
+			"function": "_Py_CalculateSuggestions",
+			"id": 12,
+			"name": "cleanup38.thread",
+			"debug": [
+				{
+					"line": 157, "columns": [13]
+				},
+				{
+					"line": 174, "columns": [5]
+				}
+			],
+			"successors": [17],
+			"ir": [
+				"call void @PyMem_Free(ptr noundef nonnull %call5) #5, !dbg !446",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %item_size) #5, !dbg !445",
+				"br label %cleanup42"
+			]
+		},
+		{
+			"function": "_Py_CalculateSuggestions",
+			"id": 13,
+			"name": "for.inc",
+			"debug": [
+				{
+					"line": 149, "columns": [21, 23, 5]
+				}
+			],
+			"successors": [7, 14],
+			"ir": [
+				"%suggestion_distance.473 = phi i64 [ %suggestion_distance.3.ph, %cleanup37.thread74 ], [ %suggestion_distance.083, %for.body ]",
+				"%suggestion.472 = phi ptr [ %suggestion.3.ph, %cleanup37.thread74 ], [ %suggestion.082, %for.body ]",
+				"%inc = shl nsw i64 %conv84, 32, !dbg !448",
+				"%sext = add i64 %inc, 4294967296, !dbg !448",
+				"%conv = ashr exact i64 %sext, 32, !dbg !448",
+				"%cmp10.not = icmp sgt i64 %dir.val, %conv, !dbg !401",
+				"br i1 %cmp10.not, label %for.body, label %for.end, !dbg !402, !llvm.loop !449"
+			]
+		},
+		{
+			"function": "_Py_CalculateSuggestions",
+			"id": 14,
+			"name": "for.end",
+			"debug": [
+				{
+					"line": 175, "columns": [5]
+				},
+				{
+					"line": 1027, "columns": [12, 9]
+				}
+			],
+			"successors": [17, 15],
+			"ir": [
+				"call void @PyMem_Free(ptr noundef nonnull %call5) #5, !dbg !403",
+				"%cmp.not.i.i = icmp eq ptr %suggestion.472, null, !dbg !452",
+				"br i1 %cmp.not.i.i, label %cleanup42, label %if.then.i.i, !dbg !414"
+			]
+		},
+		{
+			"function": "_Py_CalculateSuggestions",
+			"id": 15,
+			"name": "if.then.i.i",
+			"debug": [
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [17, 16],
+			"ir": [
+				"%5 = load i32, ptr %suggestion.472, align 8, !dbg !462, !tbaa !463",
+				"%add.i.i.i = add i32 %5, 1, !dbg !464",
+				"%cmp.i.i.i = icmp eq i32 %add.i.i.i, 0, !dbg !465",
+				"br i1 %cmp.i.i.i, label %cleanup42, label %if.end.i.i.i, !dbg !467"
+			]
+		},
+		{
+			"function": "_Py_CalculateSuggestions",
+			"id": 16,
+			"name": "if.end.i.i.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [17],
+			"ir": [
+				"store i32 %add.i.i.i, ptr %suggestion.472, align 8, !dbg !468, !tbaa !463",
+				"br label %cleanup42, !dbg !469"
+			]
+		},
+		{
+			"function": "_Py_CalculateSuggestions",
+			"id": 17,
+			"name": "cleanup42",
+			"debug": [
+				{
+					"line": 177, "columns": [1]
+				}
+			],
+			"successors": [18],
+			"ir": [
+				"%retval.5 = phi ptr [ null, %if.end ], [ %call8, %if.then7 ], [ null, %cleanup38.thread ], [ null, %for.end ], [ %suggestion.472, %if.then.i.i ], [ %suggestion.472, %if.end.i.i.i ], [ null, %for.end.thread ], !dbg !379",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %name_size) #5, !dbg !470",
+				"br label %cleanup46"
+			]
+		},
+		{
+			"function": "_Py_CalculateSuggestions",
+			"id": 18,
+			"name": "cleanup46",
+			"debug": [
+				{
+					"line": 177, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.6 = phi ptr [ %retval.5, %cleanup42 ], [ null, %entry ], !dbg !379",
+				"ret ptr %retval.6, !dbg !470"
+			]
+		},
+		{
+			"function": "levenshtein_distance",
+			"id": 19,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 44, "columns": [11, 9]
+				}
+			],
+			"successors": [49, 20],
+			"ir": [
+				"%cmp = icmp eq ptr %a, %b, !dbg !392",
+				"br i1 %cmp, label %return, label %while.cond.preheader, !dbg !394"
+			]
+		},
+		{
+			"function": "levenshtein_distance",
+			"id": 20,
+			"name": "while.cond.preheader",
+			"debug": [
+				{
+					"line": 49, "columns": [12, 19]
+				}
+			],
+			"successors": [21, 23],
+			"ir": [
+				"%tobool167 = icmp ne i64 %a_size, 0, !dbg !395",
+				"%tobool1168 = icmp ne i64 %b_size, 0",
+				"%or.cond169 = and i1 %tobool167, %tobool1168, !dbg !396",
+				"br i1 %or.cond169, label %land.rhs, label %while.end, !dbg !396"
+			]
+		},
+		{
+			"function": "levenshtein_distance",
+			"id": 21,
+			"name": "land.rhs",
+			"debug": [
+				{
+					"line": 49, "columns": [32, 40, 37, 5]
+				}
+			],
+			"successors": [22, 23],
+			"ir": [
+				"%a.addr.0173 = phi ptr [ %incdec.ptr, %while.body ], [ %a, %while.cond.preheader ]",
+				"%a_size.addr.0172 = phi i64 [ %dec, %while.body ], [ %a_size, %while.cond.preheader ]",
+				"%b.addr.0171 = phi ptr [ %incdec.ptr6, %while.body ], [ %b, %while.cond.preheader ]",
+				"%b_size.addr.0170 = phi i64 [ %dec7, %while.body ], [ %b_size, %while.cond.preheader ]",
+				"%0 = load i8, ptr %a.addr.0173, align 1, !dbg !397, !tbaa !398",
+				"%1 = load i8, ptr %b.addr.0171, align 1, !dbg !401, !tbaa !398",
+				"%cmp4 = icmp eq i8 %0, %1, !dbg !402",
+				"br i1 %cmp4, label %while.body, label %while.end, !dbg !403"
+			]
+		},
+		{
+			"function": "levenshtein_distance",
+			"id": 22,
+			"name": "while.body",
+			"debug": [
+				{
+					"line": 49, "columns": [12, 19]
+				},
+				{
+					"line": 50, "columns": [10, 20]
+				},
+				{
+					"line": 51, "columns": [10, 20]
+				}
+			],
+			"successors": [21, 23],
+			"ir": [
+				"%incdec.ptr = getelementptr i8, ptr %a.addr.0173, i64 1, !dbg !404",
+				"%dec = add i64 %a_size.addr.0172, -1, !dbg !406",
+				"%incdec.ptr6 = getelementptr i8, ptr %b.addr.0171, i64 1, !dbg !407",
+				"%dec7 = add i64 %b_size.addr.0170, -1, !dbg !408",
+				"%tobool = icmp ne i64 %dec, 0, !dbg !395",
+				"%tobool1 = icmp ne i64 %dec7, 0",
+				"%or.cond = select i1 %tobool, i1 %tobool1, i1 false, !dbg !396",
+				"br i1 %or.cond, label %land.rhs, label %while.end, !dbg !396, !llvm.loop !409"
+			]
+		},
+		{
+			"function": "levenshtein_distance",
+			"id": 23,
+			"name": "while.end",
+			"debug": [
+				{
+					"line": 53, "columns": [5]
+				}
+			],
+			"successors": [24],
+			"ir": [
+				"%b_size.addr.0.lcssa = phi i64 [ %b_size, %while.cond.preheader ], [ %dec7, %while.body ], [ %b_size.addr.0170, %land.rhs ]",
+				"%b.addr.0.lcssa = phi ptr [ %b, %while.cond.preheader ], [ %incdec.ptr6, %while.body ], [ %b.addr.0171, %land.rhs ]",
+				"%a_size.addr.0.lcssa = phi i64 [ %a_size, %while.cond.preheader ], [ %dec, %while.body ], [ %a_size.addr.0172, %land.rhs ]",
+				"%a.addr.0.lcssa = phi ptr [ %a, %while.cond.preheader ], [ %incdec.ptr, %while.body ], [ %a.addr.0173, %land.rhs ]",
+				"br label %while.cond8, !dbg !412"
+			]
+		},
+		{
+			"function": "levenshtein_distance",
+			"id": 24,
+			"name": "while.cond8",
+			"debug": [
+				{
+					"line": 53, "columns": [12, 19]
+				}
+			],
+			"successors": [25, 26],
+			"ir": [
+				"%b_size.addr.1 = phi i64 [ %b_size.addr.0.lcssa, %while.end ], [ %sub15, %land.rhs12 ]",
+				"%a_size.addr.1 = phi i64 [ %a_size.addr.0.lcssa, %while.end ], [ %sub, %land.rhs12 ]",
+				"%tobool9 = icmp ne i64 %a_size.addr.1, 0, !dbg !413",
+				"%tobool11 = icmp ne i64 %b_size.addr.1, 0",
+				"%or.cond103 = select i1 %tobool9, i1 %tobool11, i1 false, !dbg !414",
+				"br i1 %or.cond103, label %land.rhs12, label %while.end24, !dbg !414"
+			]
+		},
+		{
+			"function": "levenshtein_distance",
+			"id": 25,
+			"name": "land.rhs12",
+			"debug": [
+				{
+					"line": 53, "columns": [40, 32, 55, 47, 44, 5]
+				}
+			],
+			"successors": [24, 26],
+			"ir": [
+				"%sub = add i64 %a_size.addr.1, -1, !dbg !415",
+				"%arrayidx13 = getelementptr i8, ptr %a.addr.0.lcssa, i64 %sub, !dbg !416",
+				"%2 = load i8, ptr %arrayidx13, align 1, !dbg !416, !tbaa !398",
+				"%sub15 = add i64 %b_size.addr.1, -1, !dbg !417",
+				"%arrayidx16 = getelementptr i8, ptr %b.addr.0.lcssa, i64 %sub15, !dbg !418",
+				"%3 = load i8, ptr %arrayidx16, align 1, !dbg !418, !tbaa !398",
+				"%cmp18 = icmp eq i8 %2, %3, !dbg !419",
+				"br i1 %cmp18, label %while.cond8, label %while.end24, !dbg !412, !llvm.loop !420"
+			]
+		},
+		{
+			"function": "levenshtein_distance",
+			"id": 26,
+			"name": "while.end24",
+			"debug": [
+				{
+					"line": 57, "columns": [16, 21]
+				}
+			],
+			"successors": [27, 28],
+			"ir": [
+				"%cmp25 = icmp eq i64 %a_size.addr.1, 0, !dbg !422",
+				"%cmp27 = icmp eq i64 %b_size.addr.1, 0",
+				"%or.cond104 = select i1 %cmp25, i1 true, i1 %cmp27, !dbg !424",
+				"br i1 %or.cond104, label %if.then29, label %if.end30, !dbg !424"
+			]
+		},
+		{
+			"function": "levenshtein_distance",
+			"id": 27,
+			"name": "if.then29",
+			"debug": [
+				{
+					"line": 58, "columns": [24, 34, 9]
+				}
+			],
+			"successors": [49],
+			"ir": [
+				"%add = add i64 %a_size.addr.1, %b_size.addr.1, !dbg !425",
+				"%mul = shl i64 %add, 1, !dbg !427",
+				"br label %return, !dbg !428"
+			]
+		},
+		{
+			"function": "levenshtein_distance",
+			"id": 28,
+			"name": "if.end30",
+			"debug": [
+				{
+					"line": 60, "columns": [16, 34]
+				}
+			],
+			"successors": [29, 30],
+			"ir": [
+				"%cmp31 = icmp ugt i64 %a_size.addr.1, 40, !dbg !429",
+				"%cmp34 = icmp ugt i64 %b_size.addr.1, 40",
+				"%or.cond105 = select i1 %cmp31, i1 true, i1 %cmp34, !dbg !431",
+				"br i1 %or.cond105, label %if.then36, label %if.end38, !dbg !431"
+			]
+		},
+		{
+			"function": "levenshtein_distance",
+			"id": 29,
+			"name": "if.then36",
+			"debug": [
+				{
+					"line": 61, "columns": [25, 9]
+				}
+			],
+			"successors": [49],
+			"ir": [
+				"%add37 = add i64 %max_cost, 1, !dbg !432",
+				"br label %return, !dbg !434"
+			]
+		},
+		{
+			"function": "levenshtein_distance",
+			"id": 30,
+			"name": "if.end38",
+			"debug": [
+				{
+					"line": 65, "columns": [16, 9]
+				}
+			],
+			"successors": [31, 32],
+			"ir": [
+				"%cmp39 = icmp ult i64 %b_size.addr.1, %a_size.addr.1, !dbg !435",
+				"br i1 %cmp39, label %if.then41, label %if.end42, !dbg !436"
+			]
+		},
+		{
+			"function": "levenshtein_distance",
+			"id": 31,
+			"name": "if.then41",
+			"debug": [
+				{
+					"line": 68, "columns": [5]
+				}
+			],
+			"successors": [32],
+			"ir": [
+				"br label %if.end42, !dbg !438"
+			]
+		},
+		{
+			"function": "levenshtein_distance",
+			"id": 32,
+			"name": "if.end42",
+			"debug": [
+				{
+					"line": 71, "columns": [17, 27, 39, 9]
+				}
+			],
+			"successors": [38, 33],
+			"ir": [
+				"%b_size.addr.2 = phi i64 [ %a_size.addr.1, %if.then41 ], [ %b_size.addr.1, %if.end38 ]",
+				"%b.addr.1 = phi ptr [ %a.addr.0.lcssa, %if.then41 ], [ %b.addr.0.lcssa, %if.end38 ]",
+				"%a_size.addr.2 = phi i64 [ %b_size.addr.1, %if.then41 ], [ %a_size.addr.1, %if.end38 ]",
+				"%a.addr.1 = phi ptr [ %b.addr.0.lcssa, %if.then41 ], [ %a.addr.0.lcssa, %if.end38 ]",
+				"%sub43 = sub nsw i64 %b_size.addr.2, %a_size.addr.2, !dbg !439",
+				"%mul44 = shl nsw i64 %sub43, 1, !dbg !441",
+				"%cmp45 = icmp ugt i64 %mul44, %max_cost, !dbg !442",
+				"br i1 %cmp45, label %if.then47, label %for.body.preheader, !dbg !443"
+			]
+		},
+		{
+			"function": "levenshtein_distance",
+			"id": 33,
+			"name": "for.body.preheader",
+			"debug": [
+				{
+					"line": 79, "columns": [5]
+				}
+			],
+			"successors": [37, 34],
+			"ir": [
+				"%umin = tail call i64 @llvm.umin.i64(i64 %b_size.addr.1, i64 %a_size.addr.1), !dbg !445",
+				"%min.iters.check = icmp ult i64 %umin, 4, !dbg !445",
+				"br i1 %min.iters.check, label %for.body.preheader210, label %vector.ph, !dbg !445"
+			]
+		},
+		{
+			"function": "levenshtein_distance",
+			"id": 34,
+			"name": "vector.ph",
+			"debug": [
+				{
+					"line": 79, "columns": [5]
+				}
+			],
+			"successors": [35],
+			"ir": [
+				"%n.vec = and i64 %umin, -4, !dbg !445",
+				"%4 = shl i64 %n.vec, 1, !dbg !445",
+				"%ind.end = or i64 %4, 2, !dbg !445",
+				"br label %vector.body, !dbg !445"
+			]
+		},
+		{
+			"function": "levenshtein_distance",
+			"id": 35,
+			"name": "vector.body",
+			"debug": [
+				{
+					"line": 79, "columns": [37]
+				},
+				{
+					"line": 81, "columns": [9, 19]
+				}
+			],
+			"successors": [36, 35],
+			"ir": [
+				"%index = phi i64 [ 0, %vector.ph ], [ %index.next, %vector.body ], !dbg !446",
+				"%vec.ind = phi <2 x i64> [ <i64 2, i64 4>, %vector.ph ], [ %vec.ind.next, %vector.body ]",
+				"%step.add = add <2 x i64> %vec.ind, <i64 4, i64 4>",
+				"%5 = getelementptr i64, ptr %buffer, i64 %index, !dbg !448",
+				"store <2 x i64> %vec.ind, ptr %5, align 8, !dbg !450, !tbaa !451",
+				"%6 = getelementptr i64, ptr %5, i64 2, !dbg !450",
+				"store <2 x i64> %step.add, ptr %6, align 8, !dbg !450, !tbaa !451",
+				"%index.next = add nuw i64 %index, 4, !dbg !446",
+				"%vec.ind.next = add <2 x i64> %vec.ind, <i64 8, i64 8>",
+				"%7 = icmp eq i64 %index.next, %n.vec, !dbg !446",
+				"br i1 %7, label %middle.block, label %vector.body, !dbg !446, !llvm.loop !453"
+			]
+		},
+		{
+			"function": "levenshtein_distance",
+			"id": 36,
+			"name": "middle.block",
+			"debug": [
+				{
+					"line": 79, "columns": [5]
+				}
+			],
+			"successors": [39, 37],
+			"ir": [
+				"%cmp.n = icmp eq i64 %umin, %n.vec, !dbg !445",
+				"br i1 %cmp.n, label %for.cond54.preheader, label %for.body.preheader210, !dbg !445"
+			]
+		},
+		{
+			"function": "levenshtein_distance",
+			"id": 37,
+			"name": "for.body.preheader210",
+			"debug": [
+				{
+					"line": 79, "columns": [5]
+				}
+			],
+			"successors": [48],
+			"ir": [
+				"%i.0183.ph = phi i64 [ 0, %for.body.preheader ], [ %n.vec, %middle.block ]",
+				"%tmp.0182.ph = phi i64 [ 2, %for.body.preheader ], [ %ind.end, %middle.block ]",
+				"br label %for.body, !dbg !445"
+			]
+		},
+		{
+			"function": "levenshtein_distance",
+			"id": 38,
+			"name": "if.then47",
+			"debug": [
+				{
+					"line": 72, "columns": [25, 9]
+				}
+			],
+			"successors": [49],
+			"ir": [
+				"%add48 = add nuw i64 %max_cost, 1, !dbg !457",
+				"br label %return, !dbg !459"
+			]
+		},
+		{
+			"function": "levenshtein_distance",
+			"id": 39,
+			"name": "for.cond54.preheader",
+			"debug": [
+				{
+					"line": 86, "columns": [38, 5]
+				},
+				{
+					"line": 118, "columns": [13]
+				}
+			],
+			"successors": [49, 40],
+			"ir": [
+				"%add90 = add i64 %max_cost, 1, !dbg !460",
+				"%cmp55.not191.not = icmp eq i64 %b_size.addr.2, 0, !dbg !462",
+				"br i1 %cmp55.not191.not, label %return, label %for.body58.us.preheader, !dbg !463"
+			]
+		},
+		{
+			"function": "levenshtein_distance",
+			"id": 40,
+			"name": "for.body58.us.preheader",
+			"debug": [
+				{
+					"line": 86, "columns": [5]
+				}
+			],
+			"successors": [41],
+			"ir": [
+				"%umin200 = tail call i64 @llvm.umin.i64(i64 %b_size.addr.1, i64 %a_size.addr.1), !dbg !463",
+				"%umax = tail call i64 @llvm.umax.i64(i64 %b_size.addr.1, i64 %a_size.addr.1), !dbg !463",
+				"br label %for.body58.us, !dbg !463"
+			]
+		},
+		{
+			"function": "levenshtein_distance",
+			"id": 41,
+			"name": "for.body58.us",
+			"debug": [
+				{
+					"line": 87, "columns": [21]
+				},
+				{
+					"line": 89, "columns": [44]
+				},
+				{
+					"line": 91, "columns": [9]
+				}
+			],
+			"successors": [43],
+			"ir": [
+				"%b_index.0192.us = phi i64 [ %inc95.us, %for.cond54.us ], [ 0, %for.body58.us.preheader ]",
+				"%arrayidx59.us = getelementptr i8, ptr %b.addr.1, i64 %b_index.0192.us, !dbg !464",
+				"%8 = load i8, ptr %arrayidx59.us, align 1, !dbg !464, !tbaa !398",
+				"%mul60.us = shl nuw nsw i64 %b_index.0192.us, 1, !dbg !466",
+				"%9 = add i8 %8, -65",
+				"%or.cond.i.us = icmp ult i8 %9, 26",
+				"%add.i.us = add i8 %8, 32",
+				"%spec.select.i.us = select i1 %or.cond.i.us, i8 %add.i.us, i8 %8",
+				"br label %for.body65.us, !dbg !468"
+			]
+		},
+		{
+			"function": "levenshtein_distance",
+			"id": 42,
+			"name": "for.cond54.us",
+			"debug": [
+				{
+					"line": 86, "columns": [55, 38, 5]
+				}
+			],
+			"successors": [49, 41],
+			"ir": [
+				"%inc95.us = add nuw i64 %b_index.0192.us, 1, !dbg !469",
+				"%exitcond204.not = icmp eq i64 %inc95.us, %umax, !dbg !462",
+				"br i1 %exitcond204.not, label %return, label %for.body58.us, !dbg !463, !llvm.loop !470"
+			]
+		},
+		{
+			"function": "levenshtein_distance",
+			"id": 43,
+			"name": "for.body65.us",
+			"debug": [
+				{
+					"line": 18, "columns": [28, 9]
+				},
+				{
+					"line": 104, "columns": [68]
+				}
+			],
+			"successors": [44, 46],
+			"ir": [
+				"%index.0188.us = phi i64 [ 0, %for.body58.us ], [ %inc85.us, %substitution_cost.exit.us ]",
+				"%minimum.0187.us = phi i64 [ -1, %for.body58.us ], [ %spec.select.us, %substitution_cost.exit.us ]",
+				"%distance.0186.us = phi i64 [ %mul60.us, %for.body58.us ], [ %14, %substitution_cost.exit.us ]",
+				"%result.1185.us = phi i64 [ %mul60.us, %for.body58.us ], [ %cond78.us, %substitution_cost.exit.us ]",
+				"%arrayidx66.us = getelementptr i8, ptr %a.addr.1, i64 %index.0188.us, !dbg !472",
+				"%10 = load i8, ptr %arrayidx66.us, align 1, !dbg !472, !tbaa !398",
+				"%11 = xor i8 %10, %8, !dbg !481",
+				"%12 = and i8 %11, 31, !dbg !481",
+				"%cmp.not.i.us = icmp eq i8 %12, 0, !dbg !481",
+				"br i1 %cmp.not.i.us, label %if.end.i.us, label %substitution_cost.exit.us, !dbg !483"
+			]
+		},
+		{
+			"function": "levenshtein_distance",
+			"id": 44,
+			"name": "if.end.i.us",
+			"debug": [
+				{
+					"line": 22, "columns": [11, 9]
+				}
+			],
+			"successors": [46, 45],
+			"ir": [
+				"%cmp6.i.us = icmp eq i8 %8, %10, !dbg !484",
+				"br i1 %cmp6.i.us, label %substitution_cost.exit.us, label %if.end9.i.us, !dbg !486"
+			]
+		},
+		{
+			"function": "levenshtein_distance",
+			"id": 45,
+			"name": "if.end9.i.us",
+			"debug": [
+				{
+					"line": 28, "columns": [18]
+				},
+				{
+					"line": 31, "columns": [11, 9]
+				}
+			],
+			"successors": [46],
+			"ir": [
+				"%13 = add i8 %10, -65, !dbg !487",
+				"%or.cond38.i.us = icmp ult i8 %13, 26, !dbg !487",
+				"%add29.i.us = add i8 %10, 32, !dbg !487",
+				"%b.addr.0.i.us = select i1 %or.cond38.i.us, i8 %add29.i.us, i8 %10, !dbg !487",
+				"%cmp34.i.us = icmp eq i8 %spec.select.i.us, %b.addr.0.i.us, !dbg !489",
+				"%spec.select49.i.us = select i1 %cmp34.i.us, i64 1, i64 2, !dbg !491",
+				"br label %substitution_cost.exit.us, !dbg !491"
+			]
+		},
+		{
+			"function": "levenshtein_distance",
+			"id": 46,
+			"name": "substitution_cost.exit.us",
+			"debug": [
+				{
+					"line": 91, "columns": [53, 38, 9]
+				},
+				{
+					"line": 104, "columns": [42]
+				},
+				{
+					"line": 106, "columns": [24]
+				},
+				{
+					"line": 109, "columns": [36, 61]
+				},
+				{
+					"line": 110, "columns": [22]
+				},
+				{
+					"line": 113, "columns": [27]
+				},
+				{
+					"line": 114, "columns": [17]
+				}
+			],
+			"successors": [47, 43],
+			"ir": [
+				"%retval.0.i.us = phi i64 [ 2, %for.body65.us ], [ 0, %if.end.i.us ], [ %spec.select49.i.us, %if.end9.i.us ], !dbg !479",
+				"%add68.us = add i64 %retval.0.i.us, %distance.0186.us, !dbg !492",
+				"%arrayidx69.us = getelementptr i64, ptr %buffer, i64 %index.0188.us, !dbg !494",
+				"%14 = load i64, ptr %arrayidx69.us, align 8, !dbg !494, !tbaa !451",
+				"%cond.us = tail call i64 @llvm.umin.i64(i64 %result.1185.us, i64 %14), !dbg !495",
+				"%add72.us = add i64 %cond.us, 2, !dbg !496",
+				"%cond78.us = tail call i64 @llvm.umin.i64(i64 %add72.us, i64 %add68.us), !dbg !497",
+				"store i64 %cond78.us, ptr %arrayidx69.us, align 8, !dbg !498, !tbaa !451",
+				"%spec.select.us = tail call i64 @llvm.umin.i64(i64 %cond78.us, i64 %minimum.0187.us), !dbg !499",
+				"%inc85.us = add nuw nsw i64 %index.0188.us, 1, !dbg !500",
+				"%exitcond201.not = icmp eq i64 %inc85.us, %umin200, !dbg !501",
+				"br i1 %exitcond201.not, label %for.cond61.for.cond.cleanup64_crit_edge.us, label %for.body65.us, !dbg !468, !llvm.loop !502"
+			]
+		},
+		{
+			"function": "levenshtein_distance",
+			"id": 47,
+			"name": "for.cond61.for.cond.cleanup64_crit_edge.us",
+			"debug": [
+				{
+					"line": 118, "columns": [21]
+				}
+			],
+			"successors": [49, 42],
+			"ir": [
+				"%cmp87.not.us = icmp ugt i64 %spec.select.us, %max_cost, !dbg !504",
+				"br i1 %cmp87.not.us, label %return, label %for.cond54.us"
+			]
+		},
+		{
+			"function": "levenshtein_distance",
+			"id": 48,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 79, "columns": [37, 26, 5]
+				},
+				{
+					"line": 81, "columns": [9, 19]
+				},
+				{
+					"line": 82, "columns": [13]
+				}
+			],
+			"successors": [39, 48],
+			"ir": [
+				"%i.0183 = phi i64 [ %inc, %for.body ], [ %i.0183.ph, %for.body.preheader210 ]",
+				"%tmp.0182 = phi i64 [ %add53, %for.body ], [ %tmp.0182.ph, %for.body.preheader210 ]",
+				"%arrayidx52 = getelementptr i64, ptr %buffer, i64 %i.0183, !dbg !448",
+				"store i64 %tmp.0182, ptr %arrayidx52, align 8, !dbg !450, !tbaa !451",
+				"%add53 = add i64 %tmp.0182, 2, !dbg !506",
+				"%inc = add nuw nsw i64 %i.0183, 1, !dbg !446",
+				"%exitcond.not = icmp eq i64 %inc, %umin, !dbg !507",
+				"br i1 %exitcond.not, label %for.cond54.preheader, label %for.body, !dbg !445, !llvm.loop !508"
+			]
+		},
+		{
+			"function": "levenshtein_distance",
+			"id": 49,
+			"name": "return",
+			"debug": [
+				{
+					"line": 124, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.4 = phi i64 [ %mul, %if.then29 ], [ %add37, %if.then36 ], [ %add48, %if.then47 ], [ 0, %entry ], [ 0, %for.cond54.preheader ], [ %cond78.us, %for.cond54.us ], [ %add90, %for.cond61.for.cond.cleanup64_crit_edge.us ], !dbg !391",
+				"ret i64 %retval.4, !dbg !509"
+			]
+		},
+		{
+			"function": "_Py_UTF8_Edit_Cost",
+			"id": 50,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 183, "columns": [5]
+				},
+				{
+					"line": 184, "columns": [26]
+				},
+				{
+					"line": 185, "columns": [16, 9]
+				}
+			],
+			"successors": [57, 51],
+			"ir": [
+				"%size_a = alloca i64, align 8",
+				"%size_b = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %size_a) #5, !dbg !374",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %size_b) #5, !dbg !374",
+				"%call = call ptr @PyUnicode_AsUTF8AndSize(ptr noundef %a, ptr noundef nonnull %size_a) #5, !dbg !375",
+				"%cmp = icmp eq ptr %call, null, !dbg !376",
+				"br i1 %cmp, label %cleanup16, label %if.end, !dbg !378"
+			]
+		},
+		{
+			"function": "_Py_UTF8_Edit_Cost",
+			"id": 51,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 188, "columns": [26]
+				},
+				{
+					"line": 189, "columns": [16, 9]
+				}
+			],
+			"successors": [57, 52],
+			"ir": [
+				"%call1 = call ptr @PyUnicode_AsUTF8AndSize(ptr noundef %b, ptr noundef nonnull %size_b) #5, !dbg !379",
+				"%cmp2 = icmp eq ptr %call1, null, !dbg !380",
+				"br i1 %cmp2, label %cleanup16, label %if.end4, !dbg !382"
+			]
+		},
+		{
+			"function": "_Py_UTF8_Edit_Cost",
+			"id": 52,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 192, "columns": [18, 9]
+				}
+			],
+			"successors": [53, 54],
+			"ir": [
+				"%cmp5 = icmp eq i64 %max_cost, -1, !dbg !383",
+				"br i1 %cmp5, label %if.then6, label %if.end8, !dbg !385"
+			]
+		},
+		{
+			"function": "_Py_UTF8_Edit_Cost",
+			"id": 53,
+			"name": "if.then6",
+			"debug": [
+				{
+					"line": 193, "columns": [32, 30]
+				},
+				{
+					"line": 194, "columns": [5]
+				}
+			],
+			"successors": [54],
+			"ir": [
+				"%0 = load i64, ptr %size_a, align 8, !dbg !386",
+				"%1 = load i64, ptr %size_b, align 8, !dbg !386",
+				"%cond = call i64 @llvm.smax.i64(i64 %0, i64 %1), !dbg !386",
+				"%mul = shl i64 %cond, 1, !dbg !388",
+				"br label %if.end8, !dbg !389"
+			]
+		},
+		{
+			"function": "_Py_UTF8_Edit_Cost",
+			"id": 54,
+			"name": "if.end8",
+			"debug": [
+				{
+					"line": 195, "columns": [22]
+				},
+				{
+					"line": 196, "columns": [16, 9]
+				}
+			],
+			"successors": [55, 56],
+			"ir": [
+				"%max_cost.addr.0 = phi i64 [ %mul, %if.then6 ], [ %max_cost, %if.end4 ]",
+				"%call9 = call ptr @PyMem_Malloc(i64 noundef 320) #5, !dbg !390",
+				"%cmp10 = icmp eq ptr %call9, null, !dbg !391",
+				"br i1 %cmp10, label %if.then11, label %if.end13, !dbg !393"
+			]
+		},
+		{
+			"function": "_Py_UTF8_Edit_Cost",
+			"id": 55,
+			"name": "if.then11",
+			"debug": [
+				{
+					"line": 197, "columns": [9]
+				},
+				{
+					"line": 198, "columns": [9]
+				}
+			],
+			"successors": [57],
+			"ir": [
+				"%call12 = call ptr @PyErr_NoMemory() #5, !dbg !394",
+				"br label %cleanup16, !dbg !396"
+			]
+		},
+		{
+			"function": "_Py_UTF8_Edit_Cost",
+			"id": 56,
+			"name": "if.end13",
+			"debug": [
+				{
+					"line": 200, "columns": [51, 22]
+				},
+				{
+					"line": 201, "columns": [45]
+				},
+				{
+					"line": 202, "columns": [5]
+				}
+			],
+			"successors": [57],
+			"ir": [
+				"%2 = load i64, ptr %size_a, align 8, !dbg !397, !tbaa !398",
+				"%3 = load i64, ptr %size_b, align 8, !dbg !402, !tbaa !398",
+				"%call14 = call fastcc i64 @levenshtein_distance(ptr noundef nonnull %call, i64 noundef %2, ptr noundef nonnull %call1, i64 noundef %3, i64 noundef %max_cost.addr.0, ptr noundef nonnull %call9), !dbg !403",
+				"call void @PyMem_Free(ptr noundef nonnull %call9) #5, !dbg !404",
+				"br label %cleanup16"
+			]
+		},
+		{
+			"function": "_Py_UTF8_Edit_Cost",
+			"id": 57,
+			"name": "cleanup16",
+			"debug": [
+				{
+					"line": 204, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.2 = phi i64 [ -1, %entry ], [ -1, %if.end ], [ -1, %if.then11 ], [ %call14, %if.end13 ], !dbg !373",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %size_b) #5, !dbg !405",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %size_a) #5, !dbg !405",
+				"ret i64 %retval.2, !dbg !405"
+			]
+		}
+	]
+}

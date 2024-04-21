@@ -1,0 +1,1974 @@
+{
+	"blocks": [
+		{
+			"function": "perf_map_init_state",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 222, "columns": [5]
+				},
+				{
+					"line": 223, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call i32 @PyUnstable_PerfMapState_Init() #11, !dbg !6828",
+				"ret ptr null, !dbg !6829"
+			]
+		},
+		{
+			"function": "perf_map_write_entry",
+			"id": 1,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 202, "columns": [13, 25, 9]
+				}
+			],
+			"successors": [3, 2],
+			"ir": [
+				"%co_qualname = getelementptr inbounds %struct.PyCodeObject, ptr %co, i64 0, i32 20, !dbg !6837",
+				"%0 = load ptr, ptr %co_qualname, align 8, !dbg !6837, !tbaa !6839",
+				"%cmp.not = icmp eq ptr %0, null, !dbg !6848",
+				"br i1 %cmp.not, label %if.end, label %if.then, !dbg !6849"
+			]
+		},
+		{
+			"function": "perf_map_write_entry",
+			"id": 2,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 203, "columns": [17]
+				},
+				{
+					"line": 204, "columns": [5]
+				}
+			],
+			"successors": [3],
+			"ir": [
+				"%call = tail call ptr @PyUnicode_AsUTF8(ptr noundef nonnull %0) #11, !dbg !6850",
+				"br label %if.end, !dbg !6852"
+			]
+		},
+		{
+			"function": "perf_map_write_entry",
+			"id": 3,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 206, "columns": [13, 25, 9]
+				}
+			],
+			"successors": [5, 4],
+			"ir": [
+				"%entry1.0 = phi ptr [ %call, %if.then ], [ @.str.3, %entry ], !dbg !6836",
+				"%co_filename = getelementptr inbounds %struct.PyCodeObject, ptr %co, i64 0, i32 18, !dbg !6853",
+				"%1 = load ptr, ptr %co_filename, align 8, !dbg !6853, !tbaa !6855",
+				"%cmp3.not = icmp eq ptr %1, null, !dbg !6856",
+				"br i1 %cmp3.not, label %if.end7, label %if.then4, !dbg !6857"
+			]
+		},
+		{
+			"function": "perf_map_write_entry",
+			"id": 4,
+			"name": "if.then4",
+			"debug": [
+				{
+					"line": 207, "columns": [20]
+				},
+				{
+					"line": 208, "columns": [5]
+				}
+			],
+			"successors": [5],
+			"ir": [
+				"%call6 = tail call ptr @PyUnicode_AsUTF8(ptr noundef nonnull %1) #11, !dbg !6858",
+				"br label %if.end7, !dbg !6860"
+			]
+		},
+		{
+			"function": "perf_map_write_entry",
+			"id": 5,
+			"name": "if.end7",
+			"debug": [
+				{
+					"line": 209, "columns": [34, 82]
+				},
+				{
+					"line": 210, "columns": [36]
+				},
+				{
+					"line": 211, "columns": [24, 9]
+				}
+			],
+			"successors": [7, 6],
+			"ir": [
+				"%filename.0 = phi ptr [ %call6, %if.then4 ], [ @.str.3, %if.end ], !dbg !6836",
+				"%call8 = tail call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef null, i64 noundef 0, ptr noundef nonnull @.str.4, ptr noundef %entry1.0, ptr noundef %filename.0) #11, !dbg !6861",
+				"%add = add i32 %call8, 1, !dbg !6862",
+				"%conv = sext i32 %add to i64, !dbg !6861",
+				"%call9 = tail call ptr @PyMem_RawMalloc(i64 noundef %conv) #11, !dbg !6863",
+				"%cmp10 = icmp eq ptr %call9, null, !dbg !6864",
+				"br i1 %cmp10, label %cleanup, label %if.end13, !dbg !6866"
+			]
+		},
+		{
+			"function": "perf_map_write_entry",
+			"id": 6,
+			"name": "if.end13",
+			"debug": [
+				{
+					"line": 214, "columns": [5]
+				},
+				{
+					"line": 215, "columns": [5]
+				},
+				{
+					"line": 216, "columns": [5]
+				},
+				{
+					"line": 217, "columns": [1]
+				}
+			],
+			"successors": [7],
+			"ir": [
+				"%call14 = tail call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull %call9, i64 noundef %conv, ptr noundef nonnull @.str.4, ptr noundef %entry1.0, ptr noundef %filename.0) #11, !dbg !6867",
+				"%call15 = tail call i32 @PyUnstable_WritePerfMapEntry(ptr noundef %code_addr, i32 noundef %code_size, ptr noundef nonnull %call9) #11, !dbg !6868",
+				"tail call void @PyMem_RawFree(ptr noundef nonnull %call9) #11, !dbg !6869",
+				"br label %cleanup, !dbg !6870"
+			]
+		},
+		{
+			"function": "perf_map_write_entry",
+			"id": 7,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 217, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !6870"
+			]
+		},
+		{
+			"function": "perf_map_free_state",
+			"id": 8,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 229, "columns": [5]
+				},
+				{
+					"line": 230, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @PyUnstable_PerfMapState_Fini() #11, !dbg !6830",
+				"ret i32 0, !dbg !6831"
+			]
+		},
+		{
+			"function": "PyUnstable_PerfTrampoline_CompileCode",
+			"id": 9,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 377, "columns": [5, 19, 12]
+				},
+				{
+					"line": 379, "columns": [48]
+				},
+				{
+					"line": 380, "columns": [13, 18]
+				}
+			],
+			"successors": [10, 16],
+			"ir": [
+				"%f = alloca ptr, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %f) #11, !dbg !6837",
+				"store ptr null, ptr %f, align 8, !dbg !6838, !tbaa !6839",
+				"%0 = load i64, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 1), align 8, !dbg !6843, !tbaa !6844",
+				"%call.i = call i32 @PyUnstable_Code_GetExtra(ptr noundef %co, i64 noundef %0, ptr noundef nonnull %f) #11, !dbg !6986",
+				"%cmp = icmp ne i32 %call.i, 0, !dbg !6987",
+				"%1 = load ptr, ptr %f, align 8",
+				"%cmp1 = icmp eq ptr %1, null",
+				"%or.cond = select i1 %cmp, i1 true, i1 %cmp1, !dbg !6988",
+				"br i1 %or.cond, label %if.then, label %cleanup7, !dbg !6988"
+			]
+		},
+		{
+			"function": "PyUnstable_PerfTrampoline_CompileCode",
+			"id": 10,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 331, "columns": [10, 26, 35]
+				}
+			],
+			"successors": [12, 11],
+			"ir": [
+				"%2 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 2), align 8, !dbg !6989, !tbaa !6996",
+				"%cmp.i = icmp eq ptr %2, null, !dbg !6997",
+				"br i1 %cmp.i, label %if.then.i, label %lor.lhs.false.i, !dbg !6998"
+			]
+		},
+		{
+			"function": "PyUnstable_PerfTrampoline_CompileCode",
+			"id": 11,
+			"name": "lor.lhs.false.i",
+			"debug": [
+				{
+					"line": 331, "columns": [9]
+				},
+				{
+					"line": 332, "columns": [27, 57, 37]
+				}
+			],
+			"successors": [14, 12],
+			"ir": [
+				"%size_left.i = getelementptr inbounds %struct.code_arena_st, ptr %2, i64 0, i32 3, !dbg !6999",
+				"%3 = load i64, ptr %size_left.i, align 8, !dbg !6999, !tbaa !7000",
+				"%code_size.i = getelementptr inbounds %struct.code_arena_st, ptr %2, i64 0, i32 4, !dbg !7002",
+				"%4 = load i64, ptr %code_size.i, align 8, !dbg !7002, !tbaa !7003",
+				"%cmp1.not.i = icmp ugt i64 %3, %4, !dbg !7004",
+				"br i1 %cmp1.not.i, label %compile_trampoline.exit, label %if.then.i, !dbg !7005"
+			]
+		},
+		{
+			"function": "PyUnstable_PerfTrampoline_CompileCode",
+			"id": 12,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 333, "columns": [13, 30]
+				}
+			],
+			"successors": [16, 13],
+			"ir": [
+				"%call.i13 = call fastcc i32 @new_code_arena(), !dbg !7006, !range !7009",
+				"%cmp2.i = icmp slt i32 %call.i13, 0, !dbg !7010",
+				"br i1 %cmp2.i, label %cleanup7, label %if.then.if.end4_crit_edge.i, !dbg !7011"
+			]
+		},
+		{
+			"function": "PyUnstable_PerfTrampoline_CompileCode",
+			"id": 13,
+			"name": "if.then.if.end4_crit_edge.i",
+			"debug": [
+				{
+					"line": 323, "columns": [42, 27]
+				},
+				{
+					"line": 333, "columns": [13]
+				},
+				{
+					"line": 338, "columns": [32]
+				}
+			],
+			"successors": [14],
+			"ir": [
+				"%.pre.i = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 2), align 8, !dbg !7012, !tbaa !6996",
+				"%code_size.i.phi.trans.insert.i = getelementptr inbounds %struct.code_arena_st, ptr %.pre.i, i64 0, i32 4",
+				"%.pre6.i = load i64, ptr %code_size.i.phi.trans.insert.i, align 8, !dbg !7013, !tbaa !7003",
+				"%size_left.i.phi.trans.insert.i = getelementptr inbounds %struct.code_arena_st, ptr %.pre.i, i64 0, i32 3",
+				"%.pre7.i = load i64, ptr %size_left.i.phi.trans.insert.i, align 8, !dbg !7023, !tbaa !7000",
+				"br label %compile_trampoline.exit, !dbg !7011"
+			]
+		},
+		{
+			"function": "PyUnstable_PerfTrampoline_CompileCode",
+			"id": 14,
+			"name": "compile_trampoline.exit",
+			"debug": [
+				{
+					"line": 322, "columns": [59]
+				},
+				{
+					"line": 323, "columns": [27, 42, 17]
+				},
+				{
+					"line": 324, "columns": [30]
+				},
+				{
+					"line": 338, "columns": [32]
+				},
+				{
+					"line": 382, "columns": [28, 13]
+				}
+			],
+			"successors": [16, 15],
+			"ir": [
+				"%5 = phi i64 [ %.pre7.i, %if.then.if.end4_crit_edge.i ], [ %3, %lor.lhs.false.i ], !dbg !7023",
+				"%6 = phi i64 [ %.pre6.i, %if.then.if.end4_crit_edge.i ], [ %4, %lor.lhs.false.i ], !dbg !7013",
+				"%7 = phi ptr [ %.pre.i, %if.then.if.end4_crit_edge.i ], [ %2, %lor.lhs.false.i ], !dbg !7012",
+				"%current_addr.i.i = getelementptr inbounds %struct.code_arena_st, ptr %7, i64 0, i32 1, !dbg !7025",
+				"%8 = load ptr, ptr %current_addr.i.i, align 8, !dbg !7025, !tbaa !7026",
+				"%size_left.i.i = getelementptr inbounds %struct.code_arena_st, ptr %7, i64 0, i32 3, !dbg !7027",
+				"%sub.i.i = sub i64 %5, %6, !dbg !7023",
+				"store i64 %sub.i.i, ptr %size_left.i.i, align 8, !dbg !7023, !tbaa !7000",
+				"%add.ptr.i.i = getelementptr i8, ptr %8, i64 %6, !dbg !7028",
+				"store ptr %add.ptr.i.i, ptr %current_addr.i.i, align 8, !dbg !7028, !tbaa !7026",
+				"%cmp3 = icmp eq ptr %8, null, !dbg !7030",
+				"br i1 %cmp3, label %cleanup7, label %if.end, !dbg !7032"
+			]
+		},
+		{
+			"function": "PyUnstable_PerfTrampoline_CompileCode",
+			"id": 15,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 382, "columns": [12]
+				},
+				{
+					"line": 385, "columns": [24, 51, 9]
+				},
+				{
+					"line": 386, "columns": [36]
+				},
+				{
+					"line": 387, "columns": [49, 9]
+				}
+			],
+			"successors": [16],
+			"ir": [
+				"%9 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 3, i32 1), align 8, !dbg !7033, !tbaa !7034",
+				"%10 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 3, i32 3), align 8, !dbg !7035, !tbaa !7036",
+				"%conv = trunc i64 %6 to i32, !dbg !7037",
+				"call void %9(ptr noundef %10, ptr noundef nonnull %8, i32 noundef %conv, ptr noundef %co) #11, !dbg !7038",
+				"%11 = load i64, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 1), align 8, !dbg !7039, !tbaa !6844",
+				"%call.i14 = call i32 @PyUnstable_Code_SetExtra(ptr noundef %co, i64 noundef %11, ptr noundef nonnull %8) #11, !dbg !7049",
+				"br label %cleanup7, !dbg !7050"
+			]
+		},
+		{
+			"function": "PyUnstable_PerfTrampoline_CompileCode",
+			"id": 16,
+			"name": "cleanup7",
+			"debug": [
+				{
+					"line": 392, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi i32 [ %call.i14, %if.end ], [ 0, %compile_trampoline.exit ], [ 0, %entry ], [ 0, %if.then.i ], !dbg !6836",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %f) #11, !dbg !7051",
+				"ret i32 %retval.1, !dbg !7051"
+			]
+		},
+		{
+			"function": "_PyIsPerfTrampolineActive",
+			"id": 17,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 137, "columns": [12]
+				},
+				{
+					"line": 399, "columns": [20, 28, 39, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6831",
+				"%1 = load ptr, ptr %0, align 8, !dbg !6831, !tbaa !6838",
+				"%interp = getelementptr inbounds %struct._ts, ptr %1, i64 0, i32 2, !dbg !6843",
+				"%2 = load ptr, ptr %interp, align 8, !dbg !6843, !tbaa !6844",
+				"%eval_frame = getelementptr inbounds %struct._is, ptr %2, i64 0, i32 27, !dbg !6851",
+				"%3 = load ptr, ptr %eval_frame, align 8, !dbg !6851, !tbaa !6852",
+				"%cmp = icmp eq ptr %3, @py_trampoline_evaluator, !dbg !6910",
+				"%conv = zext i1 %cmp to i32, !dbg !6910",
+				"ret i32 %conv, !dbg !6911"
+			]
+		},
+		{
+			"function": "py_trampoline_evaluator",
+			"id": 18,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 345, "columns": [9, 43]
+				}
+			],
+			"successors": [27, 19],
+			"ir": [
+				"%f = alloca ptr, align 8",
+				"%0 = load i32, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23), align 8, !dbg !6839",
+				"%1 = add i32 %0, 1, !dbg !6841",
+				"%or.cond = icmp ult i32 %1, 2, !dbg !6841",
+				"br i1 %or.cond, label %default_eval, label %if.end, !dbg !6841"
+			]
+		},
+		{
+			"function": "py_trampoline_evaluator",
+			"id": 19,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 349, "columns": [24]
+				},
+				{
+					"line": 350, "columns": [19]
+				},
+				{
+					"line": 352, "columns": [48]
+				},
+				{
+					"line": 353, "columns": [13, 18]
+				},
+				{
+					"line": 377, "columns": [12]
+				}
+			],
+			"successors": [20, 26],
+			"ir": [
+				"%frame.val = load ptr, ptr %frame, align 8, !dbg !6842, !tbaa !6843",
+				"store ptr null, ptr %f, align 8, !dbg !6850, !tbaa !6851",
+				"%2 = load i64, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 1), align 8, !dbg !6852, !tbaa !6853",
+				"%call.i = call i32 @PyUnstable_Code_GetExtra(ptr noundef %frame.val, i64 noundef %2, ptr noundef nonnull %f) #11, !dbg !6993",
+				"%cmp3 = icmp ne i32 %call.i, 0, !dbg !6994",
+				"%3 = load ptr, ptr %f, align 8",
+				"%cmp5 = icmp eq ptr %3, null",
+				"%or.cond15 = select i1 %cmp3, i1 true, i1 %cmp5, !dbg !6995",
+				"br i1 %or.cond15, label %if.then6, label %if.end12, !dbg !6995"
+			]
+		},
+		{
+			"function": "py_trampoline_evaluator",
+			"id": 20,
+			"name": "if.then6",
+			"debug": [
+				{
+					"line": 331, "columns": [10, 26, 35]
+				}
+			],
+			"successors": [22, 21],
+			"ir": [
+				"%4 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 2), align 8, !dbg !6996, !tbaa !7003",
+				"%cmp.i = icmp eq ptr %4, null, !dbg !7004",
+				"br i1 %cmp.i, label %if.then.i, label %lor.lhs.false.i, !dbg !7005"
+			]
+		},
+		{
+			"function": "py_trampoline_evaluator",
+			"id": 21,
+			"name": "lor.lhs.false.i",
+			"debug": [
+				{
+					"line": 331, "columns": [9]
+				},
+				{
+					"line": 332, "columns": [27, 57, 37]
+				}
+			],
+			"successors": [24, 22],
+			"ir": [
+				"%size_left.i = getelementptr inbounds %struct.code_arena_st, ptr %4, i64 0, i32 3, !dbg !7006",
+				"%5 = load i64, ptr %size_left.i, align 8, !dbg !7006, !tbaa !7007",
+				"%code_size.i = getelementptr inbounds %struct.code_arena_st, ptr %4, i64 0, i32 4, !dbg !7009",
+				"%6 = load i64, ptr %code_size.i, align 8, !dbg !7009, !tbaa !7010",
+				"%cmp1.not.i = icmp ugt i64 %5, %6, !dbg !7011",
+				"br i1 %cmp1.not.i, label %compile_trampoline.exit, label %if.then.i, !dbg !7012"
+			]
+		},
+		{
+			"function": "py_trampoline_evaluator",
+			"id": 22,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 333, "columns": [13, 30]
+				}
+			],
+			"successors": [27, 23],
+			"ir": [
+				"%call.i25 = call fastcc i32 @new_code_arena(), !dbg !7013, !range !7016",
+				"%cmp2.i = icmp slt i32 %call.i25, 0, !dbg !7017",
+				"br i1 %cmp2.i, label %default_eval, label %if.then.if.end4_crit_edge.i, !dbg !7018"
+			]
+		},
+		{
+			"function": "py_trampoline_evaluator",
+			"id": 23,
+			"name": "if.then.if.end4_crit_edge.i",
+			"debug": [
+				{
+					"line": 323, "columns": [42, 27]
+				},
+				{
+					"line": 333, "columns": [13]
+				},
+				{
+					"line": 338, "columns": [32]
+				}
+			],
+			"successors": [24],
+			"ir": [
+				"%.pre.i = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 2), align 8, !dbg !7019, !tbaa !7003",
+				"%code_size.i.phi.trans.insert.i = getelementptr inbounds %struct.code_arena_st, ptr %.pre.i, i64 0, i32 4",
+				"%.pre6.i = load i64, ptr %code_size.i.phi.trans.insert.i, align 8, !dbg !7020, !tbaa !7010",
+				"%size_left.i.phi.trans.insert.i = getelementptr inbounds %struct.code_arena_st, ptr %.pre.i, i64 0, i32 3",
+				"%.pre7.i = load i64, ptr %size_left.i.phi.trans.insert.i, align 8, !dbg !7030, !tbaa !7007",
+				"br label %compile_trampoline.exit, !dbg !7018"
+			]
+		},
+		{
+			"function": "py_trampoline_evaluator",
+			"id": 24,
+			"name": "compile_trampoline.exit",
+			"debug": [
+				{
+					"line": 322, "columns": [59]
+				},
+				{
+					"line": 323, "columns": [27, 42, 17]
+				},
+				{
+					"line": 324, "columns": [30]
+				},
+				{
+					"line": 338, "columns": [32]
+				},
+				{
+					"line": 357, "columns": [28, 13]
+				}
+			],
+			"successors": [27, 25],
+			"ir": [
+				"%7 = phi i64 [ %.pre7.i, %if.then.if.end4_crit_edge.i ], [ %5, %lor.lhs.false.i ], !dbg !7030",
+				"%8 = phi i64 [ %.pre6.i, %if.then.if.end4_crit_edge.i ], [ %6, %lor.lhs.false.i ], !dbg !7020",
+				"%9 = phi ptr [ %.pre.i, %if.then.if.end4_crit_edge.i ], [ %4, %lor.lhs.false.i ], !dbg !7019",
+				"%current_addr.i.i = getelementptr inbounds %struct.code_arena_st, ptr %9, i64 0, i32 1, !dbg !7032",
+				"%10 = load ptr, ptr %current_addr.i.i, align 8, !dbg !7032, !tbaa !7033",
+				"%size_left.i.i = getelementptr inbounds %struct.code_arena_st, ptr %9, i64 0, i32 3, !dbg !7034",
+				"%sub.i.i = sub i64 %7, %8, !dbg !7030",
+				"store i64 %sub.i.i, ptr %size_left.i.i, align 8, !dbg !7030, !tbaa !7007",
+				"%add.ptr.i.i = getelementptr i8, ptr %10, i64 %8, !dbg !7035",
+				"store ptr %add.ptr.i.i, ptr %current_addr.i.i, align 8, !dbg !7035, !tbaa !7033",
+				"%cmp8 = icmp eq ptr %10, null, !dbg !7037",
+				"br i1 %cmp8, label %default_eval, label %cleanup, !dbg !7039"
+			]
+		},
+		{
+			"function": "py_trampoline_evaluator",
+			"id": 25,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 360, "columns": [24, 51, 9]
+				},
+				{
+					"line": 361, "columns": [36]
+				},
+				{
+					"line": 362, "columns": [42]
+				},
+				{
+					"line": 364, "columns": [11]
+				},
+				{
+					"line": 382, "columns": [12]
+				}
+			],
+			"successors": [26],
+			"ir": [
+				"%11 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 3, i32 1), align 8, !dbg !7040, !tbaa !7041",
+				"%12 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 3, i32 3), align 8, !dbg !7042, !tbaa !7043",
+				"%conv = trunc i64 %8 to i32, !dbg !7044",
+				"call void %11(ptr noundef %12, ptr noundef nonnull %10, i32 noundef %conv, ptr noundef %frame.val) #11, !dbg !7045",
+				"%13 = load i64, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 1), align 8, !dbg !7046, !tbaa !6853",
+				"%call.i26 = call i32 @PyUnstable_Code_SetExtra(ptr noundef %frame.val, i64 noundef %13, ptr noundef nonnull %10) #11, !dbg !7056",
+				"store ptr %10, ptr %f, align 8, !dbg !7057, !tbaa !6851",
+				"br label %if.end12"
+			]
+		},
+		{
+			"function": "py_trampoline_evaluator",
+			"id": 26,
+			"name": "if.end12",
+			"debug": [
+				{
+					"line": 367, "columns": [12, 5]
+				}
+			],
+			"successors": [28],
+			"ir": [
+				"%14 = phi ptr [ %10, %cleanup ], [ %3, %if.end ], !dbg !7058",
+				"%call13 = call ptr %14(ptr noundef %ts, ptr noundef nonnull %frame, i32 noundef %throw, ptr noundef nonnull @_PyEval_EvalFrameDefault) #11, !dbg !7058",
+				"br label %return, !dbg !7059"
+			]
+		},
+		{
+			"function": "py_trampoline_evaluator",
+			"id": 27,
+			"name": "default_eval",
+			"debug": [
+				{
+					"line": 368, "columns": [1]
+				},
+				{
+					"line": 370, "columns": [12, 5]
+				}
+			],
+			"successors": [28],
+			"ir": [
+				"%call14 = call ptr @_PyEval_EvalFrameDefault(ptr noundef %ts, ptr noundef %frame, i32 noundef %throw) #11, !dbg !7061",
+				"br label %return, !dbg !7062"
+			]
+		},
+		{
+			"function": "py_trampoline_evaluator",
+			"id": 28,
+			"name": "return",
+			"debug": [
+				{
+					"line": 371, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call14, %default_eval ], [ %call13, %if.end12 ], !dbg !6838",
+				"ret ptr %retval.0, !dbg !7063"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_GetCallbacks",
+			"id": 29,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 407, "columns": [19, 9]
+				}
+			],
+			"successors": [31, 30],
+			"ir": [
+				"%cmp = icmp eq ptr %callbacks, null, !dbg !6833",
+				"br i1 %cmp, label %return, label %if.end, !dbg !6835"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_GetCallbacks",
+			"id": 30,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 411, "columns": [44, 27]
+				},
+				{
+					"line": 413, "columns": [44, 16, 27]
+				},
+				{
+					"line": 415, "columns": [5]
+				}
+			],
+			"successors": [31],
+			"ir": [
+				"%0 = load <2 x ptr>, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 3), align 8, !dbg !6836, !tbaa !6837",
+				"store <2 x ptr> %0, ptr %callbacks, align 8, !dbg !6841, !tbaa !6837",
+				"%1 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 3, i32 2), align 8, !dbg !6842, !tbaa !6843",
+				"%free_state = getelementptr inbounds %struct._PyPerf_Callbacks, ptr %callbacks, i64 0, i32 2, !dbg !6976",
+				"store ptr %1, ptr %free_state, align 8, !dbg !6977, !tbaa !6978",
+				"br label %return, !dbg !6979"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_GetCallbacks",
+			"id": 31,
+			"name": "return",
+			"debug": [
+				{
+					"line": 416, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !6980"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_SetCallbacks",
+			"id": 32,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 421, "columns": [19, 9]
+				}
+			],
+			"successors": [38, 33],
+			"ir": [
+				"%cmp = icmp eq ptr %callbacks, null, !dbg !6833",
+				"br i1 %cmp, label %return, label %if.end, !dbg !6835"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_SetCallbacks",
+			"id": 33,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 425, "columns": [24, 9]
+				}
+			],
+			"successors": [34, 37],
+			"ir": [
+				"%0 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 3, i32 3), align 8, !dbg !6836, !tbaa !6838",
+				"%tobool.not = icmp ne ptr %0, null, !dbg !6974",
+				"%1 = load i32, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23), align 8",
+				"%cmp.not.i = icmp eq i32 %1, 1",
+				"%or.cond = select i1 %tobool.not, i1 %cmp.not.i, i1 false, !dbg !6975",
+				"br i1 %or.cond, label %if.end.i, label %if.end2, !dbg !6975"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_SetCallbacks",
+			"id": 34,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 137, "columns": [12]
+				},
+				{
+					"line": 478, "columns": [17, 25, 36, 9]
+				}
+			],
+			"successors": [35, 36],
+			"ir": [
+				"%2 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6976",
+				"%3 = load ptr, ptr %2, align 8, !dbg !6976, !tbaa !6990",
+				"%interp.i = getelementptr inbounds %struct._ts, ptr %3, i64 0, i32 2, !dbg !6992",
+				"%4 = load ptr, ptr %interp.i, align 8, !dbg !6992, !tbaa !6994",
+				"%eval_frame.i = getelementptr inbounds %struct._is, ptr %4, i64 0, i32 27, !dbg !6995",
+				"%5 = load ptr, ptr %eval_frame.i, align 8, !dbg !6995, !tbaa !6996",
+				"%cmp1.i = icmp eq ptr %5, @py_trampoline_evaluator, !dbg !6997",
+				"br i1 %cmp1.i, label %if.then2.i, label %if.end9.i, !dbg !6998"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_SetCallbacks",
+			"id": 35,
+			"name": "if.then2.i",
+			"debug": [
+				{
+					"line": 479, "columns": [36]
+				},
+				{
+					"line": 480, "columns": [5]
+				}
+			],
+			"successors": [36],
+			"ir": [
+				"store ptr null, ptr %eval_frame.i, align 8, !dbg !6999, !tbaa !6996",
+				"br label %if.end9.i, !dbg !7001"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_SetCallbacks",
+			"id": 36,
+			"name": "if.end9.i",
+			"debug": [
+				{
+					"line": 482, "columns": [24, 9]
+				},
+				{
+					"line": 484, "columns": [22]
+				},
+				{
+					"line": 485, "columns": [17]
+				}
+			],
+			"successors": [37],
+			"ir": [
+				"%6 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 3, i32 2), align 8, !dbg !7002, !tbaa !7005",
+				"%call8.i = tail call i32 %6(ptr noundef nonnull %0) #11, !dbg !7006",
+				"store i64 -1, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 1), align 8, !dbg !7007, !tbaa !7008",
+				"store i32 0, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23), align 8, !dbg !7009, !tbaa !7010",
+				"br label %if.end2"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_SetCallbacks",
+			"id": 37,
+			"name": "if.end2",
+			"debug": [
+				{
+					"line": 428, "columns": [44, 31]
+				},
+				{
+					"line": 430, "columns": [44, 31]
+				},
+				{
+					"line": 431, "columns": [26]
+				},
+				{
+					"line": 433, "columns": [5]
+				}
+			],
+			"successors": [38],
+			"ir": [
+				"%7 = load <2 x ptr>, ptr %callbacks, align 8, !dbg !7011, !tbaa !6990",
+				"store <2 x ptr> %7, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 3), align 8, !dbg !7012, !tbaa !6990",
+				"%free_state = getelementptr inbounds %struct._PyPerf_Callbacks, ptr %callbacks, i64 0, i32 2, !dbg !7013",
+				"%8 = load ptr, ptr %free_state, align 8, !dbg !7013, !tbaa !7014",
+				"store ptr %8, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 3, i32 2), align 8, !dbg !7015, !tbaa !7005",
+				"store ptr null, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 3, i32 3), align 8, !dbg !7016, !tbaa !6838",
+				"br label %return, !dbg !7017"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_SetCallbacks",
+			"id": 38,
+			"name": "return",
+			"debug": [
+				{
+					"line": 434, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ 0, %if.end2 ], [ -1, %entry ], !dbg !6832",
+				"ret i32 %retval.0, !dbg !7018"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_Fini",
+			"id": 39,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 474, "columns": [9, 21]
+				}
+			],
+			"successors": [40, 43],
+			"ir": [
+				"%0 = load i32, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23), align 8, !dbg !6831, !tbaa !6833",
+				"%cmp.not = icmp eq i32 %0, 1, !dbg !6969",
+				"br i1 %cmp.not, label %if.end, label %return, !dbg !6970"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_Fini",
+			"id": 40,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 137, "columns": [12]
+				},
+				{
+					"line": 478, "columns": [17, 25, 36, 9]
+				}
+			],
+			"successors": [41, 42],
+			"ir": [
+				"%1 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6971",
+				"%2 = load ptr, ptr %1, align 8, !dbg !6971, !tbaa !6978",
+				"%interp = getelementptr inbounds %struct._ts, ptr %2, i64 0, i32 2, !dbg !6980",
+				"%3 = load ptr, ptr %interp, align 8, !dbg !6980, !tbaa !6982",
+				"%eval_frame = getelementptr inbounds %struct._is, ptr %3, i64 0, i32 27, !dbg !6983",
+				"%4 = load ptr, ptr %eval_frame, align 8, !dbg !6983, !tbaa !6984",
+				"%cmp1 = icmp eq ptr %4, @py_trampoline_evaluator, !dbg !6985",
+				"br i1 %cmp1, label %if.then2, label %if.end9, !dbg !6986"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_Fini",
+			"id": 41,
+			"name": "if.then2",
+			"debug": [
+				{
+					"line": 479, "columns": [36]
+				},
+				{
+					"line": 480, "columns": [5]
+				}
+			],
+			"successors": [42],
+			"ir": [
+				"store ptr null, ptr %eval_frame, align 8, !dbg !6987, !tbaa !6984",
+				"br label %if.end9, !dbg !6989"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_Fini",
+			"id": 42,
+			"name": "if.end9",
+			"debug": [
+				{
+					"line": 482, "columns": [24, 50, 9]
+				},
+				{
+					"line": 484, "columns": [22]
+				},
+				{
+					"line": 485, "columns": [17]
+				}
+			],
+			"successors": [43],
+			"ir": [
+				"%5 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 3, i32 2), align 8, !dbg !6990, !tbaa !6993",
+				"%6 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 3, i32 3), align 8, !dbg !6994, !tbaa !6995",
+				"%call8 = tail call i32 %5(ptr noundef %6) #11, !dbg !6996",
+				"store i64 -1, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 1), align 8, !dbg !6997, !tbaa !6998",
+				"store i32 0, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23), align 8, !dbg !6999, !tbaa !6833",
+				"br label %return"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_Fini",
+			"id": 43,
+			"name": "return",
+			"debug": [
+				{
+					"line": 488, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret i32 0, !dbg !7000"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_Init",
+			"id": 44,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 137, "columns": [12]
+				},
+				{
+					"line": 441, "columns": [17, 25, 9, 36]
+				}
+			],
+			"successors": [46, 45],
+			"ir": [
+				"%0 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6833",
+				"%1 = load ptr, ptr %0, align 8, !dbg !6833, !tbaa !6840",
+				"%interp = getelementptr inbounds %struct._ts, ptr %1, i64 0, i32 2, !dbg !6844",
+				"%2 = load ptr, ptr %interp, align 8, !dbg !6844, !tbaa !6846",
+				"%eval_frame = getelementptr inbounds %struct._is, ptr %2, i64 0, i32 27, !dbg !6853",
+				"%3 = load ptr, ptr %eval_frame, align 8, !dbg !6853, !tbaa !6854",
+				"%tobool.not = icmp eq ptr %3, null, !dbg !6912",
+				"%cmp.not = icmp eq ptr %3, @py_trampoline_evaluator",
+				"%or.cond28 = or i1 %tobool.not, %cmp.not, !dbg !6913",
+				"br i1 %or.cond28, label %if.end, label %if.then, !dbg !6913"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_Init",
+			"id": 45,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 443, "columns": [25, 9]
+				},
+				{
+					"line": 446, "columns": [9]
+				}
+			],
+			"successors": [53],
+			"ir": [
+				"%4 = load ptr, ptr @PyExc_RuntimeError, align 8, !dbg !6914, !tbaa !6840",
+				"tail call void @PyErr_SetString(ptr noundef %4, ptr noundef nonnull @.str) #11, !dbg !6916",
+				"br label %cleanup, !dbg !6917"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_Init",
+			"id": 46,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 448, "columns": [10, 9]
+				}
+			],
+			"successors": [47, 48],
+			"ir": [
+				"%tobool3.not = icmp eq i32 %activate, 0, !dbg !6918",
+				"br i1 %tobool3.not, label %if.then4, label %if.else, !dbg !6920"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_Init",
+			"id": 47,
+			"name": "if.then4",
+			"debug": [
+				{
+					"line": 449, "columns": [36]
+				},
+				{
+					"line": 451, "columns": [5]
+				}
+			],
+			"successors": [52],
+			"ir": [
+				"store ptr null, ptr %eval_frame, align 8, !dbg !6921, !tbaa !6854",
+				"br label %if.end23, !dbg !6923"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_Init",
+			"id": 48,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 453, "columns": [36]
+				},
+				{
+					"line": 454, "columns": [13, 30]
+				}
+			],
+			"successors": [53, 49],
+			"ir": [
+				"store ptr @py_trampoline_evaluator, ptr %eval_frame, align 8, !dbg !6924, !tbaa !6854",
+				"%call9 = tail call fastcc i32 @new_code_arena(), !dbg !6926, !range !6928",
+				"%cmp10 = icmp slt i32 %call9, 0, !dbg !6929",
+				"br i1 %cmp10, label %cleanup, label %if.end12, !dbg !6930"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_Init",
+			"id": 49,
+			"name": "if.end12",
+			"debug": [
+				{
+					"line": 21, "columns": [12]
+				},
+				{
+					"line": 457, "columns": [26]
+				},
+				{
+					"line": 458, "columns": [30, 13]
+				}
+			],
+			"successors": [53, 50],
+			"ir": [
+				"%call.i = tail call i64 @PyUnstable_Eval_RequestCodeExtraIndex(ptr noundef null) #11, !dbg !6939",
+				"store i64 %call.i, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 1), align 8, !dbg !6940, !tbaa !6941",
+				"%cmp14 = icmp eq i64 %call.i, -1, !dbg !7011",
+				"br i1 %cmp14, label %cleanup, label %if.end16, !dbg !7013"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_Init",
+			"id": 50,
+			"name": "if.end16",
+			"debug": [
+				{
+					"line": 461, "columns": [28, 34, 42]
+				}
+			],
+			"successors": [51, 52],
+			"ir": [
+				"%5 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 3, i32 3), align 8, !dbg !7014, !tbaa !7016",
+				"%cmp17 = icmp eq ptr %5, null, !dbg !7017",
+				"%6 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 3), align 8",
+				"%cmp19 = icmp ne ptr %6, null",
+				"%or.cond = select i1 %cmp17, i1 %cmp19, i1 false, !dbg !7018",
+				"br i1 %or.cond, label %if.then20, label %if.end23, !dbg !7018"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_Init",
+			"id": 51,
+			"name": "if.then20",
+			"debug": [
+				{
+					"line": 462, "columns": [36, 34]
+				},
+				{
+					"line": 463, "columns": [9]
+				}
+			],
+			"successors": [52],
+			"ir": [
+				"%call21 = tail call ptr %6() #11, !dbg !7019",
+				"store ptr %call21, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 3, i32 3), align 8, !dbg !7021, !tbaa !7016",
+				"br label %if.end23, !dbg !7022"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_Init",
+			"id": 52,
+			"name": "if.end23",
+			"debug": [
+				{
+					"line": 467, "columns": [5]
+				}
+			],
+			"successors": [53],
+			"ir": [
+				"%storemerge = phi i32 [ 0, %if.then4 ], [ 1, %if.then20 ], [ 1, %if.end16 ], !dbg !7023",
+				"store i32 %storemerge, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23), align 8, !dbg !7023, !tbaa !7024",
+				"br label %cleanup, !dbg !7025"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_Init",
+			"id": 53,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 468, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ -1, %if.then ], [ 0, %if.end23 ], [ -1, %if.else ], [ -1, %if.end12 ], !dbg !6832",
+				"ret i32 %retval.0, !dbg !7026"
+			]
+		},
+		{
+			"function": "new_code_arena",
+			"id": 54,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 246, "columns": [9]
+				},
+				{
+					"line": 250, "columns": [16, 9]
+				}
+			],
+			"successors": [55, 56],
+			"ir": [
+				"%call = tail call ptr @mmap64(ptr noundef null, i64 noundef 65536, i32 noundef 3, i32 noundef 34, i32 noundef -1, i64 noundef 0) #11, !dbg !6843",
+				"%cmp = icmp eq ptr %call, inttoptr (i64 -1 to ptr), !dbg !6844",
+				"br i1 %cmp, label %if.then, label %if.end, !dbg !6846"
+			]
+		},
+		{
+			"function": "new_code_arena",
+			"id": 55,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 251, "columns": [28, 9]
+				},
+				{
+					"line": 252, "columns": [9]
+				},
+				{
+					"line": 253, "columns": [21]
+				},
+				{
+					"line": 254, "columns": [9]
+				}
+			],
+			"successors": [67],
+			"ir": [
+				"%0 = load ptr, ptr @PyExc_OSError, align 8, !dbg !6847, !tbaa !6849",
+				"%call1 = tail call ptr @PyErr_SetFromErrno(ptr noundef %0) #11, !dbg !6853",
+				"tail call void (ptr, ...) @PyErr_FormatUnraisable(ptr noundef nonnull @.str.5) #11, !dbg !6854",
+				"store i32 -1, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23), align 8, !dbg !6855, !tbaa !6856",
+				"br label %cleanup22, !dbg !6989"
+			]
+		},
+		{
+			"function": "new_code_arena",
+			"id": 56,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 268, "columns": [5]
+				}
+			],
+			"successors": [61, 57],
+			"ir": [
+				"br i1 icmp ugt (i64 sub (i64 ptrtoint (ptr @_Py_trampoline_func_end to i64), i64 ptrtoint (ptr @_Py_trampoline_func_start to i64)), i64 65536), label %for.cond.cleanup, label %for.body.preheader, !dbg !6991"
+			]
+		},
+		{
+			"function": "new_code_arena",
+			"id": 57,
+			"name": "for.body.preheader",
+			"debug": [
+				{
+					"line": 267, "columns": [32]
+				},
+				{
+					"line": 268, "columns": [5]
+				}
+			],
+			"successors": [59, 58],
+			"ir": [
+				"%div = udiv i64 65536, sub (i64 ptrtoint (ptr @_Py_trampoline_func_end to i64), i64 ptrtoint (ptr @_Py_trampoline_func_start to i64)), !dbg !6992",
+				"%umax = tail call i64 @llvm.umax.i64(i64 %div, i64 1)",
+				"%xtraiter = and i64 %umax, 3, !dbg !6991",
+				"%1 = icmp ult i64 %umax, 4, !dbg !6991",
+				"br i1 %1, label %for.cond.cleanup.loopexit.unr-lcssa, label %for.body.preheader.new, !dbg !6991"
+			]
+		},
+		{
+			"function": "new_code_arena",
+			"id": 58,
+			"name": "for.body.preheader.new",
+			"debug": [
+				{
+					"line": 268, "columns": [5]
+				}
+			],
+			"successors": [62],
+			"ir": [
+				"%unroll_iter = and i64 %umax, 131068, !dbg !6991",
+				"br label %for.body, !dbg !6991"
+			]
+		},
+		{
+			"function": "new_code_arena",
+			"id": 59,
+			"name": "for.cond.cleanup.loopexit.unr-lcssa",
+			"debug": [
+				{
+					"line": 268, "columns": [5]
+				}
+			],
+			"successors": [61, 60],
+			"ir": [
+				"%i.050.unr = phi i64 [ 0, %for.body.preheader ], [ %inc.3, %for.body ]",
+				"%lcmp.mod.not = icmp eq i64 %xtraiter, 0, !dbg !6991",
+				"br i1 %lcmp.mod.not, label %for.cond.cleanup, label %for.body.epil, !dbg !6991"
+			]
+		},
+		{
+			"function": "new_code_arena",
+			"id": 60,
+			"name": "for.body.epil",
+			"debug": [
+				{
+					"line": 268, "columns": [39, 5]
+				},
+				{
+					"line": 269, "columns": [27, 23, 9]
+				}
+			],
+			"successors": [61, 60],
+			"ir": [
+				"%i.050.epil = phi i64 [ %inc.epil, %for.body.epil ], [ %i.050.unr, %for.cond.cleanup.loopexit.unr-lcssa ]",
+				"%epil.iter = phi i64 [ %epil.iter.next, %for.body.epil ], [ 0, %for.cond.cleanup.loopexit.unr-lcssa ]",
+				"%mul.epil = mul i64 %i.050.epil, sub (i64 ptrtoint (ptr @_Py_trampoline_func_end to i64), i64 ptrtoint (ptr @_Py_trampoline_func_start to i64)), !dbg !6993",
+				"%add.ptr.epil = getelementptr i8, ptr %call, i64 %mul.epil, !dbg !6996",
+				"tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %add.ptr.epil, ptr nonnull align 8 @_Py_trampoline_func_start, i64 sub (i64 ptrtoint (ptr @_Py_trampoline_func_end to i64), i64 ptrtoint (ptr @_Py_trampoline_func_start to i64)), i1 false), !dbg !6997",
+				"%inc.epil = add nuw nsw i64 %i.050.epil, 1, !dbg !6998",
+				"%epil.iter.next = add i64 %epil.iter, 1, !dbg !6991",
+				"%epil.iter.cmp.not = icmp eq i64 %epil.iter.next, %xtraiter, !dbg !6991",
+				"br i1 %epil.iter.cmp.not, label %for.cond.cleanup, label %for.body.epil, !dbg !6991, !llvm.loop !6999"
+			]
+		},
+		{
+			"function": "new_code_arena",
+			"id": 61,
+			"name": "for.cond.cleanup",
+			"debug": [
+				{
+					"line": 272, "columns": [15]
+				},
+				{
+					"line": 273, "columns": [13, 9]
+				}
+			],
+			"successors": [63, 64],
+			"ir": [
+				"%call4 = tail call i32 @mprotect(ptr noundef %call, i64 noundef 65536, i32 noundef 5) #11, !dbg !7001",
+				"%cmp5 = icmp eq i32 %call4, -1, !dbg !7002",
+				"br i1 %cmp5, label %if.then6, label %if.end9, !dbg !7004"
+			]
+		},
+		{
+			"function": "new_code_arena",
+			"id": 62,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 268, "columns": [39, 5]
+				},
+				{
+					"line": 269, "columns": [27, 23, 9]
+				}
+			],
+			"successors": [59, 62],
+			"ir": [
+				"%i.050 = phi i64 [ 0, %for.body.preheader.new ], [ %inc.3, %for.body ]",
+				"%niter = phi i64 [ 0, %for.body.preheader.new ], [ %niter.next.3, %for.body ]",
+				"%mul = mul i64 %i.050, sub (i64 ptrtoint (ptr @_Py_trampoline_func_end to i64), i64 ptrtoint (ptr @_Py_trampoline_func_start to i64)), !dbg !6993",
+				"%add.ptr = getelementptr i8, ptr %call, i64 %mul, !dbg !6996",
+				"tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %add.ptr, ptr nonnull align 8 @_Py_trampoline_func_start, i64 sub (i64 ptrtoint (ptr @_Py_trampoline_func_end to i64), i64 ptrtoint (ptr @_Py_trampoline_func_start to i64)), i1 false), !dbg !6997",
+				"%inc = or i64 %i.050, 1, !dbg !6998",
+				"%mul.1 = mul i64 %inc, sub (i64 ptrtoint (ptr @_Py_trampoline_func_end to i64), i64 ptrtoint (ptr @_Py_trampoline_func_start to i64)), !dbg !6993",
+				"%add.ptr.1 = getelementptr i8, ptr %call, i64 %mul.1, !dbg !6996",
+				"tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %add.ptr.1, ptr nonnull align 8 @_Py_trampoline_func_start, i64 sub (i64 ptrtoint (ptr @_Py_trampoline_func_end to i64), i64 ptrtoint (ptr @_Py_trampoline_func_start to i64)), i1 false), !dbg !6997",
+				"%inc.1 = or i64 %i.050, 2, !dbg !6998",
+				"%mul.2 = mul i64 %inc.1, sub (i64 ptrtoint (ptr @_Py_trampoline_func_end to i64), i64 ptrtoint (ptr @_Py_trampoline_func_start to i64)), !dbg !6993",
+				"%add.ptr.2 = getelementptr i8, ptr %call, i64 %mul.2, !dbg !6996",
+				"tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %add.ptr.2, ptr nonnull align 8 @_Py_trampoline_func_start, i64 sub (i64 ptrtoint (ptr @_Py_trampoline_func_end to i64), i64 ptrtoint (ptr @_Py_trampoline_func_start to i64)), i1 false), !dbg !6997",
+				"%inc.2 = or i64 %i.050, 3, !dbg !6998",
+				"%mul.3 = mul i64 %inc.2, sub (i64 ptrtoint (ptr @_Py_trampoline_func_end to i64), i64 ptrtoint (ptr @_Py_trampoline_func_start to i64)), !dbg !6993",
+				"%add.ptr.3 = getelementptr i8, ptr %call, i64 %mul.3, !dbg !6996",
+				"tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %add.ptr.3, ptr nonnull align 8 @_Py_trampoline_func_start, i64 sub (i64 ptrtoint (ptr @_Py_trampoline_func_end to i64), i64 ptrtoint (ptr @_Py_trampoline_func_start to i64)), i1 false), !dbg !6997",
+				"%inc.3 = add nuw nsw i64 %i.050, 4, !dbg !6998",
+				"%niter.next.3 = add i64 %niter, 4, !dbg !6991",
+				"%niter.ncmp.3 = icmp eq i64 %niter.next.3, %unroll_iter, !dbg !6991",
+				"br i1 %niter.ncmp.3, label %for.cond.cleanup.loopexit.unr-lcssa, label %for.body, !dbg !6991, !llvm.loop !7005"
+			]
+		},
+		{
+			"function": "new_code_arena",
+			"id": 63,
+			"name": "if.then6",
+			"debug": [
+				{
+					"line": 274, "columns": [28, 9]
+				},
+				{
+					"line": 275, "columns": [9]
+				},
+				{
+					"line": 276, "columns": [9]
+				},
+				{
+					"line": 278, "columns": [9]
+				}
+			],
+			"successors": [67],
+			"ir": [
+				"%2 = load ptr, ptr @PyExc_OSError, align 8, !dbg !7008, !tbaa !6849",
+				"%call7 = tail call ptr @PyErr_SetFromErrno(ptr noundef %2) #11, !dbg !7010",
+				"%call8 = tail call i32 @munmap(ptr noundef %call, i64 noundef 65536) #11, !dbg !7011",
+				"tail call void (ptr, ...) @PyErr_FormatUnraisable(ptr noundef nonnull @.str.6) #11, !dbg !7012",
+				"br label %cleanup22, !dbg !7013"
+			]
+		},
+		{
+			"function": "new_code_arena",
+			"id": 64,
+			"name": "if.end9",
+			"debug": [
+				{
+					"line": 287, "columns": [31]
+				},
+				{
+					"line": 288, "columns": [19, 9]
+				}
+			],
+			"successors": [65, 66],
+			"ir": [
+				"%call10 = tail call ptr @PyMem_RawCalloc(i64 noundef 1, i64 noundef 48) #11, !dbg !7014",
+				"%cmp11 = icmp eq ptr %call10, null, !dbg !7015",
+				"br i1 %cmp11, label %if.then12, label %if.end15, !dbg !7017"
+			]
+		},
+		{
+			"function": "new_code_arena",
+			"id": 65,
+			"name": "if.then12",
+			"debug": [
+				{
+					"line": 289, "columns": [9]
+				},
+				{
+					"line": 290, "columns": [9]
+				},
+				{
+					"line": 291, "columns": [9]
+				},
+				{
+					"line": 292, "columns": [9]
+				}
+			],
+			"successors": [67],
+			"ir": [
+				"%call13 = tail call ptr @PyErr_NoMemory() #11, !dbg !7018",
+				"%call14 = tail call i32 @munmap(ptr noundef %call, i64 noundef 65536) #11, !dbg !7020",
+				"tail call void (ptr, ...) @PyErr_FormatUnraisable(ptr noundef nonnull @.str.7) #11, !dbg !7021",
+				"br label %cleanup22, !dbg !7022"
+			]
+		},
+		{
+			"function": "new_code_arena",
+			"id": 66,
+			"name": "if.end15",
+			"debug": [
+				{
+					"line": 295, "columns": [27]
+				},
+				{
+					"line": 296, "columns": [16, 29]
+				},
+				{
+					"line": 297, "columns": [16, 21]
+				},
+				{
+					"line": 298, "columns": [16, 26]
+				},
+				{
+					"line": 299, "columns": [16, 26]
+				},
+				{
+					"line": 300, "columns": [23, 16, 21]
+				},
+				{
+					"line": 301, "columns": [21]
+				},
+				{
+					"line": 302, "columns": [5]
+				}
+			],
+			"successors": [67],
+			"ir": [
+				"store ptr %call, ptr %call10, align 8, !dbg !7023, !tbaa !7024",
+				"%current_addr = getelementptr inbounds %struct.code_arena_st, ptr %call10, i64 0, i32 1, !dbg !7026",
+				"store ptr %call, ptr %current_addr, align 8, !dbg !7027, !tbaa !7028",
+				"%size = getelementptr inbounds %struct.code_arena_st, ptr %call10, i64 0, i32 2, !dbg !7029",
+				"store i64 65536, ptr %size, align 8, !dbg !7030, !tbaa !7031",
+				"%size_left = getelementptr inbounds %struct.code_arena_st, ptr %call10, i64 0, i32 3, !dbg !7032",
+				"store i64 65536, ptr %size_left, align 8, !dbg !7033, !tbaa !7034",
+				"%code_size16 = getelementptr inbounds %struct.code_arena_st, ptr %call10, i64 0, i32 4, !dbg !7035",
+				"store i64 sub (i64 ptrtoint (ptr @_Py_trampoline_func_end to i64), i64 ptrtoint (ptr @_Py_trampoline_func_start to i64)), ptr %code_size16, align 8, !dbg !7036, !tbaa !7037",
+				"%3 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 2), align 8, !dbg !7038, !tbaa !7039",
+				"%prev = getelementptr inbounds %struct.code_arena_st, ptr %call10, i64 0, i32 5, !dbg !7040",
+				"store ptr %3, ptr %prev, align 8, !dbg !7041, !tbaa !7042",
+				"store ptr %call10, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 2), align 8, !dbg !7043, !tbaa !7039",
+				"br label %cleanup22, !dbg !7044"
+			]
+		},
+		{
+			"function": "new_code_arena",
+			"id": 67,
+			"name": "cleanup22",
+			"debug": [
+				{
+					"line": 303, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.2 = phi i32 [ -1, %if.then ], [ -1, %if.then6 ], [ -1, %if.then12 ], [ 0, %if.end15 ], !dbg !6842",
+				"ret i32 %retval.2, !dbg !7045"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_FreeArenas",
+			"id": 68,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 308, "columns": [25]
+				},
+				{
+					"line": 310, "columns": [21]
+				},
+				{
+					"line": 311, "columns": [5]
+				}
+			],
+			"successors": [70, 69],
+			"ir": [
+				"%0 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 2), align 8, !dbg !6828, !tbaa !6836",
+				"store ptr null, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 2), align 8, !dbg !6973, !tbaa !6836",
+				"%tobool.not6.i = icmp eq ptr %0, null, !dbg !6974",
+				"br i1 %tobool.not6.i, label %free_code_arenas.exit, label %while.body.i, !dbg !6974"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_FreeArenas",
+			"id": 69,
+			"name": "while.body.i",
+			"debug": [
+				{
+					"line": 311, "columns": [5]
+				},
+				{
+					"line": 312, "columns": [21, 38, 9]
+				},
+				{
+					"line": 313, "columns": [21]
+				},
+				{
+					"line": 314, "columns": [9]
+				}
+			],
+			"successors": [70, 69],
+			"ir": [
+				"%cur.07.i = phi ptr [ %3, %while.body.i ], [ %0, %entry ]",
+				"%1 = load ptr, ptr %cur.07.i, align 8, !dbg !6975, !tbaa !6977",
+				"%size.i = getelementptr inbounds %struct.code_arena_st, ptr %cur.07.i, i64 0, i32 2, !dbg !6979",
+				"%2 = load i64, ptr %size.i, align 8, !dbg !6979, !tbaa !6980",
+				"%call.i = tail call i32 @munmap(ptr noundef %1, i64 noundef %2) #11, !dbg !6981",
+				"%prev1.i = getelementptr inbounds %struct.code_arena_st, ptr %cur.07.i, i64 0, i32 5, !dbg !6982",
+				"%3 = load ptr, ptr %prev1.i, align 8, !dbg !6982, !tbaa !6983",
+				"tail call void @PyMem_RawFree(ptr noundef nonnull %cur.07.i) #11, !dbg !6984",
+				"%tobool.not.i = icmp eq ptr %3, null, !dbg !6974",
+				"br i1 %tobool.not.i, label %free_code_arenas.exit, label %while.body.i, !dbg !6974, !llvm.loop !6985"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_FreeArenas",
+			"id": 70,
+			"name": "free_code_arenas.exit",
+			"debug": [
+				{
+					"line": 494, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !6988"
+			]
+		},
+		{
+			"function": "PyUnstable_PerfTrampoline_SetPersistAfterFork",
+			"id": 71,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 500, "columns": [26, 24]
+				},
+				{
+					"line": 501, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%conv = sext i32 %enable to i64, !dbg !6832",
+				"store i64 %conv, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 5), align 8, !dbg !6833, !tbaa !6834",
+				"ret i32 %enable, !dbg !6970"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_AfterFork_Child",
+			"id": 72,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 510, "columns": [9]
+				}
+			],
+			"successors": [80, 73],
+			"ir": [
+				"%filename = alloca [256 x i8], align 16",
+				"%0 = load i64, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 5), align 8, !dbg !6839, !tbaa !6840",
+				"%tobool.not = icmp eq i64 %0, 0, !dbg !6839",
+				"br i1 %tobool.not, label %if.else, label %if.then, !dbg !6976"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_AfterFork_Child",
+			"id": 73,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 474, "columns": [9, 21]
+				}
+			],
+			"successors": [74, 77],
+			"ir": [
+				"%1 = load i32, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23), align 8, !dbg !6977, !tbaa !6985",
+				"%cmp.not.i = icmp eq i32 %1, 1, !dbg !6986",
+				"br i1 %cmp.not.i, label %if.end.i, label %_PyPerfTrampoline_Fini.exit, !dbg !6987"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_AfterFork_Child",
+			"id": 74,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 137, "columns": [12]
+				},
+				{
+					"line": 478, "columns": [17, 25, 36, 9]
+				}
+			],
+			"successors": [75, 76],
+			"ir": [
+				"%2 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6988",
+				"%3 = load ptr, ptr %2, align 8, !dbg !6988, !tbaa !6995",
+				"%interp.i = getelementptr inbounds %struct._ts, ptr %3, i64 0, i32 2, !dbg !6997",
+				"%4 = load ptr, ptr %interp.i, align 8, !dbg !6997, !tbaa !6999",
+				"%eval_frame.i = getelementptr inbounds %struct._is, ptr %4, i64 0, i32 27, !dbg !7000",
+				"%5 = load ptr, ptr %eval_frame.i, align 8, !dbg !7000, !tbaa !7001",
+				"%cmp1.i = icmp eq ptr %5, @py_trampoline_evaluator, !dbg !7002",
+				"br i1 %cmp1.i, label %if.then2.i, label %if.end9.i, !dbg !7003"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_AfterFork_Child",
+			"id": 75,
+			"name": "if.then2.i",
+			"debug": [
+				{
+					"line": 479, "columns": [36]
+				},
+				{
+					"line": 480, "columns": [5]
+				}
+			],
+			"successors": [76],
+			"ir": [
+				"store ptr null, ptr %eval_frame.i, align 8, !dbg !7004, !tbaa !7001",
+				"br label %if.end9.i, !dbg !7006"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_AfterFork_Child",
+			"id": 76,
+			"name": "if.end9.i",
+			"debug": [
+				{
+					"line": 482, "columns": [24, 50, 9]
+				},
+				{
+					"line": 484, "columns": [22]
+				},
+				{
+					"line": 485, "columns": [17]
+				}
+			],
+			"successors": [77],
+			"ir": [
+				"%6 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 3, i32 2), align 8, !dbg !7007, !tbaa !7010",
+				"%7 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 3, i32 3), align 8, !dbg !7011, !tbaa !7012",
+				"%call8.i = tail call i32 %6(ptr noundef %7) #11, !dbg !7013",
+				"store i64 -1, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 1), align 8, !dbg !7014, !tbaa !7015",
+				"store i32 0, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23), align 8, !dbg !7016, !tbaa !6985",
+				"br label %_PyPerfTrampoline_Fini.exit"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_AfterFork_Child",
+			"id": 77,
+			"name": "_PyPerfTrampoline_Fini.exit",
+			"debug": [
+				{
+					"line": 512, "columns": [9, 14]
+				},
+				{
+					"line": 513, "columns": [28]
+				},
+				{
+					"line": 514, "columns": [9]
+				},
+				{
+					"line": 515, "columns": [13, 50]
+				}
+			],
+			"successors": [78, 79],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 256, ptr nonnull %filename) #11, !dbg !7017",
+				"%call1 = tail call i32 @getppid() #11, !dbg !7019",
+				"%call2 = call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) %filename, i64 noundef 256, ptr noundef nonnull @.str.1, i32 noundef %call1) #11, !dbg !7021",
+				"%call4 = call i32 @PyUnstable_CopyPerfMapFile(ptr noundef nonnull %filename) #11, !dbg !7022",
+				"%cmp.not.not = icmp eq i32 %call4, 0, !dbg !7024",
+				"br i1 %cmp.not.not, label %cleanup.thread, label %cleanup, !dbg !7025"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_AfterFork_Child",
+			"id": 78,
+			"name": "cleanup.thread",
+			"debug": [
+				{
+					"line": 518, "columns": [5]
+				}
+			],
+			"successors": [92],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 256, ptr nonnull %filename) #11, !dbg !7026",
+				"br label %if.end13"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_AfterFork_Child",
+			"id": 79,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 516, "columns": [20]
+				},
+				{
+					"line": 518, "columns": [5]
+				}
+			],
+			"successors": [93],
+			"ir": [
+				"call void @PyStatus_Error(ptr sret(%struct.PyStatus) align 8 %agg.result, ptr noundef nonnull @.str.2) #11, !dbg !7027",
+				"call void @llvm.lifetime.end.p0(i64 256, ptr nonnull %filename) #11, !dbg !7026",
+				"br label %return"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_AfterFork_Child",
+			"id": 80,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 137, "columns": [12]
+				},
+				{
+					"line": 399, "columns": [20, 28, 39]
+				},
+				{
+					"line": 474, "columns": [9, 21]
+				}
+			],
+			"successors": [81, 84],
+			"ir": [
+				"%8 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !7029",
+				"%9 = load ptr, ptr %8, align 8, !dbg !7029, !tbaa !6995",
+				"%interp.i14 = getelementptr inbounds %struct._ts, ptr %9, i64 0, i32 2, !dbg !7036",
+				"%10 = load ptr, ptr %interp.i14, align 8, !dbg !7036, !tbaa !6999",
+				"%eval_frame.i15 = getelementptr inbounds %struct._is, ptr %10, i64 0, i32 27, !dbg !7037",
+				"%11 = load ptr, ptr %eval_frame.i15, align 8, !dbg !7037, !tbaa !7001",
+				"%cmp.i.not = icmp eq ptr %11, @py_trampoline_evaluator, !dbg !7038",
+				"%12 = load i32, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23), align 8, !dbg !7040, !tbaa !6985",
+				"%cmp.not.i16 = icmp eq i32 %12, 1, !dbg !7042",
+				"br i1 %cmp.not.i16, label %if.end.i20, label %_PyPerfTrampoline_Fini.exit24, !dbg !7043"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_AfterFork_Child",
+			"id": 81,
+			"name": "if.end.i20",
+			"debug": [
+				{
+					"line": 478, "columns": [9]
+				}
+			],
+			"successors": [82, 83],
+			"ir": [
+				"br i1 %cmp.i.not, label %if.then2.i21, label %if.end9.i23, !dbg !7045"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_AfterFork_Child",
+			"id": 82,
+			"name": "if.then2.i21",
+			"debug": [
+				{
+					"line": 479, "columns": [36]
+				},
+				{
+					"line": 480, "columns": [5]
+				}
+			],
+			"successors": [83],
+			"ir": [
+				"store ptr null, ptr %eval_frame.i15, align 8, !dbg !7046, !tbaa !7001",
+				"br label %if.end9.i23, !dbg !7047"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_AfterFork_Child",
+			"id": 83,
+			"name": "if.end9.i23",
+			"debug": [
+				{
+					"line": 482, "columns": [24, 50, 9]
+				},
+				{
+					"line": 484, "columns": [22]
+				},
+				{
+					"line": 485, "columns": [17]
+				}
+			],
+			"successors": [84],
+			"ir": [
+				"%13 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 3, i32 2), align 8, !dbg !7048, !tbaa !7010",
+				"%14 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 3, i32 3), align 8, !dbg !7049, !tbaa !7012",
+				"%call8.i22 = tail call i32 %13(ptr noundef %14) #11, !dbg !7050",
+				"store i64 -1, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 1), align 8, !dbg !7051, !tbaa !7015",
+				"store i32 0, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23), align 8, !dbg !7052, !tbaa !6985",
+				"br label %_PyPerfTrampoline_Fini.exit24"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_AfterFork_Child",
+			"id": 84,
+			"name": "_PyPerfTrampoline_Fini.exit24",
+			"debug": [
+				{
+					"line": 522, "columns": [13]
+				}
+			],
+			"successors": [85, 92],
+			"ir": [
+				"br i1 %cmp.i.not, label %if.then10, label %if.end13, !dbg !7053"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_AfterFork_Child",
+			"id": 85,
+			"name": "if.then10",
+			"debug": [
+				{
+					"line": 137, "columns": [12]
+				},
+				{
+					"line": 441, "columns": [17, 25, 9, 36]
+				}
+			],
+			"successors": [87, 86],
+			"ir": [
+				"%15 = load ptr, ptr %8, align 8, !dbg !7064, !tbaa !6995",
+				"%interp.i25 = getelementptr inbounds %struct._ts, ptr %15, i64 0, i32 2, !dbg !7066",
+				"%16 = load ptr, ptr %interp.i25, align 8, !dbg !7066, !tbaa !6999",
+				"%eval_frame.i26 = getelementptr inbounds %struct._is, ptr %16, i64 0, i32 27, !dbg !7068",
+				"%17 = load ptr, ptr %eval_frame.i26, align 8, !dbg !7068, !tbaa !7001",
+				"%tobool.not.i = icmp eq ptr %17, null, !dbg !7069",
+				"%cmp.not.i27 = icmp eq ptr %17, @py_trampoline_evaluator",
+				"%or.cond28.i = or i1 %tobool.not.i, %cmp.not.i27, !dbg !7070",
+				"br i1 %or.cond28.i, label %if.end.i28, label %if.then.i, !dbg !7070"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_AfterFork_Child",
+			"id": 86,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 443, "columns": [25, 9]
+				},
+				{
+					"line": 446, "columns": [9]
+				}
+			],
+			"successors": [92],
+			"ir": [
+				"%18 = load ptr, ptr @PyExc_RuntimeError, align 8, !dbg !7071, !tbaa !6995",
+				"tail call void @PyErr_SetString(ptr noundef %18, ptr noundef nonnull @.str) #11, !dbg !7073",
+				"br label %if.end13, !dbg !7074"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_AfterFork_Child",
+			"id": 87,
+			"name": "if.end.i28",
+			"debug": [
+				{
+					"line": 453, "columns": [36]
+				},
+				{
+					"line": 454, "columns": [13, 30]
+				}
+			],
+			"successors": [92, 88],
+			"ir": [
+				"store ptr @py_trampoline_evaluator, ptr %eval_frame.i26, align 8, !dbg !7075, !tbaa !7001",
+				"%call9.i = tail call fastcc i32 @new_code_arena(), !dbg !7078, !range !7080",
+				"%cmp10.i = icmp slt i32 %call9.i, 0, !dbg !7081",
+				"br i1 %cmp10.i, label %if.end13, label %if.end12.i, !dbg !7082"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_AfterFork_Child",
+			"id": 88,
+			"name": "if.end12.i",
+			"debug": [
+				{
+					"line": 21, "columns": [12]
+				},
+				{
+					"line": 457, "columns": [26]
+				},
+				{
+					"line": 458, "columns": [30, 13]
+				}
+			],
+			"successors": [92, 89],
+			"ir": [
+				"%call.i.i = tail call i64 @PyUnstable_Eval_RequestCodeExtraIndex(ptr noundef null) #11, !dbg !7091",
+				"store i64 %call.i.i, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 1), align 8, !dbg !7092, !tbaa !7015",
+				"%cmp14.i = icmp eq i64 %call.i.i, -1, !dbg !7093",
+				"br i1 %cmp14.i, label %if.end13, label %if.end16.i, !dbg !7095"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_AfterFork_Child",
+			"id": 89,
+			"name": "if.end16.i",
+			"debug": [
+				{
+					"line": 461, "columns": [28, 34, 42]
+				}
+			],
+			"successors": [90, 91],
+			"ir": [
+				"%19 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 3, i32 3), align 8, !dbg !7096, !tbaa !7012",
+				"%cmp17.i = icmp eq ptr %19, null, !dbg !7098",
+				"%20 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 3), align 8",
+				"%cmp19.i = icmp ne ptr %20, null",
+				"%or.cond.i = select i1 %cmp17.i, i1 %cmp19.i, i1 false, !dbg !7099",
+				"br i1 %or.cond.i, label %if.then20.i, label %if.end23.i, !dbg !7099"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_AfterFork_Child",
+			"id": 90,
+			"name": "if.then20.i",
+			"debug": [
+				{
+					"line": 462, "columns": [36, 34]
+				},
+				{
+					"line": 463, "columns": [9]
+				}
+			],
+			"successors": [91],
+			"ir": [
+				"%call21.i = tail call ptr %20() #11, !dbg !7100",
+				"store ptr %call21.i, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23, i32 0, i32 3, i32 3), align 8, !dbg !7102, !tbaa !7012",
+				"br label %if.end23.i, !dbg !7103"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_AfterFork_Child",
+			"id": 91,
+			"name": "if.end23.i",
+			"debug": [
+				{
+					"line": 467, "columns": [5]
+				}
+			],
+			"successors": [92],
+			"ir": [
+				"store i32 1, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 23), align 8, !dbg !7104, !tbaa !6985",
+				"br label %if.end13, !dbg !7105"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_AfterFork_Child",
+			"id": 92,
+			"name": "if.end13",
+			"debug": [
+				{
+					"line": 527, "columns": [12, 5]
+				}
+			],
+			"successors": [93],
+			"ir": [
+				"call void @PyStatus_Ok(ptr sret(%struct.PyStatus) align 8 %agg.result) #11, !dbg !7106",
+				"br label %return, !dbg !7107"
+			]
+		},
+		{
+			"function": "_PyPerfTrampoline_AfterFork_Child",
+			"id": 93,
+			"name": "return",
+			"debug": [
+				{
+					"line": 528, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !7108"
+			]
+		}
+	]
+}

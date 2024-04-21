@@ -1,0 +1,5241 @@
+{
+	"blocks": [
+		{
+			"function": "_mpd_baseadd",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 61, "columns": [19, 5]
+				}
+			],
+			"successors": [8, 1],
+			"ir": [
+				"%u85 = ptrtoint ptr %u to i64, !dbg !58",
+				"%w84 = ptrtoint ptr %w to i64, !dbg !58",
+				"%cmp67.not = icmp eq i64 %n, 0, !dbg !58",
+				"br i1 %cmp67.not, label %for.cond28.preheader, label %for.body.preheader, !dbg !61"
+			]
+		},
+		{
+			"function": "_mpd_baseadd",
+			"id": 1,
+			"name": "for.body.preheader",
+			"debug": [
+				{
+					"line": 61, "columns": [5]
+				}
+			],
+			"successors": [3, 2],
+			"ir": [
+				"%xtraiter = and i64 %n, 1, !dbg !61",
+				"%0 = icmp eq i64 %n, 1, !dbg !61",
+				"br i1 %0, label %for.cond9.preheader.unr-lcssa, label %for.body.preheader.new, !dbg !61"
+			]
+		},
+		{
+			"function": "_mpd_baseadd",
+			"id": 2,
+			"name": "for.body.preheader.new",
+			"debug": [
+				{
+					"line": 61, "columns": [5]
+				}
+			],
+			"successors": [6],
+			"ir": [
+				"%unroll_iter = and i64 %n, -2, !dbg !61",
+				"br label %for.body, !dbg !61"
+			]
+		},
+		{
+			"function": "_mpd_baseadd",
+			"id": 3,
+			"name": "for.cond9.preheader.unr-lcssa",
+			"debug": [
+				{
+					"line": 61, "columns": [5]
+				}
+			],
+			"successors": [5, 4],
+			"ir": [
+				"%or66.lcssa.ph = phi i1 [ undef, %for.body.preheader ], [ %or66.1, %for.body ]",
+				"%conv7.lcssa.ph = phi i64 [ undef, %for.body.preheader ], [ %conv7.1, %for.body ]",
+				"%i.069.unr = phi i64 [ 0, %for.body.preheader ], [ %inc.1, %for.body ]",
+				"%carry.068.unr = phi i64 [ 0, %for.body.preheader ], [ %conv7.1, %for.body ]",
+				"%lcmp.mod.not = icmp eq i64 %xtraiter, 0, !dbg !61",
+				"br i1 %lcmp.mod.not, label %for.cond9.preheader, label %for.body.epil, !dbg !61"
+			]
+		},
+		{
+			"function": "_mpd_baseadd",
+			"id": 4,
+			"name": "for.body.epil",
+			"debug": [
+				{
+					"line": 62, "columns": [13, 21, 26, 18]
+				},
+				{
+					"line": 63, "columns": [20, 33, 28]
+				},
+				{
+					"line": 64, "columns": [16, 9, 14]
+				},
+				{
+					"line": 67, "columns": [18]
+				}
+			],
+			"successors": [5],
+			"ir": [
+				"%arrayidx.epil = getelementptr i64, ptr %u, i64 %i.069.unr, !dbg !62",
+				"%1 = load i64, ptr %arrayidx.epil, align 8, !dbg !62, !tbaa !64",
+				"%arrayidx1.epil = getelementptr i64, ptr %v, i64 %i.069.unr, !dbg !68",
+				"%2 = load i64, ptr %arrayidx1.epil, align 8, !dbg !68, !tbaa !64",
+				"%add.epil = add i64 %1, %carry.068.unr, !dbg !69",
+				"%add2.epil = add i64 %add.epil, %2, !dbg !70",
+				"%cmp4.epil = icmp ult i64 %add2.epil, %1, !dbg !71",
+				"%cmp5.epil = icmp ugt i64 %add2.epil, -8446744073709551617, !dbg !72",
+				"%or66.epil = or i1 %cmp4.epil, %cmp5.epil, !dbg !73",
+				"%conv7.epil = zext i1 %or66.epil to i64",
+				"%sub.epil = add i64 %add2.epil, 8446744073709551616, !dbg !74",
+				"%cond.epil = select i1 %or66.epil, i64 %sub.epil, i64 %add2.epil, !dbg !74",
+				"%arrayidx8.epil = getelementptr i64, ptr %w, i64 %i.069.unr, !dbg !75",
+				"store i64 %cond.epil, ptr %arrayidx8.epil, align 8, !dbg !76, !tbaa !64",
+				"br label %for.cond9.preheader, !dbg !77"
+			]
+		},
+		{
+			"function": "_mpd_baseadd",
+			"id": 5,
+			"name": "for.cond9.preheader",
+			"debug": [
+				{
+					"line": 63, "columns": [28]
+				},
+				{
+					"line": 67, "columns": [18, 5]
+				}
+			],
+			"successors": [17, 8],
+			"ir": [
+				"%or66.lcssa = phi i1 [ %or66.lcssa.ph, %for.cond9.preheader.unr-lcssa ], [ %or66.epil, %for.body.epil ], !dbg !73",
+				"%conv7.lcssa = phi i64 [ %conv7.lcssa.ph, %for.cond9.preheader.unr-lcssa ], [ %conv7.epil, %for.body.epil ]",
+				"%cmp1172 = icmp ult i64 %n, %m, !dbg !77",
+				"%3 = and i1 %or66.lcssa, %cmp1172, !dbg !77",
+				"br i1 %3, label %for.body13, label %for.cond28.preheader, !dbg !80"
+			]
+		},
+		{
+			"function": "_mpd_baseadd",
+			"id": 6,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 61, "columns": [25, 5]
+				},
+				{
+					"line": 62, "columns": [13, 21, 26, 18]
+				},
+				{
+					"line": 63, "columns": [20, 33, 28]
+				},
+				{
+					"line": 64, "columns": [16, 9, 14]
+				}
+			],
+			"successors": [3, 6],
+			"ir": [
+				"%i.069 = phi i64 [ 0, %for.body.preheader.new ], [ %inc.1, %for.body ]",
+				"%carry.068 = phi i64 [ 0, %for.body.preheader.new ], [ %conv7.1, %for.body ]",
+				"%niter = phi i64 [ 0, %for.body.preheader.new ], [ %niter.next.1, %for.body ]",
+				"%arrayidx = getelementptr i64, ptr %u, i64 %i.069, !dbg !62",
+				"%4 = load i64, ptr %arrayidx, align 8, !dbg !62, !tbaa !64",
+				"%arrayidx1 = getelementptr i64, ptr %v, i64 %i.069, !dbg !68",
+				"%5 = load i64, ptr %arrayidx1, align 8, !dbg !68, !tbaa !64",
+				"%add = add i64 %4, %carry.068, !dbg !69",
+				"%add2 = add i64 %add, %5, !dbg !70",
+				"%cmp4 = icmp ult i64 %add2, %4, !dbg !71",
+				"%cmp5 = icmp ugt i64 %add2, -8446744073709551617, !dbg !72",
+				"%or66 = or i1 %cmp4, %cmp5, !dbg !73",
+				"%conv7 = zext i1 %or66 to i64",
+				"%sub = add i64 %add2, 8446744073709551616, !dbg !74",
+				"%cond = select i1 %or66, i64 %sub, i64 %add2, !dbg !74",
+				"%arrayidx8 = getelementptr i64, ptr %w, i64 %i.069, !dbg !75",
+				"store i64 %cond, ptr %arrayidx8, align 8, !dbg !76, !tbaa !64",
+				"%inc = or i64 %i.069, 1, !dbg !81",
+				"%arrayidx.1 = getelementptr i64, ptr %u, i64 %inc, !dbg !62",
+				"%6 = load i64, ptr %arrayidx.1, align 8, !dbg !62, !tbaa !64",
+				"%arrayidx1.1 = getelementptr i64, ptr %v, i64 %inc, !dbg !68",
+				"%7 = load i64, ptr %arrayidx1.1, align 8, !dbg !68, !tbaa !64",
+				"%add.1 = add i64 %6, %conv7, !dbg !69",
+				"%add2.1 = add i64 %add.1, %7, !dbg !70",
+				"%cmp4.1 = icmp ult i64 %add2.1, %6, !dbg !71",
+				"%cmp5.1 = icmp ugt i64 %add2.1, -8446744073709551617, !dbg !72",
+				"%or66.1 = or i1 %cmp4.1, %cmp5.1, !dbg !73",
+				"%conv7.1 = zext i1 %or66.1 to i64",
+				"%sub.1 = add i64 %add2.1, 8446744073709551616, !dbg !74",
+				"%cond.1 = select i1 %or66.1, i64 %sub.1, i64 %add2.1, !dbg !74",
+				"%arrayidx8.1 = getelementptr i64, ptr %w, i64 %inc, !dbg !75",
+				"store i64 %cond.1, ptr %arrayidx8.1, align 8, !dbg !76, !tbaa !64",
+				"%inc.1 = add nuw i64 %i.069, 2, !dbg !81",
+				"%niter.next.1 = add i64 %niter, 2, !dbg !61",
+				"%niter.ncmp.1 = icmp eq i64 %niter.next.1, %unroll_iter, !dbg !61",
+				"br i1 %niter.ncmp.1, label %for.cond9.preheader.unr-lcssa, label %for.body, !dbg !61, !llvm.loop !82"
+			]
+		},
+		{
+			"function": "_mpd_baseadd",
+			"id": 7,
+			"name": "for.cond28.preheader.loopexit",
+			"debug": [
+				{
+					"line": 73, "columns": [14]
+				}
+			],
+			"successors": [8],
+			"ir": [
+				"%conv18 = zext i1 %cmp16 to i64",
+				"br label %for.cond28.preheader, !dbg !85"
+			]
+		},
+		{
+			"function": "_mpd_baseadd",
+			"id": 8,
+			"name": "for.cond28.preheader",
+			"debug": [
+				{
+					"line": 73, "columns": [14, 5]
+				}
+			],
+			"successors": [9, 19],
+			"ir": [
+				"%carry.1.lcssa = phi i64 [ %conv7.lcssa, %for.cond9.preheader ], [ %conv18, %for.cond28.preheader.loopexit ], [ 0, %entry ], !dbg !57",
+				"%i.1.lcssa = phi i64 [ %n, %for.cond9.preheader ], [ %inc26, %for.cond28.preheader.loopexit ], [ 0, %entry ], !dbg !57",
+				"%cmp2976 = icmp ult i64 %i.1.lcssa, %m, !dbg !85",
+				"br i1 %cmp2976, label %for.body31.preheader, label %for.end36, !dbg !88"
+			]
+		},
+		{
+			"function": "_mpd_baseadd",
+			"id": 9,
+			"name": "for.body31.preheader",
+			"debug": [
+				{
+					"line": 73, "columns": [5]
+				}
+			],
+			"successors": [14, 10],
+			"ir": [
+				"%8 = sub i64 %m, %i.1.lcssa, !dbg !88",
+				"%min.iters.check = icmp ult i64 %8, 14, !dbg !88",
+				"br i1 %min.iters.check, label %for.body31.preheader87, label %vector.memcheck, !dbg !88"
+			]
+		},
+		{
+			"function": "_mpd_baseadd",
+			"id": 10,
+			"name": "vector.memcheck",
+			"debug": [
+				{
+					"line": 73, "columns": [5]
+				}
+			],
+			"successors": [14, 11],
+			"ir": [
+				"%9 = shl i64 %i.1.lcssa, 3, !dbg !88",
+				"%10 = add i64 %9, %w84, !dbg !88",
+				"%11 = add i64 %9, %u85, !dbg !88",
+				"%12 = sub i64 %10, %11, !dbg !88",
+				"%diff.check = icmp ult i64 %12, 32, !dbg !88",
+				"br i1 %diff.check, label %for.body31.preheader87, label %vector.ph, !dbg !88"
+			]
+		},
+		{
+			"function": "_mpd_baseadd",
+			"id": 11,
+			"name": "vector.ph",
+			"debug": [
+				{
+					"line": 73, "columns": [5]
+				}
+			],
+			"successors": [12],
+			"ir": [
+				"%n.vec = and i64 %8, -4, !dbg !88",
+				"%ind.end = add i64 %i.1.lcssa, %n.vec, !dbg !88",
+				"br label %vector.body, !dbg !88"
+			]
+		},
+		{
+			"function": "_mpd_baseadd",
+			"id": 12,
+			"name": "vector.body",
+			"debug": [
+				{
+					"line": 73, "columns": [5]
+				},
+				{
+					"line": 74, "columns": [16, 9, 14]
+				}
+			],
+			"successors": [13, 12],
+			"ir": [
+				"%index = phi i64 [ 0, %vector.ph ], [ %index.next, %vector.body ]",
+				"%offset.idx = add i64 %i.1.lcssa, %index, !dbg !88",
+				"%13 = getelementptr i64, ptr %u, i64 %offset.idx, !dbg !89",
+				"%wide.load = load <2 x i64>, ptr %13, align 8, !dbg !89, !tbaa !64",
+				"%14 = getelementptr i64, ptr %13, i64 2, !dbg !89",
+				"%wide.load86 = load <2 x i64>, ptr %14, align 8, !dbg !89, !tbaa !64",
+				"%15 = getelementptr i64, ptr %w, i64 %offset.idx, !dbg !91",
+				"store <2 x i64> %wide.load, ptr %15, align 8, !dbg !92, !tbaa !64",
+				"%16 = getelementptr i64, ptr %15, i64 2, !dbg !92",
+				"store <2 x i64> %wide.load86, ptr %16, align 8, !dbg !92, !tbaa !64",
+				"%index.next = add nuw i64 %index, 4",
+				"%17 = icmp eq i64 %index.next, %n.vec",
+				"br i1 %17, label %middle.block, label %vector.body, !llvm.loop !93"
+			]
+		},
+		{
+			"function": "_mpd_baseadd",
+			"id": 13,
+			"name": "middle.block",
+			"debug": [
+				{
+					"line": 73, "columns": [5]
+				}
+			],
+			"successors": [19, 14],
+			"ir": [
+				"%cmp.n = icmp eq i64 %8, %n.vec, !dbg !88",
+				"br i1 %cmp.n, label %for.end36, label %for.body31.preheader87, !dbg !88"
+			]
+		},
+		{
+			"function": "_mpd_baseadd",
+			"id": 14,
+			"name": "for.body31.preheader87",
+			"debug": [
+				{
+					"line": 73, "columns": [5]
+				}
+			],
+			"successors": [16, 15],
+			"ir": [
+				"%i.277.ph = phi i64 [ %i.1.lcssa, %vector.memcheck ], [ %i.1.lcssa, %for.body31.preheader ], [ %ind.end, %middle.block ]",
+				"%18 = sub i64 %m, %i.277.ph, !dbg !88",
+				"%19 = xor i64 %i.277.ph, -1, !dbg !88",
+				"%20 = add i64 %19, %m, !dbg !88",
+				"%xtraiter90 = and i64 %18, 3, !dbg !88",
+				"%lcmp.mod91.not = icmp eq i64 %xtraiter90, 0, !dbg !88",
+				"br i1 %lcmp.mod91.not, label %for.body31.prol.loopexit, label %for.body31.prol, !dbg !88"
+			]
+		},
+		{
+			"function": "_mpd_baseadd",
+			"id": 15,
+			"name": "for.body31.prol",
+			"debug": [
+				{
+					"line": 73, "columns": [20, 5]
+				},
+				{
+					"line": 74, "columns": [16, 9, 14]
+				}
+			],
+			"successors": [16, 15],
+			"ir": [
+				"%i.277.prol = phi i64 [ %inc35.prol, %for.body31.prol ], [ %i.277.ph, %for.body31.preheader87 ]",
+				"%prol.iter = phi i64 [ %prol.iter.next, %for.body31.prol ], [ 0, %for.body31.preheader87 ]",
+				"%arrayidx32.prol = getelementptr i64, ptr %u, i64 %i.277.prol, !dbg !89",
+				"%21 = load i64, ptr %arrayidx32.prol, align 8, !dbg !89, !tbaa !64",
+				"%arrayidx33.prol = getelementptr i64, ptr %w, i64 %i.277.prol, !dbg !91",
+				"store i64 %21, ptr %arrayidx33.prol, align 8, !dbg !92, !tbaa !64",
+				"%inc35.prol = add nuw i64 %i.277.prol, 1, !dbg !97",
+				"%prol.iter.next = add i64 %prol.iter, 1, !dbg !88",
+				"%prol.iter.cmp.not = icmp eq i64 %prol.iter.next, %xtraiter90, !dbg !88",
+				"br i1 %prol.iter.cmp.not, label %for.body31.prol.loopexit, label %for.body31.prol, !dbg !88, !llvm.loop !98"
+			]
+		},
+		{
+			"function": "_mpd_baseadd",
+			"id": 16,
+			"name": "for.body31.prol.loopexit",
+			"debug": [
+				{
+					"line": 73, "columns": [5]
+				}
+			],
+			"successors": [19, 18],
+			"ir": [
+				"%i.277.unr = phi i64 [ %i.277.ph, %for.body31.preheader87 ], [ %inc35.prol, %for.body31.prol ]",
+				"%22 = icmp ult i64 %20, 3, !dbg !88",
+				"br i1 %22, label %for.end36, label %for.body31, !dbg !88"
+			]
+		},
+		{
+			"function": "_mpd_baseadd",
+			"id": 17,
+			"name": "for.body13",
+			"debug": [
+				{
+					"line": 67, "columns": [29, 18, 5]
+				},
+				{
+					"line": 68, "columns": [13, 18]
+				},
+				{
+					"line": 69, "columns": [20]
+				},
+				{
+					"line": 70, "columns": [16, 9, 14]
+				}
+			],
+			"successors": [17, 7],
+			"ir": [
+				"%i.173 = phi i64 [ %inc26, %for.body13 ], [ %n, %for.cond9.preheader ]",
+				"%arrayidx14 = getelementptr i64, ptr %u, i64 %i.173, !dbg !100",
+				"%23 = load i64, ptr %arrayidx14, align 8, !dbg !100, !tbaa !64",
+				"%add15 = add i64 %23, 1, !dbg !102",
+				"%cmp16 = icmp eq i64 %add15, -8446744073709551616, !dbg !103",
+				"%cond23 = select i1 %cmp16, i64 0, i64 %add15, !dbg !104",
+				"%arrayidx24 = getelementptr i64, ptr %w, i64 %i.173, !dbg !105",
+				"store i64 %cond23, ptr %arrayidx24, align 8, !dbg !106, !tbaa !64",
+				"%inc26 = add nuw i64 %i.173, 1, !dbg !107",
+				"%cmp11 = icmp ult i64 %inc26, %m, !dbg !77",
+				"%24 = and i1 %cmp16, %cmp11, !dbg !77",
+				"br i1 %24, label %for.body13, label %for.cond28.preheader.loopexit, !dbg !80, !llvm.loop !108"
+			]
+		},
+		{
+			"function": "_mpd_baseadd",
+			"id": 18,
+			"name": "for.body31",
+			"debug": [
+				{
+					"line": 73, "columns": [20, 14, 5]
+				},
+				{
+					"line": 74, "columns": [16, 9, 14]
+				}
+			],
+			"successors": [19, 18],
+			"ir": [
+				"%i.277 = phi i64 [ %inc35.3, %for.body31 ], [ %i.277.unr, %for.body31.prol.loopexit ]",
+				"%arrayidx32 = getelementptr i64, ptr %u, i64 %i.277, !dbg !89",
+				"%25 = load i64, ptr %arrayidx32, align 8, !dbg !89, !tbaa !64",
+				"%arrayidx33 = getelementptr i64, ptr %w, i64 %i.277, !dbg !91",
+				"store i64 %25, ptr %arrayidx33, align 8, !dbg !92, !tbaa !64",
+				"%inc35 = add nuw i64 %i.277, 1, !dbg !97",
+				"%arrayidx32.1 = getelementptr i64, ptr %u, i64 %inc35, !dbg !89",
+				"%26 = load i64, ptr %arrayidx32.1, align 8, !dbg !89, !tbaa !64",
+				"%arrayidx33.1 = getelementptr i64, ptr %w, i64 %inc35, !dbg !91",
+				"store i64 %26, ptr %arrayidx33.1, align 8, !dbg !92, !tbaa !64",
+				"%inc35.1 = add nuw i64 %i.277, 2, !dbg !97",
+				"%arrayidx32.2 = getelementptr i64, ptr %u, i64 %inc35.1, !dbg !89",
+				"%27 = load i64, ptr %arrayidx32.2, align 8, !dbg !89, !tbaa !64",
+				"%arrayidx33.2 = getelementptr i64, ptr %w, i64 %inc35.1, !dbg !91",
+				"store i64 %27, ptr %arrayidx33.2, align 8, !dbg !92, !tbaa !64",
+				"%inc35.2 = add nuw i64 %i.277, 3, !dbg !97",
+				"%arrayidx32.3 = getelementptr i64, ptr %u, i64 %inc35.2, !dbg !89",
+				"%28 = load i64, ptr %arrayidx32.3, align 8, !dbg !89, !tbaa !64",
+				"%arrayidx33.3 = getelementptr i64, ptr %w, i64 %inc35.2, !dbg !91",
+				"store i64 %28, ptr %arrayidx33.3, align 8, !dbg !92, !tbaa !64",
+				"%inc35.3 = add nuw i64 %i.277, 4, !dbg !97",
+				"%exitcond79.not.3 = icmp eq i64 %inc35.3, %m, !dbg !85",
+				"br i1 %exitcond79.not.3, label %for.end36, label %for.body31, !dbg !88, !llvm.loop !110"
+			]
+		},
+		{
+			"function": "_mpd_baseadd",
+			"id": 19,
+			"name": "for.end36",
+			"debug": [
+				{
+					"line": 77, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret i64 %carry.1.lcssa, !dbg !111"
+			]
+		},
+		{
+			"function": "_mpd_baseaddto",
+			"id": 20,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 91, "columns": [11, 9]
+				}
+			],
+			"successors": [28, 21],
+			"ir": [
+				"%cmp = icmp eq i64 %n, 0, !dbg !56",
+				"br i1 %cmp, label %cleanup, label %for.body.preheader, !dbg !58"
+			]
+		},
+		{
+			"function": "_mpd_baseaddto",
+			"id": 21,
+			"name": "for.body.preheader",
+			"debug": [
+				{
+					"line": 94, "columns": [5]
+				}
+			],
+			"successors": [23, 22],
+			"ir": [
+				"%xtraiter = and i64 %n, 1, !dbg !59",
+				"%0 = icmp eq i64 %n, 1, !dbg !59",
+				"br i1 %0, label %for.cond10.preheader.unr-lcssa, label %for.body.preheader.new, !dbg !59"
+			]
+		},
+		{
+			"function": "_mpd_baseaddto",
+			"id": 22,
+			"name": "for.body.preheader.new",
+			"debug": [
+				{
+					"line": 94, "columns": [5]
+				}
+			],
+			"successors": [26],
+			"ir": [
+				"%unroll_iter = and i64 %n, -2, !dbg !59",
+				"br label %for.body, !dbg !59"
+			]
+		},
+		{
+			"function": "_mpd_baseaddto",
+			"id": 23,
+			"name": "for.cond10.preheader.unr-lcssa",
+			"debug": [
+				{
+					"line": 94, "columns": [5]
+				}
+			],
+			"successors": [25, 24],
+			"ir": [
+				"%or51.lcssa.ph = phi i1 [ undef, %for.body.preheader ], [ %or51.1, %for.body ]",
+				"%i.054.unr = phi i64 [ 0, %for.body.preheader ], [ %inc.1, %for.body ]",
+				"%carry.053.unr = phi i64 [ 0, %for.body.preheader ], [ %conv8.1, %for.body ]",
+				"%lcmp.mod.not = icmp eq i64 %xtraiter, 0, !dbg !59",
+				"br i1 %lcmp.mod.not, label %for.cond10.preheader, label %for.body.epil, !dbg !59"
+			]
+		},
+		{
+			"function": "_mpd_baseaddto",
+			"id": 24,
+			"name": "for.body.epil",
+			"debug": [
+				{
+					"line": 95, "columns": [13, 21, 26, 18]
+				},
+				{
+					"line": 96, "columns": [20, 33, 28]
+				},
+				{
+					"line": 97, "columns": [16, 14]
+				},
+				{
+					"line": 100, "columns": [5]
+				}
+			],
+			"successors": [25],
+			"ir": [
+				"%arrayidx.epil = getelementptr i64, ptr %w, i64 %i.054.unr, !dbg !61",
+				"%1 = load i64, ptr %arrayidx.epil, align 8, !dbg !61, !tbaa !64",
+				"%arrayidx2.epil = getelementptr i64, ptr %u, i64 %i.054.unr, !dbg !68",
+				"%2 = load i64, ptr %arrayidx2.epil, align 8, !dbg !68, !tbaa !64",
+				"%add.epil = add i64 %1, %carry.053.unr, !dbg !69",
+				"%add3.epil = add i64 %add.epil, %2, !dbg !70",
+				"%cmp5.epil = icmp ult i64 %add3.epil, %1, !dbg !71",
+				"%cmp6.epil = icmp ugt i64 %add3.epil, -8446744073709551617, !dbg !72",
+				"%or51.epil = or i1 %cmp5.epil, %cmp6.epil, !dbg !73",
+				"%sub.epil = add i64 %add3.epil, 8446744073709551616, !dbg !74",
+				"%cond.epil = select i1 %or51.epil, i64 %sub.epil, i64 %add3.epil, !dbg !74",
+				"store i64 %cond.epil, ptr %arrayidx.epil, align 8, !dbg !75, !tbaa !64",
+				"br label %for.cond10.preheader, !dbg !76"
+			]
+		},
+		{
+			"function": "_mpd_baseaddto",
+			"id": 25,
+			"name": "for.cond10.preheader",
+			"debug": [
+				{
+					"line": 96, "columns": [28]
+				},
+				{
+					"line": 100, "columns": [5]
+				}
+			],
+			"successors": [27, 28],
+			"ir": [
+				"%or51.lcssa = phi i1 [ %or51.lcssa.ph, %for.cond10.preheader.unr-lcssa ], [ %or51.epil, %for.body.epil ], !dbg !73",
+				"br i1 %or51.lcssa, label %for.body12, label %cleanup, !dbg !76"
+			]
+		},
+		{
+			"function": "_mpd_baseaddto",
+			"id": 26,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 94, "columns": [25, 5]
+				},
+				{
+					"line": 95, "columns": [13, 21, 26, 18]
+				},
+				{
+					"line": 96, "columns": [20, 33, 28]
+				},
+				{
+					"line": 97, "columns": [16, 14]
+				}
+			],
+			"successors": [23, 26],
+			"ir": [
+				"%i.054 = phi i64 [ 0, %for.body.preheader.new ], [ %inc.1, %for.body ]",
+				"%carry.053 = phi i64 [ 0, %for.body.preheader.new ], [ %conv8.1, %for.body ]",
+				"%niter = phi i64 [ 0, %for.body.preheader.new ], [ %niter.next.1, %for.body ]",
+				"%arrayidx = getelementptr i64, ptr %w, i64 %i.054, !dbg !61",
+				"%3 = load i64, ptr %arrayidx, align 8, !dbg !61, !tbaa !64",
+				"%arrayidx2 = getelementptr i64, ptr %u, i64 %i.054, !dbg !68",
+				"%4 = load i64, ptr %arrayidx2, align 8, !dbg !68, !tbaa !64",
+				"%add = add i64 %3, %carry.053, !dbg !69",
+				"%add3 = add i64 %add, %4, !dbg !70",
+				"%cmp5 = icmp ult i64 %add3, %3, !dbg !71",
+				"%cmp6 = icmp ugt i64 %add3, -8446744073709551617, !dbg !72",
+				"%or51 = or i1 %cmp5, %cmp6, !dbg !73",
+				"%conv8 = zext i1 %or51 to i64",
+				"%sub = add i64 %add3, 8446744073709551616, !dbg !74",
+				"%cond = select i1 %or51, i64 %sub, i64 %add3, !dbg !74",
+				"store i64 %cond, ptr %arrayidx, align 8, !dbg !75, !tbaa !64",
+				"%inc = or i64 %i.054, 1, !dbg !78",
+				"%arrayidx.1 = getelementptr i64, ptr %w, i64 %inc, !dbg !61",
+				"%5 = load i64, ptr %arrayidx.1, align 8, !dbg !61, !tbaa !64",
+				"%arrayidx2.1 = getelementptr i64, ptr %u, i64 %inc, !dbg !68",
+				"%6 = load i64, ptr %arrayidx2.1, align 8, !dbg !68, !tbaa !64",
+				"%add.1 = add i64 %5, %conv8, !dbg !69",
+				"%add3.1 = add i64 %add.1, %6, !dbg !70",
+				"%cmp5.1 = icmp ult i64 %add3.1, %5, !dbg !71",
+				"%cmp6.1 = icmp ugt i64 %add3.1, -8446744073709551617, !dbg !72",
+				"%or51.1 = or i1 %cmp5.1, %cmp6.1, !dbg !73",
+				"%conv8.1 = zext i1 %or51.1 to i64",
+				"%sub.1 = add i64 %add3.1, 8446744073709551616, !dbg !74",
+				"%cond.1 = select i1 %or51.1, i64 %sub.1, i64 %add3.1, !dbg !74",
+				"store i64 %cond.1, ptr %arrayidx.1, align 8, !dbg !75, !tbaa !64",
+				"%inc.1 = add nuw i64 %i.054, 2, !dbg !78",
+				"%niter.next.1 = add i64 %niter, 2, !dbg !59",
+				"%niter.ncmp.1 = icmp eq i64 %niter.next.1, %unroll_iter, !dbg !59",
+				"br i1 %niter.ncmp.1, label %for.cond10.preheader.unr-lcssa, label %for.body, !dbg !59, !llvm.loop !79"
+			]
+		},
+		{
+			"function": "_mpd_baseaddto",
+			"id": 27,
+			"name": "for.body12",
+			"debug": [
+				{
+					"line": 100, "columns": [20, 5]
+				},
+				{
+					"line": 101, "columns": [13, 18]
+				},
+				{
+					"line": 102, "columns": [20]
+				},
+				{
+					"line": 103, "columns": [16, 14]
+				}
+			],
+			"successors": [27, 28],
+			"ir": [
+				"%i.157 = phi i64 [ %inc25, %for.body12 ], [ %n, %for.cond10.preheader ]",
+				"%arrayidx13 = getelementptr i64, ptr %w, i64 %i.157, !dbg !82",
+				"%7 = load i64, ptr %arrayidx13, align 8, !dbg !82, !tbaa !64",
+				"%add14 = add i64 %7, 1, !dbg !85",
+				"%cmp15.not = icmp eq i64 %add14, -8446744073709551616, !dbg !86",
+				"%cond22 = select i1 %cmp15.not, i64 0, i64 %add14, !dbg !87",
+				"store i64 %cond22, ptr %arrayidx13, align 8, !dbg !88, !tbaa !64",
+				"%inc25 = add i64 %i.157, 1, !dbg !89",
+				"br i1 %cmp15.not, label %for.body12, label %cleanup, !dbg !76, !llvm.loop !90"
+			]
+		},
+		{
+			"function": "_mpd_baseaddto",
+			"id": 28,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 105, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !92"
+			]
+		},
+		{
+			"function": "_mpd_shortadd",
+			"id": 29,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 121, "columns": [9, 14]
+				},
+				{
+					"line": 122, "columns": [16, 26, 21]
+				},
+				{
+					"line": 123, "columns": [12, 10]
+				},
+				{
+					"line": 126, "columns": [23, 5]
+				}
+			],
+			"successors": [30, 31],
+			"ir": [
+				"%0 = load i64, ptr %w, align 8, !dbg !54, !tbaa !55",
+				"%add = add i64 %0, %v, !dbg !59",
+				"%cmp = icmp ult i64 %add, %v, !dbg !60",
+				"%cmp1 = icmp ugt i64 %add, -8446744073709551617, !dbg !61",
+				"%or35 = or i1 %cmp, %cmp1, !dbg !62",
+				"%sub = add i64 %add, 8446744073709551616, !dbg !63",
+				"%cond = select i1 %or35, i64 %sub, i64 %add, !dbg !63",
+				"store i64 %cond, ptr %w, align 8, !dbg !64, !tbaa !55",
+				"%cmp636 = icmp ugt i64 %m, 1, !dbg !65",
+				"%1 = and i1 %or35, %cmp636, !dbg !65",
+				"br i1 %1, label %for.body, label %for.end, !dbg !68"
+			]
+		},
+		{
+			"function": "_mpd_shortadd",
+			"id": 30,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 126, "columns": [34, 23, 5]
+				},
+				{
+					"line": 127, "columns": [13, 18]
+				},
+				{
+					"line": 128, "columns": [20]
+				},
+				{
+					"line": 129, "columns": [16, 14]
+				}
+			],
+			"successors": [30, 31],
+			"ir": [
+				"%i.037 = phi i64 [ %inc, %for.body ], [ 1, %entry ]",
+				"%arrayidx8 = getelementptr i64, ptr %w, i64 %i.037, !dbg !69",
+				"%2 = load i64, ptr %arrayidx8, align 8, !dbg !69, !tbaa !55",
+				"%add9 = add i64 %2, 1, !dbg !71",
+				"%cmp10 = icmp eq i64 %add9, -8446744073709551616, !dbg !72",
+				"%cond17 = select i1 %cmp10, i64 0, i64 %add9, !dbg !73",
+				"store i64 %cond17, ptr %arrayidx8, align 8, !dbg !74, !tbaa !55",
+				"%inc = add nuw i64 %i.037, 1, !dbg !75",
+				"%cmp6 = icmp ult i64 %inc, %m, !dbg !65",
+				"%3 = and i1 %cmp10, %cmp6, !dbg !65",
+				"br i1 %3, label %for.body, label %for.end, !dbg !68, !llvm.loop !76"
+			]
+		},
+		{
+			"function": "_mpd_shortadd",
+			"id": 31,
+			"name": "for.end",
+			"debug": [
+				{
+					"line": 132, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%carry.0.in.lcssa = phi i1 [ %or35, %entry ], [ %cmp10, %for.body ]",
+				"%carry.0 = zext i1 %carry.0.in.lcssa to i64, !dbg !53",
+				"ret i64 %carry.0, !dbg !79"
+			]
+		},
+		{
+			"function": "_mpd_baseincr",
+			"id": 32,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 146, "columns": [23, 5]
+				}
+			],
+			"successors": [35, 33],
+			"ir": [
+				"%cmp13.not = icmp eq i64 %n, 0, !dbg !53",
+				"br i1 %cmp13.not, label %for.end, label %for.body, !dbg !56"
+			]
+		},
+		{
+			"function": "_mpd_baseincr",
+			"id": 33,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 146, "columns": [34, 23, 5]
+				},
+				{
+					"line": 147, "columns": [13, 18]
+				},
+				{
+					"line": 148, "columns": [20]
+				},
+				{
+					"line": 149, "columns": [16, 14]
+				}
+			],
+			"successors": [33, 34],
+			"ir": [
+				"%i.014 = phi i64 [ %inc, %for.body ], [ 0, %entry ]",
+				"%arrayidx = getelementptr i64, ptr %u, i64 %i.014, !dbg !57",
+				"%0 = load i64, ptr %arrayidx, align 8, !dbg !57, !tbaa !59",
+				"%add = add i64 %0, 1, !dbg !63",
+				"%cmp1 = icmp eq i64 %add, -8446744073709551616, !dbg !64",
+				"%cond = select i1 %cmp1, i64 0, i64 %add, !dbg !65",
+				"store i64 %cond, ptr %arrayidx, align 8, !dbg !66, !tbaa !59",
+				"%inc = add nuw i64 %i.014, 1, !dbg !67",
+				"%cmp = icmp ult i64 %inc, %n, !dbg !53",
+				"%1 = and i1 %cmp1, %cmp, !dbg !53",
+				"br i1 %1, label %for.body, label %for.end.loopexit, !dbg !56, !llvm.loop !68"
+			]
+		},
+		{
+			"function": "_mpd_baseincr",
+			"id": 34,
+			"name": "for.end.loopexit",
+			"debug": [
+				{
+					"line": 152, "columns": [5]
+				}
+			],
+			"successors": [35],
+			"ir": [
+				"%conv2 = zext i1 %cmp1 to i64",
+				"br label %for.end, !dbg !71"
+			]
+		},
+		{
+			"function": "_mpd_baseincr",
+			"id": 35,
+			"name": "for.end",
+			"debug": [
+				{
+					"line": 152, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%carry.0.lcssa = phi i64 [ 1, %entry ], [ %conv2, %for.end.loopexit ], !dbg !52",
+				"ret i64 %carry.0.lcssa, !dbg !71"
+			]
+		},
+		{
+			"function": "_mpd_basesub",
+			"id": 36,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 171, "columns": [19, 5]
+				}
+			],
+			"successors": [43, 37],
+			"ir": [
+				"%u80 = ptrtoint ptr %u to i64, !dbg !58",
+				"%w79 = ptrtoint ptr %w to i64, !dbg !58",
+				"%cmp64.not = icmp eq i64 %n, 0, !dbg !58",
+				"br i1 %cmp64.not, label %for.cond27.preheader, label %for.body.preheader, !dbg !61"
+			]
+		},
+		{
+			"function": "_mpd_basesub",
+			"id": 37,
+			"name": "for.body.preheader",
+			"debug": [
+				{
+					"line": 171, "columns": [5]
+				}
+			],
+			"successors": [39, 38],
+			"ir": [
+				"%xtraiter = and i64 %n, 1, !dbg !61",
+				"%0 = icmp eq i64 %n, 1, !dbg !61",
+				"br i1 %0, label %for.cond7.preheader.unr-lcssa, label %for.body.preheader.new, !dbg !61"
+			]
+		},
+		{
+			"function": "_mpd_basesub",
+			"id": 38,
+			"name": "for.body.preheader.new",
+			"debug": [
+				{
+					"line": 171, "columns": [5]
+				}
+			],
+			"successors": [42],
+			"ir": [
+				"%unroll_iter = and i64 %n, -2, !dbg !61",
+				"br label %for.body, !dbg !61"
+			]
+		},
+		{
+			"function": "_mpd_basesub",
+			"id": 39,
+			"name": "for.cond7.preheader.unr-lcssa",
+			"debug": [
+				{
+					"line": 171, "columns": [5]
+				}
+			],
+			"successors": [41, 40],
+			"ir": [
+				"%cmp3.lcssa.ph = phi i1 [ undef, %for.body.preheader ], [ %cmp3.1, %for.body ]",
+				"%i.066.unr = phi i64 [ 0, %for.body.preheader ], [ %inc.1, %for.body ]",
+				"%borrow.065.unr = phi i64 [ 0, %for.body.preheader ], [ %conv4.1, %for.body ]",
+				"%lcmp.mod.not = icmp eq i64 %xtraiter, 0, !dbg !61",
+				"br i1 %lcmp.mod.not, label %for.cond7.preheader, label %for.body.epil, !dbg !61"
+			]
+		},
+		{
+			"function": "_mpd_basesub",
+			"id": 40,
+			"name": "for.body.epil",
+			"debug": [
+				{
+					"line": 172, "columns": [13, 21, 26, 18]
+				},
+				{
+					"line": 173, "columns": [24]
+				},
+				{
+					"line": 174, "columns": [16, 9, 14]
+				},
+				{
+					"line": 177, "columns": [19]
+				}
+			],
+			"successors": [41],
+			"ir": [
+				"%arrayidx.epil = getelementptr i64, ptr %u, i64 %i.066.unr, !dbg !62",
+				"%1 = load i64, ptr %arrayidx.epil, align 8, !dbg !62, !tbaa !64",
+				"%arrayidx1.epil = getelementptr i64, ptr %v, i64 %i.066.unr, !dbg !68",
+				"%2 = load i64, ptr %arrayidx1.epil, align 8, !dbg !68, !tbaa !64",
+				"%add.epil = add i64 %2, %borrow.065.unr, !dbg !69",
+				"%sub.epil = sub i64 %1, %add.epil, !dbg !70",
+				"%cmp3.epil = icmp ult i64 %1, %add.epil, !dbg !71",
+				"%add5.epil = add i64 %sub.epil, -8446744073709551616, !dbg !72",
+				"%cond.epil = select i1 %cmp3.epil, i64 %add5.epil, i64 %sub.epil, !dbg !72",
+				"%arrayidx6.epil = getelementptr i64, ptr %w, i64 %i.066.unr, !dbg !73",
+				"store i64 %cond.epil, ptr %arrayidx6.epil, align 8, !dbg !74, !tbaa !64",
+				"br label %for.cond7.preheader, !dbg !75"
+			]
+		},
+		{
+			"function": "_mpd_basesub",
+			"id": 41,
+			"name": "for.cond7.preheader",
+			"debug": [
+				{
+					"line": 173, "columns": [24]
+				},
+				{
+					"line": 177, "columns": [19, 5]
+				}
+			],
+			"successors": [52, 43],
+			"ir": [
+				"%cmp3.lcssa = phi i1 [ %cmp3.lcssa.ph, %for.cond7.preheader.unr-lcssa ], [ %cmp3.epil, %for.body.epil ], !dbg !71",
+				"%cmp969 = icmp ult i64 %n, %m, !dbg !75",
+				"%3 = and i1 %cmp3.lcssa, %cmp969, !dbg !75",
+				"br i1 %3, label %for.body11, label %for.cond27.preheader, !dbg !78"
+			]
+		},
+		{
+			"function": "_mpd_basesub",
+			"id": 42,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 171, "columns": [25, 5]
+				},
+				{
+					"line": 172, "columns": [13, 21, 26, 18]
+				},
+				{
+					"line": 173, "columns": [24]
+				},
+				{
+					"line": 174, "columns": [16, 9, 14]
+				}
+			],
+			"successors": [39, 42],
+			"ir": [
+				"%i.066 = phi i64 [ 0, %for.body.preheader.new ], [ %inc.1, %for.body ]",
+				"%borrow.065 = phi i64 [ 0, %for.body.preheader.new ], [ %conv4.1, %for.body ]",
+				"%niter = phi i64 [ 0, %for.body.preheader.new ], [ %niter.next.1, %for.body ]",
+				"%arrayidx = getelementptr i64, ptr %u, i64 %i.066, !dbg !62",
+				"%4 = load i64, ptr %arrayidx, align 8, !dbg !62, !tbaa !64",
+				"%arrayidx1 = getelementptr i64, ptr %v, i64 %i.066, !dbg !68",
+				"%5 = load i64, ptr %arrayidx1, align 8, !dbg !68, !tbaa !64",
+				"%add = add i64 %5, %borrow.065, !dbg !69",
+				"%sub = sub i64 %4, %add, !dbg !70",
+				"%cmp3 = icmp ult i64 %4, %add, !dbg !71",
+				"%conv4 = zext i1 %cmp3 to i64",
+				"%add5 = add i64 %sub, -8446744073709551616, !dbg !72",
+				"%cond = select i1 %cmp3, i64 %add5, i64 %sub, !dbg !72",
+				"%arrayidx6 = getelementptr i64, ptr %w, i64 %i.066, !dbg !73",
+				"store i64 %cond, ptr %arrayidx6, align 8, !dbg !74, !tbaa !64",
+				"%inc = or i64 %i.066, 1, !dbg !79",
+				"%arrayidx.1 = getelementptr i64, ptr %u, i64 %inc, !dbg !62",
+				"%6 = load i64, ptr %arrayidx.1, align 8, !dbg !62, !tbaa !64",
+				"%arrayidx1.1 = getelementptr i64, ptr %v, i64 %inc, !dbg !68",
+				"%7 = load i64, ptr %arrayidx1.1, align 8, !dbg !68, !tbaa !64",
+				"%add.1 = add i64 %7, %conv4, !dbg !69",
+				"%sub.1 = sub i64 %6, %add.1, !dbg !70",
+				"%cmp3.1 = icmp ult i64 %6, %add.1, !dbg !71",
+				"%conv4.1 = zext i1 %cmp3.1 to i64",
+				"%add5.1 = add i64 %sub.1, -8446744073709551616, !dbg !72",
+				"%cond.1 = select i1 %cmp3.1, i64 %add5.1, i64 %sub.1, !dbg !72",
+				"%arrayidx6.1 = getelementptr i64, ptr %w, i64 %inc, !dbg !73",
+				"store i64 %cond.1, ptr %arrayidx6.1, align 8, !dbg !74, !tbaa !64",
+				"%inc.1 = add nuw i64 %i.066, 2, !dbg !79",
+				"%niter.next.1 = add i64 %niter, 2, !dbg !61",
+				"%niter.ncmp.1 = icmp eq i64 %niter.next.1, %unroll_iter, !dbg !61",
+				"br i1 %niter.ncmp.1, label %for.cond7.preheader.unr-lcssa, label %for.body, !dbg !61, !llvm.loop !80"
+			]
+		},
+		{
+			"function": "_mpd_basesub",
+			"id": 43,
+			"name": "for.cond27.preheader",
+			"debug": [
+				{
+					"line": 183, "columns": [14, 5]
+				}
+			],
+			"successors": [44, 54],
+			"ir": [
+				"%i.1.lcssa = phi i64 [ %n, %for.cond7.preheader ], [ 0, %entry ], [ %inc25, %for.body11 ], !dbg !57",
+				"%cmp2872 = icmp ult i64 %i.1.lcssa, %m, !dbg !83",
+				"br i1 %cmp2872, label %for.body30.preheader, label %for.end35, !dbg !86"
+			]
+		},
+		{
+			"function": "_mpd_basesub",
+			"id": 44,
+			"name": "for.body30.preheader",
+			"debug": [
+				{
+					"line": 183, "columns": [5]
+				}
+			],
+			"successors": [49, 45],
+			"ir": [
+				"%8 = sub i64 %m, %i.1.lcssa, !dbg !86",
+				"%min.iters.check = icmp ult i64 %8, 14, !dbg !86",
+				"br i1 %min.iters.check, label %for.body30.preheader82, label %vector.memcheck, !dbg !86"
+			]
+		},
+		{
+			"function": "_mpd_basesub",
+			"id": 45,
+			"name": "vector.memcheck",
+			"debug": [
+				{
+					"line": 183, "columns": [5]
+				}
+			],
+			"successors": [49, 46],
+			"ir": [
+				"%9 = shl i64 %i.1.lcssa, 3, !dbg !86",
+				"%10 = add i64 %9, %w79, !dbg !86",
+				"%11 = add i64 %9, %u80, !dbg !86",
+				"%12 = sub i64 %10, %11, !dbg !86",
+				"%diff.check = icmp ult i64 %12, 32, !dbg !86",
+				"br i1 %diff.check, label %for.body30.preheader82, label %vector.ph, !dbg !86"
+			]
+		},
+		{
+			"function": "_mpd_basesub",
+			"id": 46,
+			"name": "vector.ph",
+			"debug": [
+				{
+					"line": 183, "columns": [5]
+				}
+			],
+			"successors": [47],
+			"ir": [
+				"%n.vec = and i64 %8, -4, !dbg !86",
+				"%ind.end = add i64 %i.1.lcssa, %n.vec, !dbg !86",
+				"br label %vector.body, !dbg !86"
+			]
+		},
+		{
+			"function": "_mpd_basesub",
+			"id": 47,
+			"name": "vector.body",
+			"debug": [
+				{
+					"line": 183, "columns": [5]
+				},
+				{
+					"line": 184, "columns": [16, 9, 14]
+				}
+			],
+			"successors": [48, 47],
+			"ir": [
+				"%index = phi i64 [ 0, %vector.ph ], [ %index.next, %vector.body ]",
+				"%offset.idx = add i64 %i.1.lcssa, %index, !dbg !86",
+				"%13 = getelementptr i64, ptr %u, i64 %offset.idx, !dbg !87",
+				"%wide.load = load <2 x i64>, ptr %13, align 8, !dbg !87, !tbaa !64",
+				"%14 = getelementptr i64, ptr %13, i64 2, !dbg !87",
+				"%wide.load81 = load <2 x i64>, ptr %14, align 8, !dbg !87, !tbaa !64",
+				"%15 = getelementptr i64, ptr %w, i64 %offset.idx, !dbg !89",
+				"store <2 x i64> %wide.load, ptr %15, align 8, !dbg !90, !tbaa !64",
+				"%16 = getelementptr i64, ptr %15, i64 2, !dbg !90",
+				"store <2 x i64> %wide.load81, ptr %16, align 8, !dbg !90, !tbaa !64",
+				"%index.next = add nuw i64 %index, 4",
+				"%17 = icmp eq i64 %index.next, %n.vec",
+				"br i1 %17, label %middle.block, label %vector.body, !llvm.loop !91"
+			]
+		},
+		{
+			"function": "_mpd_basesub",
+			"id": 48,
+			"name": "middle.block",
+			"debug": [
+				{
+					"line": 183, "columns": [5]
+				}
+			],
+			"successors": [54, 49],
+			"ir": [
+				"%cmp.n = icmp eq i64 %8, %n.vec, !dbg !86",
+				"br i1 %cmp.n, label %for.end35, label %for.body30.preheader82, !dbg !86"
+			]
+		},
+		{
+			"function": "_mpd_basesub",
+			"id": 49,
+			"name": "for.body30.preheader82",
+			"debug": [
+				{
+					"line": 183, "columns": [5]
+				}
+			],
+			"successors": [51, 50],
+			"ir": [
+				"%i.273.ph = phi i64 [ %i.1.lcssa, %vector.memcheck ], [ %i.1.lcssa, %for.body30.preheader ], [ %ind.end, %middle.block ]",
+				"%18 = sub i64 %m, %i.273.ph, !dbg !86",
+				"%19 = xor i64 %i.273.ph, -1, !dbg !86",
+				"%20 = add i64 %19, %m, !dbg !86",
+				"%xtraiter84 = and i64 %18, 3, !dbg !86",
+				"%lcmp.mod85.not = icmp eq i64 %xtraiter84, 0, !dbg !86",
+				"br i1 %lcmp.mod85.not, label %for.body30.prol.loopexit, label %for.body30.prol, !dbg !86"
+			]
+		},
+		{
+			"function": "_mpd_basesub",
+			"id": 50,
+			"name": "for.body30.prol",
+			"debug": [
+				{
+					"line": 183, "columns": [20, 5]
+				},
+				{
+					"line": 184, "columns": [16, 9, 14]
+				}
+			],
+			"successors": [51, 50],
+			"ir": [
+				"%i.273.prol = phi i64 [ %inc34.prol, %for.body30.prol ], [ %i.273.ph, %for.body30.preheader82 ]",
+				"%prol.iter = phi i64 [ %prol.iter.next, %for.body30.prol ], [ 0, %for.body30.preheader82 ]",
+				"%arrayidx31.prol = getelementptr i64, ptr %u, i64 %i.273.prol, !dbg !87",
+				"%21 = load i64, ptr %arrayidx31.prol, align 8, !dbg !87, !tbaa !64",
+				"%arrayidx32.prol = getelementptr i64, ptr %w, i64 %i.273.prol, !dbg !89",
+				"store i64 %21, ptr %arrayidx32.prol, align 8, !dbg !90, !tbaa !64",
+				"%inc34.prol = add nuw i64 %i.273.prol, 1, !dbg !95",
+				"%prol.iter.next = add i64 %prol.iter, 1, !dbg !86",
+				"%prol.iter.cmp.not = icmp eq i64 %prol.iter.next, %xtraiter84, !dbg !86",
+				"br i1 %prol.iter.cmp.not, label %for.body30.prol.loopexit, label %for.body30.prol, !dbg !86, !llvm.loop !96"
+			]
+		},
+		{
+			"function": "_mpd_basesub",
+			"id": 51,
+			"name": "for.body30.prol.loopexit",
+			"debug": [
+				{
+					"line": 183, "columns": [5]
+				}
+			],
+			"successors": [54, 53],
+			"ir": [
+				"%i.273.unr = phi i64 [ %i.273.ph, %for.body30.preheader82 ], [ %inc34.prol, %for.body30.prol ]",
+				"%22 = icmp ult i64 %20, 3, !dbg !86",
+				"br i1 %22, label %for.end35, label %for.body30, !dbg !86"
+			]
+		},
+		{
+			"function": "_mpd_basesub",
+			"id": 52,
+			"name": "for.body11",
+			"debug": [
+				{
+					"line": 177, "columns": [30, 19, 5]
+				},
+				{
+					"line": 178, "columns": [13, 18]
+				},
+				{
+					"line": 179, "columns": [24]
+				},
+				{
+					"line": 180, "columns": [16, 9, 14]
+				}
+			],
+			"successors": [52, 43],
+			"ir": [
+				"%i.170 = phi i64 [ %inc25, %for.body11 ], [ %n, %for.cond7.preheader ]",
+				"%arrayidx12 = getelementptr i64, ptr %u, i64 %i.170, !dbg !98",
+				"%23 = load i64, ptr %arrayidx12, align 8, !dbg !98, !tbaa !64",
+				"%sub13 = add i64 %23, -1, !dbg !100",
+				"%cmp15 = icmp eq i64 %23, 0, !dbg !101",
+				"%cond22 = select i1 %cmp15, i64 -8446744073709551617, i64 %sub13, !dbg !102",
+				"%arrayidx23 = getelementptr i64, ptr %w, i64 %i.170, !dbg !103",
+				"store i64 %cond22, ptr %arrayidx23, align 8, !dbg !104, !tbaa !64",
+				"%inc25 = add nuw i64 %i.170, 1, !dbg !105",
+				"%cmp9 = icmp ult i64 %inc25, %m, !dbg !75",
+				"%24 = and i1 %cmp15, %cmp9, !dbg !75",
+				"br i1 %24, label %for.body11, label %for.cond27.preheader, !dbg !78, !llvm.loop !106"
+			]
+		},
+		{
+			"function": "_mpd_basesub",
+			"id": 53,
+			"name": "for.body30",
+			"debug": [
+				{
+					"line": 183, "columns": [20, 14, 5]
+				},
+				{
+					"line": 184, "columns": [16, 9, 14]
+				}
+			],
+			"successors": [54, 53],
+			"ir": [
+				"%i.273 = phi i64 [ %inc34.3, %for.body30 ], [ %i.273.unr, %for.body30.prol.loopexit ]",
+				"%arrayidx31 = getelementptr i64, ptr %u, i64 %i.273, !dbg !87",
+				"%25 = load i64, ptr %arrayidx31, align 8, !dbg !87, !tbaa !64",
+				"%arrayidx32 = getelementptr i64, ptr %w, i64 %i.273, !dbg !89",
+				"store i64 %25, ptr %arrayidx32, align 8, !dbg !90, !tbaa !64",
+				"%inc34 = add nuw i64 %i.273, 1, !dbg !95",
+				"%arrayidx31.1 = getelementptr i64, ptr %u, i64 %inc34, !dbg !87",
+				"%26 = load i64, ptr %arrayidx31.1, align 8, !dbg !87, !tbaa !64",
+				"%arrayidx32.1 = getelementptr i64, ptr %w, i64 %inc34, !dbg !89",
+				"store i64 %26, ptr %arrayidx32.1, align 8, !dbg !90, !tbaa !64",
+				"%inc34.1 = add nuw i64 %i.273, 2, !dbg !95",
+				"%arrayidx31.2 = getelementptr i64, ptr %u, i64 %inc34.1, !dbg !87",
+				"%27 = load i64, ptr %arrayidx31.2, align 8, !dbg !87, !tbaa !64",
+				"%arrayidx32.2 = getelementptr i64, ptr %w, i64 %inc34.1, !dbg !89",
+				"store i64 %27, ptr %arrayidx32.2, align 8, !dbg !90, !tbaa !64",
+				"%inc34.2 = add nuw i64 %i.273, 3, !dbg !95",
+				"%arrayidx31.3 = getelementptr i64, ptr %u, i64 %inc34.2, !dbg !87",
+				"%28 = load i64, ptr %arrayidx31.3, align 8, !dbg !87, !tbaa !64",
+				"%arrayidx32.3 = getelementptr i64, ptr %w, i64 %inc34.2, !dbg !89",
+				"store i64 %28, ptr %arrayidx32.3, align 8, !dbg !90, !tbaa !64",
+				"%inc34.3 = add nuw i64 %i.273, 4, !dbg !95",
+				"%exitcond75.not.3 = icmp eq i64 %inc34.3, %m, !dbg !83",
+				"br i1 %exitcond75.not.3, label %for.end35, label %for.body30, !dbg !86, !llvm.loop !108"
+			]
+		},
+		{
+			"function": "_mpd_basesub",
+			"id": 54,
+			"name": "for.end35",
+			"debug": [
+				{
+					"line": 186, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !109"
+			]
+		},
+		{
+			"function": "_mpd_basesubfrom",
+			"id": 55,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 199, "columns": [11, 9]
+				}
+			],
+			"successors": [63, 56],
+			"ir": [
+				"%cmp = icmp eq i64 %n, 0, !dbg !56",
+				"br i1 %cmp, label %cleanup, label %for.body.preheader, !dbg !58"
+			]
+		},
+		{
+			"function": "_mpd_basesubfrom",
+			"id": 56,
+			"name": "for.body.preheader",
+			"debug": [
+				{
+					"line": 202, "columns": [5]
+				}
+			],
+			"successors": [58, 57],
+			"ir": [
+				"%xtraiter = and i64 %n, 1, !dbg !59",
+				"%0 = icmp eq i64 %n, 1, !dbg !59",
+				"br i1 %0, label %for.cond8.preheader.unr-lcssa, label %for.body.preheader.new, !dbg !59"
+			]
+		},
+		{
+			"function": "_mpd_basesubfrom",
+			"id": 57,
+			"name": "for.body.preheader.new",
+			"debug": [
+				{
+					"line": 202, "columns": [5]
+				}
+			],
+			"successors": [61],
+			"ir": [
+				"%unroll_iter = and i64 %n, -2, !dbg !59",
+				"br label %for.body, !dbg !59"
+			]
+		},
+		{
+			"function": "_mpd_basesubfrom",
+			"id": 58,
+			"name": "for.cond8.preheader.unr-lcssa",
+			"debug": [
+				{
+					"line": 202, "columns": [5]
+				}
+			],
+			"successors": [60, 59],
+			"ir": [
+				"%cmp4.lcssa.ph = phi i1 [ undef, %for.body.preheader ], [ %cmp4.1, %for.body ]",
+				"%i.052.unr = phi i64 [ 0, %for.body.preheader ], [ %inc.1, %for.body ]",
+				"%borrow.051.unr = phi i64 [ 0, %for.body.preheader ], [ %conv5.1, %for.body ]",
+				"%lcmp.mod.not = icmp eq i64 %xtraiter, 0, !dbg !59",
+				"br i1 %lcmp.mod.not, label %for.cond8.preheader, label %for.body.epil, !dbg !59"
+			]
+		},
+		{
+			"function": "_mpd_basesubfrom",
+			"id": 59,
+			"name": "for.body.epil",
+			"debug": [
+				{
+					"line": 203, "columns": [13, 21, 26, 18]
+				},
+				{
+					"line": 204, "columns": [24]
+				},
+				{
+					"line": 205, "columns": [16, 14]
+				},
+				{
+					"line": 208, "columns": [5]
+				}
+			],
+			"successors": [60],
+			"ir": [
+				"%arrayidx.epil = getelementptr i64, ptr %w, i64 %i.052.unr, !dbg !61",
+				"%1 = load i64, ptr %arrayidx.epil, align 8, !dbg !61, !tbaa !64",
+				"%arrayidx2.epil = getelementptr i64, ptr %u, i64 %i.052.unr, !dbg !68",
+				"%2 = load i64, ptr %arrayidx2.epil, align 8, !dbg !68, !tbaa !64",
+				"%add.epil = add i64 %2, %borrow.051.unr, !dbg !69",
+				"%sub.epil = sub i64 %1, %add.epil, !dbg !70",
+				"%cmp4.epil = icmp ult i64 %1, %add.epil, !dbg !71",
+				"%add6.epil = add i64 %sub.epil, -8446744073709551616, !dbg !72",
+				"%cond.epil = select i1 %cmp4.epil, i64 %add6.epil, i64 %sub.epil, !dbg !72",
+				"store i64 %cond.epil, ptr %arrayidx.epil, align 8, !dbg !73, !tbaa !64",
+				"br label %for.cond8.preheader, !dbg !74"
+			]
+		},
+		{
+			"function": "_mpd_basesubfrom",
+			"id": 60,
+			"name": "for.cond8.preheader",
+			"debug": [
+				{
+					"line": 204, "columns": [24]
+				},
+				{
+					"line": 208, "columns": [5]
+				}
+			],
+			"successors": [62, 63],
+			"ir": [
+				"%cmp4.lcssa = phi i1 [ %cmp4.lcssa.ph, %for.cond8.preheader.unr-lcssa ], [ %cmp4.epil, %for.body.epil ], !dbg !71",
+				"br i1 %cmp4.lcssa, label %for.body10, label %cleanup, !dbg !74"
+			]
+		},
+		{
+			"function": "_mpd_basesubfrom",
+			"id": 61,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 202, "columns": [25, 5]
+				},
+				{
+					"line": 203, "columns": [13, 21, 26, 18]
+				},
+				{
+					"line": 204, "columns": [24]
+				},
+				{
+					"line": 205, "columns": [16, 14]
+				}
+			],
+			"successors": [58, 61],
+			"ir": [
+				"%i.052 = phi i64 [ 0, %for.body.preheader.new ], [ %inc.1, %for.body ]",
+				"%borrow.051 = phi i64 [ 0, %for.body.preheader.new ], [ %conv5.1, %for.body ]",
+				"%niter = phi i64 [ 0, %for.body.preheader.new ], [ %niter.next.1, %for.body ]",
+				"%arrayidx = getelementptr i64, ptr %w, i64 %i.052, !dbg !61",
+				"%3 = load i64, ptr %arrayidx, align 8, !dbg !61, !tbaa !64",
+				"%arrayidx2 = getelementptr i64, ptr %u, i64 %i.052, !dbg !68",
+				"%4 = load i64, ptr %arrayidx2, align 8, !dbg !68, !tbaa !64",
+				"%add = add i64 %4, %borrow.051, !dbg !69",
+				"%sub = sub i64 %3, %add, !dbg !70",
+				"%cmp4 = icmp ult i64 %3, %add, !dbg !71",
+				"%conv5 = zext i1 %cmp4 to i64",
+				"%add6 = add i64 %sub, -8446744073709551616, !dbg !72",
+				"%cond = select i1 %cmp4, i64 %add6, i64 %sub, !dbg !72",
+				"store i64 %cond, ptr %arrayidx, align 8, !dbg !73, !tbaa !64",
+				"%inc = or i64 %i.052, 1, !dbg !76",
+				"%arrayidx.1 = getelementptr i64, ptr %w, i64 %inc, !dbg !61",
+				"%5 = load i64, ptr %arrayidx.1, align 8, !dbg !61, !tbaa !64",
+				"%arrayidx2.1 = getelementptr i64, ptr %u, i64 %inc, !dbg !68",
+				"%6 = load i64, ptr %arrayidx2.1, align 8, !dbg !68, !tbaa !64",
+				"%add.1 = add i64 %6, %conv5, !dbg !69",
+				"%sub.1 = sub i64 %5, %add.1, !dbg !70",
+				"%cmp4.1 = icmp ult i64 %5, %add.1, !dbg !71",
+				"%conv5.1 = zext i1 %cmp4.1 to i64",
+				"%add6.1 = add i64 %sub.1, -8446744073709551616, !dbg !72",
+				"%cond.1 = select i1 %cmp4.1, i64 %add6.1, i64 %sub.1, !dbg !72",
+				"store i64 %cond.1, ptr %arrayidx.1, align 8, !dbg !73, !tbaa !64",
+				"%inc.1 = add nuw i64 %i.052, 2, !dbg !76",
+				"%niter.next.1 = add i64 %niter, 2, !dbg !59",
+				"%niter.ncmp.1 = icmp eq i64 %niter.next.1, %unroll_iter, !dbg !59",
+				"br i1 %niter.ncmp.1, label %for.cond8.preheader.unr-lcssa, label %for.body, !dbg !59, !llvm.loop !77"
+			]
+		},
+		{
+			"function": "_mpd_basesubfrom",
+			"id": 62,
+			"name": "for.body10",
+			"debug": [
+				{
+					"line": 208, "columns": [21, 5]
+				},
+				{
+					"line": 209, "columns": [13, 18]
+				},
+				{
+					"line": 210, "columns": [24]
+				},
+				{
+					"line": 211, "columns": [16, 14]
+				}
+			],
+			"successors": [62, 63],
+			"ir": [
+				"%i.155 = phi i64 [ %inc24, %for.body10 ], [ %n, %for.cond8.preheader ]",
+				"%arrayidx11 = getelementptr i64, ptr %w, i64 %i.155, !dbg !80",
+				"%7 = load i64, ptr %arrayidx11, align 8, !dbg !80, !tbaa !64",
+				"%sub12 = add i64 %7, -1, !dbg !83",
+				"%cmp14.not = icmp eq i64 %7, 0, !dbg !84",
+				"%cond21 = select i1 %cmp14.not, i64 -8446744073709551617, i64 %sub12, !dbg !85",
+				"store i64 %cond21, ptr %arrayidx11, align 8, !dbg !86, !tbaa !64",
+				"%inc24 = add i64 %i.155, 1, !dbg !87",
+				"br i1 %cmp14.not, label %for.body10, label %cleanup, !dbg !74, !llvm.loop !88"
+			]
+		},
+		{
+			"function": "_mpd_basesubfrom",
+			"id": 63,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 213, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !90"
+			]
+		},
+		{
+			"function": "_mpd_shortmul",
+			"id": 64,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 225, "columns": [17, 5]
+				}
+			],
+			"successors": [67, 65],
+			"ir": [
+				"%cmp13.not = icmp eq i64 %n, 0, !dbg !58",
+				"br i1 %cmp13.not, label %for.end, label %for.body.lr.ph, !dbg !61"
+			]
+		},
+		{
+			"function": "_mpd_shortmul",
+			"id": 65,
+			"name": "for.body.lr.ph",
+			"debug": [
+				{
+					"line": 225, "columns": [5]
+				}
+			],
+			"successors": [66],
+			"ir": [
+				"%conv1.i = zext i64 %v to i128",
+				"%0 = load i64, ptr @mprime_rdx, align 8, !tbaa !62",
+				"%conv.i.i = zext i64 %0 to i128",
+				"br label %for.body, !dbg !61"
+			]
+		},
+		{
+			"function": "_mpd_shortmul",
+			"id": 66,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 56, "columns": [10, 25, 27]
+				},
+				{
+					"line": 58, "columns": [14, 11]
+				},
+				{
+					"line": 59, "columns": [11]
+				},
+				{
+					"line": 104, "columns": [14]
+				},
+				{
+					"line": 106, "columns": [26, 16]
+				},
+				{
+					"line": 109, "columns": [42]
+				},
+				{
+					"line": 111, "columns": [11, 9]
+				},
+				{
+					"line": 112, "columns": [11]
+				},
+				{
+					"line": 118, "columns": [22]
+				},
+				{
+					"line": 122, "columns": [11]
+				},
+				{
+					"line": 123, "columns": [11, 9]
+				},
+				{
+					"line": 124, "columns": [7]
+				},
+				{
+					"line": 125, "columns": [7]
+				},
+				{
+					"line": 137, "columns": [13]
+				},
+				{
+					"line": 138, "columns": [25, 12, 8]
+				},
+				{
+					"line": 225, "columns": [23, 17, 5]
+				},
+				{
+					"line": 227, "columns": [34]
+				},
+				{
+					"line": 228, "columns": [20]
+				},
+				{
+					"line": 229, "columns": [16, 13]
+				},
+				{
+					"line": 231, "columns": [35]
+				}
+			],
+			"successors": [67, 66],
+			"ir": [
+				"%i.015 = phi i64 [ 0, %for.body.lr.ph ], [ %inc3, %for.body ]",
+				"%carry.014 = phi i64 [ 0, %for.body.lr.ph ], [ %sub12.i, %for.body ]",
+				"%arrayidx = getelementptr i64, ptr %u, i64 %i.015, !dbg !66",
+				"%1 = load i64, ptr %arrayidx, align 8, !dbg !66, !tbaa !62",
+				"%conv.i = zext i64 %1 to i128, !dbg !79",
+				"%mul.i = mul nuw i128 %conv.i, %conv1.i, !dbg !80",
+				"%shr.i = lshr i128 %mul.i, 64, !dbg !81",
+				"%conv2.i = trunc i128 %shr.i to i64, !dbg !82",
+				"%conv3.i = trunc i128 %mul.i to i64, !dbg !83",
+				"%add = add i64 %carry.014, %conv3.i, !dbg !84",
+				"%cmp1 = icmp ult i64 %add, %carry.014, !dbg !85",
+				"%inc = zext i1 %cmp1 to i64, !dbg !87",
+				"%spec.select = add nuw i64 %inc, %conv2.i, !dbg !87",
+				"%arrayidx2 = getelementptr i64, ptr %w, i64 %i.015, !dbg !88",
+				"%lo.lobit.i = ashr i64 %add, 63, !dbg !103",
+				"%and1.i = and i64 %lo.lobit.i, -8446744073709551616, !dbg !104",
+				"%add.i = add i64 %and1.i, %add, !dbg !105",
+				"%sub.i = sub i64 %spec.select, %lo.lobit.i, !dbg !106",
+				"%conv1.i.i = zext i64 %sub.i to i128, !dbg !109",
+				"%mul.i.i = mul nuw i128 %conv1.i.i, %conv.i.i, !dbg !110",
+				"%shr.i.i = lshr i128 %mul.i.i, 64, !dbg !111",
+				"%conv2.i.i = trunc i128 %shr.i.i to i64, !dbg !112",
+				"%conv3.i.i = trunc i128 %mul.i.i to i64, !dbg !113",
+				"%2 = xor i64 %add.i, -1, !dbg !114",
+				"%cmp.i = icmp ult i64 %2, %conv3.i.i, !dbg !114",
+				"%inc.i = zext i1 %cmp.i to i64, !dbg !116",
+				"%spec.select.i = add i64 %spec.select, %conv2.i.i, !dbg !116",
+				"%add3.i = add i64 %spec.select.i, %inc.i, !dbg !117",
+				"%sub4.i = xor i64 %add3.i, -1, !dbg !118",
+				"%conv.i24.i = zext i64 %sub4.i to i128, !dbg !121",
+				"%mul.i25.i = mul nuw i128 %conv.i24.i, 10000000000000000000, !dbg !122",
+				"%shr.i26.i = lshr i128 %mul.i25.i, 64, !dbg !123",
+				"%conv2.i27.i = trunc i128 %shr.i26.i to i64, !dbg !124",
+				"%conv3.i28.i = trunc i128 %mul.i25.i to i64, !dbg !125",
+				"%add5.i = add i64 %add, %conv3.i28.i, !dbg !126",
+				"%cmp6.i = icmp ult i64 %add5.i, %add, !dbg !127",
+				"%inc8.i = zext i1 %cmp6.i to i64, !dbg !129",
+				"%h.1.i = add i64 %spec.select, 8446744073709551616, !dbg !129",
+				"%add10.i = add i64 %h.1.i, %conv2.i27.i, !dbg !130",
+				"%sub11.i = add i64 %add10.i, %inc8.i, !dbg !131",
+				"%sub12.i = sub i64 %sub11.i, %sub4.i, !dbg !132",
+				"%and13.i = and i64 %sub11.i, -8446744073709551616, !dbg !133",
+				"%add14.i = add i64 %and13.i, %add5.i, !dbg !134",
+				"store i64 %add14.i, ptr %arrayidx2, align 8, !dbg !135, !tbaa !62",
+				"%inc3 = add nuw i64 %i.015, 1, !dbg !136",
+				"%exitcond.not = icmp eq i64 %inc3, %n, !dbg !58",
+				"br i1 %exitcond.not, label %for.end, label %for.body, !dbg !61, !llvm.loop !137"
+			]
+		},
+		{
+			"function": "_mpd_shortmul",
+			"id": 67,
+			"name": "for.end",
+			"debug": [
+				{
+					"line": 233, "columns": [5, 10]
+				},
+				{
+					"line": 234, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%carry.0.lcssa = phi i64 [ 0, %entry ], [ %sub12.i, %for.body ], !dbg !57",
+				"%arrayidx4 = getelementptr i64, ptr %w, i64 %n, !dbg !140",
+				"store i64 %carry.0.lcssa, ptr %arrayidx4, align 8, !dbg !141, !tbaa !62",
+				"ret void, !dbg !142"
+			]
+		},
+		{
+			"function": "_mpd_basemul",
+			"id": 68,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 251, "columns": [17, 5]
+				}
+			],
+			"successors": [74, 69],
+			"ir": [
+				"%cmp46.not = icmp eq i64 %n, 0, !dbg !60",
+				"br i1 %cmp46.not, label %for.end22, label %for.cond1.preheader.lr.ph, !dbg !63"
+			]
+		},
+		{
+			"function": "_mpd_basemul",
+			"id": 69,
+			"name": "for.cond1.preheader.lr.ph",
+			"debug": [
+				{
+					"line": 253, "columns": [9]
+				}
+			],
+			"successors": [70, 71],
+			"ir": [
+				"%cmp243.not = icmp eq i64 %m, 0",
+				"%0 = load i64, ptr @mprime_rdx, align 8",
+				"%conv.i.i = zext i64 %0 to i128",
+				"br i1 %cmp243.not, label %for.cond1.preheader.preheader, label %for.cond1.preheader.us, !dbg !64"
+			]
+		},
+		{
+			"function": "_mpd_basemul",
+			"id": 70,
+			"name": "for.cond1.preheader.preheader",
+			"debug": [
+				{
+					"line": 251, "columns": [5]
+				},
+				{
+					"line": 263, "columns": [16]
+				},
+				{
+					"line": 265, "columns": [1]
+				}
+			],
+			"successors": [74],
+			"ir": [
+				"%1 = shl nuw i64 %n, 3, !dbg !63",
+				"tail call void @llvm.memset.p0.i64(ptr align 8 %w, i8 0, i64 %1, i1 false), !dbg !67, !tbaa !68",
+				"br label %for.end22, !dbg !72"
+			]
+		},
+		{
+			"function": "_mpd_basemul",
+			"id": 71,
+			"name": "for.cond1.preheader.us",
+			"debug": [
+				{
+					"line": 253, "columns": [9]
+				}
+			],
+			"successors": [72],
+			"ir": [
+				"%j.047.us = phi i64 [ %inc21.us, %for.cond1.for.end_crit_edge.us ], [ 0, %for.cond1.preheader.lr.ph ]",
+				"%arrayidx4.us = getelementptr i64, ptr %v, i64 %j.047.us",
+				"br label %for.body3.us, !dbg !64"
+			]
+		},
+		{
+			"function": "_mpd_basemul",
+			"id": 72,
+			"name": "for.body3.us",
+			"debug": [
+				{
+					"line": 56, "columns": [10, 27, 25]
+				},
+				{
+					"line": 58, "columns": [14, 11]
+				},
+				{
+					"line": 59, "columns": [11]
+				},
+				{
+					"line": 104, "columns": [14]
+				},
+				{
+					"line": 106, "columns": [26, 16]
+				},
+				{
+					"line": 109, "columns": [42]
+				},
+				{
+					"line": 111, "columns": [11, 9]
+				},
+				{
+					"line": 112, "columns": [11]
+				},
+				{
+					"line": 118, "columns": [22]
+				},
+				{
+					"line": 122, "columns": [11]
+				},
+				{
+					"line": 123, "columns": [11, 9]
+				},
+				{
+					"line": 124, "columns": [7]
+				},
+				{
+					"line": 125, "columns": [7]
+				},
+				{
+					"line": 137, "columns": [13]
+				},
+				{
+					"line": 138, "columns": [25, 12, 8]
+				},
+				{
+					"line": 253, "columns": [27, 21, 9]
+				},
+				{
+					"line": 255, "columns": [38, 44]
+				},
+				{
+					"line": 256, "columns": [21, 18, 25]
+				},
+				{
+					"line": 257, "columns": [20, 17]
+				},
+				{
+					"line": 258, "columns": [24]
+				},
+				{
+					"line": 259, "columns": [20, 17]
+				}
+			],
+			"successors": [73, 72],
+			"ir": [
+				"%i.045.us = phi i64 [ 0, %for.cond1.preheader.us ], [ %inc17.us, %for.body3.us ]",
+				"%carry.044.us = phi i64 [ 0, %for.cond1.preheader.us ], [ %sub12.i.us, %for.body3.us ]",
+				"%arrayidx.us = getelementptr i64, ptr %u, i64 %i.045.us, !dbg !73",
+				"%2 = load i64, ptr %arrayidx.us, align 8, !dbg !73, !tbaa !68",
+				"%3 = load i64, ptr %arrayidx4.us, align 8, !dbg !76, !tbaa !68",
+				"%conv.i.us = zext i64 %2 to i128, !dbg !88",
+				"%conv1.i.us = zext i64 %3 to i128, !dbg !89",
+				"%mul.i.us = mul nuw i128 %conv1.i.us, %conv.i.us, !dbg !90",
+				"%shr.i.us = lshr i128 %mul.i.us, 64, !dbg !91",
+				"%conv2.i.us = trunc i128 %shr.i.us to i64, !dbg !92",
+				"%conv3.i.us = trunc i128 %mul.i.us to i64, !dbg !93",
+				"%add.us = add i64 %i.045.us, %j.047.us, !dbg !94",
+				"%arrayidx5.us = getelementptr i64, ptr %w, i64 %add.us, !dbg !95",
+				"%4 = load i64, ptr %arrayidx5.us, align 8, !dbg !95, !tbaa !68",
+				"%add6.us = add i64 %4, %conv3.i.us, !dbg !96",
+				"%cmp9.us = icmp ult i64 %add6.us, %4, !dbg !97",
+				"%inc.us = zext i1 %cmp9.us to i64, !dbg !99",
+				"%spec.select.us = add nuw i64 %inc.us, %conv2.i.us, !dbg !99",
+				"%add10.us = add i64 %add6.us, %carry.044.us, !dbg !100",
+				"%cmp11.us = icmp ult i64 %add10.us, %carry.044.us, !dbg !101",
+				"%inc13.us = zext i1 %cmp11.us to i64, !dbg !103",
+				"%hi.1.us = add i64 %spec.select.us, %inc13.us, !dbg !103",
+				"%lo.lobit.i.us = ashr i64 %add10.us, 63, !dbg !118",
+				"%and1.i.us = and i64 %lo.lobit.i.us, -8446744073709551616, !dbg !119",
+				"%add.i.us = add i64 %and1.i.us, %add10.us, !dbg !120",
+				"%sub.i.us = sub i64 %hi.1.us, %lo.lobit.i.us, !dbg !121",
+				"%conv1.i.i.us = zext i64 %sub.i.us to i128, !dbg !124",
+				"%mul.i.i.us = mul nuw i128 %conv1.i.i.us, %conv.i.i, !dbg !125",
+				"%shr.i.i.us = lshr i128 %mul.i.i.us, 64, !dbg !126",
+				"%conv2.i.i.us = trunc i128 %shr.i.i.us to i64, !dbg !127",
+				"%conv3.i.i.us = trunc i128 %mul.i.i.us to i64, !dbg !128",
+				"%5 = xor i64 %add.i.us, -1, !dbg !129",
+				"%cmp.i.us = icmp ult i64 %5, %conv3.i.i.us, !dbg !129",
+				"%inc.i.us = zext i1 %cmp.i.us to i64, !dbg !131",
+				"%spec.select.i.us = add i64 %hi.1.us, %conv2.i.i.us, !dbg !131",
+				"%add3.i.us = add i64 %spec.select.i.us, %inc.i.us, !dbg !132",
+				"%sub4.i.us = xor i64 %add3.i.us, -1, !dbg !133",
+				"%conv.i24.i.us = zext i64 %sub4.i.us to i128, !dbg !136",
+				"%mul.i25.i.us = mul nuw i128 %conv.i24.i.us, 10000000000000000000, !dbg !137",
+				"%shr.i26.i.us = lshr i128 %mul.i25.i.us, 64, !dbg !138",
+				"%conv2.i27.i.us = trunc i128 %shr.i26.i.us to i64, !dbg !139",
+				"%conv3.i28.i.us = trunc i128 %mul.i25.i.us to i64, !dbg !140",
+				"%add5.i.us = add i64 %add10.us, %conv3.i28.i.us, !dbg !141",
+				"%cmp6.i.us = icmp ult i64 %add5.i.us, %add10.us, !dbg !142",
+				"%inc8.i.us = zext i1 %cmp6.i.us to i64, !dbg !144",
+				"%h.1.i.us = add i64 %hi.1.us, 8446744073709551616, !dbg !144",
+				"%add10.i.us = add i64 %h.1.i.us, %conv2.i27.i.us, !dbg !145",
+				"%sub11.i.us = add i64 %add10.i.us, %inc8.i.us, !dbg !146",
+				"%sub12.i.us = sub i64 %sub11.i.us, %sub4.i.us, !dbg !147",
+				"%and13.i.us = and i64 %sub11.i.us, -8446744073709551616, !dbg !148",
+				"%add14.i.us = add i64 %and13.i.us, %add5.i.us, !dbg !149",
+				"store i64 %add14.i.us, ptr %arrayidx5.us, align 8, !dbg !150, !tbaa !68",
+				"%inc17.us = add nuw i64 %i.045.us, 1, !dbg !151",
+				"%exitcond.not = icmp eq i64 %inc17.us, %m, !dbg !152",
+				"br i1 %exitcond.not, label %for.cond1.for.end_crit_edge.us, label %for.body3.us, !dbg !64, !llvm.loop !153"
+			]
+		},
+		{
+			"function": "_mpd_basemul",
+			"id": 73,
+			"name": "for.cond1.for.end_crit_edge.us",
+			"debug": [
+				{
+					"line": 251, "columns": [23, 17, 5]
+				},
+				{
+					"line": 263, "columns": [12, 9, 16]
+				}
+			],
+			"successors": [74, 71],
+			"ir": [
+				"%add18.us = add i64 %j.047.us, %m, !dbg !156",
+				"%arrayidx19.us = getelementptr i64, ptr %w, i64 %add18.us, !dbg !157",
+				"store i64 %sub12.i.us, ptr %arrayidx19.us, align 8, !dbg !67, !tbaa !68",
+				"%inc21.us = add nuw i64 %j.047.us, 1, !dbg !158",
+				"%exitcond49.not = icmp eq i64 %inc21.us, %n, !dbg !60",
+				"br i1 %exitcond49.not, label %for.end22, label %for.cond1.preheader.us, !dbg !63, !llvm.loop !159"
+			]
+		},
+		{
+			"function": "_mpd_basemul",
+			"id": 74,
+			"name": "for.end22",
+			"debug": [
+				{
+					"line": 265, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !72"
+			]
+		},
+		{
+			"function": "_mpd_shortdiv",
+			"id": 75,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 280, "columns": [19, 5]
+				}
+			],
+			"successors": [78, 76],
+			"ir": [
+				"%cmp.not15 = icmp eq i64 %n, 0, !dbg !58",
+				"br i1 %cmp.not15, label %for.end, label %for.body.lr.ph, !dbg !61"
+			]
+		},
+		{
+			"function": "_mpd_shortdiv",
+			"id": 76,
+			"name": "for.body.lr.ph",
+			"debug": [
+				{
+					"line": 280, "columns": [5]
+				}
+			],
+			"successors": [77],
+			"ir": [
+				"%conv2.i10 = zext i64 %v to i128",
+				"br label %for.body, !dbg !61"
+			]
+		},
+		{
+			"function": "_mpd_shortdiv",
+			"id": 77,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 56, "columns": [10, 25]
+				},
+				{
+					"line": 58, "columns": [14, 11]
+				},
+				{
+					"line": 59, "columns": [11]
+				},
+				{
+					"line": 68, "columns": [11, 26, 34, 32]
+				},
+				{
+					"line": 69, "columns": [26, 10, 8]
+				},
+				{
+					"line": 70, "columns": [10]
+				},
+				{
+					"line": 280, "columns": [0, 19, 5]
+				},
+				{
+					"line": 283, "columns": [14, 19]
+				},
+				{
+					"line": 284, "columns": [16, 13]
+				},
+				{
+					"line": 286, "columns": [25]
+				}
+			],
+			"successors": [78, 77],
+			"ir": [
+				"%i.0.in17 = phi i64 [ %n, %for.body.lr.ph ], [ %i.0, %for.body ]",
+				"%rem.016 = phi i64 [ 0, %for.body.lr.ph ], [ %conv6.i, %for.body ]",
+				"%i.0 = add i64 %i.0.in17, -1, !dbg !62",
+				"%conv.i = zext i64 %rem.016 to i128, !dbg !75",
+				"%mul.i = mul nuw i128 %conv.i, 10000000000000000000, !dbg !76",
+				"%shr.i = lshr i128 %mul.i, 64, !dbg !77",
+				"%conv2.i = trunc i128 %shr.i to i64, !dbg !78",
+				"%conv3.i = trunc i128 %mul.i to i64, !dbg !79",
+				"%arrayidx = getelementptr i64, ptr %u, i64 %i.0, !dbg !80",
+				"%0 = load i64, ptr %arrayidx, align 8, !dbg !80, !tbaa !81",
+				"%add = add i64 %0, %conv3.i, !dbg !85",
+				"%cmp2 = icmp ult i64 %add, %0, !dbg !86",
+				"%inc = zext i1 %cmp2 to i64, !dbg !88",
+				"%spec.select = add nuw i64 %inc, %conv2.i, !dbg !88",
+				"%arrayidx3 = getelementptr i64, ptr %w, i64 %i.0, !dbg !89",
+				"%conv.i9 = zext i64 %spec.select to i128, !dbg !102",
+				"%shl.i = shl nuw i128 %conv.i9, 64, !dbg !103",
+				"%conv1.i = zext i64 %add to i128, !dbg !104",
+				"%add.i = or i128 %shl.i, %conv1.i, !dbg !105",
+				"%div.i = udiv i128 %add.i, %conv2.i10, !dbg !106",
+				"%conv3.i11 = trunc i128 %div.i to i64, !dbg !107",
+				"store i64 %conv3.i11, ptr %arrayidx3, align 8, !dbg !108, !tbaa !81",
+				"%1 = mul i64 %conv3.i11, %v, !dbg !109",
+				"%conv6.i = sub i64 %add, %1, !dbg !109",
+				"%cmp.not = icmp eq i64 %i.0, 0, !dbg !58",
+				"br i1 %cmp.not, label %for.end, label %for.body, !dbg !61, !llvm.loop !110"
+			]
+		},
+		{
+			"function": "_mpd_shortdiv",
+			"id": 78,
+			"name": "for.end",
+			"debug": [
+				{
+					"line": 289, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%rem.0.lcssa = phi i64 [ 0, %entry ], [ %conv6.i, %for.body ], !dbg !57",
+				"ret i64 %rem.0.lcssa, !dbg !113"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 79,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 307, "columns": [5, 16]
+				},
+				{
+					"line": 308, "columns": [5, 16]
+				},
+				{
+					"line": 605, "columns": [11, 9]
+				}
+			],
+			"successors": [80, 81],
+			"ir": [
+				"%ustatic = alloca [64 x i64], align 16",
+				"%vstatic = alloca [64 x i64], align 16",
+				"call void @llvm.lifetime.start.p0(i64 512, ptr nonnull %ustatic) #12, !dbg !79",
+				"call void @llvm.lifetime.start.p0(i64 512, ptr nonnull %vstatic) #12, !dbg !81",
+				"%cmp.i = icmp ult i64 %nplusm, %n, !dbg !91",
+				"br i1 %cmp.i, label %do.body.i, label %sub_size_t.exit, !dbg !93"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 80,
+			"name": "do.body.i",
+			"debug": [
+				{
+					"line": 606, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = load ptr, ptr @stderr, align 8, !dbg !94, !tbaa !97",
+				"%call.i = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str, ptr noundef nonnull @.str.1, i32 noundef 606) #13, !dbg !94",
+				"%1 = load ptr, ptr @stderr, align 8, !dbg !94, !tbaa !97",
+				"%2 = tail call i64 @fwrite(ptr nonnull @.str.2, i64 41, i64 1, ptr %1) #13, !dbg !94",
+				"%3 = load ptr, ptr @stderr, align 8, !dbg !94, !tbaa !97",
+				"%call2.i = tail call i32 @fputc(i32 noundef 10, ptr noundef %3), !dbg !94",
+				"tail call void @abort() #14, !dbg !94",
+				"unreachable, !dbg !94"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 81,
+			"name": "sub_size_t.exit",
+			"debug": [
+				{
+					"line": 321, "columns": [30, 22, 34, 19]
+				},
+				{
+					"line": 323, "columns": [16, 9]
+				},
+				{
+					"line": 608, "columns": [14]
+				}
+			],
+			"successors": [82, 83],
+			"ir": [
+				"%sub.i = sub i64 %nplusm, %n, !dbg !101",
+				"%sub = add i64 %n, -1, !dbg !102",
+				"%arrayidx = getelementptr i64, ptr %vconst, i64 %sub, !dbg !103",
+				"%4 = load i64, ptr %arrayidx, align 8, !dbg !103, !tbaa !104",
+				"%add = add i64 %4, 1, !dbg !106",
+				"%div = udiv i64 -8446744073709551616, %add, !dbg !107",
+				"%cmp = icmp ugt i64 %nplusm, 63, !dbg !108",
+				"br i1 %cmp, label %if.then, label %if.end7, !dbg !110"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 82,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 324, "columns": [34, 18, 50, 13]
+				}
+			],
+			"successors": [122, 83],
+			"ir": [
+				"%add3 = add i64 %nplusm, 1, !dbg !111",
+				"%call4 = tail call ptr @mpd_alloc(i64 noundef %add3, i64 noundef 8) #12, !dbg !114",
+				"%cmp5 = icmp eq ptr %call4, null, !dbg !115",
+				"br i1 %cmp5, label %cleanup, label %if.end7, !dbg !116"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 83,
+			"name": "if.end7",
+			"debug": [
+				{
+					"line": 328, "columns": [11, 9]
+				}
+			],
+			"successors": [84, 86],
+			"ir": [
+				"%u.0 = phi ptr [ %call4, %if.then ], [ %ustatic, %sub_size_t.exit ], !dbg !78",
+				"%cmp8 = icmp ugt i64 %n, 63, !dbg !117",
+				"br i1 %cmp8, label %if.then9, label %if.end15, !dbg !119"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 84,
+			"name": "if.then9",
+			"debug": [
+				{
+					"line": 329, "columns": [29, 18, 45, 13]
+				}
+			],
+			"successors": [85, 86],
+			"ir": [
+				"%add10 = add i64 %n, 1, !dbg !120",
+				"%call11 = tail call ptr @mpd_alloc(i64 noundef %add10, i64 noundef 8) #12, !dbg !123",
+				"%cmp12 = icmp eq ptr %call11, null, !dbg !124",
+				"br i1 %cmp12, label %if.then13, label %if.end15, !dbg !125"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 85,
+			"name": "if.then13",
+			"debug": [
+				{
+					"line": 330, "columns": [13]
+				},
+				{
+					"line": 331, "columns": [13]
+				}
+			],
+			"successors": [122],
+			"ir": [
+				"%5 = load ptr, ptr @mpd_free, align 8, !dbg !126, !tbaa !97",
+				"call void %5(ptr noundef nonnull %u.0) #12, !dbg !126",
+				"br label %cleanup, !dbg !128"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 86,
+			"name": "if.end15",
+			"debug": [
+				{
+					"line": 225, "columns": [17, 5]
+				}
+			],
+			"successors": [89, 87],
+			"ir": [
+				"%v.0 = phi ptr [ %call11, %if.then9 ], [ %vstatic, %if.end7 ], !dbg !78",
+				"%cmp13.not.i = icmp eq i64 %nplusm, 0, !dbg !143",
+				"br i1 %cmp13.not.i, label %_mpd_shortmul.exit, label %for.body.lr.ph.i, !dbg !146"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 87,
+			"name": "for.body.lr.ph.i",
+			"debug": [
+				{
+					"line": 225, "columns": [5]
+				}
+			],
+			"successors": [88],
+			"ir": [
+				"%conv1.i.i = zext i64 %div to i128",
+				"%6 = load i64, ptr @mprime_rdx, align 8, !tbaa !104",
+				"%conv.i.i.i = zext i64 %6 to i128",
+				"br label %for.body.i, !dbg !146"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 88,
+			"name": "for.body.i",
+			"debug": [
+				{
+					"line": 56, "columns": [10, 25, 27]
+				},
+				{
+					"line": 58, "columns": [14, 11]
+				},
+				{
+					"line": 59, "columns": [11]
+				},
+				{
+					"line": 104, "columns": [14]
+				},
+				{
+					"line": 106, "columns": [26, 16]
+				},
+				{
+					"line": 109, "columns": [42]
+				},
+				{
+					"line": 111, "columns": [11, 9]
+				},
+				{
+					"line": 112, "columns": [11]
+				},
+				{
+					"line": 118, "columns": [22]
+				},
+				{
+					"line": 122, "columns": [11]
+				},
+				{
+					"line": 123, "columns": [11, 9]
+				},
+				{
+					"line": 124, "columns": [7]
+				},
+				{
+					"line": 125, "columns": [7]
+				},
+				{
+					"line": 137, "columns": [13]
+				},
+				{
+					"line": 138, "columns": [25, 12, 8]
+				},
+				{
+					"line": 225, "columns": [23, 17, 5]
+				},
+				{
+					"line": 227, "columns": [34]
+				},
+				{
+					"line": 228, "columns": [20]
+				},
+				{
+					"line": 229, "columns": [16, 13]
+				},
+				{
+					"line": 231, "columns": [35]
+				}
+			],
+			"successors": [89, 88],
+			"ir": [
+				"%i.015.i = phi i64 [ 0, %for.body.lr.ph.i ], [ %inc3.i, %for.body.i ]",
+				"%carry.014.i = phi i64 [ 0, %for.body.lr.ph.i ], [ %sub12.i.i, %for.body.i ]",
+				"%arrayidx.i = getelementptr i64, ptr %uconst, i64 %i.015.i, !dbg !147",
+				"%7 = load i64, ptr %arrayidx.i, align 8, !dbg !147, !tbaa !104",
+				"%conv.i.i = zext i64 %7 to i128, !dbg !160",
+				"%mul.i.i = mul nuw i128 %conv.i.i, %conv1.i.i, !dbg !161",
+				"%shr.i.i = lshr i128 %mul.i.i, 64, !dbg !162",
+				"%conv2.i.i = trunc i128 %shr.i.i to i64, !dbg !163",
+				"%conv3.i.i = trunc i128 %mul.i.i to i64, !dbg !164",
+				"%add.i = add i64 %carry.014.i, %conv3.i.i, !dbg !165",
+				"%cmp1.i = icmp ult i64 %add.i, %carry.014.i, !dbg !166",
+				"%inc.i = zext i1 %cmp1.i to i64, !dbg !168",
+				"%spec.select.i = add nuw i64 %inc.i, %conv2.i.i, !dbg !168",
+				"%arrayidx2.i = getelementptr i64, ptr %u.0, i64 %i.015.i, !dbg !169",
+				"%lo.lobit.i.i = ashr i64 %add.i, 63, !dbg !184",
+				"%and1.i.i = and i64 %lo.lobit.i.i, -8446744073709551616, !dbg !185",
+				"%add.i.i = add i64 %and1.i.i, %add.i, !dbg !186",
+				"%sub.i.i = sub i64 %spec.select.i, %lo.lobit.i.i, !dbg !187",
+				"%conv1.i.i.i = zext i64 %sub.i.i to i128, !dbg !190",
+				"%mul.i.i.i = mul nuw i128 %conv1.i.i.i, %conv.i.i.i, !dbg !191",
+				"%shr.i.i.i = lshr i128 %mul.i.i.i, 64, !dbg !192",
+				"%conv2.i.i.i = trunc i128 %shr.i.i.i to i64, !dbg !193",
+				"%conv3.i.i.i = trunc i128 %mul.i.i.i to i64, !dbg !194",
+				"%8 = xor i64 %add.i.i, -1, !dbg !195",
+				"%cmp.i.i = icmp ult i64 %8, %conv3.i.i.i, !dbg !195",
+				"%inc.i.i = zext i1 %cmp.i.i to i64, !dbg !197",
+				"%spec.select.i.i = add i64 %spec.select.i, %conv2.i.i.i, !dbg !197",
+				"%add3.i.i = add i64 %spec.select.i.i, %inc.i.i, !dbg !198",
+				"%sub4.i.i = xor i64 %add3.i.i, -1, !dbg !199",
+				"%conv.i24.i.i = zext i64 %sub4.i.i to i128, !dbg !202",
+				"%mul.i25.i.i = mul nuw i128 %conv.i24.i.i, 10000000000000000000, !dbg !203",
+				"%shr.i26.i.i = lshr i128 %mul.i25.i.i, 64, !dbg !204",
+				"%conv2.i27.i.i = trunc i128 %shr.i26.i.i to i64, !dbg !205",
+				"%conv3.i28.i.i = trunc i128 %mul.i25.i.i to i64, !dbg !206",
+				"%add5.i.i = add i64 %add.i, %conv3.i28.i.i, !dbg !207",
+				"%cmp6.i.i = icmp ult i64 %add5.i.i, %add.i, !dbg !208",
+				"%inc8.i.i = zext i1 %cmp6.i.i to i64, !dbg !210",
+				"%h.1.i.i = add i64 %spec.select.i, 8446744073709551616, !dbg !210",
+				"%add10.i.i = add i64 %h.1.i.i, %conv2.i27.i.i, !dbg !211",
+				"%sub11.i.i = add i64 %add10.i.i, %inc8.i.i, !dbg !212",
+				"%sub12.i.i = sub i64 %sub11.i.i, %sub4.i.i, !dbg !213",
+				"%and13.i.i = and i64 %sub11.i.i, -8446744073709551616, !dbg !214",
+				"%add14.i.i = add i64 %and13.i.i, %add5.i.i, !dbg !215",
+				"store i64 %add14.i.i, ptr %arrayidx2.i, align 8, !dbg !216, !tbaa !104",
+				"%inc3.i = add nuw i64 %i.015.i, 1, !dbg !217",
+				"%exitcond.not.i = icmp eq i64 %inc3.i, %nplusm, !dbg !143",
+				"br i1 %exitcond.not.i, label %_mpd_shortmul.exit, label %for.body.i, !dbg !146, !llvm.loop !218"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 89,
+			"name": "_mpd_shortmul.exit",
+			"debug": [
+				{
+					"line": 225, "columns": [17, 5]
+				},
+				{
+					"line": 233, "columns": [5, 10]
+				}
+			],
+			"successors": [92, 90],
+			"ir": [
+				"%carry.0.lcssa.i = phi i64 [ 0, %if.end15 ], [ %sub12.i.i, %for.body.i ], !dbg !141",
+				"%arrayidx4.i = getelementptr i64, ptr %u.0, i64 %nplusm, !dbg !221",
+				"store i64 %carry.0.lcssa.i, ptr %arrayidx4.i, align 8, !dbg !222, !tbaa !104",
+				"%cmp13.not.i192 = icmp eq i64 %n, 0, !dbg !225",
+				"br i1 %cmp13.not.i192, label %_mpd_shortmul.exit242, label %for.body.lr.ph.i195, !dbg !226"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 90,
+			"name": "for.body.lr.ph.i195",
+			"debug": [
+				{
+					"line": 225, "columns": [5]
+				}
+			],
+			"successors": [91],
+			"ir": [
+				"%conv1.i.i193 = zext i64 %div to i128",
+				"%9 = load i64, ptr @mprime_rdx, align 8, !tbaa !104",
+				"%conv.i.i.i194 = zext i64 %9 to i128",
+				"br label %for.body.i239, !dbg !226"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 91,
+			"name": "for.body.i239",
+			"debug": [
+				{
+					"line": 56, "columns": [10, 25, 27]
+				},
+				{
+					"line": 58, "columns": [14, 11]
+				},
+				{
+					"line": 59, "columns": [11]
+				},
+				{
+					"line": 104, "columns": [14]
+				},
+				{
+					"line": 106, "columns": [26, 16]
+				},
+				{
+					"line": 109, "columns": [42]
+				},
+				{
+					"line": 111, "columns": [11, 9]
+				},
+				{
+					"line": 112, "columns": [11]
+				},
+				{
+					"line": 118, "columns": [22]
+				},
+				{
+					"line": 122, "columns": [11]
+				},
+				{
+					"line": 123, "columns": [11, 9]
+				},
+				{
+					"line": 124, "columns": [7]
+				},
+				{
+					"line": 125, "columns": [7]
+				},
+				{
+					"line": 137, "columns": [13]
+				},
+				{
+					"line": 138, "columns": [25, 12, 8]
+				},
+				{
+					"line": 225, "columns": [23, 17, 5]
+				},
+				{
+					"line": 227, "columns": [34]
+				},
+				{
+					"line": 228, "columns": [20]
+				},
+				{
+					"line": 229, "columns": [16, 13]
+				},
+				{
+					"line": 231, "columns": [35]
+				}
+			],
+			"successors": [92, 91],
+			"ir": [
+				"%i.015.i196 = phi i64 [ 0, %for.body.lr.ph.i195 ], [ %inc3.i237, %for.body.i239 ]",
+				"%carry.014.i197 = phi i64 [ 0, %for.body.lr.ph.i195 ], [ %sub12.i.i234, %for.body.i239 ]",
+				"%arrayidx.i198 = getelementptr i64, ptr %vconst, i64 %i.015.i196, !dbg !227",
+				"%10 = load i64, ptr %arrayidx.i198, align 8, !dbg !227, !tbaa !104",
+				"%conv.i.i199 = zext i64 %10 to i128, !dbg !230",
+				"%mul.i.i200 = mul nuw i128 %conv.i.i199, %conv1.i.i193, !dbg !231",
+				"%shr.i.i201 = lshr i128 %mul.i.i200, 64, !dbg !232",
+				"%conv2.i.i202 = trunc i128 %shr.i.i201 to i64, !dbg !233",
+				"%conv3.i.i203 = trunc i128 %mul.i.i200 to i64, !dbg !234",
+				"%add.i204 = add i64 %carry.014.i197, %conv3.i.i203, !dbg !235",
+				"%cmp1.i205 = icmp ult i64 %add.i204, %carry.014.i197, !dbg !236",
+				"%inc.i206 = zext i1 %cmp1.i205 to i64, !dbg !237",
+				"%spec.select.i207 = add nuw i64 %inc.i206, %conv2.i.i202, !dbg !237",
+				"%arrayidx2.i208 = getelementptr i64, ptr %v.0, i64 %i.015.i196, !dbg !238",
+				"%lo.lobit.i.i209 = ashr i64 %add.i204, 63, !dbg !241",
+				"%and1.i.i210 = and i64 %lo.lobit.i.i209, -8446744073709551616, !dbg !242",
+				"%add.i.i211 = add i64 %and1.i.i210, %add.i204, !dbg !243",
+				"%sub.i.i212 = sub i64 %spec.select.i207, %lo.lobit.i.i209, !dbg !244",
+				"%conv1.i.i.i213 = zext i64 %sub.i.i212 to i128, !dbg !247",
+				"%mul.i.i.i214 = mul nuw i128 %conv1.i.i.i213, %conv.i.i.i194, !dbg !248",
+				"%shr.i.i.i215 = lshr i128 %mul.i.i.i214, 64, !dbg !249",
+				"%conv2.i.i.i216 = trunc i128 %shr.i.i.i215 to i64, !dbg !250",
+				"%conv3.i.i.i217 = trunc i128 %mul.i.i.i214 to i64, !dbg !251",
+				"%11 = xor i64 %add.i.i211, -1, !dbg !252",
+				"%cmp.i.i218 = icmp ult i64 %11, %conv3.i.i.i217, !dbg !252",
+				"%inc.i.i219 = zext i1 %cmp.i.i218 to i64, !dbg !253",
+				"%spec.select.i.i220 = add i64 %spec.select.i207, %conv2.i.i.i216, !dbg !253",
+				"%add3.i.i221 = add i64 %spec.select.i.i220, %inc.i.i219, !dbg !254",
+				"%sub4.i.i222 = xor i64 %add3.i.i221, -1, !dbg !255",
+				"%conv.i24.i.i223 = zext i64 %sub4.i.i222 to i128, !dbg !258",
+				"%mul.i25.i.i224 = mul nuw i128 %conv.i24.i.i223, 10000000000000000000, !dbg !259",
+				"%shr.i26.i.i225 = lshr i128 %mul.i25.i.i224, 64, !dbg !260",
+				"%conv2.i27.i.i226 = trunc i128 %shr.i26.i.i225 to i64, !dbg !261",
+				"%conv3.i28.i.i227 = trunc i128 %mul.i25.i.i224 to i64, !dbg !262",
+				"%add5.i.i228 = add i64 %add.i204, %conv3.i28.i.i227, !dbg !263",
+				"%cmp6.i.i229 = icmp ult i64 %add5.i.i228, %add.i204, !dbg !264",
+				"%inc8.i.i230 = zext i1 %cmp6.i.i229 to i64, !dbg !265",
+				"%h.1.i.i231 = add i64 %spec.select.i207, 8446744073709551616, !dbg !265",
+				"%add10.i.i232 = add i64 %h.1.i.i231, %conv2.i27.i.i226, !dbg !266",
+				"%sub11.i.i233 = add i64 %add10.i.i232, %inc8.i.i230, !dbg !267",
+				"%sub12.i.i234 = sub i64 %sub11.i.i233, %sub4.i.i222, !dbg !268",
+				"%and13.i.i235 = and i64 %sub11.i.i233, -8446744073709551616, !dbg !269",
+				"%add14.i.i236 = add i64 %and13.i.i235, %add5.i.i228, !dbg !270",
+				"store i64 %add14.i.i236, ptr %arrayidx2.i208, align 8, !dbg !271, !tbaa !104",
+				"%inc3.i237 = add nuw i64 %i.015.i196, 1, !dbg !272",
+				"%exitcond.not.i238 = icmp eq i64 %inc3.i237, %n, !dbg !225",
+				"br i1 %exitcond.not.i238, label %_mpd_shortmul.exit242, label %for.body.i239, !dbg !226, !llvm.loop !273"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 92,
+			"name": "_mpd_shortmul.exit242",
+			"debug": [
+				{
+					"line": 233, "columns": [5, 10]
+				},
+				{
+					"line": 339, "columns": [17, 5]
+				}
+			],
+			"successors": [112, 93],
+			"ir": [
+				"%carry.0.lcssa.i240 = phi i64 [ 0, %_mpd_shortmul.exit ], [ %sub12.i.i234, %for.body.i239 ], !dbg !223",
+				"%arrayidx4.i241 = getelementptr i64, ptr %v.0, i64 %n, !dbg !275",
+				"store i64 %carry.0.lcssa.i240, ptr %arrayidx4.i241, align 8, !dbg !276, !tbaa !104",
+				"%cmp16.not350 = icmp eq i64 %sub.i, -1, !dbg !277",
+				"br i1 %cmp16.not350, label %for.end87, label %for.body.lr.ph, !dbg !280"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 93,
+			"name": "for.body.lr.ph",
+			"debug": [
+				{
+					"line": 339, "columns": [5]
+				}
+			],
+			"successors": [94],
+			"ir": [
+				"%arrayidx21 = getelementptr i64, ptr %v.0, i64 %sub",
+				"%add37 = add i64 %n, -2",
+				"%arrayidx30 = getelementptr i64, ptr %v.0, i64 %add37",
+				"%12 = load i64, ptr @mprime_rdx, align 8",
+				"%conv.i.i.i267 = zext i64 %12 to i128",
+				"%13 = add i64 %n, 1, !dbg !280",
+				"%umax = tail call i64 @llvm.umax.i64(i64 %13, i64 1), !dbg !280",
+				"%xtraiter = and i64 %n, 1",
+				"%14 = icmp eq i64 %sub, 0",
+				"%unroll_iter = and i64 %n, -2",
+				"%lcmp.mod.not = icmp eq i64 %xtraiter, 0",
+				"br label %for.body, !dbg !280"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 94,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 56, "columns": [10, 25]
+				},
+				{
+					"line": 58, "columns": [14, 11]
+				},
+				{
+					"line": 59, "columns": [11]
+				},
+				{
+					"line": 68, "columns": [11, 26, 34, 32]
+				},
+				{
+					"line": 69, "columns": [26, 10]
+				},
+				{
+					"line": 70, "columns": [10]
+				},
+				{
+					"line": 283, "columns": [14, 19]
+				},
+				{
+					"line": 284, "columns": [16, 13]
+				},
+				{
+					"line": 343, "columns": [35, 37, 39, 46]
+				},
+				{
+					"line": 344, "columns": [22, 34]
+				},
+				{
+					"line": 346, "columns": [9]
+				},
+				{
+					"line": 350, "columns": [56, 51]
+				}
+			],
+			"successors": [95],
+			"ir": [
+				"%j.0351 = phi i64 [ %sub.i, %for.body.lr.ph ], [ %dec, %for.inc86 ]",
+				"%add.ptr = getelementptr i64, ptr %u.0, i64 %j.0351, !dbg !281",
+				"%add.ptr18 = getelementptr i64, ptr %add.ptr, i64 %n, !dbg !283",
+				"%add.ptr19 = getelementptr i64, ptr %add.ptr18, i64 -1, !dbg !284",
+				"%15 = load i64, ptr %arrayidx21, align 8, !dbg !285, !tbaa !104",
+				"%conv2.i10.i = zext i64 %15 to i128",
+				"%16 = load i64, ptr %add.ptr18, align 8, !dbg !305, !tbaa !104",
+				"%17 = udiv i64 %16, %15, !dbg !318",
+				"%18 = mul i64 %15, %17, !dbg !319",
+				"%conv6.i.i.recomposed = urem i64 %16, %15",
+				"%conv.i.i244.1 = zext i64 %conv6.i.i.recomposed to i128, !dbg !320",
+				"%mul.i.i245.1 = mul nuw i128 %conv.i.i244.1, 10000000000000000000, !dbg !321",
+				"%shr.i.i246.1 = lshr i128 %mul.i.i245.1, 64, !dbg !322",
+				"%conv2.i.i247.1 = trunc i128 %shr.i.i246.1 to i64, !dbg !323",
+				"%conv3.i.i248.1 = trunc i128 %mul.i.i245.1 to i64, !dbg !324",
+				"%19 = load i64, ptr %add.ptr19, align 8, !dbg !305, !tbaa !104",
+				"%add.i250.1 = add i64 %19, %conv3.i.i248.1, !dbg !325",
+				"%cmp2.i.1 = icmp ult i64 %add.i250.1, %19, !dbg !326",
+				"%inc.i251.1 = zext i1 %cmp2.i.1 to i64, !dbg !328",
+				"%spec.select.i252.1 = add nuw i64 %inc.i251.1, %conv2.i.i247.1, !dbg !328",
+				"%conv.i9.i.1 = zext i64 %spec.select.i252.1 to i128, !dbg !329",
+				"%shl.i.i.1 = shl nuw i128 %conv.i9.i.1, 64, !dbg !330",
+				"%conv1.i.i253.1 = zext i64 %add.i250.1 to i128, !dbg !331",
+				"%add.i.i254.1 = or i128 %shl.i.i.1, %conv1.i.i253.1, !dbg !332",
+				"%div.i.i.1 = udiv i128 %add.i.i254.1, %conv2.i10.i, !dbg !318",
+				"%conv3.i11.i.1 = trunc i128 %div.i.i.1 to i64, !dbg !333",
+				"%20 = mul i64 %15, %conv3.i11.i.1, !dbg !319",
+				"%conv6.i.i.1 = sub i64 %add.i250.1, %20, !dbg !319",
+				"%mul = mul i64 %17, -8446744073709551616, !dbg !334",
+				"%add25 = add i64 %mul, %conv3.i11.i.1, !dbg !335",
+				"%sub38 = add i64 %add37, %j.0351, !dbg !336",
+				"%arrayidx39 = getelementptr i64, ptr %u.0, i64 %sub38, !dbg !343",
+				"br label %while.cond, !dbg !344"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 95,
+			"name": "while.cond",
+			"debug": [
+				{
+					"line": 347, "columns": [22, 17]
+				}
+			],
+			"successors": [96, 99],
+			"ir": [
+				"%qhat.0 = phi i64 [ %add25, %for.body ], [ %sub45, %if.end44 ], !dbg !345",
+				"%rhat.0 = phi i64 [ %conv6.i.i.1, %for.body ], [ %add48, %if.end44 ], !dbg !345",
+				"%cmp26 = icmp ult i64 %qhat.0, -8446744073709551616, !dbg !346",
+				"br i1 %cmp26, label %if.then27, label %if.end44, !dbg !347"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 96,
+			"name": "if.then27",
+			"debug": [
+				{
+					"line": 56, "columns": [10, 27, 25]
+				},
+				{
+					"line": 58, "columns": [14, 11]
+				},
+				{
+					"line": 59, "columns": [11]
+				},
+				{
+					"line": 104, "columns": [14]
+				},
+				{
+					"line": 106, "columns": [26, 16]
+				},
+				{
+					"line": 109, "columns": [42]
+				},
+				{
+					"line": 111, "columns": [11, 9]
+				},
+				{
+					"line": 112, "columns": [11]
+				},
+				{
+					"line": 118, "columns": [22]
+				},
+				{
+					"line": 122, "columns": [11]
+				},
+				{
+					"line": 123, "columns": [11, 9]
+				},
+				{
+					"line": 124, "columns": [7]
+				},
+				{
+					"line": 125, "columns": [7]
+				},
+				{
+					"line": 137, "columns": [13]
+				},
+				{
+					"line": 138, "columns": [25, 12]
+				},
+				{
+					"line": 348, "columns": [42]
+				},
+				{
+					"line": 349, "columns": [27, 21]
+				}
+			],
+			"successors": [99, 97],
+			"ir": [
+				"%21 = load i64, ptr %arrayidx30, align 8, !dbg !348, !tbaa !104",
+				"%conv.i.i256 = zext i64 %qhat.0 to i128, !dbg !362",
+				"%conv1.i.i257 = zext i64 %21 to i128, !dbg !363",
+				"%mul.i.i258 = mul nuw i128 %conv1.i.i257, %conv.i.i256, !dbg !364",
+				"%shr.i.i259 = lshr i128 %mul.i.i258, 64, !dbg !365",
+				"%conv2.i.i260 = trunc i128 %shr.i.i259 to i64, !dbg !366",
+				"%conv3.i.i261 = trunc i128 %mul.i.i258 to i64, !dbg !367",
+				"%lo.lobit.i.i263 = ashr i64 %conv3.i.i261, 63, !dbg !370",
+				"%and1.i.i264 = and i64 %lo.lobit.i.i263, -8446744073709551616, !dbg !371",
+				"%add.i.i265 = add i64 %and1.i.i264, %conv3.i.i261, !dbg !372",
+				"%sub.i.i266 = sub i64 %conv2.i.i260, %lo.lobit.i.i263, !dbg !373",
+				"%conv1.i.i.i268 = zext i64 %sub.i.i266 to i128, !dbg !376",
+				"%mul.i.i.i269 = mul nuw i128 %conv1.i.i.i268, %conv.i.i.i267, !dbg !377",
+				"%shr.i.i.i270 = lshr i128 %mul.i.i.i269, 64, !dbg !378",
+				"%conv2.i.i.i271 = trunc i128 %shr.i.i.i270 to i64, !dbg !379",
+				"%conv3.i.i.i272 = trunc i128 %mul.i.i.i269 to i64, !dbg !380",
+				"%22 = xor i64 %add.i.i265, -1, !dbg !381",
+				"%cmp.i.i273 = icmp ult i64 %22, %conv3.i.i.i272, !dbg !381",
+				"%inc.i.i274 = zext i1 %cmp.i.i273 to i64, !dbg !382",
+				"%spec.select.i.i275 = add i64 %conv2.i.i.i271, %conv2.i.i260, !dbg !382",
+				"%add3.i.i276 = add i64 %spec.select.i.i275, %inc.i.i274, !dbg !383",
+				"%sub4.i.i277 = xor i64 %add3.i.i276, -1, !dbg !384",
+				"%conv.i24.i.i278 = zext i64 %sub4.i.i277 to i128, !dbg !387",
+				"%mul.i25.i.i279 = mul nuw i128 %conv.i24.i.i278, 10000000000000000000, !dbg !388",
+				"%shr.i26.i.i280 = lshr i128 %mul.i25.i.i279, 64, !dbg !389",
+				"%conv2.i27.i.i281 = trunc i128 %shr.i26.i.i280 to i64, !dbg !390",
+				"%conv3.i28.i.i282 = trunc i128 %mul.i25.i.i279 to i64, !dbg !391",
+				"%add5.i.i283 = add i64 %conv3.i28.i.i282, %conv3.i.i261, !dbg !392",
+				"%cmp6.i.i284 = icmp ult i64 %add5.i.i283, %conv3.i.i261, !dbg !393",
+				"%inc8.i.i285 = zext i1 %cmp6.i.i284 to i64, !dbg !394",
+				"%h.1.i.i286 = add nuw i64 %conv2.i.i260, 8446744073709551616, !dbg !394",
+				"%add10.i.i287 = add i64 %h.1.i.i286, %conv2.i27.i.i281, !dbg !395",
+				"%sub11.i.i288 = add i64 %add10.i.i287, %inc8.i.i285, !dbg !396",
+				"%sub12.i.i289 = sub i64 %sub11.i.i288, %sub4.i.i277, !dbg !397",
+				"%and13.i.i290 = and i64 %sub11.i.i288, -8446744073709551616, !dbg !398",
+				"%add14.i.i291 = add i64 %and13.i.i290, %add5.i.i283, !dbg !399",
+				"%cmp32.not = icmp ugt i64 %sub12.i.i289, %rhat.0, !dbg !400",
+				"br i1 %cmp32.not, label %if.end44, label %if.then33, !dbg !401"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 97,
+			"name": "if.then33",
+			"debug": [
+				{
+					"line": 350, "columns": [31, 39]
+				}
+			],
+			"successors": [98, 101],
+			"ir": [
+				"%cmp35.not = icmp eq i64 %sub12.i.i289, %rhat.0, !dbg !402",
+				"br i1 %cmp35.not, label %lor.lhs.false, label %while.end, !dbg !403"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 98,
+			"name": "lor.lhs.false",
+			"debug": [
+				{
+					"line": 350, "columns": [51, 48, 25]
+				}
+			],
+			"successors": [99, 101],
+			"ir": [
+				"%23 = load i64, ptr %arrayidx39, align 8, !dbg !343, !tbaa !104",
+				"%cmp40.not = icmp ugt i64 %add14.i.i291, %23, !dbg !404",
+				"br i1 %cmp40.not, label %if.end44, label %while.end, !dbg !405"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 99,
+			"name": "if.end44",
+			"debug": [
+				{
+					"line": 355, "columns": [18]
+				},
+				{
+					"line": 356, "columns": [18]
+				},
+				{
+					"line": 357, "columns": [22, 31]
+				}
+			],
+			"successors": [100, 95],
+			"ir": [
+				"%sub45 = add i64 %qhat.0, -1, !dbg !406",
+				"%add48 = add i64 %15, %rhat.0, !dbg !407",
+				"%cmp51 = icmp ult i64 %add48, %15, !dbg !408",
+				"%cmp53 = icmp ugt i64 %add48, -8446744073709551617",
+				"%or.cond = or i1 %cmp51, %cmp53, !dbg !410",
+				"br i1 %or.cond, label %if.end44.while.end_crit_edge, label %while.cond, !dbg !410, !llvm.loop !411"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 100,
+			"name": "if.end44.while.end_crit_edge",
+			"debug": [
+				{
+					"line": 357, "columns": [31]
+				}
+			],
+			"successors": [101],
+			"ir": [
+				"%.pre = zext i64 %sub45 to i128",
+				"br label %while.end, !dbg !410"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 101,
+			"name": "while.end",
+			"debug": [
+				{
+					"line": 363, "columns": [9]
+				}
+			],
+			"successors": [102],
+			"ir": [
+				"%conv.i.pre-phi = phi i128 [ %.pre, %if.end44.while.end_crit_edge ], [ %conv.i.i256, %lor.lhs.false ], [ %conv.i.i256, %if.then33 ]",
+				"%qhat.1 = phi i64 [ %sub45, %if.end44.while.end_crit_edge ], [ %qhat.0, %lor.lhs.false ], [ %qhat.0, %if.then33 ], !dbg !345",
+				"br label %for.body58, !dbg !413"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 102,
+			"name": "for.body58",
+			"debug": [
+				{
+					"line": 56, "columns": [27, 25, 10]
+				},
+				{
+					"line": 58, "columns": [14, 11]
+				},
+				{
+					"line": 59, "columns": [11]
+				},
+				{
+					"line": 104, "columns": [14]
+				},
+				{
+					"line": 106, "columns": [26, 16]
+				},
+				{
+					"line": 109, "columns": [42]
+				},
+				{
+					"line": 111, "columns": [11, 9]
+				},
+				{
+					"line": 112, "columns": [11]
+				},
+				{
+					"line": 118, "columns": [22]
+				},
+				{
+					"line": 122, "columns": [11]
+				},
+				{
+					"line": 123, "columns": [11, 9]
+				},
+				{
+					"line": 124, "columns": [7]
+				},
+				{
+					"line": 125, "columns": [7]
+				},
+				{
+					"line": 137, "columns": [13]
+				},
+				{
+					"line": 138, "columns": [25, 12]
+				},
+				{
+					"line": 363, "columns": [28, 21, 9]
+				},
+				{
+					"line": 365, "columns": [44]
+				},
+				{
+					"line": 367, "columns": [24]
+				},
+				{
+					"line": 368, "columns": [20, 17]
+				},
+				{
+					"line": 372, "columns": [20, 17, 24]
+				},
+				{
+					"line": 373, "columns": [29]
+				},
+				{
+					"line": 374, "columns": [22, 20]
+				},
+				{
+					"line": 375, "columns": [19]
+				}
+			],
+			"successors": [103, 102],
+			"ir": [
+				"%i.0349 = phi i64 [ 0, %while.end ], [ %inc75, %for.body58 ]",
+				"%carry.0348 = phi i64 [ 0, %while.end ], [ %add74, %for.body58 ]",
+				"%arrayidx59 = getelementptr i64, ptr %v.0, i64 %i.0349, !dbg !415",
+				"%24 = load i64, ptr %arrayidx59, align 8, !dbg !415, !tbaa !104",
+				"%conv1.i = zext i64 %24 to i128, !dbg !420",
+				"%mul.i = mul nuw i128 %conv.i.pre-phi, %conv1.i, !dbg !421",
+				"%shr.i = lshr i128 %mul.i, 64, !dbg !422",
+				"%conv2.i = trunc i128 %shr.i to i64, !dbg !423",
+				"%conv3.i = trunc i128 %mul.i to i64, !dbg !424",
+				"%add60 = add i64 %carry.0348, %conv3.i, !dbg !425",
+				"%cmp61 = icmp ult i64 %add60, %carry.0348, !dbg !426",
+				"%inc = zext i1 %cmp61 to i64, !dbg !428",
+				"%spec.select = add nuw i64 %inc, %conv2.i, !dbg !428",
+				"%lo.lobit.i = ashr i64 %add60, 63, !dbg !431",
+				"%and1.i = and i64 %lo.lobit.i, -8446744073709551616, !dbg !432",
+				"%add.i292 = add i64 %and1.i, %add60, !dbg !433",
+				"%sub.i293 = sub i64 %spec.select, %lo.lobit.i, !dbg !434",
+				"%conv1.i.i295 = zext i64 %sub.i293 to i128, !dbg !437",
+				"%mul.i.i296 = mul nuw i128 %conv1.i.i295, %conv.i.i.i267, !dbg !438",
+				"%shr.i.i297 = lshr i128 %mul.i.i296, 64, !dbg !439",
+				"%conv2.i.i298 = trunc i128 %shr.i.i297 to i64, !dbg !440",
+				"%conv3.i.i299 = trunc i128 %mul.i.i296 to i64, !dbg !441",
+				"%25 = xor i64 %add.i292, -1, !dbg !442",
+				"%cmp.i300 = icmp ult i64 %25, %conv3.i.i299, !dbg !442",
+				"%inc.i301 = zext i1 %cmp.i300 to i64, !dbg !443",
+				"%spec.select.i302 = add i64 %spec.select, %conv2.i.i298, !dbg !443",
+				"%add3.i = add i64 %spec.select.i302, %inc.i301, !dbg !444",
+				"%sub4.i.neg352 = add i64 %add3.i, 1, !dbg !445",
+				"%sub4.i = xor i64 %add3.i, -1, !dbg !445",
+				"%conv.i24.i = zext i64 %sub4.i to i128, !dbg !448",
+				"%mul.i25.i = mul nuw i128 %conv.i24.i, 10000000000000000000, !dbg !449",
+				"%shr.i26.i = lshr i128 %mul.i25.i, 64, !dbg !450",
+				"%conv2.i27.i = trunc i128 %shr.i26.i to i64, !dbg !451",
+				"%conv3.i28.i = trunc i128 %mul.i25.i to i64, !dbg !452",
+				"%add5.i = add i64 %add60, %conv3.i28.i, !dbg !453",
+				"%cmp6.i = icmp ult i64 %add5.i, %add60, !dbg !454",
+				"%inc8.i = zext i1 %cmp6.i to i64, !dbg !455",
+				"%h.1.i = add i64 %spec.select, 8446744073709551616, !dbg !455",
+				"%add10.i = add i64 %h.1.i, %conv2.i27.i, !dbg !456",
+				"%sub11.i = add i64 %add10.i, %inc8.i, !dbg !457",
+				"%sub12.i = add i64 %sub11.i, %sub4.i.neg352, !dbg !458",
+				"%and13.i = and i64 %sub11.i, -8446744073709551616, !dbg !459",
+				"%add14.i = add i64 %and13.i, %add5.i, !dbg !460",
+				"%add64 = add i64 %i.0349, %j.0351, !dbg !461",
+				"%arrayidx65 = getelementptr i64, ptr %u.0, i64 %add64, !dbg !462",
+				"%26 = load i64, ptr %arrayidx65, align 8, !dbg !462, !tbaa !104",
+				"%sub66 = sub i64 %26, %add14.i, !dbg !463",
+				"%cmp69 = icmp ult i64 %26, %add14.i, !dbg !464",
+				"%conv70 = zext i1 %cmp69 to i64",
+				"%add71 = add i64 %sub66, -8446744073709551616, !dbg !465",
+				"%cond = select i1 %cmp69, i64 %add71, i64 %sub66, !dbg !465",
+				"store i64 %cond, ptr %arrayidx65, align 8, !dbg !466, !tbaa !104",
+				"%add74 = add i64 %sub12.i, %conv70, !dbg !467",
+				"%inc75 = add nuw i64 %i.0349, 1, !dbg !468",
+				"%exitcond = icmp eq i64 %inc75, %umax, !dbg !469",
+				"br i1 %exitcond, label %for.end, label %for.body58, !dbg !413, !llvm.loop !470"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 103,
+			"name": "for.end",
+			"debug": [
+				{
+					"line": 377, "columns": [9, 14]
+				},
+				{
+					"line": 379, "columns": [13]
+				}
+			],
+			"successors": [111, 104],
+			"ir": [
+				"%arrayidx76 = getelementptr i64, ptr %q, i64 %j.0351, !dbg !472",
+				"store i64 %qhat.1, ptr %arrayidx76, align 8, !dbg !473, !tbaa !104",
+				"%tobool77.not = icmp eq i64 %add74, 0, !dbg !474",
+				"br i1 %tobool77.not, label %for.inc86, label %if.then78, !dbg !476"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 104,
+			"name": "if.then78",
+			"debug": [
+				{
+					"line": 61, "columns": [5]
+				},
+				{
+					"line": 380, "columns": [18]
+				}
+			],
+			"successors": [111, 105],
+			"ir": [
+				"%sub80 = add i64 %qhat.1, -1, !dbg !477",
+				"store i64 %sub80, ptr %arrayidx76, align 8, !dbg !477, !tbaa !104",
+				"br i1 %cmp13.not.i192, label %for.inc86, label %for.body.i308.preheader, !dbg !493"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 105,
+			"name": "for.body.i308.preheader",
+			"debug": [
+				{
+					"line": 61, "columns": [5]
+				}
+			],
+			"successors": [106, 109],
+			"ir": [
+				"br i1 %14, label %for.cond9.preheader.i.unr-lcssa, label %for.body.i308, !dbg !493"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 106,
+			"name": "for.cond9.preheader.i.unr-lcssa",
+			"debug": [
+				{
+					"line": 61, "columns": [5]
+				}
+			],
+			"successors": [108, 107],
+			"ir": [
+				"%or66.i.lcssa.ph = phi i1 [ undef, %for.body.i308.preheader ], [ %or66.i.1, %for.body.i308 ]",
+				"%i.069.i.unr = phi i64 [ 0, %for.body.i308.preheader ], [ %inc.i306.1, %for.body.i308 ]",
+				"%carry.068.i.unr = phi i64 [ 0, %for.body.i308.preheader ], [ %conv7.i.1, %for.body.i308 ]",
+				"br i1 %lcmp.mod.not, label %for.cond9.preheader.i, label %for.body.i308.epil, !dbg !493"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 107,
+			"name": "for.body.i308.epil",
+			"debug": [
+				{
+					"line": 62, "columns": [13, 21, 26, 18]
+				},
+				{
+					"line": 63, "columns": [20, 33, 28]
+				},
+				{
+					"line": 64, "columns": [16, 14]
+				},
+				{
+					"line": 67, "columns": [5]
+				}
+			],
+			"successors": [108],
+			"ir": [
+				"%arrayidx.i303.epil = getelementptr i64, ptr %add.ptr, i64 %i.069.i.unr, !dbg !495",
+				"%27 = load i64, ptr %arrayidx.i303.epil, align 8, !dbg !495, !tbaa !104",
+				"%arrayidx1.i.epil = getelementptr i64, ptr %v.0, i64 %i.069.i.unr, !dbg !498",
+				"%28 = load i64, ptr %arrayidx1.i.epil, align 8, !dbg !498, !tbaa !104",
+				"%add.i304.epil = add i64 %27, %carry.068.i.unr, !dbg !499",
+				"%add2.i.epil = add i64 %add.i304.epil, %28, !dbg !500",
+				"%cmp4.i.epil = icmp ult i64 %add2.i.epil, %27, !dbg !501",
+				"%cmp5.i.epil = icmp ugt i64 %add2.i.epil, -8446744073709551617, !dbg !502",
+				"%or66.i.epil = or i1 %cmp4.i.epil, %cmp5.i.epil, !dbg !503",
+				"%sub.i305.epil = add i64 %add2.i.epil, 8446744073709551616, !dbg !504",
+				"%cond.i.epil = select i1 %or66.i.epil, i64 %sub.i305.epil, i64 %add2.i.epil, !dbg !504",
+				"store i64 %cond.i.epil, ptr %arrayidx.i303.epil, align 8, !dbg !505, !tbaa !104",
+				"br label %for.cond9.preheader.i, !dbg !506"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 108,
+			"name": "for.cond9.preheader.i",
+			"debug": [
+				{
+					"line": 63, "columns": [28]
+				},
+				{
+					"line": 67, "columns": [5]
+				}
+			],
+			"successors": [110, 111],
+			"ir": [
+				"%or66.i.lcssa = phi i1 [ %or66.i.lcssa.ph, %for.cond9.preheader.i.unr-lcssa ], [ %or66.i.epil, %for.body.i308.epil ], !dbg !503",
+				"br i1 %or66.i.lcssa, label %for.cond28.preheader.i, label %for.inc86, !dbg !506"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 109,
+			"name": "for.body.i308",
+			"debug": [
+				{
+					"line": 61, "columns": [25, 5]
+				},
+				{
+					"line": 62, "columns": [13, 21, 26, 18]
+				},
+				{
+					"line": 63, "columns": [20, 33, 28]
+				},
+				{
+					"line": 64, "columns": [16, 14]
+				}
+			],
+			"successors": [106, 109],
+			"ir": [
+				"%i.069.i = phi i64 [ %inc.i306.1, %for.body.i308 ], [ 0, %for.body.i308.preheader ]",
+				"%carry.068.i = phi i64 [ %conv7.i.1, %for.body.i308 ], [ 0, %for.body.i308.preheader ]",
+				"%niter = phi i64 [ %niter.next.1, %for.body.i308 ], [ 0, %for.body.i308.preheader ]",
+				"%arrayidx.i303 = getelementptr i64, ptr %add.ptr, i64 %i.069.i, !dbg !495",
+				"%29 = load i64, ptr %arrayidx.i303, align 8, !dbg !495, !tbaa !104",
+				"%arrayidx1.i = getelementptr i64, ptr %v.0, i64 %i.069.i, !dbg !498",
+				"%30 = load i64, ptr %arrayidx1.i, align 8, !dbg !498, !tbaa !104",
+				"%add.i304 = add i64 %29, %carry.068.i, !dbg !499",
+				"%add2.i = add i64 %add.i304, %30, !dbg !500",
+				"%cmp4.i = icmp ult i64 %add2.i, %29, !dbg !501",
+				"%cmp5.i = icmp ugt i64 %add2.i, -8446744073709551617, !dbg !502",
+				"%or66.i = or i1 %cmp4.i, %cmp5.i, !dbg !503",
+				"%conv7.i = zext i1 %or66.i to i64",
+				"%sub.i305 = add i64 %add2.i, 8446744073709551616, !dbg !504",
+				"%cond.i = select i1 %or66.i, i64 %sub.i305, i64 %add2.i, !dbg !504",
+				"store i64 %cond.i, ptr %arrayidx.i303, align 8, !dbg !505, !tbaa !104",
+				"%inc.i306 = or i64 %i.069.i, 1, !dbg !508",
+				"%arrayidx.i303.1 = getelementptr i64, ptr %add.ptr, i64 %inc.i306, !dbg !495",
+				"%31 = load i64, ptr %arrayidx.i303.1, align 8, !dbg !495, !tbaa !104",
+				"%arrayidx1.i.1 = getelementptr i64, ptr %v.0, i64 %inc.i306, !dbg !498",
+				"%32 = load i64, ptr %arrayidx1.i.1, align 8, !dbg !498, !tbaa !104",
+				"%add.i304.1 = add i64 %31, %conv7.i, !dbg !499",
+				"%add2.i.1 = add i64 %add.i304.1, %32, !dbg !500",
+				"%cmp4.i.1 = icmp ult i64 %add2.i.1, %31, !dbg !501",
+				"%cmp5.i.1 = icmp ugt i64 %add2.i.1, -8446744073709551617, !dbg !502",
+				"%or66.i.1 = or i1 %cmp4.i.1, %cmp5.i.1, !dbg !503",
+				"%conv7.i.1 = zext i1 %or66.i.1 to i64",
+				"%sub.i305.1 = add i64 %add2.i.1, 8446744073709551616, !dbg !504",
+				"%cond.i.1 = select i1 %or66.i.1, i64 %sub.i305.1, i64 %add2.i.1, !dbg !504",
+				"store i64 %cond.i.1, ptr %arrayidx.i303.1, align 8, !dbg !505, !tbaa !104",
+				"%inc.i306.1 = add nuw i64 %i.069.i, 2, !dbg !508",
+				"%niter.next.1 = add i64 %niter, 2, !dbg !493",
+				"%niter.ncmp.1 = icmp eq i64 %niter.next.1, %unroll_iter, !dbg !493",
+				"br i1 %niter.ncmp.1, label %for.cond9.preheader.i.unr-lcssa, label %for.body.i308, !dbg !493, !llvm.loop !509"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 110,
+			"name": "for.cond28.preheader.i",
+			"debug": [
+				{
+					"line": 68, "columns": [13, 18]
+				},
+				{
+					"line": 69, "columns": [20]
+				},
+				{
+					"line": 70, "columns": [16, 14]
+				},
+				{
+					"line": 73, "columns": [5]
+				}
+			],
+			"successors": [111],
+			"ir": [
+				"%33 = load i64, ptr %add.ptr18, align 8, !dbg !511, !tbaa !104",
+				"%add15.i = add i64 %33, 1, !dbg !514",
+				"%cmp16.i = icmp eq i64 %add15.i, -8446744073709551616, !dbg !515",
+				"%cond23.i = select i1 %cmp16.i, i64 0, i64 %add15.i, !dbg !516",
+				"store i64 %cond23.i, ptr %add.ptr18, align 8, !dbg !517, !tbaa !104",
+				"br label %for.inc86, !dbg !518"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 111,
+			"name": "for.inc86",
+			"debug": [
+				{
+					"line": 339, "columns": [35, 17, 5]
+				}
+			],
+			"successors": [112, 94],
+			"ir": [
+				"%dec = add i64 %j.0351, -1, !dbg !520",
+				"%cmp16.not = icmp eq i64 %j.0351, 0, !dbg !277",
+				"br i1 %cmp16.not, label %for.end87, label %for.body, !dbg !280, !llvm.loop !521"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 112,
+			"name": "for.end87",
+			"debug": [
+				{
+					"line": 387, "columns": [11, 9]
+				}
+			],
+			"successors": [116, 113],
+			"ir": [
+				"%cmp88.not = icmp eq ptr %r, null, !dbg !523",
+				"br i1 %cmp88.not, label %while.cond.i, label %if.then90, !dbg !525"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 113,
+			"name": "if.then90",
+			"debug": [
+				{
+					"line": 280, "columns": [5]
+				}
+			],
+			"successors": [118, 114],
+			"ir": [
+				"br i1 %cmp13.not.i192, label %if.end94, label %for.body.lr.ph.i310, !dbg !529"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 114,
+			"name": "for.body.lr.ph.i310",
+			"debug": [
+				{
+					"line": 280, "columns": [5]
+				}
+			],
+			"successors": [115],
+			"ir": [
+				"%conv2.i10.i309 = zext i64 %div to i128",
+				"br label %for.body.i333, !dbg !529"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 115,
+			"name": "for.body.i333",
+			"debug": [
+				{
+					"line": 56, "columns": [10, 25]
+				},
+				{
+					"line": 58, "columns": [14, 11]
+				},
+				{
+					"line": 59, "columns": [11]
+				},
+				{
+					"line": 68, "columns": [11, 26, 34, 32]
+				},
+				{
+					"line": 69, "columns": [26, 10, 8]
+				},
+				{
+					"line": 70, "columns": [10]
+				},
+				{
+					"line": 280, "columns": [0, 19, 5]
+				},
+				{
+					"line": 283, "columns": [14, 19]
+				},
+				{
+					"line": 284, "columns": [16, 13]
+				},
+				{
+					"line": 286, "columns": [25]
+				}
+			],
+			"successors": [118, 115],
+			"ir": [
+				"%i.0.in17.i311 = phi i64 [ %n, %for.body.lr.ph.i310 ], [ %i.0.i313, %for.body.i333 ]",
+				"%rem.016.i312 = phi i64 [ 0, %for.body.lr.ph.i310 ], [ %conv6.i.i331, %for.body.i333 ]",
+				"%i.0.i313 = add i64 %i.0.in17.i311, -1, !dbg !530",
+				"%conv.i.i314 = zext i64 %rem.016.i312 to i128, !dbg !533",
+				"%mul.i.i315 = mul nuw i128 %conv.i.i314, 10000000000000000000, !dbg !534",
+				"%shr.i.i316 = lshr i128 %mul.i.i315, 64, !dbg !535",
+				"%conv2.i.i317 = trunc i128 %shr.i.i316 to i64, !dbg !536",
+				"%conv3.i.i318 = trunc i128 %mul.i.i315 to i64, !dbg !537",
+				"%arrayidx.i319 = getelementptr i64, ptr %u.0, i64 %i.0.i313, !dbg !538",
+				"%34 = load i64, ptr %arrayidx.i319, align 8, !dbg !538, !tbaa !104",
+				"%add.i320 = add i64 %34, %conv3.i.i318, !dbg !539",
+				"%cmp2.i321 = icmp ult i64 %add.i320, %34, !dbg !540",
+				"%inc.i322 = zext i1 %cmp2.i321 to i64, !dbg !541",
+				"%spec.select.i323 = add nuw i64 %inc.i322, %conv2.i.i317, !dbg !541",
+				"%arrayidx3.i324 = getelementptr i64, ptr %r, i64 %i.0.i313, !dbg !542",
+				"%conv.i9.i325 = zext i64 %spec.select.i323 to i128, !dbg !545",
+				"%shl.i.i326 = shl nuw i128 %conv.i9.i325, 64, !dbg !546",
+				"%conv1.i.i327 = zext i64 %add.i320 to i128, !dbg !547",
+				"%add.i.i328 = or i128 %shl.i.i326, %conv1.i.i327, !dbg !548",
+				"%div.i.i329 = udiv i128 %add.i.i328, %conv2.i10.i309, !dbg !549",
+				"%conv3.i11.i330 = trunc i128 %div.i.i329 to i64, !dbg !550",
+				"store i64 %conv3.i11.i330, ptr %arrayidx3.i324, align 8, !dbg !551, !tbaa !104",
+				"%35 = mul i64 %div, %conv3.i11.i330, !dbg !552",
+				"%conv6.i.i331 = sub i64 %add.i320, %35, !dbg !552",
+				"%cmp.not.i332 = icmp eq i64 %i.0.i313, 0, !dbg !553",
+				"br i1 %cmp.not.i332, label %if.end94, label %for.body.i333, !dbg !529, !llvm.loop !554"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 116,
+			"name": "while.cond.i",
+			"debug": [
+				{
+					"line": 195, "columns": [12, 18, 5]
+				}
+			],
+			"successors": [117, 118],
+			"ir": [
+				"%len.addr.0.i = phi i64 [ %dec.i, %while.body.i ], [ %n, %for.end87 ]",
+				"%dec.i = add i64 %len.addr.0.i, -1, !dbg !570",
+				"%cmp.i335 = icmp sgt i64 %dec.i, -1, !dbg !571",
+				"br i1 %cmp.i335, label %while.body.i, label %if.end94, !dbg !572"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 117,
+			"name": "while.body.i",
+			"debug": [
+				{
+					"line": 196, "columns": [13, 23]
+				}
+			],
+			"successors": [116, 118],
+			"ir": [
+				"%arrayidx.i336 = getelementptr i64, ptr %u.0, i64 %dec.i, !dbg !573",
+				"%36 = load i64, ptr %arrayidx.i336, align 8, !dbg !573, !tbaa !104",
+				"%cmp1.not.i = icmp eq i64 %36, 0, !dbg !576",
+				"br i1 %cmp1.not.i, label %while.cond.i, label %if.end94, !dbg !577, !llvm.loop !578"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 118,
+			"name": "if.end94",
+			"debug": [
+				{
+					"line": 397, "columns": [7, 5]
+				}
+			],
+			"successors": [120, 119],
+			"ir": [
+				"%retval2.0 = phi i32 [ 0, %if.then90 ], [ 0, %while.cond.i ], [ 1, %while.body.i ], [ 0, %for.body.i333 ], !dbg !580",
+				"%cmp96.not = icmp eq ptr %u.0, %ustatic, !dbg !581",
+				"br i1 %cmp96.not, label %if.end99, label %if.then98, !dbg !583"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 119,
+			"name": "if.then98",
+			"debug": [
+				{
+					"line": 397, "columns": [19]
+				}
+			],
+			"successors": [120],
+			"ir": [
+				"%37 = load ptr, ptr @mpd_free, align 8, !dbg !584, !tbaa !97",
+				"call void %37(ptr noundef %u.0) #12, !dbg !584",
+				"br label %if.end99, !dbg !584"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 120,
+			"name": "if.end99",
+			"debug": [
+				{
+					"line": 398, "columns": [7, 5]
+				}
+			],
+			"successors": [122, 121],
+			"ir": [
+				"%cmp101.not = icmp eq ptr %v.0, %vstatic, !dbg !585",
+				"br i1 %cmp101.not, label %cleanup, label %if.then103, !dbg !587"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 121,
+			"name": "if.then103",
+			"debug": [
+				{
+					"line": 398, "columns": [19]
+				}
+			],
+			"successors": [122],
+			"ir": [
+				"%38 = load ptr, ptr @mpd_free, align 8, !dbg !588, !tbaa !97",
+				"call void %38(ptr noundef %v.0) #12, !dbg !588",
+				"br label %cleanup, !dbg !588"
+			]
+		},
+		{
+			"function": "_mpd_basedivmod",
+			"id": 122,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 400, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ -1, %if.then13 ], [ -1, %if.then ], [ %retval2.0, %if.then103 ], [ %retval2.0, %if.end99 ], !dbg !78",
+				"call void @llvm.lifetime.end.p0(i64 512, ptr nonnull %vstatic) #12, !dbg !589",
+				"call void @llvm.lifetime.end.p0(i64 512, ptr nonnull %ustatic) #12, !dbg !589",
+				"ret i32 %retval.0, !dbg !589"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftl",
+			"id": 123,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 434, "columns": [5]
+				},
+				{
+					"line": 443, "columns": [11, 9]
+				},
+				{
+					"line": 570, "columns": [12]
+				},
+				{
+					"line": 571, "columns": [17, 12]
+				}
+			],
+			"successors": [124, 133],
+			"ir": [
+				"%dest52 = ptrtoint ptr %dest to i64",
+				"%src51 = ptrtoint ptr %src to i64",
+				"%l = alloca i64, align 8",
+				"%lprev = alloca i64, align 8",
+				"%h = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %l) #12, !dbg !59",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %lprev) #12, !dbg !59",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %h) #12, !dbg !59",
+				"%div.i = udiv i64 %shift, 19, !dbg !70",
+				"%mul.neg.i = mul i64 %div.i, -19, !dbg !71",
+				"%sub.i = add i64 %mul.neg.i, %shift, !dbg !72",
+				"%cmp.not = icmp eq i64 %sub.i, 0, !dbg !73",
+				"br i1 %cmp.not, label %while.cond.preheader, label %if.then, !dbg !75"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftl",
+			"id": 124,
+			"name": "while.cond.preheader",
+			"debug": [
+				{
+					"line": 462, "columns": [20, 9]
+				}
+			],
+			"successors": [139, 125],
+			"ir": [
+				"%cmp17.not46 = icmp eq i64 %m, 0, !dbg !76",
+				"br i1 %cmp17.not46, label %if.end21, label %while.body.preheader, !dbg !78"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftl",
+			"id": 125,
+			"name": "while.body.preheader",
+			"debug": [
+				{
+					"line": 462, "columns": [9]
+				}
+			],
+			"successors": [130, 126],
+			"ir": [
+				"%min.iters.check = icmp ult i64 %m, 18, !dbg !78",
+				"br i1 %min.iters.check, label %while.body.preheader57, label %vector.memcheck, !dbg !78"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftl",
+			"id": 126,
+			"name": "vector.memcheck",
+			"debug": [
+				{
+					"line": 462, "columns": [9]
+				}
+			],
+			"successors": [130, 127],
+			"ir": [
+				"%0 = shl i64 %m, 3, !dbg !78",
+				"%1 = add i64 %0, %src51, !dbg !78",
+				"%2 = add i64 %div.i, %m, !dbg !78",
+				"%3 = shl i64 %2, 3, !dbg !78",
+				"%4 = add i64 %3, %dest52, !dbg !78",
+				"%5 = sub i64 %1, %4, !dbg !78",
+				"%diff.check = icmp ult i64 %5, 32, !dbg !78",
+				"br i1 %diff.check, label %while.body.preheader57, label %vector.ph, !dbg !78"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftl",
+			"id": 127,
+			"name": "vector.ph",
+			"debug": [
+				{
+					"line": 462, "columns": [9]
+				}
+			],
+			"successors": [128],
+			"ir": [
+				"%n.vec = and i64 %m, -4, !dbg !78",
+				"%ind.end = and i64 %m, 3, !dbg !78",
+				"br label %vector.body, !dbg !78"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftl",
+			"id": 128,
+			"name": "vector.body",
+			"debug": [
+				{
+					"line": 462, "columns": [16]
+				},
+				{
+					"line": 463, "columns": [25, 19, 13, 23]
+				}
+			],
+			"successors": [129, 128],
+			"ir": [
+				"%index = phi i64 [ 0, %vector.ph ], [ %index.next, %vector.body ]",
+				"%6 = xor i64 %index, -1, !dbg !79",
+				"%7 = add i64 %6, %m, !dbg !79",
+				"%8 = getelementptr i64, ptr %src, i64 %7, !dbg !80",
+				"%9 = getelementptr i64, ptr %8, i64 -1, !dbg !80",
+				"%wide.load = load <2 x i64>, ptr %9, align 8, !dbg !80, !tbaa !82",
+				"%10 = getelementptr i64, ptr %8, i64 -3, !dbg !80",
+				"%wide.load53 = load <2 x i64>, ptr %10, align 8, !dbg !80, !tbaa !82",
+				"%11 = add i64 %7, %div.i, !dbg !86",
+				"%12 = getelementptr i64, ptr %dest, i64 %11, !dbg !87",
+				"%13 = getelementptr i64, ptr %12, i64 -1, !dbg !88",
+				"store <2 x i64> %wide.load, ptr %13, align 8, !dbg !88, !tbaa !82",
+				"%14 = getelementptr i64, ptr %12, i64 -3, !dbg !88",
+				"store <2 x i64> %wide.load53, ptr %14, align 8, !dbg !88, !tbaa !82",
+				"%index.next = add nuw i64 %index, 4",
+				"%15 = icmp eq i64 %index.next, %n.vec",
+				"br i1 %15, label %middle.block, label %vector.body, !llvm.loop !89"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftl",
+			"id": 129,
+			"name": "middle.block",
+			"debug": [
+				{
+					"line": 462, "columns": [9]
+				}
+			],
+			"successors": [139, 130],
+			"ir": [
+				"%cmp.n = icmp eq i64 %n.vec, %m, !dbg !78",
+				"br i1 %cmp.n, label %if.end21, label %while.body.preheader57, !dbg !78"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftl",
+			"id": 130,
+			"name": "while.body.preheader57",
+			"debug": [
+				{
+					"line": 462, "columns": [9]
+				}
+			],
+			"successors": [132, 131],
+			"ir": [
+				"%m.addr.147.ph = phi i64 [ %m, %vector.memcheck ], [ %m, %while.body.preheader ], [ %ind.end, %middle.block ]",
+				"%16 = add i64 %m.addr.147.ph, -1, !dbg !78",
+				"%xtraiter = and i64 %m.addr.147.ph, 3, !dbg !78",
+				"%lcmp.mod.not = icmp eq i64 %xtraiter, 0, !dbg !78",
+				"br i1 %lcmp.mod.not, label %while.body.prol.loopexit, label %while.body.prol, !dbg !78"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftl",
+			"id": 131,
+			"name": "while.body.prol",
+			"debug": [
+				{
+					"line": 462, "columns": [16, 9]
+				},
+				{
+					"line": 463, "columns": [25, 19, 13, 23]
+				}
+			],
+			"successors": [132, 131],
+			"ir": [
+				"%m.addr.147.prol = phi i64 [ %dec16.prol, %while.body.prol ], [ %m.addr.147.ph, %while.body.preheader57 ]",
+				"%prol.iter = phi i64 [ %prol.iter.next, %while.body.prol ], [ 0, %while.body.preheader57 ]",
+				"%dec16.prol = add i64 %m.addr.147.prol, -1, !dbg !79",
+				"%arrayidx18.prol = getelementptr i64, ptr %src, i64 %dec16.prol, !dbg !80",
+				"%17 = load i64, ptr %arrayidx18.prol, align 8, !dbg !80, !tbaa !82",
+				"%add19.prol = add i64 %dec16.prol, %div.i, !dbg !86",
+				"%arrayidx20.prol = getelementptr i64, ptr %dest, i64 %add19.prol, !dbg !87",
+				"store i64 %17, ptr %arrayidx20.prol, align 8, !dbg !88, !tbaa !82",
+				"%prol.iter.next = add i64 %prol.iter, 1, !dbg !78",
+				"%prol.iter.cmp.not = icmp eq i64 %prol.iter.next, %xtraiter, !dbg !78",
+				"br i1 %prol.iter.cmp.not, label %while.body.prol.loopexit, label %while.body.prol, !dbg !78, !llvm.loop !94"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftl",
+			"id": 132,
+			"name": "while.body.prol.loopexit",
+			"debug": [
+				{
+					"line": 462, "columns": [9]
+				}
+			],
+			"successors": [139, 138],
+			"ir": [
+				"%m.addr.147.unr = phi i64 [ %m.addr.147.ph, %while.body.preheader57 ], [ %dec16.prol, %while.body.prol ]",
+				"%18 = icmp ult i64 %16, 3, !dbg !78",
+				"br i1 %18, label %if.end21, label %while.body, !dbg !78"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftl",
+			"id": 133,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 445, "columns": [14]
+				},
+				{
+					"line": 447, "columns": [9, 14]
+				},
+				{
+					"line": 448, "columns": [44, 39, 60, 9]
+				},
+				{
+					"line": 449, "columns": [13, 15]
+				}
+			],
+			"successors": [135, 134],
+			"ir": [
+				"%arrayidx = getelementptr [0 x i64], ptr @mpd_pow10, i64 0, i64 %sub.i, !dbg !96",
+				"%19 = load i64, ptr %arrayidx, align 8, !dbg !96, !tbaa !82",
+				"%dec = add i64 %m, -1, !dbg !98",
+				"%dec1 = add i64 %n, -1, !dbg !99",
+				"%dec2 = add i64 %m, -2, !dbg !100",
+				"%arrayidx3 = getelementptr i64, ptr %src, i64 %dec, !dbg !101",
+				"%20 = load i64, ptr %arrayidx3, align 8, !dbg !101, !tbaa !82",
+				"%sub = sub i64 19, %sub.i, !dbg !102",
+				"call fastcc void @_mpd_divmod_pow10(ptr noundef nonnull %h, ptr noundef nonnull %lprev, i64 noundef %20, i64 noundef %sub), !dbg !103",
+				"%21 = load i64, ptr %h, align 8, !dbg !104, !tbaa !82",
+				"%cmp4.not = icmp eq i64 %21, 0, !dbg !106",
+				"br i1 %cmp4.not, label %if.end, label %if.then5, !dbg !107"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftl",
+			"id": 134,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 450, "columns": [19, 13, 23]
+				},
+				{
+					"line": 451, "columns": [9]
+				}
+			],
+			"successors": [135],
+			"ir": [
+				"%dec6 = add i64 %n, -2, !dbg !108",
+				"%arrayidx7 = getelementptr i64, ptr %dest, i64 %dec1, !dbg !110",
+				"store i64 %21, ptr %arrayidx7, align 8, !dbg !111, !tbaa !82",
+				"br label %if.end, !dbg !112"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftl",
+			"id": 135,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 453, "columns": [18, 9]
+				}
+			],
+			"successors": [137, 136],
+			"ir": [
+				"%n.addr.0 = phi i64 [ %dec6, %if.then5 ], [ %dec1, %if.then ], !dbg !113",
+				"%lprev.promoted = load i64, ptr %lprev, align 8, !tbaa !82",
+				"%cmp8.not43 = icmp eq i64 %dec2, -1, !dbg !114",
+				"br i1 %cmp8.not43, label %for.end, label %for.body, !dbg !117"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftl",
+			"id": 136,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 453, "columns": [36, 40, 18, 9]
+				},
+				{
+					"line": 454, "columns": [39, 13]
+				},
+				{
+					"line": 455, "columns": [26, 36, 34, 13, 21]
+				},
+				{
+					"line": 456, "columns": [21]
+				}
+			],
+			"successors": [137, 136],
+			"ir": [
+				"%n.addr.145 = phi i64 [ %dec13, %for.body ], [ %n.addr.0, %if.end ]",
+				"%m.addr.044 = phi i64 [ %dec12, %for.body ], [ %dec2, %if.end ]",
+				"%22 = phi i64 [ %25, %for.body ], [ %lprev.promoted, %if.end ]",
+				"%arrayidx9 = getelementptr i64, ptr %src, i64 %m.addr.044, !dbg !118",
+				"%23 = load i64, ptr %arrayidx9, align 8, !dbg !118, !tbaa !82",
+				"call fastcc void @_mpd_divmod_pow10(ptr noundef nonnull %h, ptr noundef nonnull %l, i64 noundef %23, i64 noundef %sub), !dbg !120",
+				"%mul = mul i64 %22, %19, !dbg !121",
+				"%24 = load i64, ptr %h, align 8, !dbg !122, !tbaa !82",
+				"%add = add i64 %mul, %24, !dbg !123",
+				"%arrayidx11 = getelementptr i64, ptr %dest, i64 %n.addr.145, !dbg !124",
+				"store i64 %add, ptr %arrayidx11, align 8, !dbg !125, !tbaa !82",
+				"%25 = load i64, ptr %l, align 8, !dbg !126, !tbaa !82",
+				"%dec12 = add i64 %m.addr.044, -1, !dbg !127",
+				"%dec13 = add i64 %n.addr.145, -1, !dbg !128",
+				"%cmp8.not = icmp eq i64 %m.addr.044, 0, !dbg !114",
+				"br i1 %cmp8.not, label %for.end, label %for.body, !dbg !117, !llvm.loop !129"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftl",
+			"id": 137,
+			"name": "for.end",
+			"debug": [
+				{
+					"line": 459, "columns": [22, 9, 17]
+				},
+				{
+					"line": 460, "columns": [5]
+				}
+			],
+			"successors": [139],
+			"ir": [
+				"%.lcssa = phi i64 [ %lprev.promoted, %if.end ], [ %25, %for.body ]",
+				"%mul14 = mul i64 %.lcssa, %19, !dbg !131",
+				"%arrayidx15 = getelementptr i64, ptr %dest, i64 %div.i, !dbg !132",
+				"store i64 %mul14, ptr %arrayidx15, align 8, !dbg !133, !tbaa !82",
+				"br label %if.end21, !dbg !134"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftl",
+			"id": 138,
+			"name": "while.body",
+			"debug": [
+				{
+					"line": 462, "columns": [16, 20, 9]
+				},
+				{
+					"line": 463, "columns": [25, 19, 13, 23]
+				}
+			],
+			"successors": [139, 138],
+			"ir": [
+				"%m.addr.147 = phi i64 [ %dec16.3, %while.body ], [ %m.addr.147.unr, %while.body.prol.loopexit ]",
+				"%dec16 = add i64 %m.addr.147, -1, !dbg !79",
+				"%arrayidx18 = getelementptr i64, ptr %src, i64 %dec16, !dbg !80",
+				"%26 = load i64, ptr %arrayidx18, align 8, !dbg !80, !tbaa !82",
+				"%add19 = add i64 %dec16, %div.i, !dbg !86",
+				"%arrayidx20 = getelementptr i64, ptr %dest, i64 %add19, !dbg !87",
+				"store i64 %26, ptr %arrayidx20, align 8, !dbg !88, !tbaa !82",
+				"%dec16.1 = add i64 %m.addr.147, -2, !dbg !79",
+				"%arrayidx18.1 = getelementptr i64, ptr %src, i64 %dec16.1, !dbg !80",
+				"%27 = load i64, ptr %arrayidx18.1, align 8, !dbg !80, !tbaa !82",
+				"%add19.1 = add i64 %dec16.1, %div.i, !dbg !86",
+				"%arrayidx20.1 = getelementptr i64, ptr %dest, i64 %add19.1, !dbg !87",
+				"store i64 %27, ptr %arrayidx20.1, align 8, !dbg !88, !tbaa !82",
+				"%dec16.2 = add i64 %m.addr.147, -3, !dbg !79",
+				"%arrayidx18.2 = getelementptr i64, ptr %src, i64 %dec16.2, !dbg !80",
+				"%28 = load i64, ptr %arrayidx18.2, align 8, !dbg !80, !tbaa !82",
+				"%add19.2 = add i64 %dec16.2, %div.i, !dbg !86",
+				"%arrayidx20.2 = getelementptr i64, ptr %dest, i64 %add19.2, !dbg !87",
+				"store i64 %28, ptr %arrayidx20.2, align 8, !dbg !88, !tbaa !82",
+				"%dec16.3 = add i64 %m.addr.147, -4, !dbg !79",
+				"%arrayidx18.3 = getelementptr i64, ptr %src, i64 %dec16.3, !dbg !80",
+				"%29 = load i64, ptr %arrayidx18.3, align 8, !dbg !80, !tbaa !82",
+				"%add19.3 = add i64 %dec16.3, %div.i, !dbg !86",
+				"%arrayidx20.3 = getelementptr i64, ptr %dest, i64 %add19.3, !dbg !87",
+				"store i64 %29, ptr %arrayidx20.3, align 8, !dbg !88, !tbaa !82",
+				"%cmp17.not.3 = icmp eq i64 %dec16.3, 0, !dbg !76",
+				"br i1 %cmp17.not.3, label %if.end21, label %while.body, !dbg !78, !llvm.loop !135"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftl",
+			"id": 139,
+			"name": "if.end21",
+			"debug": [
+				{
+					"line": 467, "columns": [5]
+				},
+				{
+					"line": 468, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @mpd_uint_zero(ptr noundef %dest, i64 noundef %div.i) #12, !dbg !136",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %h) #12, !dbg !137",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %lprev) #12, !dbg !137",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %l) #12, !dbg !137",
+				"ret void, !dbg !137"
+			]
+		},
+		{
+			"function": "_mpd_divmod_pow10",
+			"id": 140,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 262, "columns": [13, 9]
+				}
+			],
+			"successors": [141, 154],
+			"ir": [
+				"%cmp = icmp ult i64 %exp, 10, !dbg !48",
+				"br i1 %cmp, label %if.then, label %if.else37, !dbg !50"
+			]
+		},
+		{
+			"function": "_mpd_divmod_pow10",
+			"id": 141,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 263, "columns": [17, 13]
+				}
+			],
+			"successors": [142, 148],
+			"ir": [
+				"%cmp1 = icmp ult i64 %exp, 5, !dbg !51",
+				"br i1 %cmp1, label %if.then2, label %if.else, !dbg !54"
+			]
+		},
+		{
+			"function": "_mpd_divmod_pow10",
+			"id": 142,
+			"name": "if.then2",
+			"debug": [
+				{
+					"line": 264, "columns": [13]
+				}
+			],
+			"successors": [168, 143, 144, 145, 146, 147],
+			"ir": [
+				"switch i64 %exp, label %if.end84 [\n    i64 0, label %sw.bb\n    i64 1, label %sw.bb3\n    i64 2, label %sw.bb4\n    i64 3, label %sw.bb8\n    i64 4, label %sw.bb12\n  ], !dbg !55"
+			]
+		},
+		{
+			"function": "_mpd_divmod_pow10",
+			"id": 143,
+			"name": "sw.bb",
+			"debug": [
+				{
+					"line": 265, "columns": [24, 37]
+				}
+			],
+			"successors": [167],
+			"ir": [
+				"store i64 %v, ptr %q, align 8, !dbg !57, !tbaa !59",
+				"br label %if.end84.sink.split, !dbg !63"
+			]
+		},
+		{
+			"function": "_mpd_divmod_pow10",
+			"id": 144,
+			"name": "sw.bb3",
+			"debug": [
+				{
+					"line": 266, "columns": [21, 44]
+				}
+			],
+			"successors": [167],
+			"ir": [
+				"%div = udiv i64 %v, 10, !dbg !64",
+				"store i64 %div, ptr %q, align 8, !dbg !64, !tbaa !59",
+				"%mul.neg = mul i64 %div, -10, !dbg !64",
+				"%sub = add i64 %mul.neg, %v, !dbg !64",
+				"br label %if.end84.sink.split, !dbg !65"
+			]
+		},
+		{
+			"function": "_mpd_divmod_pow10",
+			"id": 145,
+			"name": "sw.bb4",
+			"debug": [
+				{
+					"line": 267, "columns": [21, 45]
+				}
+			],
+			"successors": [167],
+			"ir": [
+				"%div5 = udiv i64 %v, 100, !dbg !66",
+				"store i64 %div5, ptr %q, align 8, !dbg !66, !tbaa !59",
+				"%mul6.neg = mul i64 %div5, -100, !dbg !66",
+				"%sub7 = add i64 %mul6.neg, %v, !dbg !66",
+				"br label %if.end84.sink.split, !dbg !67"
+			]
+		},
+		{
+			"function": "_mpd_divmod_pow10",
+			"id": 146,
+			"name": "sw.bb8",
+			"debug": [
+				{
+					"line": 268, "columns": [21, 46]
+				}
+			],
+			"successors": [167],
+			"ir": [
+				"%div9 = udiv i64 %v, 1000, !dbg !68",
+				"store i64 %div9, ptr %q, align 8, !dbg !68, !tbaa !59",
+				"%mul10.neg = mul i64 %div9, -1000, !dbg !68",
+				"%sub11 = add i64 %mul10.neg, %v, !dbg !68",
+				"br label %if.end84.sink.split, !dbg !69"
+			]
+		},
+		{
+			"function": "_mpd_divmod_pow10",
+			"id": 147,
+			"name": "sw.bb12",
+			"debug": [
+				{
+					"line": 269, "columns": [21, 47]
+				}
+			],
+			"successors": [167],
+			"ir": [
+				"%div13 = udiv i64 %v, 10000, !dbg !70",
+				"store i64 %div13, ptr %q, align 8, !dbg !70, !tbaa !59",
+				"%mul14.neg = mul i64 %div13, -10000, !dbg !70",
+				"%sub15 = add i64 %mul14.neg, %v, !dbg !70",
+				"br label %if.end84.sink.split, !dbg !71"
+			]
+		},
+		{
+			"function": "_mpd_divmod_pow10",
+			"id": 148,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 273, "columns": [13]
+				}
+			],
+			"successors": [168, 149, 150, 151, 152, 153],
+			"ir": [
+				"switch i64 %exp, label %if.end84 [\n    i64 5, label %sw.bb16\n    i64 6, label %sw.bb20\n    i64 7, label %sw.bb24\n    i64 8, label %sw.bb28\n    i64 9, label %sw.bb32\n  ], !dbg !72"
+			]
+		},
+		{
+			"function": "_mpd_divmod_pow10",
+			"id": 149,
+			"name": "sw.bb16",
+			"debug": [
+				{
+					"line": 274, "columns": [21, 48]
+				}
+			],
+			"successors": [167],
+			"ir": [
+				"%div17 = udiv i64 %v, 100000, !dbg !74",
+				"store i64 %div17, ptr %q, align 8, !dbg !74, !tbaa !59",
+				"%mul18.neg = mul i64 %div17, -100000, !dbg !74",
+				"%sub19 = add i64 %mul18.neg, %v, !dbg !74",
+				"br label %if.end84.sink.split, !dbg !76"
+			]
+		},
+		{
+			"function": "_mpd_divmod_pow10",
+			"id": 150,
+			"name": "sw.bb20",
+			"debug": [
+				{
+					"line": 275, "columns": [21, 49]
+				}
+			],
+			"successors": [167],
+			"ir": [
+				"%div21 = udiv i64 %v, 1000000, !dbg !77",
+				"store i64 %div21, ptr %q, align 8, !dbg !77, !tbaa !59",
+				"%mul22.neg = mul i64 %div21, -1000000, !dbg !77",
+				"%sub23 = add i64 %mul22.neg, %v, !dbg !77",
+				"br label %if.end84.sink.split, !dbg !78"
+			]
+		},
+		{
+			"function": "_mpd_divmod_pow10",
+			"id": 151,
+			"name": "sw.bb24",
+			"debug": [
+				{
+					"line": 276, "columns": [21, 50]
+				}
+			],
+			"successors": [167],
+			"ir": [
+				"%div25 = udiv i64 %v, 10000000, !dbg !79",
+				"store i64 %div25, ptr %q, align 8, !dbg !79, !tbaa !59",
+				"%mul26.neg = mul i64 %div25, -10000000, !dbg !79",
+				"%sub27 = add i64 %mul26.neg, %v, !dbg !79",
+				"br label %if.end84.sink.split, !dbg !80"
+			]
+		},
+		{
+			"function": "_mpd_divmod_pow10",
+			"id": 152,
+			"name": "sw.bb28",
+			"debug": [
+				{
+					"line": 277, "columns": [21, 51]
+				}
+			],
+			"successors": [167],
+			"ir": [
+				"%div29 = udiv i64 %v, 100000000, !dbg !81",
+				"store i64 %div29, ptr %q, align 8, !dbg !81, !tbaa !59",
+				"%mul30.neg = mul i64 %div29, -100000000, !dbg !81",
+				"%sub31 = add i64 %mul30.neg, %v, !dbg !81",
+				"br label %if.end84.sink.split, !dbg !82"
+			]
+		},
+		{
+			"function": "_mpd_divmod_pow10",
+			"id": 153,
+			"name": "sw.bb32",
+			"debug": [
+				{
+					"line": 278, "columns": [21, 52]
+				}
+			],
+			"successors": [167],
+			"ir": [
+				"%div33 = udiv i64 %v, 1000000000, !dbg !83",
+				"store i64 %div33, ptr %q, align 8, !dbg !83, !tbaa !59",
+				"%mul34.neg = mul i64 %div33, -1000000000, !dbg !83",
+				"%sub35 = add i64 %mul34.neg, %v, !dbg !83",
+				"br label %if.end84.sink.split, !dbg !84"
+			]
+		},
+		{
+			"function": "_mpd_divmod_pow10",
+			"id": 154,
+			"name": "if.else37",
+			"debug": [
+				{
+					"line": 283, "columns": [17, 13]
+				}
+			],
+			"successors": [155, 161],
+			"ir": [
+				"%cmp38 = icmp ult i64 %exp, 15, !dbg !85",
+				"br i1 %cmp38, label %if.then39, label %if.else61, !dbg !88"
+			]
+		},
+		{
+			"function": "_mpd_divmod_pow10",
+			"id": 155,
+			"name": "if.then39",
+			"debug": [
+				{
+					"line": 284, "columns": [13]
+				}
+			],
+			"successors": [168, 156, 157, 158, 159, 160],
+			"ir": [
+				"switch i64 %exp, label %if.end84 [\n    i64 10, label %sw.bb40\n    i64 11, label %sw.bb44\n    i64 12, label %sw.bb48\n    i64 13, label %sw.bb52\n    i64 14, label %sw.bb56\n  ], !dbg !89"
+			]
+		},
+		{
+			"function": "_mpd_divmod_pow10",
+			"id": 156,
+			"name": "sw.bb40",
+			"debug": [
+				{
+					"line": 285, "columns": [22, 55]
+				}
+			],
+			"successors": [167],
+			"ir": [
+				"%div41 = udiv i64 %v, 10000000000, !dbg !91",
+				"store i64 %div41, ptr %q, align 8, !dbg !91, !tbaa !59",
+				"%mul42.neg = mul i64 %div41, -10000000000, !dbg !91",
+				"%sub43 = add i64 %mul42.neg, %v, !dbg !91",
+				"br label %if.end84.sink.split, !dbg !93"
+			]
+		},
+		{
+			"function": "_mpd_divmod_pow10",
+			"id": 157,
+			"name": "sw.bb44",
+			"debug": [
+				{
+					"line": 286, "columns": [22, 56]
+				}
+			],
+			"successors": [167],
+			"ir": [
+				"%div45 = udiv i64 %v, 100000000000, !dbg !94",
+				"store i64 %div45, ptr %q, align 8, !dbg !94, !tbaa !59",
+				"%mul46.neg = mul i64 %div45, -100000000000, !dbg !94",
+				"%sub47 = add i64 %mul46.neg, %v, !dbg !94",
+				"br label %if.end84.sink.split, !dbg !95"
+			]
+		},
+		{
+			"function": "_mpd_divmod_pow10",
+			"id": 158,
+			"name": "sw.bb48",
+			"debug": [
+				{
+					"line": 287, "columns": [22, 57]
+				}
+			],
+			"successors": [167],
+			"ir": [
+				"%div49 = udiv i64 %v, 1000000000000, !dbg !96",
+				"store i64 %div49, ptr %q, align 8, !dbg !96, !tbaa !59",
+				"%mul50.neg = mul i64 %div49, -1000000000000, !dbg !96",
+				"%sub51 = add i64 %mul50.neg, %v, !dbg !96",
+				"br label %if.end84.sink.split, !dbg !97"
+			]
+		},
+		{
+			"function": "_mpd_divmod_pow10",
+			"id": 159,
+			"name": "sw.bb52",
+			"debug": [
+				{
+					"line": 288, "columns": [22, 58]
+				}
+			],
+			"successors": [167],
+			"ir": [
+				"%div53 = udiv i64 %v, 10000000000000, !dbg !98",
+				"store i64 %div53, ptr %q, align 8, !dbg !98, !tbaa !59",
+				"%mul54.neg = mul i64 %div53, -10000000000000, !dbg !98",
+				"%sub55 = add i64 %mul54.neg, %v, !dbg !98",
+				"br label %if.end84.sink.split, !dbg !99"
+			]
+		},
+		{
+			"function": "_mpd_divmod_pow10",
+			"id": 160,
+			"name": "sw.bb56",
+			"debug": [
+				{
+					"line": 289, "columns": [22, 59]
+				}
+			],
+			"successors": [167],
+			"ir": [
+				"%div57 = udiv i64 %v, 100000000000000, !dbg !100",
+				"store i64 %div57, ptr %q, align 8, !dbg !100, !tbaa !59",
+				"%mul58.neg = mul i64 %div57, -100000000000000, !dbg !100",
+				"%sub59 = add i64 %mul58.neg, %v, !dbg !100",
+				"br label %if.end84.sink.split, !dbg !101"
+			]
+		},
+		{
+			"function": "_mpd_divmod_pow10",
+			"id": 161,
+			"name": "if.else61",
+			"debug": [
+				{
+					"line": 293, "columns": [13]
+				}
+			],
+			"successors": [168, 162, 163, 164, 165, 166],
+			"ir": [
+				"switch i64 %exp, label %if.end84 [\n    i64 15, label %sw.bb62\n    i64 16, label %sw.bb66\n    i64 17, label %sw.bb70\n    i64 18, label %sw.bb74\n    i64 19, label %sw.bb78\n  ], !dbg !102"
+			]
+		},
+		{
+			"function": "_mpd_divmod_pow10",
+			"id": 162,
+			"name": "sw.bb62",
+			"debug": [
+				{
+					"line": 294, "columns": [22, 60]
+				}
+			],
+			"successors": [167],
+			"ir": [
+				"%div63 = udiv i64 %v, 1000000000000000, !dbg !104",
+				"store i64 %div63, ptr %q, align 8, !dbg !104, !tbaa !59",
+				"%mul64.neg = mul i64 %div63, -1000000000000000, !dbg !104",
+				"%sub65 = add i64 %mul64.neg, %v, !dbg !104",
+				"br label %if.end84.sink.split, !dbg !106"
+			]
+		},
+		{
+			"function": "_mpd_divmod_pow10",
+			"id": 163,
+			"name": "sw.bb66",
+			"debug": [
+				{
+					"line": 295, "columns": [22, 61]
+				}
+			],
+			"successors": [167],
+			"ir": [
+				"%div67 = udiv i64 %v, 10000000000000000, !dbg !107",
+				"store i64 %div67, ptr %q, align 8, !dbg !107, !tbaa !59",
+				"%mul68.neg = mul i64 %div67, -10000000000000000, !dbg !107",
+				"%sub69 = add i64 %mul68.neg, %v, !dbg !107",
+				"br label %if.end84.sink.split, !dbg !108"
+			]
+		},
+		{
+			"function": "_mpd_divmod_pow10",
+			"id": 164,
+			"name": "sw.bb70",
+			"debug": [
+				{
+					"line": 296, "columns": [22, 62]
+				}
+			],
+			"successors": [167],
+			"ir": [
+				"%div71 = udiv i64 %v, 100000000000000000, !dbg !109",
+				"store i64 %div71, ptr %q, align 8, !dbg !109, !tbaa !59",
+				"%mul72.neg = mul i64 %div71, -100000000000000000, !dbg !109",
+				"%sub73 = add i64 %mul72.neg, %v, !dbg !109",
+				"br label %if.end84.sink.split, !dbg !110"
+			]
+		},
+		{
+			"function": "_mpd_divmod_pow10",
+			"id": 165,
+			"name": "sw.bb74",
+			"debug": [
+				{
+					"line": 297, "columns": [22, 63]
+				}
+			],
+			"successors": [167],
+			"ir": [
+				"%div75 = udiv i64 %v, 1000000000000000000, !dbg !111",
+				"store i64 %div75, ptr %q, align 8, !dbg !111, !tbaa !59",
+				"%mul76.neg = mul i64 %div75, -1000000000000000000, !dbg !111",
+				"%sub77 = add i64 %mul76.neg, %v, !dbg !111",
+				"br label %if.end84.sink.split, !dbg !112"
+			]
+		},
+		{
+			"function": "_mpd_divmod_pow10",
+			"id": 166,
+			"name": "sw.bb78",
+			"debug": [
+				{
+					"line": 298, "columns": [22, 64]
+				}
+			],
+			"successors": [167],
+			"ir": [
+				"%0 = icmp ugt i64 %v, -8446744073709551617, !dbg !113",
+				"%div79 = zext i1 %0 to i64, !dbg !113",
+				"store i64 %div79, ptr %q, align 8, !dbg !113, !tbaa !59",
+				"%mul80.neg = select i1 %0, i64 8446744073709551616, i64 0, !dbg !113",
+				"%sub81 = add i64 %mul80.neg, %v, !dbg !113",
+				"br label %if.end84.sink.split, !dbg !114"
+			]
+		},
+		{
+			"function": "_mpd_divmod_pow10",
+			"id": 167,
+			"name": "if.end84.sink.split",
+			"debug": [
+				{
+					"line": 302, "columns": [1]
+				}
+			],
+			"successors": [168],
+			"ir": [
+				"%sub59.sink = phi i64 [ %sub59, %sw.bb56 ], [ %sub55, %sw.bb52 ], [ %sub51, %sw.bb48 ], [ %sub47, %sw.bb44 ], [ %sub43, %sw.bb40 ], [ %sub81, %sw.bb78 ], [ %sub77, %sw.bb74 ], [ %sub73, %sw.bb70 ], [ %sub69, %sw.bb66 ], [ %sub65, %sw.bb62 ], [ %sub15, %sw.bb12 ], [ %sub11, %sw.bb8 ], [ %sub7, %sw.bb4 ], [ %sub, %sw.bb3 ], [ 0, %sw.bb ], [ %sub35, %sw.bb32 ], [ %sub31, %sw.bb28 ], [ %sub27, %sw.bb24 ], [ %sub23, %sw.bb20 ], [ %sub19, %sw.bb16 ]",
+				"store i64 %sub59.sink, ptr %r, align 8, !dbg !115, !tbaa !59",
+				"br label %if.end84, !dbg !116"
+			]
+		},
+		{
+			"function": "_mpd_divmod_pow10",
+			"id": 168,
+			"name": "if.end84",
+			"debug": [
+				{
+					"line": 302, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !116"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftr",
+			"id": 169,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 503, "columns": [5]
+				},
+				{
+					"line": 505, "columns": [5]
+				},
+				{
+					"line": 514, "columns": [16, 9]
+				},
+				{
+					"line": 515, "columns": [11, 9]
+				},
+				{
+					"line": 570, "columns": [12]
+				},
+				{
+					"line": 571, "columns": [17, 12]
+				}
+			],
+			"successors": [178, 170],
+			"ir": [
+				"%src106 = ptrtoint ptr %src to i64",
+				"%dest105 = ptrtoint ptr %dest to i64",
+				"%l = alloca i64, align 8",
+				"%h = alloca i64, align 8",
+				"%hprev = alloca i64, align 8",
+				"%rnd = alloca i64, align 8",
+				"%rest = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %l) #12, !dbg !62",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %h) #12, !dbg !62",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %hprev) #12, !dbg !62",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %rnd) #12, !dbg !63",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %rest) #12, !dbg !63",
+				"%div.i = udiv i64 %shift, 19, !dbg !74",
+				"%mul.neg.i = mul i64 %div.i, -19, !dbg !75",
+				"%sub.i = add i64 %mul.neg.i, %shift, !dbg !76",
+				"store i64 0, ptr %rest, align 8, !dbg !77, !tbaa !78",
+				"store i64 0, ptr %rnd, align 8, !dbg !82, !tbaa !78",
+				"%cmp.not = icmp eq i64 %sub.i, 0, !dbg !83",
+				"br i1 %cmp.not, label %if.else, label %if.then, !dbg !85"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftr",
+			"id": 170,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 517, "columns": [35, 14]
+				},
+				{
+					"line": 519, "columns": [42, 9]
+				},
+				{
+					"line": 520, "columns": [40, 47, 9]
+				},
+				{
+					"line": 522, "columns": [13, 18, 23]
+				}
+			],
+			"successors": [171, 173],
+			"ir": [
+				"%sub = sub i64 19, %sub.i, !dbg !86",
+				"%arrayidx = getelementptr [0 x i64], ptr @mpd_pow10, i64 0, i64 %sub, !dbg !88",
+				"%0 = load i64, ptr %arrayidx, align 8, !dbg !88, !tbaa !78",
+				"%arrayidx1 = getelementptr i64, ptr %src, i64 %div.i, !dbg !89",
+				"%1 = load i64, ptr %arrayidx1, align 8, !dbg !89, !tbaa !78",
+				"call fastcc void @_mpd_divmod_pow10(ptr noundef nonnull %hprev, ptr noundef nonnull %rest, i64 noundef %1, i64 noundef %sub.i), !dbg !90",
+				"%2 = load i64, ptr %rest, align 8, !dbg !91, !tbaa !78",
+				"%sub2 = add i64 %sub.i, -1, !dbg !92",
+				"call fastcc void @_mpd_divmod_pow10(ptr noundef nonnull %rnd, ptr noundef nonnull %rest, i64 noundef %2, i64 noundef %sub2), !dbg !93",
+				"%3 = load i64, ptr %rest, align 8, !dbg !94, !tbaa !78",
+				"%cmp3 = icmp eq i64 %3, 0, !dbg !96",
+				"%cmp4 = icmp ugt i64 %shift, 18",
+				"%or.cond = and i1 %cmp4, %cmp3, !dbg !97",
+				"br i1 %or.cond, label %while.cond.i, label %if.end, !dbg !97"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftr",
+			"id": 171,
+			"name": "while.cond.i",
+			"debug": [
+				{
+					"line": 195, "columns": [18, 5]
+				}
+			],
+			"successors": [172, 173],
+			"ir": [
+				"%len.addr.0.i = phi i64 [ %dec.i, %while.body.i ], [ %div.i, %if.then ]",
+				"%cmp.i = icmp sgt i64 %len.addr.0.i, 0, !dbg !116",
+				"br i1 %cmp.i, label %while.body.i, label %if.end, !dbg !117"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftr",
+			"id": 172,
+			"name": "while.body.i",
+			"debug": [
+				{
+					"line": 195, "columns": [12]
+				},
+				{
+					"line": 196, "columns": [13, 23]
+				}
+			],
+			"successors": [171, 173],
+			"ir": [
+				"%dec.i = add nsw i64 %len.addr.0.i, -1, !dbg !118",
+				"%arrayidx.i = getelementptr i64, ptr %src, i64 %dec.i, !dbg !119",
+				"%4 = load i64, ptr %arrayidx.i, align 8, !dbg !119, !tbaa !78",
+				"%cmp1.not.i = icmp eq i64 %4, 0, !dbg !122",
+				"br i1 %cmp1.not.i, label %while.cond.i, label %if.end, !dbg !123, !llvm.loop !124"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftr",
+			"id": 173,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 526, "columns": [0, 26, 9]
+				}
+			],
+			"successors": [174, 176],
+			"ir": [
+				"%5 = phi i64 [ %3, %if.then ], [ 1, %while.body.i ], [ 0, %while.cond.i ]",
+				"%hprev.promoted = load i64, ptr %hprev, align 8, !tbaa !78",
+				"%i.093 = add nuw nsw i64 %div.i, 1, !dbg !127",
+				"%cmp694 = icmp ult i64 %i.093, %slen, !dbg !129",
+				"br i1 %cmp694, label %for.body.preheader, label %for.end, !dbg !131"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftr",
+			"id": 174,
+			"name": "for.body.preheader",
+			"debug": [
+				{
+					"line": 526, "columns": [9]
+				}
+			],
+			"successors": [175],
+			"ir": [
+				"%6 = xor i64 %div.i, -1, !dbg !131",
+				"%7 = add i64 %6, %slen, !dbg !131",
+				"br label %for.body, !dbg !131"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftr",
+			"id": 175,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 526, "columns": [38, 0, 26, 9]
+				},
+				{
+					"line": 527, "columns": [39, 13]
+				},
+				{
+					"line": 528, "columns": [28, 26, 30, 13, 21]
+				},
+				{
+					"line": 529, "columns": [21]
+				}
+			],
+			"successors": [176, 175],
+			"ir": [
+				"%i.096 = phi i64 [ %i.0, %for.body ], [ %i.093, %for.body.preheader ]",
+				"%j.095 = phi i64 [ %inc11, %for.body ], [ 0, %for.body.preheader ]",
+				"%8 = phi i64 [ %11, %for.body ], [ %hprev.promoted, %for.body.preheader ]",
+				"%arrayidx8 = getelementptr i64, ptr %src, i64 %i.096, !dbg !132",
+				"%9 = load i64, ptr %arrayidx8, align 8, !dbg !132, !tbaa !78",
+				"call fastcc void @_mpd_divmod_pow10(ptr noundef nonnull %h, ptr noundef nonnull %l, i64 noundef %9, i64 noundef %sub.i), !dbg !134",
+				"%10 = load i64, ptr %l, align 8, !dbg !135, !tbaa !78",
+				"%mul = mul i64 %10, %0, !dbg !136",
+				"%add9 = add i64 %mul, %8, !dbg !137",
+				"%arrayidx10 = getelementptr i64, ptr %dest, i64 %j.095, !dbg !138",
+				"store i64 %add9, ptr %arrayidx10, align 8, !dbg !139, !tbaa !78",
+				"%11 = load i64, ptr %h, align 8, !dbg !140, !tbaa !78",
+				"%inc11 = add nuw i64 %j.095, 1, !dbg !141",
+				"%i.0 = add nuw i64 %i.096, 1, !dbg !127",
+				"%exitcond.not = icmp eq i64 %inc11, %7, !dbg !129",
+				"br i1 %exitcond.not, label %for.end, label %for.body, !dbg !131, !llvm.loop !142"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftr",
+			"id": 176,
+			"name": "for.end",
+			"debug": [
+				{
+					"line": 526, "columns": [0]
+				},
+				{
+					"line": 532, "columns": [19, 13]
+				}
+			],
+			"successors": [190, 177],
+			"ir": [
+				"%.lcssa = phi i64 [ %hprev.promoted, %if.end ], [ %11, %for.body ]",
+				"%j.0.lcssa = phi i64 [ 0, %if.end ], [ %7, %for.body ], !dbg !127",
+				"%cmp12.not = icmp eq i64 %.lcssa, 0, !dbg !144",
+				"br i1 %cmp12.not, label %if.end44, label %if.then14, !dbg !146"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftr",
+			"id": 177,
+			"name": "if.then14",
+			"debug": [
+				{
+					"line": 533, "columns": [13, 21]
+				},
+				{
+					"line": 534, "columns": [9]
+				}
+			],
+			"successors": [190],
+			"ir": [
+				"%arrayidx15 = getelementptr i64, ptr %dest, i64 %j.0.lcssa, !dbg !147",
+				"store i64 %.lcssa, ptr %arrayidx15, align 8, !dbg !149, !tbaa !78",
+				"br label %if.end44, !dbg !150"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftr",
+			"id": 178,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 537, "columns": [15, 13]
+				}
+			],
+			"successors": [182, 179],
+			"ir": [
+				"%cmp17.not = icmp ult i64 %shift, 19, !dbg !151",
+				"br i1 %cmp17.not, label %if.end32, label %if.then19, !dbg !154"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftr",
+			"id": 179,
+			"name": "if.then19",
+			"debug": [
+				{
+					"line": 297, "columns": [22]
+				},
+				{
+					"line": 538, "columns": [49, 44]
+				},
+				{
+					"line": 540, "columns": [22, 17]
+				}
+			],
+			"successors": [180, 182],
+			"ir": [
+				"%sub20 = add nsw i64 %div.i, -1, !dbg !155",
+				"%arrayidx21 = getelementptr i64, ptr %src, i64 %sub20, !dbg !157",
+				"%12 = load i64, ptr %arrayidx21, align 8, !dbg !157, !tbaa !78",
+				"%div75.i = udiv i64 %12, 1000000000000000000, !dbg !166",
+				"store i64 %div75.i, ptr %rnd, align 8, !dbg !166, !tbaa !78",
+				"%mul76.neg.i = mul i64 %div75.i, -1000000000000000000, !dbg !166",
+				"%sub77.i = add i64 %mul76.neg.i, %12, !dbg !166",
+				"%cmp22 = icmp eq i64 %sub77.i, 0, !dbg !172",
+				"br i1 %cmp22, label %while.cond.i80, label %if.end32, !dbg !174"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftr",
+			"id": 180,
+			"name": "while.cond.i80",
+			"debug": [
+				{
+					"line": 195, "columns": [18, 5]
+				}
+			],
+			"successors": [181, 182],
+			"ir": [
+				"%len.addr.0.i77 = phi i64 [ %dec.i78, %while.body.i83 ], [ %sub20, %if.then19 ]",
+				"%cmp.i79 = icmp sgt i64 %len.addr.0.i77, 0, !dbg !177",
+				"br i1 %cmp.i79, label %while.body.i83, label %if.end32, !dbg !178"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftr",
+			"id": 181,
+			"name": "while.body.i83",
+			"debug": [
+				{
+					"line": 195, "columns": [12]
+				},
+				{
+					"line": 196, "columns": [13, 23]
+				}
+			],
+			"successors": [180, 182],
+			"ir": [
+				"%dec.i78 = add nsw i64 %len.addr.0.i77, -1, !dbg !179",
+				"%arrayidx.i81 = getelementptr i64, ptr %src, i64 %dec.i78, !dbg !180",
+				"%13 = load i64, ptr %arrayidx.i81, align 8, !dbg !180, !tbaa !78",
+				"%cmp1.not.i82 = icmp eq i64 %13, 0, !dbg !181",
+				"br i1 %cmp1.not.i82, label %while.cond.i80, label %if.end32, !dbg !182, !llvm.loop !183"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftr",
+			"id": 182,
+			"name": "if.end32",
+			"debug": [
+				{
+					"line": 542, "columns": [23, 9]
+				}
+			],
+			"successors": [190, 183],
+			"ir": [
+				"%14 = phi i64 [ %sub77.i, %if.then19 ], [ 0, %if.else ], [ 1, %while.body.i83 ], [ 0, %while.cond.i80 ]",
+				"%sub34 = sub i64 %slen, %div.i",
+				"%cmp3598.not = icmp eq i64 %div.i, %slen, !dbg !185",
+				"br i1 %cmp3598.not, label %if.end44, label %for.body37.preheader, !dbg !188"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftr",
+			"id": 183,
+			"name": "for.body37.preheader",
+			"debug": [
+				{
+					"line": 542, "columns": [9]
+				}
+			],
+			"successors": [188, 184],
+			"ir": [
+				"%min.iters.check = icmp ult i64 %sub34, 8, !dbg !188",
+				"br i1 %min.iters.check, label %for.body37.preheader108, label %vector.memcheck, !dbg !188"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftr",
+			"id": 184,
+			"name": "vector.memcheck",
+			"debug": [
+				{
+					"line": 542, "columns": [9]
+				}
+			],
+			"successors": [188, 185],
+			"ir": [
+				"%15 = shl nuw nsw i64 %div.i, 3, !dbg !188",
+				"%16 = add i64 %15, %src106, !dbg !188",
+				"%17 = sub i64 %dest105, %16, !dbg !188",
+				"%diff.check = icmp ult i64 %17, 32, !dbg !188",
+				"br i1 %diff.check, label %for.body37.preheader108, label %vector.ph, !dbg !188"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftr",
+			"id": 185,
+			"name": "vector.ph",
+			"debug": [
+				{
+					"line": 542, "columns": [9]
+				}
+			],
+			"successors": [186],
+			"ir": [
+				"%n.vec = and i64 %sub34, -4, !dbg !188",
+				"br label %vector.body, !dbg !188"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftr",
+			"id": 186,
+			"name": "vector.body",
+			"debug": [
+				{
+					"line": 542, "columns": [34]
+				},
+				{
+					"line": 543, "columns": [28, 23, 13, 21]
+				}
+			],
+			"successors": [187, 186],
+			"ir": [
+				"%index = phi i64 [ 0, %vector.ph ], [ %index.next, %vector.body ], !dbg !189",
+				"%18 = add i64 %index, %div.i, !dbg !190",
+				"%19 = getelementptr i64, ptr %src, i64 %18, !dbg !192",
+				"%wide.load = load <2 x i64>, ptr %19, align 8, !dbg !192, !tbaa !78",
+				"%20 = getelementptr i64, ptr %19, i64 2, !dbg !192",
+				"%wide.load107 = load <2 x i64>, ptr %20, align 8, !dbg !192, !tbaa !78",
+				"%21 = getelementptr i64, ptr %dest, i64 %index, !dbg !193",
+				"store <2 x i64> %wide.load, ptr %21, align 8, !dbg !194, !tbaa !78",
+				"%22 = getelementptr i64, ptr %21, i64 2, !dbg !194",
+				"store <2 x i64> %wide.load107, ptr %22, align 8, !dbg !194, !tbaa !78",
+				"%index.next = add nuw i64 %index, 4, !dbg !189",
+				"%23 = icmp eq i64 %index.next, %n.vec, !dbg !189",
+				"br i1 %23, label %middle.block, label %vector.body, !dbg !189, !llvm.loop !195"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftr",
+			"id": 187,
+			"name": "middle.block",
+			"debug": [
+				{
+					"line": 542, "columns": [9]
+				}
+			],
+			"successors": [190, 188],
+			"ir": [
+				"%cmp.n = icmp eq i64 %sub34, %n.vec, !dbg !188",
+				"br i1 %cmp.n, label %if.end44, label %for.body37.preheader108, !dbg !188"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftr",
+			"id": 188,
+			"name": "for.body37.preheader108",
+			"debug": [
+				{
+					"line": 542, "columns": [9]
+				}
+			],
+			"successors": [189],
+			"ir": [
+				"%j.199.ph = phi i64 [ 0, %vector.memcheck ], [ 0, %for.body37.preheader ], [ %n.vec, %middle.block ]",
+				"br label %for.body37, !dbg !188"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftr",
+			"id": 189,
+			"name": "for.body37",
+			"debug": [
+				{
+					"line": 542, "columns": [34, 23, 9]
+				},
+				{
+					"line": 543, "columns": [28, 23, 13, 21]
+				}
+			],
+			"successors": [190, 189],
+			"ir": [
+				"%j.199 = phi i64 [ %inc42, %for.body37 ], [ %j.199.ph, %for.body37.preheader108 ]",
+				"%add38 = add i64 %j.199, %div.i, !dbg !190",
+				"%arrayidx39 = getelementptr i64, ptr %src, i64 %add38, !dbg !192",
+				"%24 = load i64, ptr %arrayidx39, align 8, !dbg !192, !tbaa !78",
+				"%arrayidx40 = getelementptr i64, ptr %dest, i64 %j.199, !dbg !193",
+				"store i64 %24, ptr %arrayidx40, align 8, !dbg !194, !tbaa !78",
+				"%inc42 = add nuw i64 %j.199, 1, !dbg !189",
+				"%exitcond101.not = icmp eq i64 %inc42, %sub34, !dbg !185",
+				"br i1 %exitcond101.not, label %if.end44, label %for.body37, !dbg !188, !llvm.loop !199"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftr",
+			"id": 190,
+			"name": "if.end44",
+			"debug": [
+				{
+					"line": 550, "columns": [13, 22]
+				}
+			],
+			"successors": [192, 191, 191],
+			"ir": [
+				"%25 = phi i64 [ %14, %if.end32 ], [ %5, %for.end ], [ %5, %if.then14 ], [ %14, %middle.block ], [ %14, %for.body37 ]",
+				"%26 = load i64, ptr %rnd, align 8, !dbg !200",
+				"switch i64 %26, label %cond.end [\n    i64 5, label %cond.true\n    i64 0, label %cond.true\n  ], !dbg !201"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftr",
+			"id": 191,
+			"name": "cond.true",
+			"debug": [
+				{
+					"line": 550, "columns": [44, 41, 12]
+				}
+			],
+			"successors": [192],
+			"ir": [
+				"%tobool49 = icmp ne i64 %25, 0, !dbg !202",
+				"%conv54 = zext i1 %tobool49 to i64",
+				"%add55 = add nuw nsw i64 %26, %conv54, !dbg !203",
+				"br label %cond.end, !dbg !204"
+			]
+		},
+		{
+			"function": "_mpd_baseshiftr",
+			"id": 192,
+			"name": "cond.end",
+			"debug": [
+				{
+					"line": 550, "columns": [12, 5]
+				},
+				{
+					"line": 551, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%cond = phi i64 [ %add55, %cond.true ], [ %26, %if.end44 ], !dbg !204",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %rest) #12, !dbg !205",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %rnd) #12, !dbg !205",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %hprev) #12, !dbg !205",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %h) #12, !dbg !205",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %l) #12, !dbg !205",
+				"ret i64 %cond, !dbg !206"
+			]
+		},
+		{
+			"function": "_mpd_shortadd_b",
+			"id": 193,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 572, "columns": [9, 14]
+				},
+				{
+					"line": 573, "columns": [16, 26, 21]
+				},
+				{
+					"line": 574, "columns": [12, 10]
+				},
+				{
+					"line": 577, "columns": [23, 5]
+				}
+			],
+			"successors": [194, 195],
+			"ir": [
+				"%0 = load i64, ptr %w, align 8, !dbg !55, !tbaa !56",
+				"%add = add i64 %0, %v, !dbg !60",
+				"%cmp = icmp ult i64 %add, %v, !dbg !61",
+				"%cmp1 = icmp uge i64 %add, %b, !dbg !62",
+				"%or37 = or i1 %cmp, %cmp1, !dbg !63",
+				"%sub = select i1 %or37, i64 %b, i64 0, !dbg !64",
+				"%cond = sub i64 %add, %sub, !dbg !64",
+				"store i64 %cond, ptr %w, align 8, !dbg !65, !tbaa !56",
+				"%cmp638 = icmp ugt i64 %m, 1, !dbg !66",
+				"%1 = and i1 %or37, %cmp638, !dbg !66",
+				"br i1 %1, label %for.body, label %for.end, !dbg !69"
+			]
+		},
+		{
+			"function": "_mpd_shortadd_b",
+			"id": 194,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 577, "columns": [34, 23, 5]
+				},
+				{
+					"line": 578, "columns": [13, 18]
+				},
+				{
+					"line": 579, "columns": [20]
+				},
+				{
+					"line": 580, "columns": [16, 14]
+				}
+			],
+			"successors": [194, 195],
+			"ir": [
+				"%i.039 = phi i64 [ %inc, %for.body ], [ 1, %entry ]",
+				"%arrayidx8 = getelementptr i64, ptr %w, i64 %i.039, !dbg !70",
+				"%2 = load i64, ptr %arrayidx8, align 8, !dbg !70, !tbaa !56",
+				"%add9 = add i64 %2, 1, !dbg !72",
+				"%cmp10 = icmp eq i64 %add9, %b, !dbg !73",
+				"%cond17 = select i1 %cmp10, i64 0, i64 %add9, !dbg !74",
+				"store i64 %cond17, ptr %arrayidx8, align 8, !dbg !75, !tbaa !56",
+				"%inc = add nuw i64 %i.039, 1, !dbg !76",
+				"%cmp6 = icmp ult i64 %inc, %m, !dbg !66",
+				"%3 = and i1 %cmp10, %cmp6, !dbg !66",
+				"br i1 %3, label %for.body, label %for.end, !dbg !69, !llvm.loop !77"
+			]
+		},
+		{
+			"function": "_mpd_shortadd_b",
+			"id": 195,
+			"name": "for.end",
+			"debug": [
+				{
+					"line": 583, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%carry.0.in.lcssa = phi i1 [ %or37, %entry ], [ %cmp10, %for.body ]",
+				"%carry.0 = zext i1 %carry.0.in.lcssa to i64, !dbg !54",
+				"ret i64 %carry.0, !dbg !80"
+			]
+		},
+		{
+			"function": "_mpd_shortmul_c",
+			"id": 196,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 596, "columns": [17, 5]
+				}
+			],
+			"successors": [199, 197],
+			"ir": [
+				"%cmp10.not = icmp eq i64 %n, 0, !dbg !58",
+				"br i1 %cmp10.not, label %for.end, label %for.body.lr.ph, !dbg !61"
+			]
+		},
+		{
+			"function": "_mpd_shortmul_c",
+			"id": 197,
+			"name": "for.body.lr.ph",
+			"debug": [
+				{
+					"line": 596, "columns": [5]
+				}
+			],
+			"successors": [198],
+			"ir": [
+				"%conv1.i = zext i64 %v to i128",
+				"%0 = load i64, ptr @mprime_rdx, align 8, !tbaa !62",
+				"%conv.i.i = zext i64 %0 to i128",
+				"br label %for.body, !dbg !61"
+			]
+		},
+		{
+			"function": "_mpd_shortmul_c",
+			"id": 198,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 56, "columns": [10, 25, 27]
+				},
+				{
+					"line": 58, "columns": [14, 11]
+				},
+				{
+					"line": 59, "columns": [11]
+				},
+				{
+					"line": 104, "columns": [14]
+				},
+				{
+					"line": 106, "columns": [26, 16]
+				},
+				{
+					"line": 109, "columns": [42]
+				},
+				{
+					"line": 111, "columns": [11, 9]
+				},
+				{
+					"line": 112, "columns": [11]
+				},
+				{
+					"line": 118, "columns": [22]
+				},
+				{
+					"line": 122, "columns": [11]
+				},
+				{
+					"line": 123, "columns": [11, 9]
+				},
+				{
+					"line": 124, "columns": [7]
+				},
+				{
+					"line": 125, "columns": [7]
+				},
+				{
+					"line": 137, "columns": [13]
+				},
+				{
+					"line": 138, "columns": [25, 12, 8]
+				},
+				{
+					"line": 596, "columns": [23, 17, 5]
+				},
+				{
+					"line": 598, "columns": [34]
+				},
+				{
+					"line": 599, "columns": [20]
+				},
+				{
+					"line": 600, "columns": [16, 13]
+				},
+				{
+					"line": 602, "columns": [35]
+				}
+			],
+			"successors": [199, 198],
+			"ir": [
+				"%i.012 = phi i64 [ 0, %for.body.lr.ph ], [ %inc3, %for.body ]",
+				"%carry.011 = phi i64 [ 0, %for.body.lr.ph ], [ %sub12.i, %for.body ]",
+				"%arrayidx = getelementptr i64, ptr %u, i64 %i.012, !dbg !66",
+				"%1 = load i64, ptr %arrayidx, align 8, !dbg !66, !tbaa !62",
+				"%conv.i = zext i64 %1 to i128, !dbg !79",
+				"%mul.i = mul nuw i128 %conv.i, %conv1.i, !dbg !80",
+				"%shr.i = lshr i128 %mul.i, 64, !dbg !81",
+				"%conv2.i = trunc i128 %shr.i to i64, !dbg !82",
+				"%conv3.i = trunc i128 %mul.i to i64, !dbg !83",
+				"%add = add i64 %carry.011, %conv3.i, !dbg !84",
+				"%cmp1 = icmp ult i64 %add, %carry.011, !dbg !85",
+				"%inc = zext i1 %cmp1 to i64, !dbg !87",
+				"%spec.select = add nuw i64 %inc, %conv2.i, !dbg !87",
+				"%arrayidx2 = getelementptr i64, ptr %w, i64 %i.012, !dbg !88",
+				"%lo.lobit.i = ashr i64 %add, 63, !dbg !103",
+				"%and1.i = and i64 %lo.lobit.i, -8446744073709551616, !dbg !104",
+				"%add.i = add i64 %and1.i, %add, !dbg !105",
+				"%sub.i = sub i64 %spec.select, %lo.lobit.i, !dbg !106",
+				"%conv1.i.i = zext i64 %sub.i to i128, !dbg !109",
+				"%mul.i.i = mul nuw i128 %conv1.i.i, %conv.i.i, !dbg !110",
+				"%shr.i.i = lshr i128 %mul.i.i, 64, !dbg !111",
+				"%conv2.i.i = trunc i128 %shr.i.i to i64, !dbg !112",
+				"%conv3.i.i = trunc i128 %mul.i.i to i64, !dbg !113",
+				"%2 = xor i64 %add.i, -1, !dbg !114",
+				"%cmp.i = icmp ult i64 %2, %conv3.i.i, !dbg !114",
+				"%inc.i = zext i1 %cmp.i to i64, !dbg !116",
+				"%spec.select.i = add i64 %spec.select, %conv2.i.i, !dbg !116",
+				"%add3.i = add i64 %spec.select.i, %inc.i, !dbg !117",
+				"%sub4.i = xor i64 %add3.i, -1, !dbg !118",
+				"%conv.i24.i = zext i64 %sub4.i to i128, !dbg !121",
+				"%mul.i25.i = mul nuw i128 %conv.i24.i, 10000000000000000000, !dbg !122",
+				"%shr.i26.i = lshr i128 %mul.i25.i, 64, !dbg !123",
+				"%conv2.i27.i = trunc i128 %shr.i26.i to i64, !dbg !124",
+				"%conv3.i28.i = trunc i128 %mul.i25.i to i64, !dbg !125",
+				"%add5.i = add i64 %add, %conv3.i28.i, !dbg !126",
+				"%cmp6.i = icmp ult i64 %add5.i, %add, !dbg !127",
+				"%inc8.i = zext i1 %cmp6.i to i64, !dbg !129",
+				"%h.1.i = add i64 %spec.select, 8446744073709551616, !dbg !129",
+				"%add10.i = add i64 %h.1.i, %conv2.i27.i, !dbg !130",
+				"%sub11.i = add i64 %add10.i, %inc8.i, !dbg !131",
+				"%sub12.i = sub i64 %sub11.i, %sub4.i, !dbg !132",
+				"%and13.i = and i64 %sub11.i, -8446744073709551616, !dbg !133",
+				"%add14.i = add i64 %and13.i, %add5.i, !dbg !134",
+				"store i64 %add14.i, ptr %arrayidx2, align 8, !dbg !135, !tbaa !62",
+				"%inc3 = add nuw i64 %i.012, 1, !dbg !136",
+				"%exitcond.not = icmp eq i64 %inc3, %n, !dbg !58",
+				"br i1 %exitcond.not, label %for.end, label %for.body, !dbg !61, !llvm.loop !137"
+			]
+		},
+		{
+			"function": "_mpd_shortmul_c",
+			"id": 199,
+			"name": "for.end",
+			"debug": [
+				{
+					"line": 605, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%carry.0.lcssa = phi i64 [ 0, %entry ], [ %sub12.i, %for.body ], !dbg !57",
+				"ret i64 %carry.0.lcssa, !dbg !140"
+			]
+		},
+		{
+			"function": "_mpd_shortmul_b",
+			"id": 200,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 619, "columns": [17, 5]
+				}
+			],
+			"successors": [203, 201],
+			"ir": [
+				"%cmp14.not = icmp eq i64 %n, 0, !dbg !59",
+				"br i1 %cmp14.not, label %for.end, label %for.body.lr.ph, !dbg !62"
+			]
+		},
+		{
+			"function": "_mpd_shortmul_b",
+			"id": 201,
+			"name": "for.body.lr.ph",
+			"debug": [
+				{
+					"line": 619, "columns": [5]
+				}
+			],
+			"successors": [202],
+			"ir": [
+				"%conv1.i = zext i64 %v to i128",
+				"%conv2.i9 = zext i64 %b to i128",
+				"br label %for.body, !dbg !62"
+			]
+		},
+		{
+			"function": "_mpd_shortmul_b",
+			"id": 202,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 56, "columns": [10, 25]
+				},
+				{
+					"line": 58, "columns": [14, 11]
+				},
+				{
+					"line": 59, "columns": [11]
+				},
+				{
+					"line": 68, "columns": [11, 26, 34, 32]
+				},
+				{
+					"line": 69, "columns": [26, 10]
+				},
+				{
+					"line": 70, "columns": [10, 8]
+				},
+				{
+					"line": 619, "columns": [23, 17, 5]
+				},
+				{
+					"line": 621, "columns": [34]
+				},
+				{
+					"line": 622, "columns": [20]
+				},
+				{
+					"line": 623, "columns": [16, 13]
+				},
+				{
+					"line": 625, "columns": [33]
+				}
+			],
+			"successors": [203, 202],
+			"ir": [
+				"%i.016 = phi i64 [ 0, %for.body.lr.ph ], [ %inc3, %for.body ]",
+				"%carry.015 = phi i64 [ 0, %for.body.lr.ph ], [ %conv3.i10, %for.body ]",
+				"%arrayidx = getelementptr i64, ptr %u, i64 %i.016, !dbg !63",
+				"%0 = load i64, ptr %arrayidx, align 8, !dbg !63, !tbaa !65",
+				"%conv.i = zext i64 %0 to i128, !dbg !80",
+				"%mul.i = mul nuw i128 %conv.i, %conv1.i, !dbg !81",
+				"%shr.i = lshr i128 %mul.i, 64, !dbg !82",
+				"%conv2.i = trunc i128 %shr.i to i64, !dbg !83",
+				"%conv3.i = trunc i128 %mul.i to i64, !dbg !84",
+				"%add = add i64 %carry.015, %conv3.i, !dbg !85",
+				"%cmp1 = icmp ult i64 %add, %carry.015, !dbg !86",
+				"%inc = zext i1 %cmp1 to i64, !dbg !88",
+				"%spec.select = add nuw i64 %inc, %conv2.i, !dbg !88",
+				"%arrayidx2 = getelementptr i64, ptr %w, i64 %i.016, !dbg !89",
+				"%conv.i7 = zext i64 %spec.select to i128, !dbg !102",
+				"%shl.i = shl nuw i128 %conv.i7, 64, !dbg !103",
+				"%conv1.i8 = zext i64 %add to i128, !dbg !104",
+				"%add.i = or i128 %shl.i, %conv1.i8, !dbg !105",
+				"%div.i = udiv i128 %add.i, %conv2.i9, !dbg !106",
+				"%conv3.i10 = trunc i128 %div.i to i64, !dbg !107",
+				"%1 = mul i64 %conv3.i10, %b, !dbg !108",
+				"%conv6.i = sub i64 %add, %1, !dbg !108",
+				"store i64 %conv6.i, ptr %arrayidx2, align 8, !dbg !109, !tbaa !65",
+				"%inc3 = add nuw i64 %i.016, 1, !dbg !110",
+				"%exitcond.not = icmp eq i64 %inc3, %n, !dbg !59",
+				"br i1 %exitcond.not, label %for.end, label %for.body, !dbg !62, !llvm.loop !111"
+			]
+		},
+		{
+			"function": "_mpd_shortmul_b",
+			"id": 203,
+			"name": "for.end",
+			"debug": [
+				{
+					"line": 628, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%carry.0.lcssa = phi i64 [ 0, %entry ], [ %conv3.i10, %for.body ], !dbg !58",
+				"ret i64 %carry.0.lcssa, !dbg !114"
+			]
+		},
+		{
+			"function": "_mpd_shortdiv_b",
+			"id": 204,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 645, "columns": [19, 5]
+				}
+			],
+			"successors": [207, 205],
+			"ir": [
+				"%cmp.not16 = icmp eq i64 %n, 0, !dbg !59",
+				"br i1 %cmp.not16, label %for.end, label %for.body.lr.ph, !dbg !62"
+			]
+		},
+		{
+			"function": "_mpd_shortdiv_b",
+			"id": 205,
+			"name": "for.body.lr.ph",
+			"debug": [
+				{
+					"line": 645, "columns": [5]
+				}
+			],
+			"successors": [206],
+			"ir": [
+				"%conv1.i = zext i64 %b to i128",
+				"%conv2.i11 = zext i64 %v to i128",
+				"br label %for.body, !dbg !62"
+			]
+		},
+		{
+			"function": "_mpd_shortdiv_b",
+			"id": 206,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 56, "columns": [10, 25]
+				},
+				{
+					"line": 58, "columns": [14, 11]
+				},
+				{
+					"line": 59, "columns": [11]
+				},
+				{
+					"line": 68, "columns": [11, 26, 34, 32]
+				},
+				{
+					"line": 69, "columns": [26, 10, 8]
+				},
+				{
+					"line": 70, "columns": [10]
+				},
+				{
+					"line": 645, "columns": [0, 19, 5]
+				},
+				{
+					"line": 648, "columns": [14, 19]
+				},
+				{
+					"line": 649, "columns": [16, 13]
+				},
+				{
+					"line": 651, "columns": [25]
+				}
+			],
+			"successors": [207, 206],
+			"ir": [
+				"%i.0.in18 = phi i64 [ %n, %for.body.lr.ph ], [ %i.0, %for.body ]",
+				"%rem.017 = phi i64 [ 0, %for.body.lr.ph ], [ %conv6.i, %for.body ]",
+				"%i.0 = add i64 %i.0.in18, -1, !dbg !63",
+				"%conv.i = zext i64 %rem.017 to i128, !dbg !76",
+				"%mul.i = mul nuw i128 %conv.i, %conv1.i, !dbg !77",
+				"%shr.i = lshr i128 %mul.i, 64, !dbg !78",
+				"%conv2.i = trunc i128 %shr.i to i64, !dbg !79",
+				"%conv3.i = trunc i128 %mul.i to i64, !dbg !80",
+				"%arrayidx = getelementptr i64, ptr %u, i64 %i.0, !dbg !81",
+				"%0 = load i64, ptr %arrayidx, align 8, !dbg !81, !tbaa !82",
+				"%add = add i64 %0, %conv3.i, !dbg !86",
+				"%cmp2 = icmp ult i64 %add, %0, !dbg !87",
+				"%inc = zext i1 %cmp2 to i64, !dbg !89",
+				"%spec.select = add nuw i64 %inc, %conv2.i, !dbg !89",
+				"%arrayidx3 = getelementptr i64, ptr %w, i64 %i.0, !dbg !90",
+				"%conv.i9 = zext i64 %spec.select to i128, !dbg !103",
+				"%shl.i = shl nuw i128 %conv.i9, 64, !dbg !104",
+				"%conv1.i10 = zext i64 %add to i128, !dbg !105",
+				"%add.i = or i128 %shl.i, %conv1.i10, !dbg !106",
+				"%div.i = udiv i128 %add.i, %conv2.i11, !dbg !107",
+				"%conv3.i12 = trunc i128 %div.i to i64, !dbg !108",
+				"store i64 %conv3.i12, ptr %arrayidx3, align 8, !dbg !109, !tbaa !82",
+				"%1 = mul i64 %conv3.i12, %v, !dbg !110",
+				"%conv6.i = sub i64 %add, %1, !dbg !110",
+				"%cmp.not = icmp eq i64 %i.0, 0, !dbg !59",
+				"br i1 %cmp.not, label %for.end, label %for.body, !dbg !62, !llvm.loop !111"
+			]
+		},
+		{
+			"function": "_mpd_shortdiv_b",
+			"id": 207,
+			"name": "for.end",
+			"debug": [
+				{
+					"line": 654, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%rem.0.lcssa = phi i64 [ 0, %entry ], [ %conv6.i, %for.body ], !dbg !58",
+				"ret i64 %rem.0.lcssa, !dbg !114"
+			]
+		}
+	]
+}

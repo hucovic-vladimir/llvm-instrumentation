@@ -1,0 +1,308 @@
+{
+	"blocks": [
+		{
+			"function": "_PyTestLimitedCAPI_Init_Complex",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 74, "columns": [9]
+				},
+				{
+					"line": 79, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call i32 @PyModule_AddFunctions(ptr noundef %mod, ptr noundef nonnull @test_methods) #4, !dbg !94",
+				"%call.lobit = ashr i32 %call, 31, !dbg !93",
+				"ret i32 %call.lobit, !dbg !96"
+			]
+		},
+		{
+			"function": "complex_check",
+			"id": 1,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 8, "columns": [5]
+				},
+				{
+					"line": 9, "columns": [28]
+				},
+				{
+					"line": 365, "columns": [24]
+				},
+				{
+					"line": 538, "columns": [33]
+				}
+			],
+			"successors": [3, 2],
+			"ir": [
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !93",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !96",
+				"%0 = getelementptr i8, ptr %spec.store.select, i64 8, !dbg !97",
+				"%spec.store.select.val = load ptr, ptr %0, align 8, !dbg !97, !tbaa !98",
+				"%cmp.i.not.i = icmp eq ptr %spec.store.select.val, @PyComplex_Type, !dbg !117",
+				"br i1 %cmp.i.not.i, label %PyObject_TypeCheck.exit, label %lor.rhs.i, !dbg !118"
+			]
+		},
+		{
+			"function": "complex_check",
+			"id": 2,
+			"name": "lor.rhs.i",
+			"debug": [
+				{
+					"line": 538, "columns": [36, 33]
+				}
+			],
+			"successors": [3],
+			"ir": [
+				"%call2.i = tail call i32 @PyType_IsSubtype(ptr noundef %spec.store.select.val, ptr noundef nonnull @PyComplex_Type) #4, !dbg !119",
+				"%tobool3.i = icmp ne i32 %call2.i, 0, !dbg !118",
+				"%1 = zext i1 %tobool3.i to i64",
+				"br label %PyObject_TypeCheck.exit, !dbg !118"
+			]
+		},
+		{
+			"function": "complex_check",
+			"id": 3,
+			"name": "PyObject_TypeCheck.exit",
+			"debug": [
+				{
+					"line": 9, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%lor.ext.i = phi i64 [ 1, %entry ], [ %1, %lor.rhs.i ]",
+				"%call1 = tail call ptr @PyLong_FromLong(i64 noundef %lor.ext.i) #4, !dbg !120",
+				"ret ptr %call1, !dbg !121"
+			]
+		},
+		{
+			"function": "complex_checkexact",
+			"id": 4,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 15, "columns": [5]
+				},
+				{
+					"line": 16, "columns": [28, 12, 5]
+				},
+				{
+					"line": 365, "columns": [24]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !93",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !96",
+				"%0 = getelementptr i8, ptr %spec.store.select, i64 8, !dbg !97",
+				"%spec.store.select.val = load ptr, ptr %0, align 8, !dbg !97, !tbaa !98",
+				"%cmp.i = icmp eq ptr %spec.store.select.val, @PyComplex_Type, !dbg !111",
+				"%conv = zext i1 %cmp.i to i64",
+				"%call1 = tail call ptr @PyLong_FromLong(i64 noundef %conv) #4, !dbg !112",
+				"ret ptr %call1, !dbg !113"
+			]
+		},
+		{
+			"function": "complex_fromdoubles",
+			"id": 5,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 22, "columns": [5]
+				},
+				{
+					"line": 24, "columns": [10, 9]
+				}
+			],
+			"successors": [7, 6],
+			"ir": [
+				"%real = alloca double, align 8",
+				"%imag = alloca double, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %real) #4, !dbg !96",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %imag) #4, !dbg !96",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.5, ptr noundef nonnull %real, ptr noundef nonnull %imag) #4, !dbg !97",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !97",
+				"br i1 %tobool.not, label %cleanup, label %if.end, !dbg !99"
+			]
+		},
+		{
+			"function": "complex_fromdoubles",
+			"id": 6,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 28, "columns": [34, 40, 12, 5]
+				}
+			],
+			"successors": [7],
+			"ir": [
+				"%0 = load double, ptr %real, align 8, !dbg !100, !tbaa !101",
+				"%1 = load double, ptr %imag, align 8, !dbg !105, !tbaa !101",
+				"%call1 = call ptr @PyComplex_FromDoubles(double noundef %0, double noundef %1) #4, !dbg !106",
+				"br label %cleanup, !dbg !107"
+			]
+		},
+		{
+			"function": "complex_fromdoubles",
+			"id": 7,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 29, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call1, %if.end ], [ null, %entry ], !dbg !95",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %imag) #4, !dbg !108",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %real) #4, !dbg !108",
+				"ret ptr %retval.0, !dbg !108"
+			]
+		},
+		{
+			"function": "complex_realasdouble",
+			"id": 8,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 36, "columns": [5]
+				},
+				{
+					"line": 37, "columns": [12]
+				},
+				{
+					"line": 39, "columns": [14, 21]
+				}
+			],
+			"successors": [9, 10],
+			"ir": [
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !95",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !98",
+				"%call = tail call double @PyComplex_RealAsDouble(ptr noundef %spec.store.select) #4, !dbg !99",
+				"%cmp1 = fcmp oeq double %call, -1.000000e+00, !dbg !100",
+				"br i1 %cmp1, label %land.lhs.true, label %if.end4, !dbg !102"
+			]
+		},
+		{
+			"function": "complex_realasdouble",
+			"id": 9,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 39, "columns": [24, 9]
+				}
+			],
+			"successors": [10, 11],
+			"ir": [
+				"%call2 = tail call ptr @PyErr_Occurred() #4, !dbg !103",
+				"%tobool.not = icmp eq ptr %call2, null, !dbg !103",
+				"br i1 %tobool.not, label %if.end4, label %cleanup, !dbg !104"
+			]
+		},
+		{
+			"function": "complex_realasdouble",
+			"id": 10,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 43, "columns": [12, 5]
+				}
+			],
+			"successors": [11],
+			"ir": [
+				"%call5 = tail call ptr @PyFloat_FromDouble(double noundef %call) #4, !dbg !105",
+				"br label %cleanup, !dbg !106"
+			]
+		},
+		{
+			"function": "complex_realasdouble",
+			"id": 11,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 44, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call5, %if.end4 ], [ null, %land.lhs.true ], !dbg !94",
+				"ret ptr %retval.0, !dbg !107"
+			]
+		},
+		{
+			"function": "complex_imagasdouble",
+			"id": 12,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 51, "columns": [5]
+				},
+				{
+					"line": 52, "columns": [12]
+				},
+				{
+					"line": 54, "columns": [14, 21]
+				}
+			],
+			"successors": [13, 14],
+			"ir": [
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !95",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !98",
+				"%call = tail call double @PyComplex_ImagAsDouble(ptr noundef %spec.store.select) #4, !dbg !99",
+				"%cmp1 = fcmp oeq double %call, -1.000000e+00, !dbg !100",
+				"br i1 %cmp1, label %land.lhs.true, label %if.end4, !dbg !102"
+			]
+		},
+		{
+			"function": "complex_imagasdouble",
+			"id": 13,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 54, "columns": [24, 9]
+				}
+			],
+			"successors": [14, 15],
+			"ir": [
+				"%call2 = tail call ptr @PyErr_Occurred() #4, !dbg !103",
+				"%tobool.not = icmp eq ptr %call2, null, !dbg !103",
+				"br i1 %tobool.not, label %if.end4, label %cleanup, !dbg !104"
+			]
+		},
+		{
+			"function": "complex_imagasdouble",
+			"id": 14,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 58, "columns": [12, 5]
+				}
+			],
+			"successors": [15],
+			"ir": [
+				"%call5 = tail call ptr @PyFloat_FromDouble(double noundef %call) #4, !dbg !105",
+				"br label %cleanup, !dbg !106"
+			]
+		},
+		{
+			"function": "complex_imagasdouble",
+			"id": 15,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 59, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call5, %if.end4 ], [ null, %land.lhs.true ], !dbg !94",
+				"ret ptr %retval.0, !dbg !107"
+			]
+		}
+	]
+}

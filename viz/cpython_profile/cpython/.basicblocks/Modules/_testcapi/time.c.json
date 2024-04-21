@@ -1,0 +1,478 @@
+{
+	"blocks": [
+		{
+			"function": "_PyTestCapi_Init_Time",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 98, "columns": [9, 48]
+				}
+			],
+			"successors": [3, 1],
+			"ir": [
+				"%call = tail call i32 @PyModule_AddFunctions(ptr noundef %m, ptr noundef nonnull @test_methods) #5, !dbg !422",
+				"%cmp = icmp slt i32 %call, 0, !dbg !424",
+				"br i1 %cmp, label %return, label %do.end, !dbg !425"
+			]
+		},
+		{
+			"function": "_PyTestCapi_Init_Time",
+			"id": 1,
+			"name": "do.end",
+			"debug": [
+				{
+					"line": 102, "columns": [45, 9, 78]
+				}
+			],
+			"successors": [3, 2],
+			"ir": [
+				"%call1 = tail call ptr @PyLong_FromLongLong(i64 noundef -9223372036854775808) #5, !dbg !426",
+				"%call2 = tail call i32 @PyModule_AddObject(ptr noundef %m, ptr noundef nonnull @.str, ptr noundef %call1) #5, !dbg !428",
+				"%cmp3 = icmp slt i32 %call2, 0, !dbg !429",
+				"br i1 %cmp3, label %return, label %if.end5, !dbg !430"
+			]
+		},
+		{
+			"function": "_PyTestCapi_Init_Time",
+			"id": 2,
+			"name": "if.end5",
+			"debug": [
+				{
+					"line": 105, "columns": [45, 9]
+				}
+			],
+			"successors": [3],
+			"ir": [
+				"%call6 = tail call ptr @PyLong_FromLongLong(i64 noundef 9223372036854775807) #5, !dbg !431",
+				"%call7 = tail call i32 @PyModule_AddObject(ptr noundef %m, ptr noundef nonnull @.str.1, ptr noundef %call6) #5, !dbg !433",
+				"%call7.lobit = lshr i32 %call7, 31, !dbg !421",
+				"br label %return, !dbg !421"
+			]
+		},
+		{
+			"function": "_PyTestCapi_Init_Time",
+			"id": 3,
+			"name": "return",
+			"debug": [
+				{
+					"line": 109, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ -1, %entry ], [ 1, %do.end ], [ %call7.lobit, %if.end5 ], !dbg !421",
+				"ret i32 %retval.0, !dbg !434"
+			]
+		},
+		{
+			"function": "test_pytime_assecondsdouble",
+			"id": 4,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 27, "columns": [5]
+				},
+				{
+					"line": 28, "columns": [10, 9]
+				}
+			],
+			"successors": [10, 5],
+			"ir": [
+				"%obj = alloca ptr, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %obj) #5, !dbg !427",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.6, ptr noundef nonnull %obj) #5, !dbg !428",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !428",
+				"br i1 %tobool.not, label %cleanup6, label %if.end, !dbg !430"
+			]
+		},
+		{
+			"function": "test_pytime_assecondsdouble",
+			"id": 5,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 7, "columns": [10, 9]
+				},
+				{
+					"line": 32, "columns": [38]
+				}
+			],
+			"successors": [6, 7],
+			"ir": [
+				"%0 = load ptr, ptr %obj, align 8, !dbg !431, !tbaa !433",
+				"%1 = getelementptr i8, ptr %0, i64 8, !dbg !448",
+				"%obj.val12.i = load ptr, ptr %1, align 8, !dbg !448, !tbaa !450",
+				"%2 = getelementptr i8, ptr %obj.val12.i, i64 168, !dbg !448",
+				"%call.val.i = load i64, ptr %2, align 8, !dbg !448, !tbaa !452",
+				"%3 = and i64 %call.val.i, 16777216, !dbg !448",
+				"%tobool.not.i = icmp eq i64 %3, 0, !dbg !448",
+				"br i1 %tobool.not.i, label %if.then.i, label %if.end.i, !dbg !458"
+			]
+		},
+		{
+			"function": "test_pytime_assecondsdouble",
+			"id": 6,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 8, "columns": [22, 9]
+				},
+				{
+					"line": 9, "columns": [36]
+				},
+				{
+					"line": 10, "columns": [9]
+				}
+			],
+			"successors": [10],
+			"ir": [
+				"%4 = load ptr, ptr @PyExc_TypeError, align 8, !dbg !459, !tbaa !433",
+				"%tp_name.i = getelementptr inbounds %struct._typeobject, ptr %obj.val12.i, i64 0, i32 1, !dbg !461",
+				"%5 = load ptr, ptr %tp_name.i, align 8, !dbg !461, !tbaa !462",
+				"%call3.i = call ptr (ptr, ptr, ...) @PyErr_Format(ptr noundef %4, ptr noundef nonnull @.str.7, ptr noundef %5) #5, !dbg !463",
+				"br label %cleanup6, !dbg !464"
+			]
+		},
+		{
+			"function": "test_pytime_assecondsdouble",
+			"id": 7,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 13, "columns": [22]
+				},
+				{
+					"line": 14, "columns": [14, 20]
+				}
+			],
+			"successors": [8, 9],
+			"ir": [
+				"%call4.i = call i64 @PyLong_AsLongLong(ptr noundef nonnull %0) #5, !dbg !465",
+				"%cmp.i = icmp eq i64 %call4.i, -1, !dbg !466",
+				"br i1 %cmp.i, label %land.lhs.true.i, label %if.end3, !dbg !468"
+			]
+		},
+		{
+			"function": "test_pytime_assecondsdouble",
+			"id": 8,
+			"name": "land.lhs.true.i",
+			"debug": [
+				{
+					"line": 14, "columns": [23, 9]
+				}
+			],
+			"successors": [9, 10],
+			"ir": [
+				"%call5.i = call ptr @PyErr_Occurred() #5, !dbg !469",
+				"%tobool6.not.i = icmp eq ptr %call5.i, null, !dbg !469",
+				"br i1 %tobool6.not.i, label %if.end3, label %cleanup6, !dbg !470"
+			]
+		},
+		{
+			"function": "test_pytime_assecondsdouble",
+			"id": 9,
+			"name": "if.end3",
+			"debug": [
+				{
+					"line": 35, "columns": [16]
+				},
+				{
+					"line": 36, "columns": [12]
+				}
+			],
+			"successors": [10],
+			"ir": [
+				"%call4 = call double @PyTime_AsSecondsDouble(i64 noundef %call4.i) #5, !dbg !471",
+				"%call5 = call ptr @PyFloat_FromDouble(double noundef %call4) #5, !dbg !472",
+				"br label %cleanup6"
+			]
+		},
+		{
+			"function": "test_pytime_assecondsdouble",
+			"id": 10,
+			"name": "cleanup6",
+			"debug": [
+				{
+					"line": 37, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %entry ], [ %call5, %if.end3 ], [ null, %if.then.i ], [ null, %land.lhs.true.i ], !dbg !426",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %obj) #5, !dbg !473",
+				"ret ptr %retval.1, !dbg !473"
+			]
+		},
+		{
+			"function": "test_pytime_monotonic",
+			"id": 11,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 51, "columns": [5]
+				},
+				{
+					"line": 52, "columns": [15]
+				},
+				{
+					"line": 53, "columns": [13, 9]
+				}
+			],
+			"successors": [15, 12],
+			"ir": [
+				"%t = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %t) #5, !dbg !425",
+				"%call = call i32 @PyTime_Monotonic(ptr noundef nonnull %t) #5, !dbg !426",
+				"%cmp = icmp slt i32 %call, 0, !dbg !427",
+				"br i1 %cmp, label %cleanup, label %if.end, !dbg !429"
+			]
+		},
+		{
+			"function": "test_pytime_monotonic",
+			"id": 12,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 56, "columns": [5]
+				}
+			],
+			"successors": [14, 13],
+			"ir": [
+				"%cmp1 = icmp eq i32 %call, 0, !dbg !430",
+				"br i1 %cmp1, label %cond.end, label %cond.false, !dbg !430"
+			]
+		},
+		{
+			"function": "test_pytime_monotonic",
+			"id": 13,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 56, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.9, i32 noundef 56, ptr noundef nonnull @__PRETTY_FUNCTION__.test_pytime_monotonic) #6, !dbg !430",
+				"unreachable, !dbg !430"
+			]
+		},
+		{
+			"function": "test_pytime_monotonic",
+			"id": 14,
+			"name": "cond.end",
+			"debug": [
+				{
+					"line": 43, "columns": [31, 12]
+				},
+				{
+					"line": 57, "columns": [28, 5]
+				}
+			],
+			"successors": [15],
+			"ir": [
+				"%0 = load i64, ptr %t, align 8, !dbg !431, !tbaa !432",
+				"%call.i = call double @PyTime_AsSecondsDouble(i64 noundef %0) #5, !dbg !442",
+				"%call1.i = call ptr @PyFloat_FromDouble(double noundef %call.i) #5, !dbg !443",
+				"br label %cleanup, !dbg !444"
+			]
+		},
+		{
+			"function": "test_pytime_monotonic",
+			"id": 15,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 58, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call1.i, %cond.end ], [ null, %entry ], !dbg !424",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %t) #5, !dbg !445",
+				"ret ptr %retval.0, !dbg !445"
+			]
+		},
+		{
+			"function": "test_pytime_perf_counter",
+			"id": 16,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 64, "columns": [5]
+				},
+				{
+					"line": 65, "columns": [15]
+				},
+				{
+					"line": 66, "columns": [13, 9]
+				}
+			],
+			"successors": [20, 17],
+			"ir": [
+				"%t = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %t) #5, !dbg !425",
+				"%call = call i32 @PyTime_PerfCounter(ptr noundef nonnull %t) #5, !dbg !426",
+				"%cmp = icmp slt i32 %call, 0, !dbg !427",
+				"br i1 %cmp, label %cleanup, label %if.end, !dbg !429"
+			]
+		},
+		{
+			"function": "test_pytime_perf_counter",
+			"id": 17,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 69, "columns": [5]
+				}
+			],
+			"successors": [19, 18],
+			"ir": [
+				"%cmp1 = icmp eq i32 %call, 0, !dbg !430",
+				"br i1 %cmp1, label %cond.end, label %cond.false, !dbg !430"
+			]
+		},
+		{
+			"function": "test_pytime_perf_counter",
+			"id": 18,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 69, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.9, i32 noundef 69, ptr noundef nonnull @__PRETTY_FUNCTION__.test_pytime_perf_counter) #6, !dbg !430",
+				"unreachable, !dbg !430"
+			]
+		},
+		{
+			"function": "test_pytime_perf_counter",
+			"id": 19,
+			"name": "cond.end",
+			"debug": [
+				{
+					"line": 43, "columns": [31, 12]
+				},
+				{
+					"line": 70, "columns": [28, 5]
+				}
+			],
+			"successors": [20],
+			"ir": [
+				"%0 = load i64, ptr %t, align 8, !dbg !431, !tbaa !432",
+				"%call.i = call double @PyTime_AsSecondsDouble(i64 noundef %0) #5, !dbg !442",
+				"%call1.i = call ptr @PyFloat_FromDouble(double noundef %call.i) #5, !dbg !443",
+				"br label %cleanup, !dbg !444"
+			]
+		},
+		{
+			"function": "test_pytime_perf_counter",
+			"id": 20,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 71, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call1.i, %cond.end ], [ null, %entry ], !dbg !424",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %t) #5, !dbg !445",
+				"ret ptr %retval.0, !dbg !445"
+			]
+		},
+		{
+			"function": "test_pytime_time",
+			"id": 21,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 77, "columns": [5]
+				},
+				{
+					"line": 78, "columns": [15]
+				},
+				{
+					"line": 79, "columns": [13, 9]
+				}
+			],
+			"successors": [25, 22],
+			"ir": [
+				"%t = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %t) #5, !dbg !425",
+				"%call = call i32 @PyTime_Time(ptr noundef nonnull %t) #5, !dbg !426",
+				"%cmp = icmp slt i32 %call, 0, !dbg !427",
+				"br i1 %cmp, label %cleanup, label %if.end, !dbg !429"
+			]
+		},
+		{
+			"function": "test_pytime_time",
+			"id": 22,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 82, "columns": [5]
+				}
+			],
+			"successors": [24, 23],
+			"ir": [
+				"%cmp1 = icmp eq i32 %call, 0, !dbg !430",
+				"br i1 %cmp1, label %cond.end, label %cond.false, !dbg !430"
+			]
+		},
+		{
+			"function": "test_pytime_time",
+			"id": 23,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 82, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.9, i32 noundef 82, ptr noundef nonnull @__PRETTY_FUNCTION__.test_pytime_time) #6, !dbg !430",
+				"unreachable, !dbg !430"
+			]
+		},
+		{
+			"function": "test_pytime_time",
+			"id": 24,
+			"name": "cond.end",
+			"debug": [
+				{
+					"line": 43, "columns": [31, 12]
+				},
+				{
+					"line": 83, "columns": [28, 5]
+				}
+			],
+			"successors": [25],
+			"ir": [
+				"%0 = load i64, ptr %t, align 8, !dbg !431, !tbaa !432",
+				"%call.i = call double @PyTime_AsSecondsDouble(i64 noundef %0) #5, !dbg !442",
+				"%call1.i = call ptr @PyFloat_FromDouble(double noundef %call.i) #5, !dbg !443",
+				"br label %cleanup, !dbg !444"
+			]
+		},
+		{
+			"function": "test_pytime_time",
+			"id": 25,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 84, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call1.i, %cond.end ], [ null, %entry ], !dbg !424",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %t) #5, !dbg !445",
+				"ret ptr %retval.0, !dbg !445"
+			]
+		}
+	]
+}

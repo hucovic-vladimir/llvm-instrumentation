@@ -1,0 +1,6466 @@
+{
+	"blocks": [
+		{
+			"function": "_PyPegen_interactive_exit",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 15, "columns": [12, 9]
+				}
+			],
+			"successors": [2, 1],
+			"ir": [
+				"%errcode = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 10, !dbg !1413",
+				"%0 = load ptr, ptr %errcode, align 8, !dbg !1413, !tbaa !1415",
+				"%tobool.not = icmp eq ptr %0, null, !dbg !1423",
+				"br i1 %tobool.not, label %if.end, label %if.then, !dbg !1424"
+			]
+		},
+		{
+			"function": "_PyPegen_interactive_exit",
+			"id": 1,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 16, "columns": [23]
+				},
+				{
+					"line": 17, "columns": [5]
+				}
+			],
+			"successors": [2],
+			"ir": [
+				"store i32 11, ptr %0, align 4, !dbg !1425, !tbaa !1427",
+				"br label %if.end, !dbg !1428"
+			]
+		},
+		{
+			"function": "_PyPegen_interactive_exit",
+			"id": 2,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 18, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret ptr null, !dbg !1429"
+			]
+		},
+		{
+			"function": "_PyPegen_byte_offset_to_character_offset_raw",
+			"id": 3,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 24, "columns": [22]
+				},
+				{
+					"line": 25, "columns": [26, 9]
+				},
+				{
+					"line": 29, "columns": [22]
+				},
+				{
+					"line": 30, "columns": [10, 9]
+				}
+			],
+			"successors": [7, 4],
+			"ir": [
+				"%call = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %str) #13, !dbg !833",
+				"%add = add i64 %call, 1, !dbg !834",
+				"%spec.select = tail call i64 @llvm.smin.i64(i64 %add, i64 %col_offset), !dbg !836",
+				"%call2 = tail call ptr @PyUnicode_DecodeUTF8(ptr noundef %str, i64 noundef %spec.select, ptr noundef nonnull @.str) #14, !dbg !837",
+				"%tobool.not = icmp eq ptr %call2, null, !dbg !838",
+				"br i1 %tobool.not, label %cleanup, label %if.end4, !dbg !840"
+			]
+		},
+		{
+			"function": "_PyPegen_byte_offset_to_character_offset_raw",
+			"id": 4,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 33, "columns": [23]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [5, 7],
+			"ir": [
+				"%0 = getelementptr i8, ptr %call2, i64 16, !dbg !841",
+				"%call2.val = load i64, ptr %0, align 8, !dbg !841, !tbaa !842",
+				"%op.val.i = load i64, ptr %call2, align 8, !dbg !856, !tbaa !858",
+				"%1 = and i64 %op.val.i, 2147483648, !dbg !864",
+				"%cmp.i.not.i = icmp eq i64 %1, 0, !dbg !864",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %cleanup, !dbg !865"
+			]
+		},
+		{
+			"function": "_PyPegen_byte_offset_to_character_offset_raw",
+			"id": 5,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [6, 7],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !866",
+				"store i64 %dec.i, ptr %call2, align 8, !dbg !866, !tbaa !858",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !868",
+				"br i1 %cmp.i, label %if.then1.i, label %cleanup, !dbg !869"
+			]
+		},
+		{
+			"function": "_PyPegen_byte_offset_to_character_offset_raw",
+			"id": 6,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [7],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call2) #14, !dbg !870",
+				"br label %cleanup, !dbg !872"
+			]
+		},
+		{
+			"function": "_PyPegen_byte_offset_to_character_offset_raw",
+			"id": 7,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 36, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i64 [ -1, %entry ], [ %call2.val, %if.end4 ], [ %call2.val, %if.end.i ], [ %call2.val, %if.then1.i ], !dbg !832",
+				"ret i64 %retval.0, !dbg !873"
+			]
+		},
+		{
+			"function": "_PyPegen_byte_offset_to_character_offset",
+			"id": 8,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 41, "columns": [23]
+				},
+				{
+					"line": 42, "columns": [10, 9]
+				}
+			],
+			"successors": [13, 9],
+			"ir": [
+				"%call = tail call ptr @PyUnicode_AsUTF8(ptr noundef %line) #13, !dbg !831",
+				"%tobool.not = icmp eq ptr %call, null, !dbg !832",
+				"br i1 %tobool.not, label %cleanup, label %if.end, !dbg !834"
+			]
+		},
+		{
+			"function": "_PyPegen_byte_offset_to_character_offset",
+			"id": 9,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 24, "columns": [22]
+				},
+				{
+					"line": 25, "columns": [26, 9]
+				},
+				{
+					"line": 29, "columns": [22]
+				},
+				{
+					"line": 30, "columns": [10, 9]
+				}
+			],
+			"successors": [13, 10],
+			"ir": [
+				"%call.i = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %call) #14, !dbg !846",
+				"%add.i = add i64 %call.i, 1, !dbg !847",
+				"%spec.select.i = tail call i64 @llvm.smin.i64(i64 %add.i, i64 %col_offset), !dbg !849",
+				"%call2.i = tail call ptr @PyUnicode_DecodeUTF8(ptr noundef nonnull %call, i64 noundef %spec.select.i, ptr noundef nonnull @.str) #13, !dbg !850",
+				"%tobool.not.i = icmp eq ptr %call2.i, null, !dbg !851",
+				"br i1 %tobool.not.i, label %cleanup, label %if.end4.i, !dbg !853"
+			]
+		},
+		{
+			"function": "_PyPegen_byte_offset_to_character_offset",
+			"id": 10,
+			"name": "if.end4.i",
+			"debug": [
+				{
+					"line": 33, "columns": [23]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [11, 13],
+			"ir": [
+				"%0 = getelementptr i8, ptr %call2.i, i64 16, !dbg !854",
+				"%call2.val.i = load i64, ptr %0, align 8, !dbg !854, !tbaa !855",
+				"%op.val.i.i = load i64, ptr %call2.i, align 8, !dbg !869, !tbaa !871",
+				"%1 = and i64 %op.val.i.i, 2147483648, !dbg !877",
+				"%cmp.i.not.i.i = icmp eq i64 %1, 0, !dbg !877",
+				"br i1 %cmp.i.not.i.i, label %if.end.i.i, label %cleanup, !dbg !878"
+			]
+		},
+		{
+			"function": "_PyPegen_byte_offset_to_character_offset",
+			"id": 11,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [12, 13],
+			"ir": [
+				"%dec.i.i = add i64 %op.val.i.i, -1, !dbg !879",
+				"store i64 %dec.i.i, ptr %call2.i, align 8, !dbg !879, !tbaa !871",
+				"%cmp.i.i = icmp eq i64 %dec.i.i, 0, !dbg !881",
+				"br i1 %cmp.i.i, label %if.then1.i.i, label %cleanup, !dbg !882"
+			]
+		},
+		{
+			"function": "_PyPegen_byte_offset_to_character_offset",
+			"id": 12,
+			"name": "if.then1.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [13],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call2.i) #13, !dbg !883",
+				"br label %cleanup, !dbg !885"
+			]
+		},
+		{
+			"function": "_PyPegen_byte_offset_to_character_offset",
+			"id": 13,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 46, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i64 [ -1, %entry ], [ -1, %if.end ], [ %call2.val.i, %if.end4.i ], [ %call2.val.i, %if.end.i.i ], [ %call2.val.i, %if.then1.i.i ], !dbg !830",
+				"ret i64 %retval.0, !dbg !886"
+			]
+		},
+		{
+			"function": "_PyPegen_insert_memo",
+			"id": 14,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 54, "columns": [34, 15]
+				},
+				{
+					"line": 55, "columns": [11, 9]
+				}
+			],
+			"successors": [16, 15],
+			"ir": [
+				"%arena = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 5, !dbg !833",
+				"%0 = load ptr, ptr %arena, align 8, !dbg !833, !tbaa !834",
+				"%call = tail call ptr @_PyArena_Malloc(ptr noundef %0, i64 noundef 32) #13, !dbg !842",
+				"%cmp = icmp eq ptr %call, null, !dbg !843",
+				"br i1 %cmp, label %cleanup, label %if.end, !dbg !845"
+			]
+		},
+		{
+			"function": "_PyPegen_insert_memo",
+			"id": 15,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 58, "columns": [13]
+				},
+				{
+					"line": 59, "columns": [8, 13]
+				},
+				{
+					"line": 60, "columns": [18, 8, 13]
+				},
+				{
+					"line": 61, "columns": [18, 15, 32, 8, 13]
+				},
+				{
+					"line": 62, "columns": [5, 22, 27]
+				},
+				{
+					"line": 63, "columns": [5]
+				}
+			],
+			"successors": [16],
+			"ir": [
+				"store i32 %type, ptr %call, align 8, !dbg !846, !tbaa !847",
+				"%node2 = getelementptr inbounds %struct._memo, ptr %call, i64 0, i32 1, !dbg !849",
+				"store ptr %node, ptr %node2, align 8, !dbg !850, !tbaa !851",
+				"%mark3 = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 2, !dbg !852",
+				"%1 = load i32, ptr %mark3, align 8, !dbg !852, !tbaa !853",
+				"%mark4 = getelementptr inbounds %struct._memo, ptr %call, i64 0, i32 2, !dbg !854",
+				"store i32 %1, ptr %mark4, align 8, !dbg !855, !tbaa !856",
+				"%tokens = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 1, !dbg !857",
+				"%2 = load ptr, ptr %tokens, align 8, !dbg !857, !tbaa !858",
+				"%idxprom = sext i32 %mark to i64, !dbg !859",
+				"%arrayidx = getelementptr ptr, ptr %2, i64 %idxprom, !dbg !859",
+				"%3 = load ptr, ptr %arrayidx, align 8, !dbg !859, !tbaa !860",
+				"%memo = getelementptr inbounds %struct.Token, ptr %3, i64 0, i32 7, !dbg !861",
+				"%4 = load ptr, ptr %memo, align 8, !dbg !861, !tbaa !862",
+				"%next = getelementptr inbounds %struct._memo, ptr %call, i64 0, i32 3, !dbg !864",
+				"store ptr %4, ptr %next, align 8, !dbg !865, !tbaa !866",
+				"%5 = load ptr, ptr %arrayidx, align 8, !dbg !867, !tbaa !860",
+				"%memo8 = getelementptr inbounds %struct.Token, ptr %5, i64 0, i32 7, !dbg !868",
+				"store ptr %call, ptr %memo8, align 8, !dbg !869, !tbaa !862",
+				"br label %cleanup, !dbg !870"
+			]
+		},
+		{
+			"function": "_PyPegen_insert_memo",
+			"id": 16,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 64, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ 0, %if.end ], [ -1, %entry ], !dbg !832",
+				"ret i32 %retval.0, !dbg !871"
+			]
+		},
+		{
+			"function": "_PyPegen_update_memo",
+			"id": 17,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 70, "columns": [23, 20, 37, 0, 45, 5]
+				}
+			],
+			"successors": [21, 18],
+			"ir": [
+				"%tokens = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 1, !dbg !834",
+				"%0 = load ptr, ptr %tokens, align 8, !dbg !834, !tbaa !835",
+				"%idxprom = sext i32 %mark to i64, !dbg !843",
+				"%arrayidx = getelementptr ptr, ptr %0, i64 %idxprom, !dbg !843",
+				"%1 = load ptr, ptr %arrayidx, align 8, !dbg !843, !tbaa !844",
+				"%memo = getelementptr inbounds %struct.Token, ptr %1, i64 0, i32 7, !dbg !845",
+				"%m.019 = load ptr, ptr %memo, align 8, !dbg !847, !tbaa !844",
+				"%cmp.not20 = icmp eq ptr %m.019, null, !dbg !848",
+				"br i1 %cmp.not20, label %for.end, label %for.body, !dbg !850"
+			]
+		},
+		{
+			"function": "_PyPegen_update_memo",
+			"id": 18,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 71, "columns": [16, 21, 13]
+				}
+			],
+			"successors": [20, 19],
+			"ir": [
+				"%m.021 = phi ptr [ %m.0, %for.inc ], [ %m.019, %entry ]",
+				"%2 = load i32, ptr %m.021, align 8, !dbg !851, !tbaa !854",
+				"%cmp2 = icmp eq i32 %2, %type, !dbg !856",
+				"br i1 %cmp2, label %cleanup, label %for.inc, !dbg !857"
+			]
+		},
+		{
+			"function": "_PyPegen_update_memo",
+			"id": 19,
+			"name": "for.inc",
+			"debug": [
+				{
+					"line": 70, "columns": [61, 0, 45, 5]
+				}
+			],
+			"successors": [21, 18],
+			"ir": [
+				"%next = getelementptr inbounds %struct._memo, ptr %m.021, i64 0, i32 3, !dbg !858",
+				"%m.0 = load ptr, ptr %next, align 8, !dbg !847, !tbaa !844",
+				"%cmp.not = icmp eq ptr %m.0, null, !dbg !848",
+				"br i1 %cmp.not, label %for.end, label %for.body, !dbg !850, !llvm.loop !859"
+			]
+		},
+		{
+			"function": "_PyPegen_update_memo",
+			"id": 20,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 73, "columns": [16, 21]
+				},
+				{
+					"line": 74, "columns": [26, 16, 21]
+				}
+			],
+			"successors": [23],
+			"ir": [
+				"%node3 = getelementptr inbounds %struct._memo, ptr %m.021, i64 0, i32 1, !dbg !862",
+				"store ptr %node, ptr %node3, align 8, !dbg !864, !tbaa !865",
+				"%mark4 = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 2, !dbg !866",
+				"%3 = load i32, ptr %mark4, align 8, !dbg !866, !tbaa !867",
+				"%mark5 = getelementptr inbounds %struct._memo, ptr %m.021, i64 0, i32 2, !dbg !868",
+				"store i32 %3, ptr %mark5, align 8, !dbg !869, !tbaa !870",
+				"br label %return"
+			]
+		},
+		{
+			"function": "_PyPegen_update_memo",
+			"id": 21,
+			"name": "for.end",
+			"debug": [
+				{
+					"line": 54, "columns": [34, 15]
+				},
+				{
+					"line": 55, "columns": [11, 9]
+				}
+			],
+			"successors": [23, 22],
+			"ir": [
+				"%arena.i = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 5, !dbg !880",
+				"%4 = load ptr, ptr %arena.i, align 8, !dbg !880, !tbaa !881",
+				"%call.i = tail call ptr @_PyArena_Malloc(ptr noundef %4, i64 noundef 32) #13, !dbg !882",
+				"%cmp.i = icmp eq ptr %call.i, null, !dbg !883",
+				"br i1 %cmp.i, label %return, label %if.end.i, !dbg !885"
+			]
+		},
+		{
+			"function": "_PyPegen_update_memo",
+			"id": 22,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 58, "columns": [13]
+				},
+				{
+					"line": 59, "columns": [8, 13]
+				},
+				{
+					"line": 60, "columns": [18, 8, 13]
+				},
+				{
+					"line": 61, "columns": [18, 15, 32, 8, 13]
+				},
+				{
+					"line": 62, "columns": [5, 22, 27]
+				},
+				{
+					"line": 63, "columns": [5]
+				}
+			],
+			"successors": [23],
+			"ir": [
+				"store i32 %type, ptr %call.i, align 8, !dbg !886, !tbaa !854",
+				"%node2.i = getelementptr inbounds %struct._memo, ptr %call.i, i64 0, i32 1, !dbg !887",
+				"store ptr %node, ptr %node2.i, align 8, !dbg !888, !tbaa !865",
+				"%mark3.i = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 2, !dbg !889",
+				"%5 = load i32, ptr %mark3.i, align 8, !dbg !889, !tbaa !867",
+				"%mark4.i = getelementptr inbounds %struct._memo, ptr %call.i, i64 0, i32 2, !dbg !890",
+				"store i32 %5, ptr %mark4.i, align 8, !dbg !891, !tbaa !870",
+				"%6 = load ptr, ptr %tokens, align 8, !dbg !892, !tbaa !835",
+				"%arrayidx.i = getelementptr ptr, ptr %6, i64 %idxprom, !dbg !893",
+				"%7 = load ptr, ptr %arrayidx.i, align 8, !dbg !893, !tbaa !844",
+				"%memo.i = getelementptr inbounds %struct.Token, ptr %7, i64 0, i32 7, !dbg !894",
+				"%8 = load ptr, ptr %memo.i, align 8, !dbg !894, !tbaa !895",
+				"%next.i = getelementptr inbounds %struct._memo, ptr %call.i, i64 0, i32 3, !dbg !897",
+				"store ptr %8, ptr %next.i, align 8, !dbg !898, !tbaa !899",
+				"%9 = load ptr, ptr %arrayidx.i, align 8, !dbg !900, !tbaa !844",
+				"%memo8.i = getelementptr inbounds %struct.Token, ptr %9, i64 0, i32 7, !dbg !901",
+				"store ptr %call.i, ptr %memo8.i, align 8, !dbg !902, !tbaa !895",
+				"br label %return, !dbg !903"
+			]
+		},
+		{
+			"function": "_PyPegen_update_memo",
+			"id": 23,
+			"name": "return",
+			"debug": [
+				{
+					"line": 80, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi i32 [ 0, %cleanup ], [ 0, %if.end.i ], [ -1, %for.end ], !dbg !833",
+				"ret i32 %retval.1, !dbg !904"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 24,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 217, "columns": [5, 18]
+				},
+				{
+					"line": 218, "columns": [5]
+				},
+				{
+					"line": 219, "columns": [36, 16]
+				},
+				{
+					"line": 222, "columns": [17, 5]
+				}
+			],
+			"successors": [25, 31],
+			"ir": [
+				"%new_token = alloca %struct.token, align 8",
+				"call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %new_token) #13, !dbg !846",
+				"call void @_PyToken_Init(ptr noundef nonnull %new_token) #13, !dbg !848",
+				"%0 = load ptr, ptr %p, align 8, !dbg !849, !tbaa !850",
+				"%call = call i32 @_PyTokenizer_Get(ptr noundef %0, ptr noundef nonnull %new_token) #13, !dbg !858",
+				"%cmp93 = icmp eq i32 %call, 56, !dbg !859",
+				"br i1 %cmp93, label %while.body.lr.ph, label %while.end, !dbg !860"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 25,
+			"name": "while.body.lr.ph",
+			"debug": [
+				{
+					"line": 222, "columns": [5]
+				}
+			],
+			"successors": [26],
+			"ir": [
+				"%end_col_offset = getelementptr inbounds %struct.token, ptr %new_token, i64 0, i32 4",
+				"%col_offset = getelementptr inbounds %struct.token, ptr %new_token, i64 0, i32 2",
+				"%start = getelementptr inbounds %struct.token, ptr %new_token, i64 0, i32 5",
+				"%type_ignore_comments = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 18",
+				"%num_items.i = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 18, i32 2",
+				"%size.i = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 18, i32 1",
+				"br label %while.body, !dbg !860"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 26,
+			"name": "while.body",
+			"debug": [
+				{
+					"line": 223, "columns": [36, 63, 51, 26]
+				},
+				{
+					"line": 224, "columns": [38, 21]
+				},
+				{
+					"line": 225, "columns": [17, 13]
+				}
+			],
+			"successors": [72, 27],
+			"ir": [
+				"%1 = load i32, ptr %end_col_offset, align 8, !dbg !861, !tbaa !862",
+				"%2 = load i32, ptr %col_offset, align 8, !dbg !864, !tbaa !865",
+				"%sub = sub i32 %1, %2, !dbg !866",
+				"%conv = sext i32 %sub to i64, !dbg !867",
+				"%add = add nsw i64 %conv, 1, !dbg !869",
+				"%call1 = call ptr @PyMem_Malloc(i64 noundef %add) #13, !dbg !870",
+				"%cmp2 = icmp eq ptr %call1, null, !dbg !871",
+				"br i1 %cmp2, label %error, label %if.end, !dbg !873"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 27,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 108, "columns": [14, 32, 24, 9]
+				},
+				{
+					"line": 229, "columns": [32, 9]
+				},
+				{
+					"line": 230, "columns": [9, 18]
+				},
+				{
+					"line": 232, "columns": [70, 75]
+				}
+			],
+			"successors": [30, 28],
+			"ir": [
+				"%3 = load ptr, ptr %start, align 8, !dbg !874, !tbaa !875",
+				"%call5 = call ptr @strncpy(ptr noundef nonnull %call1, ptr noundef %3, i64 noundef %conv) #13, !dbg !876",
+				"%arrayidx = getelementptr i8, ptr %call1, i64 %conv, !dbg !877",
+				"store i8 0, ptr %arrayidx, align 1, !dbg !878, !tbaa !879",
+				"%4 = load ptr, ptr %p, align 8, !dbg !880, !tbaa !850",
+				"%lineno = getelementptr inbounds %struct.tok_state, ptr %4, i64 0, i32 17, !dbg !882",
+				"%5 = load i32, ptr %lineno, align 8, !dbg !882, !tbaa !883",
+				"%6 = load i64, ptr %num_items.i, align 8, !dbg !899, !tbaa !900",
+				"%7 = load i64, ptr %size.i, align 8, !dbg !901, !tbaa !902",
+				"%cmp.not.i = icmp ult i64 %6, %7, !dbg !903",
+				"%.pre.i = load ptr, ptr %type_ignore_comments, align 8, !dbg !897, !tbaa !904",
+				"br i1 %cmp.not.i, label %cleanup, label %if.then.i, !dbg !905"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 28,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 110, "columns": [68, 33]
+				},
+				{
+					"line": 111, "columns": [14, 13]
+				}
+			],
+			"successors": [72, 29],
+			"ir": [
+				"%mul2.i = shl i64 %7, 5, !dbg !907",
+				"%call.i = call ptr @PyMem_Realloc(ptr noundef %.pre.i, i64 noundef %mul2.i) #13, !dbg !908",
+				"%tobool.not.i = icmp eq ptr %call.i, null, !dbg !909",
+				"br i1 %tobool.not.i, label %error, label %cleanup.thread.i, !dbg !911"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 29,
+			"name": "cleanup.thread.i",
+			"debug": [
+				{
+					"line": 109, "columns": [37]
+				},
+				{
+					"line": 114, "columns": [20]
+				},
+				{
+					"line": 115, "columns": [19]
+				},
+				{
+					"line": 118, "columns": [21]
+				},
+				{
+					"line": 236, "columns": [36]
+				}
+			],
+			"successors": [30],
+			"ir": [
+				"%mul.i = shl i64 %7, 1, !dbg !912",
+				"store ptr %call.i, ptr %type_ignore_comments, align 8, !dbg !913, !tbaa !904",
+				"store i64 %mul.i, ptr %size.i, align 8, !dbg !914, !tbaa !902",
+				"%.pre29.i = load i64, ptr %num_items.i, align 8, !dbg !915, !tbaa !900",
+				"%.pre = load ptr, ptr %p, align 8, !dbg !916, !tbaa !850",
+				"br label %cleanup"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 30,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 118, "columns": [21, 10, 5, 39]
+				},
+				{
+					"line": 119, "columns": [32, 40]
+				},
+				{
+					"line": 120, "columns": [19]
+				},
+				{
+					"line": 222, "columns": [17, 5]
+				},
+				{
+					"line": 236, "columns": [36, 16]
+				}
+			],
+			"successors": [26, 31],
+			"ir": [
+				"%8 = phi ptr [ %.pre, %cleanup.thread.i ], [ %4, %if.end ], !dbg !916",
+				"%9 = phi i64 [ %.pre29.i, %cleanup.thread.i ], [ %6, %if.end ], !dbg !915",
+				"%10 = phi ptr [ %call.i, %cleanup.thread.i ], [ %.pre.i, %if.end ], !dbg !917",
+				"%arrayidx.i = getelementptr %struct.anon.68, ptr %10, i64 %9, !dbg !918",
+				"store i32 %5, ptr %arrayidx.i, align 8, !dbg !919, !tbaa !920",
+				"%comment14.i = getelementptr %struct.anon.68, ptr %10, i64 %9, i32 1, !dbg !922",
+				"store ptr %call1, ptr %comment14.i, align 8, !dbg !923, !tbaa !924",
+				"%inc.i = add i64 %9, 1, !dbg !925",
+				"store i64 %inc.i, ptr %num_items.i, align 8, !dbg !925, !tbaa !900",
+				"%call12 = call i32 @_PyTokenizer_Get(ptr noundef %8, ptr noundef nonnull %new_token) #13, !dbg !926",
+				"%cmp = icmp eq i32 %call12, 56, !dbg !859",
+				"br i1 %cmp, label %while.body, label %while.end, !dbg !860"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 31,
+			"name": "while.end",
+			"debug": [
+				{
+					"line": 219, "columns": [9]
+				},
+				{
+					"line": 240, "columns": [12, 23, 42]
+				}
+			],
+			"successors": [32, 36],
+			"ir": [
+				"%type.0.lcssa = phi i32 [ %call, %entry ], [ %call12, %cleanup ], !dbg !927",
+				"%start_rule = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 9, !dbg !928",
+				"%11 = load i32, ptr %start_rule, align 4, !dbg !928, !tbaa !930",
+				"%cmp14 = icmp eq i32 %11, 256, !dbg !931",
+				"%cmp16 = icmp eq i32 %type.0.lcssa, 0",
+				"%or.cond = and i1 %cmp16, %cmp14, !dbg !932",
+				"br i1 %or.cond, label %land.lhs.true18, label %if.else, !dbg !932"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 32,
+			"name": "land.lhs.true18",
+			"debug": [
+				{
+					"line": 240, "columns": [69, 66, 9]
+				}
+			],
+			"successors": [36, 33],
+			"ir": [
+				"%parsing_started = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 11, !dbg !933",
+				"%12 = load i32, ptr %parsing_started, align 8, !dbg !933, !tbaa !934",
+				"%tobool19.not = icmp eq i32 %12, 0, !dbg !935",
+				"br i1 %tobool19.not, label %if.else, label %if.then20, !dbg !936"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 33,
+			"name": "if.then20",
+			"debug": [
+				{
+					"line": 242, "columns": [28]
+				},
+				{
+					"line": 244, "columns": [16, 21, 13, 28]
+				}
+			],
+			"successors": [37, 34],
+			"ir": [
+				"store i32 0, ptr %parsing_started, align 8, !dbg !937, !tbaa !934",
+				"%13 = load ptr, ptr %p, align 8, !dbg !939, !tbaa !850",
+				"%indent = getelementptr inbounds %struct.tok_state, ptr %13, i64 0, i32 11, !dbg !941",
+				"%14 = load i32, ptr %indent, align 4, !dbg !941, !tbaa !942",
+				"%tobool23.not = icmp eq i32 %14, 0, !dbg !943",
+				"br i1 %tobool23.not, label %if.end35, label %land.lhs.true24, !dbg !944"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 34,
+			"name": "land.lhs.true24",
+			"debug": [
+				{
+					"line": 244, "columns": [36, 42, 13]
+				}
+			],
+			"successors": [35, 37],
+			"ir": [
+				"%flags = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 16, !dbg !945",
+				"%15 = load i32, ptr %flags, align 4, !dbg !945, !tbaa !946",
+				"%and = and i32 %15, 2, !dbg !947",
+				"%tobool25.not = icmp eq i32 %and, 0, !dbg !947",
+				"br i1 %tobool25.not, label %if.then26, label %if.end35, !dbg !948"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 35,
+			"name": "if.then26",
+			"debug": [
+				{
+					"line": 245, "columns": [30, 21, 28]
+				},
+				{
+					"line": 246, "columns": [28]
+				},
+				{
+					"line": 247, "columns": [9]
+				}
+			],
+			"successors": [37],
+			"ir": [
+				"%sub29 = sub i32 0, %14, !dbg !949",
+				"%pendin = getelementptr inbounds %struct.tok_state, ptr %13, i64 0, i32 14, !dbg !951",
+				"store i32 %sub29, ptr %pendin, align 4, !dbg !952, !tbaa !953",
+				"store i32 0, ptr %indent, align 4, !dbg !954, !tbaa !942",
+				"br label %if.end35, !dbg !955"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 36,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 250, "columns": [12, 28]
+				}
+			],
+			"successors": [37],
+			"ir": [
+				"%parsing_started34 = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 11, !dbg !956",
+				"store i32 1, ptr %parsing_started34, align 8, !dbg !958, !tbaa !934",
+				"br label %if.end35"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 37,
+			"name": "if.end35",
+			"debug": [
+				{
+					"line": 254, "columns": [13, 24, 18, 30]
+				}
+			],
+			"successors": [39, 38],
+			"ir": [
+				"%type.2 = phi i32 [ 4, %land.lhs.true24 ], [ 4, %if.then26 ], [ 4, %if.then20 ], [ %type.0.lcssa, %if.else ], !dbg !845",
+				"%fill = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 3, !dbg !959",
+				"%16 = load i32, ptr %fill, align 4, !dbg !959, !tbaa !961",
+				"%size = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 4, !dbg !962",
+				"%17 = load i32, ptr %size, align 8, !dbg !962, !tbaa !963",
+				"%cmp36 = icmp eq i32 %16, %17, !dbg !964",
+				"br i1 %cmp36, label %land.lhs.true38, label %if.end35.if.end43_crit_edge, !dbg !965"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 38,
+			"name": "if.end35.if.end43_crit_edge",
+			"debug": [
+				{
+					"line": 254, "columns": [30]
+				},
+				{
+					"line": 258, "columns": [19]
+				}
+			],
+			"successors": [46],
+			"ir": [
+				"%tokens.phi.trans.insert = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 1",
+				"%.pre95 = load ptr, ptr %tokens.phi.trans.insert, align 8, !dbg !966, !tbaa !967",
+				"br label %if.end43, !dbg !965"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 39,
+			"name": "land.lhs.true38",
+			"debug": [
+				{
+					"line": 194, "columns": [27]
+				},
+				{
+					"line": 195, "columns": [43, 51, 59, 26]
+				},
+				{
+					"line": 196, "columns": [20, 9]
+				}
+			],
+			"successors": [72, 40],
+			"ir": [
+				"%mul.i76 = shl i32 %16, 1, !dbg !977",
+				"%tokens.i = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 1, !dbg !978",
+				"%18 = load ptr, ptr %tokens.i, align 8, !dbg !978, !tbaa !967",
+				"%conv.i = sext i32 %mul.i76 to i64, !dbg !979",
+				"%mul1.i = shl nsw i64 %conv.i, 3, !dbg !980",
+				"%call.i77 = call ptr @PyMem_Realloc(ptr noundef %18, i64 noundef %mul1.i) #13, !dbg !981",
+				"%cmp.i = icmp eq ptr %call.i77, null, !dbg !982",
+				"br i1 %cmp.i, label %error, label %if.end.i, !dbg !984"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 40,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 200, "columns": [15]
+				},
+				{
+					"line": 202, "columns": [21, 29, 5]
+				}
+			],
+			"successors": [41, 45],
+			"ir": [
+				"store ptr %call.i77, ptr %tokens.i, align 8, !dbg !985, !tbaa !967",
+				"%19 = load i32, ptr %size, align 8, !dbg !986, !tbaa !963",
+				"%cmp6.not37.i = icmp slt i32 %19, %mul.i76, !dbg !988",
+				"br i1 %cmp6.not37.i, label %for.body.preheader.i, label %_resize_tokens_array.exit, !dbg !990"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 41,
+			"name": "for.body.preheader.i",
+			"debug": [
+				{
+					"line": 202, "columns": [5]
+				}
+			],
+			"successors": [42],
+			"ir": [
+				"%20 = sext i32 %19 to i64, !dbg !990",
+				"br label %for.body.i, !dbg !990"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 42,
+			"name": "for.body.i",
+			"debug": [
+				{
+					"line": 203, "columns": [24, 12, 9, 22]
+				},
+				{
+					"line": 204, "columns": [16, 13, 26]
+				}
+			],
+			"successors": [43, 44],
+			"ir": [
+				"%indvars.iv.i = phi i64 [ %20, %for.body.preheader.i ], [ %indvars.iv.next.i, %for.inc.i ]",
+				"%call8.i = call ptr @PyMem_Calloc(i64 noundef 1, i64 noundef 56) #13, !dbg !991",
+				"%21 = load ptr, ptr %tokens.i, align 8, !dbg !993, !tbaa !967",
+				"%arrayidx.i79 = getelementptr ptr, ptr %21, i64 %indvars.iv.i, !dbg !994",
+				"store ptr %call8.i, ptr %arrayidx.i79, align 8, !dbg !995, !tbaa !996",
+				"%22 = load ptr, ptr %tokens.i, align 8, !dbg !997, !tbaa !967",
+				"%arrayidx12.i = getelementptr ptr, ptr %22, i64 %indvars.iv.i, !dbg !999",
+				"%23 = load ptr, ptr %arrayidx12.i, align 8, !dbg !999, !tbaa !996",
+				"%cmp13.i = icmp eq ptr %23, null, !dbg !1000",
+				"br i1 %cmp13.i, label %if.then15.i, label %for.inc.i, !dbg !1001"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 43,
+			"name": "if.then15.i",
+			"debug": [
+				{
+					"line": 205, "columns": [21]
+				}
+			],
+			"successors": [72],
+			"ir": [
+				"%24 = trunc i64 %indvars.iv.i to i32, !dbg !1002",
+				"store i32 %24, ptr %size, align 8, !dbg !1002, !tbaa !963",
+				"br label %error"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 44,
+			"name": "for.inc.i",
+			"debug": [
+				{
+					"line": 202, "columns": [41, 29, 5]
+				}
+			],
+			"successors": [45, 42],
+			"ir": [
+				"%indvars.iv.next.i = add nsw i64 %indvars.iv.i, 1, !dbg !1004",
+				"%exitcond.not.i = icmp eq i64 %indvars.iv.next.i, %conv.i, !dbg !988",
+				"br i1 %exitcond.not.i, label %_resize_tokens_array.exit, label %for.body.i, !dbg !990, !llvm.loop !1005"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 45,
+			"name": "_resize_tokens_array.exit",
+			"debug": [
+				{
+					"line": 210, "columns": [13]
+				},
+				{
+					"line": 254, "columns": [9]
+				},
+				{
+					"line": 258, "columns": [29]
+				}
+			],
+			"successors": [46],
+			"ir": [
+				"%25 = phi ptr [ %call.i77, %if.end.i ], [ %22, %for.inc.i ]",
+				"store i32 %mul.i76, ptr %size, align 8, !dbg !1008, !tbaa !963",
+				"%.pre96 = load i32, ptr %fill, align 4, !dbg !1009, !tbaa !961",
+				"br label %if.end43, !dbg !1010"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 46,
+			"name": "if.end43",
+			"debug": [
+				{
+					"line": 155, "columns": [38, 26]
+				},
+				{
+					"line": 258, "columns": [29, 19, 16]
+				}
+			],
+			"successors": [47, 54],
+			"ir": [
+				"%26 = phi i32 [ %16, %if.end35.if.end43_crit_edge ], [ %.pre96, %_resize_tokens_array.exit ], !dbg !1009",
+				"%27 = phi ptr [ %.pre95, %if.end35.if.end43_crit_edge ], [ %25, %_resize_tokens_array.exit ], !dbg !966",
+				"%idxprom = sext i32 %26 to i64, !dbg !1011",
+				"%arrayidx45 = getelementptr ptr, ptr %27, i64 %idxprom, !dbg !1011",
+				"%28 = load ptr, ptr %arrayidx45, align 8, !dbg !1011, !tbaa !996",
+				"%cmp.i81 = icmp eq i32 %type.2, 1, !dbg !1023",
+				"br i1 %cmp.i81, label %cond.true.i, label %cond.end.i, !dbg !1024"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 47,
+			"name": "cond.true.i",
+			"debug": [
+				{
+					"line": 135, "columns": [31, 59, 46]
+				},
+				{
+					"line": 138, "columns": [24, 18, 40]
+				}
+			],
+			"successors": [48, 54],
+			"ir": [
+				"%end_col_offset.i.i = getelementptr inbounds %struct.token, ptr %new_token, i64 0, i32 4, !dbg !1036",
+				"%29 = load i32, ptr %end_col_offset.i.i, align 8, !dbg !1036, !tbaa !862",
+				"%col_offset.i.i = getelementptr inbounds %struct.token, ptr %new_token, i64 0, i32 2, !dbg !1037",
+				"%30 = load i32, ptr %col_offset.i.i, align 8, !dbg !1037, !tbaa !865",
+				"%sub.i.i = sub i32 %29, %30, !dbg !1038",
+				"%n_keyword_lists.i.i = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 8, !dbg !1039",
+				"%31 = load i32, ptr %n_keyword_lists.i.i, align 8, !dbg !1039, !tbaa !1041",
+				"%cmp.not.i.i = icmp slt i32 %sub.i.i, %31, !dbg !1042",
+				"br i1 %cmp.not.i.i, label %lor.lhs.false.i.i, label %cond.end.i, !dbg !1043"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 48,
+			"name": "lor.lhs.false.i.i",
+			"debug": [
+				{
+					"line": 139, "columns": [12, 9, 31, 39]
+				}
+			],
+			"successors": [54, 49],
+			"ir": [
+				"%keywords.i.i = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 6, !dbg !1044",
+				"%32 = load ptr, ptr %keywords.i.i, align 8, !dbg !1044, !tbaa !1045",
+				"%idxprom.i.i = sext i32 %sub.i.i to i64, !dbg !1046",
+				"%arrayidx.i.i = getelementptr ptr, ptr %32, i64 %idxprom.i.i, !dbg !1046",
+				"%33 = load ptr, ptr %arrayidx.i.i, align 8, !dbg !1046, !tbaa !996",
+				"%cmp1.i.i = icmp eq ptr %33, null, !dbg !1047",
+				"br i1 %cmp1.i.i, label %cond.end.i, label %lor.lhs.false2.i.i, !dbg !1048"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 49,
+			"name": "lor.lhs.false2.i.i",
+			"debug": [
+				{
+					"line": 138, "columns": [9]
+				},
+				{
+					"line": 140, "columns": [32, 37]
+				}
+			],
+			"successors": [54, 50],
+			"ir": [
+				"%type.i.i = getelementptr inbounds %struct.KeywordToken, ptr %33, i64 0, i32 1, !dbg !1049",
+				"%34 = load i32, ptr %type.i.i, align 8, !dbg !1049, !tbaa !1050",
+				"%cmp6.i.i = icmp eq i32 %34, -1, !dbg !1052",
+				"br i1 %cmp6.i.i, label %cond.end.i, label %land.rhs.lr.ph.i.i, !dbg !1054"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 50,
+			"name": "land.rhs.lr.ph.i.i",
+			"debug": [
+				{
+					"line": 143, "columns": [61]
+				}
+			],
+			"successors": [52],
+			"ir": [
+				"%start.i.i = getelementptr inbounds %struct.token, ptr %new_token, i64 0, i32 5",
+				"%35 = load ptr, ptr %start.i.i, align 8",
+				"br label %land.rhs.i.i, !dbg !1055"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 51,
+			"name": "for.cond.i.i",
+			"debug": [
+				{
+					"line": 143, "columns": [80, 53, 61]
+				}
+			],
+			"successors": [54, 52],
+			"ir": [
+				"%incdec.ptr.i.i = getelementptr %struct.KeywordToken, ptr %k.036.i.i, i64 1, !dbg !1057",
+				"%cmp10.not.i.i = icmp eq ptr %incdec.ptr.i.i, null, !dbg !1058",
+				"br i1 %cmp10.not.i.i, label %cond.end.i, label %land.rhs.i.i, !dbg !1055, !llvm.loop !1059"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 52,
+			"name": "land.rhs.i.i",
+			"debug": [
+				{
+					"line": 143, "columns": [67, 72, 5]
+				}
+			],
+			"successors": [54, 53],
+			"ir": [
+				"%k.036.i.i = phi ptr [ %33, %land.rhs.lr.ph.i.i ], [ %incdec.ptr.i.i, %for.cond.i.i ]",
+				"%type11.i.i = getelementptr inbounds %struct.KeywordToken, ptr %k.036.i.i, i64 0, i32 1, !dbg !1062",
+				"%36 = load i32, ptr %type11.i.i, align 8, !dbg !1062, !tbaa !1050",
+				"%cmp12.not.i.i = icmp eq i32 %36, -1, !dbg !1063",
+				"br i1 %cmp12.not.i.i, label %cond.end.i, label %for.body.i.i, !dbg !1060"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 53,
+			"name": "for.body.i.i",
+			"debug": [
+				{
+					"line": 144, "columns": [24, 13, 57]
+				}
+			],
+			"successors": [54, 51],
+			"ir": [
+				"%37 = load ptr, ptr %k.036.i.i, align 8, !dbg !1064, !tbaa !1067",
+				"%call.i.i = call i32 @strncmp(ptr noundef %37, ptr noundef %35, i64 noundef %idxprom.i.i) #14, !dbg !1068",
+				"%cmp13.i.i = icmp eq i32 %call.i.i, 0, !dbg !1069",
+				"br i1 %cmp13.i.i, label %cond.end.i, label %for.cond.i.i, !dbg !1070"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 54,
+			"name": "cond.end.i",
+			"debug": [
+				{
+					"line": 155, "columns": [26, 24]
+				},
+				{
+					"line": 156, "columns": [64, 82, 86, 27, 19, 25]
+				},
+				{
+					"line": 157, "columns": [29, 9]
+				}
+			],
+			"successors": [73, 55],
+			"ir": [
+				"%cond.i = phi i32 [ %type.2, %if.end43 ], [ 1, %lor.lhs.false2.i.i ], [ 1, %lor.lhs.false.i.i ], [ 1, %cond.true.i ], [ 1, %land.rhs.i.i ], [ 1, %for.cond.i.i ], [ %36, %for.body.i.i ], !dbg !1024",
+				"store i32 %cond.i, ptr %28, align 8, !dbg !1071, !tbaa !1072",
+				"%start.i = getelementptr inbounds %struct.token, ptr %new_token, i64 0, i32 5, !dbg !1074",
+				"%38 = load ptr, ptr %start.i, align 8, !dbg !1074, !tbaa !875",
+				"%end.i = getelementptr inbounds %struct.token, ptr %new_token, i64 0, i32 6, !dbg !1075",
+				"%39 = load ptr, ptr %end.i, align 8, !dbg !1075, !tbaa !1076",
+				"%sub.ptr.lhs.cast.i = ptrtoint ptr %39 to i64, !dbg !1077",
+				"%sub.ptr.rhs.cast.i = ptrtoint ptr %38 to i64, !dbg !1077",
+				"%sub.ptr.sub.i = sub i64 %sub.ptr.lhs.cast.i, %sub.ptr.rhs.cast.i, !dbg !1077",
+				"%call2.i = call ptr @PyBytes_FromStringAndSize(ptr noundef %38, i64 noundef %sub.ptr.sub.i) #13, !dbg !1078",
+				"%bytes.i = getelementptr inbounds %struct.Token, ptr %28, i64 0, i32 1, !dbg !1079",
+				"store ptr %call2.i, ptr %bytes.i, align 8, !dbg !1080, !tbaa !1081",
+				"%cmp4.i = icmp eq ptr %call2.i, null, !dbg !1082",
+				"br i1 %cmp4.i, label %cleanup47, label %if.end.i82, !dbg !1084"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 55,
+			"name": "if.end.i82",
+			"debug": [
+				{
+					"line": 160, "columns": [33, 9, 61]
+				}
+			],
+			"successors": [56, 59],
+			"ir": [
+				"%arena.i = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 5, !dbg !1085",
+				"%40 = load ptr, ptr %arena.i, align 8, !dbg !1085, !tbaa !1087",
+				"%call6.i = call i32 @_PyArena_AddPyObject(ptr noundef %40, ptr noundef nonnull %call2.i) #13, !dbg !1088",
+				"%cmp7.i = icmp slt i32 %call6.i, 0, !dbg !1089",
+				"br i1 %cmp7.i, label %if.then8.i, label %if.end10.i, !dbg !1090"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 56,
+			"name": "if.then8.i",
+			"debug": [
+				{
+					"line": 161, "columns": [9]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [57, 73],
+			"ir": [
+				"%41 = load ptr, ptr %bytes.i, align 8, !dbg !1091, !tbaa !1081",
+				"%op.val.i.i = load i64, ptr %41, align 8, !dbg !1098, !tbaa !879",
+				"%42 = and i64 %op.val.i.i, 2147483648, !dbg !1105",
+				"%cmp.i.not.i.i = icmp eq i64 %42, 0, !dbg !1105",
+				"br i1 %cmp.i.not.i.i, label %if.end.i.i, label %cleanup47, !dbg !1106"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 57,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [58, 73],
+			"ir": [
+				"%dec.i.i = add i64 %op.val.i.i, -1, !dbg !1107",
+				"store i64 %dec.i.i, ptr %41, align 8, !dbg !1107, !tbaa !879",
+				"%cmp.i.i = icmp eq i64 %dec.i.i, 0, !dbg !1109",
+				"br i1 %cmp.i.i, label %if.then1.i.i, label %cleanup47, !dbg !1110"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 58,
+			"name": "if.then1.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [73],
+			"ir": [
+				"call void @_Py_Dealloc(ptr noundef nonnull %41) #13, !dbg !1111",
+				"br label %cleanup47, !dbg !1113"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 59,
+			"name": "if.end10.i",
+			"debug": [
+				{
+					"line": 165, "columns": [19, 28]
+				},
+				{
+					"line": 166, "columns": [20, 29, 9]
+				}
+			],
+			"successors": [65, 60],
+			"ir": [
+				"%metadata.i = getelementptr inbounds %struct.Token, ptr %28, i64 0, i32 8, !dbg !1114",
+				"store ptr null, ptr %metadata.i, align 8, !dbg !1115, !tbaa !1116",
+				"%metadata11.i = getelementptr inbounds %struct.token, ptr %new_token, i64 0, i32 7, !dbg !1117",
+				"%43 = load ptr, ptr %metadata11.i, align 8, !dbg !1117, !tbaa !1119",
+				"%cmp12.not.i = icmp eq ptr %43, null, !dbg !1120",
+				"br i1 %cmp12.not.i, label %if.end24.i, label %if.then13.i, !dbg !1121"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 60,
+			"name": "if.then13.i",
+			"debug": [
+				{
+					"line": 167, "columns": [37, 13, 65]
+				}
+			],
+			"successors": [61, 64],
+			"ir": [
+				"%44 = load ptr, ptr %arena.i, align 8, !dbg !1122, !tbaa !1087",
+				"%call16.i = call i32 @_PyArena_AddPyObject(ptr noundef %44, ptr noundef nonnull %43) #13, !dbg !1125",
+				"%cmp17.i = icmp slt i32 %call16.i, 0, !dbg !1126",
+				"br i1 %cmp17.i, label %if.then18.i, label %if.end20.i, !dbg !1127"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 61,
+			"name": "if.then18.i",
+			"debug": [
+				{
+					"line": 168, "columns": [13]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [62, 73],
+			"ir": [
+				"%45 = load ptr, ptr %metadata.i, align 8, !dbg !1128, !tbaa !1116",
+				"%op.val.i102.i = load i64, ptr %45, align 8, !dbg !1132, !tbaa !879",
+				"%46 = and i64 %op.val.i102.i, 2147483648, !dbg !1135",
+				"%cmp.i.not.i103.i = icmp eq i64 %46, 0, !dbg !1135",
+				"br i1 %cmp.i.not.i103.i, label %if.end.i106.i, label %cleanup47, !dbg !1136"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 62,
+			"name": "if.end.i106.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [63, 73],
+			"ir": [
+				"%dec.i104.i = add i64 %op.val.i102.i, -1, !dbg !1137",
+				"store i64 %dec.i104.i, ptr %45, align 8, !dbg !1137, !tbaa !879",
+				"%cmp.i105.i = icmp eq i64 %dec.i104.i, 0, !dbg !1138",
+				"br i1 %cmp.i105.i, label %if.then1.i107.i, label %cleanup47, !dbg !1139"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 63,
+			"name": "if.then1.i107.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [73],
+			"ir": [
+				"call void @_Py_Dealloc(ptr noundef nonnull %45) #13, !dbg !1140",
+				"br label %cleanup47, !dbg !1141"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 64,
+			"name": "if.end20.i",
+			"debug": [
+				{
+					"line": 171, "columns": [45, 32]
+				},
+				{
+					"line": 172, "columns": [29]
+				},
+				{
+					"line": 173, "columns": [5]
+				}
+			],
+			"successors": [65],
+			"ir": [
+				"%47 = load ptr, ptr %metadata11.i, align 8, !dbg !1142, !tbaa !1119",
+				"store ptr %47, ptr %metadata.i, align 8, !dbg !1143, !tbaa !1116",
+				"store ptr null, ptr %metadata11.i, align 8, !dbg !1144, !tbaa !1119",
+				"br label %if.end24.i, !dbg !1145"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 65,
+			"name": "if.end24.i",
+			"debug": [
+				{
+					"line": 175, "columns": [19, 38, 25]
+				},
+				{
+					"line": 177, "columns": [35, 40, 53, 47, 32]
+				}
+			],
+			"successors": [66, 67],
+			"ir": [
+				"%level25.i = getelementptr inbounds %struct.Token, ptr %28, i64 0, i32 2, !dbg !1146",
+				"%48 = load <2 x i32>, ptr %new_token, align 8, !dbg !1147, !tbaa !1148",
+				"store <2 x i32> %48, ptr %level25.i, align 8, !dbg !1149, !tbaa !1148",
+				"%49 = load ptr, ptr %p, align 8, !dbg !1150, !tbaa !850",
+				"%lineno27.i = getelementptr inbounds %struct.tok_state, ptr %49, i64 0, i32 17, !dbg !1151",
+				"%50 = load i32, ptr %lineno27.i, align 8, !dbg !1151, !tbaa !883",
+				"%starting_lineno.i = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 13, !dbg !1152",
+				"%51 = load i32, ptr %starting_lineno.i, align 8, !dbg !1152, !tbaa !1153",
+				"%cmp28.i = icmp eq i32 %50, %51, !dbg !1154",
+				"br i1 %cmp28.i, label %cond.true40.i, label %cond.false43.i, !dbg !1155"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 66,
+			"name": "cond.true40.i",
+			"debug": [
+				{
+					"line": 177, "columns": [74, 107, 94]
+				},
+				{
+					"line": 180, "columns": [111, 98, 36]
+				}
+			],
+			"successors": [68],
+			"ir": [
+				"%starting_col_offset.i = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 14, !dbg !1156",
+				"%52 = load i32, ptr %starting_col_offset.i, align 4, !dbg !1156, !tbaa !1157",
+				"%col_offset.i = getelementptr inbounds %struct.token, ptr %new_token, i64 0, i32 2, !dbg !1158",
+				"%53 = load i32, ptr %col_offset.i, align 8, !dbg !1158, !tbaa !865",
+				"%add.i = add i32 %53, %52, !dbg !1159",
+				"%end_col_offset.i = getelementptr inbounds %struct.token, ptr %new_token, i64 0, i32 4, !dbg !1160",
+				"%54 = load i32, ptr %end_col_offset.i, align 8, !dbg !1160, !tbaa !862",
+				"%add42.i = add i32 %54, %52, !dbg !1161",
+				"br label %cond.end45.i, !dbg !1162"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 67,
+			"name": "cond.false43.i",
+			"debug": [
+				{
+					"line": 178, "columns": [82]
+				},
+				{
+					"line": 180, "columns": [36]
+				},
+				{
+					"line": 181, "columns": [79]
+				}
+			],
+			"successors": [68],
+			"ir": [
+				"%col_offset31.i = getelementptr inbounds %struct.token, ptr %new_token, i64 0, i32 2, !dbg !1163",
+				"%55 = load i32, ptr %col_offset31.i, align 8, !dbg !1163, !tbaa !865",
+				"%end_col_offset44.i = getelementptr inbounds %struct.token, ptr %new_token, i64 0, i32 4, !dbg !1164",
+				"%56 = load i32, ptr %end_col_offset44.i, align 8, !dbg !1164, !tbaa !862",
+				"br label %cond.end45.i, !dbg !1162"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 68,
+			"name": "cond.end45.i",
+			"debug": [
+				{
+					"line": 177, "columns": [30, 19]
+				},
+				{
+					"line": 179, "columns": [43, 30, 19]
+				},
+				{
+					"line": 180, "columns": [36, 19, 34]
+				},
+				{
+					"line": 183, "columns": [13]
+				},
+				{
+					"line": 185, "columns": [20, 34]
+				}
+			],
+			"successors": [69, 73],
+			"ir": [
+				"%.sink113.i = phi i32 [ %add.i, %cond.true40.i ], [ %55, %cond.false43.i ], !dbg !1165",
+				"%cond46.i = phi i32 [ %add42.i, %cond.true40.i ], [ %56, %cond.false43.i ], !dbg !1162",
+				"%.sink.in.i = getelementptr inbounds %struct.token, ptr %new_token, i64 0, i32 3, !dbg !1166",
+				"%.sink.i = load i32, ptr %.sink.in.i, align 4, !dbg !1167, !tbaa !1168",
+				"%57 = getelementptr inbounds %struct.Token, ptr %28, i64 0, i32 4, !dbg !1169",
+				"store i32 %.sink113.i, ptr %57, align 8, !dbg !1165",
+				"%58 = getelementptr inbounds %struct.Token, ptr %28, i64 0, i32 5, !dbg !1170",
+				"store i32 %.sink.i, ptr %58, align 4, !dbg !1167",
+				"%end_col_offset47.i = getelementptr inbounds %struct.Token, ptr %28, i64 0, i32 6, !dbg !1171",
+				"store i32 %cond46.i, ptr %end_col_offset47.i, align 8, !dbg !1172, !tbaa !1173",
+				"%59 = load i32, ptr %fill, align 4, !dbg !1174, !tbaa !961",
+				"%add48.i = add i32 %59, 1, !dbg !1174",
+				"store i32 %add48.i, ptr %fill, align 4, !dbg !1174, !tbaa !961",
+				"%cmp49.i = icmp eq i32 %type.2, 64, !dbg !1175",
+				"br i1 %cmp49.i, label %land.lhs.true.i, label %cleanup47, !dbg !1177"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 69,
+			"name": "land.lhs.true.i",
+			"debug": [
+				{
+					"line": 185, "columns": [45, 50, 9]
+				}
+			],
+			"successors": [70, 71],
+			"ir": [
+				"%done.i = getelementptr inbounds %struct.tok_state, ptr %49, i64 0, i32 8, !dbg !1178",
+				"%60 = load i32, ptr %done.i, align 8, !dbg !1178, !tbaa !1179",
+				"%cmp51.i = icmp eq i32 %60, 22, !dbg !1180",
+				"br i1 %cmp51.i, label %if.then52.i, label %cond.true56.i, !dbg !1181"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 70,
+			"name": "if.then52.i",
+			"debug": [
+				{
+					"line": 186, "columns": [16, 9]
+				}
+			],
+			"successors": [73],
+			"ir": [
+				"%call53.i = call i32 @_Pypegen_raise_decode_error(ptr noundef nonnull %p) #13, !dbg !1182",
+				"br label %cleanup47, !dbg !1184"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 71,
+			"name": "cond.true56.i",
+			"debug": [
+				{
+					"line": 189, "columns": [40, 13]
+				}
+			],
+			"successors": [73],
+			"ir": [
+				"%call57.i = call i32 @_Pypegen_tokenizer_error(ptr noundef nonnull %p) #13, !dbg !1185",
+				"br label %cleanup47, !dbg !1186"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 72,
+			"name": "error",
+			"debug": [
+				{
+					"line": 260, "columns": [1]
+				},
+				{
+					"line": 261, "columns": [5]
+				},
+				{
+					"line": 262, "columns": [5]
+				}
+			],
+			"successors": [73],
+			"ir": [
+				"%call17.i = call ptr @PyErr_NoMemory() #13, !dbg !845",
+				"call void @_PyToken_Free(ptr noundef nonnull %new_token) #13, !dbg !1188",
+				"br label %cleanup47, !dbg !1189"
+			]
+		},
+		{
+			"function": "_PyPegen_fill_token",
+			"id": 73,
+			"name": "cleanup47",
+			"debug": [
+				{
+					"line": 263, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ -1, %error ], [ %call53.i, %if.then52.i ], [ -1, %cond.end.i ], [ %call57.i, %cond.true56.i ], [ 0, %cond.end45.i ], [ -1, %if.then8.i ], [ -1, %if.end.i.i ], [ -1, %if.then1.i.i ], [ -1, %if.then18.i ], [ -1, %if.end.i106.i ], [ -1, %if.then1.i107.i ]",
+				"call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %new_token) #13, !dbg !1190",
+				"ret i32 %retval.0, !dbg !1190"
+			]
+		},
+		{
+			"function": "_PyPegen_is_memoized",
+			"id": 74,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 307, "columns": [12, 23, 17, 9]
+				}
+			],
+			"successors": [75, 78],
+			"ir": [
+				"%mark = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 2, !dbg !834",
+				"%0 = load i32, ptr %mark, align 8, !dbg !834, !tbaa !836",
+				"%fill = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 3, !dbg !844",
+				"%1 = load i32, ptr %fill, align 4, !dbg !844, !tbaa !845",
+				"%cmp = icmp eq i32 %0, %1, !dbg !846",
+				"br i1 %cmp, label %if.then, label %if.end3, !dbg !847"
+			]
+		},
+		{
+			"function": "_PyPegen_is_memoized",
+			"id": 75,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 308, "columns": [13, 36]
+				}
+			],
+			"successors": [77, 76],
+			"ir": [
+				"%call = tail call i32 @_PyPegen_fill_token(ptr noundef nonnull %p), !dbg !848",
+				"%cmp1 = icmp slt i32 %call, 0, !dbg !851",
+				"br i1 %cmp1, label %if.then2, label %if.then.if.end3_crit_edge, !dbg !852"
+			]
+		},
+		{
+			"function": "_PyPegen_is_memoized",
+			"id": 76,
+			"name": "if.then.if.end3_crit_edge",
+			"debug": [
+				{
+					"line": 308, "columns": [13]
+				},
+				{
+					"line": 314, "columns": [29]
+				}
+			],
+			"successors": [78],
+			"ir": [
+				"%.pre = load i32, ptr %mark, align 8, !dbg !853, !tbaa !836",
+				"br label %if.end3, !dbg !852"
+			]
+		},
+		{
+			"function": "_PyPegen_is_memoized",
+			"id": 77,
+			"name": "if.then2",
+			"debug": [
+				{
+					"line": 309, "columns": [16, 32]
+				},
+				{
+					"line": 310, "columns": [13]
+				}
+			],
+			"successors": [82],
+			"ir": [
+				"%error_indicator = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 15, !dbg !854",
+				"store i32 1, ptr %error_indicator, align 8, !dbg !856, !tbaa !857",
+				"br label %return, !dbg !858"
+			]
+		},
+		{
+			"function": "_PyPegen_is_memoized",
+			"id": 78,
+			"name": "if.end3",
+			"debug": [
+				{
+					"line": 314, "columns": [29, 19, 16]
+				},
+				{
+					"line": 316, "columns": [23, 0, 31, 5]
+				}
+			],
+			"successors": [82, 79],
+			"ir": [
+				"%2 = phi i32 [ %.pre, %if.then.if.end3_crit_edge ], [ %0, %entry ], !dbg !853",
+				"%tokens = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 1, !dbg !859",
+				"%3 = load ptr, ptr %tokens, align 8, !dbg !859, !tbaa !860",
+				"%idxprom = sext i32 %2 to i64, !dbg !861",
+				"%arrayidx = getelementptr ptr, ptr %3, i64 %idxprom, !dbg !861",
+				"%4 = load ptr, ptr %arrayidx, align 8, !dbg !861, !tbaa !862",
+				"%memo = getelementptr inbounds %struct.Token, ptr %4, i64 0, i32 7, !dbg !863",
+				"%m.026 = load ptr, ptr %memo, align 8, !dbg !865, !tbaa !862",
+				"%cmp5.not27.not = icmp eq ptr %m.026, null, !dbg !866",
+				"br i1 %cmp5.not27.not, label %return, label %for.body, !dbg !868"
+			]
+		},
+		{
+			"function": "_PyPegen_is_memoized",
+			"id": 79,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 317, "columns": [16, 21, 13]
+				}
+			],
+			"successors": [80, 81],
+			"ir": [
+				"%m.028 = phi ptr [ %m.0, %for.inc ], [ %m.026, %if.end3 ]",
+				"%5 = load i32, ptr %m.028, align 8, !dbg !869, !tbaa !872",
+				"%cmp7 = icmp eq i32 %5, %type, !dbg !874",
+				"br i1 %cmp7, label %if.then8, label %for.inc, !dbg !875"
+			]
+		},
+		{
+			"function": "_PyPegen_is_memoized",
+			"id": 80,
+			"name": "if.then8",
+			"debug": [
+				{
+					"line": 328, "columns": [26, 21]
+				},
+				{
+					"line": 329, "columns": [35, 30]
+				},
+				{
+					"line": 330, "columns": [13]
+				}
+			],
+			"successors": [82],
+			"ir": [
+				"%mark9 = getelementptr inbounds %struct._memo, ptr %m.028, i64 0, i32 2, !dbg !876",
+				"%6 = load i32, ptr %mark9, align 8, !dbg !876, !tbaa !878",
+				"store i32 %6, ptr %mark, align 8, !dbg !879, !tbaa !836",
+				"%node = getelementptr inbounds %struct._memo, ptr %m.028, i64 0, i32 1, !dbg !880",
+				"%7 = load ptr, ptr %node, align 8, !dbg !880, !tbaa !881",
+				"store ptr %7, ptr %pres, align 8, !dbg !882, !tbaa !862",
+				"br label %return, !dbg !883"
+			]
+		},
+		{
+			"function": "_PyPegen_is_memoized",
+			"id": 81,
+			"name": "for.inc",
+			"debug": [
+				{
+					"line": 316, "columns": [47, 0, 31, 5]
+				}
+			],
+			"successors": [82, 79],
+			"ir": [
+				"%next = getelementptr inbounds %struct._memo, ptr %m.028, i64 0, i32 3, !dbg !884",
+				"%m.0 = load ptr, ptr %next, align 8, !dbg !865, !tbaa !862",
+				"%cmp5.not.not = icmp eq ptr %m.0, null, !dbg !866",
+				"br i1 %cmp5.not.not, label %return, label %for.body, !dbg !868, !llvm.loop !885"
+			]
+		},
+		{
+			"function": "_PyPegen_is_memoized",
+			"id": 82,
+			"name": "return",
+			"debug": [
+				{
+					"line": 334, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.2 = phi i32 [ -1, %if.then2 ], [ 1, %if.then8 ], [ 0, %if.end3 ], [ 0, %for.inc ], !dbg !833",
+				"ret i32 %retval.2, !dbg !888"
+			]
+		},
+		{
+			"function": "_PyPegen_lookahead_with_name",
+			"id": 83,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 339, "columns": [19]
+				},
+				{
+					"line": 340, "columns": [17]
+				},
+				{
+					"line": 341, "columns": [13]
+				},
+				{
+					"line": 342, "columns": [17, 26, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%mark1 = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 2, !dbg !1075",
+				"%0 = load i32, ptr %mark1, align 8, !dbg !1075, !tbaa !1076",
+				"%call = tail call ptr %func(ptr noundef %p) #13, !dbg !1084",
+				"store i32 %0, ptr %mark1, align 8, !dbg !1085, !tbaa !1076",
+				"%cmp = icmp ne ptr %call, null, !dbg !1086",
+				"%conv = zext i1 %cmp to i32, !dbg !1086",
+				"%cmp3 = icmp eq i32 %conv, %positive, !dbg !1087",
+				"%conv4 = zext i1 %cmp3 to i32, !dbg !1087",
+				"ret i32 %conv4, !dbg !1088"
+			]
+		},
+		{
+			"function": "_PyPegen_lookahead_with_string",
+			"id": 84,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 348, "columns": [19]
+				},
+				{
+					"line": 349, "columns": [17]
+				},
+				{
+					"line": 350, "columns": [13]
+				},
+				{
+					"line": 351, "columns": [17, 26, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%mark1 = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 2, !dbg !1076",
+				"%0 = load i32, ptr %mark1, align 8, !dbg !1076, !tbaa !1077",
+				"%call = tail call ptr %func(ptr noundef %p, ptr noundef %arg) #13, !dbg !1085",
+				"store i32 %0, ptr %mark1, align 8, !dbg !1086, !tbaa !1077",
+				"%cmp = icmp ne ptr %call, null, !dbg !1087",
+				"%conv = zext i1 %cmp to i32, !dbg !1087",
+				"%cmp3 = icmp eq i32 %conv, %positive, !dbg !1088",
+				"%conv4 = zext i1 %cmp3 to i32, !dbg !1088",
+				"ret i32 %conv4, !dbg !1089"
+			]
+		},
+		{
+			"function": "_PyPegen_lookahead_with_int",
+			"id": 85,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 357, "columns": [19]
+				},
+				{
+					"line": 358, "columns": [17]
+				},
+				{
+					"line": 359, "columns": [13]
+				},
+				{
+					"line": 360, "columns": [17, 26, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%mark1 = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 2, !dbg !837",
+				"%0 = load i32, ptr %mark1, align 8, !dbg !837, !tbaa !838",
+				"%call = tail call ptr %func(ptr noundef %p, i32 noundef %arg) #13, !dbg !846",
+				"store i32 %0, ptr %mark1, align 8, !dbg !847, !tbaa !838",
+				"%cmp = icmp ne ptr %call, null, !dbg !848",
+				"%conv = zext i1 %cmp to i32, !dbg !848",
+				"%cmp3 = icmp eq i32 %conv, %positive, !dbg !849",
+				"%conv4 = zext i1 %cmp3 to i32, !dbg !849",
+				"ret i32 %conv4, !dbg !850"
+			]
+		},
+		{
+			"function": "_PyPegen_lookahead",
+			"id": 86,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 366, "columns": [19]
+				},
+				{
+					"line": 367, "columns": [24]
+				},
+				{
+					"line": 368, "columns": [13]
+				},
+				{
+					"line": 369, "columns": [17, 26, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%mark1 = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 2, !dbg !836",
+				"%0 = load i32, ptr %mark1, align 8, !dbg !836, !tbaa !837",
+				"%call = tail call ptr %func(ptr noundef %p) #13, !dbg !845",
+				"store i32 %0, ptr %mark1, align 8, !dbg !846, !tbaa !837",
+				"%cmp = icmp ne ptr %call, null, !dbg !847",
+				"%conv = zext i1 %cmp to i32, !dbg !847",
+				"%cmp3 = icmp eq i32 %conv, %positive, !dbg !848",
+				"%conv4 = zext i1 %cmp3 to i32, !dbg !848",
+				"ret i32 %conv4, !dbg !849"
+			]
+		},
+		{
+			"function": "_PyPegen_expect_token",
+			"id": 87,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 375, "columns": [12, 23, 17, 9]
+				}
+			],
+			"successors": [88, 91],
+			"ir": [
+				"%mark = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 2, !dbg !831",
+				"%0 = load i32, ptr %mark, align 8, !dbg !831, !tbaa !833",
+				"%fill = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 3, !dbg !841",
+				"%1 = load i32, ptr %fill, align 4, !dbg !841, !tbaa !842",
+				"%cmp = icmp eq i32 %0, %1, !dbg !843",
+				"br i1 %cmp, label %if.then, label %if.end3, !dbg !844"
+			]
+		},
+		{
+			"function": "_PyPegen_expect_token",
+			"id": 88,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 376, "columns": [13, 36]
+				}
+			],
+			"successors": [90, 89],
+			"ir": [
+				"%call = tail call i32 @_PyPegen_fill_token(ptr noundef nonnull %p), !dbg !845",
+				"%cmp1 = icmp slt i32 %call, 0, !dbg !848",
+				"br i1 %cmp1, label %if.then2, label %if.then.if.end3_crit_edge, !dbg !849"
+			]
+		},
+		{
+			"function": "_PyPegen_expect_token",
+			"id": 89,
+			"name": "if.then.if.end3_crit_edge",
+			"debug": [
+				{
+					"line": 376, "columns": [13]
+				},
+				{
+					"line": 381, "columns": [29]
+				}
+			],
+			"successors": [91],
+			"ir": [
+				"%.pre = load i32, ptr %mark, align 8, !dbg !850, !tbaa !833",
+				"br label %if.end3, !dbg !849"
+			]
+		},
+		{
+			"function": "_PyPegen_expect_token",
+			"id": 90,
+			"name": "if.then2",
+			"debug": [
+				{
+					"line": 377, "columns": [16, 32]
+				},
+				{
+					"line": 378, "columns": [13]
+				}
+			],
+			"successors": [93],
+			"ir": [
+				"%error_indicator = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 15, !dbg !851",
+				"store i32 1, ptr %error_indicator, align 8, !dbg !853, !tbaa !854",
+				"br label %return, !dbg !855"
+			]
+		},
+		{
+			"function": "_PyPegen_expect_token",
+			"id": 91,
+			"name": "if.end3",
+			"debug": [
+				{
+					"line": 381, "columns": [29, 19, 16]
+				},
+				{
+					"line": 382, "columns": [12, 17, 9]
+				}
+			],
+			"successors": [92, 93],
+			"ir": [
+				"%2 = phi i32 [ %.pre, %if.then.if.end3_crit_edge ], [ %0, %entry ], !dbg !850",
+				"%tokens = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 1, !dbg !856",
+				"%3 = load ptr, ptr %tokens, align 8, !dbg !856, !tbaa !857",
+				"%idxprom = sext i32 %2 to i64, !dbg !858",
+				"%arrayidx = getelementptr ptr, ptr %3, i64 %idxprom, !dbg !858",
+				"%4 = load ptr, ptr %arrayidx, align 8, !dbg !858, !tbaa !859",
+				"%5 = load i32, ptr %4, align 8, !dbg !860, !tbaa !862",
+				"%cmp6.not = icmp eq i32 %5, %type, !dbg !864",
+				"br i1 %cmp6.not, label %if.end8, label %return, !dbg !865"
+			]
+		},
+		{
+			"function": "_PyPegen_expect_token",
+			"id": 92,
+			"name": "if.end8",
+			"debug": [
+				{
+					"line": 385, "columns": [13]
+				},
+				{
+					"line": 386, "columns": [5]
+				}
+			],
+			"successors": [93],
+			"ir": [
+				"%add = add i32 %2, 1, !dbg !866",
+				"store i32 %add, ptr %mark, align 8, !dbg !866, !tbaa !833",
+				"br label %return, !dbg !867"
+			]
+		},
+		{
+			"function": "_PyPegen_expect_token",
+			"id": 93,
+			"name": "return",
+			"debug": [
+				{
+					"line": 387, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %if.then2 ], [ %4, %if.end8 ], [ null, %if.end3 ], !dbg !830",
+				"ret ptr %retval.1, !dbg !868"
+			]
+		},
+		{
+			"function": "_PyPegen_expect_forced_result",
+			"id": 94,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 392, "columns": [12, 28, 9]
+				}
+			],
+			"successors": [97, 95],
+			"ir": [
+				"%error_indicator = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 15, !dbg !831",
+				"%0 = load i32, ptr %error_indicator, align 8, !dbg !831, !tbaa !833",
+				"%cmp = icmp eq i32 %0, 1, !dbg !841",
+				"br i1 %cmp, label %return, label %if.end, !dbg !842"
+			]
+		},
+		{
+			"function": "_PyPegen_expect_forced_result",
+			"id": 95,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 395, "columns": [16, 9]
+				}
+			],
+			"successors": [96, 97],
+			"ir": [
+				"%cmp1 = icmp eq ptr %result, null, !dbg !843",
+				"br i1 %cmp1, label %if.then2, label %return, !dbg !845"
+			]
+		},
+		{
+			"function": "_PyPegen_expect_forced_result",
+			"id": 96,
+			"name": "if.then2",
+			"debug": [
+				{
+					"line": 396, "columns": [9]
+				},
+				{
+					"line": 397, "columns": [9]
+				}
+			],
+			"successors": [97],
+			"ir": [
+				"%1 = load ptr, ptr @PyExc_SyntaxError, align 8, !dbg !846, !tbaa !848",
+				"%call = tail call ptr (ptr, ptr, i32, ptr, ...) @_PyPegen_raise_error(ptr noundef nonnull %p, ptr noundef %1, i32 noundef 0, ptr noundef nonnull @.str.1, ptr noundef %expected) #13, !dbg !846",
+				"br label %return, !dbg !849"
+			]
+		},
+		{
+			"function": "_PyPegen_expect_forced_result",
+			"id": 97,
+			"name": "return",
+			"debug": [
+				{
+					"line": 400, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ null, %if.then2 ], [ null, %entry ], [ %result, %if.end ], !dbg !830",
+				"ret ptr %retval.0, !dbg !850"
+			]
+		},
+		{
+			"function": "_PyPegen_expect_forced_token",
+			"id": 98,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 405, "columns": [12, 28, 9]
+				}
+			],
+			"successors": [106, 99],
+			"ir": [
+				"%error_indicator = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 15, !dbg !832",
+				"%0 = load i32, ptr %error_indicator, align 8, !dbg !832, !tbaa !834",
+				"%cmp = icmp eq i32 %0, 1, !dbg !842",
+				"br i1 %cmp, label %return, label %if.end, !dbg !843"
+			]
+		},
+		{
+			"function": "_PyPegen_expect_forced_token",
+			"id": 99,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 409, "columns": [12, 23, 17, 9]
+				}
+			],
+			"successors": [100, 103],
+			"ir": [
+				"%mark = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 2, !dbg !844",
+				"%1 = load i32, ptr %mark, align 8, !dbg !844, !tbaa !846",
+				"%fill = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 3, !dbg !847",
+				"%2 = load i32, ptr %fill, align 4, !dbg !847, !tbaa !848",
+				"%cmp1 = icmp eq i32 %1, %2, !dbg !849",
+				"br i1 %cmp1, label %if.then2, label %if.end7, !dbg !850"
+			]
+		},
+		{
+			"function": "_PyPegen_expect_forced_token",
+			"id": 100,
+			"name": "if.then2",
+			"debug": [
+				{
+					"line": 410, "columns": [13, 36]
+				}
+			],
+			"successors": [102, 101],
+			"ir": [
+				"%call = tail call i32 @_PyPegen_fill_token(ptr noundef nonnull %p), !dbg !851",
+				"%cmp3 = icmp slt i32 %call, 0, !dbg !854",
+				"br i1 %cmp3, label %if.then4, label %if.then2.if.end7_crit_edge, !dbg !855"
+			]
+		},
+		{
+			"function": "_PyPegen_expect_forced_token",
+			"id": 101,
+			"name": "if.then2.if.end7_crit_edge",
+			"debug": [
+				{
+					"line": 410, "columns": [13]
+				},
+				{
+					"line": 415, "columns": [29]
+				}
+			],
+			"successors": [103],
+			"ir": [
+				"%.pre = load i32, ptr %mark, align 8, !dbg !856, !tbaa !846",
+				"br label %if.end7, !dbg !855"
+			]
+		},
+		{
+			"function": "_PyPegen_expect_forced_token",
+			"id": 102,
+			"name": "if.then4",
+			"debug": [
+				{
+					"line": 411, "columns": [32]
+				},
+				{
+					"line": 412, "columns": [13]
+				}
+			],
+			"successors": [106],
+			"ir": [
+				"store i32 1, ptr %error_indicator, align 8, !dbg !857, !tbaa !834",
+				"br label %return, !dbg !859"
+			]
+		},
+		{
+			"function": "_PyPegen_expect_forced_token",
+			"id": 103,
+			"name": "if.end7",
+			"debug": [
+				{
+					"line": 415, "columns": [29, 19, 16]
+				},
+				{
+					"line": 416, "columns": [12, 17, 9]
+				}
+			],
+			"successors": [105, 104],
+			"ir": [
+				"%3 = phi i32 [ %.pre, %if.then2.if.end7_crit_edge ], [ %1, %if.end ], !dbg !856",
+				"%tokens = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 1, !dbg !860",
+				"%4 = load ptr, ptr %tokens, align 8, !dbg !860, !tbaa !861",
+				"%idxprom = sext i32 %3 to i64, !dbg !862",
+				"%arrayidx = getelementptr ptr, ptr %4, i64 %idxprom, !dbg !862",
+				"%5 = load ptr, ptr %arrayidx, align 8, !dbg !862, !tbaa !863",
+				"%6 = load i32, ptr %5, align 8, !dbg !864, !tbaa !866",
+				"%cmp10.not = icmp eq i32 %6, %type, !dbg !868",
+				"br i1 %cmp10.not, label %if.end16, label %if.then11, !dbg !869"
+			]
+		},
+		{
+			"function": "_PyPegen_expect_forced_token",
+			"id": 104,
+			"name": "if.then11",
+			"debug": [
+				{
+					"line": 417, "columns": [9]
+				},
+				{
+					"line": 418, "columns": [9]
+				}
+			],
+			"successors": [106],
+			"ir": [
+				"%7 = load ptr, ptr @PyExc_SyntaxError, align 8, !dbg !870, !tbaa !863",
+				"%lineno = getelementptr inbounds %struct.Token, ptr %5, i64 0, i32 3, !dbg !870",
+				"%8 = load i32, ptr %lineno, align 4, !dbg !870, !tbaa !872",
+				"%conv = sext i32 %8 to i64, !dbg !870",
+				"%col_offset = getelementptr inbounds %struct.Token, ptr %5, i64 0, i32 4, !dbg !870",
+				"%9 = load i32, ptr %col_offset, align 8, !dbg !870, !tbaa !873",
+				"%conv12 = sext i32 %9 to i64, !dbg !870",
+				"%end_lineno = getelementptr inbounds %struct.Token, ptr %5, i64 0, i32 5, !dbg !870",
+				"%10 = load i32, ptr %end_lineno, align 4, !dbg !870, !tbaa !874",
+				"%conv13 = sext i32 %10 to i64, !dbg !870",
+				"%end_col_offset = getelementptr inbounds %struct.Token, ptr %5, i64 0, i32 6, !dbg !870",
+				"%11 = load i32, ptr %end_col_offset, align 8, !dbg !870, !tbaa !875",
+				"%conv14 = sext i32 %11 to i64, !dbg !870",
+				"tail call void (ptr, ptr, i64, i64, i64, i64, ptr, ...) @RAISE_ERROR_KNOWN_LOCATION(ptr noundef nonnull %p, ptr noundef %7, i64 noundef %conv, i64 noundef %conv12, i64 noundef %conv13, i64 noundef %conv14, ptr noundef nonnull @.str.2, ptr noundef %expected), !dbg !870",
+				"br label %return, !dbg !876"
+			]
+		},
+		{
+			"function": "_PyPegen_expect_forced_token",
+			"id": 105,
+			"name": "if.end16",
+			"debug": [
+				{
+					"line": 420, "columns": [13]
+				},
+				{
+					"line": 421, "columns": [5]
+				}
+			],
+			"successors": [106],
+			"ir": [
+				"%add = add i32 %3, 1, !dbg !877",
+				"store i32 %add, ptr %mark, align 8, !dbg !877, !tbaa !846",
+				"br label %return, !dbg !878"
+			]
+		},
+		{
+			"function": "_PyPegen_expect_forced_token",
+			"id": 106,
+			"name": "return",
+			"debug": [
+				{
+					"line": 422, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %if.then4 ], [ null, %entry ], [ null, %if.then11 ], [ %5, %if.end16 ], !dbg !831",
+				"ret ptr %retval.1, !dbg !879"
+			]
+		},
+		{
+			"function": "RAISE_ERROR_KNOWN_LOCATION",
+			"id": 107,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 178, "columns": [5, 13]
+				},
+				{
+					"line": 179, "columns": [5]
+				},
+				{
+					"line": 180, "columns": [42, 31]
+				},
+				{
+					"line": 181, "columns": [50, 35]
+				},
+				{
+					"line": 182, "columns": [5]
+				},
+				{
+					"line": 183, "columns": [5]
+				},
+				{
+					"line": 184, "columns": [5]
+				},
+				{
+					"line": 185, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%va = alloca [1 x %struct.__va_list_tag], align 16",
+				"call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %va) #13, !dbg !851",
+				"call void @llvm.va_start(ptr nonnull %va), !dbg !853",
+				"%cmp = icmp eq i64 %col_offset, -5, !dbg !854",
+				"%add = add nsw i64 %col_offset, 1, !dbg !855",
+				"%cond = select i1 %cmp, i64 -5, i64 %add, !dbg !855",
+				"%cmp1 = icmp eq i64 %end_col_offset, -5, !dbg !856",
+				"%add4 = add nsw i64 %end_col_offset, 1, !dbg !857",
+				"%cond6 = select i1 %cmp1, i64 -5, i64 %add4, !dbg !857",
+				"%call = call ptr @_PyPegen_raise_error_known_location(ptr noundef %p, ptr noundef %errtype, i64 noundef %lineno, i64 noundef %cond, i64 noundef %end_lineno, i64 noundef %cond6, ptr noundef %errmsg, ptr noundef nonnull %va) #13, !dbg !858",
+				"call void @llvm.va_end(ptr nonnull %va), !dbg !859",
+				"call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %va) #13, !dbg !860",
+				"ret void, !dbg !861"
+			]
+		},
+		{
+			"function": "_PyPegen_expect_soft_keyword",
+			"id": 108,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 427, "columns": [12, 23, 17, 9]
+				}
+			],
+			"successors": [109, 112],
+			"ir": [
+				"%mark = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 2, !dbg !1071",
+				"%0 = load i32, ptr %mark, align 8, !dbg !1071, !tbaa !1073",
+				"%fill = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 3, !dbg !1081",
+				"%1 = load i32, ptr %fill, align 4, !dbg !1081, !tbaa !1082",
+				"%cmp = icmp eq i32 %0, %1, !dbg !1083",
+				"br i1 %cmp, label %if.then, label %if.end3, !dbg !1084"
+			]
+		},
+		{
+			"function": "_PyPegen_expect_soft_keyword",
+			"id": 109,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 428, "columns": [13, 36]
+				}
+			],
+			"successors": [111, 110],
+			"ir": [
+				"%call = tail call i32 @_PyPegen_fill_token(ptr noundef nonnull %p), !dbg !1085",
+				"%cmp1 = icmp slt i32 %call, 0, !dbg !1088",
+				"br i1 %cmp1, label %if.then2, label %if.then.if.end3_crit_edge, !dbg !1089"
+			]
+		},
+		{
+			"function": "_PyPegen_expect_soft_keyword",
+			"id": 110,
+			"name": "if.then.if.end3_crit_edge",
+			"debug": [
+				{
+					"line": 428, "columns": [13]
+				},
+				{
+					"line": 433, "columns": [29]
+				}
+			],
+			"successors": [112],
+			"ir": [
+				"%.pre = load i32, ptr %mark, align 8, !dbg !1090, !tbaa !1073",
+				"br label %if.end3, !dbg !1089"
+			]
+		},
+		{
+			"function": "_PyPegen_expect_soft_keyword",
+			"id": 111,
+			"name": "if.then2",
+			"debug": [
+				{
+					"line": 429, "columns": [16, 32]
+				},
+				{
+					"line": 430, "columns": [13]
+				}
+			],
+			"successors": [117],
+			"ir": [
+				"%error_indicator = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 15, !dbg !1091",
+				"store i32 1, ptr %error_indicator, align 8, !dbg !1093, !tbaa !1094",
+				"br label %return, !dbg !1095"
+			]
+		},
+		{
+			"function": "_PyPegen_expect_soft_keyword",
+			"id": 112,
+			"name": "if.end3",
+			"debug": [
+				{
+					"line": 433, "columns": [29, 19, 16]
+				},
+				{
+					"line": 434, "columns": [12, 17, 9]
+				}
+			],
+			"successors": [113, 117],
+			"ir": [
+				"%2 = phi i32 [ %.pre, %if.then.if.end3_crit_edge ], [ %0, %entry ], !dbg !1090",
+				"%tokens = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 1, !dbg !1096",
+				"%3 = load ptr, ptr %tokens, align 8, !dbg !1096, !tbaa !1097",
+				"%idxprom = sext i32 %2 to i64, !dbg !1098",
+				"%arrayidx = getelementptr ptr, ptr %3, i64 %idxprom, !dbg !1098",
+				"%4 = load ptr, ptr %arrayidx, align 8, !dbg !1098, !tbaa !1099",
+				"%5 = load i32, ptr %4, align 8, !dbg !1100, !tbaa !1102",
+				"%cmp5.not = icmp eq i32 %5, 1, !dbg !1104",
+				"br i1 %cmp5.not, label %if.end7, label %return, !dbg !1105"
+			]
+		},
+		{
+			"function": "_PyPegen_expect_soft_keyword",
+			"id": 113,
+			"name": "if.end7",
+			"debug": [
+				{
+					"line": 437, "columns": [41, 21]
+				},
+				{
+					"line": 438, "columns": [10, 9]
+				}
+			],
+			"successors": [114, 115],
+			"ir": [
+				"%bytes = getelementptr inbounds %struct.Token, ptr %4, i64 0, i32 1, !dbg !1106",
+				"%6 = load ptr, ptr %bytes, align 8, !dbg !1106, !tbaa !1107",
+				"%call8 = tail call ptr @PyBytes_AsString(ptr noundef %6) #13, !dbg !1108",
+				"%tobool.not = icmp eq ptr %call8, null, !dbg !1109",
+				"br i1 %tobool.not, label %if.then9, label %if.end11, !dbg !1111"
+			]
+		},
+		{
+			"function": "_PyPegen_expect_soft_keyword",
+			"id": 114,
+			"name": "if.then9",
+			"debug": [
+				{
+					"line": 439, "columns": [12, 28]
+				},
+				{
+					"line": 440, "columns": [9]
+				}
+			],
+			"successors": [117],
+			"ir": [
+				"%error_indicator10 = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 15, !dbg !1112",
+				"store i32 1, ptr %error_indicator10, align 8, !dbg !1114, !tbaa !1094",
+				"br label %return, !dbg !1115"
+			]
+		},
+		{
+			"function": "_PyPegen_expect_soft_keyword",
+			"id": 115,
+			"name": "if.end11",
+			"debug": [
+				{
+					"line": 442, "columns": [9, 28]
+				}
+			],
+			"successors": [116, 117],
+			"ir": [
+				"%call12 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %call8, ptr noundef nonnull dereferenceable(1) %keyword) #14, !dbg !1116",
+				"%cmp13.not = icmp eq i32 %call12, 0, !dbg !1118",
+				"br i1 %cmp13.not, label %if.end15, label %return, !dbg !1119"
+			]
+		},
+		{
+			"function": "_PyPegen_expect_soft_keyword",
+			"id": 116,
+			"name": "if.end15",
+			"debug": [
+				{
+					"line": 445, "columns": [12, 5]
+				}
+			],
+			"successors": [117],
+			"ir": [
+				"%call16 = tail call ptr @_PyPegen_name_token(ptr noundef nonnull %p), !dbg !1120",
+				"br label %return, !dbg !1121"
+			]
+		},
+		{
+			"function": "_PyPegen_expect_soft_keyword",
+			"id": 117,
+			"name": "return",
+			"debug": [
+				{
+					"line": 446, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.2 = phi ptr [ null, %if.then2 ], [ null, %if.end3 ], [ %call16, %if.end15 ], [ null, %if.then9 ], [ null, %if.end11 ], !dbg !1070",
+				"ret ptr %retval.2, !dbg !1122"
+			]
+		},
+		{
+			"function": "_PyPegen_name_token",
+			"id": 118,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 375, "columns": [12, 23, 17, 9]
+				}
+			],
+			"successors": [119, 122],
+			"ir": [
+				"%mark.i = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 2, !dbg !1078",
+				"%0 = load i32, ptr %mark.i, align 8, !dbg !1078, !tbaa !1080",
+				"%fill.i = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 3, !dbg !1088",
+				"%1 = load i32, ptr %fill.i, align 4, !dbg !1088, !tbaa !1089",
+				"%cmp.i = icmp eq i32 %0, %1, !dbg !1090",
+				"br i1 %cmp.i, label %if.then.i, label %if.end3.i, !dbg !1091"
+			]
+		},
+		{
+			"function": "_PyPegen_name_token",
+			"id": 119,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 376, "columns": [13, 36]
+				}
+			],
+			"successors": [121, 120],
+			"ir": [
+				"%call.i = tail call i32 @_PyPegen_fill_token(ptr noundef nonnull %p), !dbg !1092",
+				"%cmp1.i = icmp slt i32 %call.i, 0, !dbg !1095",
+				"br i1 %cmp1.i, label %if.then2.i, label %if.then.if.end3_crit_edge.i, !dbg !1096"
+			]
+		},
+		{
+			"function": "_PyPegen_name_token",
+			"id": 120,
+			"name": "if.then.if.end3_crit_edge.i",
+			"debug": [
+				{
+					"line": 376, "columns": [13]
+				},
+				{
+					"line": 381, "columns": [29]
+				}
+			],
+			"successors": [122],
+			"ir": [
+				"%.pre.i = load i32, ptr %mark.i, align 8, !dbg !1097, !tbaa !1080",
+				"br label %if.end3.i, !dbg !1096"
+			]
+		},
+		{
+			"function": "_PyPegen_name_token",
+			"id": 121,
+			"name": "if.then2.i",
+			"debug": [
+				{
+					"line": 377, "columns": [16, 32]
+				},
+				{
+					"line": 378, "columns": [13]
+				}
+			],
+			"successors": [128],
+			"ir": [
+				"%error_indicator.i = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 15, !dbg !1098",
+				"store i32 1, ptr %error_indicator.i, align 8, !dbg !1100, !tbaa !1101",
+				"br label %_PyPegen_name_from_token.exit, !dbg !1102"
+			]
+		},
+		{
+			"function": "_PyPegen_name_token",
+			"id": 122,
+			"name": "if.end3.i",
+			"debug": [
+				{
+					"line": 381, "columns": [29, 19, 16]
+				},
+				{
+					"line": 382, "columns": [12, 17, 9]
+				}
+			],
+			"successors": [123, 128],
+			"ir": [
+				"%2 = phi i32 [ %.pre.i, %if.then.if.end3_crit_edge.i ], [ %0, %entry ], !dbg !1097",
+				"%tokens.i = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 1, !dbg !1103",
+				"%3 = load ptr, ptr %tokens.i, align 8, !dbg !1103, !tbaa !1104",
+				"%idxprom.i = sext i32 %2 to i64, !dbg !1105",
+				"%arrayidx.i = getelementptr ptr, ptr %3, i64 %idxprom.i, !dbg !1105",
+				"%4 = load ptr, ptr %arrayidx.i, align 8, !dbg !1105, !tbaa !1106",
+				"%5 = load i32, ptr %4, align 8, !dbg !1107, !tbaa !1109",
+				"%cmp6.not.i = icmp eq i32 %5, 1, !dbg !1111",
+				"br i1 %cmp6.not.i, label %if.end.i, label %_PyPegen_name_from_token.exit, !dbg !1112"
+			]
+		},
+		{
+			"function": "_PyPegen_name_token",
+			"id": 123,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 385, "columns": [13]
+				},
+				{
+					"line": 524, "columns": [41, 21]
+				},
+				{
+					"line": 525, "columns": [10, 9]
+				}
+			],
+			"successors": [124, 125],
+			"ir": [
+				"%add.i = add i32 %2, 1, !dbg !1113",
+				"store i32 %add.i, ptr %mark.i, align 8, !dbg !1113, !tbaa !1080",
+				"%bytes.i = getelementptr inbounds %struct.Token, ptr %4, i64 0, i32 1, !dbg !1124",
+				"%6 = load ptr, ptr %bytes.i, align 8, !dbg !1124, !tbaa !1125",
+				"%call.i4 = tail call ptr @PyBytes_AsString(ptr noundef %6) #13, !dbg !1126",
+				"%tobool.not.i = icmp eq ptr %call.i4, null, !dbg !1127",
+				"br i1 %tobool.not.i, label %if.then1.i, label %if.end2.i, !dbg !1129"
+			]
+		},
+		{
+			"function": "_PyPegen_name_token",
+			"id": 124,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 526, "columns": [12, 28]
+				},
+				{
+					"line": 527, "columns": [9]
+				}
+			],
+			"successors": [128],
+			"ir": [
+				"%error_indicator.i5 = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 15, !dbg !1130",
+				"store i32 1, ptr %error_indicator.i5, align 8, !dbg !1132, !tbaa !1101",
+				"br label %_PyPegen_name_from_token.exit, !dbg !1133"
+			]
+		},
+		{
+			"function": "_PyPegen_name_token",
+			"id": 125,
+			"name": "if.end2.i",
+			"debug": [
+				{
+					"line": 529, "columns": [20]
+				},
+				{
+					"line": 530, "columns": [12, 9]
+				}
+			],
+			"successors": [126, 127],
+			"ir": [
+				"%call3.i = tail call ptr @_PyPegen_new_identifier(ptr noundef nonnull %p, ptr noundef nonnull %call.i4), !dbg !1134",
+				"%cmp4.i = icmp eq ptr %call3.i, null, !dbg !1135",
+				"br i1 %cmp4.i, label %if.then5.i, label %if.end7.i, !dbg !1137"
+			]
+		},
+		{
+			"function": "_PyPegen_name_token",
+			"id": 126,
+			"name": "if.then5.i",
+			"debug": [
+				{
+					"line": 531, "columns": [12, 28]
+				},
+				{
+					"line": 532, "columns": [9]
+				}
+			],
+			"successors": [128],
+			"ir": [
+				"%error_indicator6.i = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 15, !dbg !1138",
+				"store i32 1, ptr %error_indicator6.i, align 8, !dbg !1140, !tbaa !1101",
+				"br label %_PyPegen_name_from_token.exit, !dbg !1141"
+			]
+		},
+		{
+			"function": "_PyPegen_name_token",
+			"id": 127,
+			"name": "if.end7.i",
+			"debug": [
+				{
+					"line": 534, "columns": [37, 48, 63, 12, 5]
+				},
+				{
+					"line": 535, "columns": [27, 46]
+				}
+			],
+			"successors": [128],
+			"ir": [
+				"%lineno.i = getelementptr inbounds %struct.Token, ptr %4, i64 0, i32 3, !dbg !1142",
+				"%7 = load i32, ptr %lineno.i, align 4, !dbg !1142, !tbaa !1143",
+				"%col_offset.i = getelementptr inbounds %struct.Token, ptr %4, i64 0, i32 4, !dbg !1144",
+				"%8 = load i32, ptr %col_offset.i, align 8, !dbg !1144, !tbaa !1145",
+				"%end_lineno.i = getelementptr inbounds %struct.Token, ptr %4, i64 0, i32 5, !dbg !1146",
+				"%9 = load i32, ptr %end_lineno.i, align 4, !dbg !1146, !tbaa !1147",
+				"%end_col_offset.i = getelementptr inbounds %struct.Token, ptr %4, i64 0, i32 6, !dbg !1148",
+				"%10 = load i32, ptr %end_col_offset.i, align 8, !dbg !1148, !tbaa !1149",
+				"%arena.i = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 5, !dbg !1150",
+				"%11 = load ptr, ptr %arena.i, align 8, !dbg !1150, !tbaa !1151",
+				"%call8.i = tail call ptr @_PyAST_Name(ptr noundef nonnull %call3.i, i32 noundef 1, i32 noundef %7, i32 noundef %8, i32 noundef %9, i32 noundef %10, ptr noundef %11) #13, !dbg !1152",
+				"br label %_PyPegen_name_from_token.exit, !dbg !1153"
+			]
+		},
+		{
+			"function": "_PyPegen_name_token",
+			"id": 128,
+			"name": "_PyPegen_name_from_token.exit",
+			"debug": [
+				{
+					"line": 542, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.2.i = phi ptr [ null, %if.then1.i ], [ null, %if.then5.i ], [ %call8.i, %if.end7.i ], [ null, %if.then2.i ], [ null, %if.end3.i ], !dbg !1122",
+				"ret ptr %retval.2.i, !dbg !1154"
+			]
+		},
+		{
+			"function": "_PyPegen_get_last_nonnwhitespace_token",
+			"id": 129,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 453, "columns": [21, 0, 33, 5]
+				}
+			],
+			"successors": [130, 133],
+			"ir": [
+				"%mark = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 2, !dbg !832",
+				"%0 = load i32, ptr %mark, align 8, !dbg !832, !tbaa !833",
+				"%m.014 = add i32 %0, -1, !dbg !842",
+				"%cmp15 = icmp sgt i32 %m.014, -1, !dbg !843",
+				"br i1 %cmp15, label %for.body.lr.ph, label %cleanup, !dbg !845"
+			]
+		},
+		{
+			"function": "_PyPegen_get_last_nonnwhitespace_token",
+			"id": 130,
+			"name": "for.body.lr.ph",
+			"debug": [
+				{
+					"line": 453, "columns": [5]
+				}
+			],
+			"successors": [131],
+			"ir": [
+				"%tokens = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 1",
+				"%1 = load ptr, ptr %tokens, align 8, !tbaa !846",
+				"br label %for.body, !dbg !845"
+			]
+		},
+		{
+			"function": "_PyPegen_get_last_nonnwhitespace_token",
+			"id": 131,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 454, "columns": [17]
+				},
+				{
+					"line": 455, "columns": [20, 38]
+				}
+			],
+			"successors": [133, 132, 132, 132, 132],
+			"ir": [
+				"%m.016 = phi i32 [ %m.014, %for.body.lr.ph ], [ %m.0, %for.cond.backedge ]",
+				"%idxprom = zext i32 %m.016 to i64",
+				"%arrayidx = getelementptr ptr, ptr %1, i64 %idxprom, !dbg !847",
+				"%2 = load ptr, ptr %arrayidx, align 8, !dbg !847, !tbaa !849",
+				"%3 = load i32, ptr %2, align 8, !dbg !850, !tbaa !852",
+				"switch i32 %3, label %cleanup [\n    i32 6, label %for.cond.backedge\n    i32 5, label %for.cond.backedge\n    i32 4, label %for.cond.backedge\n    i32 0, label %for.cond.backedge\n  ], !dbg !854"
+			]
+		},
+		{
+			"function": "_PyPegen_get_last_nonnwhitespace_token",
+			"id": 132,
+			"name": "for.cond.backedge",
+			"debug": [
+				{
+					"line": 453, "columns": [0, 33, 5]
+				}
+			],
+			"successors": [131, 133],
+			"ir": [
+				"%m.0 = add nsw i32 %m.016, -1, !dbg !842",
+				"%cmp = icmp sgt i32 %m.016, 0, !dbg !843",
+				"br i1 %cmp, label %for.body, label %cleanup, !dbg !845"
+			]
+		},
+		{
+			"function": "_PyPegen_get_last_nonnwhitespace_token",
+			"id": 133,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 459, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%token.1 = phi ptr [ null, %entry ], [ %2, %for.body ], [ %2, %for.cond.backedge ], !dbg !831",
+				"ret ptr %token.1, !dbg !855"
+			]
+		},
+		{
+			"function": "_PyPegen_new_identifier",
+			"id": 134,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 465, "columns": [5, 44, 20, 15]
+				},
+				{
+					"line": 466, "columns": [10, 9]
+				}
+			],
+			"successors": [162, 135],
+			"ir": [
+				"%id = alloca ptr, align 8",
+				"%args = alloca [2 x ptr], align 16",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %id) #13, !dbg !838",
+				"%call = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %n) #14, !dbg !839",
+				"%call1 = tail call ptr @PyUnicode_DecodeUTF8(ptr noundef %n, i64 noundef %call, ptr noundef null) #13, !dbg !840",
+				"store ptr %call1, ptr %id, align 8, !dbg !841, !tbaa !842",
+				"%tobool.not = icmp eq ptr %call1, null, !dbg !846",
+				"br i1 %tobool.not, label %error, label %if.end, !dbg !848"
+			]
+		},
+		{
+			"function": "_PyPegen_new_identifier",
+			"id": 135,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 473, "columns": [10, 9]
+				}
+			],
+			"successors": [136, 158],
+			"ir": [
+				"%0 = getelementptr i8, ptr %call1, i64 32, !dbg !849",
+				"%call1.val = load i32, ptr %0, align 8, !dbg !849",
+				"%1 = and i32 %call1.val, 64, !dbg !849",
+				"%tobool3.not = icmp eq i32 %1, 0, !dbg !849",
+				"br i1 %tobool3.not, label %if.then4, label %if.end26, !dbg !850"
+			]
+		},
+		{
+			"function": "_PyPegen_new_identifier",
+			"id": 136,
+			"name": "if.then4",
+			"debug": [
+				{
+					"line": 85, "columns": [12, 9]
+				}
+			],
+			"successors": [137, 141],
+			"ir": [
+				"%normalize.i = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 12, !dbg !859",
+				"%2 = load ptr, ptr %normalize.i, align 8, !dbg !859, !tbaa !861",
+				"%tobool.not.i = icmp eq ptr %2, null, !dbg !866",
+				"br i1 %tobool.not.i, label %init_normalization.exit, label %if.end8, !dbg !867"
+			]
+		},
+		{
+			"function": "_PyPegen_new_identifier",
+			"id": 137,
+			"name": "init_normalization.exit",
+			"debug": [
+				{
+					"line": 88, "columns": [20, 18]
+				},
+				{
+					"line": 89, "columns": [10]
+				},
+				{
+					"line": 475, "columns": [13]
+				}
+			],
+			"successors": [138, 141],
+			"ir": [
+				"%call.i = tail call ptr @_PyImport_GetModuleAttrString(ptr noundef nonnull @.str.10, ptr noundef nonnull @.str.11) #13, !dbg !868",
+				"store ptr %call.i, ptr %normalize.i, align 8, !dbg !869, !tbaa !861",
+				"%tobool3.not.i.not = icmp eq ptr %call.i, null, !dbg !870",
+				"br i1 %tobool3.not.i.not, label %if.then7, label %if.end8, !dbg !872"
+			]
+		},
+		{
+			"function": "_PyPegen_new_identifier",
+			"id": 138,
+			"name": "if.then7",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [139, 162],
+			"ir": [
+				"%op.val.i = load i64, ptr %call1, align 8, !dbg !879, !tbaa !881",
+				"%3 = and i64 %op.val.i, 2147483648, !dbg !887",
+				"%cmp.i.not.i = icmp eq i64 %3, 0, !dbg !887",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %error, !dbg !888"
+			]
+		},
+		{
+			"function": "_PyPegen_new_identifier",
+			"id": 139,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [140, 162],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !889",
+				"store i64 %dec.i, ptr %call1, align 8, !dbg !889, !tbaa !881",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !891",
+				"br i1 %cmp.i, label %if.then1.i, label %error, !dbg !892"
+			]
+		},
+		{
+			"function": "_PyPegen_new_identifier",
+			"id": 140,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [162],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call1) #13, !dbg !893",
+				"br label %error, !dbg !895"
+			]
+		},
+		{
+			"function": "_PyPegen_new_identifier",
+			"id": 141,
+			"name": "if.end8",
+			"debug": [
+				{
+					"line": 480, "columns": [26]
+				},
+				{
+					"line": 481, "columns": [18, 13]
+				}
+			],
+			"successors": [142, 145],
+			"ir": [
+				"%call9 = tail call ptr @PyUnicode_InternFromString(ptr noundef nonnull @.str.3) #13, !dbg !896",
+				"%cmp = icmp eq ptr %call9, null, !dbg !898",
+				"br i1 %cmp, label %if.then10, label %if.end11, !dbg !900"
+			]
+		},
+		{
+			"function": "_PyPegen_new_identifier",
+			"id": 142,
+			"name": "if.then10",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [143, 162],
+			"ir": [
+				"%op.val.i43 = load i64, ptr %call1, align 8, !dbg !904, !tbaa !881",
+				"%4 = and i64 %op.val.i43, 2147483648, !dbg !907",
+				"%cmp.i.not.i44 = icmp eq i64 %4, 0, !dbg !907",
+				"br i1 %cmp.i.not.i44, label %if.end.i47, label %error, !dbg !908"
+			]
+		},
+		{
+			"function": "_PyPegen_new_identifier",
+			"id": 143,
+			"name": "if.end.i47",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [144, 162],
+			"ir": [
+				"%dec.i45 = add i64 %op.val.i43, -1, !dbg !909",
+				"store i64 %dec.i45, ptr %call1, align 8, !dbg !909, !tbaa !881",
+				"%cmp.i46 = icmp eq i64 %dec.i45, 0, !dbg !910",
+				"br i1 %cmp.i46, label %if.then1.i48, label %error, !dbg !911"
+			]
+		},
+		{
+			"function": "_PyPegen_new_identifier",
+			"id": 144,
+			"name": "if.then1.i48",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [162],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call1) #13, !dbg !912",
+				"br label %error, !dbg !913"
+			]
+		},
+		{
+			"function": "_PyPegen_new_identifier",
+			"id": 145,
+			"name": "if.end11",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 486, "columns": [9, 19, 29]
+				},
+				{
+					"line": 487, "columns": [48, 25]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [146, 148],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %args) #13, !dbg !914",
+				"store ptr %call9, ptr %args, align 16, !dbg !916, !tbaa !842",
+				"%arrayinit.element = getelementptr inbounds ptr, ptr %args, i64 1, !dbg !916",
+				"store ptr %call1, ptr %arrayinit.element, align 8, !dbg !916, !tbaa !842",
+				"%5 = load ptr, ptr %normalize.i, align 8, !dbg !917, !tbaa !861",
+				"%call12 = call ptr @PyObject_Vectorcall(ptr noundef %5, ptr noundef nonnull %args, i64 noundef 2, ptr noundef null) #13, !dbg !918",
+				"%op.val.i50 = load i64, ptr %call1, align 8, !dbg !921, !tbaa !881",
+				"%6 = and i64 %op.val.i50, 2147483648, !dbg !924",
+				"%cmp.i.not.i51 = icmp eq i64 %6, 0, !dbg !924",
+				"br i1 %cmp.i.not.i51, label %if.end.i54, label %Py_DECREF.exit56, !dbg !925"
+			]
+		},
+		{
+			"function": "_PyPegen_new_identifier",
+			"id": 146,
+			"name": "if.end.i54",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [147, 148],
+			"ir": [
+				"%dec.i52 = add i64 %op.val.i50, -1, !dbg !926",
+				"store i64 %dec.i52, ptr %call1, align 8, !dbg !926, !tbaa !881",
+				"%cmp.i53 = icmp eq i64 %dec.i52, 0, !dbg !927",
+				"br i1 %cmp.i53, label %if.then1.i55, label %Py_DECREF.exit56, !dbg !928"
+			]
+		},
+		{
+			"function": "_PyPegen_new_identifier",
+			"id": 147,
+			"name": "if.then1.i55",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [148],
+			"ir": [
+				"call void @_Py_Dealloc(ptr noundef nonnull %call1) #13, !dbg !929",
+				"br label %Py_DECREF.exit56, !dbg !930"
+			]
+		},
+		{
+			"function": "_PyPegen_new_identifier",
+			"id": 148,
+			"name": "Py_DECREF.exit56",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [149, 151],
+			"ir": [
+				"%op.val.i57 = load i64, ptr %call9, align 8, !dbg !933, !tbaa !881",
+				"%7 = and i64 %op.val.i57, 2147483648, !dbg !936",
+				"%cmp.i.not.i58 = icmp eq i64 %7, 0, !dbg !936",
+				"br i1 %cmp.i.not.i58, label %if.end.i61, label %Py_DECREF.exit63, !dbg !937"
+			]
+		},
+		{
+			"function": "_PyPegen_new_identifier",
+			"id": 149,
+			"name": "if.end.i61",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [150, 151],
+			"ir": [
+				"%dec.i59 = add i64 %op.val.i57, -1, !dbg !938",
+				"store i64 %dec.i59, ptr %call9, align 8, !dbg !938, !tbaa !881",
+				"%cmp.i60 = icmp eq i64 %dec.i59, 0, !dbg !939",
+				"br i1 %cmp.i60, label %if.then1.i62, label %Py_DECREF.exit63, !dbg !940"
+			]
+		},
+		{
+			"function": "_PyPegen_new_identifier",
+			"id": 150,
+			"name": "if.then1.i62",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [151],
+			"ir": [
+				"call void @_Py_Dealloc(ptr noundef nonnull %call9) #13, !dbg !941",
+				"br label %Py_DECREF.exit63, !dbg !942"
+			]
+		},
+		{
+			"function": "_PyPegen_new_identifier",
+			"id": 151,
+			"name": "Py_DECREF.exit63",
+			"debug": [
+				{
+					"line": 490, "columns": [14, 13]
+				}
+			],
+			"successors": [156, 152],
+			"ir": [
+				"%tobool13.not = icmp eq ptr %call12, null, !dbg !943",
+				"br i1 %tobool13.not, label %cleanup25.thread83, label %if.end15, !dbg !945"
+			]
+		},
+		{
+			"function": "_PyPegen_new_identifier",
+			"id": 152,
+			"name": "if.end15",
+			"debug": [
+				{
+					"line": 494, "columns": [14, 13]
+				}
+			],
+			"successors": [153, 157],
+			"ir": [
+				"%8 = getelementptr i8, ptr %call12, i64 8, !dbg !946",
+				"%call12.val42 = load ptr, ptr %8, align 8, !dbg !946, !tbaa !948",
+				"%9 = getelementptr i8, ptr %call12.val42, i64 168, !dbg !946",
+				"%call16.val = load i64, ptr %9, align 8, !dbg !946, !tbaa !950",
+				"%10 = and i64 %call16.val, 268435456, !dbg !946",
+				"%tobool18.not = icmp eq i64 %10, 0, !dbg !946",
+				"br i1 %tobool18.not, label %if.then19, label %cleanup25, !dbg !954"
+			]
+		},
+		{
+			"function": "_PyPegen_new_identifier",
+			"id": 153,
+			"name": "if.then19",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 496, "columns": [26, 13]
+				},
+				{
+					"line": 499, "columns": [26]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [154, 156],
+			"ir": [
+				"%11 = load ptr, ptr @PyExc_TypeError, align 8, !dbg !955, !tbaa !842",
+				"%call21 = call ptr @_PyType_Name(ptr noundef nonnull %call12.val42) #13, !dbg !957",
+				"%call22 = call ptr (ptr, ptr, ...) @PyErr_Format(ptr noundef %11, ptr noundef nonnull @.str.4, ptr noundef %call21) #13, !dbg !958",
+				"%op.val.i64 = load i64, ptr %call12, align 8, !dbg !961, !tbaa !881",
+				"%12 = and i64 %op.val.i64, 2147483648, !dbg !964",
+				"%cmp.i.not.i65 = icmp eq i64 %12, 0, !dbg !964",
+				"br i1 %cmp.i.not.i65, label %if.end.i68, label %cleanup25.thread83, !dbg !965"
+			]
+		},
+		{
+			"function": "_PyPegen_new_identifier",
+			"id": 154,
+			"name": "if.end.i68",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [155, 156],
+			"ir": [
+				"%dec.i66 = add i64 %op.val.i64, -1, !dbg !966",
+				"store i64 %dec.i66, ptr %call12, align 8, !dbg !966, !tbaa !881",
+				"%cmp.i67 = icmp eq i64 %dec.i66, 0, !dbg !967",
+				"br i1 %cmp.i67, label %if.then1.i69, label %cleanup25.thread83, !dbg !968"
+			]
+		},
+		{
+			"function": "_PyPegen_new_identifier",
+			"id": 155,
+			"name": "if.then1.i69",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [156],
+			"ir": [
+				"call void @_Py_Dealloc(ptr noundef nonnull %call12) #13, !dbg !969",
+				"br label %cleanup25.thread83, !dbg !970"
+			]
+		},
+		{
+			"function": "_PyPegen_new_identifier",
+			"id": 156,
+			"name": "cleanup25.thread83",
+			"debug": [
+				{
+					"line": 504, "columns": [5]
+				}
+			],
+			"successors": [162],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %args) #13, !dbg !971",
+				"br label %error"
+			]
+		},
+		{
+			"function": "_PyPegen_new_identifier",
+			"id": 157,
+			"name": "cleanup25",
+			"debug": [
+				{
+					"line": 503, "columns": [12]
+				},
+				{
+					"line": 504, "columns": [5]
+				}
+			],
+			"successors": [158],
+			"ir": [
+				"store ptr %call12, ptr %id, align 8, !dbg !972, !tbaa !842",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %args) #13, !dbg !971",
+				"br label %if.end26"
+			]
+		},
+		{
+			"function": "_PyPegen_new_identifier",
+			"id": 158,
+			"name": "if.end26",
+			"debug": [
+				{
+					"line": 505, "columns": [5]
+				},
+				{
+					"line": 506, "columns": [33, 40, 9, 44]
+				}
+			],
+			"successors": [159, 163],
+			"ir": [
+				"call void @PyUnicode_InternInPlace(ptr noundef nonnull %id) #13, !dbg !973",
+				"%arena = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 5, !dbg !974",
+				"%13 = load ptr, ptr %arena, align 8, !dbg !974, !tbaa !976",
+				"%14 = load ptr, ptr %id, align 8, !dbg !977, !tbaa !842",
+				"%call27 = call i32 @_PyArena_AddPyObject(ptr noundef %13, ptr noundef %14) #13, !dbg !978",
+				"%cmp28 = icmp slt i32 %call27, 0, !dbg !979",
+				"%15 = load ptr, ptr %id, align 8, !dbg !837, !tbaa !842",
+				"br i1 %cmp28, label %if.then29, label %cleanup31, !dbg !980"
+			]
+		},
+		{
+			"function": "_PyPegen_new_identifier",
+			"id": 159,
+			"name": "if.then29",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [160, 162],
+			"ir": [
+				"%op.val.i71 = load i64, ptr %15, align 8, !dbg !984, !tbaa !881",
+				"%16 = and i64 %op.val.i71, 2147483648, !dbg !987",
+				"%cmp.i.not.i72 = icmp eq i64 %16, 0, !dbg !987",
+				"br i1 %cmp.i.not.i72, label %if.end.i75, label %error, !dbg !988"
+			]
+		},
+		{
+			"function": "_PyPegen_new_identifier",
+			"id": 160,
+			"name": "if.end.i75",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [161, 162],
+			"ir": [
+				"%dec.i73 = add i64 %op.val.i71, -1, !dbg !989",
+				"store i64 %dec.i73, ptr %15, align 8, !dbg !989, !tbaa !881",
+				"%cmp.i74 = icmp eq i64 %dec.i73, 0, !dbg !990",
+				"br i1 %cmp.i74, label %if.then1.i76, label %error, !dbg !991"
+			]
+		},
+		{
+			"function": "_PyPegen_new_identifier",
+			"id": 161,
+			"name": "if.then1.i76",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [162],
+			"ir": [
+				"call void @_Py_Dealloc(ptr noundef nonnull %15) #13, !dbg !992",
+				"br label %error, !dbg !993"
+			]
+		},
+		{
+			"function": "_PyPegen_new_identifier",
+			"id": 162,
+			"name": "error",
+			"debug": [
+				{
+					"line": 513, "columns": [1]
+				},
+				{
+					"line": 514, "columns": [8, 24]
+				},
+				{
+					"line": 515, "columns": [5]
+				}
+			],
+			"successors": [163],
+			"ir": [
+				"%error_indicator = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 15, !dbg !995",
+				"store i32 1, ptr %error_indicator, align 8, !dbg !996, !tbaa !997",
+				"br label %cleanup31, !dbg !998"
+			]
+		},
+		{
+			"function": "_PyPegen_new_identifier",
+			"id": 163,
+			"name": "cleanup31",
+			"debug": [
+				{
+					"line": 516, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ null, %error ], [ %15, %if.end26 ]",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %id) #13, !dbg !999",
+				"ret ptr %retval.0, !dbg !999"
+			]
+		},
+		{
+			"function": "_PyPegen_string_token",
+			"id": 164,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 375, "columns": [12, 23, 17, 9]
+				}
+			],
+			"successors": [165, 168],
+			"ir": [
+				"%mark.i = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 2, !dbg !838",
+				"%0 = load i32, ptr %mark.i, align 8, !dbg !838, !tbaa !840",
+				"%fill.i = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 3, !dbg !848",
+				"%1 = load i32, ptr %fill.i, align 4, !dbg !848, !tbaa !849",
+				"%cmp.i = icmp eq i32 %0, %1, !dbg !850",
+				"br i1 %cmp.i, label %if.then.i, label %if.end3.i, !dbg !851"
+			]
+		},
+		{
+			"function": "_PyPegen_string_token",
+			"id": 165,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 376, "columns": [13, 36]
+				}
+			],
+			"successors": [167, 166],
+			"ir": [
+				"%call.i = tail call i32 @_PyPegen_fill_token(ptr noundef nonnull %p), !dbg !852",
+				"%cmp1.i = icmp slt i32 %call.i, 0, !dbg !855",
+				"br i1 %cmp1.i, label %if.then2.i, label %if.then.if.end3_crit_edge.i, !dbg !856"
+			]
+		},
+		{
+			"function": "_PyPegen_string_token",
+			"id": 166,
+			"name": "if.then.if.end3_crit_edge.i",
+			"debug": [
+				{
+					"line": 376, "columns": [13]
+				},
+				{
+					"line": 381, "columns": [29]
+				}
+			],
+			"successors": [168],
+			"ir": [
+				"%.pre.i = load i32, ptr %mark.i, align 8, !dbg !857, !tbaa !840",
+				"br label %if.end3.i, !dbg !856"
+			]
+		},
+		{
+			"function": "_PyPegen_string_token",
+			"id": 167,
+			"name": "if.then2.i",
+			"debug": [
+				{
+					"line": 377, "columns": [16, 32]
+				},
+				{
+					"line": 378, "columns": [13]
+				}
+			],
+			"successors": [170],
+			"ir": [
+				"%error_indicator.i = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 15, !dbg !858",
+				"store i32 1, ptr %error_indicator.i, align 8, !dbg !860, !tbaa !861",
+				"br label %_PyPegen_expect_token.exit, !dbg !862"
+			]
+		},
+		{
+			"function": "_PyPegen_string_token",
+			"id": 168,
+			"name": "if.end3.i",
+			"debug": [
+				{
+					"line": 381, "columns": [29, 19, 16]
+				},
+				{
+					"line": 382, "columns": [12, 17, 9]
+				}
+			],
+			"successors": [169, 170],
+			"ir": [
+				"%2 = phi i32 [ %.pre.i, %if.then.if.end3_crit_edge.i ], [ %0, %entry ], !dbg !857",
+				"%tokens.i = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 1, !dbg !863",
+				"%3 = load ptr, ptr %tokens.i, align 8, !dbg !863, !tbaa !864",
+				"%idxprom.i = sext i32 %2 to i64, !dbg !865",
+				"%arrayidx.i = getelementptr ptr, ptr %3, i64 %idxprom.i, !dbg !865",
+				"%4 = load ptr, ptr %arrayidx.i, align 8, !dbg !865, !tbaa !866",
+				"%5 = load i32, ptr %4, align 8, !dbg !867, !tbaa !869",
+				"%cmp6.not.i = icmp eq i32 %5, 3, !dbg !871",
+				"br i1 %cmp6.not.i, label %if.end8.i, label %_PyPegen_expect_token.exit, !dbg !872"
+			]
+		},
+		{
+			"function": "_PyPegen_string_token",
+			"id": 169,
+			"name": "if.end8.i",
+			"debug": [
+				{
+					"line": 385, "columns": [13]
+				},
+				{
+					"line": 386, "columns": [5]
+				}
+			],
+			"successors": [170],
+			"ir": [
+				"%add.i = add i32 %2, 1, !dbg !873",
+				"store i32 %add.i, ptr %mark.i, align 8, !dbg !873, !tbaa !840",
+				"br label %_PyPegen_expect_token.exit, !dbg !874"
+			]
+		},
+		{
+			"function": "_PyPegen_string_token",
+			"id": 170,
+			"name": "_PyPegen_expect_token.exit",
+			"debug": [
+				{
+					"line": 548, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1.i = phi ptr [ null, %if.then2.i ], [ %4, %if.end8.i ], [ null, %if.end3.i ], !dbg !836",
+				"ret ptr %retval.1.i, !dbg !875"
+			]
+		},
+		{
+			"function": "_PyPegen_soft_keyword_token",
+			"id": 171,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 375, "columns": [12, 23, 17, 9]
+				}
+			],
+			"successors": [172, 175],
+			"ir": [
+				"%the_token = alloca ptr, align 8",
+				"%size = alloca i64, align 8",
+				"%mark.i = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 2, !dbg !1082",
+				"%0 = load i32, ptr %mark.i, align 8, !dbg !1082, !tbaa !1084",
+				"%fill.i = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 3, !dbg !1092",
+				"%1 = load i32, ptr %fill.i, align 4, !dbg !1092, !tbaa !1093",
+				"%cmp.i = icmp eq i32 %0, %1, !dbg !1094",
+				"br i1 %cmp.i, label %if.then.i, label %if.end3.i, !dbg !1095"
+			]
+		},
+		{
+			"function": "_PyPegen_soft_keyword_token",
+			"id": 172,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 376, "columns": [13, 36]
+				}
+			],
+			"successors": [174, 173],
+			"ir": [
+				"%call.i = tail call i32 @_PyPegen_fill_token(ptr noundef nonnull %p), !dbg !1096",
+				"%cmp1.i = icmp slt i32 %call.i, 0, !dbg !1099",
+				"br i1 %cmp1.i, label %if.then2.i, label %if.then.if.end3_crit_edge.i, !dbg !1100"
+			]
+		},
+		{
+			"function": "_PyPegen_soft_keyword_token",
+			"id": 173,
+			"name": "if.then.if.end3_crit_edge.i",
+			"debug": [
+				{
+					"line": 376, "columns": [13]
+				},
+				{
+					"line": 381, "columns": [29]
+				}
+			],
+			"successors": [175],
+			"ir": [
+				"%.pre.i = load i32, ptr %mark.i, align 8, !dbg !1101, !tbaa !1084",
+				"br label %if.end3.i, !dbg !1100"
+			]
+		},
+		{
+			"function": "_PyPegen_soft_keyword_token",
+			"id": 174,
+			"name": "if.then2.i",
+			"debug": [
+				{
+					"line": 377, "columns": [16, 32]
+				},
+				{
+					"line": 378, "columns": [13]
+				}
+			],
+			"successors": [186],
+			"ir": [
+				"%error_indicator.i = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 15, !dbg !1102",
+				"store i32 1, ptr %error_indicator.i, align 8, !dbg !1104, !tbaa !1105",
+				"br label %cleanup10, !dbg !1106"
+			]
+		},
+		{
+			"function": "_PyPegen_soft_keyword_token",
+			"id": 175,
+			"name": "if.end3.i",
+			"debug": [
+				{
+					"line": 381, "columns": [29, 19, 16]
+				},
+				{
+					"line": 382, "columns": [12, 17, 9]
+				}
+			],
+			"successors": [176, 186],
+			"ir": [
+				"%2 = phi i32 [ %.pre.i, %if.then.if.end3_crit_edge.i ], [ %0, %entry ], !dbg !1101",
+				"%tokens.i = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 1, !dbg !1107",
+				"%3 = load ptr, ptr %tokens.i, align 8, !dbg !1107, !tbaa !1108",
+				"%idxprom.i = sext i32 %2 to i64, !dbg !1109",
+				"%arrayidx.i = getelementptr ptr, ptr %3, i64 %idxprom.i, !dbg !1109",
+				"%4 = load ptr, ptr %arrayidx.i, align 8, !dbg !1109, !tbaa !1110",
+				"%5 = load i32, ptr %4, align 8, !dbg !1111, !tbaa !1113",
+				"%cmp6.not.i = icmp eq i32 %5, 1, !dbg !1115",
+				"br i1 %cmp6.not.i, label %if.end, label %cleanup10, !dbg !1116"
+			]
+		},
+		{
+			"function": "_PyPegen_soft_keyword_token",
+			"id": 176,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 385, "columns": [13]
+				},
+				{
+					"line": 556, "columns": [5]
+				},
+				{
+					"line": 557, "columns": [5]
+				},
+				{
+					"line": 558, "columns": [32, 5]
+				},
+				{
+					"line": 559, "columns": [30, 45, 54, 5]
+				}
+			],
+			"successors": [185, 177],
+			"ir": [
+				"%add.i = add i32 %2, 1, !dbg !1117",
+				"store i32 %add.i, ptr %mark.i, align 8, !dbg !1117, !tbaa !1084",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %the_token) #13, !dbg !1118",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %size) #13, !dbg !1119",
+				"%bytes = getelementptr inbounds %struct.Token, ptr %4, i64 0, i32 1, !dbg !1120",
+				"%6 = load ptr, ptr %bytes, align 8, !dbg !1120, !tbaa !1121",
+				"%call1 = call i32 @PyBytes_AsStringAndSize(ptr noundef %6, ptr noundef nonnull %the_token, ptr noundef nonnull %size) #13, !dbg !1122",
+				"%soft_keywords = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 7, !dbg !1123",
+				"%7 = load ptr, ptr %soft_keywords, align 8, !dbg !1123, !tbaa !1124",
+				"%8 = load ptr, ptr %7, align 8, !dbg !1126, !tbaa !1110",
+				"%cmp2.not22 = icmp eq ptr %8, null, !dbg !1128",
+				"br i1 %cmp2.not22, label %cleanup, label %for.body.lr.ph, !dbg !1129"
+			]
+		},
+		{
+			"function": "_PyPegen_soft_keyword_token",
+			"id": 177,
+			"name": "for.body.lr.ph",
+			"debug": [
+				{
+					"line": 559, "columns": [5]
+				}
+			],
+			"successors": [179],
+			"ir": [
+				"%9 = load ptr, ptr %the_token, align 8, !tbaa !1110",
+				"%10 = load i64, ptr %size, align 8, !tbaa !1130",
+				"br label %for.body, !dbg !1129"
+			]
+		},
+		{
+			"function": "_PyPegen_soft_keyword_token",
+			"id": 178,
+			"name": "for.cond",
+			"debug": [
+				{
+					"line": 559, "columns": [70, 45, 54, 5]
+				}
+			],
+			"successors": [185, 179],
+			"ir": [
+				"%incdec.ptr = getelementptr ptr, ptr %keyword.023, i64 1, !dbg !1131",
+				"%11 = load ptr, ptr %incdec.ptr, align 8, !dbg !1126, !tbaa !1110",
+				"%cmp2.not = icmp eq ptr %11, null, !dbg !1128",
+				"br i1 %cmp2.not, label %cleanup, label %for.body, !dbg !1129, !llvm.loop !1132"
+			]
+		},
+		{
+			"function": "_PyPegen_soft_keyword_token",
+			"id": 179,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 560, "columns": [13, 48]
+				}
+			],
+			"successors": [180, 178],
+			"ir": [
+				"%12 = phi ptr [ %8, %for.body.lr.ph ], [ %11, %for.cond ]",
+				"%keyword.023 = phi ptr [ %7, %for.body.lr.ph ], [ %incdec.ptr, %for.cond ]",
+				"%call3 = call i32 @strncmp(ptr noundef nonnull %12, ptr noundef %9, i64 noundef %10) #14, !dbg !1135",
+				"%cmp4 = icmp eq i32 %call3, 0, !dbg !1138",
+				"br i1 %cmp4, label %if.end.i, label %for.cond, !dbg !1139"
+			]
+		},
+		{
+			"function": "_PyPegen_soft_keyword_token",
+			"id": 180,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 524, "columns": [41, 21]
+				},
+				{
+					"line": 525, "columns": [10, 9]
+				}
+			],
+			"successors": [181, 182],
+			"ir": [
+				"%13 = load ptr, ptr %bytes, align 8, !dbg !1151, !tbaa !1121",
+				"%call.i18 = call ptr @PyBytes_AsString(ptr noundef %13) #13, !dbg !1152",
+				"%tobool.not.i = icmp eq ptr %call.i18, null, !dbg !1153",
+				"br i1 %tobool.not.i, label %if.then1.i, label %if.end2.i, !dbg !1155"
+			]
+		},
+		{
+			"function": "_PyPegen_soft_keyword_token",
+			"id": 181,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 526, "columns": [12, 28]
+				},
+				{
+					"line": 527, "columns": [9]
+				}
+			],
+			"successors": [185],
+			"ir": [
+				"%error_indicator.i19 = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 15, !dbg !1156",
+				"store i32 1, ptr %error_indicator.i19, align 8, !dbg !1158, !tbaa !1105",
+				"br label %cleanup, !dbg !1159"
+			]
+		},
+		{
+			"function": "_PyPegen_soft_keyword_token",
+			"id": 182,
+			"name": "if.end2.i",
+			"debug": [
+				{
+					"line": 529, "columns": [20]
+				},
+				{
+					"line": 530, "columns": [12, 9]
+				}
+			],
+			"successors": [183, 184],
+			"ir": [
+				"%call3.i = call ptr @_PyPegen_new_identifier(ptr noundef %p, ptr noundef nonnull %call.i18), !dbg !1160",
+				"%cmp4.i = icmp eq ptr %call3.i, null, !dbg !1161",
+				"br i1 %cmp4.i, label %if.then5.i, label %if.end7.i, !dbg !1163"
+			]
+		},
+		{
+			"function": "_PyPegen_soft_keyword_token",
+			"id": 183,
+			"name": "if.then5.i",
+			"debug": [
+				{
+					"line": 531, "columns": [12, 28]
+				},
+				{
+					"line": 532, "columns": [9]
+				}
+			],
+			"successors": [185],
+			"ir": [
+				"%error_indicator6.i = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 15, !dbg !1164",
+				"store i32 1, ptr %error_indicator6.i, align 8, !dbg !1166, !tbaa !1105",
+				"br label %cleanup, !dbg !1167"
+			]
+		},
+		{
+			"function": "_PyPegen_soft_keyword_token",
+			"id": 184,
+			"name": "if.end7.i",
+			"debug": [
+				{
+					"line": 534, "columns": [37, 48, 63, 12, 5]
+				},
+				{
+					"line": 535, "columns": [27, 46]
+				}
+			],
+			"successors": [185],
+			"ir": [
+				"%lineno.i = getelementptr inbounds %struct.Token, ptr %4, i64 0, i32 3, !dbg !1168",
+				"%14 = load i32, ptr %lineno.i, align 4, !dbg !1168, !tbaa !1169",
+				"%col_offset.i = getelementptr inbounds %struct.Token, ptr %4, i64 0, i32 4, !dbg !1170",
+				"%15 = load i32, ptr %col_offset.i, align 8, !dbg !1170, !tbaa !1171",
+				"%end_lineno.i = getelementptr inbounds %struct.Token, ptr %4, i64 0, i32 5, !dbg !1172",
+				"%16 = load i32, ptr %end_lineno.i, align 4, !dbg !1172, !tbaa !1173",
+				"%end_col_offset.i = getelementptr inbounds %struct.Token, ptr %4, i64 0, i32 6, !dbg !1174",
+				"%17 = load i32, ptr %end_col_offset.i, align 8, !dbg !1174, !tbaa !1175",
+				"%arena.i = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 5, !dbg !1176",
+				"%18 = load ptr, ptr %arena.i, align 8, !dbg !1176, !tbaa !1177",
+				"%call8.i = call ptr @_PyAST_Name(ptr noundef nonnull %call3.i, i32 noundef 1, i32 noundef %14, i32 noundef %15, i32 noundef %16, i32 noundef %17, ptr noundef %18) #13, !dbg !1178",
+				"br label %cleanup, !dbg !1179"
+			]
+		},
+		{
+			"function": "_PyPegen_soft_keyword_token",
+			"id": 185,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 565, "columns": [1]
+				}
+			],
+			"successors": [186],
+			"ir": [
+				"%spec.select = phi ptr [ %call8.i, %if.end7.i ], [ null, %if.then5.i ], [ null, %if.then1.i ], [ null, %if.end ], [ null, %for.cond ]",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %size) #13, !dbg !1180",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %the_token) #13, !dbg !1180",
+				"br label %cleanup10"
+			]
+		},
+		{
+			"function": "_PyPegen_soft_keyword_token",
+			"id": 186,
+			"name": "cleanup10",
+			"debug": [
+				{
+					"line": 565, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.2 = phi ptr [ %spec.select, %cleanup ], [ null, %if.then2.i ], [ null, %if.end3.i ], !dbg !1072",
+				"ret ptr %retval.2, !dbg !1180"
+			]
+		},
+		{
+			"function": "_PyPegen_number_token",
+			"id": 187,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 375, "columns": [12, 23, 17, 9]
+				}
+			],
+			"successors": [188, 191],
+			"ir": [
+				"%mark.i = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 2, !dbg !7050",
+				"%0 = load i32, ptr %mark.i, align 8, !dbg !7050, !tbaa !7052",
+				"%fill.i = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 3, !dbg !7060",
+				"%1 = load i32, ptr %fill.i, align 4, !dbg !7060, !tbaa !7061",
+				"%cmp.i70 = icmp eq i32 %0, %1, !dbg !7062",
+				"br i1 %cmp.i70, label %if.then.i, label %if.end3.i, !dbg !7063"
+			]
+		},
+		{
+			"function": "_PyPegen_number_token",
+			"id": 188,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 376, "columns": [13, 36]
+				}
+			],
+			"successors": [190, 189],
+			"ir": [
+				"%call.i = tail call i32 @_PyPegen_fill_token(ptr noundef nonnull %p), !dbg !7064",
+				"%cmp1.i = icmp slt i32 %call.i, 0, !dbg !7067",
+				"br i1 %cmp1.i, label %if.then2.i, label %if.then.if.end3_crit_edge.i, !dbg !7068"
+			]
+		},
+		{
+			"function": "_PyPegen_number_token",
+			"id": 189,
+			"name": "if.then.if.end3_crit_edge.i",
+			"debug": [
+				{
+					"line": 376, "columns": [13]
+				},
+				{
+					"line": 381, "columns": [29]
+				}
+			],
+			"successors": [191],
+			"ir": [
+				"%.pre.i = load i32, ptr %mark.i, align 8, !dbg !7069, !tbaa !7052",
+				"br label %if.end3.i, !dbg !7068"
+			]
+		},
+		{
+			"function": "_PyPegen_number_token",
+			"id": 190,
+			"name": "if.then2.i",
+			"debug": [
+				{
+					"line": 377, "columns": [16, 32]
+				},
+				{
+					"line": 378, "columns": [13]
+				}
+			],
+			"successors": [217],
+			"ir": [
+				"%error_indicator.i = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 15, !dbg !7070",
+				"store i32 1, ptr %error_indicator.i, align 8, !dbg !7072, !tbaa !7073",
+				"br label %cleanup39, !dbg !7074"
+			]
+		},
+		{
+			"function": "_PyPegen_number_token",
+			"id": 191,
+			"name": "if.end3.i",
+			"debug": [
+				{
+					"line": 381, "columns": [29, 19, 16]
+				},
+				{
+					"line": 382, "columns": [12, 17, 9]
+				}
+			],
+			"successors": [192, 217],
+			"ir": [
+				"%2 = phi i32 [ %.pre.i, %if.then.if.end3_crit_edge.i ], [ %0, %entry ], !dbg !7069",
+				"%tokens.i = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 1, !dbg !7075",
+				"%3 = load ptr, ptr %tokens.i, align 8, !dbg !7075, !tbaa !7076",
+				"%idxprom.i = sext i32 %2 to i64, !dbg !7077",
+				"%arrayidx.i = getelementptr ptr, ptr %3, i64 %idxprom.i, !dbg !7077",
+				"%4 = load ptr, ptr %arrayidx.i, align 8, !dbg !7077, !tbaa !7078",
+				"%5 = load i32, ptr %4, align 8, !dbg !7079, !tbaa !7081",
+				"%cmp6.not.i = icmp eq i32 %5, 2, !dbg !7083",
+				"br i1 %cmp6.not.i, label %if.end, label %cleanup39, !dbg !7084"
+			]
+		},
+		{
+			"function": "_PyPegen_number_token",
+			"id": 192,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 385, "columns": [13]
+				},
+				{
+					"line": 648, "columns": [47, 27]
+				},
+				{
+					"line": 649, "columns": [17, 9]
+				}
+			],
+			"successors": [193, 194],
+			"ir": [
+				"%add.i = add i32 %2, 1, !dbg !7085",
+				"store i32 %add.i, ptr %mark.i, align 8, !dbg !7085, !tbaa !7052",
+				"%bytes = getelementptr inbounds %struct.Token, ptr %4, i64 0, i32 1, !dbg !7086",
+				"%6 = load ptr, ptr %bytes, align 8, !dbg !7086, !tbaa !7087",
+				"%call1 = tail call ptr @PyBytes_AsString(ptr noundef %6) #13, !dbg !7088",
+				"%cmp2 = icmp eq ptr %call1, null, !dbg !7089",
+				"br i1 %cmp2, label %if.then3, label %if.end4, !dbg !7091"
+			]
+		},
+		{
+			"function": "_PyPegen_number_token",
+			"id": 193,
+			"name": "if.then3",
+			"debug": [
+				{
+					"line": 650, "columns": [12, 28]
+				},
+				{
+					"line": 651, "columns": [9]
+				}
+			],
+			"successors": [217],
+			"ir": [
+				"%error_indicator = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 15, !dbg !7092",
+				"store i32 1, ptr %error_indicator, align 8, !dbg !7094, !tbaa !7073",
+				"br label %cleanup39, !dbg !7095"
+			]
+		},
+		{
+			"function": "_PyPegen_number_token",
+			"id": 194,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 654, "columns": [12, 28, 32]
+				}
+			],
+			"successors": [195, 197],
+			"ir": [
+				"%feature_version = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 17, !dbg !7096",
+				"%7 = load i32, ptr %feature_version, align 8, !dbg !7096, !tbaa !7098",
+				"%cmp5 = icmp slt i32 %7, 6, !dbg !7099",
+				"br i1 %cmp5, label %land.lhs.true, label %if.end11, !dbg !7100"
+			]
+		},
+		{
+			"function": "_PyPegen_number_token",
+			"id": 195,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 654, "columns": [35, 56, 9]
+				}
+			],
+			"successors": [197, 196],
+			"ir": [
+				"%call6 = tail call ptr @strchr(ptr noundef nonnull dereferenceable(1) %call1, i32 noundef 95) #14, !dbg !7101",
+				"%cmp7.not = icmp eq ptr %call6, null, !dbg !7102",
+				"br i1 %cmp7.not, label %if.end11, label %if.then8, !dbg !7103"
+			]
+		},
+		{
+			"function": "_PyPegen_number_token",
+			"id": 196,
+			"name": "if.then8",
+			"debug": [
+				{
+					"line": 655, "columns": [12, 28]
+				},
+				{
+					"line": 656, "columns": [16, 9]
+				}
+			],
+			"successors": [217],
+			"ir": [
+				"%error_indicator9 = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 15, !dbg !7104",
+				"store i32 1, ptr %error_indicator9, align 8, !dbg !7106, !tbaa !7073",
+				"%8 = load ptr, ptr @PyExc_SyntaxError, align 8, !dbg !7107, !tbaa !7078",
+				"%call10 = tail call ptr (ptr, ptr, i32, ptr, ...) @_PyPegen_raise_error(ptr noundef nonnull %p, ptr noundef %8, i32 noundef 0, ptr noundef nonnull @.str.5) #13, !dbg !7107",
+				"br label %cleanup39, !dbg !7108"
+			]
+		},
+		{
+			"function": "_PyPegen_number_token",
+			"id": 197,
+			"name": "if.end11",
+			"debug": [
+				{
+					"line": 620, "columns": [9, 24]
+				}
+			],
+			"successors": [198, 199],
+			"ir": [
+				"%call.i71 = tail call ptr @strchr(ptr noundef nonnull dereferenceable(1) %call1, i32 noundef 95) #14, !dbg !7119",
+				"%cmp.i72 = icmp eq ptr %call.i71, null, !dbg !7121",
+				"br i1 %cmp.i72, label %if.then.i73, label %if.end.i75, !dbg !7122"
+			]
+		},
+		{
+			"function": "_PyPegen_number_token",
+			"id": 198,
+			"name": "if.then.i73",
+			"debug": [
+				{
+					"line": 621, "columns": [16, 9]
+				}
+			],
+			"successors": [205],
+			"ir": [
+				"%call1.i = tail call fastcc ptr @parsenumber_raw(ptr noundef nonnull %call1), !dbg !7123",
+				"br label %parsenumber.exit, !dbg !7125"
+			]
+		},
+		{
+			"function": "_PyPegen_number_token",
+			"id": 199,
+			"name": "if.end.i75",
+			"debug": [
+				{
+					"line": 624, "columns": [24, 34, 11]
+				},
+				{
+					"line": 625, "columns": [13, 9]
+				}
+			],
+			"successors": [200, 201],
+			"ir": [
+				"%call2.i = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %call1) #14, !dbg !7126",
+				"%add.i74 = add i64 %call2.i, 1, !dbg !7127",
+				"%call3.i = tail call ptr @PyMem_Malloc(i64 noundef %add.i74) #13, !dbg !7128",
+				"%cmp4.i = icmp eq ptr %call3.i, null, !dbg !7129",
+				"br i1 %cmp4.i, label %if.then5.i, label %for.cond.i, !dbg !7131"
+			]
+		},
+		{
+			"function": "_PyPegen_number_token",
+			"id": 200,
+			"name": "if.then5.i",
+			"debug": [
+				{
+					"line": 626, "columns": [16, 9]
+				}
+			],
+			"successors": [205],
+			"ir": [
+				"%call6.i = tail call ptr @PyErr_NoMemory() #13, !dbg !7132",
+				"br label %parsenumber.exit, !dbg !7134"
+			]
+		},
+		{
+			"function": "_PyPegen_number_token",
+			"id": 201,
+			"name": "for.cond.i",
+			"debug": [
+				{
+					"line": 629, "columns": [12, 5]
+				}
+			],
+			"successors": [202, 204, 203],
+			"ir": [
+				"%s.addr.0.i = phi ptr [ %incdec.ptr12.i, %for.inc.i ], [ %call1, %if.end.i75 ]",
+				"%end.0.i = phi ptr [ %end.1.i, %for.inc.i ], [ %call3.i, %if.end.i75 ], !dbg !7117",
+				"%9 = load i8, ptr %s.addr.0.i, align 1, !dbg !7135, !tbaa !7138",
+				"switch i8 %9, label %if.then10.i [\n    i8 0, label %for.end.i\n    i8 95, label %for.inc.i\n  ], !dbg !7139"
+			]
+		},
+		{
+			"function": "_PyPegen_number_token",
+			"id": 202,
+			"name": "if.then10.i",
+			"debug": [
+				{
+					"line": 631, "columns": [17, 20]
+				},
+				{
+					"line": 632, "columns": [9]
+				}
+			],
+			"successors": [203],
+			"ir": [
+				"%incdec.ptr.i = getelementptr i8, ptr %end.0.i, i64 1, !dbg !7140",
+				"store i8 %9, ptr %end.0.i, align 1, !dbg !7144, !tbaa !7138",
+				"br label %for.inc.i, !dbg !7145"
+			]
+		},
+		{
+			"function": "_PyPegen_number_token",
+			"id": 203,
+			"name": "for.inc.i",
+			"debug": [
+				{
+					"line": 629, "columns": [17, 5]
+				}
+			],
+			"successors": [201],
+			"ir": [
+				"%end.1.i = phi ptr [ %incdec.ptr.i, %if.then10.i ], [ %end.0.i, %for.cond.i ], !dbg !7117",
+				"%incdec.ptr12.i = getelementptr i8, ptr %s.addr.0.i, i64 1, !dbg !7146",
+				"br label %for.cond.i, !dbg !7147, !llvm.loop !7148"
+			]
+		},
+		{
+			"function": "_PyPegen_number_token",
+			"id": 204,
+			"name": "for.end.i",
+			"debug": [
+				{
+					"line": 634, "columns": [10]
+				},
+				{
+					"line": 635, "columns": [11]
+				},
+				{
+					"line": 636, "columns": [5]
+				},
+				{
+					"line": 637, "columns": [5]
+				}
+			],
+			"successors": [205],
+			"ir": [
+				"store i8 0, ptr %end.0.i, align 1, !dbg !7151, !tbaa !7138",
+				"%call13.i = tail call fastcc ptr @parsenumber_raw(ptr noundef nonnull %call3.i), !dbg !7152",
+				"tail call void @PyMem_Free(ptr noundef nonnull %call3.i) #13, !dbg !7153",
+				"br label %parsenumber.exit, !dbg !7154"
+			]
+		},
+		{
+			"function": "_PyPegen_number_token",
+			"id": 205,
+			"name": "parsenumber.exit",
+			"debug": [
+				{
+					"line": 662, "columns": [11, 9]
+				}
+			],
+			"successors": [206, 211],
+			"ir": [
+				"%retval.0.i = phi ptr [ %call1.i, %if.then.i73 ], [ %call6.i, %if.then5.i ], [ %call13.i, %for.end.i ], !dbg !7117",
+				"%cmp13 = icmp eq ptr %retval.0.i, null, !dbg !7155",
+				"br i1 %cmp13, label %if.then14, label %if.end27, !dbg !7156"
+			]
+		},
+		{
+			"function": "_PyPegen_number_token",
+			"id": 206,
+			"name": "if.then14",
+			"debug": [
+				{
+					"line": 137, "columns": [12]
+				},
+				{
+					"line": 663, "columns": [12, 28]
+				},
+				{
+					"line": 667, "columns": [21, 39, 47]
+				}
+			],
+			"successors": [217, 207],
+			"ir": [
+				"%error_indicator15 = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 15, !dbg !7157",
+				"store i32 1, ptr %error_indicator15, align 8, !dbg !7158, !tbaa !7073",
+				"%10 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !7159",
+				"%11 = load ptr, ptr %10, align 8, !dbg !7159, !tbaa !7078",
+				"%current_exception = getelementptr inbounds %struct._ts, ptr %11, i64 0, i32 18, !dbg !7167",
+				"%12 = load ptr, ptr %current_exception, align 8, !dbg !7167, !tbaa !7168",
+				"%cmp17.not = icmp eq ptr %12, null, !dbg !7173",
+				"br i1 %cmp17.not, label %cleanup39, label %land.lhs.true18, !dbg !7174"
+			]
+		},
+		{
+			"function": "_PyPegen_number_token",
+			"id": 207,
+			"name": "land.lhs.true18",
+			"debug": [
+				{
+					"line": 667, "columns": [13]
+				},
+				{
+					"line": 668, "columns": [13, 67, 48]
+				}
+			],
+			"successors": [208, 217],
+			"ir": [
+				"%13 = getelementptr i8, ptr %12, i64 8, !dbg !7175",
+				"%.val = load ptr, ptr %13, align 8, !dbg !7175, !tbaa !7176",
+				"%14 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !7178, !tbaa !7078",
+				"%cmp21 = icmp eq ptr %.val, %14, !dbg !7179",
+				"br i1 %cmp21, label %if.then22, label %cleanup39, !dbg !7180"
+			]
+		},
+		{
+			"function": "_PyPegen_number_token",
+			"id": 208,
+			"name": "if.then22",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 670, "columns": [29]
+				},
+				{
+					"line": 674, "columns": [13]
+				},
+				{
+					"line": 675, "columns": [20]
+				},
+				{
+					"line": 676, "columns": [20, 17]
+				},
+				{
+					"line": 677, "columns": [20, 17]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [209, 217],
+			"ir": [
+				"%call23 = tail call ptr @PyErr_GetRaisedException() #13, !dbg !7181",
+				"%15 = load ptr, ptr @PyExc_SyntaxError, align 8, !dbg !7183, !tbaa !7078",
+				"%lineno = getelementptr inbounds %struct.Token, ptr %4, i64 0, i32 3, !dbg !7184",
+				"%16 = load i32, ptr %lineno, align 4, !dbg !7184, !tbaa !7185",
+				"%conv = sext i32 %16 to i64, !dbg !7186",
+				"%end_lineno = getelementptr inbounds %struct.Token, ptr %4, i64 0, i32 5, !dbg !7187",
+				"%17 = load i32, ptr %end_lineno, align 4, !dbg !7187, !tbaa !7188",
+				"%conv24 = sext i32 %17 to i64, !dbg !7189",
+				"tail call void (ptr, ptr, i64, i64, i64, i64, ptr, ...) @RAISE_ERROR_KNOWN_LOCATION(ptr noundef nonnull %p, ptr noundef %15, i64 noundef %conv, i64 noundef -1, i64 noundef %conv24, i64 noundef -1, ptr noundef nonnull @.str.6, ptr noundef %call23), !dbg !7190",
+				"%op.val.i = load i64, ptr %call23, align 8, !dbg !7196, !tbaa !7138",
+				"%18 = and i64 %op.val.i, 2147483648, !dbg !7203",
+				"%cmp.i.not.i = icmp eq i64 %18, 0, !dbg !7203",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %cleanup39, !dbg !7204"
+			]
+		},
+		{
+			"function": "_PyPegen_number_token",
+			"id": 209,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [210, 217],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !7205",
+				"store i64 %dec.i, ptr %call23, align 8, !dbg !7205, !tbaa !7138",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !7207",
+				"br i1 %cmp.i, label %if.then1.i, label %cleanup39, !dbg !7208"
+			]
+		},
+		{
+			"function": "_PyPegen_number_token",
+			"id": 210,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [217],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call23) #13, !dbg !7209",
+				"br label %cleanup39, !dbg !7211"
+			]
+		},
+		{
+			"function": "_PyPegen_number_token",
+			"id": 211,
+			"name": "if.end27",
+			"debug": [
+				{
+					"line": 686, "columns": [33, 9, 43]
+				}
+			],
+			"successors": [212, 216],
+			"ir": [
+				"%arena = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 5, !dbg !7212",
+				"%19 = load ptr, ptr %arena, align 8, !dbg !7212, !tbaa !7214",
+				"%call28 = tail call i32 @_PyArena_AddPyObject(ptr noundef %19, ptr noundef nonnull %retval.0.i) #13, !dbg !7215",
+				"%cmp29 = icmp slt i32 %call28, 0, !dbg !7216",
+				"br i1 %cmp29, label %if.then31, label %if.end33, !dbg !7217"
+			]
+		},
+		{
+			"function": "_PyPegen_number_token",
+			"id": 212,
+			"name": "if.then31",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [213, 215],
+			"ir": [
+				"%op.val.i63 = load i64, ptr %retval.0.i, align 8, !dbg !7221, !tbaa !7138",
+				"%20 = and i64 %op.val.i63, 2147483648, !dbg !7224",
+				"%cmp.i.not.i64 = icmp eq i64 %20, 0, !dbg !7224",
+				"br i1 %cmp.i.not.i64, label %if.end.i67, label %Py_DECREF.exit69, !dbg !7225"
+			]
+		},
+		{
+			"function": "_PyPegen_number_token",
+			"id": 213,
+			"name": "if.end.i67",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [214, 215],
+			"ir": [
+				"%dec.i65 = add i64 %op.val.i63, -1, !dbg !7226",
+				"store i64 %dec.i65, ptr %retval.0.i, align 8, !dbg !7226, !tbaa !7138",
+				"%cmp.i66 = icmp eq i64 %dec.i65, 0, !dbg !7227",
+				"br i1 %cmp.i66, label %if.then1.i68, label %Py_DECREF.exit69, !dbg !7228"
+			]
+		},
+		{
+			"function": "_PyPegen_number_token",
+			"id": 214,
+			"name": "if.then1.i68",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [215],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %retval.0.i) #13, !dbg !7229",
+				"br label %Py_DECREF.exit69, !dbg !7230"
+			]
+		},
+		{
+			"function": "_PyPegen_number_token",
+			"id": 215,
+			"name": "Py_DECREF.exit69",
+			"debug": [
+				{
+					"line": 688, "columns": [12, 28]
+				},
+				{
+					"line": 689, "columns": [9]
+				}
+			],
+			"successors": [217],
+			"ir": [
+				"%error_indicator32 = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 15, !dbg !7231",
+				"store i32 1, ptr %error_indicator32, align 8, !dbg !7232, !tbaa !7073",
+				"br label %cleanup39, !dbg !7233"
+			]
+		},
+		{
+			"function": "_PyPegen_number_token",
+			"id": 216,
+			"name": "if.end33",
+			"debug": [
+				{
+					"line": 692, "columns": [40, 51, 66, 12, 5]
+				},
+				{
+					"line": 693, "columns": [31, 50]
+				}
+			],
+			"successors": [217],
+			"ir": [
+				"%lineno34 = getelementptr inbounds %struct.Token, ptr %4, i64 0, i32 3, !dbg !7234",
+				"%21 = load i32, ptr %lineno34, align 4, !dbg !7234, !tbaa !7185",
+				"%col_offset = getelementptr inbounds %struct.Token, ptr %4, i64 0, i32 4, !dbg !7235",
+				"%22 = load i32, ptr %col_offset, align 8, !dbg !7235, !tbaa !7236",
+				"%end_lineno35 = getelementptr inbounds %struct.Token, ptr %4, i64 0, i32 5, !dbg !7237",
+				"%23 = load i32, ptr %end_lineno35, align 4, !dbg !7237, !tbaa !7188",
+				"%end_col_offset = getelementptr inbounds %struct.Token, ptr %4, i64 0, i32 6, !dbg !7238",
+				"%24 = load i32, ptr %end_col_offset, align 8, !dbg !7238, !tbaa !7239",
+				"%25 = load ptr, ptr %arena, align 8, !dbg !7240, !tbaa !7214",
+				"%call37 = tail call ptr @_PyAST_Constant(ptr noundef nonnull %retval.0.i, ptr noundef null, i32 noundef %21, i32 noundef %22, i32 noundef %23, i32 noundef %24, ptr noundef %25) #13, !dbg !7241",
+				"br label %cleanup39, !dbg !7242"
+			]
+		},
+		{
+			"function": "_PyPegen_number_token",
+			"id": 217,
+			"name": "cleanup39",
+			"debug": [
+				{
+					"line": 694, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.2 = phi ptr [ null, %if.then3 ], [ %call10, %if.then8 ], [ null, %Py_DECREF.exit69 ], [ %call37, %if.end33 ], [ null, %land.lhs.true18 ], [ null, %if.then14 ], [ null, %if.then22 ], [ null, %if.end.i ], [ null, %if.then1.i ], [ null, %if.then2.i ], [ null, %if.end3.i ], !dbg !7040",
+				"ret ptr %retval.2, !dbg !7243"
+			]
+		},
+		{
+			"function": "_PyPegen_Parser_New",
+			"id": 218,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 756, "columns": [17]
+				},
+				{
+					"line": 757, "columns": [11, 9]
+				}
+			],
+			"successors": [219, 220],
+			"ir": [
+				"%call = tail call ptr @PyMem_Malloc(i64 noundef 160) #13, !dbg !835",
+				"%cmp = icmp eq ptr %call, null, !dbg !836",
+				"br i1 %cmp, label %if.then, label %if.end, !dbg !838"
+			]
+		},
+		{
+			"function": "_PyPegen_Parser_New",
+			"id": 219,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 758, "columns": [27, 9]
+				}
+			],
+			"successors": [227],
+			"ir": [
+				"%call1 = tail call ptr @PyErr_NoMemory() #13, !dbg !839",
+				"br label %cleanup, !dbg !841"
+			]
+		},
+		{
+			"function": "_PyPegen_Parser_New",
+			"id": 220,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 761, "columns": [58, 10, 24]
+				},
+				{
+					"line": 762, "columns": [12]
+				},
+				{
+					"line": 763, "columns": [8, 17]
+				},
+				{
+					"line": 764, "columns": [8, 24]
+				},
+				{
+					"line": 765, "columns": [8, 22]
+				},
+				{
+					"line": 766, "columns": [17, 8, 15]
+				},
+				{
+					"line": 767, "columns": [10, 9]
+				}
+			],
+			"successors": [221, 222],
+			"ir": [
+				"%and = lshr i32 %flags, 6, !dbg !842",
+				"%and.lobit = and i32 %and, 1, !dbg !842",
+				"%type_comments = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 39, !dbg !843",
+				"store i32 %and.lobit, ptr %type_comments, align 8, !dbg !844, !tbaa !845",
+				"store ptr %tok, ptr %call, align 8, !dbg !851, !tbaa !852",
+				"%keywords = getelementptr inbounds %struct.Parser, ptr %call, i64 0, i32 6, !dbg !856",
+				"store ptr null, ptr %keywords, align 8, !dbg !857, !tbaa !858",
+				"%n_keyword_lists = getelementptr inbounds %struct.Parser, ptr %call, i64 0, i32 8, !dbg !859",
+				"store i32 -1, ptr %n_keyword_lists, align 8, !dbg !860, !tbaa !861",
+				"%soft_keywords = getelementptr inbounds %struct.Parser, ptr %call, i64 0, i32 7, !dbg !862",
+				"store ptr null, ptr %soft_keywords, align 8, !dbg !863, !tbaa !864",
+				"%call4 = tail call ptr @PyMem_Malloc(i64 noundef 8) #13, !dbg !865",
+				"%tokens = getelementptr inbounds %struct.Parser, ptr %call, i64 0, i32 1, !dbg !866",
+				"store ptr %call4, ptr %tokens, align 8, !dbg !867, !tbaa !868",
+				"%tobool.not = icmp eq ptr %call4, null, !dbg !869",
+				"br i1 %tobool.not, label %if.then6, label %if.end8, !dbg !871"
+			]
+		},
+		{
+			"function": "_PyPegen_Parser_New",
+			"id": 221,
+			"name": "if.then6",
+			"debug": [
+				{
+					"line": 768, "columns": [9]
+				},
+				{
+					"line": 769, "columns": [27, 9]
+				}
+			],
+			"successors": [227],
+			"ir": [
+				"tail call void @PyMem_Free(ptr noundef nonnull %call) #13, !dbg !872",
+				"%call7 = tail call ptr @PyErr_NoMemory() #13, !dbg !874",
+				"br label %cleanup, !dbg !875"
+			]
+		},
+		{
+			"function": "_PyPegen_Parser_New",
+			"id": 222,
+			"name": "if.end8",
+			"debug": [
+				{
+					"line": 771, "columns": [20, 8, 18]
+				},
+				{
+					"line": 772, "columns": [13, 10, 9]
+				}
+			],
+			"successors": [223, 224],
+			"ir": [
+				"%call9 = tail call ptr @PyMem_Calloc(i64 noundef 1, i64 noundef 56) #13, !dbg !876",
+				"%0 = load ptr, ptr %tokens, align 8, !dbg !877, !tbaa !868",
+				"store ptr %call9, ptr %0, align 8, !dbg !878, !tbaa !879",
+				"%1 = load ptr, ptr %tokens, align 8, !dbg !880, !tbaa !868",
+				"%2 = load ptr, ptr %1, align 8, !dbg !882, !tbaa !879",
+				"%tobool13.not = icmp eq ptr %2, null, !dbg !882",
+				"br i1 %tobool13.not, label %if.then14, label %if.end17, !dbg !883"
+			]
+		},
+		{
+			"function": "_PyPegen_Parser_New",
+			"id": 223,
+			"name": "if.then14",
+			"debug": [
+				{
+					"line": 773, "columns": [9]
+				},
+				{
+					"line": 774, "columns": [9]
+				},
+				{
+					"line": 775, "columns": [27, 9]
+				}
+			],
+			"successors": [227],
+			"ir": [
+				"tail call void @PyMem_Free(ptr noundef nonnull %1) #13, !dbg !884",
+				"tail call void @PyMem_Free(ptr noundef nonnull %call) #13, !dbg !886",
+				"%call16 = tail call ptr @PyErr_NoMemory() #13, !dbg !887",
+				"br label %cleanup, !dbg !888"
+			]
+		},
+		{
+			"function": "_PyPegen_Parser_New",
+			"id": 224,
+			"name": "if.end17",
+			"debug": [
+				{
+					"line": 99, "columns": [18, 16]
+				},
+				{
+					"line": 100, "columns": [10, 15]
+				},
+				{
+					"line": 101, "columns": [10, 20]
+				},
+				{
+					"line": 103, "columns": [23]
+				},
+				{
+					"line": 777, "columns": [42, 9]
+				}
+			],
+			"successors": [225, 226],
+			"ir": [
+				"%type_ignore_comments = getelementptr inbounds %struct.Parser, ptr %call, i64 0, i32 18, !dbg !889",
+				"%call.i = tail call ptr @PyMem_Malloc(i64 noundef 160) #13, !dbg !900",
+				"store ptr %call.i, ptr %type_ignore_comments, align 8, !dbg !901, !tbaa !902",
+				"%size.i = getelementptr inbounds %struct.Parser, ptr %call, i64 0, i32 18, i32 1, !dbg !903",
+				"store i64 10, ptr %size.i, align 8, !dbg !904, !tbaa !905",
+				"%num_items.i = getelementptr inbounds %struct.Parser, ptr %call, i64 0, i32 18, i32 2, !dbg !906",
+				"store i64 0, ptr %num_items.i, align 8, !dbg !907, !tbaa !908",
+				"%cmp.i.not = icmp eq ptr %call.i, null, !dbg !909",
+				"br i1 %cmp.i.not, label %if.then20, label %if.end25, !dbg !910"
+			]
+		},
+		{
+			"function": "_PyPegen_Parser_New",
+			"id": 225,
+			"name": "if.then20",
+			"debug": [
+				{
+					"line": 778, "columns": [23, 20, 9]
+				},
+				{
+					"line": 779, "columns": [23, 9]
+				},
+				{
+					"line": 780, "columns": [9]
+				},
+				{
+					"line": 781, "columns": [27, 9]
+				}
+			],
+			"successors": [227],
+			"ir": [
+				"%3 = load ptr, ptr %tokens, align 8, !dbg !911, !tbaa !868",
+				"%4 = load ptr, ptr %3, align 8, !dbg !913, !tbaa !879",
+				"tail call void @PyMem_Free(ptr noundef %4) #13, !dbg !914",
+				"%5 = load ptr, ptr %tokens, align 8, !dbg !915, !tbaa !868",
+				"tail call void @PyMem_Free(ptr noundef %5) #13, !dbg !916",
+				"tail call void @PyMem_Free(ptr noundef nonnull %call) #13, !dbg !917",
+				"%call24 = tail call ptr @PyErr_NoMemory() #13, !dbg !918",
+				"br label %cleanup, !dbg !919"
+			]
+		},
+		{
+			"function": "_PyPegen_Parser_New",
+			"id": 226,
+			"name": "if.end25",
+			"debug": [
+				{
+					"line": 784, "columns": [8, 13]
+				},
+				{
+					"line": 785, "columns": [8, 13]
+				},
+				{
+					"line": 786, "columns": [8, 13]
+				},
+				{
+					"line": 788, "columns": [8, 16]
+				},
+				{
+					"line": 789, "columns": [8, 14]
+				},
+				{
+					"line": 790, "columns": [8, 19]
+				},
+				{
+					"line": 791, "columns": [8, 24]
+				},
+				{
+					"line": 792, "columns": [8, 18]
+				},
+				{
+					"line": 797, "columns": [8, 14]
+				},
+				{
+					"line": 798, "columns": [8, 24]
+				},
+				{
+					"line": 799, "columns": [8]
+				},
+				{
+					"line": 800, "columns": [14]
+				},
+				{
+					"line": 805, "columns": [5]
+				}
+			],
+			"successors": [227],
+			"ir": [
+				"%mark = getelementptr inbounds %struct.Parser, ptr %call, i64 0, i32 2, !dbg !920",
+				"store i32 0, ptr %mark, align 8, !dbg !921, !tbaa !922",
+				"%fill = getelementptr inbounds %struct.Parser, ptr %call, i64 0, i32 3, !dbg !923",
+				"store i32 0, ptr %fill, align 4, !dbg !924, !tbaa !925",
+				"%size = getelementptr inbounds %struct.Parser, ptr %call, i64 0, i32 4, !dbg !926",
+				"store i32 1, ptr %size, align 8, !dbg !927, !tbaa !928",
+				"%errcode26 = getelementptr inbounds %struct.Parser, ptr %call, i64 0, i32 10, !dbg !929",
+				"store ptr %errcode, ptr %errcode26, align 8, !dbg !930, !tbaa !931",
+				"%arena27 = getelementptr inbounds %struct.Parser, ptr %call, i64 0, i32 5, !dbg !932",
+				"store ptr %arena, ptr %arena27, align 8, !dbg !933, !tbaa !934",
+				"%start_rule28 = getelementptr inbounds %struct.Parser, ptr %call, i64 0, i32 9, !dbg !935",
+				"store i32 %start_rule, ptr %start_rule28, align 4, !dbg !936, !tbaa !937",
+				"%parsing_started = getelementptr inbounds %struct.Parser, ptr %call, i64 0, i32 11, !dbg !938",
+				"store i32 0, ptr %parsing_started, align 8, !dbg !939, !tbaa !940",
+				"%normalize = getelementptr inbounds %struct.Parser, ptr %call, i64 0, i32 12, !dbg !941",
+				"%flags29 = getelementptr inbounds %struct.Parser, ptr %call, i64 0, i32 16, !dbg !942",
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(20) %normalize, i8 0, i64 20, i1 false), !dbg !943",
+				"store i32 %flags, ptr %flags29, align 4, !dbg !944, !tbaa !945",
+				"%feature_version30 = getelementptr inbounds %struct.Parser, ptr %call, i64 0, i32 17, !dbg !946",
+				"store i32 %feature_version, ptr %feature_version30, align 8, !dbg !947, !tbaa !948",
+				"%known_err_token = getelementptr inbounds %struct.Parser, ptr %call, i64 0, i32 19, !dbg !949",
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %known_err_token, i8 0, i64 16, i1 false), !dbg !950",
+				"br label %cleanup, !dbg !951"
+			]
+		},
+		{
+			"function": "_PyPegen_Parser_New",
+			"id": 227,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 806, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call1, %if.then ], [ %call, %if.end25 ], [ %call24, %if.then20 ], [ %call16, %if.then14 ], [ %call7, %if.then6 ], !dbg !834",
+				"ret ptr %retval.0, !dbg !952"
+			]
+		},
+		{
+			"function": "_PyPegen_Parser_Free",
+			"id": 228,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 811, "columns": [5]
+				},
+				{
+					"line": 1037, "columns": [12, 9]
+				}
+			],
+			"successors": [232, 229],
+			"ir": [
+				"%normalize = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 12, !dbg !831",
+				"%0 = load ptr, ptr %normalize, align 8, !dbg !831, !tbaa !832",
+				"%cmp.not.i = icmp eq ptr %0, null, !dbg !845",
+				"br i1 %cmp.not.i, label %Py_XDECREF.exit, label %if.then.i, !dbg !847"
+			]
+		},
+		{
+			"function": "_PyPegen_Parser_Free",
+			"id": 229,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [230, 232],
+			"ir": [
+				"%op.val.i.i = load i64, ptr %0, align 8, !dbg !854, !tbaa !856",
+				"%1 = and i64 %op.val.i.i, 2147483648, !dbg !862",
+				"%cmp.i.not.i.i = icmp eq i64 %1, 0, !dbg !862",
+				"br i1 %cmp.i.not.i.i, label %if.end.i.i, label %Py_XDECREF.exit, !dbg !863"
+			]
+		},
+		{
+			"function": "_PyPegen_Parser_Free",
+			"id": 230,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [231, 232],
+			"ir": [
+				"%dec.i.i = add i64 %op.val.i.i, -1, !dbg !864",
+				"store i64 %dec.i.i, ptr %0, align 8, !dbg !864, !tbaa !856",
+				"%cmp.i.i = icmp eq i64 %dec.i.i, 0, !dbg !866",
+				"br i1 %cmp.i.i, label %if.then1.i.i, label %Py_XDECREF.exit, !dbg !867"
+			]
+		},
+		{
+			"function": "_PyPegen_Parser_Free",
+			"id": 231,
+			"name": "if.then1.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [232],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %0) #13, !dbg !868",
+				"br label %Py_XDECREF.exit, !dbg !870"
+			]
+		},
+		{
+			"function": "_PyPegen_Parser_Free",
+			"id": 232,
+			"name": "Py_XDECREF.exit",
+			"debug": [
+				{
+					"line": 812, "columns": [28, 23, 5]
+				}
+			],
+			"successors": [233, 234],
+			"ir": [
+				"%size = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 4",
+				"%2 = load i32, ptr %size, align 8, !dbg !872, !tbaa !874",
+				"%cmp9 = icmp sgt i32 %2, 0, !dbg !875",
+				"br i1 %cmp9, label %for.body.lr.ph, label %for.cond.cleanup, !dbg !876"
+			]
+		},
+		{
+			"function": "_PyPegen_Parser_Free",
+			"id": 233,
+			"name": "for.body.lr.ph",
+			"debug": [
+				{
+					"line": 812, "columns": [5]
+				}
+			],
+			"successors": [237],
+			"ir": [
+				"%tokens = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 1",
+				"br label %for.body, !dbg !876"
+			]
+		},
+		{
+			"function": "_PyPegen_Parser_Free",
+			"id": 234,
+			"name": "for.cond.cleanup",
+			"debug": [
+				{
+					"line": 126, "columns": [35, 28, 5]
+				},
+				{
+					"line": 815, "columns": [19, 5]
+				},
+				{
+					"line": 816, "columns": [43]
+				}
+			],
+			"successors": [236, 235],
+			"ir": [
+				"%tokens1 = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 1, !dbg !877",
+				"%3 = load ptr, ptr %tokens1, align 8, !dbg !877, !tbaa !878",
+				"tail call void @PyMem_Free(ptr noundef %3) #13, !dbg !879",
+				"%type_ignore_comments = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 18, !dbg !880",
+				"%num_items.i = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 18, i32 2",
+				"%4 = load i64, ptr %num_items.i, align 8, !dbg !892, !tbaa !894",
+				"%cmp7.not.i = icmp eq i64 %4, 0, !dbg !895",
+				"br i1 %cmp7.not.i, label %growable_comment_array_deallocate.exit, label %for.body.i, !dbg !896"
+			]
+		},
+		{
+			"function": "_PyPegen_Parser_Free",
+			"id": 235,
+			"name": "for.body.i",
+			"debug": [
+				{
+					"line": 126, "columns": [47, 26, 35, 28, 5]
+				},
+				{
+					"line": 127, "columns": [25, 34, 9]
+				}
+			],
+			"successors": [235, 236],
+			"ir": [
+				"%conv9.i = phi i64 [ %conv.i, %for.body.i ], [ 0, %for.cond.cleanup ]",
+				"%5 = load ptr, ptr %type_ignore_comments, align 8, !dbg !897, !tbaa !899",
+				"%comment.i = getelementptr %struct.anon.68, ptr %5, i64 %conv9.i, i32 1, !dbg !900",
+				"%6 = load ptr, ptr %comment.i, align 8, !dbg !900, !tbaa !901",
+				"tail call void @PyMem_Free(ptr noundef %6) #13, !dbg !903",
+				"%inc.i = add nuw nsw i64 %conv9.i, 1, !dbg !904",
+				"%conv.i = and i64 %inc.i, 4294967295, !dbg !905",
+				"%7 = load i64, ptr %num_items.i, align 8, !dbg !892, !tbaa !894",
+				"%cmp.i = icmp ugt i64 %7, %conv.i, !dbg !895",
+				"br i1 %cmp.i, label %for.body.i, label %growable_comment_array_deallocate.exit, !dbg !896, !llvm.loop !906"
+			]
+		},
+		{
+			"function": "_PyPegen_Parser_Free",
+			"id": 236,
+			"name": "growable_comment_array_deallocate.exit",
+			"debug": [
+				{
+					"line": 129, "columns": [21, 5]
+				},
+				{
+					"line": 817, "columns": [5]
+				},
+				{
+					"line": 818, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%8 = load ptr, ptr %type_ignore_comments, align 8, !dbg !909, !tbaa !899",
+				"tail call void @PyMem_Free(ptr noundef %8) #13, !dbg !910",
+				"tail call void @PyMem_Free(ptr noundef nonnull %p) #13, !dbg !911",
+				"ret void, !dbg !912"
+			]
+		},
+		{
+			"function": "_PyPegen_Parser_Free",
+			"id": 237,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 812, "columns": [35, 28, 23, 5]
+				},
+				{
+					"line": 813, "columns": [23, 20, 9]
+				}
+			],
+			"successors": [237, 234],
+			"ir": [
+				"%indvars.iv = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next, %for.body ]",
+				"%9 = load ptr, ptr %tokens, align 8, !dbg !913, !tbaa !878",
+				"%arrayidx = getelementptr ptr, ptr %9, i64 %indvars.iv, !dbg !915",
+				"%10 = load ptr, ptr %arrayidx, align 8, !dbg !915, !tbaa !916",
+				"tail call void @PyMem_Free(ptr noundef %10) #13, !dbg !917",
+				"%indvars.iv.next = add nuw nsw i64 %indvars.iv, 1, !dbg !918",
+				"%11 = load i32, ptr %size, align 8, !dbg !872, !tbaa !874",
+				"%12 = sext i32 %11 to i64, !dbg !875",
+				"%cmp = icmp slt i64 %indvars.iv.next, %12, !dbg !875",
+				"br i1 %cmp, label %for.body, label %for.cond.cleanup, !dbg !876, !llvm.loop !919"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser",
+			"id": 238,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 842, "columns": [17]
+				},
+				{
+					"line": 844, "columns": [13, 9]
+				}
+			],
+			"successors": [239, 251],
+			"ir": [
+				"%call = tail call ptr @_PyPegen_parse(ptr noundef %p) #13, !dbg !833",
+				"%cmp = icmp eq ptr %call, null, !dbg !834",
+				"br i1 %cmp, label %if.then, label %if.end13, !dbg !835"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser",
+			"id": 239,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 845, "columns": [17, 23, 57]
+				}
+			],
+			"successors": [242, 240],
+			"ir": [
+				"%flags = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 16, !dbg !836",
+				"%0 = load i32, ptr %flags, align 4, !dbg !836, !tbaa !838",
+				"%and = and i32 %0, 256, !dbg !846",
+				"%tobool.not = icmp eq i32 %and, 0, !dbg !846",
+				"br i1 %tobool.not, label %if.end, label %land.lhs.true, !dbg !847"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser",
+			"id": 240,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 836, "columns": [25]
+				},
+				{
+					"line": 845, "columns": [61]
+				}
+			],
+			"successors": [242, 241, 241, 241],
+			"ir": [
+				"%p.val = load ptr, ptr %p, align 8, !dbg !848, !tbaa !849",
+				"%1 = getelementptr i8, ptr %p.val, i64 64, !dbg !848",
+				"%p.val.val = load i32, ptr %1, align 8, !dbg !848, !tbaa !850",
+				"switch i32 %p.val.val, label %if.end [\n    i32 23, label %if.then3\n    i32 11, label %if.then3\n    i32 24, label %if.then3\n  ], !dbg !860"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser",
+			"id": 241,
+			"name": "if.then3",
+			"debug": [
+				{
+					"line": 846, "columns": [13]
+				},
+				{
+					"line": 847, "columns": [44, 20, 13]
+				}
+			],
+			"successors": [260],
+			"ir": [
+				"tail call void @PyErr_Clear() #13, !dbg !861",
+				"%2 = load ptr, ptr @PyExc_IncompleteInputError, align 8, !dbg !863, !tbaa !864",
+				"%call4 = tail call ptr (ptr, ptr, i32, ptr, ...) @_PyPegen_raise_error(ptr noundef nonnull %p, ptr noundef %2, i32 noundef 0, ptr noundef nonnull @.str.7) #13, !dbg !865",
+				"br label %cleanup, !dbg !866"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser",
+			"id": 242,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 849, "columns": [13, 30]
+				}
+			],
+			"successors": [244, 243],
+			"ir": [
+				"%call5 = tail call ptr @PyErr_Occurred() #13, !dbg !867",
+				"%tobool6.not = icmp eq ptr %call5, null, !dbg !867",
+				"br i1 %tobool6.not, label %if.end11, label %land.lhs.true7, !dbg !869"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser",
+			"id": 243,
+			"name": "land.lhs.true7",
+			"debug": [
+				{
+					"line": 849, "columns": [57, 34, 13]
+				}
+			],
+			"successors": [260, 244],
+			"ir": [
+				"%3 = load ptr, ptr @PyExc_SyntaxError, align 8, !dbg !870, !tbaa !864",
+				"%call8 = tail call i32 @PyErr_ExceptionMatches(ptr noundef %3) #13, !dbg !871",
+				"%tobool9.not = icmp eq i32 %call8, 0, !dbg !871",
+				"br i1 %tobool9.not, label %cleanup, label %if.end11, !dbg !872"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser",
+			"id": 244,
+			"name": "if.end11",
+			"debug": [
+				{
+					"line": 823, "columns": [23, 5]
+				},
+				{
+					"line": 855, "columns": [32, 42, 47, 29]
+				}
+			],
+			"successors": [245, 250],
+			"ir": [
+				"%tokens = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 1, !dbg !873",
+				"%4 = load ptr, ptr %tokens, align 8, !dbg !873, !tbaa !874",
+				"%fill = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 3, !dbg !875",
+				"%5 = load i32, ptr %fill, align 4, !dbg !875, !tbaa !876",
+				"%sub = add i32 %5, -1, !dbg !877",
+				"%idxprom = sext i32 %sub to i64, !dbg !878",
+				"%arrayidx = getelementptr ptr, ptr %4, i64 %idxprom, !dbg !878",
+				"%6 = load ptr, ptr %arrayidx, align 8, !dbg !878, !tbaa !864",
+				"%cmp7.i = icmp sgt i32 %5, 0, !dbg !890",
+				"br i1 %cmp7.i, label %for.body.lr.ph.i, label %reset_parser_state_for_error_pass.exit, !dbg !892"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser",
+			"id": 245,
+			"name": "for.body.lr.ph.i",
+			"debug": [
+				{
+					"line": 823, "columns": [23, 5]
+				}
+			],
+			"successors": [248, 246],
+			"ir": [
+				"%wide.trip.count.i = zext i32 %5 to i64, !dbg !890",
+				"%xtraiter = and i64 %wide.trip.count.i, 7, !dbg !892",
+				"%7 = icmp ult i32 %5, 8, !dbg !892",
+				"br i1 %7, label %reset_parser_state_for_error_pass.exit.loopexit.unr-lcssa, label %for.body.lr.ph.i.new, !dbg !892"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser",
+			"id": 246,
+			"name": "for.body.lr.ph.i.new",
+			"debug": [
+				{
+					"line": 823, "columns": [5]
+				}
+			],
+			"successors": [247],
+			"ir": [
+				"%unroll_iter = and i64 %wide.trip.count.i, 4294967288, !dbg !892",
+				"br label %for.body.i, !dbg !892"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser",
+			"id": 247,
+			"name": "for.body.i",
+			"debug": [
+				{
+					"line": 823, "columns": [35, 5]
+				},
+				{
+					"line": 824, "columns": [9, 23, 28]
+				}
+			],
+			"successors": [248, 247],
+			"ir": [
+				"%indvars.iv.i = phi i64 [ 0, %for.body.lr.ph.i.new ], [ %indvars.iv.next.i.7, %for.body.i ]",
+				"%niter = phi i64 [ 0, %for.body.lr.ph.i.new ], [ %niter.next.7, %for.body.i ]",
+				"%arrayidx.i = getelementptr ptr, ptr %4, i64 %indvars.iv.i, !dbg !893",
+				"%8 = load ptr, ptr %arrayidx.i, align 8, !dbg !893, !tbaa !864",
+				"%memo.i = getelementptr inbounds %struct.Token, ptr %8, i64 0, i32 7, !dbg !895",
+				"store ptr null, ptr %memo.i, align 8, !dbg !896, !tbaa !897",
+				"%indvars.iv.next.i = or i64 %indvars.iv.i, 1, !dbg !899",
+				"%arrayidx.i.1 = getelementptr ptr, ptr %4, i64 %indvars.iv.next.i, !dbg !893",
+				"%9 = load ptr, ptr %arrayidx.i.1, align 8, !dbg !893, !tbaa !864",
+				"%memo.i.1 = getelementptr inbounds %struct.Token, ptr %9, i64 0, i32 7, !dbg !895",
+				"store ptr null, ptr %memo.i.1, align 8, !dbg !896, !tbaa !897",
+				"%indvars.iv.next.i.1 = or i64 %indvars.iv.i, 2, !dbg !899",
+				"%arrayidx.i.2 = getelementptr ptr, ptr %4, i64 %indvars.iv.next.i.1, !dbg !893",
+				"%10 = load ptr, ptr %arrayidx.i.2, align 8, !dbg !893, !tbaa !864",
+				"%memo.i.2 = getelementptr inbounds %struct.Token, ptr %10, i64 0, i32 7, !dbg !895",
+				"store ptr null, ptr %memo.i.2, align 8, !dbg !896, !tbaa !897",
+				"%indvars.iv.next.i.2 = or i64 %indvars.iv.i, 3, !dbg !899",
+				"%arrayidx.i.3 = getelementptr ptr, ptr %4, i64 %indvars.iv.next.i.2, !dbg !893",
+				"%11 = load ptr, ptr %arrayidx.i.3, align 8, !dbg !893, !tbaa !864",
+				"%memo.i.3 = getelementptr inbounds %struct.Token, ptr %11, i64 0, i32 7, !dbg !895",
+				"store ptr null, ptr %memo.i.3, align 8, !dbg !896, !tbaa !897",
+				"%indvars.iv.next.i.3 = or i64 %indvars.iv.i, 4, !dbg !899",
+				"%arrayidx.i.4 = getelementptr ptr, ptr %4, i64 %indvars.iv.next.i.3, !dbg !893",
+				"%12 = load ptr, ptr %arrayidx.i.4, align 8, !dbg !893, !tbaa !864",
+				"%memo.i.4 = getelementptr inbounds %struct.Token, ptr %12, i64 0, i32 7, !dbg !895",
+				"store ptr null, ptr %memo.i.4, align 8, !dbg !896, !tbaa !897",
+				"%indvars.iv.next.i.4 = or i64 %indvars.iv.i, 5, !dbg !899",
+				"%arrayidx.i.5 = getelementptr ptr, ptr %4, i64 %indvars.iv.next.i.4, !dbg !893",
+				"%13 = load ptr, ptr %arrayidx.i.5, align 8, !dbg !893, !tbaa !864",
+				"%memo.i.5 = getelementptr inbounds %struct.Token, ptr %13, i64 0, i32 7, !dbg !895",
+				"store ptr null, ptr %memo.i.5, align 8, !dbg !896, !tbaa !897",
+				"%indvars.iv.next.i.5 = or i64 %indvars.iv.i, 6, !dbg !899",
+				"%arrayidx.i.6 = getelementptr ptr, ptr %4, i64 %indvars.iv.next.i.5, !dbg !893",
+				"%14 = load ptr, ptr %arrayidx.i.6, align 8, !dbg !893, !tbaa !864",
+				"%memo.i.6 = getelementptr inbounds %struct.Token, ptr %14, i64 0, i32 7, !dbg !895",
+				"store ptr null, ptr %memo.i.6, align 8, !dbg !896, !tbaa !897",
+				"%indvars.iv.next.i.6 = or i64 %indvars.iv.i, 7, !dbg !899",
+				"%arrayidx.i.7 = getelementptr ptr, ptr %4, i64 %indvars.iv.next.i.6, !dbg !893",
+				"%15 = load ptr, ptr %arrayidx.i.7, align 8, !dbg !893, !tbaa !864",
+				"%memo.i.7 = getelementptr inbounds %struct.Token, ptr %15, i64 0, i32 7, !dbg !895",
+				"store ptr null, ptr %memo.i.7, align 8, !dbg !896, !tbaa !897",
+				"%indvars.iv.next.i.7 = add nuw nsw i64 %indvars.iv.i, 8, !dbg !899",
+				"%niter.next.7 = add i64 %niter, 8, !dbg !892",
+				"%niter.ncmp.7 = icmp eq i64 %niter.next.7, %unroll_iter, !dbg !892",
+				"br i1 %niter.ncmp.7, label %reset_parser_state_for_error_pass.exit.loopexit.unr-lcssa, label %for.body.i, !dbg !892, !llvm.loop !900"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser",
+			"id": 248,
+			"name": "reset_parser_state_for_error_pass.exit.loopexit.unr-lcssa",
+			"debug": [
+				{
+					"line": 823, "columns": [5]
+				}
+			],
+			"successors": [250, 249],
+			"ir": [
+				"%indvars.iv.i.unr = phi i64 [ 0, %for.body.lr.ph.i ], [ %indvars.iv.next.i.7, %for.body.i ]",
+				"%lcmp.mod.not = icmp eq i64 %xtraiter, 0, !dbg !892",
+				"br i1 %lcmp.mod.not, label %reset_parser_state_for_error_pass.exit, label %for.body.i.epil, !dbg !892"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser",
+			"id": 249,
+			"name": "for.body.i.epil",
+			"debug": [
+				{
+					"line": 823, "columns": [35, 5]
+				},
+				{
+					"line": 824, "columns": [9, 23, 28]
+				}
+			],
+			"successors": [250, 249],
+			"ir": [
+				"%indvars.iv.i.epil = phi i64 [ %indvars.iv.next.i.epil, %for.body.i.epil ], [ %indvars.iv.i.unr, %reset_parser_state_for_error_pass.exit.loopexit.unr-lcssa ]",
+				"%epil.iter = phi i64 [ %epil.iter.next, %for.body.i.epil ], [ 0, %reset_parser_state_for_error_pass.exit.loopexit.unr-lcssa ]",
+				"%arrayidx.i.epil = getelementptr ptr, ptr %4, i64 %indvars.iv.i.epil, !dbg !893",
+				"%16 = load ptr, ptr %arrayidx.i.epil, align 8, !dbg !893, !tbaa !864",
+				"%memo.i.epil = getelementptr inbounds %struct.Token, ptr %16, i64 0, i32 7, !dbg !895",
+				"store ptr null, ptr %memo.i.epil, align 8, !dbg !896, !tbaa !897",
+				"%indvars.iv.next.i.epil = add nuw nsw i64 %indvars.iv.i.epil, 1, !dbg !899",
+				"%epil.iter.next = add i64 %epil.iter, 1, !dbg !892",
+				"%epil.iter.cmp.not = icmp eq i64 %epil.iter.next, %xtraiter, !dbg !892",
+				"br i1 %epil.iter.cmp.not, label %reset_parser_state_for_error_pass.exit, label %for.body.i.epil, !dbg !892, !llvm.loop !903"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser",
+			"id": 250,
+			"name": "reset_parser_state_for_error_pass.exit",
+			"debug": [
+				{
+					"line": 826, "columns": [8, 13]
+				},
+				{
+					"line": 827, "columns": [8, 27]
+				},
+				{
+					"line": 830, "columns": [8, 13, 35]
+				},
+				{
+					"line": 857, "columns": [9]
+				},
+				{
+					"line": 861, "columns": [9]
+				}
+			],
+			"successors": [260],
+			"ir": [
+				"%mark.i = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 2, !dbg !905",
+				"store i32 0, ptr %mark.i, align 8, !dbg !906, !tbaa !907",
+				"%call_invalid_rules.i = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 21, !dbg !908",
+				"store i32 1, ptr %call_invalid_rules.i, align 4, !dbg !909, !tbaa !910",
+				"%17 = load ptr, ptr %p, align 8, !dbg !911, !tbaa !849",
+				"%interactive_underflow.i = getelementptr inbounds %struct.tok_state, ptr %17, i64 0, i32 40, !dbg !912",
+				"store i32 1, ptr %interactive_underflow.i, align 4, !dbg !913, !tbaa !914",
+				"%call12 = tail call ptr @_PyPegen_parse(ptr noundef nonnull %p) #13, !dbg !915",
+				"tail call void @_Pypegen_set_syntax_error(ptr noundef nonnull %p, ptr noundef %6) #13, !dbg !916",
+				"br label %cleanup"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser",
+			"id": 251,
+			"name": "if.end13",
+			"debug": [
+				{
+					"line": 865, "columns": [12, 23, 42]
+				}
+			],
+			"successors": [252, 260],
+			"ir": [
+				"%start_rule = getelementptr inbounds %struct.Parser, ptr %p, i64 0, i32 9, !dbg !917",
+				"%18 = load i32, ptr %start_rule, align 4, !dbg !917, !tbaa !919",
+				"%cmp14 = icmp eq i32 %18, 256, !dbg !920",
+				"br i1 %cmp14, label %land.lhs.true15, label %cleanup, !dbg !921"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser",
+			"id": 252,
+			"name": "land.lhs.true15",
+			"debug": [
+				{
+					"line": 705, "columns": [5]
+				},
+				{
+					"line": 865, "columns": [45]
+				}
+			],
+			"successors": [253],
+			"ir": [
+				"%p.val34 = load ptr, ptr %p, align 8, !dbg !922, !tbaa !849",
+				"%19 = getelementptr i8, ptr %p.val34, i64 8, !dbg !922",
+				"%p.val34.val = load ptr, ptr %19, align 8, !dbg !922, !tbaa !923",
+				"br label %while.cond.i.sink.split, !dbg !931"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser",
+			"id": 253,
+			"name": "while.cond.i.sink.split",
+			"debug": [
+				{
+					"line": 706, "columns": [25]
+				}
+			],
+			"successors": [255],
+			"ir": [
+				"%p.val34.val.sink = phi ptr [ %p.val34.val, %land.lhs.true15 ], [ %incdec.ptr.i, %while.body.i ]",
+				"%20 = load i8, ptr %p.val34.val.sink, align 1, !dbg !929, !tbaa !932",
+				"br label %while.cond.i, !dbg !933"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser",
+			"id": 254,
+			"name": "while.cond.i.loopexit",
+			"debug": [
+				{
+					"line": 706, "columns": [25]
+				}
+			],
+			"successors": [255],
+			"ir": [
+				"br label %while.cond.i, !dbg !933"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser",
+			"id": 255,
+			"name": "while.cond.i",
+			"debug": [
+				{
+					"line": 706, "columns": [25]
+				}
+			],
+			"successors": [259, 256, 256, 256, 256, 260, 257],
+			"ir": [
+				"%cur.1.i = phi ptr [ %p.val34.val.sink, %while.cond.i.sink.split ], [ %cur.2.i, %while.cond.i.loopexit ], !dbg !929",
+				"%c.1.i = phi i8 [ %20, %while.cond.i.sink.split ], [ %c.2.i, %while.cond.i.loopexit ], !dbg !929",
+				"switch i8 %c.1.i, label %if.then18 [\n    i8 32, label %while.body.i\n    i8 12, label %while.body.i\n    i8 10, label %while.body.i\n    i8 9, label %while.body.i\n    i8 0, label %cleanup\n    i8 35, label %while.cond18.i\n  ], !dbg !933"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser",
+			"id": 256,
+			"name": "while.body.i",
+			"debug": [
+				{
+					"line": 706, "columns": [9]
+				},
+				{
+					"line": 707, "columns": [18]
+				}
+			],
+			"successors": [253],
+			"ir": [
+				"%incdec.ptr.i = getelementptr i8, ptr %cur.1.i, i64 1, !dbg !937",
+				"br label %while.cond.i.sink.split, !dbg !939, !llvm.loop !940"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser",
+			"id": 257,
+			"name": "while.cond18.i",
+			"debug": [
+				{
+					"line": 719, "columns": [9]
+				}
+			],
+			"successors": [258, 254, 254],
+			"ir": [
+				"%cur.2.i = phi ptr [ %incdec.ptr25.i, %while.body24.i ], [ %cur.1.i, %while.cond.i ], !dbg !929",
+				"%c.2.i = phi i8 [ %21, %while.body24.i ], [ %c.1.i, %while.cond.i ], !dbg !929",
+				"switch i8 %c.2.i, label %while.body24.i [\n    i8 10, label %while.cond.i.loopexit\n    i8 0, label %while.cond.i.loopexit\n  ], !dbg !942"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser",
+			"id": 258,
+			"name": "while.body24.i",
+			"debug": [
+				{
+					"line": 719, "columns": [9]
+				},
+				{
+					"line": 720, "columns": [18, 17]
+				}
+			],
+			"successors": [257],
+			"ir": [
+				"%incdec.ptr25.i = getelementptr i8, ptr %cur.2.i, i64 1, !dbg !943",
+				"%21 = load i8, ptr %incdec.ptr25.i, align 1, !dbg !945, !tbaa !932",
+				"br label %while.cond18.i, !dbg !942, !llvm.loop !946"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser",
+			"id": 259,
+			"name": "if.then18",
+			"debug": [
+				{
+					"line": 866, "columns": [17, 22]
+				},
+				{
+					"line": 867, "columns": [16, 9]
+				}
+			],
+			"successors": [260],
+			"ir": [
+				"%done = getelementptr inbounds %struct.tok_state, ptr %p.val34, i64 0, i32 8, !dbg !948",
+				"store i32 27, ptr %done, align 8, !dbg !950, !tbaa !850",
+				"%22 = load ptr, ptr @PyExc_SyntaxError, align 8, !dbg !951, !tbaa !864",
+				"%call19 = tail call ptr (ptr, ptr, i32, ptr, ...) @_PyPegen_raise_error(ptr noundef nonnull %p, ptr noundef %22, i32 noundef 0, ptr noundef nonnull @.str.8) #13, !dbg !951",
+				"br label %cleanup, !dbg !952"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser",
+			"id": 260,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 882, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call4, %if.then3 ], [ null, %reset_parser_state_for_error_pass.exit ], [ %call19, %if.then18 ], [ null, %land.lhs.true7 ], [ %call, %if.end13 ], [ %call, %while.cond.i ], !dbg !832",
+				"ret ptr %retval.0, !dbg !953"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser_from_file_pointer",
+			"id": 261,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 890, "columns": [29]
+				},
+				{
+					"line": 891, "columns": [13, 9]
+				}
+			],
+			"successors": [262, 264],
+			"ir": [
+				"%call = tail call ptr @_PyTokenizer_FromFile(ptr noundef %fp, ptr noundef %enc, ptr noundef %ps1, ptr noundef %ps2) #13, !dbg !1481",
+				"%cmp = icmp eq ptr %call, null, !dbg !1482",
+				"br i1 %cmp, label %if.then, label %if.end3, !dbg !1484"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser_from_file_pointer",
+			"id": 262,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 892, "columns": [13]
+				}
+			],
+			"successors": [279, 263],
+			"ir": [
+				"%call1 = tail call ptr @PyErr_Occurred() #13, !dbg !1485",
+				"%tobool.not = icmp eq ptr %call1, null, !dbg !1485",
+				"br i1 %tobool.not, label %cleanup, label %if.then2, !dbg !1488"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser_from_file_pointer",
+			"id": 263,
+			"name": "if.then2",
+			"debug": [
+				{
+					"line": 893, "columns": [13]
+				},
+				{
+					"line": 894, "columns": [13]
+				}
+			],
+			"successors": [279],
+			"ir": [
+				"tail call void @_PyPegen_raise_tokenizer_init_error(ptr noundef %filename_ob) #13, !dbg !1489",
+				"br label %cleanup, !dbg !1491"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser_from_file_pointer",
+			"id": 264,
+			"name": "if.end3",
+			"debug": [
+				{
+					"line": 898, "columns": [15, 10, 18]
+				}
+			],
+			"successors": [266, 265],
+			"ir": [
+				"%fp4 = getelementptr inbounds %struct.tok_state, ptr %call, i64 0, i32 9, !dbg !1492",
+				"%0 = load ptr, ptr %fp4, align 8, !dbg !1492, !tbaa !1494",
+				"%tobool5 = icmp eq ptr %0, null, !dbg !1500",
+				"%cmp6 = icmp ne ptr %ps1, null",
+				"%or.cond = or i1 %cmp6, %tobool5, !dbg !1501",
+				"%cmp8 = icmp ne ptr %ps2, null",
+				"%or.cond38 = or i1 %cmp8, %or.cond, !dbg !1501",
+				"br i1 %or.cond38, label %if.then12, label %lor.lhs.false9, !dbg !1501"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser_from_file_pointer",
+			"id": 265,
+			"name": "lor.lhs.false9",
+			"debug": [
+				{
+					"line": 898, "columns": [9]
+				},
+				{
+					"line": 899, "columns": [9, 66]
+				}
+			],
+			"successors": [266, 267],
+			"ir": [
+				"%call10 = tail call i32 @PyUnicode_CompareWithASCIIString(ptr noundef %filename_ob, ptr noundef nonnull @.str.9) #13, !dbg !1502",
+				"%cmp11 = icmp eq i32 %call10, 0, !dbg !1503",
+				"br i1 %cmp11, label %if.then12, label %if.end13, !dbg !1504"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser_from_file_pointer",
+			"id": 266,
+			"name": "if.then12",
+			"debug": [
+				{
+					"line": 900, "columns": [14, 29]
+				},
+				{
+					"line": 901, "columns": [5]
+				}
+			],
+			"successors": [267],
+			"ir": [
+				"%fp_interactive = getelementptr inbounds %struct.tok_state, ptr %call, i64 0, i32 3, !dbg !1505",
+				"store i32 1, ptr %fp_interactive, align 8, !dbg !1507, !tbaa !1508",
+				"br label %if.end13, !dbg !1509"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser_from_file_pointer",
+			"id": 267,
+			"name": "if.end13",
+			"debug": [
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [269, 268],
+			"ir": [
+				"%1 = load i32, ptr %filename_ob, align 8, !dbg !1522, !tbaa !1523",
+				"%add.i.i = add i32 %1, 1, !dbg !1524",
+				"%cmp.i.i = icmp eq i32 %add.i.i, 0, !dbg !1525",
+				"br i1 %cmp.i.i, label %_Py_NewRef.exit, label %if.end.i.i, !dbg !1527"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser_from_file_pointer",
+			"id": 268,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [269],
+			"ir": [
+				"store i32 %add.i.i, ptr %filename_ob, align 8, !dbg !1528, !tbaa !1523",
+				"br label %_Py_NewRef.exit, !dbg !1529"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser_from_file_pointer",
+			"id": 269,
+			"name": "_Py_NewRef.exit",
+			"debug": [
+				{
+					"line": 729, "columns": [10, 9]
+				},
+				{
+					"line": 903, "columns": [10, 19]
+				}
+			],
+			"successors": [271, 270],
+			"ir": [
+				"%filename = getelementptr inbounds %struct.tok_state, ptr %call, i64 0, i32 25, !dbg !1530",
+				"store ptr %filename_ob, ptr %filename, align 8, !dbg !1531, !tbaa !1532",
+				"%tobool.not.i = icmp eq ptr %flags, null, !dbg !1541",
+				"br i1 %tobool.not.i, label %compute_parser_flags.exit, label %if.end.i, !dbg !1543"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser_from_file_pointer",
+			"id": 270,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 732, "columns": [16, 9]
+				},
+				{
+					"line": 735, "columns": [9]
+				},
+				{
+					"line": 738, "columns": [9]
+				},
+				{
+					"line": 741, "columns": [9]
+				},
+				{
+					"line": 744, "columns": [9]
+				},
+				{
+					"line": 747, "columns": [5]
+				}
+			],
+			"successors": [271],
+			"ir": [
+				"%2 = load i32, ptr %flags, align 4, !dbg !1544, !tbaa !1546",
+				"%and.i = lshr i32 %2, 8, !dbg !1548",
+				"%spec.select.i = and i32 %and.i, 2, !dbg !1548",
+				"%and5.i = lshr i32 %2, 7, !dbg !1549",
+				"%3 = and i32 %and5.i, 16, !dbg !1549",
+				"%parser_flags.1.i = or i32 %3, %spec.select.i, !dbg !1549",
+				"%and11.i = lshr i32 %2, 17, !dbg !1550",
+				"%4 = and i32 %and11.i, 32, !dbg !1550",
+				"%parser_flags.2.i = or i32 %parser_flags.1.i, %4, !dbg !1550",
+				"%and17.i = lshr i32 %2, 6, !dbg !1551",
+				"%5 = and i32 %and17.i, 320, !dbg !1552",
+				"%parser_flags.4.i = or i32 %parser_flags.2.i, %5, !dbg !1552",
+				"br label %compute_parser_flags.exit, !dbg !1553"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser_from_file_pointer",
+			"id": 271,
+			"name": "compute_parser_flags.exit",
+			"debug": [
+				{
+					"line": 909, "columns": [17]
+				},
+				{
+					"line": 911, "columns": [11, 9]
+				}
+			],
+			"successors": [278, 272],
+			"ir": [
+				"%retval.0.i = phi i32 [ %parser_flags.4.i, %if.end.i ], [ 0, %_Py_NewRef.exit ], !dbg !1539",
+				"%call16 = tail call ptr @_PyPegen_Parser_New(ptr noundef nonnull %call, i32 noundef %start_rule, i32 noundef %retval.0.i, i32 noundef 13, ptr noundef %errcode, ptr noundef %arena), !dbg !1554",
+				"%cmp17 = icmp eq ptr %call16, null, !dbg !1555",
+				"br i1 %cmp17, label %error, label %if.end19, !dbg !1557"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser_from_file_pointer",
+			"id": 272,
+			"name": "if.end19",
+			"debug": [
+				{
+					"line": 915, "columns": [14]
+				},
+				{
+					"line": 916, "columns": [5]
+				},
+				{
+					"line": 918, "columns": [14, 9, 29]
+				}
+			],
+			"successors": [278, 273],
+			"ir": [
+				"%call20 = tail call ptr @_PyPegen_run_parser(ptr noundef nonnull %call16), !dbg !1558",
+				"tail call void @_PyPegen_Parser_Free(ptr noundef nonnull %call16), !dbg !1559",
+				"%fp_interactive21 = getelementptr inbounds %struct.tok_state, ptr %call, i64 0, i32 3, !dbg !1560",
+				"%6 = load i32, ptr %fp_interactive21, align 8, !dbg !1560, !tbaa !1508",
+				"%tobool22.not = icmp eq i32 %6, 0, !dbg !1562",
+				"br i1 %tobool22.not, label %error, label %land.lhs.true, !dbg !1563"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser_from_file_pointer",
+			"id": 273,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 918, "columns": [37, 32, 59]
+				}
+			],
+			"successors": [274, 278],
+			"ir": [
+				"%interactive_src_start = getelementptr inbounds %struct.tok_state, ptr %call, i64 0, i32 4, !dbg !1564",
+				"%7 = load ptr, ptr %interactive_src_start, align 8, !dbg !1564, !tbaa !1565",
+				"%tobool23 = icmp ne ptr %7, null, !dbg !1566",
+				"%tobool25 = icmp ne ptr %call20, null",
+				"%or.cond39 = select i1 %tobool23, i1 %tobool25, i1 false, !dbg !1567",
+				"%cmp27 = icmp ne ptr %interactive_src, null",
+				"%or.cond40 = and i1 %cmp27, %or.cond39, !dbg !1567",
+				"br i1 %or.cond40, label %if.then28, label %error, !dbg !1567"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser_from_file_pointer",
+			"id": 274,
+			"name": "if.then28",
+			"debug": [
+				{
+					"line": 919, "columns": [28, 26]
+				},
+				{
+					"line": 920, "columns": [33, 79, 13]
+				}
+			],
+			"successors": [275, 278],
+			"ir": [
+				"%call30 = tail call ptr @PyUnicode_FromString(ptr noundef nonnull %7) #13, !dbg !1568",
+				"store ptr %call30, ptr %interactive_src, align 8, !dbg !1570, !tbaa !1571",
+				"%call33 = tail call i32 @_PyArena_AddPyObject(ptr noundef %arena, ptr noundef %call30) #13, !dbg !1572",
+				"%cmp34 = icmp slt i32 %call33, 0, !dbg !1574",
+				"br i1 %cmp34, label %if.then.i, label %error, !dbg !1575"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser_from_file_pointer",
+			"id": 275,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [276, 278],
+			"ir": [
+				"%op.val.i.i = load i64, ptr %interactive_src, align 8, !dbg !1589, !tbaa !1523",
+				"%8 = and i64 %op.val.i.i, 2147483648, !dbg !1596",
+				"%cmp.i.not.i.i = icmp eq i64 %8, 0, !dbg !1596",
+				"br i1 %cmp.i.not.i.i, label %if.end.i.i62, label %error, !dbg !1597"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser_from_file_pointer",
+			"id": 276,
+			"name": "if.end.i.i62",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [277, 278],
+			"ir": [
+				"%dec.i.i = add i64 %op.val.i.i, -1, !dbg !1598",
+				"store i64 %dec.i.i, ptr %interactive_src, align 8, !dbg !1598, !tbaa !1523",
+				"%cmp.i.i61 = icmp eq i64 %dec.i.i, 0, !dbg !1600",
+				"br i1 %cmp.i.i61, label %if.then1.i.i, label %error, !dbg !1601"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser_from_file_pointer",
+			"id": 277,
+			"name": "if.then1.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [278],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %interactive_src) #13, !dbg !1602",
+				"br label %error, !dbg !1604"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser_from_file_pointer",
+			"id": 278,
+			"name": "error",
+			"debug": [
+				{
+					"line": 927, "columns": [1]
+				},
+				{
+					"line": 928, "columns": [5]
+				}
+			],
+			"successors": [279],
+			"ir": [
+				"%result.0 = phi ptr [ null, %compute_parser_flags.exit ], [ %call20, %if.then28 ], [ %call20, %land.lhs.true ], [ %call20, %if.end19 ], [ null, %if.then.i ], [ null, %if.end.i.i62 ], [ null, %if.then1.i.i ], !dbg !1480",
+				"tail call void @_PyTokenizer_Free(ptr noundef nonnull %call) #13, !dbg !1606",
+				"br label %cleanup"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser_from_file_pointer",
+			"id": 279,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 930, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ null, %if.then2 ], [ %result.0, %error ], [ null, %if.then ], !dbg !1480",
+				"ret ptr %retval.0, !dbg !1607"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser_from_string",
+			"id": 280,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 936, "columns": [33]
+				},
+				{
+					"line": 939, "columns": [15, 23]
+				}
+			],
+			"successors": [283, 281],
+			"ir": [
+				"%cmp = icmp eq i32 %start_rule, 257, !dbg !1478",
+				"%conv = zext i1 %cmp to i32, !dbg !1478",
+				"%cmp1.not = icmp eq ptr %flags, null, !dbg !1479",
+				"br i1 %cmp1.not, label %if.else, label %land.lhs.true, !dbg !1481"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser_from_string",
+			"id": 281,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 939, "columns": [33, 42, 9]
+				}
+			],
+			"successors": [283, 282],
+			"ir": [
+				"%0 = load i32, ptr %flags, align 4, !dbg !1482, !tbaa !1483",
+				"%and = and i32 %0, 2048, !dbg !1488",
+				"%tobool.not = icmp eq i32 %and, 0, !dbg !1488",
+				"br i1 %tobool.not, label %if.else, label %if.then, !dbg !1489"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser_from_string",
+			"id": 282,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 940, "columns": [15]
+				},
+				{
+					"line": 941, "columns": [5]
+				}
+			],
+			"successors": [284],
+			"ir": [
+				"%call = tail call ptr @_PyTokenizer_FromUTF8(ptr noundef %str, i32 noundef %conv, i32 noundef 0) #13, !dbg !1490",
+				"br label %if.end, !dbg !1492"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser_from_string",
+			"id": 283,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 942, "columns": [15]
+				}
+			],
+			"successors": [284],
+			"ir": [
+				"%call3 = tail call ptr @_PyTokenizer_FromString(ptr noundef %str, i32 noundef %conv, i32 noundef 0) #13, !dbg !1493",
+				"br label %if.end"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser_from_string",
+			"id": 284,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 944, "columns": [13, 9]
+				}
+			],
+			"successors": [285, 287],
+			"ir": [
+				"%tok.0 = phi ptr [ %call, %if.then ], [ %call3, %if.else ], !dbg !1495",
+				"%cmp4 = icmp eq ptr %tok.0, null, !dbg !1496",
+				"br i1 %cmp4, label %if.then6, label %if.end11, !dbg !1498"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser_from_string",
+			"id": 285,
+			"name": "if.then6",
+			"debug": [
+				{
+					"line": 945, "columns": [13]
+				}
+			],
+			"successors": [295, 286],
+			"ir": [
+				"%call7 = tail call ptr @PyErr_Occurred() #13, !dbg !1499",
+				"%tobool8.not = icmp eq ptr %call7, null, !dbg !1499",
+				"br i1 %tobool8.not, label %cleanup, label %if.then9, !dbg !1502"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser_from_string",
+			"id": 286,
+			"name": "if.then9",
+			"debug": [
+				{
+					"line": 946, "columns": [13]
+				},
+				{
+					"line": 947, "columns": [9]
+				}
+			],
+			"successors": [295],
+			"ir": [
+				"tail call void @_PyPegen_raise_tokenizer_init_error(ptr noundef %filename_ob) #13, !dbg !1503",
+				"br label %cleanup, !dbg !1505"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser_from_string",
+			"id": 287,
+			"name": "if.end11",
+			"debug": [
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [289, 288],
+			"ir": [
+				"%1 = load i32, ptr %filename_ob, align 8, !dbg !1518, !tbaa !1519",
+				"%add.i.i = add i32 %1, 1, !dbg !1520",
+				"%cmp.i.i = icmp eq i32 %add.i.i, 0, !dbg !1521",
+				"br i1 %cmp.i.i, label %_Py_NewRef.exit, label %if.end.i.i, !dbg !1523"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser_from_string",
+			"id": 288,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [289],
+			"ir": [
+				"store i32 %add.i.i, ptr %filename_ob, align 8, !dbg !1524, !tbaa !1519",
+				"br label %_Py_NewRef.exit, !dbg !1525"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser_from_string",
+			"id": 289,
+			"name": "_Py_NewRef.exit",
+			"debug": [
+				{
+					"line": 729, "columns": [9]
+				},
+				{
+					"line": 951, "columns": [10, 19]
+				}
+			],
+			"successors": [292, 290],
+			"ir": [
+				"%filename = getelementptr inbounds %struct.tok_state, ptr %tok.0, i64 0, i32 25, !dbg !1526",
+				"store ptr %filename_ob, ptr %filename, align 8, !dbg !1527, !tbaa !1528",
+				"br i1 %cmp1.not, label %cond.end, label %land.lhs.true15, !dbg !1539"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser_from_string",
+			"id": 290,
+			"name": "land.lhs.true15",
+			"debug": [
+				{
+					"line": 732, "columns": [16, 9]
+				},
+				{
+					"line": 735, "columns": [9]
+				},
+				{
+					"line": 738, "columns": [9]
+				},
+				{
+					"line": 741, "columns": [9]
+				},
+				{
+					"line": 744, "columns": [9]
+				},
+				{
+					"line": 957, "columns": [53, 27]
+				}
+			],
+			"successors": [292, 291],
+			"ir": [
+				"%2 = load i32, ptr %flags, align 4, !dbg !1540, !tbaa !1483",
+				"%and.i = lshr i32 %2, 8, !dbg !1542",
+				"%spec.select.i = and i32 %and.i, 2, !dbg !1542",
+				"%and5.i = lshr i32 %2, 7, !dbg !1543",
+				"%3 = and i32 %and5.i, 16, !dbg !1543",
+				"%parser_flags.1.i = or i32 %3, %spec.select.i, !dbg !1543",
+				"%and11.i = lshr i32 %2, 17, !dbg !1544",
+				"%4 = and i32 %and11.i, 32, !dbg !1544",
+				"%parser_flags.2.i = or i32 %parser_flags.1.i, %4, !dbg !1544",
+				"%and17.i = lshr i32 %2, 6, !dbg !1545",
+				"%5 = and i32 %and17.i, 320, !dbg !1546",
+				"%parser_flags.4.i = or i32 %parser_flags.2.i, %5, !dbg !1546",
+				"%and17 = and i32 %2, 1024, !dbg !1547",
+				"%tobool18.not = icmp eq i32 %and17, 0, !dbg !1547",
+				"br i1 %tobool18.not, label %cond.end, label %cond.true, !dbg !1548"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser_from_string",
+			"id": 291,
+			"name": "cond.true",
+			"debug": [
+				{
+					"line": 957, "columns": [27]
+				},
+				{
+					"line": 958, "columns": [16]
+				}
+			],
+			"successors": [292],
+			"ir": [
+				"%cf_feature_version = getelementptr inbounds %struct.PyCompilerFlags, ptr %flags, i64 0, i32 1, !dbg !1549",
+				"%6 = load i32, ptr %cf_feature_version, align 4, !dbg !1549, !tbaa !1550",
+				"br label %cond.end, !dbg !1548"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser_from_string",
+			"id": 292,
+			"name": "cond.end",
+			"debug": [
+				{
+					"line": 957, "columns": [27]
+				},
+				{
+					"line": 959, "columns": [17]
+				},
+				{
+					"line": 961, "columns": [11, 9]
+				}
+			],
+			"successors": [294, 293],
+			"ir": [
+				"%retval.0.i41 = phi i32 [ %parser_flags.4.i, %cond.true ], [ %parser_flags.4.i, %land.lhs.true15 ], [ 0, %_Py_NewRef.exit ]",
+				"%cond = phi i32 [ %6, %cond.true ], [ 13, %land.lhs.true15 ], [ 13, %_Py_NewRef.exit ], !dbg !1548",
+				"%call19 = tail call ptr @_PyPegen_Parser_New(ptr noundef nonnull %tok.0, i32 noundef %start_rule, i32 noundef %retval.0.i41, i32 noundef %cond, ptr noundef null, ptr noundef %arena), !dbg !1551",
+				"%cmp20 = icmp eq ptr %call19, null, !dbg !1552",
+				"br i1 %cmp20, label %error, label %if.end23, !dbg !1554"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser_from_string",
+			"id": 293,
+			"name": "if.end23",
+			"debug": [
+				{
+					"line": 965, "columns": [14]
+				},
+				{
+					"line": 966, "columns": [5]
+				}
+			],
+			"successors": [294],
+			"ir": [
+				"%call24 = tail call ptr @_PyPegen_run_parser(ptr noundef nonnull %call19), !dbg !1555",
+				"tail call void @_PyPegen_Parser_Free(ptr noundef nonnull %call19), !dbg !1556",
+				"br label %error, !dbg !1556"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser_from_string",
+			"id": 294,
+			"name": "error",
+			"debug": [
+				{
+					"line": 968, "columns": [1]
+				},
+				{
+					"line": 969, "columns": [5]
+				}
+			],
+			"successors": [295],
+			"ir": [
+				"%result.0 = phi ptr [ null, %cond.end ], [ %call24, %if.end23 ], !dbg !1477",
+				"tail call void @_PyTokenizer_Free(ptr noundef nonnull %tok.0) #13, !dbg !1558",
+				"br label %cleanup"
+			]
+		},
+		{
+			"function": "_PyPegen_run_parser_from_string",
+			"id": 295,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 971, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %result.0, %error ], [ null, %if.then9 ], [ null, %if.then6 ], !dbg !1477",
+				"ret ptr %retval.0, !dbg !1559"
+			]
+		},
+		{
+			"function": "parsenumber_raw",
+			"id": 296,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 570, "columns": [5]
+				},
+				{
+					"line": 577, "columns": [5, 11]
+				},
+				{
+					"line": 578, "columns": [15, 13, 25, 9]
+				},
+				{
+					"line": 579, "columns": [14]
+				},
+				{
+					"line": 580, "columns": [9, 14]
+				}
+			],
+			"successors": [297, 300],
+			"ir": [
+				"%end = alloca ptr, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %end) #13, !dbg !841",
+				"%call = tail call ptr @__errno_location() #14, !dbg !842",
+				"store i32 0, ptr %call, align 4, !dbg !843, !tbaa !844",
+				"%call1 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %s) #15, !dbg !848",
+				"%add.ptr = getelementptr i8, ptr %s, i64 %call1, !dbg !849",
+				"%add.ptr2 = getelementptr i8, ptr %add.ptr, i64 -1, !dbg !850",
+				"store ptr %add.ptr2, ptr %end, align 8, !dbg !851, !tbaa !852",
+				"%0 = load i8, ptr %add.ptr2, align 1, !dbg !854, !tbaa !855",
+				"%1 = load i8, ptr %s, align 1, !dbg !856, !tbaa !855",
+				"%cmp8 = icmp eq i8 %1, 48, !dbg !858",
+				"br i1 %cmp8, label %if.then, label %if.else, !dbg !859"
+			]
+		},
+		{
+			"function": "parsenumber_raw",
+			"id": 297,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 581, "columns": [19]
+				},
+				{
+					"line": 582, "columns": [15, 19]
+				}
+			],
+			"successors": [298, 301],
+			"ir": [
+				"%call10 = call i64 @PyOS_strtoul(ptr noundef nonnull %s, ptr noundef nonnull %end, i32 noundef 0) #13, !dbg !860",
+				"%cmp11 = icmp slt i64 %call10, 0, !dbg !862",
+				"br i1 %cmp11, label %land.lhs.true, label %if.end19, !dbg !864"
+			]
+		},
+		{
+			"function": "parsenumber_raw",
+			"id": 298,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 582, "columns": [22, 28, 13]
+				}
+			],
+			"successors": [299, 301],
+			"ir": [
+				"%2 = load i32, ptr %call, align 4, !dbg !865, !tbaa !844",
+				"%cmp14 = icmp eq i32 %2, 0, !dbg !866",
+				"br i1 %cmp14, label %if.then16, label %if.end19, !dbg !867"
+			]
+		},
+		{
+			"function": "parsenumber_raw",
+			"id": 299,
+			"name": "if.then16",
+			"debug": [
+				{
+					"line": 583, "columns": [20, 13]
+				}
+			],
+			"successors": [312],
+			"ir": [
+				"%call17 = call ptr @PyLong_FromString(ptr noundef nonnull %s, ptr noundef null, i32 noundef 0) #13, !dbg !868",
+				"br label %cleanup, !dbg !870"
+			]
+		},
+		{
+			"function": "parsenumber_raw",
+			"id": 300,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 587, "columns": [13]
+				}
+			],
+			"successors": [301],
+			"ir": [
+				"%call18 = call i64 @PyOS_strtol(ptr noundef nonnull %s, ptr noundef nonnull %end, i32 noundef 0) #13, !dbg !871",
+				"br label %if.end19"
+			]
+		},
+		{
+			"function": "parsenumber_raw",
+			"id": 301,
+			"name": "if.end19",
+			"debug": [
+				{
+					"line": 589, "columns": [10, 9, 14]
+				}
+			],
+			"successors": [302, 305],
+			"ir": [
+				"%x.0 = phi i64 [ %call10, %land.lhs.true ], [ %call10, %if.then ], [ %call18, %if.else ], !dbg !873",
+				"%3 = load ptr, ptr %end, align 8, !dbg !874, !tbaa !852",
+				"%4 = load i8, ptr %3, align 1, !dbg !876, !tbaa !855",
+				"%cmp21 = icmp eq i8 %4, 0, !dbg !877",
+				"br i1 %cmp21, label %if.then23, label %if.end31, !dbg !878"
+			]
+		},
+		{
+			"function": "parsenumber_raw",
+			"id": 302,
+			"name": "if.then23",
+			"debug": [
+				{
+					"line": 590, "columns": [13, 19]
+				}
+			],
+			"successors": [304, 303],
+			"ir": [
+				"%5 = load i32, ptr %call, align 4, !dbg !879, !tbaa !844",
+				"%cmp25.not = icmp eq i32 %5, 0, !dbg !882",
+				"br i1 %cmp25.not, label %if.end29, label %if.then27, !dbg !883"
+			]
+		},
+		{
+			"function": "parsenumber_raw",
+			"id": 303,
+			"name": "if.then27",
+			"debug": [
+				{
+					"line": 591, "columns": [20, 13]
+				}
+			],
+			"successors": [312],
+			"ir": [
+				"%call28 = call ptr @PyLong_FromString(ptr noundef nonnull %s, ptr noundef null, i32 noundef 0) #13, !dbg !884",
+				"br label %cleanup, !dbg !886"
+			]
+		},
+		{
+			"function": "parsenumber_raw",
+			"id": 304,
+			"name": "if.end29",
+			"debug": [
+				{
+					"line": 593, "columns": [16, 9]
+				}
+			],
+			"successors": [312],
+			"ir": [
+				"%call30 = call ptr @PyLong_FromLong(i64 noundef %x.0) #13, !dbg !887",
+				"br label %cleanup, !dbg !888"
+			]
+		},
+		{
+			"function": "parsenumber_raw",
+			"id": 305,
+			"name": "if.end31",
+			"debug": [
+				{
+					"line": 596, "columns": [9]
+				}
+			],
+			"successors": [309, 306, 306],
+			"ir": [
+				"switch i8 %0, label %if.end43 [\n    i8 106, label %if.then32\n    i8 74, label %if.then32\n  ], !dbg !889"
+			]
+		},
+		{
+			"function": "parsenumber_raw",
+			"id": 306,
+			"name": "if.then32",
+			"debug": [
+				{
+					"line": 598, "columns": [22]
+				},
+				{
+					"line": 599, "columns": [24, 32]
+				}
+			],
+			"successors": [307, 308],
+			"ir": [
+				"%call33 = call double @PyOS_string_to_double(ptr noundef nonnull %s, ptr noundef nonnull %end, ptr noundef null) #13, !dbg !890",
+				"%cmp35 = fcmp oeq double %call33, -1.000000e+00, !dbg !893",
+				"br i1 %cmp35, label %land.lhs.true37, label %if.end41, !dbg !895"
+			]
+		},
+		{
+			"function": "parsenumber_raw",
+			"id": 307,
+			"name": "land.lhs.true37",
+			"debug": [
+				{
+					"line": 599, "columns": [35, 13]
+				}
+			],
+			"successors": [308, 312],
+			"ir": [
+				"%call38 = call ptr @PyErr_Occurred() #13, !dbg !896",
+				"%tobool39.not = icmp eq ptr %call38, null, !dbg !896",
+				"br i1 %tobool39.not, label %if.end41, label %cleanup, !dbg !897"
+			]
+		},
+		{
+			"function": "parsenumber_raw",
+			"id": 308,
+			"name": "if.end41",
+			"debug": [
+				{
+					"line": 602, "columns": [16, 9]
+				}
+			],
+			"successors": [312],
+			"ir": [
+				"%call42 = call ptr @PyComplex_FromCComplex(double 0.000000e+00, double %call33) #13, !dbg !898",
+				"br label %cleanup, !dbg !899"
+			]
+		},
+		{
+			"function": "parsenumber_raw",
+			"id": 309,
+			"name": "if.end43",
+			"debug": [
+				{
+					"line": 604, "columns": [10]
+				},
+				{
+					"line": 605, "columns": [12, 20]
+				}
+			],
+			"successors": [310, 311],
+			"ir": [
+				"%call44 = call double @PyOS_string_to_double(ptr noundef nonnull %s, ptr noundef null, ptr noundef null) #13, !dbg !900",
+				"%cmp45 = fcmp oeq double %call44, -1.000000e+00, !dbg !901",
+				"br i1 %cmp45, label %land.lhs.true47, label %if.end51, !dbg !903"
+			]
+		},
+		{
+			"function": "parsenumber_raw",
+			"id": 310,
+			"name": "land.lhs.true47",
+			"debug": [
+				{
+					"line": 605, "columns": [23, 9]
+				}
+			],
+			"successors": [311, 312],
+			"ir": [
+				"%call48 = call ptr @PyErr_Occurred() #13, !dbg !904",
+				"%tobool49.not = icmp eq ptr %call48, null, !dbg !904",
+				"br i1 %tobool49.not, label %if.end51, label %cleanup, !dbg !905"
+			]
+		},
+		{
+			"function": "parsenumber_raw",
+			"id": 311,
+			"name": "if.end51",
+			"debug": [
+				{
+					"line": 608, "columns": [12, 5]
+				}
+			],
+			"successors": [312],
+			"ir": [
+				"%call52 = call ptr @PyFloat_FromDouble(double noundef %call44) #13, !dbg !906",
+				"br label %cleanup, !dbg !907"
+			]
+		},
+		{
+			"function": "parsenumber_raw",
+			"id": 312,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 609, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call17, %if.then16 ], [ %call28, %if.then27 ], [ %call30, %if.end29 ], [ %call42, %if.end41 ], [ %call52, %if.end51 ], [ null, %land.lhs.true37 ], [ null, %land.lhs.true47 ], !dbg !840",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %end) #13, !dbg !908",
+				"ret ptr %retval.0, !dbg !908"
+			]
+		}
+	]
+}

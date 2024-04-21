@@ -1,0 +1,747 @@
+{
+	"blocks": [
+		{
+			"function": "_PyTokenizer_FromString",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 114, "columns": [29]
+				},
+				{
+					"line": 117, "columns": [13, 9]
+				}
+			],
+			"successors": [26, 1],
+			"ir": [
+				"%newl.i = alloca [2 x ptr], align 16",
+				"%call = tail call ptr @_PyTokenizer_tok_new() #12, !dbg !517",
+				"%cmp = icmp eq ptr %call, null, !dbg !518",
+				"br i1 %cmp, label %cleanup, label %if.end, !dbg !520"
+			]
+		},
+		{
+			"function": "_PyTokenizer_FromString",
+			"id": 1,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 59, "columns": [5, 17]
+				},
+				{
+					"line": 61, "columns": [24, 10, 16]
+				},
+				{
+					"line": 62, "columns": [13, 9]
+				}
+			],
+			"successors": [22, 2],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %newl.i) #12, !dbg !537",
+				"call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(16) %newl.i, i8 0, i64 16, i1 false), !dbg !538",
+				"%call.i = tail call ptr @_PyTokenizer_translate_newlines(ptr noundef %str, i32 noundef %exec_input, i32 noundef %preserve_crlf, ptr noundef nonnull %call) #12, !dbg !539",
+				"%input1.i = getelementptr inbounds %struct.tok_state, ptr %call, i64 0, i32 38, !dbg !540",
+				"store ptr %call.i, ptr %input1.i, align 8, !dbg !541, !tbaa !542",
+				"%cmp.i = icmp eq ptr %call.i, null, !dbg !548",
+				"br i1 %cmp.i, label %decode_str.exit.thread, label %if.end.i, !dbg !550"
+			]
+		},
+		{
+			"function": "_PyTokenizer_FromString",
+			"id": 2,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 64, "columns": [10, 14]
+				},
+				{
+					"line": 65, "columns": [10, 14]
+				},
+				{
+					"line": 66, "columns": [10, 9]
+				}
+			],
+			"successors": [3, 4],
+			"ir": [
+				"%enc.i = getelementptr inbounds %struct.tok_state, ptr %call, i64 0, i32 36, !dbg !551",
+				"store ptr null, ptr %enc.i, align 8, !dbg !552, !tbaa !553",
+				"%str2.i = getelementptr inbounds %struct.tok_state, ptr %call, i64 0, i32 37, !dbg !554",
+				"store ptr %call.i, ptr %str2.i, align 8, !dbg !555, !tbaa !556",
+				"%call3.i = tail call i32 @_PyTokenizer_check_bom(ptr noundef nonnull @buf_getc, ptr noundef nonnull @buf_ungetc, ptr noundef nonnull @buf_setreadl, ptr noundef nonnull %call) #12, !dbg !557",
+				"%tobool.not.i = icmp eq i32 %call3.i, 0, !dbg !557",
+				"br i1 %tobool.not.i, label %if.then4.i, label %if.end6.i, !dbg !559"
+			]
+		},
+		{
+			"function": "_PyTokenizer_FromString",
+			"id": 3,
+			"name": "if.then4.i",
+			"debug": [
+				{
+					"line": 67, "columns": [16, 9]
+				}
+			],
+			"successors": [23],
+			"ir": [
+				"%call5.i = tail call ptr @_PyTokenizer_error_ret(ptr noundef nonnull %call) #12, !dbg !560",
+				"br label %decode_str.exit, !dbg !561"
+			]
+		},
+		{
+			"function": "_PyTokenizer_FromString",
+			"id": 4,
+			"name": "if.end6.i",
+			"debug": [
+				{
+					"line": 68, "columns": [16]
+				},
+				{
+					"line": 70, "columns": [14, 18, 9]
+				}
+			],
+			"successors": [8, 5],
+			"ir": [
+				"%0 = load ptr, ptr %str2.i, align 8, !dbg !562, !tbaa !556",
+				"%1 = load ptr, ptr %enc.i, align 8, !dbg !563, !tbaa !553",
+				"%cmp9.not.i = icmp eq ptr %1, null, !dbg !565",
+				"br i1 %cmp9.not.i, label %if.end18.i, label %if.then10.i, !dbg !566"
+			]
+		},
+		{
+			"function": "_PyTokenizer_FromString",
+			"id": 5,
+			"name": "if.then10.i",
+			"debug": [
+				{
+					"line": 71, "columns": [16]
+				},
+				{
+					"line": 72, "columns": [18, 13]
+				}
+			],
+			"successors": [6, 7],
+			"ir": [
+				"%call12.i = tail call ptr @_PyTokenizer_translate_into_utf8(ptr noundef %0, ptr noundef nonnull %1) #12, !dbg !567",
+				"%cmp13.i = icmp eq ptr %call12.i, null, !dbg !569",
+				"br i1 %cmp13.i, label %if.then14.i, label %if.end16.i, !dbg !571"
+			]
+		},
+		{
+			"function": "_PyTokenizer_FromString",
+			"id": 6,
+			"name": "if.then14.i",
+			"debug": [
+				{
+					"line": 73, "columns": [20, 13]
+				}
+			],
+			"successors": [23],
+			"ir": [
+				"%call15.i = tail call ptr @_PyTokenizer_error_ret(ptr noundef nonnull %call) #12, !dbg !572",
+				"br label %decode_str.exit, !dbg !573"
+			]
+		},
+		{
+			"function": "_PyTokenizer_FromString",
+			"id": 7,
+			"name": "if.end16.i",
+			"debug": [
+				{
+					"line": 74, "columns": [15]
+				},
+				{
+					"line": 75, "columns": [5]
+				}
+			],
+			"successors": [8],
+			"ir": [
+				"%call17.i = tail call ptr @PyBytes_AsString(ptr noundef nonnull %call12.i) #12, !dbg !574",
+				"br label %if.end18.i, !dbg !575"
+			]
+		},
+		{
+			"function": "_PyTokenizer_FromString",
+			"id": 8,
+			"name": "if.end18.i",
+			"debug": [
+				{
+					"line": 76, "columns": [10]
+				}
+			],
+			"successors": [9],
+			"ir": [
+				"%utf8.0.i = phi ptr [ %call12.i, %if.end16.i ], [ null, %if.end6.i ], !dbg !535",
+				"%str.0.i = phi ptr [ %call17.i, %if.end16.i ], [ %0, %if.end6.i ], !dbg !535",
+				"br label %for.cond.i, !dbg !576"
+			]
+		},
+		{
+			"function": "_PyTokenizer_FromString",
+			"id": 9,
+			"name": "for.cond.i",
+			"debug": [
+				{
+					"line": 76, "columns": [0]
+				},
+				{
+					"line": 77, "columns": [13]
+				}
+			],
+			"successors": [11, 12, 10],
+			"ir": [
+				"%s.0.i = phi ptr [ %str.0.i, %if.end18.i ], [ %incdec.ptr.i, %for.inc.i ], !dbg !578",
+				"%lineno.0.i = phi i32 [ 0, %if.end18.i ], [ %lineno.1.i, %for.inc.i ], !dbg !535",
+				"%2 = load i8, ptr %s.0.i, align 1, !dbg !579, !tbaa !583",
+				"switch i8 %2, label %for.inc.i [\n    i8 0, label %for.end.i\n    i8 10, label %if.then25.i\n  ], !dbg !584"
+			]
+		},
+		{
+			"function": "_PyTokenizer_FromString",
+			"id": 10,
+			"name": "if.then25.i",
+			"debug": [
+				{
+					"line": 80, "columns": [13, 26]
+				},
+				{
+					"line": 82, "columns": [24, 17]
+				}
+			],
+			"successors": [12, 11],
+			"ir": [
+				"%idxprom.i = zext i32 %lineno.0.i to i64",
+				"%arrayidx.i = getelementptr [2 x ptr], ptr %newl.i, i64 0, i64 %idxprom.i, !dbg !585",
+				"store ptr %s.0.i, ptr %arrayidx.i, align 8, !dbg !588, !tbaa !589",
+				"%cmp26.i = icmp eq i32 %lineno.0.i, 1, !dbg !590",
+				"br i1 %cmp26.i, label %for.end.i, label %for.inc.i, !dbg !592"
+			]
+		},
+		{
+			"function": "_PyTokenizer_FromString",
+			"id": 11,
+			"name": "for.inc.i",
+			"debug": [
+				{
+					"line": 76, "columns": [21, 5]
+				}
+			],
+			"successors": [9],
+			"ir": [
+				"%lineno.1.i = phi i32 [ 1, %if.then25.i ], [ %lineno.0.i, %for.cond.i ], !dbg !535",
+				"%incdec.ptr.i = getelementptr i8, ptr %s.0.i, i64 1, !dbg !593",
+				"br label %for.cond.i, !dbg !594, !llvm.loop !595"
+			]
+		},
+		{
+			"function": "_PyTokenizer_FromString",
+			"id": 12,
+			"name": "for.end.i",
+			"debug": [
+				{
+					"line": 85, "columns": [14]
+				},
+				{
+					"line": 88, "columns": [9]
+				}
+			],
+			"successors": [21, 13],
+			"ir": [
+				"store ptr null, ptr %enc.i, align 8, !dbg !598, !tbaa !553",
+				"%3 = load ptr, ptr %newl.i, align 16, !dbg !599, !tbaa !589",
+				"%tobool34.not.i = icmp eq ptr %3, null, !dbg !599",
+				"br i1 %tobool34.not.i, label %if.end74.i, label %if.then35.i, !dbg !601"
+			]
+		},
+		{
+			"function": "_PyTokenizer_FromString",
+			"id": 13,
+			"name": "if.then35.i",
+			"debug": [
+				{
+					"line": 89, "columns": [58, 14, 13]
+				}
+			],
+			"successors": [22, 14],
+			"ir": [
+				"%sub.ptr.lhs.cast.i = ptrtoint ptr %3 to i64, !dbg !602",
+				"%sub.ptr.rhs.cast.i = ptrtoint ptr %str.0.i to i64, !dbg !602",
+				"%sub.ptr.sub.i = sub i64 %sub.ptr.lhs.cast.i, %sub.ptr.rhs.cast.i, !dbg !602",
+				"%call37.i = tail call i32 @_PyTokenizer_check_coding_spec(ptr noundef %str.0.i, i64 noundef %sub.ptr.sub.i, ptr noundef nonnull %call, ptr noundef nonnull @buf_setreadl) #12, !dbg !605",
+				"%tobool38.not.i = icmp eq i32 %call37.i, 0, !dbg !605",
+				"br i1 %tobool38.not.i, label %decode_str.exit.thread, label %if.end40.i, !dbg !606"
+			]
+		},
+		{
+			"function": "_PyTokenizer_FromString",
+			"id": 14,
+			"name": "if.end40.i",
+			"debug": [
+				{
+					"line": 92, "columns": [18, 22, 30]
+				}
+			],
+			"successors": [15, 18],
+			"ir": [
+				"%4 = load ptr, ptr %enc.i, align 8, !dbg !607, !tbaa !553",
+				"%cmp42.i = icmp eq ptr %4, null, !dbg !609",
+				"br i1 %cmp42.i, label %land.lhs.true.i, label %if.then65.i, !dbg !610"
+			]
+		},
+		{
+			"function": "_PyTokenizer_FromString",
+			"id": 15,
+			"name": "land.lhs.true.i",
+			"debug": [
+				{
+					"line": 92, "columns": [38, 53, 69]
+				}
+			],
+			"successors": [16, 21],
+			"ir": [
+				"%decoding_state.i = getelementptr inbounds %struct.tok_state, ptr %call, i64 0, i32 27, !dbg !611",
+				"%5 = load i32, ptr %decoding_state.i, align 8, !dbg !611, !tbaa !612",
+				"%cmp44.i = icmp ne i32 %5, 2, !dbg !613",
+				"%arrayidx47.i = getelementptr inbounds [2 x ptr], ptr %newl.i, i64 0, i64 1",
+				"%6 = load ptr, ptr %arrayidx47.i, align 8",
+				"%tobool48.i = icmp ne ptr %6, null",
+				"%or.cond.i = select i1 %cmp44.i, i1 %tobool48.i, i1 false, !dbg !614",
+				"br i1 %or.cond.i, label %if.then49.i, label %if.end74.i, !dbg !614"
+			]
+		},
+		{
+			"function": "_PyTokenizer_FromString",
+			"id": 16,
+			"name": "if.then49.i",
+			"debug": [
+				{
+					"line": 93, "columns": [56, 68, 18, 17]
+				}
+			],
+			"successors": [22, 17],
+			"ir": [
+				"%add.ptr.i = getelementptr i8, ptr %3, i64 1, !dbg !615",
+				"%sub.ptr.lhs.cast53.i = ptrtoint ptr %6 to i64, !dbg !618",
+				"%sub.ptr.sub55.i = sub i64 %sub.ptr.lhs.cast53.i, %sub.ptr.lhs.cast.i, !dbg !618",
+				"%call56.i = tail call i32 @_PyTokenizer_check_coding_spec(ptr noundef %add.ptr.i, i64 noundef %sub.ptr.sub55.i, ptr noundef nonnull %call, ptr noundef nonnull @buf_setreadl) #12, !dbg !619",
+				"%tobool57.not.i = icmp eq i32 %call56.i, 0, !dbg !619",
+				"br i1 %tobool57.not.i, label %decode_str.exit.thread, label %if.end61.i, !dbg !620"
+			]
+		},
+		{
+			"function": "_PyTokenizer_FromString",
+			"id": 17,
+			"name": "if.end61.i",
+			"debug": [
+				{
+					"line": 98, "columns": [14, 18, 9]
+				}
+			],
+			"successors": [21, 18],
+			"ir": [
+				"%.pr.pre.i = load ptr, ptr %enc.i, align 8, !dbg !621, !tbaa !553",
+				"%cmp63.not.i = icmp eq ptr %.pr.pre.i, null, !dbg !623",
+				"br i1 %cmp63.not.i, label %if.end74.i, label %if.then65.i, !dbg !624"
+			]
+		},
+		{
+			"function": "_PyTokenizer_FromString",
+			"id": 18,
+			"name": "if.then65.i",
+			"debug": [
+				{
+					"line": 100, "columns": [16]
+				},
+				{
+					"line": 101, "columns": [18, 13]
+				}
+			],
+			"successors": [19, 20],
+			"ir": [
+				"%7 = phi ptr [ %.pr.pre.i, %if.end61.i ], [ %4, %if.end40.i ]",
+				"%call67.i = tail call ptr @_PyTokenizer_translate_into_utf8(ptr noundef %str.0.i, ptr noundef nonnull %7) #12, !dbg !625",
+				"%cmp68.i = icmp eq ptr %call67.i, null, !dbg !627",
+				"br i1 %cmp68.i, label %if.then70.i, label %if.end72.i, !dbg !629"
+			]
+		},
+		{
+			"function": "_PyTokenizer_FromString",
+			"id": 19,
+			"name": "if.then70.i",
+			"debug": [
+				{
+					"line": 102, "columns": [20, 13]
+				}
+			],
+			"successors": [23],
+			"ir": [
+				"%call71.i = tail call ptr @_PyTokenizer_error_ret(ptr noundef nonnull %call) #12, !dbg !630",
+				"br label %decode_str.exit, !dbg !631"
+			]
+		},
+		{
+			"function": "_PyTokenizer_FromString",
+			"id": 20,
+			"name": "if.end72.i",
+			"debug": [
+				{
+					"line": 25, "columns": [31]
+				},
+				{
+					"line": 104, "columns": [5]
+				}
+			],
+			"successors": [21],
+			"ir": [
+				"%ob_sval.i.i = getelementptr inbounds %struct.PyBytesObject, ptr %call67.i, i64 0, i32 2, !dbg !639",
+				"br label %if.end74.i, !dbg !640"
+			]
+		},
+		{
+			"function": "_PyTokenizer_FromString",
+			"id": 21,
+			"name": "if.end74.i",
+			"debug": [
+				{
+					"line": 106, "columns": [10, 26]
+				},
+				{
+					"line": 107, "columns": [5]
+				}
+			],
+			"successors": [23],
+			"ir": [
+				"%utf8.1.i = phi ptr [ %call67.i, %if.end72.i ], [ %utf8.0.i, %if.end61.i ], [ %utf8.0.i, %for.end.i ], [ %utf8.0.i, %land.lhs.true.i ], !dbg !535",
+				"%str.1.i = phi ptr [ %ob_sval.i.i, %if.end72.i ], [ %str.0.i, %if.end61.i ], [ %str.0.i, %for.end.i ], [ %str.0.i, %land.lhs.true.i ], !dbg !535",
+				"%decoding_buffer.i = getelementptr inbounds %struct.tok_state, ptr %call, i64 0, i32 34, !dbg !641",
+				"store ptr %utf8.1.i, ptr %decoding_buffer.i, align 8, !dbg !642, !tbaa !643",
+				"br label %decode_str.exit, !dbg !644"
+			]
+		},
+		{
+			"function": "_PyTokenizer_FromString",
+			"id": 22,
+			"name": "decode_str.exit.thread",
+			"debug": [
+				{
+					"line": 108, "columns": [1]
+				},
+				{
+					"line": 120, "columns": [9]
+				}
+			],
+			"successors": [24],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %newl.i) #12, !dbg !645",
+				"br label %if.then3, !dbg !646"
+			]
+		},
+		{
+			"function": "_PyTokenizer_FromString",
+			"id": 23,
+			"name": "decode_str.exit",
+			"debug": [
+				{
+					"line": 108, "columns": [1]
+				},
+				{
+					"line": 120, "columns": [17, 9]
+				}
+			],
+			"successors": [24, 25],
+			"ir": [
+				"%retval.0.i = phi ptr [ %call15.i, %if.then14.i ], [ %call71.i, %if.then70.i ], [ %str.1.i, %if.end74.i ], [ %call5.i, %if.then4.i ], !dbg !535",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %newl.i) #12, !dbg !645",
+				"%cmp2 = icmp eq ptr %retval.0.i, null, !dbg !647",
+				"br i1 %cmp2, label %if.then3, label %if.end4, !dbg !646"
+			]
+		},
+		{
+			"function": "_PyTokenizer_FromString",
+			"id": 24,
+			"name": "if.then3",
+			"debug": [
+				{
+					"line": 121, "columns": [9]
+				},
+				{
+					"line": 122, "columns": [9]
+				}
+			],
+			"successors": [26],
+			"ir": [
+				"tail call void @_PyTokenizer_Free(ptr noundef nonnull %call) #12, !dbg !649",
+				"br label %cleanup, !dbg !651"
+			]
+		},
+		{
+			"function": "_PyTokenizer_FromString",
+			"id": 25,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 125, "columns": [32, 36, 21, 25, 14]
+				},
+				{
+					"line": 126, "columns": [10, 14]
+				},
+				{
+					"line": 127, "columns": [10, 20]
+				},
+				{
+					"line": 128, "columns": [5]
+				}
+			],
+			"successors": [26],
+			"ir": [
+				"%inp = getelementptr inbounds %struct.tok_state, ptr %call, i64 0, i32 2, !dbg !652",
+				"store ptr %retval.0.i, ptr %inp, align 8, !dbg !653, !tbaa !654",
+				"%cur = getelementptr inbounds %struct.tok_state, ptr %call, i64 0, i32 1, !dbg !655",
+				"store ptr %retval.0.i, ptr %cur, align 8, !dbg !656, !tbaa !657",
+				"store ptr %retval.0.i, ptr %call, align 8, !dbg !658, !tbaa !659",
+				"%end = getelementptr inbounds %struct.tok_state, ptr %call, i64 0, i32 6, !dbg !660",
+				"store ptr %retval.0.i, ptr %end, align 8, !dbg !661, !tbaa !662",
+				"%underflow = getelementptr inbounds %struct.tok_state, ptr %call, i64 0, i32 41, !dbg !663",
+				"store ptr @tok_underflow_string, ptr %underflow, align 8, !dbg !664, !tbaa !665",
+				"br label %cleanup, !dbg !666"
+			]
+		},
+		{
+			"function": "_PyTokenizer_FromString",
+			"id": 26,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 129, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ null, %if.then3 ], [ %call, %if.end4 ], [ null, %entry ], !dbg !516",
+				"ret ptr %retval.0, !dbg !667"
+			]
+		},
+		{
+			"function": "tok_underflow_string",
+			"id": 27,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 9, "columns": [29, 17]
+				},
+				{
+					"line": 10, "columns": [13, 9]
+				}
+			],
+			"successors": [29, 28],
+			"ir": [
+				"%inp = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 2, !dbg !512",
+				"%0 = load ptr, ptr %inp, align 8, !dbg !512, !tbaa !513",
+				"%call = tail call ptr @strchr(ptr noundef nonnull dereferenceable(1) %0, i32 noundef 10) #12, !dbg !519",
+				"%cmp.not = icmp eq ptr %call, null, !dbg !520",
+				"br i1 %cmp.not, label %if.else, label %if.then, !dbg !522"
+			]
+		},
+		{
+			"function": "tok_underflow_string",
+			"id": 28,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 11, "columns": [12]
+				},
+				{
+					"line": 12, "columns": [5]
+				}
+			],
+			"successors": [31],
+			"ir": [
+				"%incdec.ptr = getelementptr i8, ptr %call, i64 1, !dbg !523",
+				"br label %if.end6, !dbg !525"
+			]
+		},
+		{
+			"function": "tok_underflow_string",
+			"id": 29,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 14, "columns": [15]
+				},
+				{
+					"line": 15, "columns": [17, 13]
+				}
+			],
+			"successors": [30, 31],
+			"ir": [
+				"%strlen = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %0), !dbg !526",
+				"%strchr = getelementptr inbounds i8, ptr %0, i64 %strlen, !dbg !526",
+				"%cmp4 = icmp eq i64 %strlen, 0, !dbg !528",
+				"br i1 %cmp4, label %if.then5, label %if.end6, !dbg !530"
+			]
+		},
+		{
+			"function": "tok_underflow_string",
+			"id": 30,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 16, "columns": [18, 23]
+				},
+				{
+					"line": 17, "columns": [13]
+				}
+			],
+			"successors": [34],
+			"ir": [
+				"%done = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 8, !dbg !531",
+				"store i32 11, ptr %done, align 8, !dbg !533, !tbaa !534",
+				"br label %cleanup, !dbg !535"
+			]
+		},
+		{
+			"function": "tok_underflow_string",
+			"id": 31,
+			"name": "if.end6",
+			"debug": [
+				{
+					"line": 20, "columns": [14, 20, 9]
+				}
+			],
+			"successors": [32, 33],
+			"ir": [
+				"%end.0 = phi ptr [ %incdec.ptr, %if.then ], [ %strchr, %if.else ], !dbg !536",
+				"%start = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 7, !dbg !537",
+				"%1 = load ptr, ptr %start, align 8, !dbg !537, !tbaa !539",
+				"%cmp7 = icmp eq ptr %1, null, !dbg !540",
+				"%cur = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 1",
+				"%2 = load ptr, ptr %cur, align 8, !dbg !511, !tbaa !541",
+				"br i1 %cmp7, label %if.then8, label %if.end9, !dbg !542"
+			]
+		},
+		{
+			"function": "tok_underflow_string",
+			"id": 32,
+			"name": "if.then8",
+			"debug": [
+				{
+					"line": 21, "columns": [18]
+				},
+				{
+					"line": 22, "columns": [5]
+				}
+			],
+			"successors": [33],
+			"ir": [
+				"store ptr %2, ptr %tok, align 8, !dbg !543, !tbaa !545",
+				"br label %if.end9, !dbg !546"
+			]
+		},
+		{
+			"function": "tok_underflow_string",
+			"id": 33,
+			"name": "if.end9",
+			"debug": [
+				{
+					"line": 23, "columns": [10, 21]
+				},
+				{
+					"line": 24, "columns": [5]
+				},
+				{
+					"line": 25, "columns": [14]
+				},
+				{
+					"line": 26, "columns": [5]
+				}
+			],
+			"successors": [34],
+			"ir": [
+				"%line_start = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 31, !dbg !547",
+				"store ptr %2, ptr %line_start, align 8, !dbg !548, !tbaa !549",
+				"%lineno = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 17, !dbg !550",
+				"%3 = load i32, ptr %lineno, align 8, !dbg !550, !tbaa !551",
+				"%inc = add i32 %3, 1, !dbg !550",
+				"store i32 %inc, ptr %lineno, align 8, !dbg !550, !tbaa !551",
+				"%col_offset = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 20, !dbg !550",
+				"store i32 0, ptr %col_offset, align 4, !dbg !550, !tbaa !552",
+				"store ptr %end.0, ptr %inp, align 8, !dbg !553, !tbaa !513",
+				"br label %cleanup, !dbg !554"
+			]
+		},
+		{
+			"function": "tok_underflow_string",
+			"id": 34,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 27, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ 1, %if.end9 ], [ 0, %if.then5 ], !dbg !511",
+				"ret i32 %retval.0, !dbg !555"
+			]
+		},
+		{
+			"function": "buf_getc",
+			"id": 35,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 32, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%str = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 37, !dbg !511",
+				"%0 = load ptr, ptr %str, align 8, !dbg !511, !tbaa !512",
+				"%incdec.ptr = getelementptr i8, ptr %0, i64 1, !dbg !511",
+				"store ptr %incdec.ptr, ptr %str, align 8, !dbg !511, !tbaa !512",
+				"%1 = load i8, ptr %0, align 1, !dbg !511, !tbaa !518",
+				"%conv2 = zext i8 %1 to i32, !dbg !511",
+				"ret i32 %conv2, !dbg !519"
+			]
+		},
+		{
+			"function": "buf_ungetc",
+			"id": 36,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 38, "columns": [10, 13]
+				},
+				{
+					"line": 40, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%str = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 37, !dbg !514",
+				"%0 = load ptr, ptr %str, align 8, !dbg !515, !tbaa !516",
+				"%incdec.ptr = getelementptr i8, ptr %0, i64 -1, !dbg !515",
+				"store ptr %incdec.ptr, ptr %str, align 8, !dbg !515, !tbaa !516",
+				"ret void, !dbg !522"
+			]
+		},
+		{
+			"function": "buf_setreadl",
+			"id": 37,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 46, "columns": [10, 14]
+				},
+				{
+					"line": 47, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%enc1 = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 36, !dbg !514",
+				"store ptr %enc, ptr %enc1, align 8, !dbg !515, !tbaa !516",
+				"ret i32 1, !dbg !522"
+			]
+		}
+	]
+}

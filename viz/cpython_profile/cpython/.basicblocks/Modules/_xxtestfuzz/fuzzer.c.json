@@ -1,0 +1,5149 @@
+{
+	"blocks": [
+		{
+			"function": "__lsan_is_turned_off",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 582, "columns": [34]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret i32 1, !dbg !579"
+			]
+		},
+		{
+			"function": "LLVMFuzzerInitialize",
+			"id": 1,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 586, "columns": [5, 14]
+				},
+				{
+					"line": 587, "columns": [5]
+				},
+				{
+					"line": 588, "columns": [12, 36]
+				},
+				{
+					"line": 591, "columns": [12, 31]
+				},
+				{
+					"line": 592, "columns": [5, 14]
+				},
+				{
+					"line": 593, "columns": [55, 70, 69, 14]
+				},
+				{
+					"line": 594, "columns": [9]
+				}
+			],
+			"successors": [2, 4],
+			"ir": [
+				"%config = alloca %struct.PyConfig, align 8",
+				"%status = alloca %struct.PyStatus, align 8",
+				"%tmp1 = alloca %struct.PyStatus, align 8",
+				"call void @llvm.lifetime.start.p0(i64 448, ptr nonnull %config) #10, !dbg !666",
+				"call void @PyConfig_InitPythonConfig(ptr noundef nonnull %config) #10, !dbg !668",
+				"%install_signal_handlers = getelementptr inbounds %struct.PyConfig, ptr %config, i64 0, i32 4, !dbg !669",
+				"store i32 0, ptr %install_signal_handlers, align 8, !dbg !670, !tbaa !671",
+				"%int_max_str_digits = getelementptr inbounds %struct.PyConfig, ptr %config, i64 0, i32 42, !dbg !679",
+				"store i32 8086, ptr %int_max_str_digits, align 8, !dbg !680, !tbaa !681",
+				"call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %status) #10, !dbg !682",
+				"%program_name = getelementptr inbounds %struct.PyConfig, ptr %config, i64 0, i32 45, !dbg !684",
+				"%0 = load ptr, ptr %argv, align 8, !dbg !685, !tbaa !686",
+				"%1 = load ptr, ptr %0, align 8, !dbg !687, !tbaa !686",
+				"call void @PyConfig_SetBytesString(ptr nonnull sret(%struct.PyStatus) align 8 %status, ptr noundef nonnull %config, ptr noundef nonnull %program_name, ptr noundef %1) #10, !dbg !688",
+				"%call = call i32 @PyStatus_Exception(ptr noundef nonnull byval(%struct.PyStatus) align 8 %status) #10, !dbg !689",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !689",
+				"br i1 %tobool.not, label %if.end, label %fail, !dbg !691"
+			]
+		},
+		{
+			"function": "LLVMFuzzerInitialize",
+			"id": 2,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 598, "columns": [14]
+				},
+				{
+					"line": 599, "columns": [9]
+				}
+			],
+			"successors": [3, 4],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %tmp1) #10, !dbg !692",
+				"call void @Py_InitializeFromConfig(ptr nonnull sret(%struct.PyStatus) align 8 %tmp1, ptr noundef nonnull %config) #10, !dbg !692",
+				"call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %status, ptr noundef nonnull align 8 dereferenceable(32) %tmp1, i64 32, i1 false), !dbg !692, !tbaa.struct !693",
+				"call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %tmp1) #10, !dbg !692",
+				"%call2 = call i32 @PyStatus_Exception(ptr noundef nonnull byval(%struct.PyStatus) align 8 %status) #10, !dbg !696",
+				"%tobool3.not = icmp eq i32 %call2, 0, !dbg !696",
+				"br i1 %tobool3.not, label %if.end5, label %fail, !dbg !698"
+			]
+		},
+		{
+			"function": "LLVMFuzzerInitialize",
+			"id": 3,
+			"name": "if.end5",
+			"debug": [
+				{
+					"line": 602, "columns": [5]
+				},
+				{
+					"line": 604, "columns": [5]
+				},
+				{
+					"line": 609, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @PyConfig_Clear(ptr noundef nonnull %config) #10, !dbg !699",
+				"call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %status) #10, !dbg !700",
+				"call void @llvm.lifetime.end.p0(i64 448, ptr nonnull %config) #10, !dbg !700",
+				"ret i32 0, !dbg !701"
+			]
+		},
+		{
+			"function": "LLVMFuzzerInitialize",
+			"id": 4,
+			"name": "fail",
+			"debug": [
+				{
+					"line": 606, "columns": [1]
+				},
+				{
+					"line": 607, "columns": [5]
+				},
+				{
+					"line": 608, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @PyConfig_Clear(ptr noundef nonnull %config) #10, !dbg !703",
+				"call void @Py_ExitStatusException(ptr noundef nonnull byval(%struct.PyStatus) align 8 %status) #11, !dbg !704",
+				"unreachable, !dbg !704"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 5,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 24, "columns": [19]
+				},
+				{
+					"line": 25, "columns": [11, 9]
+				}
+			],
+			"successors": [16, 6],
+			"ir": [
+				"%pycompile_scratch.i = alloca [16384 x i8], align 16",
+				"%call.i213 = tail call ptr @PyBytes_FromStringAndSize(ptr noundef %data, i64 noundef %size) #10, !dbg !598",
+				"%cmp.i214 = icmp eq ptr %call.i213, null, !dbg !599",
+				"br i1 %cmp.i214, label %fuzz_builtin_float.exit, label %if.end.i217, !dbg !601"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 6,
+			"name": "if.end.i217",
+			"debug": [
+				{
+					"line": 26, "columns": [19]
+				},
+				{
+					"line": 27, "columns": [9, 26]
+				}
+			],
+			"successors": [9, 7],
+			"ir": [
+				"%call1.i215 = tail call ptr @PyFloat_FromString(ptr noundef nonnull %call.i213) #10, !dbg !602",
+				"%call2.i = tail call ptr @PyErr_Occurred() #10, !dbg !603",
+				"%tobool.not.i216 = icmp eq ptr %call2.i, null, !dbg !603",
+				"br i1 %tobool.not.i216, label %if.end6.i, label %land.lhs.true.i, !dbg !605"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 7,
+			"name": "land.lhs.true.i",
+			"debug": [
+				{
+					"line": 27, "columns": [52, 29, 9]
+				}
+			],
+			"successors": [9, 8],
+			"ir": [
+				"%0 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !606, !tbaa !607",
+				"%call3.i = tail call i32 @PyErr_ExceptionMatches(ptr noundef %0) #10, !dbg !611",
+				"%tobool4.not.i = icmp eq i32 %call3.i, 0, !dbg !611",
+				"br i1 %tobool4.not.i, label %if.end6.i, label %if.then5.i, !dbg !612"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 8,
+			"name": "if.then5.i",
+			"debug": [
+				{
+					"line": 28, "columns": [9]
+				},
+				{
+					"line": 29, "columns": [5]
+				}
+			],
+			"successors": [9],
+			"ir": [
+				"tail call void @PyErr_Clear() #10, !dbg !613",
+				"br label %if.end6.i, !dbg !615"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 9,
+			"name": "if.end6.i",
+			"debug": [
+				{
+					"line": 1037, "columns": [12, 9]
+				}
+			],
+			"successors": [13, 10],
+			"ir": [
+				"%cmp.not.i.i = icmp eq ptr %call1.i215, null, !dbg !621",
+				"br i1 %cmp.not.i.i, label %Py_XDECREF.exit.i, label %if.then.i.i, !dbg !623"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 10,
+			"name": "if.then.i.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [11, 13],
+			"ir": [
+				"%op.val.i.i.i = load i64, ptr %call1.i215, align 8, !dbg !630, !tbaa !632",
+				"%1 = and i64 %op.val.i.i.i, 2147483648, !dbg !638",
+				"%cmp.i.not.i.i.i = icmp eq i64 %1, 0, !dbg !638",
+				"br i1 %cmp.i.not.i.i.i, label %if.end.i.i.i, label %Py_XDECREF.exit.i, !dbg !639"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 11,
+			"name": "if.end.i.i.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [12, 13],
+			"ir": [
+				"%dec.i.i.i = add i64 %op.val.i.i.i, -1, !dbg !640",
+				"store i64 %dec.i.i.i, ptr %call1.i215, align 8, !dbg !640, !tbaa !632",
+				"%cmp.i.i.i = icmp eq i64 %dec.i.i.i, 0, !dbg !642",
+				"br i1 %cmp.i.i.i, label %if.then1.i.i.i, label %Py_XDECREF.exit.i, !dbg !643"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 12,
+			"name": "if.then1.i.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [13],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call1.i215) #10, !dbg !644",
+				"br label %Py_XDECREF.exit.i, !dbg !646"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 13,
+			"name": "Py_XDECREF.exit.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [14, 16],
+			"ir": [
+				"%op.val.i.i218 = load i64, ptr %call.i213, align 8, !dbg !649, !tbaa !632",
+				"%2 = and i64 %op.val.i.i218, 2147483648, !dbg !652",
+				"%cmp.i.not.i.i219 = icmp eq i64 %2, 0, !dbg !652",
+				"br i1 %cmp.i.not.i.i219, label %if.end.i.i222, label %fuzz_builtin_float.exit, !dbg !653"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 14,
+			"name": "if.end.i.i222",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [15, 16],
+			"ir": [
+				"%dec.i.i220 = add i64 %op.val.i.i218, -1, !dbg !654",
+				"store i64 %dec.i.i220, ptr %call.i213, align 8, !dbg !654, !tbaa !632",
+				"%cmp.i.i221 = icmp eq i64 %dec.i.i220, 0, !dbg !655",
+				"br i1 %cmp.i.i221, label %if.then1.i.i223, label %fuzz_builtin_float.exit, !dbg !656"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 15,
+			"name": "if.then1.i.i223",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [16],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i213) #10, !dbg !657",
+				"br label %fuzz_builtin_float.exit, !dbg !658"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 16,
+			"name": "fuzz_builtin_float.exit",
+			"debug": [
+				{
+					"line": 571, "columns": [9]
+				}
+			],
+			"successors": [18, 17],
+			"ir": [
+				"%call1.i = tail call ptr @PyErr_Occurred() #10, !dbg !659",
+				"%tobool.not.i = icmp eq ptr %call1.i, null, !dbg !659",
+				"br i1 %tobool.not.i, label %_run_fuzz.exit, label %if.then.i, !dbg !661"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 17,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 574, "columns": [9]
+				},
+				{
+					"line": 575, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @PyErr_Print() #10, !dbg !662",
+				"tail call void @abort() #11, !dbg !664",
+				"unreachable, !dbg !664"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 18,
+			"name": "_run_fuzz.exit",
+			"debug": [
+				{
+					"line": 42, "columns": [14, 9]
+				}
+			],
+			"successors": [33, 19],
+			"ir": [
+				"%cmp.i224 = icmp ugt i64 %size, 65536, !dbg !676",
+				"br i1 %cmp.i224, label %fuzz_builtin_int.exit, label %if.end.i226, !dbg !678"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 19,
+			"name": "if.end.i226",
+			"debug": [
+				{
+					"line": 48, "columns": [16, 42]
+				},
+				{
+					"line": 49, "columns": [14, 9]
+				},
+				{
+					"line": 53, "columns": [14, 9]
+				}
+			],
+			"successors": [33, 20],
+			"ir": [
+				"%call.i = tail call i64 @_Py_HashBytes(ptr noundef %data, i64 noundef %size) #10, !dbg !679",
+				"%rem.i = srem i64 %call.i, 37, !dbg !680",
+				"%conv.i225 = trunc i64 %rem.i to i32, !dbg !679",
+				"%cmp1.i = icmp eq i32 %conv.i225, 1, !dbg !681",
+				"%spec.store.select.i = select i1 %cmp1.i, i32 0, i32 %conv.i225, !dbg !683",
+				"%cmp5.i = icmp eq i32 %spec.store.select.i, -1, !dbg !684",
+				"br i1 %cmp5.i, label %fuzz_builtin_int.exit, label %if.end8.i228, !dbg !686"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 20,
+			"name": "if.end8.i228",
+			"debug": [
+				{
+					"line": 60, "columns": [19]
+				},
+				{
+					"line": 61, "columns": [11, 9]
+				}
+			],
+			"successors": [21, 23],
+			"ir": [
+				"%call13.i227 = tail call ptr @PyUnicode_FromStringAndSize(ptr noundef %data, i64 noundef %size) #10, !dbg !687",
+				"%cmp14.i = icmp eq ptr %call13.i227, null, !dbg !688",
+				"br i1 %cmp14.i, label %if.then16.i, label %if.end20.i, !dbg !690"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 21,
+			"name": "if.then16.i",
+			"debug": [
+				{
+					"line": 62, "columns": [36, 13]
+				}
+			],
+			"successors": [33, 22],
+			"ir": [
+				"%3 = load ptr, ptr @PyExc_UnicodeDecodeError, align 8, !dbg !691, !tbaa !607",
+				"%call17.i = tail call i32 @PyErr_ExceptionMatches(ptr noundef %3) #10, !dbg !694",
+				"%tobool.not.i229 = icmp eq i32 %call17.i, 0, !dbg !694",
+				"br i1 %tobool.not.i229, label %fuzz_builtin_int.exit, label %if.then18.i, !dbg !695"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 22,
+			"name": "if.then18.i",
+			"debug": [
+				{
+					"line": 63, "columns": [13]
+				},
+				{
+					"line": 64, "columns": [9]
+				}
+			],
+			"successors": [33],
+			"ir": [
+				"tail call void @PyErr_Clear() #10, !dbg !696",
+				"br label %fuzz_builtin_int.exit, !dbg !698"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 23,
+			"name": "if.end20.i",
+			"debug": [
+				{
+					"line": 56, "columns": [9]
+				},
+				{
+					"line": 67, "columns": [19]
+				},
+				{
+					"line": 68, "columns": [11, 19]
+				}
+			],
+			"successors": [24, 27],
+			"ir": [
+				"%spec.select.i230 = tail call i32 @llvm.abs.i32(i32 %spec.store.select.i, i1 true), !dbg !699",
+				"%call21.i = tail call ptr @PyLong_FromUnicodeObject(ptr noundef nonnull %call13.i227, i32 noundef %spec.select.i230) #10, !dbg !700",
+				"%cmp22.i = icmp eq ptr %call21.i, null, !dbg !701",
+				"br i1 %cmp22.i, label %land.lhs.true.i231, label %if.then.i.i234, !dbg !703"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 24,
+			"name": "land.lhs.true.i231",
+			"debug": [
+				{
+					"line": 68, "columns": [45, 22, 9]
+				}
+			],
+			"successors": [26, 25],
+			"ir": [
+				"%4 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !704, !tbaa !607",
+				"%call24.i = tail call i32 @PyErr_ExceptionMatches(ptr noundef %4) #10, !dbg !705",
+				"%tobool25.not.i = icmp eq i32 %call24.i, 0, !dbg !705",
+				"br i1 %tobool25.not.i, label %if.end27.thread.i, label %if.then26.i, !dbg !706"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 25,
+			"name": "if.then26.i",
+			"debug": [
+				{
+					"line": 69, "columns": [9]
+				},
+				{
+					"line": 70, "columns": [5]
+				}
+			],
+			"successors": [26],
+			"ir": [
+				"tail call void @PyErr_Clear() #10, !dbg !707",
+				"br label %if.end27.thread.i, !dbg !709"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 26,
+			"name": "if.end27.thread.i",
+			"debug": [
+				{
+					"line": 71, "columns": [5]
+				},
+				{
+					"line": 1037, "columns": [9]
+				}
+			],
+			"successors": [30],
+			"ir": [
+				"tail call void @PyErr_Clear() #10, !dbg !710",
+				"br label %Py_XDECREF.exit.i241, !dbg !713"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 27,
+			"name": "if.then.i.i234",
+			"debug": [
+				{
+					"line": 71, "columns": [5]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [28, 30],
+			"ir": [
+				"tail call void @PyErr_Clear() #10, !dbg !710",
+				"%op.val.i.i.i232 = load i64, ptr %call21.i, align 8, !dbg !716, !tbaa !632",
+				"%5 = and i64 %op.val.i.i.i232, 2147483648, !dbg !719",
+				"%cmp.i.not.i.i.i233 = icmp eq i64 %5, 0, !dbg !719",
+				"br i1 %cmp.i.not.i.i.i233, label %if.end.i.i.i237, label %Py_XDECREF.exit.i241, !dbg !720"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 28,
+			"name": "if.end.i.i.i237",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [29, 30],
+			"ir": [
+				"%dec.i.i.i235 = add i64 %op.val.i.i.i232, -1, !dbg !721",
+				"store i64 %dec.i.i.i235, ptr %call21.i, align 8, !dbg !721, !tbaa !632",
+				"%cmp.i.i.i236 = icmp eq i64 %dec.i.i.i235, 0, !dbg !722",
+				"br i1 %cmp.i.i.i236, label %if.then1.i.i.i238, label %Py_XDECREF.exit.i241, !dbg !723"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 29,
+			"name": "if.then1.i.i.i238",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [30],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call21.i) #10, !dbg !724",
+				"br label %Py_XDECREF.exit.i241, !dbg !725"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 30,
+			"name": "Py_XDECREF.exit.i241",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [31, 33],
+			"ir": [
+				"%op.val.i.i239 = load i64, ptr %call13.i227, align 8, !dbg !728, !tbaa !632",
+				"%6 = and i64 %op.val.i.i239, 2147483648, !dbg !731",
+				"%cmp.i.not.i.i240 = icmp eq i64 %6, 0, !dbg !731",
+				"br i1 %cmp.i.not.i.i240, label %if.end.i.i244, label %fuzz_builtin_int.exit, !dbg !732"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 31,
+			"name": "if.end.i.i244",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [32, 33],
+			"ir": [
+				"%dec.i.i242 = add i64 %op.val.i.i239, -1, !dbg !733",
+				"store i64 %dec.i.i242, ptr %call13.i227, align 8, !dbg !733, !tbaa !632",
+				"%cmp.i.i243 = icmp eq i64 %dec.i.i242, 0, !dbg !734",
+				"br i1 %cmp.i.i243, label %if.then1.i.i245, label %fuzz_builtin_int.exit, !dbg !735"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 32,
+			"name": "if.then1.i.i245",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [33],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call13.i227) #10, !dbg !736",
+				"br label %fuzz_builtin_int.exit, !dbg !737"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 33,
+			"name": "fuzz_builtin_int.exit",
+			"debug": [
+				{
+					"line": 571, "columns": [9]
+				}
+			],
+			"successors": [35, 34],
+			"ir": [
+				"%call1.i106 = tail call ptr @PyErr_Occurred() #10, !dbg !738",
+				"%tobool.not.i107 = icmp eq ptr %call1.i106, null, !dbg !738",
+				"br i1 %tobool.not.i107, label %_run_fuzz.exit109, label %if.then.i108, !dbg !739"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 34,
+			"name": "if.then.i108",
+			"debug": [
+				{
+					"line": 574, "columns": [9]
+				},
+				{
+					"line": 575, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @PyErr_Print() #10, !dbg !740",
+				"tail call void @abort() #11, !dbg !741",
+				"unreachable, !dbg !741"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 35,
+			"name": "_run_fuzz.exit109",
+			"debug": [
+				{
+					"line": 79, "columns": [19]
+				},
+				{
+					"line": 80, "columns": [11, 19]
+				}
+			],
+			"successors": [36, 38],
+			"ir": [
+				"%call.i246 = tail call ptr @PyUnicode_FromStringAndSize(ptr noundef %data, i64 noundef %size) #10, !dbg !751",
+				"%cmp.i247 = icmp eq ptr %call.i246, null, !dbg !752",
+				"br i1 %cmp.i247, label %land.lhs.true.i250, label %if.then.i.i254, !dbg !754"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 36,
+			"name": "land.lhs.true.i250",
+			"debug": [
+				{
+					"line": 80, "columns": [45, 22, 9]
+				}
+			],
+			"successors": [41, 37],
+			"ir": [
+				"%7 = load ptr, ptr @PyExc_UnicodeDecodeError, align 8, !dbg !755, !tbaa !607",
+				"%call1.i248 = tail call i32 @PyErr_ExceptionMatches(ptr noundef %7) #10, !dbg !756",
+				"%tobool.not.i249 = icmp eq i32 %call1.i248, 0, !dbg !756",
+				"br i1 %tobool.not.i249, label %fuzz_builtin_unicode.exit, label %if.then.i251, !dbg !757"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 37,
+			"name": "if.then.i251",
+			"debug": [
+				{
+					"line": 81, "columns": [9]
+				},
+				{
+					"line": 82, "columns": [5]
+				}
+			],
+			"successors": [41],
+			"ir": [
+				"tail call void @PyErr_Clear() #10, !dbg !758",
+				"br label %fuzz_builtin_unicode.exit, !dbg !760"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 38,
+			"name": "if.then.i.i254",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [39, 41],
+			"ir": [
+				"%op.val.i.i.i252 = load i64, ptr %call.i246, align 8, !dbg !765, !tbaa !632",
+				"%8 = and i64 %op.val.i.i.i252, 2147483648, !dbg !768",
+				"%cmp.i.not.i.i.i253 = icmp eq i64 %8, 0, !dbg !768",
+				"br i1 %cmp.i.not.i.i.i253, label %if.end.i.i.i257, label %fuzz_builtin_unicode.exit, !dbg !769"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 39,
+			"name": "if.end.i.i.i257",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [40, 41],
+			"ir": [
+				"%dec.i.i.i255 = add i64 %op.val.i.i.i252, -1, !dbg !770",
+				"store i64 %dec.i.i.i255, ptr %call.i246, align 8, !dbg !770, !tbaa !632",
+				"%cmp.i.i.i256 = icmp eq i64 %dec.i.i.i255, 0, !dbg !771",
+				"br i1 %cmp.i.i.i256, label %if.then1.i.i.i258, label %fuzz_builtin_unicode.exit, !dbg !772"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 40,
+			"name": "if.then1.i.i.i258",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [41],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i246) #10, !dbg !773",
+				"br label %fuzz_builtin_unicode.exit, !dbg !774"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 41,
+			"name": "fuzz_builtin_unicode.exit",
+			"debug": [
+				{
+					"line": 571, "columns": [9]
+				}
+			],
+			"successors": [43, 42],
+			"ir": [
+				"%call1.i111 = tail call ptr @PyErr_Occurred() #10, !dbg !775",
+				"%tobool.not.i112 = icmp eq ptr %call1.i111, null, !dbg !775",
+				"br i1 %tobool.not.i112, label %_run_fuzz.exit114, label %if.then.i113, !dbg !776"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 42,
+			"name": "if.then.i113",
+			"debug": [
+				{
+					"line": 574, "columns": [9]
+				},
+				{
+					"line": 575, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @PyErr_Print() #10, !dbg !777",
+				"tail call void @abort() #11, !dbg !778",
+				"unreachable, !dbg !778"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 43,
+			"name": "_run_fuzz.exit114",
+			"debug": [
+				{
+					"line": 634, "columns": [10, 36]
+				}
+			],
+			"successors": [48, 44],
+			"ir": [
+				"%.b = load i1, ptr @LLVMFuzzerTestOneInput.STRUCT_UNPACK_INITIALIZED, align 4, !dbg !779",
+				"br i1 %.b, label %if.else, label %land.lhs.true, !dbg !781"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 44,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 93, "columns": [31]
+				},
+				{
+					"line": 94, "columns": [23, 9]
+				}
+			],
+			"successors": [47, 45],
+			"ir": [
+				"%call.i115 = tail call ptr @PyImport_ImportModule(ptr noundef nonnull @.str) #10, !dbg !782",
+				"%cmp.i = icmp eq ptr %call.i115, null, !dbg !790",
+				"br i1 %cmp.i, label %if.then, label %if.end.i, !dbg !792"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 45,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 97, "columns": [20, 18]
+				},
+				{
+					"line": 98, "columns": [22, 9]
+				}
+			],
+			"successors": [47, 46],
+			"ir": [
+				"%call1.i116 = tail call ptr @PyObject_GetAttrString(ptr noundef nonnull %call.i115, ptr noundef nonnull @.str.1) #10, !dbg !793",
+				"store ptr %call1.i116, ptr @struct_error, align 8, !dbg !794, !tbaa !607",
+				"%cmp2.i = icmp eq ptr %call1.i116, null, !dbg !795",
+				"br i1 %cmp2.i, label %if.then, label %init_struct_unpack.exit, !dbg !797"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 46,
+			"name": "init_struct_unpack.exit",
+			"debug": [
+				{
+					"line": 101, "columns": [28, 26]
+				},
+				{
+					"line": 102, "columns": [33]
+				},
+				{
+					"line": 634, "columns": [9]
+				}
+			],
+			"successors": [47, 48],
+			"ir": [
+				"%call5.i = tail call ptr @PyObject_GetAttrString(ptr noundef nonnull %call.i115, ptr noundef nonnull @.str.2) #10, !dbg !798",
+				"store ptr %call5.i, ptr @struct_unpack_method, align 8, !dbg !799, !tbaa !607",
+				"%cmp6.i.not = icmp eq ptr %call5.i, null, !dbg !800",
+				"br i1 %cmp6.i.not, label %if.then, label %if.else, !dbg !801"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 47,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 635, "columns": [9]
+				},
+				{
+					"line": 636, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @PyErr_Print() #10, !dbg !802",
+				"tail call void @abort() #11, !dbg !804",
+				"unreachable, !dbg !804"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 48,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 108, "columns": [30]
+				},
+				{
+					"line": 109, "columns": [20, 9]
+				},
+				{
+					"line": 638, "columns": [35]
+				}
+			],
+			"successors": [69, 49],
+			"ir": [
+				"store i1 true, ptr @LLVMFuzzerTestOneInput.STRUCT_UNPACK_INITIALIZED, align 4, !dbg !805",
+				"%call.i260 = tail call ptr @memchr(ptr noundef %data, i32 noundef 0, i64 noundef %size) #12, !dbg !821",
+				"%cmp.i261 = icmp eq ptr %call.i260, null, !dbg !822",
+				"br i1 %cmp.i261, label %fuzz_struct_unpack.exit, label %if.end.i263, !dbg !824"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 49,
+			"name": "if.end.i263",
+			"debug": [
+				{
+					"line": 113, "columns": [39]
+				},
+				{
+					"line": 116, "columns": [25]
+				},
+				{
+					"line": 117, "columns": [17, 9]
+				}
+			],
+			"successors": [69, 50],
+			"ir": [
+				"%sub.ptr.lhs.cast.i = ptrtoint ptr %call.i260 to i64, !dbg !825",
+				"%sub.ptr.rhs.cast.i = ptrtoint ptr %data to i64, !dbg !825",
+				"%sub.ptr.sub.i = sub i64 %sub.ptr.lhs.cast.i, %sub.ptr.rhs.cast.i, !dbg !825",
+				"%call2.i262 = tail call ptr @PyBytes_FromStringAndSize(ptr noundef %data, i64 noundef %sub.ptr.sub.i) #10, !dbg !826",
+				"%cmp3.i = icmp eq ptr %call2.i262, null, !dbg !827",
+				"br i1 %cmp3.i, label %fuzz_struct_unpack.exit, label %if.end5.i, !dbg !829"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 50,
+			"name": "if.end5.i",
+			"debug": [
+				{
+					"line": 114, "columns": [49]
+				},
+				{
+					"line": 120, "columns": [61, 24]
+				},
+				{
+					"line": 121, "columns": [16, 9]
+				}
+			],
+			"successors": [51, 53],
+			"ir": [
+				"%9 = xor i64 %sub.ptr.sub.i, -1, !dbg !830",
+				"%sub1.i = add i64 %9, %size, !dbg !830",
+				"%add.ptr.i = getelementptr i8, ptr %call.i260, i64 1, !dbg !831",
+				"%call6.i = tail call ptr @PyBytes_FromStringAndSize(ptr noundef %add.ptr.i, i64 noundef %sub1.i) #10, !dbg !832",
+				"%cmp7.i = icmp eq ptr %call6.i, null, !dbg !833",
+				"br i1 %cmp7.i, label %if.then8.i, label %if.end9.i, !dbg !835"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 51,
+			"name": "if.then8.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [52, 69],
+			"ir": [
+				"%op.val.i.i264 = load i64, ptr %call2.i262, align 8, !dbg !839, !tbaa !632",
+				"%10 = and i64 %op.val.i.i264, 2147483648, !dbg !842",
+				"%cmp.i.not.i.i265 = icmp eq i64 %10, 0, !dbg !842",
+				"br i1 %cmp.i.not.i.i265, label %if.end.i.i268, label %fuzz_struct_unpack.exit, !dbg !843"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 52,
+			"name": "if.end.i.i268",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [68, 69],
+			"ir": [
+				"%dec.i.i266 = add i64 %op.val.i.i264, -1, !dbg !844",
+				"store i64 %dec.i.i266, ptr %call2.i262, align 8, !dbg !844, !tbaa !632",
+				"%cmp.i.i267 = icmp eq i64 %dec.i.i266, 0, !dbg !845",
+				"br i1 %cmp.i.i267, label %cleanup30.sink.split.i, label %fuzz_struct_unpack.exit, !dbg !846"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 53,
+			"name": "if.end9.i",
+			"debug": [
+				{
+					"line": 126, "columns": [26]
+				},
+				{
+					"line": 127, "columns": [9]
+				},
+				{
+					"line": 129, "columns": [18, 26]
+				}
+			],
+			"successors": [54, 60],
+			"ir": [
+				"%11 = load ptr, ptr @struct_unpack_method, align 8, !dbg !847, !tbaa !607",
+				"%call10.i = tail call ptr (ptr, ...) @PyObject_CallFunctionObjArgs(ptr noundef %11, ptr noundef nonnull %call2.i262, ptr noundef nonnull %call6.i, ptr noundef null) #10, !dbg !848",
+				"%cmp11.i = icmp eq ptr %call10.i, null, !dbg !849",
+				"br i1 %cmp11.i, label %land.lhs.true.i270, label %if.then.i.i274, !dbg !851"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 54,
+			"name": "land.lhs.true.i270",
+			"debug": [
+				{
+					"line": 129, "columns": [52, 29, 9]
+				}
+			],
+			"successors": [56, 55],
+			"ir": [
+				"%12 = load ptr, ptr @PyExc_OverflowError, align 8, !dbg !852, !tbaa !607",
+				"%call12.i = tail call i32 @PyErr_ExceptionMatches(ptr noundef %12) #10, !dbg !853",
+				"%tobool.not.i269 = icmp eq i32 %call12.i, 0, !dbg !853",
+				"br i1 %tobool.not.i269, label %land.lhs.true16.i, label %if.then13.i, !dbg !854"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 55,
+			"name": "if.then13.i",
+			"debug": [
+				{
+					"line": 130, "columns": [9]
+				},
+				{
+					"line": 131, "columns": [5]
+				}
+			],
+			"successors": [56],
+			"ir": [
+				"tail call void @PyErr_Clear() #10, !dbg !855",
+				"br label %land.lhs.true16.i, !dbg !857"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 56,
+			"name": "land.lhs.true16.i",
+			"debug": [
+				{
+					"line": 134, "columns": [52, 29, 9]
+				}
+			],
+			"successors": [58, 57],
+			"ir": [
+				"%13 = load ptr, ptr @PyExc_SystemError, align 8, !dbg !858, !tbaa !607",
+				"%call17.i271 = tail call i32 @PyErr_ExceptionMatches(ptr noundef %13) #10, !dbg !860",
+				"%tobool18.not.i = icmp eq i32 %call17.i271, 0, !dbg !860",
+				"br i1 %tobool18.not.i, label %land.lhs.true22.i, label %if.then19.i, !dbg !861"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 57,
+			"name": "if.then19.i",
+			"debug": [
+				{
+					"line": 135, "columns": [9]
+				},
+				{
+					"line": 136, "columns": [5]
+				}
+			],
+			"successors": [58],
+			"ir": [
+				"tail call void @PyErr_Clear() #10, !dbg !862",
+				"br label %land.lhs.true22.i, !dbg !864"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 58,
+			"name": "land.lhs.true22.i",
+			"debug": [
+				{
+					"line": 139, "columns": [52, 29, 9]
+				}
+			],
+			"successors": [63, 59],
+			"ir": [
+				"%14 = load ptr, ptr @struct_error, align 8, !dbg !865, !tbaa !607",
+				"%call23.i = tail call i32 @PyErr_ExceptionMatches(ptr noundef %14) #10, !dbg !867",
+				"%tobool24.not.i = icmp eq i32 %call23.i, 0, !dbg !867",
+				"br i1 %tobool24.not.i, label %Py_XDECREF.exit.i279, label %if.then25.i, !dbg !868"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 59,
+			"name": "if.then25.i",
+			"debug": [
+				{
+					"line": 140, "columns": [9]
+				},
+				{
+					"line": 141, "columns": [5]
+				}
+			],
+			"successors": [63],
+			"ir": [
+				"tail call void @PyErr_Clear() #10, !dbg !869",
+				"br label %Py_XDECREF.exit.i279, !dbg !871"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 60,
+			"name": "if.then.i.i274",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [61, 63],
+			"ir": [
+				"%op.val.i.i.i272 = load i64, ptr %call10.i, align 8, !dbg !876, !tbaa !632",
+				"%15 = and i64 %op.val.i.i.i272, 2147483648, !dbg !879",
+				"%cmp.i.not.i.i.i273 = icmp eq i64 %15, 0, !dbg !879",
+				"br i1 %cmp.i.not.i.i.i273, label %if.end.i.i.i277, label %Py_XDECREF.exit.i279, !dbg !880"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 61,
+			"name": "if.end.i.i.i277",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [62, 63],
+			"ir": [
+				"%dec.i.i.i275 = add i64 %op.val.i.i.i272, -1, !dbg !881",
+				"store i64 %dec.i.i.i275, ptr %call10.i, align 8, !dbg !881, !tbaa !632",
+				"%cmp.i.i.i276 = icmp eq i64 %dec.i.i.i275, 0, !dbg !882",
+				"br i1 %cmp.i.i.i276, label %if.then1.i.i.i278, label %Py_XDECREF.exit.i279, !dbg !883"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 62,
+			"name": "if.then1.i.i.i278",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [63],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call10.i) #10, !dbg !884",
+				"br label %Py_XDECREF.exit.i279, !dbg !885"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 63,
+			"name": "Py_XDECREF.exit.i279",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [64, 66],
+			"ir": [
+				"%op.val.i45.i = load i64, ptr %call2.i262, align 8, !dbg !888, !tbaa !632",
+				"%16 = and i64 %op.val.i45.i, 2147483648, !dbg !891",
+				"%cmp.i.not.i46.i = icmp eq i64 %16, 0, !dbg !891",
+				"br i1 %cmp.i.not.i46.i, label %if.end.i49.i, label %Py_DECREF.exit51.i, !dbg !892"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 64,
+			"name": "if.end.i49.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [65, 66],
+			"ir": [
+				"%dec.i47.i = add i64 %op.val.i45.i, -1, !dbg !893",
+				"store i64 %dec.i47.i, ptr %call2.i262, align 8, !dbg !893, !tbaa !632",
+				"%cmp.i48.i = icmp eq i64 %dec.i47.i, 0, !dbg !894",
+				"br i1 %cmp.i48.i, label %if.then1.i50.i, label %Py_DECREF.exit51.i, !dbg !895"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 65,
+			"name": "if.then1.i50.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [66],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call2.i262) #10, !dbg !896",
+				"br label %Py_DECREF.exit51.i, !dbg !897"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 66,
+			"name": "Py_DECREF.exit51.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [67, 69],
+			"ir": [
+				"%op.val.i52.i = load i64, ptr %call6.i, align 8, !dbg !900, !tbaa !632",
+				"%17 = and i64 %op.val.i52.i, 2147483648, !dbg !903",
+				"%cmp.i.not.i53.i = icmp eq i64 %17, 0, !dbg !903",
+				"br i1 %cmp.i.not.i53.i, label %if.end.i56.i, label %fuzz_struct_unpack.exit, !dbg !904"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 67,
+			"name": "if.end.i56.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [68, 69],
+			"ir": [
+				"%dec.i54.i = add i64 %op.val.i52.i, -1, !dbg !905",
+				"store i64 %dec.i54.i, ptr %call6.i, align 8, !dbg !905, !tbaa !632",
+				"%cmp.i55.i = icmp eq i64 %dec.i54.i, 0, !dbg !906",
+				"br i1 %cmp.i55.i, label %cleanup30.sink.split.i, label %fuzz_struct_unpack.exit, !dbg !907"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 68,
+			"name": "cleanup30.sink.split.i",
+			"debug": [
+				{
+					"line": 147, "columns": [1]
+				},
+				{
+					"line": 945, "columns": [9]
+				}
+			],
+			"successors": [69],
+			"ir": [
+				"%call6.sink.i = phi ptr [ %call2.i262, %if.end.i.i268 ], [ %call6.i, %if.end.i56.i ]",
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call6.sink.i) #10, !dbg !908",
+				"br label %fuzz_struct_unpack.exit, !dbg !910"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 69,
+			"name": "fuzz_struct_unpack.exit",
+			"debug": [
+				{
+					"line": 571, "columns": [9]
+				}
+			],
+			"successors": [71, 70],
+			"ir": [
+				"%call1.i118 = tail call ptr @PyErr_Occurred() #10, !dbg !911",
+				"%tobool.not.i119 = icmp eq ptr %call1.i118, null, !dbg !911",
+				"br i1 %tobool.not.i119, label %_run_fuzz.exit122, label %if.then.i120, !dbg !912"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 70,
+			"name": "if.then.i120",
+			"debug": [
+				{
+					"line": 574, "columns": [9]
+				},
+				{
+					"line": 575, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @PyErr_Print() #10, !dbg !913",
+				"tail call void @abort() #11, !dbg !914",
+				"unreachable, !dbg !914"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 71,
+			"name": "_run_fuzz.exit122",
+			"debug": [
+				{
+					"line": 644, "columns": [10, 33]
+				}
+			],
+			"successors": [75, 72],
+			"ir": [
+				"%.b99 = load i1, ptr @LLVMFuzzerTestOneInput.JSON_LOADS_INITIALIZED, align 4, !dbg !915",
+				"br i1 %.b99, label %if.else14, label %land.lhs.true10, !dbg !917"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 72,
+			"name": "land.lhs.true10",
+			"debug": [
+				{
+					"line": 156, "columns": [29]
+				},
+				{
+					"line": 157, "columns": [21, 9]
+				}
+			],
+			"successors": [74, 73],
+			"ir": [
+				"%call.i123 = tail call ptr @PyImport_ImportModule(ptr noundef nonnull @.str.3) #10, !dbg !918",
+				"%cmp.i124 = icmp eq ptr %call.i123, null, !dbg !924",
+				"br i1 %cmp.i124, label %if.then13, label %init_json_loads.exit, !dbg !926"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 73,
+			"name": "init_json_loads.exit",
+			"debug": [
+				{
+					"line": 160, "columns": [25, 23]
+				},
+				{
+					"line": 161, "columns": [30]
+				},
+				{
+					"line": 644, "columns": [9]
+				}
+			],
+			"successors": [74, 75],
+			"ir": [
+				"%call1.i125 = tail call ptr @PyObject_GetAttrString(ptr noundef nonnull %call.i123, ptr noundef nonnull @.str.4) #10, !dbg !927",
+				"store ptr %call1.i125, ptr @json_loads_method, align 8, !dbg !928, !tbaa !607",
+				"%cmp2.i126.not = icmp eq ptr %call1.i125, null, !dbg !929",
+				"br i1 %cmp2.i126.not, label %if.then13, label %if.else14, !dbg !930"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 74,
+			"name": "if.then13",
+			"debug": [
+				{
+					"line": 645, "columns": [9]
+				},
+				{
+					"line": 646, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @PyErr_Print() #10, !dbg !931",
+				"tail call void @abort() #11, !dbg !933",
+				"unreachable, !dbg !933"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 75,
+			"name": "if.else14",
+			"debug": [
+				{
+					"line": 168, "columns": [14, 9]
+				},
+				{
+					"line": 648, "columns": [32]
+				}
+			],
+			"successors": [89, 76],
+			"ir": [
+				"store i1 true, ptr @LLVMFuzzerTestOneInput.JSON_LOADS_INITIALIZED, align 4, !dbg !934",
+				"%cmp.i280 = icmp ugt i64 %size, 1048576, !dbg !946",
+				"br i1 %cmp.i280, label %fuzz_json_loads.exit, label %if.end.i283, !dbg !948"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 76,
+			"name": "if.end.i283",
+			"debug": [
+				{
+					"line": 171, "columns": [29]
+				},
+				{
+					"line": 172, "columns": [21, 9]
+				}
+			],
+			"successors": [89, 77],
+			"ir": [
+				"%call.i281 = tail call ptr @PyBytes_FromStringAndSize(ptr noundef %data, i64 noundef %size) #10, !dbg !949",
+				"%cmp1.i282 = icmp eq ptr %call.i281, null, !dbg !950",
+				"br i1 %cmp1.i282, label %fuzz_json_loads.exit, label %if.end3.i, !dbg !952"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 77,
+			"name": "if.end3.i",
+			"debug": [
+				{
+					"line": 175, "columns": [44, 24]
+				},
+				{
+					"line": 176, "columns": [16, 9]
+				}
+			],
+			"successors": [78, 82],
+			"ir": [
+				"%18 = load ptr, ptr @json_loads_method, align 8, !dbg !953, !tbaa !607",
+				"%call4.i284 = tail call ptr @PyObject_CallOneArg(ptr noundef %18, ptr noundef nonnull %call.i281) #10, !dbg !954",
+				"%cmp5.i285 = icmp eq ptr %call4.i284, null, !dbg !955",
+				"br i1 %cmp5.i285, label %if.then6.i, label %if.end15.i, !dbg !957"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 78,
+			"name": "if.then6.i",
+			"debug": [
+				{
+					"line": 179, "columns": [36, 13, 54]
+				}
+			],
+			"successors": [79, 81],
+			"ir": [
+				"%19 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !958, !tbaa !607",
+				"%call7.i286 = tail call i32 @PyErr_ExceptionMatches(ptr noundef %19) #10, !dbg !961",
+				"%tobool.not.i287 = icmp eq i32 %call7.i286, 0, !dbg !961",
+				"br i1 %tobool.not.i287, label %lor.lhs.false.i, label %if.then13.i288, !dbg !962"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 79,
+			"name": "lor.lhs.false.i",
+			"debug": [
+				{
+					"line": 182, "columns": [36, 13, 58]
+				}
+			],
+			"successors": [80, 81],
+			"ir": [
+				"%20 = load ptr, ptr @PyExc_RecursionError, align 8, !dbg !963, !tbaa !607",
+				"%call8.i = tail call i32 @PyErr_ExceptionMatches(ptr noundef %20) #10, !dbg !964",
+				"%tobool9.not.i = icmp eq i32 %call8.i, 0, !dbg !964",
+				"br i1 %tobool9.not.i, label %lor.lhs.false10.i, label %if.then13.i288, !dbg !965"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 80,
+			"name": "lor.lhs.false10.i",
+			"debug": [
+				{
+					"line": 179, "columns": [13]
+				},
+				{
+					"line": 184, "columns": [36, 13]
+				}
+			],
+			"successors": [82, 81],
+			"ir": [
+				"%21 = load ptr, ptr @PyExc_UnicodeDecodeError, align 8, !dbg !966, !tbaa !607",
+				"%call11.i = tail call i32 @PyErr_ExceptionMatches(ptr noundef %21) #10, !dbg !967",
+				"%tobool12.not.i = icmp eq i32 %call11.i, 0, !dbg !967",
+				"br i1 %tobool12.not.i, label %if.end15.i, label %if.then13.i288, !dbg !968"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 81,
+			"name": "if.then13.i288",
+			"debug": [
+				{
+					"line": 186, "columns": [13]
+				},
+				{
+					"line": 187, "columns": [9]
+				}
+			],
+			"successors": [82],
+			"ir": [
+				"tail call void @PyErr_Clear() #10, !dbg !969",
+				"br label %if.end15.i, !dbg !971"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 82,
+			"name": "if.end15.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [83, 85],
+			"ir": [
+				"%op.val.i.i289 = load i64, ptr %call.i281, align 8, !dbg !974, !tbaa !632",
+				"%22 = and i64 %op.val.i.i289, 2147483648, !dbg !977",
+				"%cmp.i.not.i.i290 = icmp eq i64 %22, 0, !dbg !977",
+				"br i1 %cmp.i.not.i.i290, label %if.end.i.i293, label %Py_DECREF.exit.i295, !dbg !978"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 83,
+			"name": "if.end.i.i293",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [84, 85],
+			"ir": [
+				"%dec.i.i291 = add i64 %op.val.i.i289, -1, !dbg !979",
+				"store i64 %dec.i.i291, ptr %call.i281, align 8, !dbg !979, !tbaa !632",
+				"%cmp.i.i292 = icmp eq i64 %dec.i.i291, 0, !dbg !980",
+				"br i1 %cmp.i.i292, label %if.then1.i.i294, label %Py_DECREF.exit.i295, !dbg !981"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 84,
+			"name": "if.then1.i.i294",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [85],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i281) #10, !dbg !982",
+				"br label %Py_DECREF.exit.i295, !dbg !983"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 85,
+			"name": "Py_DECREF.exit.i295",
+			"debug": [
+				{
+					"line": 1037, "columns": [9]
+				}
+			],
+			"successors": [89, 86],
+			"ir": [
+				"br i1 %cmp5.i285, label %fuzz_json_loads.exit, label %if.then.i.i298, !dbg !986"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 86,
+			"name": "if.then.i.i298",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [87, 89],
+			"ir": [
+				"%op.val.i.i.i296 = load i64, ptr %call4.i284, align 8, !dbg !989, !tbaa !632",
+				"%23 = and i64 %op.val.i.i.i296, 2147483648, !dbg !992",
+				"%cmp.i.not.i.i.i297 = icmp eq i64 %23, 0, !dbg !992",
+				"br i1 %cmp.i.not.i.i.i297, label %if.end.i.i.i301, label %fuzz_json_loads.exit, !dbg !993"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 87,
+			"name": "if.end.i.i.i301",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [88, 89],
+			"ir": [
+				"%dec.i.i.i299 = add i64 %op.val.i.i.i296, -1, !dbg !994",
+				"store i64 %dec.i.i.i299, ptr %call4.i284, align 8, !dbg !994, !tbaa !632",
+				"%cmp.i.i.i300 = icmp eq i64 %dec.i.i.i299, 0, !dbg !995",
+				"br i1 %cmp.i.i.i300, label %if.then1.i.i.i302, label %fuzz_json_loads.exit, !dbg !996"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 88,
+			"name": "if.then1.i.i.i302",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [89],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call4.i284) #10, !dbg !997",
+				"br label %fuzz_json_loads.exit, !dbg !998"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 89,
+			"name": "fuzz_json_loads.exit",
+			"debug": [
+				{
+					"line": 571, "columns": [9]
+				}
+			],
+			"successors": [91, 90],
+			"ir": [
+				"%call1.i131 = tail call ptr @PyErr_Occurred() #10, !dbg !999",
+				"%tobool.not.i132 = icmp eq ptr %call1.i131, null, !dbg !999",
+				"br i1 %tobool.not.i132, label %_run_fuzz.exit135, label %if.then.i133, !dbg !1000"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 90,
+			"name": "if.then.i133",
+			"debug": [
+				{
+					"line": 574, "columns": [9]
+				},
+				{
+					"line": 575, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @PyErr_Print() #10, !dbg !1001",
+				"tail call void @abort() #11, !dbg !1002",
+				"unreachable, !dbg !1002"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 91,
+			"name": "_run_fuzz.exit135",
+			"debug": [
+				{
+					"line": 655, "columns": [10, 34]
+				}
+			],
+			"successors": [98, 92],
+			"ir": [
+				"%.b100 = load i1, ptr @LLVMFuzzerTestOneInput.SRE_COMPILE_INITIALIZED, align 4, !dbg !1003",
+				"br i1 %.b100, label %if.else23, label %land.lhs.true19, !dbg !1005"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 92,
+			"name": "land.lhs.true19",
+			"debug": [
+				{
+					"line": 202, "columns": [27]
+				},
+				{
+					"line": 203, "columns": [19, 9]
+				}
+			],
+			"successors": [97, 93],
+			"ir": [
+				"%call.i136 = tail call ptr @PyImport_ImportModule(ptr noundef nonnull @.str.5) #10, !dbg !1006",
+				"%cmp.i137 = icmp eq ptr %call.i136, null, !dbg !1013",
+				"br i1 %cmp.i137, label %if.then22, label %if.end.i140, !dbg !1015"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 93,
+			"name": "if.end.i140",
+			"debug": [
+				{
+					"line": 206, "columns": [25, 23]
+				},
+				{
+					"line": 207, "columns": [27, 9]
+				}
+			],
+			"successors": [97, 94],
+			"ir": [
+				"%call1.i138 = tail call ptr @PyObject_GetAttrString(ptr noundef nonnull %call.i136, ptr noundef nonnull @.str.6) #10, !dbg !1016",
+				"store ptr %call1.i138, ptr @re_compile_method, align 8, !dbg !1017, !tbaa !607",
+				"%cmp2.i139 = icmp eq ptr %call1.i138, null, !dbg !1018",
+				"br i1 %cmp2.i139, label %if.then22, label %if.end4.i143, !dbg !1020"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 94,
+			"name": "if.end4.i143",
+			"debug": [
+				{
+					"line": 211, "columns": [26, 24]
+				},
+				{
+					"line": 212, "columns": [28, 9]
+				}
+			],
+			"successors": [97, 95],
+			"ir": [
+				"%call5.i141 = tail call ptr @PyObject_GetAttrString(ptr noundef nonnull %call.i136, ptr noundef nonnull @.str.1) #10, !dbg !1021",
+				"store ptr %call5.i141, ptr @re_error_exception, align 8, !dbg !1022, !tbaa !607",
+				"%cmp6.i142 = icmp eq ptr %call5.i141, null, !dbg !1023",
+				"br i1 %cmp6.i142, label %if.then22, label %if.end8.i, !dbg !1025"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 95,
+			"name": "if.end8.i",
+			"debug": [
+				{
+					"line": 215, "columns": [28]
+				},
+				{
+					"line": 216, "columns": [20, 9]
+				}
+			],
+			"successors": [97, 96],
+			"ir": [
+				"%call9.i = tail call ptr @PyObject_GetAttrString(ptr noundef nonnull %call.i136, ptr noundef nonnull @.str.7) #10, !dbg !1026",
+				"%cmp10.i = icmp eq ptr %call9.i, null, !dbg !1027",
+				"br i1 %cmp10.i, label %if.then22, label %init_sre_compile.exit, !dbg !1029"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 96,
+			"name": "init_sre_compile.exit",
+			"debug": [
+				{
+					"line": 219, "columns": [21, 19]
+				},
+				{
+					"line": 655, "columns": [9]
+				}
+			],
+			"successors": [98],
+			"ir": [
+				"%call13.i = tail call i64 @PyLong_AsLong(ptr noundef nonnull %call9.i) #10, !dbg !1030",
+				"%conv.i144 = trunc i64 %call13.i to i32, !dbg !1030",
+				"store i32 %conv.i144, ptr @RE_FLAG_DEBUG, align 4, !dbg !1031, !tbaa !1032",
+				"br label %if.else23, !dbg !1034"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 97,
+			"name": "if.then22",
+			"debug": [
+				{
+					"line": 656, "columns": [9]
+				},
+				{
+					"line": 657, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @PyErr_Print() #10, !dbg !1035",
+				"tail call void @abort() #11, !dbg !1037",
+				"unreachable, !dbg !1037"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 98,
+			"name": "if.else23",
+			"debug": [
+				{
+					"line": 225, "columns": [9]
+				},
+				{
+					"line": 659, "columns": [33]
+				}
+			],
+			"successors": [123, 99],
+			"ir": [
+				"store i1 true, ptr @LLVMFuzzerTestOneInput.SRE_COMPILE_INITIALIZED, align 4, !dbg !1038",
+				"%24 = add i64 %size, -65537, !dbg !1054",
+				"%or.cond.i = icmp ult i64 %24, -65535, !dbg !1054",
+				"br i1 %or.cond.i, label %fuzz_sre_compile.exit, label %if.end3.i306, !dbg !1054"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 99,
+			"name": "if.end3.i306",
+			"debug": [
+				{
+					"line": 232, "columns": [22]
+				},
+				{
+					"line": 235, "columns": [15]
+				},
+				{
+					"line": 238, "columns": [62, 72, 31]
+				},
+				{
+					"line": 239, "columns": [23, 9]
+				}
+			],
+			"successors": [123, 100],
+			"ir": [
+				"%25 = load i16, ptr %data, align 2, !dbg !1055, !tbaa !1056",
+				"%26 = load i32, ptr @RE_FLAG_DEBUG, align 4, !dbg !1058, !tbaa !1032",
+				"%add.ptr.i303 = getelementptr i8, ptr %data, i64 2, !dbg !1059",
+				"%sub.i = add nsw i64 %size, -2, !dbg !1060",
+				"%call.i304 = tail call ptr @PyBytes_FromStringAndSize(ptr noundef %add.ptr.i303, i64 noundef %sub.i) #10, !dbg !1061",
+				"%cmp5.i305 = icmp eq ptr %call.i304, null, !dbg !1062",
+				"br i1 %cmp5.i305, label %fuzz_sre_compile.exit, label %if.end8.i309, !dbg !1064"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 100,
+			"name": "if.end8.i309",
+			"debug": [
+				{
+					"line": 235, "columns": [11]
+				},
+				{
+					"line": 242, "columns": [51, 27]
+				},
+				{
+					"line": 243, "columns": [19, 9]
+				}
+			],
+			"successors": [101, 103],
+			"ir": [
+				"%27 = trunc i32 %26 to i16, !dbg !1065",
+				"%28 = xor i16 %27, -1, !dbg !1065",
+				"%conv4.i = and i16 %25, %28, !dbg !1065",
+				"%conv9.i = zext i16 %conv4.i to i64, !dbg !1066",
+				"%call10.i307 = tail call ptr @PyLong_FromUnsignedLong(i64 noundef %conv9.i) #10, !dbg !1067",
+				"%cmp11.i308 = icmp eq ptr %call10.i307, null, !dbg !1068",
+				"br i1 %cmp11.i308, label %if.then13.i312, label %if.end14.i, !dbg !1070"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 101,
+			"name": "if.then13.i312",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [102, 123],
+			"ir": [
+				"%op.val.i.i310 = load i64, ptr %call.i304, align 8, !dbg !1074, !tbaa !632",
+				"%29 = and i64 %op.val.i.i310, 2147483648, !dbg !1077",
+				"%cmp.i.not.i.i311 = icmp eq i64 %29, 0, !dbg !1077",
+				"br i1 %cmp.i.not.i.i311, label %if.end.i.i315, label %fuzz_sre_compile.exit, !dbg !1078"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 102,
+			"name": "if.end.i.i315",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [122, 123],
+			"ir": [
+				"%dec.i.i313 = add i64 %op.val.i.i310, -1, !dbg !1079",
+				"store i64 %dec.i.i313, ptr %call.i304, align 8, !dbg !1079, !tbaa !632",
+				"%cmp.i.i314 = icmp eq i64 %dec.i.i313, 0, !dbg !1080",
+				"br i1 %cmp.i.i314, label %return.sink.split.i, label %fuzz_sre_compile.exit, !dbg !1081"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 103,
+			"name": "if.end14.i",
+			"debug": [
+				{
+					"line": 249, "columns": [26]
+				},
+				{
+					"line": 250, "columns": [9]
+				},
+				{
+					"line": 253, "columns": [18, 26]
+				}
+			],
+			"successors": [104, 113],
+			"ir": [
+				"%30 = load ptr, ptr @re_compile_method, align 8, !dbg !1082, !tbaa !607",
+				"%call15.i = tail call ptr (ptr, ...) @PyObject_CallFunctionObjArgs(ptr noundef %30, ptr noundef nonnull %call.i304, ptr noundef nonnull %call10.i307, ptr noundef null) #10, !dbg !1083",
+				"%cmp16.i = icmp eq ptr %call15.i, null, !dbg !1084",
+				"br i1 %cmp16.i, label %land.lhs.true.i317, label %if.end42.i, !dbg !1086"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 104,
+			"name": "land.lhs.true.i317",
+			"debug": [
+				{
+					"line": 253, "columns": [52, 29, 9]
+				}
+			],
+			"successors": [106, 105],
+			"ir": [
+				"%31 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !1087, !tbaa !607",
+				"%call18.i = tail call i32 @PyErr_ExceptionMatches(ptr noundef %31) #10, !dbg !1088",
+				"%tobool.not.i316 = icmp eq i32 %call18.i, 0, !dbg !1088",
+				"br i1 %tobool.not.i316, label %land.lhs.true23.i, label %if.then19.i318, !dbg !1089"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 105,
+			"name": "if.then19.i318",
+			"debug": [
+				{
+					"line": 254, "columns": [9]
+				},
+				{
+					"line": 255, "columns": [5]
+				}
+			],
+			"successors": [106],
+			"ir": [
+				"tail call void @PyErr_Clear() #10, !dbg !1090",
+				"br label %land.lhs.true23.i, !dbg !1092"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 106,
+			"name": "land.lhs.true23.i",
+			"debug": [
+				{
+					"line": 258, "columns": [53, 30, 74]
+				}
+			],
+			"successors": [107, 110],
+			"ir": [
+				"%32 = load ptr, ptr @PyExc_OverflowError, align 8, !dbg !1093, !tbaa !607",
+				"%call24.i319 = tail call i32 @PyErr_ExceptionMatches(ptr noundef %32) #10, !dbg !1095",
+				"%tobool25.not.i320 = icmp eq i32 %call24.i319, 0, !dbg !1095",
+				"br i1 %tobool25.not.i320, label %lor.lhs.false.i321, label %if.then34.i, !dbg !1096"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 107,
+			"name": "lor.lhs.false.i321",
+			"debug": [
+				{
+					"line": 259, "columns": [53, 30, 75]
+				}
+			],
+			"successors": [108, 110],
+			"ir": [
+				"%33 = load ptr, ptr @PyExc_AssertionError, align 8, !dbg !1097, !tbaa !607",
+				"%call26.i = tail call i32 @PyErr_ExceptionMatches(ptr noundef %33) #10, !dbg !1098",
+				"%tobool27.not.i = icmp eq i32 %call26.i, 0, !dbg !1098",
+				"br i1 %tobool27.not.i, label %lor.lhs.false28.i, label %if.then34.i, !dbg !1099"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 108,
+			"name": "lor.lhs.false28.i",
+			"debug": [
+				{
+					"line": 260, "columns": [53, 30, 75]
+				}
+			],
+			"successors": [109, 110],
+			"ir": [
+				"%34 = load ptr, ptr @PyExc_RecursionError, align 8, !dbg !1100, !tbaa !607",
+				"%call29.i = tail call i32 @PyErr_ExceptionMatches(ptr noundef %34) #10, !dbg !1101",
+				"%tobool30.not.i = icmp eq i32 %call29.i, 0, !dbg !1101",
+				"br i1 %tobool30.not.i, label %lor.lhs.false31.i, label %if.then34.i, !dbg !1102"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 109,
+			"name": "lor.lhs.false31.i",
+			"debug": [
+				{
+					"line": 258, "columns": [9]
+				},
+				{
+					"line": 261, "columns": [53, 30]
+				}
+			],
+			"successors": [111, 110],
+			"ir": [
+				"%35 = load ptr, ptr @PyExc_IndexError, align 8, !dbg !1103, !tbaa !607",
+				"%call32.i = tail call i32 @PyErr_ExceptionMatches(ptr noundef %35) #10, !dbg !1104",
+				"%tobool33.not.i = icmp eq i32 %call32.i, 0, !dbg !1104",
+				"br i1 %tobool33.not.i, label %land.lhs.true38.i, label %if.then34.i, !dbg !1105"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 110,
+			"name": "if.then34.i",
+			"debug": [
+				{
+					"line": 263, "columns": [9]
+				},
+				{
+					"line": 264, "columns": [5]
+				}
+			],
+			"successors": [111],
+			"ir": [
+				"tail call void @PyErr_Clear() #10, !dbg !1106",
+				"br label %land.lhs.true38.i, !dbg !1108"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 111,
+			"name": "land.lhs.true38.i",
+			"debug": [
+				{
+					"line": 266, "columns": [52, 29, 9]
+				}
+			],
+			"successors": [113, 112],
+			"ir": [
+				"%36 = load ptr, ptr @re_error_exception, align 8, !dbg !1109, !tbaa !607",
+				"%call39.i = tail call i32 @PyErr_ExceptionMatches(ptr noundef %36) #10, !dbg !1111",
+				"%tobool40.not.i = icmp eq i32 %call39.i, 0, !dbg !1111",
+				"br i1 %tobool40.not.i, label %if.end42.i, label %if.then41.i, !dbg !1112"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 112,
+			"name": "if.then41.i",
+			"debug": [
+				{
+					"line": 267, "columns": [9]
+				},
+				{
+					"line": 268, "columns": [5]
+				}
+			],
+			"successors": [113],
+			"ir": [
+				"tail call void @PyErr_Clear() #10, !dbg !1113",
+				"br label %if.end42.i, !dbg !1115"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 113,
+			"name": "if.end42.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [114, 116],
+			"ir": [
+				"%op.val.i57.i = load i64, ptr %call.i304, align 8, !dbg !1118, !tbaa !632",
+				"%37 = and i64 %op.val.i57.i, 2147483648, !dbg !1121",
+				"%cmp.i.not.i58.i = icmp eq i64 %37, 0, !dbg !1121",
+				"br i1 %cmp.i.not.i58.i, label %if.end.i61.i, label %Py_DECREF.exit63.i, !dbg !1122"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 114,
+			"name": "if.end.i61.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [115, 116],
+			"ir": [
+				"%dec.i59.i = add i64 %op.val.i57.i, -1, !dbg !1123",
+				"store i64 %dec.i59.i, ptr %call.i304, align 8, !dbg !1123, !tbaa !632",
+				"%cmp.i60.i = icmp eq i64 %dec.i59.i, 0, !dbg !1124",
+				"br i1 %cmp.i60.i, label %if.then1.i62.i, label %Py_DECREF.exit63.i, !dbg !1125"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 115,
+			"name": "if.then1.i62.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [116],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i304) #10, !dbg !1126",
+				"br label %Py_DECREF.exit63.i, !dbg !1127"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 116,
+			"name": "Py_DECREF.exit63.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [117, 119],
+			"ir": [
+				"%op.val.i64.i = load i64, ptr %call10.i307, align 8, !dbg !1130, !tbaa !632",
+				"%38 = and i64 %op.val.i64.i, 2147483648, !dbg !1133",
+				"%cmp.i.not.i65.i = icmp eq i64 %38, 0, !dbg !1133",
+				"br i1 %cmp.i.not.i65.i, label %if.end.i68.i, label %Py_DECREF.exit70.i, !dbg !1134"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 117,
+			"name": "if.end.i68.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [118, 119],
+			"ir": [
+				"%dec.i66.i = add i64 %op.val.i64.i, -1, !dbg !1135",
+				"store i64 %dec.i66.i, ptr %call10.i307, align 8, !dbg !1135, !tbaa !632",
+				"%cmp.i67.i = icmp eq i64 %dec.i66.i, 0, !dbg !1136",
+				"br i1 %cmp.i67.i, label %if.then1.i69.i, label %Py_DECREF.exit70.i, !dbg !1137"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 118,
+			"name": "if.then1.i69.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [119],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call10.i307) #10, !dbg !1138",
+				"br label %Py_DECREF.exit70.i, !dbg !1139"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 119,
+			"name": "Py_DECREF.exit70.i",
+			"debug": [
+				{
+					"line": 1037, "columns": [9]
+				}
+			],
+			"successors": [123, 120],
+			"ir": [
+				"br i1 %cmp16.i, label %fuzz_sre_compile.exit, label %if.then.i.i324, !dbg !1142"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 120,
+			"name": "if.then.i.i324",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [121, 123],
+			"ir": [
+				"%op.val.i.i.i322 = load i64, ptr %call15.i, align 8, !dbg !1145, !tbaa !632",
+				"%39 = and i64 %op.val.i.i.i322, 2147483648, !dbg !1148",
+				"%cmp.i.not.i.i.i323 = icmp eq i64 %39, 0, !dbg !1148",
+				"br i1 %cmp.i.not.i.i.i323, label %if.end.i.i.i327, label %fuzz_sre_compile.exit, !dbg !1149"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 121,
+			"name": "if.end.i.i.i327",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [122, 123],
+			"ir": [
+				"%dec.i.i.i325 = add i64 %op.val.i.i.i322, -1, !dbg !1150",
+				"store i64 %dec.i.i.i325, ptr %call15.i, align 8, !dbg !1150, !tbaa !632",
+				"%cmp.i.i.i326 = icmp eq i64 %dec.i.i.i325, 0, !dbg !1151",
+				"br i1 %cmp.i.i.i326, label %return.sink.split.i, label %fuzz_sre_compile.exit, !dbg !1152"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 122,
+			"name": "return.sink.split.i",
+			"debug": [
+				{
+					"line": 274, "columns": [1]
+				}
+			],
+			"successors": [123],
+			"ir": [
+				"%call15.sink.i = phi ptr [ %call.i304, %if.end.i.i315 ], [ %call15.i, %if.end.i.i.i327 ]",
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call15.sink.i) #10, !dbg !1052",
+				"br label %fuzz_sre_compile.exit, !dbg !1153"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 123,
+			"name": "fuzz_sre_compile.exit",
+			"debug": [
+				{
+					"line": 571, "columns": [9]
+				}
+			],
+			"successors": [125, 124],
+			"ir": [
+				"%call1.i146 = tail call ptr @PyErr_Occurred() #10, !dbg !1154",
+				"%tobool.not.i147 = icmp eq ptr %call1.i146, null, !dbg !1154",
+				"br i1 %tobool.not.i147, label %_run_fuzz.exit150, label %if.then.i148, !dbg !1155"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 124,
+			"name": "if.then.i148",
+			"debug": [
+				{
+					"line": 574, "columns": [9]
+				},
+				{
+					"line": 575, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @PyErr_Print() #10, !dbg !1156",
+				"tail call void @abort() #11, !dbg !1157",
+				"unreachable, !dbg !1157"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 125,
+			"name": "_run_fuzz.exit150",
+			"debug": [
+				{
+					"line": 668, "columns": [10, 32]
+				}
+			],
+			"successors": [155, 126],
+			"ir": [
+				"%.b101 = load i1, ptr @LLVMFuzzerTestOneInput.SRE_MATCH_INITIALIZED, align 4, !dbg !1158",
+				"br i1 %.b101, label %if.else35, label %land.lhs.true31, !dbg !1160"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 126,
+			"name": "land.lhs.true31",
+			"debug": [
+				{
+					"line": 289, "columns": [27]
+				},
+				{
+					"line": 290, "columns": [19, 9]
+				}
+			],
+			"successors": [154, 127],
+			"ir": [
+				"%call.i151 = tail call ptr @PyImport_ImportModule(ptr noundef nonnull @.str.5) #10, !dbg !1161",
+				"%cmp.i152 = icmp eq ptr %call.i151, null, !dbg !1172",
+				"br i1 %cmp.i152, label %if.then34, label %if.end.i155, !dbg !1174"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 127,
+			"name": "if.end.i155",
+			"debug": [
+				{
+					"line": 293, "columns": [38, 23]
+				},
+				{
+					"line": 295, "columns": [27, 9]
+				}
+			],
+			"successors": [129, 128],
+			"ir": [
+				"%call1.i153 = tail call ptr @PyMem_RawMalloc(i64 noundef 192) #10, !dbg !1175",
+				"store ptr %call1.i153, ptr @compiled_patterns, align 8, !dbg !1176, !tbaa !607",
+				"%cmp2.i154 = icmp eq ptr %call1.i153, null, !dbg !1177",
+				"br i1 %cmp2.i154, label %if.then3.i, label %for.body.i.preheader, !dbg !1179"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 128,
+			"name": "for.body.i.preheader",
+			"debug": [
+				{
+					"line": 302, "columns": [30]
+				},
+				{
+					"line": 305, "columns": [22, 13]
+				}
+			],
+			"successors": [154, 153],
+			"ir": [
+				"%call7.i475 = tail call ptr (ptr, ptr, ptr, ...) @PyObject_CallMethod(ptr noundef nonnull %call.i151, ptr noundef nonnull @.str.6, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.9) #10, !dbg !1181",
+				"%cmp8.not.i476 = icmp eq ptr %call7.i475, null, !dbg !1183",
+				"br i1 %cmp8.not.i476, label %if.then34, label %if.end10.i, !dbg !1185"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 129,
+			"name": "if.then3.i",
+			"debug": [
+				{
+					"line": 296, "columns": [9]
+				},
+				{
+					"line": 297, "columns": [9]
+				}
+			],
+			"successors": [154],
+			"ir": [
+				"%call4.i = tail call ptr @PyErr_NoMemory() #10, !dbg !1186",
+				"br label %if.then34, !dbg !1188"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 130,
+			"name": "if.end10.i.1",
+			"debug": [
+				{
+					"line": 302, "columns": [30]
+				},
+				{
+					"line": 305, "columns": [22, 13]
+				},
+				{
+					"line": 308, "columns": [9, 30]
+				}
+			],
+			"successors": [154, 131],
+			"ir": [
+				"%40 = load ptr, ptr @compiled_patterns, align 8, !dbg !1189, !tbaa !607",
+				"%arrayidx11.i.1 = getelementptr ptr, ptr %40, i64 1, !dbg !1189",
+				"store ptr %call7.i, ptr %arrayidx11.i.1, align 8, !dbg !1190, !tbaa !607",
+				"%call7.i.1 = tail call ptr (ptr, ptr, ptr, ...) @PyObject_CallMethod(ptr noundef nonnull %call.i151, ptr noundef nonnull @.str.6, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.11) #10, !dbg !1181",
+				"%cmp8.not.i.1 = icmp eq ptr %call7.i.1, null, !dbg !1183",
+				"br i1 %cmp8.not.i.1, label %if.then34, label %if.end10.i.2, !dbg !1185, !llvm.loop !1191"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 131,
+			"name": "if.end10.i.2",
+			"debug": [
+				{
+					"line": 302, "columns": [30]
+				},
+				{
+					"line": 305, "columns": [22, 13]
+				},
+				{
+					"line": 308, "columns": [9, 30]
+				}
+			],
+			"successors": [154, 132],
+			"ir": [
+				"%41 = load ptr, ptr @compiled_patterns, align 8, !dbg !1189, !tbaa !607",
+				"%arrayidx11.i.2 = getelementptr ptr, ptr %41, i64 2, !dbg !1189",
+				"store ptr %call7.i.1, ptr %arrayidx11.i.2, align 8, !dbg !1190, !tbaa !607",
+				"%call7.i.2 = tail call ptr (ptr, ptr, ptr, ...) @PyObject_CallMethod(ptr noundef nonnull %call.i151, ptr noundef nonnull @.str.6, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.12) #10, !dbg !1181",
+				"%cmp8.not.i.2 = icmp eq ptr %call7.i.2, null, !dbg !1183",
+				"br i1 %cmp8.not.i.2, label %if.then34, label %if.end10.i.3, !dbg !1185, !llvm.loop !1191"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 132,
+			"name": "if.end10.i.3",
+			"debug": [
+				{
+					"line": 302, "columns": [30]
+				},
+				{
+					"line": 305, "columns": [22, 13]
+				},
+				{
+					"line": 308, "columns": [9, 30]
+				}
+			],
+			"successors": [154, 133],
+			"ir": [
+				"%42 = load ptr, ptr @compiled_patterns, align 8, !dbg !1189, !tbaa !607",
+				"%arrayidx11.i.3 = getelementptr ptr, ptr %42, i64 3, !dbg !1189",
+				"store ptr %call7.i.2, ptr %arrayidx11.i.3, align 8, !dbg !1190, !tbaa !607",
+				"%call7.i.3 = tail call ptr (ptr, ptr, ptr, ...) @PyObject_CallMethod(ptr noundef nonnull %call.i151, ptr noundef nonnull @.str.6, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.13) #10, !dbg !1181",
+				"%cmp8.not.i.3 = icmp eq ptr %call7.i.3, null, !dbg !1183",
+				"br i1 %cmp8.not.i.3, label %if.then34, label %if.end10.i.4, !dbg !1185, !llvm.loop !1191"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 133,
+			"name": "if.end10.i.4",
+			"debug": [
+				{
+					"line": 302, "columns": [30]
+				},
+				{
+					"line": 305, "columns": [22, 13]
+				},
+				{
+					"line": 308, "columns": [9, 30]
+				}
+			],
+			"successors": [154, 134],
+			"ir": [
+				"%43 = load ptr, ptr @compiled_patterns, align 8, !dbg !1189, !tbaa !607",
+				"%arrayidx11.i.4 = getelementptr ptr, ptr %43, i64 4, !dbg !1189",
+				"store ptr %call7.i.3, ptr %arrayidx11.i.4, align 8, !dbg !1190, !tbaa !607",
+				"%call7.i.4 = tail call ptr (ptr, ptr, ptr, ...) @PyObject_CallMethod(ptr noundef nonnull %call.i151, ptr noundef nonnull @.str.6, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.14) #10, !dbg !1181",
+				"%cmp8.not.i.4 = icmp eq ptr %call7.i.4, null, !dbg !1183",
+				"br i1 %cmp8.not.i.4, label %if.then34, label %if.end10.i.5, !dbg !1185, !llvm.loop !1191"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 134,
+			"name": "if.end10.i.5",
+			"debug": [
+				{
+					"line": 302, "columns": [30]
+				},
+				{
+					"line": 305, "columns": [22, 13]
+				},
+				{
+					"line": 308, "columns": [9, 30]
+				}
+			],
+			"successors": [154, 135],
+			"ir": [
+				"%44 = load ptr, ptr @compiled_patterns, align 8, !dbg !1189, !tbaa !607",
+				"%arrayidx11.i.5 = getelementptr ptr, ptr %44, i64 5, !dbg !1189",
+				"store ptr %call7.i.4, ptr %arrayidx11.i.5, align 8, !dbg !1190, !tbaa !607",
+				"%call7.i.5 = tail call ptr (ptr, ptr, ptr, ...) @PyObject_CallMethod(ptr noundef nonnull %call.i151, ptr noundef nonnull @.str.6, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.15) #10, !dbg !1181",
+				"%cmp8.not.i.5 = icmp eq ptr %call7.i.5, null, !dbg !1183",
+				"br i1 %cmp8.not.i.5, label %if.then34, label %if.end10.i.6, !dbg !1185, !llvm.loop !1191"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 135,
+			"name": "if.end10.i.6",
+			"debug": [
+				{
+					"line": 302, "columns": [30]
+				},
+				{
+					"line": 305, "columns": [22, 13]
+				},
+				{
+					"line": 308, "columns": [9, 30]
+				}
+			],
+			"successors": [154, 136],
+			"ir": [
+				"%45 = load ptr, ptr @compiled_patterns, align 8, !dbg !1189, !tbaa !607",
+				"%arrayidx11.i.6 = getelementptr ptr, ptr %45, i64 6, !dbg !1189",
+				"store ptr %call7.i.5, ptr %arrayidx11.i.6, align 8, !dbg !1190, !tbaa !607",
+				"%call7.i.6 = tail call ptr (ptr, ptr, ptr, ...) @PyObject_CallMethod(ptr noundef nonnull %call.i151, ptr noundef nonnull @.str.6, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.16) #10, !dbg !1181",
+				"%cmp8.not.i.6 = icmp eq ptr %call7.i.6, null, !dbg !1183",
+				"br i1 %cmp8.not.i.6, label %if.then34, label %if.end10.i.7, !dbg !1185, !llvm.loop !1191"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 136,
+			"name": "if.end10.i.7",
+			"debug": [
+				{
+					"line": 302, "columns": [30]
+				},
+				{
+					"line": 305, "columns": [22, 13]
+				},
+				{
+					"line": 308, "columns": [9, 30]
+				}
+			],
+			"successors": [154, 137],
+			"ir": [
+				"%46 = load ptr, ptr @compiled_patterns, align 8, !dbg !1189, !tbaa !607",
+				"%arrayidx11.i.7 = getelementptr ptr, ptr %46, i64 7, !dbg !1189",
+				"store ptr %call7.i.6, ptr %arrayidx11.i.7, align 8, !dbg !1190, !tbaa !607",
+				"%call7.i.7 = tail call ptr (ptr, ptr, ptr, ...) @PyObject_CallMethod(ptr noundef nonnull %call.i151, ptr noundef nonnull @.str.6, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.17) #10, !dbg !1181",
+				"%cmp8.not.i.7 = icmp eq ptr %call7.i.7, null, !dbg !1183",
+				"br i1 %cmp8.not.i.7, label %if.then34, label %if.end10.i.8, !dbg !1185, !llvm.loop !1191"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 137,
+			"name": "if.end10.i.8",
+			"debug": [
+				{
+					"line": 302, "columns": [30]
+				},
+				{
+					"line": 305, "columns": [22, 13]
+				},
+				{
+					"line": 308, "columns": [9, 30]
+				}
+			],
+			"successors": [154, 138],
+			"ir": [
+				"%47 = load ptr, ptr @compiled_patterns, align 8, !dbg !1189, !tbaa !607",
+				"%arrayidx11.i.8 = getelementptr ptr, ptr %47, i64 8, !dbg !1189",
+				"store ptr %call7.i.7, ptr %arrayidx11.i.8, align 8, !dbg !1190, !tbaa !607",
+				"%call7.i.8 = tail call ptr (ptr, ptr, ptr, ...) @PyObject_CallMethod(ptr noundef nonnull %call.i151, ptr noundef nonnull @.str.6, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.18) #10, !dbg !1181",
+				"%cmp8.not.i.8 = icmp eq ptr %call7.i.8, null, !dbg !1183",
+				"br i1 %cmp8.not.i.8, label %if.then34, label %if.end10.i.9, !dbg !1185, !llvm.loop !1191"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 138,
+			"name": "if.end10.i.9",
+			"debug": [
+				{
+					"line": 302, "columns": [30]
+				},
+				{
+					"line": 305, "columns": [22, 13]
+				},
+				{
+					"line": 308, "columns": [9, 30]
+				}
+			],
+			"successors": [154, 139],
+			"ir": [
+				"%48 = load ptr, ptr @compiled_patterns, align 8, !dbg !1189, !tbaa !607",
+				"%arrayidx11.i.9 = getelementptr ptr, ptr %48, i64 9, !dbg !1189",
+				"store ptr %call7.i.8, ptr %arrayidx11.i.9, align 8, !dbg !1190, !tbaa !607",
+				"%call7.i.9 = tail call ptr (ptr, ptr, ptr, ...) @PyObject_CallMethod(ptr noundef nonnull %call.i151, ptr noundef nonnull @.str.6, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.19) #10, !dbg !1181",
+				"%cmp8.not.i.9 = icmp eq ptr %call7.i.9, null, !dbg !1183",
+				"br i1 %cmp8.not.i.9, label %if.then34, label %if.end10.i.10, !dbg !1185, !llvm.loop !1191"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 139,
+			"name": "if.end10.i.10",
+			"debug": [
+				{
+					"line": 302, "columns": [30]
+				},
+				{
+					"line": 305, "columns": [22, 13]
+				},
+				{
+					"line": 308, "columns": [9, 30]
+				}
+			],
+			"successors": [154, 140],
+			"ir": [
+				"%49 = load ptr, ptr @compiled_patterns, align 8, !dbg !1189, !tbaa !607",
+				"%arrayidx11.i.10 = getelementptr ptr, ptr %49, i64 10, !dbg !1189",
+				"store ptr %call7.i.9, ptr %arrayidx11.i.10, align 8, !dbg !1190, !tbaa !607",
+				"%call7.i.10 = tail call ptr (ptr, ptr, ptr, ...) @PyObject_CallMethod(ptr noundef nonnull %call.i151, ptr noundef nonnull @.str.6, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.20) #10, !dbg !1181",
+				"%cmp8.not.i.10 = icmp eq ptr %call7.i.10, null, !dbg !1183",
+				"br i1 %cmp8.not.i.10, label %if.then34, label %if.end10.i.11, !dbg !1185, !llvm.loop !1191"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 140,
+			"name": "if.end10.i.11",
+			"debug": [
+				{
+					"line": 302, "columns": [30]
+				},
+				{
+					"line": 305, "columns": [22, 13]
+				},
+				{
+					"line": 308, "columns": [9, 30]
+				}
+			],
+			"successors": [154, 141],
+			"ir": [
+				"%50 = load ptr, ptr @compiled_patterns, align 8, !dbg !1189, !tbaa !607",
+				"%arrayidx11.i.11 = getelementptr ptr, ptr %50, i64 11, !dbg !1189",
+				"store ptr %call7.i.10, ptr %arrayidx11.i.11, align 8, !dbg !1190, !tbaa !607",
+				"%call7.i.11 = tail call ptr (ptr, ptr, ptr, ...) @PyObject_CallMethod(ptr noundef nonnull %call.i151, ptr noundef nonnull @.str.6, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.21) #10, !dbg !1181",
+				"%cmp8.not.i.11 = icmp eq ptr %call7.i.11, null, !dbg !1183",
+				"br i1 %cmp8.not.i.11, label %if.then34, label %if.end10.i.12, !dbg !1185, !llvm.loop !1191"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 141,
+			"name": "if.end10.i.12",
+			"debug": [
+				{
+					"line": 302, "columns": [30]
+				},
+				{
+					"line": 305, "columns": [22, 13]
+				},
+				{
+					"line": 308, "columns": [9, 30]
+				}
+			],
+			"successors": [154, 142],
+			"ir": [
+				"%51 = load ptr, ptr @compiled_patterns, align 8, !dbg !1189, !tbaa !607",
+				"%arrayidx11.i.12 = getelementptr ptr, ptr %51, i64 12, !dbg !1189",
+				"store ptr %call7.i.11, ptr %arrayidx11.i.12, align 8, !dbg !1190, !tbaa !607",
+				"%call7.i.12 = tail call ptr (ptr, ptr, ptr, ...) @PyObject_CallMethod(ptr noundef nonnull %call.i151, ptr noundef nonnull @.str.6, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.22) #10, !dbg !1181",
+				"%cmp8.not.i.12 = icmp eq ptr %call7.i.12, null, !dbg !1183",
+				"br i1 %cmp8.not.i.12, label %if.then34, label %if.end10.i.13, !dbg !1185, !llvm.loop !1191"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 142,
+			"name": "if.end10.i.13",
+			"debug": [
+				{
+					"line": 302, "columns": [30]
+				},
+				{
+					"line": 305, "columns": [22, 13]
+				},
+				{
+					"line": 308, "columns": [9, 30]
+				}
+			],
+			"successors": [154, 143],
+			"ir": [
+				"%52 = load ptr, ptr @compiled_patterns, align 8, !dbg !1189, !tbaa !607",
+				"%arrayidx11.i.13 = getelementptr ptr, ptr %52, i64 13, !dbg !1189",
+				"store ptr %call7.i.12, ptr %arrayidx11.i.13, align 8, !dbg !1190, !tbaa !607",
+				"%call7.i.13 = tail call ptr (ptr, ptr, ptr, ...) @PyObject_CallMethod(ptr noundef nonnull %call.i151, ptr noundef nonnull @.str.6, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.23) #10, !dbg !1181",
+				"%cmp8.not.i.13 = icmp eq ptr %call7.i.13, null, !dbg !1183",
+				"br i1 %cmp8.not.i.13, label %if.then34, label %if.end10.i.14, !dbg !1185, !llvm.loop !1191"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 143,
+			"name": "if.end10.i.14",
+			"debug": [
+				{
+					"line": 302, "columns": [30]
+				},
+				{
+					"line": 305, "columns": [22, 13]
+				},
+				{
+					"line": 308, "columns": [9, 30]
+				}
+			],
+			"successors": [154, 144],
+			"ir": [
+				"%53 = load ptr, ptr @compiled_patterns, align 8, !dbg !1189, !tbaa !607",
+				"%arrayidx11.i.14 = getelementptr ptr, ptr %53, i64 14, !dbg !1189",
+				"store ptr %call7.i.13, ptr %arrayidx11.i.14, align 8, !dbg !1190, !tbaa !607",
+				"%call7.i.14 = tail call ptr (ptr, ptr, ptr, ...) @PyObject_CallMethod(ptr noundef nonnull %call.i151, ptr noundef nonnull @.str.6, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.24) #10, !dbg !1181",
+				"%cmp8.not.i.14 = icmp eq ptr %call7.i.14, null, !dbg !1183",
+				"br i1 %cmp8.not.i.14, label %if.then34, label %if.end10.i.15, !dbg !1185, !llvm.loop !1191"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 144,
+			"name": "if.end10.i.15",
+			"debug": [
+				{
+					"line": 302, "columns": [30]
+				},
+				{
+					"line": 305, "columns": [22, 13]
+				},
+				{
+					"line": 308, "columns": [9, 30]
+				}
+			],
+			"successors": [154, 145],
+			"ir": [
+				"%54 = load ptr, ptr @compiled_patterns, align 8, !dbg !1189, !tbaa !607",
+				"%arrayidx11.i.15 = getelementptr ptr, ptr %54, i64 15, !dbg !1189",
+				"store ptr %call7.i.14, ptr %arrayidx11.i.15, align 8, !dbg !1190, !tbaa !607",
+				"%call7.i.15 = tail call ptr (ptr, ptr, ptr, ...) @PyObject_CallMethod(ptr noundef nonnull %call.i151, ptr noundef nonnull @.str.6, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.25) #10, !dbg !1181",
+				"%cmp8.not.i.15 = icmp eq ptr %call7.i.15, null, !dbg !1183",
+				"br i1 %cmp8.not.i.15, label %if.then34, label %if.end10.i.16, !dbg !1185, !llvm.loop !1191"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 145,
+			"name": "if.end10.i.16",
+			"debug": [
+				{
+					"line": 302, "columns": [30]
+				},
+				{
+					"line": 305, "columns": [22, 13]
+				},
+				{
+					"line": 308, "columns": [9, 30]
+				}
+			],
+			"successors": [154, 146],
+			"ir": [
+				"%55 = load ptr, ptr @compiled_patterns, align 8, !dbg !1189, !tbaa !607",
+				"%arrayidx11.i.16 = getelementptr ptr, ptr %55, i64 16, !dbg !1189",
+				"store ptr %call7.i.15, ptr %arrayidx11.i.16, align 8, !dbg !1190, !tbaa !607",
+				"%call7.i.16 = tail call ptr (ptr, ptr, ptr, ...) @PyObject_CallMethod(ptr noundef nonnull %call.i151, ptr noundef nonnull @.str.6, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.26) #10, !dbg !1181",
+				"%cmp8.not.i.16 = icmp eq ptr %call7.i.16, null, !dbg !1183",
+				"br i1 %cmp8.not.i.16, label %if.then34, label %if.end10.i.17, !dbg !1185, !llvm.loop !1191"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 146,
+			"name": "if.end10.i.17",
+			"debug": [
+				{
+					"line": 302, "columns": [30]
+				},
+				{
+					"line": 305, "columns": [22, 13]
+				},
+				{
+					"line": 308, "columns": [9, 30]
+				}
+			],
+			"successors": [154, 147],
+			"ir": [
+				"%56 = load ptr, ptr @compiled_patterns, align 8, !dbg !1189, !tbaa !607",
+				"%arrayidx11.i.17 = getelementptr ptr, ptr %56, i64 17, !dbg !1189",
+				"store ptr %call7.i.16, ptr %arrayidx11.i.17, align 8, !dbg !1190, !tbaa !607",
+				"%call7.i.17 = tail call ptr (ptr, ptr, ptr, ...) @PyObject_CallMethod(ptr noundef nonnull %call.i151, ptr noundef nonnull @.str.6, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.27) #10, !dbg !1181",
+				"%cmp8.not.i.17 = icmp eq ptr %call7.i.17, null, !dbg !1183",
+				"br i1 %cmp8.not.i.17, label %if.then34, label %if.end10.i.18, !dbg !1185, !llvm.loop !1191"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 147,
+			"name": "if.end10.i.18",
+			"debug": [
+				{
+					"line": 302, "columns": [30]
+				},
+				{
+					"line": 305, "columns": [22, 13]
+				},
+				{
+					"line": 308, "columns": [9, 30]
+				}
+			],
+			"successors": [154, 148],
+			"ir": [
+				"%57 = load ptr, ptr @compiled_patterns, align 8, !dbg !1189, !tbaa !607",
+				"%arrayidx11.i.18 = getelementptr ptr, ptr %57, i64 18, !dbg !1189",
+				"store ptr %call7.i.17, ptr %arrayidx11.i.18, align 8, !dbg !1190, !tbaa !607",
+				"%call7.i.18 = tail call ptr (ptr, ptr, ptr, ...) @PyObject_CallMethod(ptr noundef nonnull %call.i151, ptr noundef nonnull @.str.6, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.28) #10, !dbg !1181",
+				"%cmp8.not.i.18 = icmp eq ptr %call7.i.18, null, !dbg !1183",
+				"br i1 %cmp8.not.i.18, label %if.then34, label %if.end10.i.19, !dbg !1185, !llvm.loop !1191"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 148,
+			"name": "if.end10.i.19",
+			"debug": [
+				{
+					"line": 302, "columns": [30]
+				},
+				{
+					"line": 305, "columns": [22, 13]
+				},
+				{
+					"line": 308, "columns": [9, 30]
+				}
+			],
+			"successors": [154, 149],
+			"ir": [
+				"%58 = load ptr, ptr @compiled_patterns, align 8, !dbg !1189, !tbaa !607",
+				"%arrayidx11.i.19 = getelementptr ptr, ptr %58, i64 19, !dbg !1189",
+				"store ptr %call7.i.18, ptr %arrayidx11.i.19, align 8, !dbg !1190, !tbaa !607",
+				"%call7.i.19 = tail call ptr (ptr, ptr, ptr, ...) @PyObject_CallMethod(ptr noundef nonnull %call.i151, ptr noundef nonnull @.str.6, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.29) #10, !dbg !1181",
+				"%cmp8.not.i.19 = icmp eq ptr %call7.i.19, null, !dbg !1183",
+				"br i1 %cmp8.not.i.19, label %if.then34, label %if.end10.i.20, !dbg !1185, !llvm.loop !1191"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 149,
+			"name": "if.end10.i.20",
+			"debug": [
+				{
+					"line": 302, "columns": [30]
+				},
+				{
+					"line": 305, "columns": [22, 13]
+				},
+				{
+					"line": 308, "columns": [9, 30]
+				}
+			],
+			"successors": [154, 150],
+			"ir": [
+				"%59 = load ptr, ptr @compiled_patterns, align 8, !dbg !1189, !tbaa !607",
+				"%arrayidx11.i.20 = getelementptr ptr, ptr %59, i64 20, !dbg !1189",
+				"store ptr %call7.i.19, ptr %arrayidx11.i.20, align 8, !dbg !1190, !tbaa !607",
+				"%call7.i.20 = tail call ptr (ptr, ptr, ptr, ...) @PyObject_CallMethod(ptr noundef nonnull %call.i151, ptr noundef nonnull @.str.6, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.30) #10, !dbg !1181",
+				"%cmp8.not.i.20 = icmp eq ptr %call7.i.20, null, !dbg !1183",
+				"br i1 %cmp8.not.i.20, label %if.then34, label %if.end10.i.21, !dbg !1185, !llvm.loop !1191"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 150,
+			"name": "if.end10.i.21",
+			"debug": [
+				{
+					"line": 302, "columns": [30]
+				},
+				{
+					"line": 305, "columns": [22, 13]
+				},
+				{
+					"line": 308, "columns": [9, 30]
+				}
+			],
+			"successors": [154, 151],
+			"ir": [
+				"%60 = load ptr, ptr @compiled_patterns, align 8, !dbg !1189, !tbaa !607",
+				"%arrayidx11.i.21 = getelementptr ptr, ptr %60, i64 21, !dbg !1189",
+				"store ptr %call7.i.20, ptr %arrayidx11.i.21, align 8, !dbg !1190, !tbaa !607",
+				"%call7.i.21 = tail call ptr (ptr, ptr, ptr, ...) @PyObject_CallMethod(ptr noundef nonnull %call.i151, ptr noundef nonnull @.str.6, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.31) #10, !dbg !1181",
+				"%cmp8.not.i.21 = icmp eq ptr %call7.i.21, null, !dbg !1183",
+				"br i1 %cmp8.not.i.21, label %if.then34, label %if.end10.i.22, !dbg !1185, !llvm.loop !1191"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 151,
+			"name": "if.end10.i.22",
+			"debug": [
+				{
+					"line": 302, "columns": [30]
+				},
+				{
+					"line": 305, "columns": [22, 13]
+				},
+				{
+					"line": 308, "columns": [9, 30]
+				}
+			],
+			"successors": [154, 152],
+			"ir": [
+				"%61 = load ptr, ptr @compiled_patterns, align 8, !dbg !1189, !tbaa !607",
+				"%arrayidx11.i.22 = getelementptr ptr, ptr %61, i64 22, !dbg !1189",
+				"store ptr %call7.i.21, ptr %arrayidx11.i.22, align 8, !dbg !1190, !tbaa !607",
+				"%call7.i.22 = tail call ptr (ptr, ptr, ptr, ...) @PyObject_CallMethod(ptr noundef nonnull %call.i151, ptr noundef nonnull @.str.6, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.32) #10, !dbg !1181",
+				"%cmp8.not.i.22 = icmp eq ptr %call7.i.22, null, !dbg !1183",
+				"br i1 %cmp8.not.i.22, label %if.then34, label %if.end10.i.23, !dbg !1185, !llvm.loop !1191"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 152,
+			"name": "if.end10.i.23",
+			"debug": [
+				{
+					"line": 308, "columns": [9, 30]
+				},
+				{
+					"line": 672, "columns": [31]
+				}
+			],
+			"successors": [155],
+			"ir": [
+				"%62 = load ptr, ptr @compiled_patterns, align 8, !dbg !1189, !tbaa !607",
+				"%arrayidx11.i.23 = getelementptr ptr, ptr %62, i64 23, !dbg !1189",
+				"store ptr %call7.i.22, ptr %arrayidx11.i.23, align 8, !dbg !1190, !tbaa !607",
+				"br label %if.else35, !dbg !1195"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 153,
+			"name": "if.end10.i",
+			"debug": [
+				{
+					"line": 302, "columns": [30]
+				},
+				{
+					"line": 305, "columns": [22, 13]
+				},
+				{
+					"line": 308, "columns": [9, 30]
+				}
+			],
+			"successors": [154, 130],
+			"ir": [
+				"%63 = load ptr, ptr @compiled_patterns, align 8, !dbg !1189, !tbaa !607",
+				"store ptr %call7.i475, ptr %63, align 8, !dbg !1190, !tbaa !607",
+				"%call7.i = tail call ptr (ptr, ptr, ptr, ...) @PyObject_CallMethod(ptr noundef nonnull %call.i151, ptr noundef nonnull @.str.6, ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.10) #10, !dbg !1181",
+				"%cmp8.not.i = icmp eq ptr %call7.i, null, !dbg !1183",
+				"br i1 %cmp8.not.i, label %if.then34, label %if.end10.i.1, !dbg !1185, !llvm.loop !1191"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 154,
+			"name": "if.then34",
+			"debug": [
+				{
+					"line": 669, "columns": [9]
+				},
+				{
+					"line": 670, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @PyErr_Print() #10, !dbg !1197",
+				"tail call void @abort() #11, !dbg !1199",
+				"unreachable, !dbg !1199"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 155,
+			"name": "if.else35",
+			"debug": [
+				{
+					"line": 314, "columns": [18]
+				},
+				{
+					"line": 672, "columns": [31]
+				}
+			],
+			"successors": [167, 156],
+			"ir": [
+				"store i1 true, ptr @LLVMFuzzerTestOneInput.SRE_MATCH_INITIALIZED, align 4, !dbg !1195",
+				"%or.cond.i328 = icmp ult i64 %24, -65536, !dbg !1213",
+				"br i1 %or.cond.i328, label %fuzz_sre_match.exit, label %if.end.i333, !dbg !1213"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 156,
+			"name": "if.end.i333",
+			"debug": [
+				{
+					"line": 319, "columns": [41]
+				},
+				{
+					"line": 323, "columns": [57, 67, 26]
+				},
+				{
+					"line": 324, "columns": [18, 9]
+				}
+			],
+			"successors": [167, 157],
+			"ir": [
+				"%64 = load i8, ptr %data, align 1, !dbg !1215, !tbaa !632",
+				"%add.ptr.i329 = getelementptr i8, ptr %data, i64 1, !dbg !1216",
+				"%sub.i330 = add nsw i64 %size, -1, !dbg !1217",
+				"%call.i331 = tail call ptr @PyBytes_FromStringAndSize(ptr noundef %add.ptr.i329, i64 noundef %sub.i330) #10, !dbg !1218",
+				"%cmp3.i332 = icmp eq ptr %call.i331, null, !dbg !1219",
+				"br i1 %cmp3.i332, label %fuzz_sre_match.exit, label %if.end6.i337, !dbg !1221"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 157,
+			"name": "if.end6.i337",
+			"debug": [
+				{
+					"line": 320, "columns": [15]
+				},
+				{
+					"line": 328, "columns": [25]
+				},
+				{
+					"line": 329, "columns": [32]
+				},
+				{
+					"line": 331, "columns": [25]
+				},
+				{
+					"line": 1037, "columns": [12, 9]
+				}
+			],
+			"successors": [161, 158],
+			"ir": [
+				"%65 = urem i8 %64, 24, !dbg !1222",
+				"%66 = load ptr, ptr @compiled_patterns, align 8, !dbg !1223, !tbaa !607",
+				"%idxprom.i = zext i8 %65 to i64, !dbg !1223",
+				"%arrayidx7.i = getelementptr ptr, ptr %66, i64 %idxprom.i, !dbg !1223",
+				"%67 = load ptr, ptr %arrayidx7.i, align 8, !dbg !1223, !tbaa !607",
+				"%call8.i334 = tail call ptr @PyObject_GetAttrString(ptr noundef %67, ptr noundef nonnull @.str.33) #10, !dbg !1224",
+				"%call9.i335 = tail call ptr @PyObject_CallOneArg(ptr noundef %call8.i334, ptr noundef nonnull %call.i331) #10, !dbg !1225",
+				"%cmp.not.i.i336 = icmp eq ptr %call9.i335, null, !dbg !1228",
+				"br i1 %cmp.not.i.i336, label %Py_XDECREF.exit.i347, label %if.then.i.i340, !dbg !1229"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 158,
+			"name": "if.then.i.i340",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [159, 161],
+			"ir": [
+				"%op.val.i.i.i338 = load i64, ptr %call9.i335, align 8, !dbg !1232, !tbaa !632",
+				"%68 = and i64 %op.val.i.i.i338, 2147483648, !dbg !1235",
+				"%cmp.i.not.i.i.i339 = icmp eq i64 %68, 0, !dbg !1235",
+				"br i1 %cmp.i.not.i.i.i339, label %if.end.i.i.i343, label %Py_XDECREF.exit.i347, !dbg !1236"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 159,
+			"name": "if.end.i.i.i343",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [160, 161],
+			"ir": [
+				"%dec.i.i.i341 = add i64 %op.val.i.i.i338, -1, !dbg !1237",
+				"store i64 %dec.i.i.i341, ptr %call9.i335, align 8, !dbg !1237, !tbaa !632",
+				"%cmp.i.i.i342 = icmp eq i64 %dec.i.i.i341, 0, !dbg !1238",
+				"br i1 %cmp.i.i.i342, label %if.then1.i.i.i344, label %Py_XDECREF.exit.i347, !dbg !1239"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 160,
+			"name": "if.then1.i.i.i344",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [161],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call9.i335) #10, !dbg !1240",
+				"br label %Py_XDECREF.exit.i347, !dbg !1241"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 161,
+			"name": "Py_XDECREF.exit.i347",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [162, 164],
+			"ir": [
+				"%op.val.i.i345 = load i64, ptr %call8.i334, align 8, !dbg !1244, !tbaa !632",
+				"%69 = and i64 %op.val.i.i345, 2147483648, !dbg !1247",
+				"%cmp.i.not.i.i346 = icmp eq i64 %69, 0, !dbg !1247",
+				"br i1 %cmp.i.not.i.i346, label %if.end.i.i350, label %Py_DECREF.exit.i354, !dbg !1248"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 162,
+			"name": "if.end.i.i350",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [163, 164],
+			"ir": [
+				"%dec.i.i348 = add i64 %op.val.i.i345, -1, !dbg !1249",
+				"store i64 %dec.i.i348, ptr %call8.i334, align 8, !dbg !1249, !tbaa !632",
+				"%cmp.i.i349 = icmp eq i64 %dec.i.i348, 0, !dbg !1250",
+				"br i1 %cmp.i.i349, label %if.then1.i.i351, label %Py_DECREF.exit.i354, !dbg !1251"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 163,
+			"name": "if.then1.i.i351",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [164],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call8.i334) #10, !dbg !1252",
+				"br label %Py_DECREF.exit.i354, !dbg !1253"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 164,
+			"name": "Py_DECREF.exit.i354",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [165, 167],
+			"ir": [
+				"%op.val.i18.i352 = load i64, ptr %call.i331, align 8, !dbg !1256, !tbaa !632",
+				"%70 = and i64 %op.val.i18.i352, 2147483648, !dbg !1259",
+				"%cmp.i.not.i19.i353 = icmp eq i64 %70, 0, !dbg !1259",
+				"br i1 %cmp.i.not.i19.i353, label %if.end.i22.i357, label %fuzz_sre_match.exit, !dbg !1260"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 165,
+			"name": "if.end.i22.i357",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [166, 167],
+			"ir": [
+				"%dec.i20.i355 = add i64 %op.val.i18.i352, -1, !dbg !1261",
+				"store i64 %dec.i20.i355, ptr %call.i331, align 8, !dbg !1261, !tbaa !632",
+				"%cmp.i21.i356 = icmp eq i64 %dec.i20.i355, 0, !dbg !1262",
+				"br i1 %cmp.i21.i356, label %if.then1.i23.i358, label %fuzz_sre_match.exit, !dbg !1263"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 166,
+			"name": "if.then1.i23.i358",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [167],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i331) #10, !dbg !1264",
+				"br label %fuzz_sre_match.exit, !dbg !1265"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 167,
+			"name": "fuzz_sre_match.exit",
+			"debug": [
+				{
+					"line": 571, "columns": [9]
+				}
+			],
+			"successors": [169, 168],
+			"ir": [
+				"%call1.i158 = tail call ptr @PyErr_Occurred() #10, !dbg !1266",
+				"%tobool.not.i159 = icmp eq ptr %call1.i158, null, !dbg !1266",
+				"br i1 %tobool.not.i159, label %_run_fuzz.exit162, label %if.then.i160, !dbg !1267"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 168,
+			"name": "if.then.i160",
+			"debug": [
+				{
+					"line": 574, "columns": [9]
+				},
+				{
+					"line": 575, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @PyErr_Print() #10, !dbg !1268",
+				"tail call void @abort() #11, !dbg !1269",
+				"unreachable, !dbg !1269"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 169,
+			"name": "_run_fuzz.exit162",
+			"debug": [
+				{
+					"line": 679, "columns": [10, 33]
+				}
+			],
+			"successors": [173, 170],
+			"ir": [
+				"%.b102 = load i1, ptr @LLVMFuzzerTestOneInput.CSV_READER_INITIALIZED, align 4, !dbg !1270",
+				"br i1 %.b102, label %if.else44, label %land.lhs.true40, !dbg !1272"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 170,
+			"name": "land.lhs.true40",
+			"debug": [
+				{
+					"line": 345, "columns": [18, 16]
+				},
+				{
+					"line": 346, "columns": [20, 9]
+				}
+			],
+			"successors": [172, 171],
+			"ir": [
+				"%call.i163 = tail call ptr @PyImport_ImportModule(ptr noundef nonnull @.str.34) #10, !dbg !1273",
+				"store ptr %call.i163, ptr @csv_module, align 8, !dbg !1276, !tbaa !607",
+				"%cmp.i164 = icmp eq ptr %call.i163, null, !dbg !1277",
+				"br i1 %cmp.i164, label %if.then43, label %init_csv_reader.exit, !dbg !1279"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 171,
+			"name": "init_csv_reader.exit",
+			"debug": [
+				{
+					"line": 349, "columns": [17, 15]
+				},
+				{
+					"line": 350, "columns": [22]
+				},
+				{
+					"line": 679, "columns": [9]
+				}
+			],
+			"successors": [172, 173],
+			"ir": [
+				"%call1.i165 = tail call ptr @PyObject_GetAttrString(ptr noundef nonnull %call.i163, ptr noundef nonnull @.str.35) #10, !dbg !1280",
+				"store ptr %call1.i165, ptr @csv_error, align 8, !dbg !1281, !tbaa !607",
+				"%cmp2.i166.not = icmp eq ptr %call1.i165, null, !dbg !1282",
+				"br i1 %cmp2.i166.not, label %if.then43, label %if.else44, !dbg !1283"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 172,
+			"name": "if.then43",
+			"debug": [
+				{
+					"line": 680, "columns": [9]
+				},
+				{
+					"line": 681, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @PyErr_Print() #10, !dbg !1284",
+				"tail call void @abort() #11, !dbg !1286",
+				"unreachable, !dbg !1286"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 173,
+			"name": "if.else44",
+			"debug": [
+				{
+					"line": 354, "columns": [18]
+				},
+				{
+					"line": 683, "columns": [32]
+				}
+			],
+			"successors": [196, 174],
+			"ir": [
+				"store i1 true, ptr @LLVMFuzzerTestOneInput.CSV_READER_INITIALIZED, align 4, !dbg !1287",
+				"%71 = add i64 %size, -1048577, !dbg !1303",
+				"%or.cond.i359 = icmp ult i64 %71, -1048576, !dbg !1303",
+				"br i1 %or.cond.i359, label %fuzz_csv_reader.exit, label %if.end.i362, !dbg !1303"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 174,
+			"name": "if.end.i362",
+			"debug": [
+				{
+					"line": 359, "columns": [9, 34]
+				}
+			],
+			"successors": [196, 175],
+			"ir": [
+				"%call.i360 = tail call ptr @memchr(ptr noundef %data, i32 noundef 0, i64 noundef %size) #12, !dbg !1305",
+				"%cmp2.i361 = icmp eq ptr %call.i360, null, !dbg !1307",
+				"br i1 %cmp2.i361, label %fuzz_csv_reader.exit, label %if.end4.i365, !dbg !1308"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 175,
+			"name": "if.end4.i365",
+			"debug": [
+				{
+					"line": 363, "columns": [19]
+				},
+				{
+					"line": 365, "columns": [11, 9]
+				}
+			],
+			"successors": [176, 177],
+			"ir": [
+				"%call5.i363 = tail call ptr @PyUnicode_FromString(ptr noundef %data) #10, !dbg !1309",
+				"%cmp6.i364 = icmp eq ptr %call5.i363, null, !dbg !1310",
+				"br i1 %cmp6.i364, label %if.then7.i, label %if.end8.i368, !dbg !1312"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 176,
+			"name": "if.then7.i",
+			"debug": [
+				{
+					"line": 366, "columns": [9]
+				},
+				{
+					"line": 367, "columns": [9]
+				}
+			],
+			"successors": [196],
+			"ir": [
+				"tail call void @PyErr_Clear() #10, !dbg !1313",
+				"br label %fuzz_csv_reader.exit, !dbg !1315"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 177,
+			"name": "if.end8.i368",
+			"debug": [
+				{
+					"line": 371, "columns": [23]
+				},
+				{
+					"line": 372, "columns": [15, 9]
+				}
+			],
+			"successors": [178, 181],
+			"ir": [
+				"%call9.i366 = tail call ptr (ptr, ptr, ptr, ...) @PyObject_CallMethod(ptr noundef nonnull %call5.i363, ptr noundef nonnull @.str.36, ptr noundef nonnull @.str.37, ptr noundef nonnull @.str.38) #10, !dbg !1316",
+				"%cmp10.i367 = icmp eq ptr %call9.i366, null, !dbg !1317",
+				"br i1 %cmp10.i367, label %if.then11.i, label %if.end12.i377, !dbg !1319"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 178,
+			"name": "if.then11.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [179, 196],
+			"ir": [
+				"%op.val.i.i369 = load i64, ptr %call5.i363, align 8, !dbg !1323, !tbaa !632",
+				"%72 = and i64 %op.val.i.i369, 2147483648, !dbg !1326",
+				"%cmp.i.not.i.i370 = icmp eq i64 %72, 0, !dbg !1326",
+				"br i1 %cmp.i.not.i.i370, label %if.end.i.i373, label %fuzz_csv_reader.exit, !dbg !1327"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 179,
+			"name": "if.end.i.i373",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [180, 196],
+			"ir": [
+				"%dec.i.i371 = add i64 %op.val.i.i369, -1, !dbg !1328",
+				"store i64 %dec.i.i371, ptr %call5.i363, align 8, !dbg !1328, !tbaa !632",
+				"%cmp.i.i372 = icmp eq i64 %dec.i.i371, 0, !dbg !1329",
+				"br i1 %cmp.i.i372, label %if.then1.i.i374, label %fuzz_csv_reader.exit, !dbg !1330"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 180,
+			"name": "if.then1.i.i374",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [196],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call5.i363) #10, !dbg !1331",
+				"br label %fuzz_csv_reader.exit, !dbg !1332"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 181,
+			"name": "if.end12.i377",
+			"debug": [
+				{
+					"line": 377, "columns": [44, 24]
+				},
+				{
+					"line": 378, "columns": [9]
+				}
+			],
+			"successors": [187, 182],
+			"ir": [
+				"%73 = load ptr, ptr @csv_module, align 8, !dbg !1333, !tbaa !607",
+				"%call13.i375 = tail call ptr (ptr, ptr, ptr, ...) @PyObject_CallMethod(ptr noundef %73, ptr noundef nonnull @.str.39, ptr noundef nonnull @.str.40, ptr noundef nonnull %call9.i366) #10, !dbg !1334",
+				"%tobool.not.i376 = icmp eq ptr %call13.i375, null, !dbg !1335",
+				"br i1 %tobool.not.i376, label %if.end17.i, label %while.cond.preheader.i, !dbg !1336"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 182,
+			"name": "while.cond.preheader.i",
+			"debug": [
+				{
+					"line": 381, "columns": [31, 9]
+				}
+			],
+			"successors": [187, 183],
+			"ir": [
+				"%call1547.i = tail call ptr @PyIter_Next(ptr noundef nonnull %call13.i375) #10, !dbg !1337",
+				"%tobool16.not48.i = icmp eq ptr %call1547.i, null, !dbg !1339",
+				"br i1 %tobool16.not48.i, label %if.end17.i, label %while.body.i, !dbg !1339"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 183,
+			"name": "while.body.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [184, 186],
+			"ir": [
+				"%call1549.i = phi ptr [ %call15.i378, %Py_DECREF.exit38.i ], [ %call1547.i, %while.cond.preheader.i ]",
+				"%op.val.i32.i = load i64, ptr %call1549.i, align 8, !dbg !1343, !tbaa !632",
+				"%74 = and i64 %op.val.i32.i, 2147483648, !dbg !1346",
+				"%cmp.i.not.i33.i = icmp eq i64 %74, 0, !dbg !1346",
+				"br i1 %cmp.i.not.i33.i, label %if.end.i36.i, label %Py_DECREF.exit38.i, !dbg !1347"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 184,
+			"name": "if.end.i36.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [185, 186],
+			"ir": [
+				"%dec.i34.i = add i64 %op.val.i32.i, -1, !dbg !1348",
+				"store i64 %dec.i34.i, ptr %call1549.i, align 8, !dbg !1348, !tbaa !632",
+				"%cmp.i35.i = icmp eq i64 %dec.i34.i, 0, !dbg !1349",
+				"br i1 %cmp.i35.i, label %if.then1.i37.i, label %Py_DECREF.exit38.i, !dbg !1350"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 185,
+			"name": "if.then1.i37.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [186],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call1549.i) #10, !dbg !1351",
+				"br label %Py_DECREF.exit38.i, !dbg !1352"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 186,
+			"name": "Py_DECREF.exit38.i",
+			"debug": [
+				{
+					"line": 381, "columns": [31, 9]
+				}
+			],
+			"successors": [187, 183],
+			"ir": [
+				"%call15.i378 = tail call ptr @PyIter_Next(ptr noundef nonnull %call13.i375) #10, !dbg !1337",
+				"%tobool16.not.i = icmp eq ptr %call15.i378, null, !dbg !1339",
+				"br i1 %tobool16.not.i, label %if.end17.i, label %while.body.i, !dbg !1339, !llvm.loop !1353"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 187,
+			"name": "if.end17.i",
+			"debug": [
+				{
+					"line": 388, "columns": [32, 9]
+				}
+			],
+			"successors": [189, 188],
+			"ir": [
+				"%75 = load ptr, ptr @csv_error, align 8, !dbg !1355, !tbaa !607",
+				"%call18.i379 = tail call i32 @PyErr_ExceptionMatches(ptr noundef %75) #10, !dbg !1357",
+				"%tobool19.not.i = icmp eq i32 %call18.i379, 0, !dbg !1357",
+				"br i1 %tobool19.not.i, label %if.end21.i, label %if.then20.i, !dbg !1358"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 188,
+			"name": "if.then20.i",
+			"debug": [
+				{
+					"line": 389, "columns": [9]
+				},
+				{
+					"line": 390, "columns": [5]
+				}
+			],
+			"successors": [189],
+			"ir": [
+				"tail call void @PyErr_Clear() #10, !dbg !1359",
+				"br label %if.end21.i, !dbg !1361"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 189,
+			"name": "if.end21.i",
+			"debug": [
+				{
+					"line": 1037, "columns": [9]
+				}
+			],
+			"successors": [193, 190],
+			"ir": [
+				"br i1 %tobool.not.i376, label %Py_XDECREF.exit.i387, label %if.then.i.i382, !dbg !1364"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 190,
+			"name": "if.then.i.i382",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [191, 193],
+			"ir": [
+				"%op.val.i.i.i380 = load i64, ptr %call13.i375, align 8, !dbg !1367, !tbaa !632",
+				"%76 = and i64 %op.val.i.i.i380, 2147483648, !dbg !1370",
+				"%cmp.i.not.i.i.i381 = icmp eq i64 %76, 0, !dbg !1370",
+				"br i1 %cmp.i.not.i.i.i381, label %if.end.i.i.i385, label %Py_XDECREF.exit.i387, !dbg !1371"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 191,
+			"name": "if.end.i.i.i385",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [192, 193],
+			"ir": [
+				"%dec.i.i.i383 = add i64 %op.val.i.i.i380, -1, !dbg !1372",
+				"store i64 %dec.i.i.i383, ptr %call13.i375, align 8, !dbg !1372, !tbaa !632",
+				"%cmp.i.i.i384 = icmp eq i64 %dec.i.i.i383, 0, !dbg !1373",
+				"br i1 %cmp.i.i.i384, label %if.then1.i.i.i386, label %Py_XDECREF.exit.i387, !dbg !1374"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 192,
+			"name": "if.then1.i.i.i386",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [193],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call13.i375) #10, !dbg !1375",
+				"br label %Py_XDECREF.exit.i387, !dbg !1376"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 193,
+			"name": "Py_XDECREF.exit.i387",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [194, 196],
+			"ir": [
+				"%op.val.i39.i = load i64, ptr %call5.i363, align 8, !dbg !1379, !tbaa !632",
+				"%77 = and i64 %op.val.i39.i, 2147483648, !dbg !1382",
+				"%cmp.i.not.i40.i = icmp eq i64 %77, 0, !dbg !1382",
+				"br i1 %cmp.i.not.i40.i, label %if.end.i43.i, label %fuzz_csv_reader.exit, !dbg !1383"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 194,
+			"name": "if.end.i43.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [195, 196],
+			"ir": [
+				"%dec.i41.i = add i64 %op.val.i39.i, -1, !dbg !1384",
+				"store i64 %dec.i41.i, ptr %call5.i363, align 8, !dbg !1384, !tbaa !632",
+				"%cmp.i42.i = icmp eq i64 %dec.i41.i, 0, !dbg !1385",
+				"br i1 %cmp.i42.i, label %if.then1.i44.i, label %fuzz_csv_reader.exit, !dbg !1386"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 195,
+			"name": "if.then1.i44.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [196],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call5.i363) #10, !dbg !1387",
+				"br label %fuzz_csv_reader.exit, !dbg !1388"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 196,
+			"name": "fuzz_csv_reader.exit",
+			"debug": [
+				{
+					"line": 571, "columns": [9]
+				}
+			],
+			"successors": [198, 197],
+			"ir": [
+				"%call1.i171 = tail call ptr @PyErr_Occurred() #10, !dbg !1389",
+				"%tobool.not.i172 = icmp eq ptr %call1.i171, null, !dbg !1389",
+				"br i1 %tobool.not.i172, label %_run_fuzz.exit175, label %if.then.i173, !dbg !1390"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 197,
+			"name": "if.then.i173",
+			"debug": [
+				{
+					"line": 574, "columns": [9]
+				},
+				{
+					"line": 575, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @PyErr_Print() #10, !dbg !1391",
+				"tail call void @abort() #11, !dbg !1392",
+				"unreachable, !dbg !1392"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 198,
+			"name": "_run_fuzz.exit175",
+			"debug": [
+				{
+					"line": 690, "columns": [10, 39]
+				}
+			],
+			"successors": [202, 199],
+			"ir": [
+				"%.b103 = load i1, ptr @LLVMFuzzerTestOneInput.AST_LITERAL_EVAL_INITIALIZED, align 4, !dbg !1393",
+				"br i1 %.b103, label %if.else53, label %land.lhs.true49, !dbg !1395"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 199,
+			"name": "land.lhs.true49",
+			"debug": [
+				{
+					"line": 401, "columns": [28]
+				},
+				{
+					"line": 402, "columns": [20, 9]
+				}
+			],
+			"successors": [201, 200],
+			"ir": [
+				"%call.i176 = tail call ptr @PyImport_ImportModule(ptr noundef nonnull @.str.41) #10, !dbg !1396",
+				"%cmp.i177 = icmp eq ptr %call.i176, null, !dbg !1402",
+				"br i1 %cmp.i177, label %if.then52, label %init_ast_literal_eval.exit, !dbg !1404"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 200,
+			"name": "init_ast_literal_eval.exit",
+			"debug": [
+				{
+					"line": 405, "columns": [31, 29]
+				},
+				{
+					"line": 406, "columns": [36]
+				},
+				{
+					"line": 690, "columns": [9]
+				}
+			],
+			"successors": [201, 202],
+			"ir": [
+				"%call1.i178 = tail call ptr @PyObject_GetAttrString(ptr noundef nonnull %call.i176, ptr noundef nonnull @.str.42) #10, !dbg !1405",
+				"store ptr %call1.i178, ptr @ast_literal_eval_method, align 8, !dbg !1406, !tbaa !607",
+				"%cmp2.i179.not = icmp eq ptr %call1.i178, null, !dbg !1407",
+				"br i1 %cmp2.i179.not, label %if.then52, label %if.else53, !dbg !1408"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 201,
+			"name": "if.then52",
+			"debug": [
+				{
+					"line": 691, "columns": [9]
+				},
+				{
+					"line": 692, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @PyErr_Print() #10, !dbg !1409",
+				"tail call void @abort() #11, !dbg !1411",
+				"unreachable, !dbg !1411"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 202,
+			"name": "if.else53",
+			"debug": [
+				{
+					"line": 410, "columns": [9]
+				},
+				{
+					"line": 694, "columns": [38]
+				}
+			],
+			"successors": [219, 203],
+			"ir": [
+				"store i1 true, ptr @LLVMFuzzerTestOneInput.AST_LITERAL_EVAL_INITIALIZED, align 4, !dbg !1412",
+				"br i1 %cmp.i280, label %fuzz_ast_literal_eval.exit, label %if.end.i391, !dbg !1424"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 203,
+			"name": "if.end.i391",
+			"debug": [
+				{
+					"line": 415, "columns": [9, 34]
+				}
+			],
+			"successors": [219, 204],
+			"ir": [
+				"%call.i389 = tail call ptr @memchr(ptr noundef %data, i32 noundef 0, i64 noundef %size) #12, !dbg !1425",
+				"%cmp1.i390 = icmp eq ptr %call.i389, null, !dbg !1427",
+				"br i1 %cmp1.i390, label %fuzz_ast_literal_eval.exit, label %if.end3.i394, !dbg !1428"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 204,
+			"name": "if.end3.i394",
+			"debug": [
+				{
+					"line": 419, "columns": [19]
+				},
+				{
+					"line": 421, "columns": [11, 9]
+				}
+			],
+			"successors": [205, 206],
+			"ir": [
+				"%call4.i392 = tail call ptr @PyUnicode_FromString(ptr noundef %data) #10, !dbg !1429",
+				"%cmp5.i393 = icmp eq ptr %call4.i392, null, !dbg !1430",
+				"br i1 %cmp5.i393, label %if.then6.i395, label %if.end7.i, !dbg !1432"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 205,
+			"name": "if.then6.i395",
+			"debug": [
+				{
+					"line": 422, "columns": [9]
+				},
+				{
+					"line": 423, "columns": [9]
+				}
+			],
+			"successors": [219],
+			"ir": [
+				"tail call void @PyErr_Clear() #10, !dbg !1433",
+				"br label %fuzz_ast_literal_eval.exit, !dbg !1435"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 206,
+			"name": "if.end7.i",
+			"debug": [
+				{
+					"line": 426, "columns": [45, 25]
+				},
+				{
+					"line": 428, "columns": [17, 25]
+				}
+			],
+			"successors": [207, 213],
+			"ir": [
+				"%78 = load ptr, ptr @ast_literal_eval_method, align 8, !dbg !1436, !tbaa !607",
+				"%call8.i396 = tail call ptr @PyObject_CallOneArg(ptr noundef %78, ptr noundef nonnull %call4.i392) #10, !dbg !1437",
+				"%cmp9.i = icmp eq ptr %call8.i396, null, !dbg !1438",
+				"br i1 %cmp9.i, label %land.lhs.true.i399, label %if.then.i.i407, !dbg !1440"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 207,
+			"name": "land.lhs.true.i399",
+			"debug": [
+				{
+					"line": 428, "columns": [52, 29, 70]
+				}
+			],
+			"successors": [208, 212],
+			"ir": [
+				"%79 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !1441, !tbaa !607",
+				"%call10.i397 = tail call i32 @PyErr_ExceptionMatches(ptr noundef %79) #10, !dbg !1442",
+				"%tobool.not.i398 = icmp eq i32 %call10.i397, 0, !dbg !1442",
+				"br i1 %tobool.not.i398, label %lor.lhs.false.i402, label %if.then22.i, !dbg !1443"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 208,
+			"name": "lor.lhs.false.i402",
+			"debug": [
+				{
+					"line": 429, "columns": [52, 29, 69]
+				}
+			],
+			"successors": [209, 212],
+			"ir": [
+				"%80 = load ptr, ptr @PyExc_TypeError, align 8, !dbg !1444, !tbaa !607",
+				"%call11.i400 = tail call i32 @PyErr_ExceptionMatches(ptr noundef %80) #10, !dbg !1445",
+				"%tobool12.not.i401 = icmp eq i32 %call11.i400, 0, !dbg !1445",
+				"br i1 %tobool12.not.i401, label %lor.lhs.false13.i, label %if.then22.i, !dbg !1446"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 209,
+			"name": "lor.lhs.false13.i",
+			"debug": [
+				{
+					"line": 430, "columns": [52, 29, 71]
+				}
+			],
+			"successors": [210, 212],
+			"ir": [
+				"%81 = load ptr, ptr @PyExc_SyntaxError, align 8, !dbg !1447, !tbaa !607",
+				"%call14.i = tail call i32 @PyErr_ExceptionMatches(ptr noundef %81) #10, !dbg !1448",
+				"%tobool15.not.i = icmp eq i32 %call14.i, 0, !dbg !1448",
+				"br i1 %tobool15.not.i, label %lor.lhs.false16.i, label %if.then22.i, !dbg !1449"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 210,
+			"name": "lor.lhs.false16.i",
+			"debug": [
+				{
+					"line": 431, "columns": [52, 29, 71]
+				}
+			],
+			"successors": [211, 212],
+			"ir": [
+				"%82 = load ptr, ptr @PyExc_MemoryError, align 8, !dbg !1450, !tbaa !607",
+				"%call17.i403 = tail call i32 @PyErr_ExceptionMatches(ptr noundef %82) #10, !dbg !1451",
+				"%tobool18.not.i404 = icmp eq i32 %call17.i403, 0, !dbg !1451",
+				"br i1 %tobool18.not.i404, label %lor.lhs.false19.i, label %if.then22.i, !dbg !1452"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 211,
+			"name": "lor.lhs.false19.i",
+			"debug": [
+				{
+					"line": 428, "columns": [9]
+				},
+				{
+					"line": 432, "columns": [52, 29]
+				}
+			],
+			"successors": [216, 212],
+			"ir": [
+				"%83 = load ptr, ptr @PyExc_RecursionError, align 8, !dbg !1453, !tbaa !607",
+				"%call20.i = tail call i32 @PyErr_ExceptionMatches(ptr noundef %83) #10, !dbg !1454",
+				"%tobool21.not.i = icmp eq i32 %call20.i, 0, !dbg !1454",
+				"br i1 %tobool21.not.i, label %Py_XDECREF.exit.i414, label %if.then22.i, !dbg !1455"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 212,
+			"name": "if.then22.i",
+			"debug": [
+				{
+					"line": 434, "columns": [9]
+				},
+				{
+					"line": 435, "columns": [5]
+				}
+			],
+			"successors": [216],
+			"ir": [
+				"tail call void @PyErr_Clear() #10, !dbg !1456",
+				"br label %Py_XDECREF.exit.i414, !dbg !1458"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 213,
+			"name": "if.then.i.i407",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [214, 216],
+			"ir": [
+				"%op.val.i.i.i405 = load i64, ptr %call8.i396, align 8, !dbg !1463, !tbaa !632",
+				"%84 = and i64 %op.val.i.i.i405, 2147483648, !dbg !1466",
+				"%cmp.i.not.i.i.i406 = icmp eq i64 %84, 0, !dbg !1466",
+				"br i1 %cmp.i.not.i.i.i406, label %if.end.i.i.i410, label %Py_XDECREF.exit.i414, !dbg !1467"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 214,
+			"name": "if.end.i.i.i410",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [215, 216],
+			"ir": [
+				"%dec.i.i.i408 = add i64 %op.val.i.i.i405, -1, !dbg !1468",
+				"store i64 %dec.i.i.i408, ptr %call8.i396, align 8, !dbg !1468, !tbaa !632",
+				"%cmp.i.i.i409 = icmp eq i64 %dec.i.i.i408, 0, !dbg !1469",
+				"br i1 %cmp.i.i.i409, label %if.then1.i.i.i411, label %Py_XDECREF.exit.i414, !dbg !1470"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 215,
+			"name": "if.then1.i.i.i411",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [216],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call8.i396) #10, !dbg !1471",
+				"br label %Py_XDECREF.exit.i414, !dbg !1472"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 216,
+			"name": "Py_XDECREF.exit.i414",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [217, 219],
+			"ir": [
+				"%op.val.i.i412 = load i64, ptr %call4.i392, align 8, !dbg !1475, !tbaa !632",
+				"%85 = and i64 %op.val.i.i412, 2147483648, !dbg !1478",
+				"%cmp.i.not.i.i413 = icmp eq i64 %85, 0, !dbg !1478",
+				"br i1 %cmp.i.not.i.i413, label %if.end.i.i417, label %fuzz_ast_literal_eval.exit, !dbg !1479"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 217,
+			"name": "if.end.i.i417",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [218, 219],
+			"ir": [
+				"%dec.i.i415 = add i64 %op.val.i.i412, -1, !dbg !1480",
+				"store i64 %dec.i.i415, ptr %call4.i392, align 8, !dbg !1480, !tbaa !632",
+				"%cmp.i.i416 = icmp eq i64 %dec.i.i415, 0, !dbg !1481",
+				"br i1 %cmp.i.i416, label %if.then1.i.i418, label %fuzz_ast_literal_eval.exit, !dbg !1482"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 218,
+			"name": "if.then1.i.i418",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [219],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call4.i392) #10, !dbg !1483",
+				"br label %fuzz_ast_literal_eval.exit, !dbg !1484"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 219,
+			"name": "fuzz_ast_literal_eval.exit",
+			"debug": [
+				{
+					"line": 571, "columns": [9]
+				}
+			],
+			"successors": [221, 220],
+			"ir": [
+				"%call1.i184 = tail call ptr @PyErr_Occurred() #10, !dbg !1485",
+				"%tobool.not.i185 = icmp eq ptr %call1.i184, null, !dbg !1485",
+				"br i1 %tobool.not.i185, label %_run_fuzz.exit188, label %if.then.i186, !dbg !1486"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 220,
+			"name": "if.then.i186",
+			"debug": [
+				{
+					"line": 574, "columns": [9]
+				},
+				{
+					"line": 575, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @PyErr_Print() #10, !dbg !1487",
+				"tail call void @abort() #11, !dbg !1488",
+				"unreachable, !dbg !1488"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 221,
+			"name": "_run_fuzz.exit188",
+			"debug": [
+				{
+					"line": 701, "columns": [10, 45]
+				}
+			],
+			"successors": [235, 222],
+			"ir": [
+				"%.b104 = load i1, ptr @LLVMFuzzerTestOneInput.ELEMENTTREE_PARSEWHOLE_INITIALIZED, align 4, !dbg !1489",
+				"br i1 %.b104, label %if.else62, label %land.lhs.true58, !dbg !1491"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 222,
+			"name": "land.lhs.true58",
+			"debug": [
+				{
+					"line": 447, "columns": [36]
+				},
+				{
+					"line": 448, "columns": [28, 9]
+				}
+			],
+			"successors": [234, 223],
+			"ir": [
+				"%call.i189 = tail call ptr @PyImport_ImportModule(ptr noundef nonnull @.str.43) #10, !dbg !1492",
+				"%cmp.i190 = icmp eq ptr %call.i189, null, !dbg !1499",
+				"br i1 %cmp.i190, label %if.then61, label %if.end.i192, !dbg !1501"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 223,
+			"name": "if.end.i192",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 451, "columns": [22, 20]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [224, 227],
+			"ir": [
+				"%call1.i191 = tail call ptr @PyObject_GetAttrString(ptr noundef nonnull %call.i189, ptr noundef nonnull @.str.44) #10, !dbg !1502",
+				"store ptr %call1.i191, ptr @xmlparser_type, align 8, !dbg !1503, !tbaa !607",
+				"%op.val.i.i = load i64, ptr %call.i189, align 8, !dbg !1506, !tbaa !632",
+				"%86 = and i64 %op.val.i.i, 2147483648, !dbg !1509",
+				"%cmp.i.not.i.i = icmp eq i64 %86, 0, !dbg !1509",
+				"br i1 %cmp.i.not.i.i, label %if.end.i.i, label %Py_DECREF.exit.i, !dbg !1510"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 224,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [225, 226],
+			"ir": [
+				"%dec.i.i = add i64 %op.val.i.i, -1, !dbg !1511",
+				"store i64 %dec.i.i, ptr %call.i189, align 8, !dbg !1511, !tbaa !632",
+				"%cmp.i.i = icmp eq i64 %dec.i.i, 0, !dbg !1512",
+				"br i1 %cmp.i.i, label %if.then1.i.i, label %Py_DECREF.exitthread-pre-split.i, !dbg !1513"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 225,
+			"name": "if.then1.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [226],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i189) #10, !dbg !1514",
+				"br label %Py_DECREF.exitthread-pre-split.i, !dbg !1515"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 226,
+			"name": "Py_DECREF.exitthread-pre-split.i",
+			"debug": [
+				{
+					"line": 453, "columns": [9]
+				}
+			],
+			"successors": [227],
+			"ir": [
+				"%.pr.i = load ptr, ptr @xmlparser_type, align 8, !dbg !1516, !tbaa !607",
+				"br label %Py_DECREF.exit.i, !dbg !1516"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 227,
+			"name": "Py_DECREF.exit.i",
+			"debug": [
+				{
+					"line": 453, "columns": [9, 24]
+				}
+			],
+			"successors": [234, 228],
+			"ir": [
+				"%87 = phi ptr [ %.pr.i, %Py_DECREF.exitthread-pre-split.i ], [ %call1.i191, %if.end.i192 ], !dbg !1516",
+				"%cmp2.i193 = icmp eq ptr %87, null, !dbg !1518",
+				"br i1 %cmp2.i193, label %if.then61, label %if.end4.i196, !dbg !1519"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 228,
+			"name": "if.end4.i196",
+			"debug": [
+				{
+					"line": 458, "columns": [27]
+				},
+				{
+					"line": 459, "columns": [19, 9]
+				}
+			],
+			"successors": [234, 229],
+			"ir": [
+				"%call5.i194 = tail call ptr @PyImport_ImportModule(ptr noundef nonnull @.str.45) #10, !dbg !1520",
+				"%cmp6.i195 = icmp eq ptr %call5.i194, null, !dbg !1521",
+				"br i1 %cmp6.i195, label %if.then61, label %if.end8.i198, !dbg !1523"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 229,
+			"name": "if.end8.i198",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 462, "columns": [20, 18]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [230, 233],
+			"ir": [
+				"%call9.i197 = tail call ptr @PyObject_GetAttrString(ptr noundef nonnull %call5.i194, ptr noundef nonnull @.str.46) #10, !dbg !1524",
+				"store ptr %call9.i197, ptr @bytesio_type, align 8, !dbg !1525, !tbaa !607",
+				"%op.val.i18.i = load i64, ptr %call5.i194, align 8, !dbg !1528, !tbaa !632",
+				"%88 = and i64 %op.val.i18.i, 2147483648, !dbg !1531",
+				"%cmp.i.not.i19.i = icmp eq i64 %88, 0, !dbg !1531",
+				"br i1 %cmp.i.not.i19.i, label %if.end.i22.i, label %init_elementtree_parsewhole.exit, !dbg !1532"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 230,
+			"name": "if.end.i22.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [231, 232],
+			"ir": [
+				"%dec.i20.i = add i64 %op.val.i18.i, -1, !dbg !1533",
+				"store i64 %dec.i20.i, ptr %call5.i194, align 8, !dbg !1533, !tbaa !632",
+				"%cmp.i21.i = icmp eq i64 %dec.i20.i, 0, !dbg !1534",
+				"br i1 %cmp.i21.i, label %if.then1.i23.i, label %init_elementtree_parsewhole.exitthread-pre-split, !dbg !1535"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 231,
+			"name": "if.then1.i23.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [232],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call5.i194) #10, !dbg !1536",
+				"br label %init_elementtree_parsewhole.exitthread-pre-split, !dbg !1537"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 232,
+			"name": "init_elementtree_parsewhole.exitthread-pre-split",
+			"debug": [
+				{
+					"line": 464, "columns": [9]
+				}
+			],
+			"successors": [233],
+			"ir": [
+				"%.pr = load ptr, ptr @bytesio_type, align 8, !dbg !1538, !tbaa !607",
+				"br label %init_elementtree_parsewhole.exit, !dbg !1538"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 233,
+			"name": "init_elementtree_parsewhole.exit",
+			"debug": [
+				{
+					"line": 464, "columns": [9, 22]
+				},
+				{
+					"line": 701, "columns": [9]
+				}
+			],
+			"successors": [234, 235],
+			"ir": [
+				"%89 = phi ptr [ %.pr, %init_elementtree_parsewhole.exitthread-pre-split ], [ %call9.i197, %if.end8.i198 ], !dbg !1538",
+				"%cmp10.i199.not = icmp eq ptr %89, null, !dbg !1540",
+				"br i1 %cmp10.i199.not, label %if.then61, label %if.else62, !dbg !1541"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 234,
+			"name": "if.then61",
+			"debug": [
+				{
+					"line": 702, "columns": [9]
+				},
+				{
+					"line": 703, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @PyErr_Print() #10, !dbg !1542",
+				"tail call void @abort() #11, !dbg !1544",
+				"unreachable, !dbg !1544"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 235,
+			"name": "if.else62",
+			"debug": [
+				{
+					"line": 472, "columns": [9]
+				},
+				{
+					"line": 705, "columns": [44]
+				}
+			],
+			"successors": [251, 236],
+			"ir": [
+				"store i1 true, ptr @LLVMFuzzerTestOneInput.ELEMENTTREE_PARSEWHOLE_INITIALIZED, align 4, !dbg !1545",
+				"br i1 %cmp.i280, label %fuzz_elementtree_parsewhole.exit, label %if.end.i422, !dbg !1558"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 236,
+			"name": "if.end.i422",
+			"debug": [
+				{
+					"line": 476, "columns": [45, 23]
+				},
+				{
+					"line": 477, "columns": [15, 9]
+				}
+			],
+			"successors": [237, 238],
+			"ir": [
+				"%90 = load ptr, ptr @bytesio_type, align 8, !dbg !1559, !tbaa !607",
+				"%call.i420 = tail call ptr (ptr, ptr, ...) @PyObject_CallFunction(ptr noundef %90, ptr noundef nonnull @.str.47, ptr noundef %data, i64 noundef %size) #10, !dbg !1560",
+				"%cmp1.i421 = icmp eq ptr %call.i420, null, !dbg !1561",
+				"br i1 %cmp1.i421, label %if.then2.i, label %if.end3.i425, !dbg !1563"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 237,
+			"name": "if.then2.i",
+			"debug": [
+				{
+					"line": 479, "columns": [9]
+				},
+				{
+					"line": 480, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @PyErr_Print() #10, !dbg !1564",
+				"tail call void @abort() #11, !dbg !1566",
+				"unreachable, !dbg !1566"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 238,
+			"name": "if.end3.i425",
+			"debug": [
+				{
+					"line": 483, "columns": [56, 36]
+				},
+				{
+					"line": 484, "columns": [28, 9]
+				}
+			],
+			"successors": [239, 240],
+			"ir": [
+				"%91 = load ptr, ptr @xmlparser_type, align 8, !dbg !1567, !tbaa !607",
+				"%call4.i423 = tail call ptr @PyObject_CallObject(ptr noundef %91, ptr noundef null) #10, !dbg !1568",
+				"%cmp5.i424 = icmp eq ptr %call4.i423, null, !dbg !1569",
+				"br i1 %cmp5.i424, label %if.then6.i426, label %if.end7.i429, !dbg !1571"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 239,
+			"name": "if.then6.i426",
+			"debug": [
+				{
+					"line": 486, "columns": [9]
+				},
+				{
+					"line": 487, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @PyErr_Print() #10, !dbg !1572",
+				"tail call void @abort() #11, !dbg !1574",
+				"unreachable, !dbg !1574"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 240,
+			"name": "if.end7.i429",
+			"debug": [
+				{
+					"line": 490, "columns": [24]
+				},
+				{
+					"line": 491, "columns": [16, 9]
+				}
+			],
+			"successors": [241, 242],
+			"ir": [
+				"%call8.i427 = tail call ptr (ptr, ptr, ptr, ...) @PyObject_CallMethod(ptr noundef nonnull %call4.i423, ptr noundef nonnull @.str.48, ptr noundef nonnull @.str.49, ptr noundef nonnull %call.i420) #10, !dbg !1575",
+				"%cmp9.i428 = icmp eq ptr %call8.i427, null, !dbg !1576",
+				"br i1 %cmp9.i428, label %if.then10.i, label %if.else.i, !dbg !1578"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 241,
+			"name": "if.then10.i",
+			"debug": [
+				{
+					"line": 493, "columns": [9]
+				},
+				{
+					"line": 494, "columns": [5]
+				}
+			],
+			"successors": [245],
+			"ir": [
+				"tail call void @PyErr_Clear() #10, !dbg !1579",
+				"br label %if.end11.i, !dbg !1581"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 242,
+			"name": "if.else.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [243, 245],
+			"ir": [
+				"%op.val.i.i430 = load i64, ptr %call8.i427, align 8, !dbg !1585, !tbaa !632",
+				"%92 = and i64 %op.val.i.i430, 2147483648, !dbg !1588",
+				"%cmp.i.not.i.i431 = icmp eq i64 %92, 0, !dbg !1588",
+				"br i1 %cmp.i.not.i.i431, label %if.end.i.i434, label %if.end11.i, !dbg !1589"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 243,
+			"name": "if.end.i.i434",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [244, 245],
+			"ir": [
+				"%dec.i.i432 = add i64 %op.val.i.i430, -1, !dbg !1590",
+				"store i64 %dec.i.i432, ptr %call8.i427, align 8, !dbg !1590, !tbaa !632",
+				"%cmp.i.i433 = icmp eq i64 %dec.i.i432, 0, !dbg !1591",
+				"br i1 %cmp.i.i433, label %if.then1.i.i435, label %if.end11.i, !dbg !1592"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 244,
+			"name": "if.then1.i.i435",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [245],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call8.i427) #10, !dbg !1593",
+				"br label %if.end11.i, !dbg !1594"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 245,
+			"name": "if.end11.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [246, 248],
+			"ir": [
+				"%op.val.i18.i436 = load i64, ptr %call4.i423, align 8, !dbg !1597, !tbaa !632",
+				"%93 = and i64 %op.val.i18.i436, 2147483648, !dbg !1600",
+				"%cmp.i.not.i19.i437 = icmp eq i64 %93, 0, !dbg !1600",
+				"br i1 %cmp.i.not.i19.i437, label %if.end.i22.i440, label %Py_DECREF.exit24.i442, !dbg !1601"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 246,
+			"name": "if.end.i22.i440",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [247, 248],
+			"ir": [
+				"%dec.i20.i438 = add i64 %op.val.i18.i436, -1, !dbg !1602",
+				"store i64 %dec.i20.i438, ptr %call4.i423, align 8, !dbg !1602, !tbaa !632",
+				"%cmp.i21.i439 = icmp eq i64 %dec.i20.i438, 0, !dbg !1603",
+				"br i1 %cmp.i21.i439, label %if.then1.i23.i441, label %Py_DECREF.exit24.i442, !dbg !1604"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 247,
+			"name": "if.then1.i23.i441",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [248],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call4.i423) #10, !dbg !1605",
+				"br label %Py_DECREF.exit24.i442, !dbg !1606"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 248,
+			"name": "Py_DECREF.exit24.i442",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [249, 251],
+			"ir": [
+				"%op.val.i25.i = load i64, ptr %call.i420, align 8, !dbg !1609, !tbaa !632",
+				"%94 = and i64 %op.val.i25.i, 2147483648, !dbg !1612",
+				"%cmp.i.not.i26.i = icmp eq i64 %94, 0, !dbg !1612",
+				"br i1 %cmp.i.not.i26.i, label %if.end.i29.i, label %fuzz_elementtree_parsewhole.exit, !dbg !1613"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 249,
+			"name": "if.end.i29.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [250, 251],
+			"ir": [
+				"%dec.i27.i = add i64 %op.val.i25.i, -1, !dbg !1614",
+				"store i64 %dec.i27.i, ptr %call.i420, align 8, !dbg !1614, !tbaa !632",
+				"%cmp.i28.i = icmp eq i64 %dec.i27.i, 0, !dbg !1615",
+				"br i1 %cmp.i28.i, label %if.then1.i30.i, label %fuzz_elementtree_parsewhole.exit, !dbg !1616"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 250,
+			"name": "if.then1.i30.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [251],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i420) #10, !dbg !1617",
+				"br label %fuzz_elementtree_parsewhole.exit, !dbg !1618"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 251,
+			"name": "fuzz_elementtree_parsewhole.exit",
+			"debug": [
+				{
+					"line": 571, "columns": [9]
+				}
+			],
+			"successors": [253, 252],
+			"ir": [
+				"%call1.i202 = tail call ptr @PyErr_Occurred() #10, !dbg !1619",
+				"%tobool.not.i203 = icmp eq ptr %call1.i202, null, !dbg !1619",
+				"br i1 %tobool.not.i203, label %_run_fuzz.exit206, label %if.then.i204, !dbg !1620"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 252,
+			"name": "if.then.i204",
+			"debug": [
+				{
+					"line": 574, "columns": [9]
+				},
+				{
+					"line": 575, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @PyErr_Print() #10, !dbg !1621",
+				"tail call void @abort() #11, !dbg !1622",
+				"unreachable, !dbg !1622"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 253,
+			"name": "_run_fuzz.exit206",
+			"debug": [
+				{
+					"line": 516, "columns": [9]
+				}
+			],
+			"successors": [263, 254],
+			"ir": [
+				"%95 = add i64 %size, -16384, !dbg !1648",
+				"%or.cond.i443 = icmp ult i64 %95, -16382, !dbg !1648",
+				"br i1 %or.cond.i443, label %fuzz_pycompile.exit, label %if.end3.i448, !dbg !1648"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 254,
+			"name": "if.end3.i448",
+			"debug": [
+				{
+					"line": 526, "columns": [47]
+				},
+				{
+					"line": 527, "columns": [38, 17]
+				},
+				{
+					"line": 530, "columns": [50]
+				},
+				{
+					"line": 531, "columns": [47, 20]
+				},
+				{
+					"line": 533, "columns": [5, 10]
+				},
+				{
+					"line": 536, "columns": [36, 46, 5]
+				},
+				{
+					"line": 538, "columns": [5, 33]
+				},
+				{
+					"line": 551, "columns": [24]
+				},
+				{
+					"line": 552, "columns": [16, 9]
+				}
+			],
+			"successors": [255, 259],
+			"ir": [
+				"%96 = load i8, ptr %data, align 1, !dbg !1649, !tbaa !632",
+				"%97 = urem i8 %96, 3, !dbg !1650",
+				"%rem.i444 = zext i8 %97 to i64, !dbg !1650",
+				"%arrayidx4.i = getelementptr [3 x i32], ptr @start_vals, i64 0, i64 %rem.i444, !dbg !1651",
+				"%98 = load i32, ptr %arrayidx4.i, align 4, !dbg !1651, !tbaa !1032",
+				"%arrayidx5.i = getelementptr i8, ptr %data, i64 1, !dbg !1652",
+				"%99 = load i8, ptr %arrayidx5.i, align 1, !dbg !1652, !tbaa !632",
+				"%100 = and i8 %99, 3, !dbg !1653",
+				"%rem7.i = zext i8 %100 to i64, !dbg !1653",
+				"%arrayidx8.i = getelementptr [4 x i32], ptr @optimize_vals, i64 0, i64 %rem7.i, !dbg !1654",
+				"%101 = load i32, ptr %arrayidx8.i, align 4, !dbg !1654, !tbaa !1032",
+				"call void @llvm.lifetime.start.p0(i64 16384, ptr nonnull %pycompile_scratch.i) #10, !dbg !1655",
+				"%add.ptr.i445 = getelementptr i8, ptr %data, i64 2, !dbg !1657",
+				"%sub.i446 = add nsw i64 %size, -2, !dbg !1658",
+				"call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 16 %pycompile_scratch.i, ptr align 1 %add.ptr.i445, i64 %sub.i446, i1 false), !dbg !1659",
+				"%arrayidx10.i = getelementptr [16384 x i8], ptr %pycompile_scratch.i, i64 0, i64 %sub.i446, !dbg !1660",
+				"store i8 0, ptr %arrayidx10.i, align 1, !dbg !1661, !tbaa !632",
+				"%call.i447 = call ptr @Py_CompileStringExFlags(ptr noundef nonnull %pycompile_scratch.i, ptr noundef nonnull @.str.50, i32 noundef %98, ptr noundef null, i32 noundef %101) #10, !dbg !1662",
+				"%cmp12.i = icmp eq ptr %call.i447, null, !dbg !1663",
+				"br i1 %cmp12.i, label %if.then14.i, label %if.else.i455, !dbg !1665"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 255,
+			"name": "if.then14.i",
+			"debug": [
+				{
+					"line": 556, "columns": [13, 30]
+				}
+			],
+			"successors": [258, 256],
+			"ir": [
+				"%call15.i449 = call ptr @PyErr_Occurred() #10, !dbg !1666",
+				"%tobool.not.i450 = icmp eq ptr %call15.i449, null, !dbg !1666",
+				"br i1 %tobool.not.i450, label %if.end19.i, label %land.lhs.true.i451, !dbg !1669"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 256,
+			"name": "land.lhs.true.i451",
+			"debug": [
+				{
+					"line": 556, "columns": [56, 33, 13]
+				}
+			],
+			"successors": [258, 257],
+			"ir": [
+				"%102 = load ptr, ptr @PyExc_SystemError, align 8, !dbg !1670, !tbaa !607",
+				"%call16.i = call i32 @PyErr_ExceptionMatches(ptr noundef %102) #10, !dbg !1671",
+				"%tobool17.not.i = icmp eq i32 %call16.i, 0, !dbg !1671",
+				"br i1 %tobool17.not.i, label %if.end19.i, label %if.then18.i452, !dbg !1672"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 257,
+			"name": "if.then18.i452",
+			"debug": [
+				{
+					"line": 557, "columns": [13]
+				},
+				{
+					"line": 558, "columns": [13]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @PyErr_Print() #10, !dbg !1673",
+				"call void @abort() #11, !dbg !1675",
+				"unreachable, !dbg !1675"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 258,
+			"name": "if.end19.i",
+			"debug": [
+				{
+					"line": 560, "columns": [9]
+				},
+				{
+					"line": 561, "columns": [5]
+				}
+			],
+			"successors": [262],
+			"ir": [
+				"call void @PyErr_Clear() #10, !dbg !1676",
+				"br label %if.end20.i460, !dbg !1677"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 259,
+			"name": "if.else.i455",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [260, 262],
+			"ir": [
+				"%op.val.i.i453 = load i64, ptr %call.i447, align 8, !dbg !1681, !tbaa !632",
+				"%103 = and i64 %op.val.i.i453, 2147483648, !dbg !1684",
+				"%cmp.i.not.i.i454 = icmp eq i64 %103, 0, !dbg !1684",
+				"br i1 %cmp.i.not.i.i454, label %if.end.i.i458, label %if.end20.i460, !dbg !1685"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 260,
+			"name": "if.end.i.i458",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [261, 262],
+			"ir": [
+				"%dec.i.i456 = add i64 %op.val.i.i453, -1, !dbg !1686",
+				"store i64 %dec.i.i456, ptr %call.i447, align 8, !dbg !1686, !tbaa !632",
+				"%cmp.i.i457 = icmp eq i64 %dec.i.i456, 0, !dbg !1687",
+				"br i1 %cmp.i.i457, label %if.then1.i.i459, label %if.end20.i460, !dbg !1688"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 261,
+			"name": "if.then1.i.i459",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [262],
+			"ir": [
+				"call void @_Py_Dealloc(ptr noundef nonnull %call.i447) #10, !dbg !1689",
+				"br label %if.end20.i460, !dbg !1690"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 262,
+			"name": "if.end20.i460",
+			"debug": [
+				{
+					"line": 566, "columns": [1]
+				}
+			],
+			"successors": [263],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 16384, ptr nonnull %pycompile_scratch.i) #10, !dbg !1691",
+				"br label %fuzz_pycompile.exit"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 263,
+			"name": "fuzz_pycompile.exit",
+			"debug": [
+				{
+					"line": 571, "columns": [9]
+				}
+			],
+			"successors": [265, 264],
+			"ir": [
+				"%call1.i208 = call ptr @PyErr_Occurred() #10, !dbg !1692",
+				"%tobool.not.i209 = icmp eq ptr %call1.i208, null, !dbg !1692",
+				"br i1 %tobool.not.i209, label %_run_fuzz.exit212, label %if.then.i210, !dbg !1693"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 264,
+			"name": "if.then.i210",
+			"debug": [
+				{
+					"line": 574, "columns": [9]
+				},
+				{
+					"line": 575, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @PyErr_Print() #10, !dbg !1694",
+				"call void @abort() #11, !dbg !1695",
+				"unreachable, !dbg !1695"
+			]
+		},
+		{
+			"function": "LLVMFuzzerTestOneInput",
+			"id": 265,
+			"name": "_run_fuzz.exit212",
+			"debug": [
+				{
+					"line": 713, "columns": [3]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret i32 0, !dbg !1696"
+			]
+		}
+	]
+}

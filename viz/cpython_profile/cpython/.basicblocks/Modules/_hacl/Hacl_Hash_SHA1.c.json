@@ -1,0 +1,1510 @@
+{
+	"blocks": [
+		{
+			"function": "python_hashlib_Hacl_Hash_SHA1_init",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 32, "columns": [3]
+				},
+				{
+					"line": 33, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"store <4 x i32> <i32 1732584193, i32 -271733879, i32 -1732584194, i32 271733878>, ptr %s, align 4, !dbg !46, !tbaa !48",
+				"%arrayidx21 = getelementptr i32, ptr %s, i64 4, !dbg !52",
+				"store i32 -1009589776, ptr %arrayidx21, align 4, !dbg !52, !tbaa !48",
+				"ret void, !dbg !54"
+			]
+		},
+		{
+			"function": "Hacl_Hash_SHA1_finish",
+			"id": 1,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 54, "columns": [10]
+				},
+				{
+					"line": 138, "columns": [3]
+				},
+				{
+					"line": 139, "columns": [1]
+				},
+				{
+					"line": 183, "columns": [3]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = load i32, ptr %s, align 4, !dbg !47, !tbaa !49",
+				"%or7.i = tail call i32 @llvm.bswap.i32(i32 %0), !dbg !61",
+				"store i32 %or7.i, ptr %dst, align 1, !dbg !71",
+				"%add.ptr3 = getelementptr i8, ptr %dst, i64 4, !dbg !72",
+				"%arrayidx5 = getelementptr i32, ptr %s, i64 1, !dbg !72",
+				"%1 = load i32, ptr %arrayidx5, align 4, !dbg !72, !tbaa !49",
+				"%or7.i56 = tail call i32 @llvm.bswap.i32(i32 %1), !dbg !76",
+				"store i32 %or7.i56, ptr %add.ptr3, align 1, !dbg !79",
+				"%add.ptr10 = getelementptr i8, ptr %dst, i64 8, !dbg !80",
+				"%arrayidx12 = getelementptr i32, ptr %s, i64 2, !dbg !80",
+				"%2 = load i32, ptr %arrayidx12, align 4, !dbg !80, !tbaa !49",
+				"%or7.i57 = tail call i32 @llvm.bswap.i32(i32 %2), !dbg !84",
+				"store i32 %or7.i57, ptr %add.ptr10, align 1, !dbg !87",
+				"%add.ptr17 = getelementptr i8, ptr %dst, i64 12, !dbg !88",
+				"%arrayidx19 = getelementptr i32, ptr %s, i64 3, !dbg !88",
+				"%3 = load i32, ptr %arrayidx19, align 4, !dbg !88, !tbaa !49",
+				"%or7.i58 = tail call i32 @llvm.bswap.i32(i32 %3), !dbg !92",
+				"store i32 %or7.i58, ptr %add.ptr17, align 1, !dbg !95",
+				"%add.ptr24 = getelementptr i8, ptr %dst, i64 16, !dbg !96",
+				"%arrayidx26 = getelementptr i32, ptr %s, i64 4, !dbg !96",
+				"%4 = load i32, ptr %arrayidx26, align 4, !dbg !96, !tbaa !49",
+				"%or7.i59 = tail call i32 @llvm.bswap.i32(i32 %4), !dbg !100",
+				"store i32 %or7.i59, ptr %add.ptr24, align 1, !dbg !103",
+				"ret void, !dbg !104"
+			]
+		},
+		{
+			"function": "Hacl_Hash_SHA1_update_multi",
+			"id": 2,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 143, "columns": [27, 3]
+				}
+			],
+			"successors": [4, 3],
+			"ir": [
+				"%_w.i = alloca [80 x i32], align 16",
+				"%cmp3.not = icmp eq i32 %n_blocks, 0, !dbg !52",
+				"br i1 %cmp3.not, label %for.cond.cleanup, label %for.body.lr.ph, !dbg !53"
+			]
+		},
+		{
+			"function": "Hacl_Hash_SHA1_update_multi",
+			"id": 3,
+			"name": "for.body.lr.ph",
+			"debug": [
+				{
+					"line": 143, "columns": [27, 3]
+				}
+			],
+			"successors": [5],
+			"ir": [
+				"%arrayidx1.i = getelementptr i32, ptr %s, i64 1",
+				"%arrayidx2.i = getelementptr i32, ptr %s, i64 2",
+				"%arrayidx3.i = getelementptr i32, ptr %s, i64 3",
+				"%arrayidx4.i = getelementptr i32, ptr %s, i64 4",
+				"%s.promoted = load i32, ptr %s, align 4, !tbaa !54",
+				"%arrayidx1.i.promoted = load i32, ptr %arrayidx1.i, align 4, !tbaa !54",
+				"%arrayidx2.i.promoted = load i32, ptr %arrayidx2.i, align 4, !tbaa !54",
+				"%arrayidx3.i.promoted = load i32, ptr %arrayidx3.i, align 4, !tbaa !54",
+				"%arrayidx4.i.promoted = load i32, ptr %arrayidx4.i, align 4, !tbaa !54",
+				"%wide.trip.count = zext i32 %n_blocks to i64, !dbg !52",
+				"br label %for.body, !dbg !53"
+			]
+		},
+		{
+			"function": "Hacl_Hash_SHA1_update_multi",
+			"id": 4,
+			"name": "for.cond.cleanup",
+			"debug": [
+				{
+					"line": 149, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !58"
+			]
+		},
+		{
+			"function": "Hacl_Hash_SHA1_update_multi",
+			"id": 5,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 42, "columns": [3, 12]
+				},
+				{
+					"line": 43, "columns": [3]
+				},
+				{
+					"line": 146, "columns": [34, 29]
+				}
+			],
+			"successors": [6],
+			"ir": [
+				"%indvars.iv = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next, %update.exit ]",
+				"%add106.i9 = phi i32 [ %arrayidx4.i.promoted, %for.body.lr.ph ], [ %add106.i, %update.exit ]",
+				"%add104.i8 = phi i32 [ %arrayidx3.i.promoted, %for.body.lr.ph ], [ %add104.i, %update.exit ]",
+				"%add102.i7 = phi i32 [ %arrayidx2.i.promoted, %for.body.lr.ph ], [ %add102.i, %update.exit ]",
+				"%add100.i6 = phi i32 [ %arrayidx1.i.promoted, %for.body.lr.ph ], [ %add100.i, %update.exit ]",
+				"%add98.i5 = phi i32 [ %s.promoted, %for.body.lr.ph ], [ %add98.i, %update.exit ]",
+				"%mul = shl i64 %indvars.iv, 6, !dbg !60",
+				"%idx.ext = and i64 %mul, 4294967232, !dbg !61",
+				"%add.ptr = getelementptr i8, ptr %blocks, i64 %idx.ext, !dbg !61",
+				"call void @llvm.lifetime.start.p0(i64 320, ptr nonnull %_w.i) #16, !dbg !113",
+				"call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(320) %_w.i, i8 0, i64 320, i1 false), !dbg !114",
+				"br label %for.body.i, !dbg !116"
+			]
+		},
+		{
+			"function": "Hacl_Hash_SHA1_update_multi",
+			"id": 6,
+			"name": "for.body.i",
+			"debug": [
+				{
+					"line": 46, "columns": [11, 9]
+				}
+			],
+			"successors": [7, 8],
+			"ir": [
+				"%indvars.iv.i = phi i64 [ 0, %for.body ], [ %indvars.iv.next.i, %if.end.i ]",
+				"%cmp5.i = icmp ult i64 %indvars.iv.i, 16, !dbg !117",
+				"br i1 %cmp5.i, label %if.then.i, label %if.else.i, !dbg !118"
+			]
+		},
+		{
+			"function": "Hacl_Hash_SHA1_update_multi",
+			"id": 7,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 48, "columns": [26, 22]
+				},
+				{
+					"line": 49, "columns": [20]
+				},
+				{
+					"line": 51, "columns": [5]
+				},
+				{
+					"line": 54, "columns": [10]
+				}
+			],
+			"successors": [9],
+			"ir": [
+				"%0 = shl nuw nsw i64 %indvars.iv.i, 2, !dbg !119",
+				"%add.ptr.i = getelementptr i8, ptr %add.ptr, i64 %0, !dbg !120",
+				"%add.ptr.val.i = load i32, ptr %add.ptr.i, align 1, !dbg !122",
+				"%or7.i.i = tail call i32 @llvm.bswap.i32(i32 %add.ptr.val.i), !dbg !131",
+				"br label %if.end.i, !dbg !133"
+			]
+		},
+		{
+			"function": "Hacl_Hash_SHA1_update_multi",
+			"id": 8,
+			"name": "if.else.i",
+			"debug": [
+				{
+					"line": 54, "columns": [24]
+				},
+				{
+					"line": 55, "columns": [24]
+				},
+				{
+					"line": 56, "columns": [25]
+				},
+				{
+					"line": 57, "columns": [25]
+				},
+				{
+					"line": 58, "columns": [37, 27, 18, 55]
+				}
+			],
+			"successors": [9],
+			"ir": [
+				"%1 = add nuw nsw i64 %indvars.iv.i, 4294967293, !dbg !134",
+				"%idxprom.i = and i64 %1, 4294967295, !dbg !134",
+				"%arrayidx7.i = getelementptr [80 x i32], ptr %_w.i, i64 0, i64 %idxprom.i, !dbg !134",
+				"%2 = load i32, ptr %arrayidx7.i, align 4, !dbg !134, !tbaa !54",
+				"%3 = add nuw nsw i64 %indvars.iv.i, 4294967288, !dbg !136",
+				"%idxprom9.i = and i64 %3, 4294967295, !dbg !136",
+				"%arrayidx10.i = getelementptr [80 x i32], ptr %_w.i, i64 0, i64 %idxprom9.i, !dbg !136",
+				"%4 = load i32, ptr %arrayidx10.i, align 4, !dbg !136, !tbaa !54",
+				"%5 = add nuw nsw i64 %indvars.iv.i, 4294967282, !dbg !137",
+				"%idxprom12.i = and i64 %5, 4294967295, !dbg !137",
+				"%arrayidx13.i = getelementptr [80 x i32], ptr %_w.i, i64 0, i64 %idxprom12.i, !dbg !137",
+				"%6 = load i32, ptr %arrayidx13.i, align 4, !dbg !137, !tbaa !54",
+				"%7 = add nuw nsw i64 %indvars.iv.i, 4294967280, !dbg !138",
+				"%idxprom15.i = and i64 %7, 4294967295, !dbg !138",
+				"%arrayidx16.i = getelementptr [80 x i32], ptr %_w.i, i64 0, i64 %idxprom15.i, !dbg !138",
+				"%8 = load i32, ptr %arrayidx16.i, align 4, !dbg !138, !tbaa !54",
+				"%xor.i = xor i32 %4, %2, !dbg !139",
+				"%xor17.i = xor i32 %xor.i, %6, !dbg !140",
+				"%xor18.i = xor i32 %xor17.i, %8, !dbg !141",
+				"%or.i = tail call i32 @llvm.fshl.i32(i32 %xor18.i, i32 %xor18.i, i32 1), !dbg !142",
+				"br label %if.end.i"
+			]
+		},
+		{
+			"function": "Hacl_Hash_SHA1_update_multi",
+			"id": 9,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 43, "columns": [35, 27, 3]
+				},
+				{
+					"line": 60, "columns": [5, 11]
+				}
+			],
+			"successors": [10, 6],
+			"ir": [
+				"%v.0.i = phi i32 [ %or7.i.i, %if.then.i ], [ %or.i, %if.else.i ], !dbg !143",
+				"%arrayidx23.i = getelementptr [80 x i32], ptr %_w.i, i64 0, i64 %indvars.iv.i, !dbg !144",
+				"store i32 %v.0.i, ptr %arrayidx23.i, align 4, !dbg !145, !tbaa !54",
+				"%indvars.iv.next.i = add nuw nsw i64 %indvars.iv.i, 1, !dbg !146",
+				"%exitcond.not.i = icmp eq i64 %indvars.iv.next.i, 80, !dbg !147",
+				"br i1 %exitcond.not.i, label %for.body28.i, label %for.body.i, !dbg !116, !llvm.loop !148"
+			]
+		},
+		{
+			"function": "Hacl_Hash_SHA1_update_multi",
+			"id": 10,
+			"name": "for.body28.i",
+			"debug": [
+				{
+					"line": 69, "columns": [21]
+				},
+				{
+					"line": 71, "columns": [11, 9]
+				}
+			],
+			"successors": [13, 11],
+			"ir": [
+				"%indvars.iv197.i = phi i64 [ %indvars.iv.next198.i, %if.end65.i ], [ 0, %if.end.i ]",
+				"%add71178188.i = phi i32 [ %add71.i, %if.end65.i ], [ %add98.i5, %if.end.i ]",
+				"%add71178179186.i = phi i32 [ %add71178188.i, %if.end65.i ], [ %add100.i6, %if.end.i ]",
+				"%or76180185.i = phi i32 [ %or76.i, %if.end65.i ], [ %add102.i7, %if.end.i ]",
+				"%or76180181184.i = phi i32 [ %or76180185.i, %if.end65.i ], [ %add104.i8, %if.end.i ]",
+				"%or76180181182183.i = phi i32 [ %or76180181184.i, %if.end65.i ], [ %add106.i9, %if.end.i ]",
+				"%arrayidx35.i = getelementptr [80 x i32], ptr %_w.i, i64 0, i64 %indvars.iv197.i, !dbg !153",
+				"%9 = load i32, ptr %arrayidx35.i, align 4, !dbg !153, !tbaa !54",
+				"%cmp36.i = icmp ult i64 %indvars.iv197.i, 20, !dbg !154",
+				"br i1 %cmp36.i, label %if.end53.i, label %if.else40.i, !dbg !156"
+			]
+		},
+		{
+			"function": "Hacl_Hash_SHA1_update_multi",
+			"id": 11,
+			"name": "if.else40.i",
+			"debug": [
+				{
+					"line": 75, "columns": [22]
+				}
+			],
+			"successors": [12, 14],
+			"ir": [
+				"%10 = trunc i64 %indvars.iv197.i to i32, !dbg !157",
+				"%11 = add i32 %10, -40, !dbg !157",
+				"%or.cond.i = icmp ult i32 %11, 20, !dbg !157",
+				"br i1 %or.cond.i, label %if.else56.thread.i, label %if.else56.i, !dbg !157"
+			]
+		},
+		{
+			"function": "Hacl_Hash_SHA1_update_multi",
+			"id": 12,
+			"name": "if.else56.thread.i",
+			"debug": [
+				{
+					"line": 77, "columns": [18, 37, 24]
+				},
+				{
+					"line": 88, "columns": [14]
+				}
+			],
+			"successors": [15],
+			"ir": [
+				"%and44.i = and i32 %or76180185.i, %add71178179186.i, !dbg !159",
+				"%and45170.i = xor i32 %or76180185.i, %add71178179186.i, !dbg !161",
+				"%xor47.i = and i32 %and45170.i, %or76180181184.i, !dbg !161",
+				"%xor48.i = xor i32 %xor47.i, %and44.i, !dbg !162",
+				"br label %if.else59.i, !dbg !163"
+			]
+		},
+		{
+			"function": "Hacl_Hash_SHA1_update_multi",
+			"id": 13,
+			"name": "if.end53.i",
+			"debug": [
+				{
+					"line": 73, "columns": [18, 27, 31, 24]
+				},
+				{
+					"line": 84, "columns": [9]
+				}
+			],
+			"successors": [16],
+			"ir": [
+				"%and.i = and i32 %or76180185.i, %add71178179186.i, !dbg !165",
+				"%not.i = xor i32 %add71178179186.i, -1, !dbg !167",
+				"%and38.i = and i32 %or76180181184.i, %not.i, !dbg !168",
+				"%xor39.i = or i32 %and38.i, %and.i, !dbg !169",
+				"br label %if.end65.i, !dbg !170"
+			]
+		},
+		{
+			"function": "Hacl_Hash_SHA1_update_multi",
+			"id": 14,
+			"name": "if.else56.i",
+			"debug": [
+				{
+					"line": 81, "columns": [23, 17]
+				},
+				{
+					"line": 88, "columns": [16, 14]
+				}
+			],
+			"successors": [16, 15],
+			"ir": [
+				"%xor50.i = xor i32 %or76180185.i, %add71178179186.i, !dbg !171",
+				"%xor51.i = xor i32 %xor50.i, %or76180181184.i, !dbg !173",
+				"%cmp57.i = icmp ult i64 %indvars.iv197.i, 40, !dbg !174",
+				"br i1 %cmp57.i, label %if.end65.i, label %if.else59.i, !dbg !163"
+			]
+		},
+		{
+			"function": "Hacl_Hash_SHA1_update_multi",
+			"id": 15,
+			"name": "if.else59.i",
+			"debug": [
+				{
+					"line": 92, "columns": [16]
+				}
+			],
+			"successors": [16],
+			"ir": [
+				"%ite0.0.ph176.i = phi i32 [ %xor48.i, %if.else56.thread.i ], [ %xor51.i, %if.else56.i ]",
+				"%cmp60.i = icmp ult i64 %indvars.iv197.i, 60, !dbg !176",
+				"%..i = select i1 %cmp60.i, i32 -1894007588, i32 -899497514",
+				"br label %if.end65.i"
+			]
+		},
+		{
+			"function": "Hacl_Hash_SHA1_update_multi",
+			"id": 16,
+			"name": "if.end65.i",
+			"debug": [
+				{
+					"line": 62, "columns": [35, 27, 3]
+				},
+				{
+					"line": 100, "columns": [29, 42, 49, 54, 60]
+				},
+				{
+					"line": 103, "columns": [23]
+				}
+			],
+			"successors": [17, 10],
+			"ir": [
+				"%ite0.0173.i = phi i32 [ %xor39.i, %if.end53.i ], [ %xor51.i, %if.else56.i ], [ %ite0.0.ph176.i, %if.else59.i ]",
+				"%ite.0.i = phi i32 [ 1518500249, %if.end53.i ], [ 1859775393, %if.else56.i ], [ %..i, %if.else59.i ], !dbg !178",
+				"%or68.i = tail call i32 @llvm.fshl.i32(i32 %add71178188.i, i32 %add71178188.i, i32 5), !dbg !179",
+				"%add.i = add i32 %or76180181182183.i, %or68.i, !dbg !180",
+				"%add69.i = add i32 %add.i, %9, !dbg !181",
+				"%add70.i = add i32 %add69.i, %ite0.0173.i, !dbg !182",
+				"%add71.i = add i32 %add70.i, %ite.0.i, !dbg !183",
+				"%or76.i = tail call i32 @llvm.fshl.i32(i32 %add71178179186.i, i32 %add71178179186.i, i32 30), !dbg !184",
+				"%indvars.iv.next198.i = add nuw nsw i64 %indvars.iv197.i, 1, !dbg !185",
+				"%exitcond200.not.i = icmp eq i64 %indvars.iv.next198.i, 80, !dbg !186",
+				"br i1 %exitcond200.not.i, label %update.exit, label %for.body28.i, !dbg !187, !llvm.loop !188"
+			]
+		},
+		{
+			"function": "Hacl_Hash_SHA1_update_multi",
+			"id": 17,
+			"name": "update.exit",
+			"debug": [
+				{
+					"line": 116, "columns": [15, 9]
+				},
+				{
+					"line": 117, "columns": [15, 9]
+				},
+				{
+					"line": 118, "columns": [15, 9]
+				},
+				{
+					"line": 119, "columns": [15, 9]
+				},
+				{
+					"line": 120, "columns": [15, 9]
+				},
+				{
+					"line": 121, "columns": [1]
+				},
+				{
+					"line": 143, "columns": [40, 27, 3]
+				}
+			],
+			"successors": [4, 5],
+			"ir": [
+				"%add98.i = add i32 %add71.i, %add98.i5, !dbg !190",
+				"store i32 %add98.i, ptr %s, align 4, !dbg !191, !tbaa !54",
+				"%add100.i = add i32 %add71178188.i, %add100.i6, !dbg !192",
+				"store i32 %add100.i, ptr %arrayidx1.i, align 4, !dbg !193, !tbaa !54",
+				"%add102.i = add i32 %or76.i, %add102.i7, !dbg !194",
+				"store i32 %add102.i, ptr %arrayidx2.i, align 4, !dbg !195, !tbaa !54",
+				"%add104.i = add i32 %or76180185.i, %add104.i8, !dbg !196",
+				"store i32 %add104.i, ptr %arrayidx3.i, align 4, !dbg !197, !tbaa !54",
+				"%add106.i = add i32 %or76180181184.i, %add106.i9, !dbg !198",
+				"store i32 %add106.i, ptr %arrayidx4.i, align 4, !dbg !199, !tbaa !54",
+				"call void @llvm.lifetime.end.p0(i64 320, ptr nonnull %_w.i) #16, !dbg !200",
+				"%indvars.iv.next = add nuw nsw i64 %indvars.iv, 1, !dbg !201",
+				"%exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count, !dbg !52",
+				"br i1 %exitcond.not, label %for.cond.cleanup, label %for.body, !dbg !53, !llvm.loop !202"
+			]
+		},
+		{
+			"function": "Hacl_Hash_SHA1_update_last",
+			"id": 18,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 126, "columns": [12]
+				},
+				{
+					"line": 127, "columns": [23]
+				},
+				{
+					"line": 128, "columns": [27, 3]
+				},
+				{
+					"line": 154, "columns": [33]
+				},
+				{
+					"line": 155, "columns": [34]
+				},
+				{
+					"line": 157, "columns": [33]
+				},
+				{
+					"line": 158, "columns": [25]
+				},
+				{
+					"line": 159, "columns": [3]
+				},
+				{
+					"line": 160, "columns": [41, 39]
+				},
+				{
+					"line": 161, "columns": [41, 33, 87]
+				},
+				{
+					"line": 163, "columns": [3, 11]
+				},
+				{
+					"line": 166, "columns": [26]
+				},
+				{
+					"line": 167, "columns": [3]
+				}
+			],
+			"successors": [20, 19],
+			"ir": [
+				"%tmp_twoblocks = alloca [128 x i8], align 16",
+				"%div24 = lshr i32 %input_len, 6, !dbg !61",
+				"%mul = and i32 %input_len, -64, !dbg !62",
+				"%sub = and i32 %input_len, 63, !dbg !63",
+				"%idx.ext = zext i32 %mul to i64, !dbg !64",
+				"%add.ptr = getelementptr i8, ptr %input, i64 %idx.ext, !dbg !64",
+				"tail call void @Hacl_Hash_SHA1_update_multi(ptr noundef %s, ptr noundef %input, i32 noundef %div24), !dbg !65",
+				"%conv = zext i32 %input_len to i64, !dbg !66",
+				"%add = add i64 %conv, %prev_len, !dbg !67",
+				"%0 = trunc i64 %add to i32, !dbg !68",
+				"%sub3 = sub i32 55, %0, !dbg !69",
+				"%rem4 = and i32 %sub3, 63, !dbg !70",
+				"call void @llvm.lifetime.start.p0(i64 128, ptr nonnull %tmp_twoblocks) #16, !dbg !71",
+				"%idx.ext8 = zext i32 %sub to i64, !dbg !73",
+				"%add.ptr9 = getelementptr i8, ptr %tmp_twoblocks, i64 %idx.ext8, !dbg !73",
+				"%1 = sub nuw nsw i64 128, %idx.ext8, !dbg !72",
+				"%2 = getelementptr i8, ptr %tmp_twoblocks, i64 %idx.ext8, !dbg !72",
+				"call void @llvm.memset.p0.i64(ptr noundef nonnull align 1 dereferenceable(1) %2, i8 0, i64 %1, i1 false), !dbg !72",
+				"call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 16 %tmp_twoblocks, ptr align 1 %add.ptr, i64 %idx.ext8, i1 false), !dbg !74",
+				"store i8 -128, ptr %add.ptr9, align 1, !dbg !88, !tbaa !89",
+				"%add.ptr.i = getelementptr i8, ptr %add.ptr9, i64 1, !dbg !92",
+				"%cmp17.not.i = icmp eq i32 %rem4, 0, !dbg !94",
+				"br i1 %cmp17.not.i, label %pad.exit, label %for.body.preheader.i, !dbg !96"
+			]
+		},
+		{
+			"function": "Hacl_Hash_SHA1_update_last",
+			"id": 19,
+			"name": "for.body.preheader.i",
+			"debug": [
+				{
+					"line": 128, "columns": [3]
+				},
+				{
+					"line": 130, "columns": [13]
+				},
+				{
+					"line": 132, "columns": [28]
+				}
+			],
+			"successors": [20],
+			"ir": [
+				"%3 = sub i64 55, %add, !dbg !96",
+				"%4 = and i64 %3, 63, !dbg !96",
+				"call void @llvm.memset.p0.i64(ptr align 1 %add.ptr.i, i8 0, i64 %4, i1 false), !dbg !97, !tbaa !89",
+				"br label %pad.exit, !dbg !99"
+			]
+		},
+		{
+			"function": "Hacl_Hash_SHA1_update_last",
+			"id": 20,
+			"name": "pad.exit",
+			"debug": [
+				{
+					"line": 75, "columns": [10]
+				},
+				{
+					"line": 132, "columns": [28]
+				},
+				{
+					"line": 133, "columns": [3]
+				},
+				{
+					"line": 161, "columns": [93]
+				},
+				{
+					"line": 162, "columns": [31]
+				},
+				{
+					"line": 169, "columns": [47, 3]
+				},
+				{
+					"line": 170, "columns": [1]
+				},
+				{
+					"line": 187, "columns": [3]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%add6 = add nuw nsw i32 %sub, 9, !dbg !100",
+				"%add7 = add nuw nsw i32 %add6, %rem4, !dbg !101",
+				"%idx.ext.i = zext i32 %rem4 to i64, !dbg !99",
+				"%add.ptr10.i = getelementptr i8, ptr %add.ptr.i, i64 %idx.ext.i, !dbg !99",
+				"%shl.i = shl i64 %add, 3, !dbg !102",
+				"%or19.i.i = tail call i64 @llvm.bswap.i64(i64 %shl.i), !dbg !111",
+				"store i64 %or19.i.i, ptr %add.ptr10.i, align 1, !dbg !121",
+				"%div1225 = lshr i32 %add7, 6, !dbg !122",
+				"call void @Hacl_Hash_SHA1_update_multi(ptr noundef %s, ptr noundef nonnull %tmp_twoblocks, i32 noundef %div1225), !dbg !123",
+				"call void @llvm.lifetime.end.p0(i64 128, ptr nonnull %tmp_twoblocks) #16, !dbg !124",
+				"ret void, !dbg !124"
+			]
+		},
+		{
+			"function": "Hacl_Hash_SHA1_hash_oneshot",
+			"id": 21,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 126, "columns": [12]
+				},
+				{
+					"line": 127, "columns": [23]
+				},
+				{
+					"line": 128, "columns": [27, 3]
+				},
+				{
+					"line": 154, "columns": [33]
+				},
+				{
+					"line": 155, "columns": [34]
+				},
+				{
+					"line": 158, "columns": [25]
+				},
+				{
+					"line": 159, "columns": [3]
+				},
+				{
+					"line": 160, "columns": [41]
+				},
+				{
+					"line": 161, "columns": [33, 87]
+				},
+				{
+					"line": 163, "columns": [3, 11]
+				},
+				{
+					"line": 166, "columns": [26]
+				},
+				{
+					"line": 167, "columns": [3]
+				},
+				{
+					"line": 174, "columns": [3, 12]
+				},
+				{
+					"line": 175, "columns": [34]
+				},
+				{
+					"line": 177, "columns": [17, 23, 29]
+				},
+				{
+					"line": 185, "columns": [36]
+				},
+				{
+					"line": 187, "columns": [34]
+				},
+				{
+					"line": 188, "columns": [26]
+				},
+				{
+					"line": 194, "columns": [3]
+				}
+			],
+			"successors": [23, 22],
+			"ir": [
+				"%tmp_twoblocks.i = alloca [128 x i8], align 16",
+				"%s = alloca [5 x i32], align 16",
+				"call void @llvm.lifetime.start.p0(i64 20, ptr nonnull %s) #16, !dbg !57",
+				"call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(20) %s, ptr noundef nonnull align 16 dereferenceable(20) @__const.Hacl_Hash_SHA1_hash_oneshot.s, i64 20, i1 false), !dbg !58",
+				"%div13 = lshr i32 %input_len, 6, !dbg !59",
+				"%rem = and i32 %input_len, 63, !dbg !60",
+				"%cmp = icmp eq i32 %rem, 0, !dbg !62",
+				"%cmp1 = icmp ugt i32 %input_len, 63",
+				"%or.cond = and i1 %cmp1, %cmp, !dbg !63",
+				"%sub = sext i1 %or.cond to i32, !dbg !63",
+				"%blocks_n1.0 = add nsw i32 %div13, %sub, !dbg !63",
+				"%mul = shl nuw i32 %blocks_n1.0, 6, !dbg !64",
+				"%sub2 = sub i32 %input_len, %mul, !dbg !65",
+				"%idx.ext = zext i32 %mul to i64, !dbg !66",
+				"%add.ptr = getelementptr i8, ptr %input, i64 %idx.ext, !dbg !66",
+				"call void @Hacl_Hash_SHA1_update_multi(ptr noundef nonnull %s, ptr noundef %input, i32 noundef %blocks_n1.0), !dbg !67",
+				"%div24.i = lshr i32 %sub2, 6, !dbg !93",
+				"%mul.i = and i32 %sub2, -64, !dbg !94",
+				"%idx.ext.i = zext i32 %mul.i to i64, !dbg !95",
+				"%add.ptr.i = getelementptr i8, ptr %add.ptr, i64 %idx.ext.i, !dbg !95",
+				"call void @Hacl_Hash_SHA1_update_multi(ptr noundef nonnull %s, ptr noundef %add.ptr, i32 noundef %div24.i), !dbg !96",
+				"%conv.i = zext i32 %sub2 to i64, !dbg !97",
+				"%sub3.i = sub i32 55, %input_len, !dbg !98",
+				"%rem4.i = and i32 %sub3.i, 63, !dbg !99",
+				"call void @llvm.lifetime.start.p0(i64 128, ptr nonnull %tmp_twoblocks.i) #16, !dbg !100",
+				"%idx.ext8.i = zext i32 %rem to i64, !dbg !102",
+				"%add.ptr9.i = getelementptr i8, ptr %tmp_twoblocks.i, i64 %idx.ext8.i, !dbg !102",
+				"%0 = sub nuw nsw i64 128, %idx.ext8.i, !dbg !101",
+				"call void @llvm.memset.p0.i64(ptr noundef nonnull align 1 dereferenceable(1) %add.ptr9.i, i8 0, i64 %0, i1 false), !dbg !101",
+				"call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 16 %tmp_twoblocks.i, ptr align 1 %add.ptr.i, i64 %idx.ext8.i, i1 false), !dbg !103",
+				"store i8 -128, ptr %add.ptr9.i, align 1, !dbg !117, !tbaa !118",
+				"%add.ptr.i.i = getelementptr i8, ptr %add.ptr9.i, i64 1, !dbg !121",
+				"%cmp17.not.i.i = icmp eq i32 %rem4.i, 0, !dbg !123",
+				"br i1 %cmp17.not.i.i, label %Hacl_Hash_SHA1_update_last.exit, label %for.body.preheader.i.i, !dbg !125"
+			]
+		},
+		{
+			"function": "Hacl_Hash_SHA1_hash_oneshot",
+			"id": 22,
+			"name": "for.body.preheader.i.i",
+			"debug": [
+				{
+					"line": 128, "columns": [3]
+				},
+				{
+					"line": 130, "columns": [13]
+				},
+				{
+					"line": 132, "columns": [28]
+				}
+			],
+			"successors": [23],
+			"ir": [
+				"%1 = sub nsw i64 55, %conv.i, !dbg !125",
+				"%2 = and i64 %1, 63, !dbg !125",
+				"call void @llvm.memset.p0.i64(ptr align 1 %add.ptr.i.i, i8 0, i64 %2, i1 false), !dbg !126, !tbaa !118",
+				"br label %Hacl_Hash_SHA1_update_last.exit, !dbg !128"
+			]
+		},
+		{
+			"function": "Hacl_Hash_SHA1_hash_oneshot",
+			"id": 23,
+			"name": "Hacl_Hash_SHA1_update_last.exit",
+			"debug": [
+				{
+					"line": 54, "columns": [10]
+				},
+				{
+					"line": 75, "columns": [10]
+				},
+				{
+					"line": 132, "columns": [28]
+				},
+				{
+					"line": 133, "columns": [3]
+				},
+				{
+					"line": 138, "columns": [3]
+				},
+				{
+					"line": 160, "columns": [39]
+				},
+				{
+					"line": 161, "columns": [93]
+				},
+				{
+					"line": 162, "columns": [31]
+				},
+				{
+					"line": 169, "columns": [47, 3]
+				},
+				{
+					"line": 170, "columns": [1]
+				},
+				{
+					"line": 183, "columns": [3]
+				},
+				{
+					"line": 187, "columns": [3]
+				},
+				{
+					"line": 197, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%add.i = add nuw nsw i64 %conv.i, %idx.ext, !dbg !129",
+				"%add6.i = add nuw nsw i32 %rem, 9, !dbg !130",
+				"%add7.i = add nuw nsw i32 %add6.i, %rem4.i, !dbg !131",
+				"%idx.ext.i.i = zext i32 %rem4.i to i64, !dbg !128",
+				"%add.ptr10.i.i = getelementptr i8, ptr %add.ptr.i.i, i64 %idx.ext.i.i, !dbg !128",
+				"%shl.i.i = shl nuw nsw i64 %add.i, 3, !dbg !132",
+				"%or19.i.i.i = tail call i64 @llvm.bswap.i64(i64 %shl.i.i), !dbg !141",
+				"store i64 %or19.i.i.i, ptr %add.ptr10.i.i, align 1, !dbg !151",
+				"%div1225.i = lshr i32 %add7.i, 6, !dbg !152",
+				"call void @Hacl_Hash_SHA1_update_multi(ptr noundef nonnull %s, ptr noundef nonnull %tmp_twoblocks.i, i32 noundef %div1225.i), !dbg !153",
+				"call void @llvm.lifetime.end.p0(i64 128, ptr nonnull %tmp_twoblocks.i) #16, !dbg !154",
+				"%3 = load <4 x i32>, ptr %s, align 16, !dbg !197, !tbaa !198",
+				"%4 = tail call <4 x i32> @llvm.bswap.v4i32(<4 x i32> %3), !dbg !200",
+				"store <4 x i32> %4, ptr %output, align 1, !dbg !201",
+				"%add.ptr24.i = getelementptr i8, ptr %output, i64 16, !dbg !202",
+				"%arrayidx26.i = getelementptr inbounds i32, ptr %s, i64 4, !dbg !202",
+				"%5 = load i32, ptr %arrayidx26.i, align 16, !dbg !202, !tbaa !198",
+				"%or7.i59.i = tail call i32 @llvm.bswap.i32(i32 %5), !dbg !206",
+				"store i32 %or7.i59.i, ptr %add.ptr24.i, align 1, !dbg !209",
+				"call void @llvm.lifetime.end.p0(i64 20, ptr nonnull %s) #16, !dbg !210",
+				"ret void, !dbg !210"
+			]
+		},
+		{
+			"function": "python_hashlib_Hacl_Hash_SHA1_malloc",
+			"id": 24,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 32, "columns": [3]
+				},
+				{
+					"line": 201, "columns": [29]
+				},
+				{
+					"line": 202, "columns": [39]
+				},
+				{
+					"line": 206, "columns": [38]
+				},
+				{
+					"line": 207, "columns": [11]
+				},
+				{
+					"line": 209, "columns": [3]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call noalias dereferenceable_or_null(64) ptr @calloc(i64 noundef 64, i64 noundef 1) #16, !dbg !45",
+				"%call1 = tail call noalias dereferenceable_or_null(20) ptr @calloc(i64 noundef 5, i64 noundef 4) #16, !dbg !47",
+				"%call4 = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #17, !dbg !48",
+				"store ptr %call1, ptr %call4, align 8, !dbg !49, !tbaa.struct !50",
+				"%s.sroa.4.0.arrayidx.sroa_idx = getelementptr inbounds i8, ptr %call4, i64 8, !dbg !49",
+				"store ptr %call, ptr %s.sroa.4.0.arrayidx.sroa_idx, align 8, !dbg !49, !tbaa.struct !57",
+				"%s.sroa.5.0.arrayidx.sroa_idx = getelementptr inbounds i8, ptr %call4, i64 16, !dbg !49",
+				"store i64 0, ptr %s.sroa.5.0.arrayidx.sroa_idx, align 8, !dbg !49, !tbaa.struct !58",
+				"store <4 x i32> <i32 1732584193, i32 -271733879, i32 -1732584194, i32 271733878>, ptr %call1, align 4, !dbg !69, !tbaa !71",
+				"%arrayidx21.i = getelementptr i32, ptr %call1, i64 4, !dbg !73",
+				"store i32 -1009589776, ptr %arrayidx21.i, align 4, !dbg !73, !tbaa !71",
+				"ret ptr %call4, !dbg !75"
+			]
+		},
+		{
+			"function": "Hacl_Hash_SHA1_reset",
+			"id": 25,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 32, "columns": [3]
+				},
+				{
+					"line": 214, "columns": [38]
+				},
+				{
+					"line": 220, "columns": [15]
+				},
+				{
+					"line": 221, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%scrut.sroa.0.0.copyload = load ptr, ptr %state, align 8, !dbg !47, !tbaa.struct !48",
+				"%scrut.sroa.4.0..sroa_idx = getelementptr inbounds i8, ptr %state, i64 8, !dbg !47",
+				"%scrut.sroa.4.0.copyload = load ptr, ptr %scrut.sroa.4.0..sroa_idx, align 8, !dbg !47, !tbaa.struct !55",
+				"%scrut.sroa.5.0..sroa_idx = getelementptr inbounds i8, ptr %state, i64 16, !dbg !47",
+				"store <4 x i32> <i32 1732584193, i32 -271733879, i32 -1732584194, i32 271733878>, ptr %scrut.sroa.0.0.copyload, align 4, !dbg !66, !tbaa !68",
+				"%arrayidx21.i = getelementptr i32, ptr %scrut.sroa.0.0.copyload, i64 4, !dbg !70",
+				"store i32 -1009589776, ptr %arrayidx21.i, align 4, !dbg !70, !tbaa !68",
+				"store ptr %scrut.sroa.0.0.copyload, ptr %state, align 8, !dbg !72, !tbaa.struct !48",
+				"store ptr %scrut.sroa.4.0.copyload, ptr %scrut.sroa.4.0..sroa_idx, align 8, !dbg !72, !tbaa.struct !55",
+				"store i64 0, ptr %scrut.sroa.5.0..sroa_idx, align 8, !dbg !72, !tbaa.struct !73",
+				"ret void, !dbg !74"
+			]
+		},
+		{
+			"function": "python_hashlib_Hacl_Hash_SHA1_update",
+			"id": 26,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 229, "columns": [34]
+				},
+				{
+					"line": 231, "columns": [7, 52, 27]
+				}
+			],
+			"successors": [37, 27],
+			"ir": [
+				"%s.sroa.3.0..sroa_idx = getelementptr inbounds i8, ptr %state, i64 16, !dbg !95",
+				"%s.sroa.3.0.copyload = load i64, ptr %s.sroa.3.0..sroa_idx, align 8, !dbg !95",
+				"%conv = zext i32 %chunk_len to i64, !dbg !96",
+				"%sub = sub i64 2305843009213693951, %s.sroa.3.0.copyload, !dbg !98",
+				"%cmp = icmp ult i64 %sub, %conv, !dbg !99",
+				"br i1 %cmp, label %cleanup, label %if.end, !dbg !100"
+			]
+		},
+		{
+			"function": "python_hashlib_Hacl_Hash_SHA1_update",
+			"id": 27,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 236, "columns": [17, 33, 41]
+				},
+				{
+					"line": 244, "columns": [24, 17, 7]
+				}
+			],
+			"successors": [29, 28],
+			"ir": [
+				"%rem = and i64 %s.sroa.3.0.copyload, 63, !dbg !101",
+				"%cmp3 = icmp eq i64 %rem, 0, !dbg !103",
+				"%cmp5 = icmp ne i64 %s.sroa.3.0.copyload, 0",
+				"%or.cond = and i1 %cmp5, %cmp3, !dbg !104",
+				"%conv9 = trunc i64 %rem to i32, !dbg !104",
+				"%sz.0 = select i1 %or.cond, i32 64, i32 %conv9, !dbg !104",
+				"%sub11 = sub nuw nsw i32 64, %sz.0, !dbg !105",
+				"%cmp12.not = icmp ult i32 %sub11, %chunk_len, !dbg !106",
+				"br i1 %cmp12.not, label %if.else34, label %if.then14, !dbg !107"
+			]
+		},
+		{
+			"function": "python_hashlib_Hacl_Hash_SHA1_update",
+			"id": 28,
+			"name": "if.then14",
+			"debug": [
+				{
+					"line": 246, "columns": [37]
+				},
+				{
+					"line": 259, "columns": [25]
+				},
+				{
+					"line": 260, "columns": [5]
+				},
+				{
+					"line": 261, "columns": [38]
+				},
+				{
+					"line": 265, "columns": [9]
+				},
+				{
+					"line": 271, "columns": [3]
+				}
+			],
+			"successors": [36],
+			"ir": [
+				"%s1.sroa.0.0.copyload = load ptr, ptr %state, align 8, !dbg !108, !tbaa.struct !109",
+				"%s1.sroa.4.0..sroa_idx = getelementptr inbounds i8, ptr %state, i64 8, !dbg !108",
+				"%s1.sroa.4.0.copyload = load ptr, ptr %s1.sroa.4.0..sroa_idx, align 8, !dbg !108, !tbaa.struct !117",
+				"%.rem18 = select i1 %or.cond, i64 64, i64 %rem",
+				"%add.ptr = getelementptr i8, ptr %s1.sroa.4.0.copyload, i64 %.rem18, !dbg !118",
+				"tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %add.ptr, ptr align 1 %chunk, i64 %conv, i1 false), !dbg !119",
+				"%add = add i64 %s.sroa.3.0.copyload, %conv, !dbg !120",
+				"store ptr %s1.sroa.0.0.copyload, ptr %state, align 8, !dbg !121, !tbaa.struct !109",
+				"store ptr %s1.sroa.4.0.copyload, ptr %s1.sroa.4.0..sroa_idx, align 8, !dbg !121, !tbaa.struct !117",
+				"br label %cleanup.sink.split, !dbg !122"
+			]
+		},
+		{
+			"function": "python_hashlib_Hacl_Hash_SHA1_update",
+			"id": 29,
+			"name": "if.else34",
+			"debug": [
+				{
+					"line": 272, "columns": [15, 12]
+				}
+			],
+			"successors": [30, 33],
+			"ir": [
+				"%cmp35 = icmp eq i32 %sz.0, 0, !dbg !123",
+				"br i1 %cmp35, label %if.then37, label %if.else89, !dbg !124"
+			]
+		},
+		{
+			"function": "python_hashlib_Hacl_Hash_SHA1_update",
+			"id": 30,
+			"name": "if.then37",
+			"debug": [
+				{
+					"line": 274, "columns": [37]
+				},
+				{
+					"line": 279, "columns": [44]
+				}
+			],
+			"successors": [32, 31],
+			"ir": [
+				"%s138.sroa.0.0.copyload = load ptr, ptr %state, align 8, !dbg !125, !tbaa.struct !109",
+				"%s138.sroa.4.0..sroa_idx = getelementptr inbounds i8, ptr %state, i64 8, !dbg !125",
+				"%s138.sroa.4.0.copyload = load ptr, ptr %s138.sroa.4.0..sroa_idx, align 8, !dbg !125, !tbaa.struct !117",
+				"%or.cond262 = xor i1 %cmp3, %or.cond, !dbg !127",
+				"br i1 %or.cond262, label %if.end60, label %if.then59, !dbg !127"
+			]
+		},
+		{
+			"function": "python_hashlib_Hacl_Hash_SHA1_update",
+			"id": 31,
+			"name": "if.then59",
+			"debug": [
+				{
+					"line": 289, "columns": [7]
+				},
+				{
+					"line": 290, "columns": [5]
+				}
+			],
+			"successors": [32],
+			"ir": [
+				"tail call void @Hacl_Hash_SHA1_update_multi(ptr noundef %s138.sroa.0.0.copyload, ptr noundef %s138.sroa.4.0.copyload, i32 noundef 1), !dbg !129",
+				"br label %if.end60, !dbg !132"
+			]
+		},
+		{
+			"function": "python_hashlib_Hacl_Hash_SHA1_update",
+			"id": 32,
+			"name": "if.end60",
+			"debug": [
+				{
+					"line": 292, "columns": [29, 45, 53]
+				},
+				{
+					"line": 300, "columns": [36, 43]
+				},
+				{
+					"line": 301, "columns": [35]
+				},
+				{
+					"line": 302, "columns": [36]
+				},
+				{
+					"line": 304, "columns": [28]
+				},
+				{
+					"line": 305, "columns": [5]
+				},
+				{
+					"line": 307, "columns": [24, 5]
+				},
+				{
+					"line": 311, "columns": [9]
+				},
+				{
+					"line": 314, "columns": [35]
+				},
+				{
+					"line": 317, "columns": [3]
+				}
+			],
+			"successors": [36],
+			"ir": [
+				"%rem62 = and i64 %conv, 63, !dbg !133",
+				"%cmp63 = icmp eq i64 %rem62, 0, !dbg !135",
+				"%conv73 = trunc i64 %rem62 to i32, !dbg !136",
+				"%ite.0 = select i1 %cmp63, i32 64, i32 %conv73, !dbg !136",
+				"%sub75 = sub i32 %chunk_len, %ite.0, !dbg !137",
+				"%div260 = lshr i32 %sub75, 6, !dbg !138",
+				"%mul76 = and i32 %sub75, -64, !dbg !139",
+				"%sub77 = sub i32 %chunk_len, %mul76, !dbg !140",
+				"%idx.ext78 = zext i32 %mul76 to i64, !dbg !141",
+				"%add.ptr79 = getelementptr i8, ptr %chunk, i64 %idx.ext78, !dbg !141",
+				"tail call void @Hacl_Hash_SHA1_update_multi(ptr noundef %s138.sroa.0.0.copyload, ptr noundef %chunk, i32 noundef %div260), !dbg !142",
+				"%conv81 = zext i32 %sub77 to i64, !dbg !143",
+				"tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %s138.sroa.4.0.copyload, ptr align 1 %add.ptr79, i64 %conv81, i1 false), !dbg !144",
+				"%add88 = add i64 %s.sroa.3.0.copyload, %conv, !dbg !145",
+				"store ptr %s138.sroa.0.0.copyload, ptr %state, align 8, !dbg !146, !tbaa.struct !109",
+				"store ptr %s138.sroa.4.0.copyload, ptr %s138.sroa.4.0..sroa_idx, align 8, !dbg !146, !tbaa.struct !117",
+				"br label %cleanup.sink.split, !dbg !147"
+			]
+		},
+		{
+			"function": "python_hashlib_Hacl_Hash_SHA1_update",
+			"id": 33,
+			"name": "if.else89",
+			"debug": [
+				{
+					"line": 322, "columns": [29]
+				},
+				{
+					"line": 323, "columns": [37]
+				},
+				{
+					"line": 336, "columns": [26]
+				},
+				{
+					"line": 337, "columns": [5]
+				},
+				{
+					"line": 338, "columns": [39]
+				},
+				{
+					"line": 342, "columns": [9]
+				},
+				{
+					"line": 353, "columns": [44]
+				}
+			],
+			"successors": [35, 34],
+			"ir": [
+				"%idx.ext91 = zext i32 %sub11 to i64, !dbg !149",
+				"%add.ptr92 = getelementptr i8, ptr %chunk, i64 %idx.ext91, !dbg !149",
+				"%s193.sroa.0.0.copyload = load ptr, ptr %state, align 8, !dbg !150, !tbaa.struct !109",
+				"%s193.sroa.4.0..sroa_idx = getelementptr inbounds i8, ptr %state, i64 8, !dbg !150",
+				"%s193.sroa.4.0.copyload = load ptr, ptr %s193.sroa.4.0..sroa_idx, align 8, !dbg !150, !tbaa.struct !117",
+				"%.rem97 = select i1 %or.cond, i64 64, i64 %rem",
+				"%add.ptr110 = getelementptr i8, ptr %s193.sroa.4.0.copyload, i64 %.rem97, !dbg !151",
+				"tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %add.ptr110, ptr align 1 %chunk, i64 %idx.ext91, i1 false), !dbg !152",
+				"%add115 = add i64 %s.sroa.3.0.copyload, %idx.ext91, !dbg !153",
+				"store ptr %s193.sroa.0.0.copyload, ptr %state, align 8, !dbg !154, !tbaa.struct !109",
+				"store ptr %s193.sroa.4.0.copyload, ptr %s193.sroa.4.0..sroa_idx, align 8, !dbg !154, !tbaa.struct !117",
+				"store i64 %add115, ptr %s.sroa.3.0..sroa_idx, align 8, !dbg !154, !tbaa.struct !155",
+				"%or.cond263 = icmp eq i64 %add115, 0, !dbg !156",
+				"br i1 %or.cond263, label %if.end141, label %if.then140, !dbg !156"
+			]
+		},
+		{
+			"function": "python_hashlib_Hacl_Hash_SHA1_update",
+			"id": 34,
+			"name": "if.then140",
+			"debug": [
+				{
+					"line": 363, "columns": [7]
+				},
+				{
+					"line": 364, "columns": [5]
+				}
+			],
+			"successors": [35],
+			"ir": [
+				"tail call void @Hacl_Hash_SHA1_update_multi(ptr noundef %s193.sroa.0.0.copyload, ptr noundef %s193.sroa.4.0.copyload, i32 noundef 1), !dbg !158",
+				"br label %if.end141, !dbg !161"
+			]
+		},
+		{
+			"function": "python_hashlib_Hacl_Hash_SHA1_update",
+			"id": 35,
+			"name": "if.end141",
+			"debug": [
+				{
+					"line": 367, "columns": [27, 6, 35, 51, 59]
+				},
+				{
+					"line": 375, "columns": [43, 50]
+				},
+				{
+					"line": 376, "columns": [35]
+				},
+				{
+					"line": 377, "columns": [43]
+				},
+				{
+					"line": 379, "columns": [29]
+				},
+				{
+					"line": 380, "columns": [5]
+				},
+				{
+					"line": 382, "columns": [24, 5]
+				},
+				{
+					"line": 386, "columns": [9]
+				},
+				{
+					"line": 389, "columns": [35]
+				}
+			],
+			"successors": [36],
+			"ir": [
+				"%sub143 = sub i32 %chunk_len, %sub11, !dbg !162",
+				"%conv144 = zext i32 %sub143 to i64, !dbg !164",
+				"%rem145 = and i64 %conv144, 63, !dbg !165",
+				"%cmp146 = icmp ne i64 %rem145, 0, !dbg !166",
+				"%cmp151.not = icmp eq i32 %sub11, %chunk_len",
+				"%or.cond261 = or i1 %cmp151.not, %cmp146, !dbg !167",
+				"%conv158 = trunc i64 %rem145 to i32, !dbg !167",
+				"%ite142.0 = select i1 %or.cond261, i32 %conv158, i32 64, !dbg !167",
+				"%sub162 = sub i32 %sub143, %ite142.0, !dbg !168",
+				"%div163259 = lshr i32 %sub162, 6, !dbg !169",
+				"%mul165 = and i32 %sub162, -64, !dbg !170",
+				"%sub168 = sub i32 %sub143, %mul165, !dbg !171",
+				"%idx.ext171 = zext i32 %mul165 to i64, !dbg !172",
+				"%add.ptr172 = getelementptr i8, ptr %add.ptr92, i64 %idx.ext171, !dbg !172",
+				"tail call void @Hacl_Hash_SHA1_update_multi(ptr noundef %s193.sroa.0.0.copyload, ptr noundef %add.ptr92, i32 noundef %div163259), !dbg !173",
+				"%conv175 = zext i32 %sub168 to i64, !dbg !174",
+				"tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %s193.sroa.4.0.copyload, ptr align 1 %add.ptr172, i64 %conv175, i1 false), !dbg !175",
+				"%add183 = add i64 %add115, %conv144, !dbg !176",
+				"store ptr %s193.sroa.0.0.copyload, ptr %state, align 8, !dbg !177, !tbaa.struct !109",
+				"store ptr %s193.sroa.4.0.copyload, ptr %s193.sroa.4.0..sroa_idx, align 8, !dbg !177, !tbaa.struct !117",
+				"br label %cleanup.sink.split"
+			]
+		},
+		{
+			"function": "python_hashlib_Hacl_Hash_SHA1_update",
+			"id": 36,
+			"name": "cleanup.sink.split",
+			"debug": [
+				{
+					"line": 394, "columns": [1]
+				}
+			],
+			"successors": [37],
+			"ir": [
+				"%add.sink = phi i64 [ %add, %if.then14 ], [ %add183, %if.end141 ], [ %add88, %if.end60 ]",
+				"store i64 %add.sink, ptr %s.sroa.3.0..sroa_idx, align 8, !dbg !178",
+				"br label %cleanup, !dbg !179"
+			]
+		},
+		{
+			"function": "python_hashlib_Hacl_Hash_SHA1_update",
+			"id": 37,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 394, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i8 [ 3, %entry ], [ 0, %cleanup.sink.split ], !dbg !94",
+				"ret i8 %retval.0, !dbg !179"
+			]
+		},
+		{
+			"function": "python_hashlib_Hacl_Hash_SHA1_digest",
+			"id": 38,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 126, "columns": [12]
+				},
+				{
+					"line": 127, "columns": [23]
+				},
+				{
+					"line": 128, "columns": [27, 3]
+				},
+				{
+					"line": 154, "columns": [33]
+				},
+				{
+					"line": 155, "columns": [34]
+				},
+				{
+					"line": 158, "columns": [25]
+				},
+				{
+					"line": 159, "columns": [3]
+				},
+				{
+					"line": 161, "columns": [41, 33, 87]
+				},
+				{
+					"line": 163, "columns": [3, 11]
+				},
+				{
+					"line": 166, "columns": [26]
+				},
+				{
+					"line": 167, "columns": [3]
+				},
+				{
+					"line": 398, "columns": [38]
+				},
+				{
+					"line": 403, "columns": [17, 33, 41]
+				},
+				{
+					"line": 412, "columns": [3, 12]
+				},
+				{
+					"line": 413, "columns": [3]
+				},
+				{
+					"line": 415, "columns": [9, 15, 21]
+				},
+				{
+					"line": 423, "columns": [29, 33]
+				}
+			],
+			"successors": [40, 39],
+			"ir": [
+				"%tmp_twoblocks.i = alloca [128 x i8], align 16",
+				"%tmp_block_state = alloca [5 x i32], align 16",
+				"%scrut.sroa.0.0.copyload = load ptr, ptr %state, align 8, !dbg !55, !tbaa.struct !56",
+				"%scrut.sroa.4.0..sroa_idx = getelementptr inbounds i8, ptr %state, i64 8, !dbg !55",
+				"%scrut.sroa.4.0.copyload = load ptr, ptr %scrut.sroa.4.0..sroa_idx, align 8, !dbg !55, !tbaa.struct !63",
+				"%scrut.sroa.5.0..sroa_idx = getelementptr inbounds i8, ptr %state, i64 16, !dbg !55",
+				"%scrut.sroa.5.0.copyload = load i64, ptr %scrut.sroa.5.0..sroa_idx, align 8, !dbg !55, !tbaa.struct !64",
+				"%rem = and i64 %scrut.sroa.5.0.copyload, 63, !dbg !65",
+				"%cmp = icmp eq i64 %rem, 0, !dbg !67",
+				"%cmp3 = icmp ne i64 %scrut.sroa.5.0.copyload, 0",
+				"%or.cond = and i1 %cmp3, %cmp, !dbg !68",
+				"%conv = trunc i64 %rem to i32, !dbg !68",
+				"%r.0 = select i1 %or.cond, i32 64, i32 %conv, !dbg !68",
+				"call void @llvm.lifetime.start.p0(i64 20, ptr nonnull %tmp_block_state) #16, !dbg !69",
+				"call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(20) %tmp_block_state, ptr noundef nonnull align 4 dereferenceable(20) %scrut.sroa.0.0.copyload, i64 20, i1 false), !dbg !71",
+				"%rem5 = and i32 %r.0, 63, !dbg !72",
+				"%cmp6 = icmp eq i32 %rem5, 0, !dbg !74",
+				"%cmp9 = icmp ne i32 %r.0, 0",
+				"%or.cond21 = and i1 %cmp9, %cmp6, !dbg !75",
+				"%0 = zext i32 %rem5 to i64, !dbg !75",
+				"%ite.0 = select i1 %or.cond21, i64 64, i64 %0, !dbg !75",
+				"%idx.ext = zext i32 %r.0 to i64, !dbg !76",
+				"%add.ptr = getelementptr i8, ptr %scrut.sroa.4.0.copyload, i64 %idx.ext, !dbg !76",
+				"%idx.neg = sub nsw i64 0, %ite.0, !dbg !77",
+				"%add.ptr16 = getelementptr i8, ptr %add.ptr, i64 %idx.neg, !dbg !77",
+				"%div24.i = lshr i32 %r.0, 6, !dbg !103",
+				"%mul.i = and i32 %r.0, 64, !dbg !104",
+				"%idx.ext.i = zext i32 %mul.i to i64, !dbg !105",
+				"%add.ptr.i = getelementptr i8, ptr %add.ptr16, i64 %idx.ext.i, !dbg !105",
+				"call void @Hacl_Hash_SHA1_update_multi(ptr noundef nonnull %tmp_block_state, ptr noundef %add.ptr16, i32 noundef %div24.i), !dbg !106",
+				"%1 = trunc i64 %scrut.sroa.5.0.copyload to i32, !dbg !107",
+				"%sub3.i = sub i32 55, %1, !dbg !108",
+				"%rem4.i = and i32 %sub3.i, 63, !dbg !109",
+				"call void @llvm.lifetime.start.p0(i64 128, ptr nonnull %tmp_twoblocks.i) #16, !dbg !110",
+				"%add.ptr9.i = getelementptr i8, ptr %tmp_twoblocks.i, i64 %0, !dbg !112",
+				"%2 = sub nuw nsw i64 128, %0, !dbg !111",
+				"call void @llvm.memset.p0.i64(ptr noundef nonnull align 1 dereferenceable(1) %add.ptr9.i, i8 0, i64 %2, i1 false), !dbg !111",
+				"call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 16 %tmp_twoblocks.i, ptr align 1 %add.ptr.i, i64 %0, i1 false), !dbg !113",
+				"store i8 -128, ptr %add.ptr9.i, align 1, !dbg !127, !tbaa !128",
+				"%add.ptr.i.i = getelementptr i8, ptr %add.ptr9.i, i64 1, !dbg !129",
+				"%cmp17.not.i.i = icmp eq i32 %rem4.i, 0, !dbg !131",
+				"br i1 %cmp17.not.i.i, label %Hacl_Hash_SHA1_update_last.exit, label %for.body.preheader.i.i, !dbg !133"
+			]
+		},
+		{
+			"function": "python_hashlib_Hacl_Hash_SHA1_digest",
+			"id": 39,
+			"name": "for.body.preheader.i.i",
+			"debug": [
+				{
+					"line": 128, "columns": [3]
+				},
+				{
+					"line": 130, "columns": [13]
+				},
+				{
+					"line": 132, "columns": [28]
+				}
+			],
+			"successors": [40],
+			"ir": [
+				"%3 = sub i64 55, %scrut.sroa.5.0.copyload, !dbg !133",
+				"%4 = and i64 %3, 63, !dbg !133",
+				"call void @llvm.memset.p0.i64(ptr align 1 %add.ptr.i.i, i8 0, i64 %4, i1 false), !dbg !134, !tbaa !128",
+				"br label %Hacl_Hash_SHA1_update_last.exit, !dbg !136"
+			]
+		},
+		{
+			"function": "python_hashlib_Hacl_Hash_SHA1_digest",
+			"id": 40,
+			"name": "Hacl_Hash_SHA1_update_last.exit",
+			"debug": [
+				{
+					"line": 54, "columns": [10]
+				},
+				{
+					"line": 75, "columns": [10]
+				},
+				{
+					"line": 132, "columns": [28]
+				},
+				{
+					"line": 133, "columns": [3]
+				},
+				{
+					"line": 138, "columns": [3]
+				},
+				{
+					"line": 161, "columns": [93]
+				},
+				{
+					"line": 162, "columns": [31]
+				},
+				{
+					"line": 169, "columns": [47, 3]
+				},
+				{
+					"line": 170, "columns": [1]
+				},
+				{
+					"line": 183, "columns": [3]
+				},
+				{
+					"line": 187, "columns": [3]
+				},
+				{
+					"line": 429, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%add6.i = add nuw nsw i32 %rem4.i, 9, !dbg !137",
+				"%add7.i = add nuw nsw i32 %add6.i, %rem5, !dbg !138",
+				"%idx.ext.i.i = zext i32 %rem4.i to i64, !dbg !136",
+				"%add.ptr10.i.i = getelementptr i8, ptr %add.ptr.i.i, i64 %idx.ext.i.i, !dbg !136",
+				"%shl.i.i = shl i64 %scrut.sroa.5.0.copyload, 3, !dbg !139",
+				"%or19.i.i.i = tail call i64 @llvm.bswap.i64(i64 %shl.i.i), !dbg !148",
+				"store i64 %or19.i.i.i, ptr %add.ptr10.i.i, align 1, !dbg !158",
+				"%div1225.i = lshr i32 %add7.i, 6, !dbg !159",
+				"call void @Hacl_Hash_SHA1_update_multi(ptr noundef nonnull %tmp_block_state, ptr noundef nonnull %tmp_twoblocks.i, i32 noundef %div1225.i), !dbg !160",
+				"call void @llvm.lifetime.end.p0(i64 128, ptr nonnull %tmp_twoblocks.i) #16, !dbg !161",
+				"%5 = load <4 x i32>, ptr %tmp_block_state, align 16, !dbg !204, !tbaa !205",
+				"%6 = tail call <4 x i32> @llvm.bswap.v4i32(<4 x i32> %5), !dbg !207",
+				"store <4 x i32> %6, ptr %output, align 1, !dbg !208",
+				"%add.ptr24.i = getelementptr i8, ptr %output, i64 16, !dbg !209",
+				"%arrayidx26.i = getelementptr inbounds i32, ptr %tmp_block_state, i64 4, !dbg !209",
+				"%7 = load i32, ptr %arrayidx26.i, align 16, !dbg !209, !tbaa !205",
+				"%or7.i59.i = tail call i32 @llvm.bswap.i32(i32 %7), !dbg !213",
+				"store i32 %or7.i59.i, ptr %add.ptr24.i, align 1, !dbg !216",
+				"call void @llvm.lifetime.end.p0(i64 20, ptr nonnull %tmp_block_state) #16, !dbg !217",
+				"ret void, !dbg !217"
+			]
+		},
+		{
+			"function": "python_hashlib_Hacl_Hash_SHA1_free",
+			"id": 41,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 433, "columns": [38]
+				},
+				{
+					"line": 436, "columns": [3]
+				},
+				{
+					"line": 437, "columns": [3]
+				},
+				{
+					"line": 438, "columns": [3]
+				},
+				{
+					"line": 439, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%scrut.sroa.0.0.copyload = load ptr, ptr %state, align 8, !dbg !46, !tbaa.struct !47",
+				"%scrut.sroa.4.0..sroa_idx = getelementptr inbounds i8, ptr %state, i64 8, !dbg !46",
+				"%scrut.sroa.4.0.copyload = load ptr, ptr %scrut.sroa.4.0..sroa_idx, align 8, !dbg !46, !tbaa.struct !54",
+				"tail call void @free(ptr noundef %scrut.sroa.0.0.copyload) #16, !dbg !55",
+				"tail call void @free(ptr noundef %scrut.sroa.4.0.copyload) #16, !dbg !56",
+				"tail call void @free(ptr noundef %state) #16, !dbg !57",
+				"ret void, !dbg !58"
+			]
+		},
+		{
+			"function": "python_hashlib_Hacl_Hash_SHA1_copy",
+			"id": 42,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 443, "columns": [38]
+				},
+				{
+					"line": 447, "columns": [29]
+				},
+				{
+					"line": 448, "columns": [3]
+				},
+				{
+					"line": 449, "columns": [39]
+				},
+				{
+					"line": 450, "columns": [3]
+				},
+				{
+					"line": 454, "columns": [38]
+				},
+				{
+					"line": 455, "columns": [11]
+				},
+				{
+					"line": 456, "columns": [3]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%scrut.sroa.0.0.copyload = load ptr, ptr %state, align 8, !dbg !51, !tbaa.struct !52",
+				"%scrut.sroa.4.0..sroa_idx = getelementptr inbounds i8, ptr %state, i64 8, !dbg !51",
+				"%scrut.sroa.4.0.copyload = load ptr, ptr %scrut.sroa.4.0..sroa_idx, align 8, !dbg !51, !tbaa.struct !59",
+				"%scrut.sroa.5.0..sroa_idx = getelementptr inbounds i8, ptr %state, i64 16, !dbg !51",
+				"%scrut.sroa.5.0.copyload = load i64, ptr %scrut.sroa.5.0..sroa_idx, align 8, !dbg !51, !tbaa.struct !60",
+				"%call = tail call noalias dereferenceable_or_null(64) ptr @calloc(i64 noundef 64, i64 noundef 1) #16, !dbg !61",
+				"tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(64) %call, ptr noundef nonnull align 1 dereferenceable(64) %scrut.sroa.4.0.copyload, i64 64, i1 false), !dbg !62",
+				"%call3 = tail call noalias dereferenceable_or_null(20) ptr @calloc(i64 noundef 5, i64 noundef 4) #16, !dbg !63",
+				"tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(20) %call3, ptr noundef nonnull align 4 dereferenceable(20) %scrut.sroa.0.0.copyload, i64 20, i1 false), !dbg !64",
+				"%call7 = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #17, !dbg !65",
+				"store ptr %call3, ptr %call7, align 8, !dbg !66, !tbaa.struct !52",
+				"%s.sroa.4.0.arrayidx.sroa_idx = getelementptr inbounds i8, ptr %call7, i64 8, !dbg !66",
+				"store ptr %call, ptr %s.sroa.4.0.arrayidx.sroa_idx, align 8, !dbg !66, !tbaa.struct !59",
+				"%s.sroa.5.0.arrayidx.sroa_idx = getelementptr inbounds i8, ptr %call7, i64 16, !dbg !66",
+				"store i64 %scrut.sroa.5.0.copyload, ptr %s.sroa.5.0.arrayidx.sroa_idx, align 8, !dbg !66, !tbaa.struct !60",
+				"ret ptr %call7, !dbg !67"
+			]
+		},
+		{
+			"function": "python_hashlib_Hacl_Hash_SHA1_hash",
+			"id": 43,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 461, "columns": [3]
+				},
+				{
+					"line": 462, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @Hacl_Hash_SHA1_hash_oneshot(ptr noundef %output, ptr noundef %input, i32 noundef %input_len), !dbg !45",
+				"ret void, !dbg !46"
+			]
+		}
+	]
+}

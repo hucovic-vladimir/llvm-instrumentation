@@ -1,0 +1,3550 @@
+{
+	"blocks": [
+		{
+			"function": "_PyTestCapi_Init_Exceptions",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 412, "columns": [63, 45]
+				},
+				{
+					"line": 413, "columns": [9, 56]
+				}
+			],
+			"successors": [3, 1],
+			"ir": [
+				"%0 = load ptr, ptr @PyExc_Exception, align 8, !dbg !693, !tbaa !694",
+				"store ptr %0, ptr getelementptr inbounds (%struct._typeobject, ptr @PyRecursingInfinitelyError_Type, i64 0, i32 30), align 8, !dbg !698, !tbaa !699",
+				"%call = tail call i32 @PyType_Ready(ptr noundef nonnull @PyRecursingInfinitelyError_Type) #10, !dbg !706",
+				"%cmp = icmp slt i32 %call, 0, !dbg !708",
+				"br i1 %cmp, label %return, label %if.end, !dbg !709"
+			]
+		},
+		{
+			"function": "_PyTestCapi_Init_Exceptions",
+			"id": 1,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 416, "columns": [9]
+				},
+				{
+					"line": 417, "columns": [77]
+				}
+			],
+			"successors": [3, 2],
+			"ir": [
+				"%call1 = tail call i32 @PyModule_AddObjectRef(ptr noundef %mod, ptr noundef nonnull @.str, ptr noundef nonnull @PyRecursingInfinitelyError_Type) #10, !dbg !710",
+				"%cmp2 = icmp slt i32 %call1, 0, !dbg !712",
+				"br i1 %cmp2, label %return, label %if.end4, !dbg !713"
+			]
+		},
+		{
+			"function": "_PyTestCapi_Init_Exceptions",
+			"id": 2,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 422, "columns": [9]
+				}
+			],
+			"successors": [3],
+			"ir": [
+				"%call5 = tail call i32 @PyModule_AddFunctions(ptr noundef %mod, ptr noundef nonnull @test_methods) #10, !dbg !714",
+				"%call5.lobit = ashr i32 %call5, 31, !dbg !692",
+				"br label %return, !dbg !692"
+			]
+		},
+		{
+			"function": "_PyTestCapi_Init_Exceptions",
+			"id": 3,
+			"name": "return",
+			"debug": [
+				{
+					"line": 427, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ -1, %entry ], [ -1, %if.end ], [ %call5.lobit, %if.end4 ], !dbg !692",
+				"ret i32 %retval.0, !dbg !716"
+			]
+		},
+		{
+			"function": "recurse_infinitely_error_init",
+			"id": 4,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [6, 5],
+			"ir": [
+				"%0 = load i32, ptr @PyRecursingInfinitelyError_Type, align 8, !dbg !703, !tbaa !704",
+				"%add.i = add i32 %0, 1, !dbg !707",
+				"%cmp.i = icmp eq i32 %add.i, 0, !dbg !708",
+				"br i1 %cmp.i, label %Py_INCREF.exit, label %if.end.i, !dbg !710"
+			]
+		},
+		{
+			"function": "recurse_infinitely_error_init",
+			"id": 5,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [6],
+			"ir": [
+				"store i32 %add.i, ptr @PyRecursingInfinitelyError_Type, align 8, !dbg !711, !tbaa !704",
+				"br label %Py_INCREF.exit, !dbg !712"
+			]
+		},
+		{
+			"function": "recurse_infinitely_error_init",
+			"id": 6,
+			"name": "Py_INCREF.exit",
+			"debug": [
+				{
+					"line": 376, "columns": [5]
+				},
+				{
+					"line": 377, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @PyErr_SetObject(ptr noundef nonnull @PyRecursingInfinitelyError_Type, ptr noundef null) #10, !dbg !713",
+				"ret i32 -1, !dbg !714"
+			]
+		},
+		{
+			"function": "err_restore",
+			"id": 7,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 33, "columns": [12, 5]
+				}
+			],
+			"successors": [15, 8, 10, 12],
+			"ir": [
+				"%call = tail call i64 @PyTuple_Size(ptr noundef %args) #10, !dbg !697",
+				"switch i64 %call, label %sw.default [\n    i64 3, label %sw.bb\n    i64 2, label %sw.bb2\n    i64 1, label %sw.bb4\n  ], !dbg !698"
+			]
+		},
+		{
+			"function": "err_restore",
+			"id": 8,
+			"name": "sw.bb",
+			"debug": [
+				{
+					"line": 35, "columns": [25]
+				},
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [10, 9],
+			"ir": [
+				"%call1 = tail call ptr @PyTuple_GetItem(ptr noundef %args, i64 noundef 2) #10, !dbg !699",
+				"%0 = load i32, ptr %call1, align 8, !dbg !708, !tbaa !709",
+				"%add.i = add i32 %0, 1, !dbg !712",
+				"%cmp.i = icmp eq i32 %add.i, 0, !dbg !713",
+				"br i1 %cmp.i, label %sw.bb2, label %if.end.i, !dbg !715"
+			]
+		},
+		{
+			"function": "err_restore",
+			"id": 9,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [10],
+			"ir": [
+				"store i32 %add.i, ptr %call1, align 8, !dbg !716, !tbaa !709",
+				"br label %sw.bb2, !dbg !717"
+			]
+		},
+		{
+			"function": "err_restore",
+			"id": 10,
+			"name": "sw.bb2",
+			"debug": [
+				{
+					"line": 39, "columns": [21]
+				},
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [12, 11],
+			"ir": [
+				"%traceback.0 = phi ptr [ null, %entry ], [ %call1, %sw.bb ], [ %call1, %if.end.i ], !dbg !696",
+				"%call3 = tail call ptr @PyTuple_GetItem(ptr noundef %args, i64 noundef 1) #10, !dbg !718",
+				"%1 = load i32, ptr %call3, align 8, !dbg !721, !tbaa !709",
+				"%add.i15 = add i32 %1, 1, !dbg !722",
+				"%cmp.i16 = icmp eq i32 %add.i15, 0, !dbg !723",
+				"br i1 %cmp.i16, label %sw.bb4, label %if.end.i17, !dbg !724"
+			]
+		},
+		{
+			"function": "err_restore",
+			"id": 11,
+			"name": "if.end.i17",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [12],
+			"ir": [
+				"store i32 %add.i15, ptr %call3, align 8, !dbg !725, !tbaa !709",
+				"br label %sw.bb4, !dbg !726"
+			]
+		},
+		{
+			"function": "err_restore",
+			"id": 12,
+			"name": "sw.bb4",
+			"debug": [
+				{
+					"line": 32, "columns": [44]
+				},
+				{
+					"line": 43, "columns": [20]
+				},
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [14, 13],
+			"ir": [
+				"%value.0 = phi ptr [ null, %entry ], [ %call3, %sw.bb2 ], [ %call3, %if.end.i17 ], !dbg !696",
+				"%traceback.1 = phi ptr [ null, %entry ], [ %traceback.0, %sw.bb2 ], [ %traceback.0, %if.end.i17 ], !dbg !727",
+				"%call5 = tail call ptr @PyTuple_GetItem(ptr noundef %args, i64 noundef 0) #10, !dbg !728",
+				"%2 = load i32, ptr %call5, align 8, !dbg !731, !tbaa !709",
+				"%add.i19 = add i32 %2, 1, !dbg !732",
+				"%cmp.i20 = icmp eq i32 %add.i19, 0, !dbg !733",
+				"br i1 %cmp.i20, label %Py_INCREF.exit22, label %if.end.i21, !dbg !734"
+			]
+		},
+		{
+			"function": "err_restore",
+			"id": 13,
+			"name": "if.end.i21",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [14],
+			"ir": [
+				"store i32 %add.i19, ptr %call5, align 8, !dbg !735, !tbaa !709",
+				"br label %Py_INCREF.exit22, !dbg !736"
+			]
+		},
+		{
+			"function": "err_restore",
+			"id": 14,
+			"name": "Py_INCREF.exit22",
+			"debug": [
+				{
+					"line": 51, "columns": [5]
+				},
+				{
+					"line": 52, "columns": [5]
+				}
+			],
+			"successors": [16, 17],
+			"ir": [
+				"tail call void @PyErr_Restore(ptr noundef nonnull %call5, ptr noundef %value.0, ptr noundef %traceback.1) #10, !dbg !737",
+				"%call6 = tail call ptr @PyErr_Occurred() #10, !dbg !738",
+				"%tobool.not = icmp eq ptr %call6, null, !dbg !738",
+				"br i1 %tobool.not, label %cond.false, label %cleanup, !dbg !738"
+			]
+		},
+		{
+			"function": "err_restore",
+			"id": 15,
+			"name": "sw.default",
+			"debug": [
+				{
+					"line": 47, "columns": [29, 13]
+				},
+				{
+					"line": 49, "columns": [13]
+				}
+			],
+			"successors": [17],
+			"ir": [
+				"%3 = load ptr, ptr @PyExc_TypeError, align 8, !dbg !739, !tbaa !740",
+				"tail call void @PyErr_SetString(ptr noundef %3, ptr noundef nonnull @.str.19) #10, !dbg !742",
+				"br label %cleanup, !dbg !743"
+			]
+		},
+		{
+			"function": "err_restore",
+			"id": 16,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 52, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.20, ptr noundef nonnull @.str.21, i32 noundef 52, ptr noundef nonnull @__PRETTY_FUNCTION__.err_restore) #11, !dbg !738",
+				"unreachable, !dbg !738"
+			]
+		},
+		{
+			"function": "err_restore",
+			"id": 17,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 54, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret ptr null, !dbg !744"
+			]
+		},
+		{
+			"function": "err_writeunraisable",
+			"id": 18,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 309, "columns": [5]
+				},
+				{
+					"line": 310, "columns": [10, 9]
+				}
+			],
+			"successors": [28, 19],
+			"ir": [
+				"%exc = alloca ptr, align 8",
+				"%obj = alloca ptr, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %exc) #10, !dbg !696",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %obj) #10, !dbg !696",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.22, ptr noundef nonnull %exc, ptr noundef nonnull %obj) #10, !dbg !697",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !697",
+				"br i1 %tobool.not, label %cleanup, label %do.body, !dbg !699"
+			]
+		},
+		{
+			"function": "err_writeunraisable",
+			"id": 19,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 313, "columns": [5]
+				}
+			],
+			"successors": [20, 21],
+			"ir": [
+				"%0 = load ptr, ptr %exc, align 8, !dbg !700, !tbaa !703",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !700",
+				"br i1 %cmp, label %if.then1, label %do.body3, !dbg !707"
+			]
+		},
+		{
+			"function": "err_writeunraisable",
+			"id": 20,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 313, "columns": [5]
+				}
+			],
+			"successors": [21],
+			"ir": [
+				"store ptr null, ptr %exc, align 8, !dbg !708, !tbaa !703",
+				"br label %do.body3, !dbg !708"
+			]
+		},
+		{
+			"function": "err_writeunraisable",
+			"id": 21,
+			"name": "do.body3",
+			"debug": [
+				{
+					"line": 314, "columns": [5]
+				}
+			],
+			"successors": [22, 23],
+			"ir": [
+				"%1 = phi ptr [ %0, %do.body ], [ null, %if.then1 ]",
+				"%2 = load ptr, ptr %obj, align 8, !dbg !710, !tbaa !703",
+				"%cmp4 = icmp eq ptr %2, @_Py_NoneStruct, !dbg !710",
+				"br i1 %cmp4, label %if.then5, label %do.end8, !dbg !713"
+			]
+		},
+		{
+			"function": "err_writeunraisable",
+			"id": 22,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 314, "columns": [5]
+				}
+			],
+			"successors": [23],
+			"ir": [
+				"store ptr null, ptr %obj, align 8, !dbg !714, !tbaa !703",
+				"br label %do.end8, !dbg !714"
+			]
+		},
+		{
+			"function": "err_writeunraisable",
+			"id": 23,
+			"name": "do.end8",
+			"debug": [
+				{
+					"line": 315, "columns": [9]
+				}
+			],
+			"successors": [27, 24],
+			"ir": [
+				"%3 = phi ptr [ null, %if.then5 ], [ %2, %do.body3 ]",
+				"%tobool9.not = icmp eq ptr %1, null, !dbg !716",
+				"br i1 %tobool9.not, label %if.end12, label %if.then10, !dbg !718"
+			]
+		},
+		{
+			"function": "err_writeunraisable",
+			"id": 24,
+			"name": "if.then10",
+			"debug": [
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [26, 25],
+			"ir": [
+				"%4 = load i32, ptr %1, align 8, !dbg !732, !tbaa !733",
+				"%add.i.i = add i32 %4, 1, !dbg !734",
+				"%cmp.i.i = icmp eq i32 %add.i.i, 0, !dbg !735",
+				"br i1 %cmp.i.i, label %_Py_NewRef.exit, label %if.end.i.i, !dbg !737"
+			]
+		},
+		{
+			"function": "err_writeunraisable",
+			"id": 25,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [26],
+			"ir": [
+				"store i32 %add.i.i, ptr %1, align 8, !dbg !738, !tbaa !733",
+				"br label %_Py_NewRef.exit, !dbg !739"
+			]
+		},
+		{
+			"function": "err_writeunraisable",
+			"id": 26,
+			"name": "_Py_NewRef.exit",
+			"debug": [
+				{
+					"line": 316, "columns": [9]
+				},
+				{
+					"line": 317, "columns": [5]
+				},
+				{
+					"line": 318, "columns": [27]
+				}
+			],
+			"successors": [27],
+			"ir": [
+				"call void @PyErr_SetRaisedException(ptr noundef nonnull %1) #10, !dbg !740",
+				"%.pre = load ptr, ptr %obj, align 8, !dbg !741, !tbaa !703",
+				"br label %if.end12, !dbg !742"
+			]
+		},
+		{
+			"function": "err_writeunraisable",
+			"id": 27,
+			"name": "if.end12",
+			"debug": [
+				{
+					"line": 318, "columns": [27, 5]
+				},
+				{
+					"line": 319, "columns": [5]
+				}
+			],
+			"successors": [28],
+			"ir": [
+				"%5 = phi ptr [ %.pre, %_Py_NewRef.exit ], [ %3, %do.end8 ], !dbg !741",
+				"call void @PyErr_WriteUnraisable(ptr noundef %5) #10, !dbg !743",
+				"br label %cleanup, !dbg !744"
+			]
+		},
+		{
+			"function": "err_writeunraisable",
+			"id": 28,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 320, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ @_Py_NoneStruct, %if.end12 ], [ null, %entry ], !dbg !695",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %obj) #10, !dbg !745",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %exc) #10, !dbg !745",
+				"ret ptr %retval.0, !dbg !745"
+			]
+		},
+		{
+			"function": "err_formatunraisable",
+			"id": 29,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 325, "columns": [5]
+				},
+				{
+					"line": 326, "columns": [5]
+				},
+				{
+					"line": 327, "columns": [5]
+				},
+				{
+					"line": 328, "columns": [5, 15]
+				},
+				{
+					"line": 330, "columns": [10, 9]
+				},
+				{
+					"line": 331, "columns": [24, 34, 44, 54]
+				},
+				{
+					"line": 332, "columns": [14, 24, 34, 44, 54]
+				}
+			],
+			"successors": [37, 30],
+			"ir": [
+				"%exc = alloca ptr, align 8",
+				"%fmt = alloca ptr, align 8",
+				"%fmtlen = alloca i64, align 8",
+				"%objs = alloca [10 x ptr], align 16",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %exc) #10, !dbg !701",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %fmt) #10, !dbg !702",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %fmtlen) #10, !dbg !703",
+				"call void @llvm.lifetime.start.p0(i64 80, ptr nonnull %objs) #10, !dbg !704",
+				"call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(80) %objs, i8 0, i64 80, i1 false), !dbg !705",
+				"%arrayidx1 = getelementptr inbounds [10 x ptr], ptr %objs, i64 0, i64 1, !dbg !706",
+				"%arrayidx2 = getelementptr inbounds [10 x ptr], ptr %objs, i64 0, i64 2, !dbg !708",
+				"%arrayidx3 = getelementptr inbounds [10 x ptr], ptr %objs, i64 0, i64 3, !dbg !709",
+				"%arrayidx4 = getelementptr inbounds [10 x ptr], ptr %objs, i64 0, i64 4, !dbg !710",
+				"%arrayidx5 = getelementptr inbounds [10 x ptr], ptr %objs, i64 0, i64 5, !dbg !711",
+				"%arrayidx6 = getelementptr inbounds [10 x ptr], ptr %objs, i64 0, i64 6, !dbg !712",
+				"%arrayidx7 = getelementptr inbounds [10 x ptr], ptr %objs, i64 0, i64 7, !dbg !713",
+				"%arrayidx8 = getelementptr inbounds [10 x ptr], ptr %objs, i64 0, i64 8, !dbg !714",
+				"%arrayidx9 = getelementptr inbounds [10 x ptr], ptr %objs, i64 0, i64 9, !dbg !715",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.23, ptr noundef nonnull %exc, ptr noundef nonnull %fmt, ptr noundef nonnull %fmtlen, ptr noundef nonnull %objs, ptr noundef nonnull %arrayidx1, ptr noundef nonnull %arrayidx2, ptr noundef nonnull %arrayidx3, ptr noundef nonnull %arrayidx4, ptr noundef nonnull %arrayidx5, ptr noundef nonnull %arrayidx6, ptr noundef nonnull %arrayidx7, ptr noundef nonnull %arrayidx8, ptr noundef nonnull %arrayidx9) #10, !dbg !716",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !716",
+				"br i1 %tobool.not, label %cleanup, label %do.body, !dbg !717"
+			]
+		},
+		{
+			"function": "err_formatunraisable",
+			"id": 30,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 336, "columns": [5]
+				}
+			],
+			"successors": [31, 32],
+			"ir": [
+				"%0 = load ptr, ptr %exc, align 8, !dbg !718, !tbaa !721",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !718",
+				"br i1 %cmp, label %do.end.thread, label %do.end, !dbg !725"
+			]
+		},
+		{
+			"function": "err_formatunraisable",
+			"id": 31,
+			"name": "do.end.thread",
+			"debug": [
+				{
+					"line": 336, "columns": [5]
+				},
+				{
+					"line": 337, "columns": [9]
+				}
+			],
+			"successors": [36],
+			"ir": [
+				"store ptr null, ptr %exc, align 8, !dbg !726, !tbaa !721",
+				"br label %if.end15, !dbg !728"
+			]
+		},
+		{
+			"function": "err_formatunraisable",
+			"id": 32,
+			"name": "do.end",
+			"debug": [
+				{
+					"line": 337, "columns": [9]
+				}
+			],
+			"successors": [36, 33],
+			"ir": [
+				"%tobool12.not = icmp eq ptr %0, null, !dbg !729",
+				"br i1 %tobool12.not, label %if.end15, label %if.then13, !dbg !728"
+			]
+		},
+		{
+			"function": "err_formatunraisable",
+			"id": 33,
+			"name": "if.then13",
+			"debug": [
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [35, 34],
+			"ir": [
+				"%1 = load i32, ptr %0, align 8, !dbg !744, !tbaa !745",
+				"%add.i.i = add i32 %1, 1, !dbg !746",
+				"%cmp.i.i = icmp eq i32 %add.i.i, 0, !dbg !747",
+				"br i1 %cmp.i.i, label %_Py_NewRef.exit, label %if.end.i.i, !dbg !749"
+			]
+		},
+		{
+			"function": "err_formatunraisable",
+			"id": 34,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [35],
+			"ir": [
+				"store i32 %add.i.i, ptr %0, align 8, !dbg !750, !tbaa !745",
+				"br label %_Py_NewRef.exit, !dbg !751"
+			]
+		},
+		{
+			"function": "err_formatunraisable",
+			"id": 35,
+			"name": "_Py_NewRef.exit",
+			"debug": [
+				{
+					"line": 338, "columns": [9]
+				},
+				{
+					"line": 339, "columns": [5]
+				}
+			],
+			"successors": [36],
+			"ir": [
+				"call void @PyErr_SetRaisedException(ptr noundef nonnull %0) #10, !dbg !752",
+				"br label %if.end15, !dbg !753"
+			]
+		},
+		{
+			"function": "err_formatunraisable",
+			"id": 36,
+			"name": "if.end15",
+			"debug": [
+				{
+					"line": 340, "columns": [28, 5]
+				},
+				{
+					"line": 341, "columns": [13, 22, 31, 40, 49]
+				},
+				{
+					"line": 342, "columns": [13, 22, 31, 40, 49]
+				},
+				{
+					"line": 343, "columns": [5]
+				}
+			],
+			"successors": [37],
+			"ir": [
+				"%2 = load ptr, ptr %fmt, align 8, !dbg !754, !tbaa !721",
+				"%3 = load ptr, ptr %objs, align 16, !dbg !755, !tbaa !721",
+				"%4 = load ptr, ptr %arrayidx1, align 8, !dbg !756, !tbaa !721",
+				"%5 = load ptr, ptr %arrayidx2, align 16, !dbg !757, !tbaa !721",
+				"%6 = load ptr, ptr %arrayidx3, align 8, !dbg !758, !tbaa !721",
+				"%7 = load ptr, ptr %arrayidx4, align 16, !dbg !759, !tbaa !721",
+				"%8 = load ptr, ptr %arrayidx5, align 8, !dbg !760, !tbaa !721",
+				"%9 = load ptr, ptr %arrayidx6, align 16, !dbg !761, !tbaa !721",
+				"%10 = load ptr, ptr %arrayidx7, align 8, !dbg !762, !tbaa !721",
+				"%11 = load ptr, ptr %arrayidx8, align 16, !dbg !763, !tbaa !721",
+				"%12 = load ptr, ptr %arrayidx9, align 8, !dbg !764, !tbaa !721",
+				"call void (ptr, ...) @PyErr_FormatUnraisable(ptr noundef %2, ptr noundef %3, ptr noundef %4, ptr noundef %5, ptr noundef %6, ptr noundef %7, ptr noundef %8, ptr noundef %9, ptr noundef %10, ptr noundef %11, ptr noundef %12) #10, !dbg !765",
+				"br label %cleanup, !dbg !766"
+			]
+		},
+		{
+			"function": "err_formatunraisable",
+			"id": 37,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 344, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ @_Py_NoneStruct, %if.end15 ], [ null, %entry ], !dbg !700",
+				"call void @llvm.lifetime.end.p0(i64 80, ptr nonnull %objs) #10, !dbg !767",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %fmtlen) #10, !dbg !767",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %fmt) #10, !dbg !767",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %exc) #10, !dbg !767",
+				"ret ptr %retval.0, !dbg !767"
+			]
+		},
+		{
+			"function": "_testcapi_err_set_raised",
+			"id": 38,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [40, 39],
+			"ir": [
+				"%0 = load i32, ptr %exc, align 8, !dbg !701, !tbaa !702",
+				"%add.i = add i32 %0, 1, !dbg !705",
+				"%cmp.i = icmp eq i32 %add.i, 0, !dbg !706",
+				"br i1 %cmp.i, label %Py_INCREF.exit, label %if.end.i, !dbg !708"
+			]
+		},
+		{
+			"function": "_testcapi_err_set_raised",
+			"id": 39,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [40],
+			"ir": [
+				"store i32 %add.i, ptr %exc, align 8, !dbg !709, !tbaa !702",
+				"br label %Py_INCREF.exit, !dbg !710"
+			]
+		},
+		{
+			"function": "_testcapi_err_set_raised",
+			"id": 40,
+			"name": "Py_INCREF.exit",
+			"debug": [
+				{
+					"line": 25, "columns": [5]
+				},
+				{
+					"line": 26, "columns": [5]
+				}
+			],
+			"successors": [41, 42],
+			"ir": [
+				"tail call void @PyErr_SetRaisedException(ptr noundef nonnull %exc) #10, !dbg !711",
+				"%call = tail call ptr @PyErr_Occurred() #10, !dbg !712",
+				"%tobool.not = icmp eq ptr %call, null, !dbg !712",
+				"br i1 %tobool.not, label %cond.false, label %cond.end, !dbg !712"
+			]
+		},
+		{
+			"function": "_testcapi_err_set_raised",
+			"id": 41,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 26, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.20, ptr noundef nonnull @.str.21, i32 noundef 26, ptr noundef nonnull @__PRETTY_FUNCTION__._testcapi_err_set_raised) #11, !dbg !712",
+				"unreachable, !dbg !712"
+			]
+		},
+		{
+			"function": "_testcapi_err_set_raised",
+			"id": 42,
+			"name": "cond.end",
+			"debug": [
+				{
+					"line": 27, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret ptr null, !dbg !713"
+			]
+		},
+		{
+			"function": "_testcapi_exception_print",
+			"id": 43,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 38, "columns": [10]
+				}
+			],
+			"successors": [45, 44],
+			"ir": [
+				"%0 = add i64 %nargs, -1, !dbg !702",
+				"%or.cond = icmp ult i64 %0, 2, !dbg !702",
+				"br i1 %or.cond, label %if.end, label %lor.lhs.false, !dbg !702"
+			]
+		},
+		{
+			"function": "_testcapi_exception_print",
+			"id": 44,
+			"name": "lor.lhs.false",
+			"debug": [
+				{
+					"line": 38, "columns": [10, 9]
+				}
+			],
+			"successors": [55, 45],
+			"ir": [
+				"%call = tail call i32 @_PyArg_CheckPositional(ptr noundef nonnull @.str.6, i64 noundef %nargs, i64 noundef 1, i64 noundef 2) #10, !dbg !702",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !702",
+				"br i1 %tobool.not, label %exit, label %if.end, !dbg !704"
+			]
+		},
+		{
+			"function": "_testcapi_exception_print",
+			"id": 45,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 41, "columns": [11]
+				},
+				{
+					"line": 42, "columns": [15, 9]
+				}
+			],
+			"successors": [54, 46],
+			"ir": [
+				"%1 = load ptr, ptr %args, align 8, !dbg !705, !tbaa !706",
+				"%cmp2 = icmp slt i64 %nargs, 2, !dbg !710",
+				"br i1 %cmp2, label %if.else.i, label %if.end4, !dbg !712"
+			]
+		},
+		{
+			"function": "_testcapi_exception_print",
+			"id": 46,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 45, "columns": [30, 14]
+				},
+				{
+					"line": 46, "columns": [16, 9]
+				}
+			],
+			"successors": [55, 47],
+			"ir": [
+				"%arrayidx5 = getelementptr ptr, ptr %args, i64 1, !dbg !713",
+				"%2 = load ptr, ptr %arrayidx5, align 8, !dbg !713, !tbaa !706",
+				"%call6 = tail call i32 @PyObject_IsTrue(ptr noundef %2) #10, !dbg !714",
+				"%cmp7 = icmp slt i32 %call6, 0, !dbg !715",
+				"br i1 %cmp7, label %exit, label %skip_optional, !dbg !717"
+			]
+		},
+		{
+			"function": "_testcapi_exception_print",
+			"id": 47,
+			"name": "skip_optional",
+			"debug": [
+				{
+					"line": 49, "columns": [1]
+				},
+				{
+					"line": 69, "columns": [9]
+				}
+			],
+			"successors": [54, 48],
+			"ir": [
+				"%tobool.not.i = icmp eq i32 %call6, 0, !dbg !729",
+				"br i1 %tobool.not.i, label %if.else.i, label %if.then.i, !dbg !730"
+			]
+		},
+		{
+			"function": "_testcapi_exception_print",
+			"id": 48,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 71, "columns": [13]
+				}
+			],
+			"successors": [49, 50],
+			"ir": [
+				"%3 = getelementptr i8, ptr %1, i64 8, !dbg !732",
+				"%exc.val12.i = load ptr, ptr %3, align 8, !dbg !732, !tbaa !734",
+				"%4 = getelementptr i8, ptr %exc.val12.i, i64 168, !dbg !732",
+				"%call.val.i = load i64, ptr %4, align 8, !dbg !732, !tbaa !736",
+				"%5 = and i64 %call.val.i, 1073741824, !dbg !732",
+				"%tobool2.not.i = icmp eq i64 %5, 0, !dbg !732",
+				"br i1 %tobool2.not.i, label %if.end.thread.i, label %if.end.i, !dbg !742"
+			]
+		},
+		{
+			"function": "_testcapi_exception_print",
+			"id": 49,
+			"name": "if.end.thread.i",
+			"debug": [
+				{
+					"line": 74, "columns": [9]
+				},
+				{
+					"line": 1037, "columns": [9]
+				}
+			],
+			"successors": [55],
+			"ir": [
+				"tail call void @PyErr_Display(ptr noundef nonnull %exc.val12.i, ptr noundef nonnull %1, ptr noundef null) #10, !dbg !743",
+				"br label %exit, !dbg !749"
+			]
+		},
+		{
+			"function": "_testcapi_exception_print",
+			"id": 50,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 72, "columns": [18]
+				},
+				{
+					"line": 74, "columns": [36, 9]
+				},
+				{
+					"line": 1037, "columns": [12, 9]
+				}
+			],
+			"successors": [55, 51],
+			"ir": [
+				"%call4.i = tail call ptr @PyException_GetTraceback(ptr noundef nonnull %1) #10, !dbg !750",
+				"%exc.val.i = load ptr, ptr %3, align 8, !dbg !752, !tbaa !734",
+				"tail call void @PyErr_Display(ptr noundef %exc.val.i, ptr noundef nonnull %1, ptr noundef %call4.i) #10, !dbg !743",
+				"%cmp.not.i.i = icmp eq ptr %call4.i, null, !dbg !753",
+				"br i1 %cmp.not.i.i, label %exit, label %if.then.i.i, !dbg !749"
+			]
+		},
+		{
+			"function": "_testcapi_exception_print",
+			"id": 51,
+			"name": "if.then.i.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [52, 55],
+			"ir": [
+				"%op.val.i.i.i = load i64, ptr %call4.i, align 8, !dbg !761, !tbaa !763",
+				"%6 = and i64 %op.val.i.i.i, 2147483648, !dbg !769",
+				"%cmp.i.not.i.i.i = icmp eq i64 %6, 0, !dbg !769",
+				"br i1 %cmp.i.not.i.i.i, label %if.end.i.i.i, label %exit, !dbg !770"
+			]
+		},
+		{
+			"function": "_testcapi_exception_print",
+			"id": 52,
+			"name": "if.end.i.i.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [53, 55],
+			"ir": [
+				"%dec.i.i.i = add i64 %op.val.i.i.i, -1, !dbg !771",
+				"store i64 %dec.i.i.i, ptr %call4.i, align 8, !dbg !771, !tbaa !763",
+				"%cmp.i.i.i = icmp eq i64 %dec.i.i.i, 0, !dbg !773",
+				"br i1 %cmp.i.i.i, label %if.then1.i.i.i, label %exit, !dbg !774"
+			]
+		},
+		{
+			"function": "_testcapi_exception_print",
+			"id": 53,
+			"name": "if.then1.i.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [55],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call4.i) #10, !dbg !775",
+				"br label %exit, !dbg !777"
+			]
+		},
+		{
+			"function": "_testcapi_exception_print",
+			"id": 54,
+			"name": "if.else.i",
+			"debug": [
+				{
+					"line": 78, "columns": [9]
+				}
+			],
+			"successors": [55],
+			"ir": [
+				"tail call void @PyErr_DisplayException(ptr noundef %1) #10, !dbg !778",
+				"br label %exit"
+			]
+		},
+		{
+			"function": "_testcapi_exception_print",
+			"id": 55,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 52, "columns": [1]
+				},
+				{
+					"line": 53, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%return_value.0 = phi ptr [ null, %if.end4 ], [ null, %lor.lhs.false ], [ @_Py_NoneStruct, %if.end.thread.i ], [ @_Py_NoneStruct, %if.end.i ], [ @_Py_NoneStruct, %if.then.i.i ], [ @_Py_NoneStruct, %if.end.i.i.i ], [ @_Py_NoneStruct, %if.then1.i.i.i ], [ @_Py_NoneStruct, %if.else.i ], !dbg !701",
+				"ret ptr %return_value.0, !dbg !781"
+			]
+		},
+		{
+			"function": "_testcapi_fatal_error",
+			"id": 56,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 345, "columns": [5]
+				},
+				{
+					"line": 346, "columns": [5, 9]
+				},
+				{
+					"line": 348, "columns": [10, 9]
+				}
+			],
+			"successors": [60, 57],
+			"ir": [
+				"%message = alloca ptr, align 8",
+				"%release_gil = alloca i32, align 4",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %message) #10, !dbg !701",
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %release_gil) #10, !dbg !702",
+				"store i32 0, ptr %release_gil, align 4, !dbg !703, !tbaa !704",
+				"%call = call i32 (ptr, i64, ptr, ...) @_PyArg_ParseStack(ptr noundef %args, i64 noundef %nargs, ptr noundef nonnull @.str.24, ptr noundef nonnull %message, ptr noundef nonnull %release_gil) #10, !dbg !708",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !708",
+				"br i1 %tobool.not, label %exit, label %if.end, !dbg !710"
+			]
+		},
+		{
+			"function": "_testcapi_fatal_error",
+			"id": 57,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 228, "columns": [9]
+				},
+				{
+					"line": 352, "columns": [55, 64]
+				}
+			],
+			"successors": [59, 58],
+			"ir": [
+				"%0 = load ptr, ptr %message, align 8, !dbg !711, !tbaa !712",
+				"%1 = load i32, ptr %release_gil, align 4, !dbg !714, !tbaa !704",
+				"%tobool.not.i = icmp eq i32 %1, 0, !dbg !818",
+				"br i1 %tobool.not.i, label %if.else.i, label %if.then.i, !dbg !819"
+			]
+		},
+		{
+			"function": "_testcapi_fatal_error",
+			"id": 58,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 229, "columns": [9]
+				},
+				{
+					"line": 230, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call.i = call ptr @PyEval_SaveThread() #10, !dbg !820",
+				"call void @_Py_FatalErrorFunc(ptr noundef nonnull @__func__._testcapi_fatal_error_impl, ptr noundef %0) #11, !dbg !822",
+				"unreachable, !dbg !822"
+			]
+		},
+		{
+			"function": "_testcapi_fatal_error",
+			"id": 59,
+			"name": "if.else.i",
+			"debug": [
+				{
+					"line": 234, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @_Py_FatalErrorFunc(ptr noundef nonnull @__func__._testcapi_fatal_error_impl, ptr noundef %0) #11, !dbg !823",
+				"unreachable, !dbg !823"
+			]
+		},
+		{
+			"function": "_testcapi_fatal_error",
+			"id": 60,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 354, "columns": [1]
+				},
+				{
+					"line": 355, "columns": [5]
+				},
+				{
+					"line": 356, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %release_gil) #10, !dbg !826",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %message) #10, !dbg !826",
+				"ret ptr null, !dbg !827"
+			]
+		},
+		{
+			"function": "_testcapi_make_exception_with_doc",
+			"id": 61,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 100, "columns": [5, 15]
+				},
+				{
+					"line": 101, "columns": [36]
+				}
+			],
+			"successors": [69, 62],
+			"ir": [
+				"%argsbuf = alloca [4 x ptr], align 16",
+				"%name_length = alloca i64, align 8",
+				"%doc_length = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %argsbuf) #10, !dbg !690",
+				"%tobool.not = icmp eq ptr %kwnames, null, !dbg !692",
+				"br i1 %tobool.not, label %cond.end, label %cond.true, !dbg !692"
+			]
+		},
+		{
+			"function": "_testcapi_make_exception_with_doc",
+			"id": 62,
+			"name": "cond.true",
+			"debug": [
+				{
+					"line": 22, "columns": [28]
+				}
+			],
+			"successors": [63, 64],
+			"ir": [
+				"%0 = getelementptr i8, ptr %kwnames, i64 8, !dbg !699",
+				"%op.val.i = load ptr, ptr %0, align 8, !dbg !699, !tbaa !700",
+				"%1 = getelementptr i8, ptr %op.val.i, i64 168, !dbg !699",
+				"%call.val.i = load i64, ptr %1, align 8, !dbg !699, !tbaa !705",
+				"%2 = and i64 %call.val.i, 67108864, !dbg !699",
+				"%tobool.not.i = icmp eq i64 %2, 0, !dbg !699",
+				"br i1 %tobool.not.i, label %cond.false.i, label %cond.end.i, !dbg !699"
+			]
+		},
+		{
+			"function": "_testcapi_make_exception_with_doc",
+			"id": 63,
+			"name": "cond.false.i",
+			"debug": [
+				{
+					"line": 22, "columns": [28]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.33, ptr noundef nonnull @.str.34, i32 noundef 22, ptr noundef nonnull @__PRETTY_FUNCTION__.PyTuple_GET_SIZE) #11, !dbg !699",
+				"unreachable, !dbg !699"
+			]
+		},
+		{
+			"function": "_testcapi_make_exception_with_doc",
+			"id": 64,
+			"name": "cond.end.i",
+			"debug": [
+				{
+					"line": 344, "columns": [5]
+				}
+			],
+			"successors": [65, 66],
+			"ir": [
+				"%cmp.not.i.i = icmp eq ptr %op.val.i, @PyLong_Type, !dbg !716",
+				"br i1 %cmp.not.i.i, label %cond.false.i.i, label %cond.end.i.i, !dbg !716"
+			]
+		},
+		{
+			"function": "_testcapi_make_exception_with_doc",
+			"id": 65,
+			"name": "cond.false.i.i",
+			"debug": [
+				{
+					"line": 344, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.35, ptr noundef nonnull @.str.36, i32 noundef 344, ptr noundef nonnull @__PRETTY_FUNCTION__.Py_SIZE) #11, !dbg !716",
+				"unreachable, !dbg !716"
+			]
+		},
+		{
+			"function": "_testcapi_make_exception_with_doc",
+			"id": 66,
+			"name": "cond.end.i.i",
+			"debug": [
+				{
+					"line": 345, "columns": [5]
+				}
+			],
+			"successors": [67, 68],
+			"ir": [
+				"%cmp2.not.i.i = icmp eq ptr %op.val.i, @PyBool_Type, !dbg !717",
+				"br i1 %cmp2.not.i.i, label %cond.false4.i.i, label %PyTuple_GET_SIZE.exit, !dbg !717"
+			]
+		},
+		{
+			"function": "_testcapi_make_exception_with_doc",
+			"id": 67,
+			"name": "cond.false4.i.i",
+			"debug": [
+				{
+					"line": 345, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.37, ptr noundef nonnull @.str.36, i32 noundef 345, ptr noundef nonnull @__PRETTY_FUNCTION__.Py_SIZE) #11, !dbg !717",
+				"unreachable, !dbg !717"
+			]
+		},
+		{
+			"function": "_testcapi_make_exception_with_doc",
+			"id": 68,
+			"name": "PyTuple_GET_SIZE.exit",
+			"debug": [
+				{
+					"line": 101, "columns": [36]
+				},
+				{
+					"line": 346, "columns": [36]
+				}
+			],
+			"successors": [69],
+			"ir": [
+				"%ob_size.i.i = getelementptr inbounds %struct.PyVarObject, ptr %kwnames, i64 0, i32 1, !dbg !718",
+				"%3 = load i64, ptr %ob_size.i.i, align 8, !dbg !718, !tbaa !719",
+				"br label %cond.end, !dbg !692"
+			]
+		},
+		{
+			"function": "_testcapi_make_exception_with_doc",
+			"id": 69,
+			"name": "cond.end",
+			"debug": [
+				{
+					"line": 101, "columns": [36, 33, 77]
+				},
+				{
+					"line": 107, "columns": [12]
+				}
+			],
+			"successors": [71, 70],
+			"ir": [
+				"%cond = phi i64 [ %3, %PyTuple_GET_SIZE.exit ], [ 0, %entry ], !dbg !692",
+				"%add = add i64 %cond, %nargs, !dbg !720",
+				"%sub = add i64 %add, -1, !dbg !721",
+				"%4 = add i64 %nargs, -1, !dbg !722",
+				"%5 = icmp ult i64 %4, 4, !dbg !722",
+				"%cmp5 = icmp ne ptr %args, null, !dbg !722",
+				"%6 = and i1 %cmp5, %5, !dbg !722",
+				"%or.cond72 = and i1 %tobool.not, %6, !dbg !722",
+				"br i1 %or.cond72, label %if.end, label %cond.end9, !dbg !722"
+			]
+		},
+		{
+			"function": "_testcapi_make_exception_with_doc",
+			"id": 70,
+			"name": "cond.end9",
+			"debug": [
+				{
+					"line": 107, "columns": [12]
+				},
+				{
+					"line": 108, "columns": [10, 9]
+				}
+			],
+			"successors": [88, 71],
+			"ir": [
+				"%call8 = call ptr @_PyArg_UnpackKeywords(ptr noundef %args, i64 noundef %nargs, ptr noundef null, ptr noundef %kwnames, ptr noundef nonnull @_testcapi_make_exception_with_doc._parser, i32 noundef 1, i32 noundef 4, i32 noundef 0, ptr noundef nonnull %argsbuf) #10, !dbg !722",
+				"%tobool11.not = icmp eq ptr %call8, null, !dbg !723",
+				"br i1 %tobool11.not, label %cleanup64, label %if.end, !dbg !725"
+			]
+		},
+		{
+			"function": "_testcapi_make_exception_with_doc",
+			"id": 71,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 111, "columns": [10, 9]
+				}
+			],
+			"successors": [72, 73],
+			"ir": [
+				"%cond10105 = phi ptr [ %call8, %cond.end9 ], [ %args, %cond.end ]",
+				"%7 = load ptr, ptr %cond10105, align 8, !dbg !726, !tbaa !728",
+				"%8 = getelementptr i8, ptr %7, i64 8, !dbg !726",
+				"%.val99 = load ptr, ptr %8, align 8, !dbg !726, !tbaa !700",
+				"%9 = getelementptr i8, ptr %.val99, i64 168, !dbg !726",
+				"%call12.val = load i64, ptr %9, align 8, !dbg !726, !tbaa !705",
+				"%10 = and i64 %call12.val, 268435456, !dbg !726",
+				"%tobool14.not = icmp eq i64 %10, 0, !dbg !726",
+				"br i1 %tobool14.not, label %if.then15, label %if.end17, !dbg !729"
+			]
+		},
+		{
+			"function": "_testcapi_make_exception_with_doc",
+			"id": 72,
+			"name": "if.then15",
+			"debug": [
+				{
+					"line": 112, "columns": [9]
+				},
+				{
+					"line": 113, "columns": [9]
+				}
+			],
+			"successors": [88],
+			"ir": [
+				"call void @_PyArg_BadArgument(ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.29, ptr noundef nonnull @.str.30, ptr noundef nonnull %7) #10, !dbg !730",
+				"br label %cleanup64, !dbg !732"
+			]
+		},
+		{
+			"function": "_testcapi_make_exception_with_doc",
+			"id": 73,
+			"name": "if.end17",
+			"debug": [
+				{
+					"line": 116, "columns": [12]
+				},
+				{
+					"line": 117, "columns": [14, 9]
+				}
+			],
+			"successors": [88, 74],
+			"ir": [
+				"%call19 = call ptr @PyUnicode_AsUTF8AndSize(ptr noundef nonnull %7, ptr noundef nonnull %name_length) #10, !dbg !733",
+				"%cmp20 = icmp eq ptr %call19, null, !dbg !734",
+				"br i1 %cmp20, label %cleanup64, label %if.end22, !dbg !736"
+			]
+		},
+		{
+			"function": "_testcapi_make_exception_with_doc",
+			"id": 74,
+			"name": "if.end22",
+			"debug": [
+				{
+					"line": 120, "columns": [9, 33, 22]
+				}
+			],
+			"successors": [76, 75],
+			"ir": [
+				"%call23 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %call19) #12, !dbg !737",
+				"%11 = load i64, ptr %name_length, align 8, !dbg !739, !tbaa !740",
+				"%cmp24.not = icmp eq i64 %call23, %11, !dbg !741",
+				"br i1 %cmp24.not, label %if.end26, label %if.then25, !dbg !742"
+			]
+		},
+		{
+			"function": "_testcapi_make_exception_with_doc",
+			"id": 75,
+			"name": "if.then25",
+			"debug": [
+				{
+					"line": 121, "columns": [25, 9]
+				},
+				{
+					"line": 122, "columns": [9]
+				}
+			],
+			"successors": [88],
+			"ir": [
+				"%12 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !743, !tbaa !728",
+				"call void @PyErr_SetString(ptr noundef %12, ptr noundef nonnull @.str.31) #10, !dbg !745",
+				"br label %cleanup64, !dbg !746"
+			]
+		},
+		{
+			"function": "_testcapi_make_exception_with_doc",
+			"id": 76,
+			"name": "if.end26",
+			"debug": [
+				{
+					"line": 124, "columns": [10, 9]
+				}
+			],
+			"successors": [87, 77],
+			"ir": [
+				"%tobool27.not = icmp eq i64 %sub, 0, !dbg !747",
+				"br i1 %tobool27.not, label %skip_optional_pos, label %if.end29, !dbg !749"
+			]
+		},
+		{
+			"function": "_testcapi_make_exception_with_doc",
+			"id": 77,
+			"name": "if.end29",
+			"debug": [
+				{
+					"line": 127, "columns": [9]
+				}
+			],
+			"successors": [85, 78],
+			"ir": [
+				"%arrayidx30 = getelementptr ptr, ptr %cond10105, i64 1, !dbg !750",
+				"%13 = load ptr, ptr %arrayidx30, align 8, !dbg !750, !tbaa !728",
+				"%tobool31.not = icmp eq ptr %13, null, !dbg !750",
+				"br i1 %tobool31.not, label %if.end52, label %if.then32, !dbg !751"
+			]
+		},
+		{
+			"function": "_testcapi_make_exception_with_doc",
+			"id": 78,
+			"name": "if.then32",
+			"debug": [
+				{
+					"line": 128, "columns": [14, 13]
+				}
+			],
+			"successors": [79, 80],
+			"ir": [
+				"%14 = getelementptr i8, ptr %13, i64 8, !dbg !752",
+				"%.val = load ptr, ptr %14, align 8, !dbg !752, !tbaa !700",
+				"%15 = getelementptr i8, ptr %.val, i64 168, !dbg !752",
+				"%call34.val = load i64, ptr %15, align 8, !dbg !752, !tbaa !705",
+				"%16 = and i64 %call34.val, 268435456, !dbg !752",
+				"%tobool36.not = icmp eq i64 %16, 0, !dbg !752",
+				"br i1 %tobool36.not, label %if.then37, label %if.end39, !dbg !754"
+			]
+		},
+		{
+			"function": "_testcapi_make_exception_with_doc",
+			"id": 79,
+			"name": "if.then37",
+			"debug": [
+				{
+					"line": 129, "columns": [13]
+				},
+				{
+					"line": 130, "columns": [13]
+				}
+			],
+			"successors": [88],
+			"ir": [
+				"call void @_PyArg_BadArgument(ptr noundef nonnull @.str.8, ptr noundef nonnull @.str.32, ptr noundef nonnull @.str.30, ptr noundef nonnull %13) #10, !dbg !755",
+				"br label %cleanup64, !dbg !757"
+			]
+		},
+		{
+			"function": "_testcapi_make_exception_with_doc",
+			"id": 80,
+			"name": "if.end39",
+			"debug": [
+				{
+					"line": 132, "columns": [9]
+				},
+				{
+					"line": 133, "columns": [15]
+				},
+				{
+					"line": 134, "columns": [17, 13]
+				}
+			],
+			"successors": [84, 81],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %doc_length) #10, !dbg !758",
+				"%call41 = call ptr @PyUnicode_AsUTF8AndSize(ptr noundef nonnull %13, ptr noundef nonnull %doc_length) #10, !dbg !760",
+				"%cmp42 = icmp eq ptr %call41, null, !dbg !761",
+				"br i1 %cmp42, label %cleanup.thread, label %if.end44, !dbg !763"
+			]
+		},
+		{
+			"function": "_testcapi_make_exception_with_doc",
+			"id": 81,
+			"name": "if.end44",
+			"debug": [
+				{
+					"line": 137, "columns": [13, 36, 25]
+				}
+			],
+			"successors": [83, 82],
+			"ir": [
+				"%call45 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %call41) #12, !dbg !764",
+				"%17 = load i64, ptr %doc_length, align 8, !dbg !766, !tbaa !740",
+				"%cmp46.not = icmp eq i64 %call45, %17, !dbg !767",
+				"br i1 %cmp46.not, label %if.end48, label %if.then47, !dbg !768"
+			]
+		},
+		{
+			"function": "_testcapi_make_exception_with_doc",
+			"id": 82,
+			"name": "if.then47",
+			"debug": [
+				{
+					"line": 138, "columns": [29, 13]
+				},
+				{
+					"line": 139, "columns": [13]
+				}
+			],
+			"successors": [84],
+			"ir": [
+				"%18 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !769, !tbaa !728",
+				"call void @PyErr_SetString(ptr noundef %18, ptr noundef nonnull @.str.31) #10, !dbg !771",
+				"br label %cleanup.thread, !dbg !772"
+			]
+		},
+		{
+			"function": "_testcapi_make_exception_with_doc",
+			"id": 83,
+			"name": "if.end48",
+			"debug": [
+				{
+					"line": 141, "columns": [14]
+				},
+				{
+					"line": 144, "columns": [5]
+				}
+			],
+			"successors": [87, 85],
+			"ir": [
+				"%dec = add i64 %add, -2, !dbg !773",
+				"%tobool49.not = icmp eq i64 %dec, 0, !dbg !773",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %doc_length) #10, !dbg !775",
+				"br i1 %tobool49.not, label %skip_optional_pos, label %if.end52, !dbg !776"
+			]
+		},
+		{
+			"function": "_testcapi_make_exception_with_doc",
+			"id": 84,
+			"name": "cleanup.thread",
+			"debug": [
+				{
+					"line": 144, "columns": [5]
+				}
+			],
+			"successors": [88],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %doc_length) #10, !dbg !775",
+				"br label %cleanup64"
+			]
+		},
+		{
+			"function": "_testcapi_make_exception_with_doc",
+			"id": 85,
+			"name": "if.end52",
+			"debug": [
+				{
+					"line": 101, "columns": [16]
+				},
+				{
+					"line": 145, "columns": [9]
+				}
+			],
+			"successors": [87, 86],
+			"ir": [
+				"%noptargs.1 = phi i64 [ %sub, %if.end29 ], [ %dec, %if.end48 ], !dbg !777",
+				"%doc.0 = phi ptr [ null, %if.end29 ], [ %call41, %if.end48 ], !dbg !689",
+				"%arrayidx53 = getelementptr ptr, ptr %cond10105, i64 2, !dbg !778",
+				"%19 = load ptr, ptr %arrayidx53, align 8, !dbg !778, !tbaa !728",
+				"%tobool54.not = icmp ne ptr %19, null, !dbg !778",
+				"%tobool58.not = icmp eq i64 %noptargs.1, 1",
+				"%or.cond = select i1 %tobool54.not, i1 %tobool58.not, i1 false, !dbg !780",
+				"br i1 %or.cond, label %skip_optional_pos, label %if.end61, !dbg !780"
+			]
+		},
+		{
+			"function": "_testcapi_make_exception_with_doc",
+			"id": 86,
+			"name": "if.end61",
+			"debug": [
+				{
+					"line": 151, "columns": [12, 5]
+				}
+			],
+			"successors": [87],
+			"ir": [
+				"%arrayidx62 = getelementptr ptr, ptr %cond10105, i64 3, !dbg !781",
+				"%20 = load ptr, ptr %arrayidx62, align 8, !dbg !781, !tbaa !728",
+				"br label %skip_optional_pos, !dbg !782"
+			]
+		},
+		{
+			"function": "_testcapi_make_exception_with_doc",
+			"id": 87,
+			"name": "skip_optional_pos",
+			"debug": [
+				{
+					"line": 99, "columns": [12]
+				},
+				{
+					"line": 152, "columns": [1]
+				},
+				{
+					"line": 153, "columns": [5]
+				}
+			],
+			"successors": [88],
+			"ir": [
+				"%doc.1 = phi ptr [ %doc.0, %if.end61 ], [ null, %if.end26 ], [ %doc.0, %if.end52 ], [ %call41, %if.end48 ], !dbg !689",
+				"%base.1 = phi ptr [ %19, %if.end61 ], [ null, %if.end26 ], [ %19, %if.end52 ], [ null, %if.end48 ], !dbg !689",
+				"%dict.0 = phi ptr [ %20, %if.end61 ], [ null, %if.end26 ], [ null, %if.end52 ], [ null, %if.end48 ], !dbg !689",
+				"%call.i = call ptr @PyErr_NewExceptionWithDoc(ptr noundef nonnull %call19, ptr noundef %doc.1, ptr noundef %base.1, ptr noundef %dict.0) #10, !dbg !795",
+				"br label %cleanup64, !dbg !796"
+			]
+		},
+		{
+			"function": "_testcapi_make_exception_with_doc",
+			"id": 88,
+			"name": "cleanup64",
+			"debug": [
+				{
+					"line": 157, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ null, %if.end17 ], [ null, %if.then25 ], [ %call.i, %skip_optional_pos ], [ null, %if.then37 ], [ null, %if.then15 ], [ null, %cond.end9 ], [ null, %cleanup.thread ]",
+				"call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %argsbuf) #10, !dbg !797",
+				"ret ptr %retval.0, !dbg !797"
+			]
+		},
+		{
+			"function": "_testcapi_exc_set_object",
+			"id": 89,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 177, "columns": [10]
+				}
+			],
+			"successors": [91, 90],
+			"ir": [
+				"%or.cond = icmp eq i64 %nargs, 2, !dbg !701",
+				"br i1 %or.cond, label %if.end, label %lor.lhs.false, !dbg !701"
+			]
+		},
+		{
+			"function": "_testcapi_exc_set_object",
+			"id": 90,
+			"name": "lor.lhs.false",
+			"debug": [
+				{
+					"line": 177, "columns": [10, 9]
+				}
+			],
+			"successors": [92, 91],
+			"ir": [
+				"%call = tail call i32 @_PyArg_CheckPositional(ptr noundef nonnull @.str.9, i64 noundef %nargs, i64 noundef 2, i64 noundef 2) #10, !dbg !701",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !701",
+				"br i1 %tobool.not, label %exit, label %if.end, !dbg !703"
+			]
+		},
+		{
+			"function": "_testcapi_exc_set_object",
+			"id": 91,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 113, "columns": [5]
+				},
+				{
+					"line": 180, "columns": [11]
+				},
+				{
+					"line": 181, "columns": [11]
+				},
+				{
+					"line": 182, "columns": [5]
+				}
+			],
+			"successors": [92],
+			"ir": [
+				"%0 = load ptr, ptr %args, align 8, !dbg !704, !tbaa !705",
+				"%arrayidx2 = getelementptr ptr, ptr %args, i64 1, !dbg !709",
+				"%1 = load ptr, ptr %arrayidx2, align 8, !dbg !709, !tbaa !705",
+				"tail call void @PyErr_SetObject(ptr noundef %0, ptr noundef %1) #10, !dbg !717",
+				"br label %exit, !dbg !718"
+			]
+		},
+		{
+			"function": "_testcapi_exc_set_object",
+			"id": 92,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 184, "columns": [1]
+				},
+				{
+					"line": 185, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret ptr null, !dbg !720"
+			]
+		},
+		{
+			"function": "_testcapi_exc_set_object_fetch",
+			"id": 93,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 207, "columns": [10]
+				}
+			],
+			"successors": [95, 94],
+			"ir": [
+				"%type.i = alloca ptr, align 8",
+				"%value.i = alloca ptr, align 8",
+				"%tb.i = alloca ptr, align 8",
+				"%or.cond = icmp eq i64 %nargs, 2, !dbg !701",
+				"br i1 %or.cond, label %if.end, label %lor.lhs.false, !dbg !701"
+			]
+		},
+		{
+			"function": "_testcapi_exc_set_object_fetch",
+			"id": 94,
+			"name": "lor.lhs.false",
+			"debug": [
+				{
+					"line": 207, "columns": [10, 9]
+				}
+			],
+			"successors": [111, 95],
+			"ir": [
+				"%call = tail call i32 @_PyArg_CheckPositional(ptr noundef nonnull @.str.10, i64 noundef %nargs, i64 noundef 2, i64 noundef 2) #10, !dbg !701",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !701",
+				"br i1 %tobool.not, label %exit, label %if.end, !dbg !703"
+			]
+		},
+		{
+			"function": "_testcapi_exc_set_object_fetch",
+			"id": 95,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 126, "columns": [5, 15]
+				},
+				{
+					"line": 127, "columns": [5, 15]
+				},
+				{
+					"line": 128, "columns": [5, 15]
+				},
+				{
+					"line": 130, "columns": [5]
+				},
+				{
+					"line": 131, "columns": [5]
+				},
+				{
+					"line": 132, "columns": [5]
+				},
+				{
+					"line": 210, "columns": [11]
+				},
+				{
+					"line": 211, "columns": [11]
+				}
+			],
+			"successors": [96, 97],
+			"ir": [
+				"%0 = load ptr, ptr %args, align 8, !dbg !704, !tbaa !705",
+				"%arrayidx2 = getelementptr ptr, ptr %args, i64 1, !dbg !709",
+				"%1 = load ptr, ptr %arrayidx2, align 8, !dbg !709, !tbaa !705",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %type.i) #10, !dbg !720",
+				"store ptr @uninitialized, ptr %type.i, align 8, !dbg !721, !tbaa !705",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %value.i) #10, !dbg !722",
+				"store ptr @uninitialized, ptr %value.i, align 8, !dbg !723, !tbaa !705",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %tb.i) #10, !dbg !724",
+				"store ptr @uninitialized, ptr %tb.i, align 8, !dbg !725, !tbaa !705",
+				"tail call void @PyErr_SetObject(ptr noundef %0, ptr noundef %1) #10, !dbg !726",
+				"call void @PyErr_Fetch(ptr noundef nonnull %type.i, ptr noundef nonnull %value.i, ptr noundef nonnull %tb.i) #10, !dbg !727",
+				"%2 = load ptr, ptr %type.i, align 8, !dbg !728, !tbaa !705",
+				"%cmp.not.i = icmp eq ptr %2, @uninitialized, !dbg !728",
+				"br i1 %cmp.not.i, label %cond.false.i, label %cond.end.i, !dbg !728"
+			]
+		},
+		{
+			"function": "_testcapi_exc_set_object_fetch",
+			"id": 96,
+			"name": "cond.false.i",
+			"debug": [
+				{
+					"line": 132, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.38, ptr noundef nonnull @.str.21, i32 noundef 132, ptr noundef nonnull @__PRETTY_FUNCTION__._testcapi_exc_set_object_fetch_impl) #11, !dbg !728",
+				"unreachable, !dbg !728"
+			]
+		},
+		{
+			"function": "_testcapi_exc_set_object_fetch",
+			"id": 97,
+			"name": "cond.end.i",
+			"debug": [
+				{
+					"line": 133, "columns": [5]
+				}
+			],
+			"successors": [98, 99],
+			"ir": [
+				"%3 = load ptr, ptr %value.i, align 8, !dbg !729, !tbaa !705",
+				"%cmp1.not.i = icmp eq ptr %3, @uninitialized, !dbg !729",
+				"br i1 %cmp1.not.i, label %cond.false3.i, label %cond.end4.i, !dbg !729"
+			]
+		},
+		{
+			"function": "_testcapi_exc_set_object_fetch",
+			"id": 98,
+			"name": "cond.false3.i",
+			"debug": [
+				{
+					"line": 133, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.39, ptr noundef nonnull @.str.21, i32 noundef 133, ptr noundef nonnull @__PRETTY_FUNCTION__._testcapi_exc_set_object_fetch_impl) #11, !dbg !729",
+				"unreachable, !dbg !729"
+			]
+		},
+		{
+			"function": "_testcapi_exc_set_object_fetch",
+			"id": 99,
+			"name": "cond.end4.i",
+			"debug": [
+				{
+					"line": 134, "columns": [5]
+				}
+			],
+			"successors": [100, 101],
+			"ir": [
+				"%4 = load ptr, ptr %tb.i, align 8, !dbg !730, !tbaa !705",
+				"%cmp5.not.i = icmp eq ptr %4, @uninitialized, !dbg !730",
+				"br i1 %cmp5.not.i, label %cond.false7.i, label %cond.end8.i, !dbg !730"
+			]
+		},
+		{
+			"function": "_testcapi_exc_set_object_fetch",
+			"id": 100,
+			"name": "cond.false7.i",
+			"debug": [
+				{
+					"line": 134, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.40, ptr noundef nonnull @.str.21, i32 noundef 134, ptr noundef nonnull @__PRETTY_FUNCTION__._testcapi_exc_set_object_fetch_impl) #11, !dbg !730",
+				"unreachable, !dbg !730"
+			]
+		},
+		{
+			"function": "_testcapi_exc_set_object_fetch",
+			"id": 101,
+			"name": "cond.end8.i",
+			"debug": [
+				{
+					"line": 1037, "columns": [12, 9]
+				}
+			],
+			"successors": [106, 102],
+			"ir": [
+				"%cmp.not.i.i = icmp eq ptr %2, null, !dbg !736",
+				"br i1 %cmp.not.i.i, label %Py_XDECREF.exit.i, label %if.then.i.i, !dbg !738"
+			]
+		},
+		{
+			"function": "_testcapi_exc_set_object_fetch",
+			"id": 102,
+			"name": "if.then.i.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [103, 105],
+			"ir": [
+				"%op.val.i.i.i = load i64, ptr %2, align 8, !dbg !745, !tbaa !747",
+				"%5 = and i64 %op.val.i.i.i, 2147483648, !dbg !753",
+				"%cmp.i.not.i.i.i = icmp eq i64 %5, 0, !dbg !753",
+				"br i1 %cmp.i.not.i.i.i, label %if.end.i.i.i, label %Py_XDECREF.exitthread-pre-split.i, !dbg !754"
+			]
+		},
+		{
+			"function": "_testcapi_exc_set_object_fetch",
+			"id": 103,
+			"name": "if.end.i.i.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [104, 105],
+			"ir": [
+				"%dec.i.i.i = add i64 %op.val.i.i.i, -1, !dbg !755",
+				"store i64 %dec.i.i.i, ptr %2, align 8, !dbg !755, !tbaa !747",
+				"%cmp.i.i.i = icmp eq i64 %dec.i.i.i, 0, !dbg !757",
+				"br i1 %cmp.i.i.i, label %if.then1.i.i.i, label %Py_XDECREF.exitthread-pre-split.i, !dbg !758"
+			]
+		},
+		{
+			"function": "_testcapi_exc_set_object_fetch",
+			"id": 104,
+			"name": "if.then1.i.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [105],
+			"ir": [
+				"call void @_Py_Dealloc(ptr noundef nonnull %2) #10, !dbg !759",
+				"br label %Py_XDECREF.exitthread-pre-split.i, !dbg !761"
+			]
+		},
+		{
+			"function": "_testcapi_exc_set_object_fetch",
+			"id": 105,
+			"name": "Py_XDECREF.exitthread-pre-split.i",
+			"debug": [
+				{
+					"line": 136, "columns": [5]
+				}
+			],
+			"successors": [106],
+			"ir": [
+				"%.pr.i = load ptr, ptr %tb.i, align 8, !dbg !762, !tbaa !705",
+				"br label %Py_XDECREF.exit.i, !dbg !762"
+			]
+		},
+		{
+			"function": "_testcapi_exc_set_object_fetch",
+			"id": 106,
+			"name": "Py_XDECREF.exit.i",
+			"debug": [
+				{
+					"line": 136, "columns": [5]
+				},
+				{
+					"line": 1037, "columns": [12, 9]
+				}
+			],
+			"successors": [110, 107],
+			"ir": [
+				"%6 = phi ptr [ %.pr.i, %Py_XDECREF.exitthread-pre-split.i ], [ %4, %cond.end8.i ], !dbg !762",
+				"%cmp.not.i9.i = icmp eq ptr %6, null, !dbg !765",
+				"br i1 %cmp.not.i9.i, label %_testcapi_exc_set_object_fetch_impl.exit, label %if.then.i12.i, !dbg !766"
+			]
+		},
+		{
+			"function": "_testcapi_exc_set_object_fetch",
+			"id": 107,
+			"name": "if.then.i12.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [108, 110],
+			"ir": [
+				"%op.val.i.i10.i = load i64, ptr %6, align 8, !dbg !769, !tbaa !747",
+				"%7 = and i64 %op.val.i.i10.i, 2147483648, !dbg !772",
+				"%cmp.i.not.i.i11.i = icmp eq i64 %7, 0, !dbg !772",
+				"br i1 %cmp.i.not.i.i11.i, label %if.end.i.i15.i, label %_testcapi_exc_set_object_fetch_impl.exit, !dbg !773"
+			]
+		},
+		{
+			"function": "_testcapi_exc_set_object_fetch",
+			"id": 108,
+			"name": "if.end.i.i15.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [109, 110],
+			"ir": [
+				"%dec.i.i13.i = add i64 %op.val.i.i10.i, -1, !dbg !774",
+				"store i64 %dec.i.i13.i, ptr %6, align 8, !dbg !774, !tbaa !747",
+				"%cmp.i.i14.i = icmp eq i64 %dec.i.i13.i, 0, !dbg !775",
+				"br i1 %cmp.i.i14.i, label %if.then1.i.i16.i, label %_testcapi_exc_set_object_fetch_impl.exit, !dbg !776"
+			]
+		},
+		{
+			"function": "_testcapi_exc_set_object_fetch",
+			"id": 109,
+			"name": "if.then1.i.i16.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [110],
+			"ir": [
+				"call void @_Py_Dealloc(ptr noundef nonnull %6) #10, !dbg !777",
+				"br label %_testcapi_exc_set_object_fetch_impl.exit, !dbg !778"
+			]
+		},
+		{
+			"function": "_testcapi_exc_set_object_fetch",
+			"id": 110,
+			"name": "_testcapi_exc_set_object_fetch_impl.exit",
+			"debug": [
+				{
+					"line": 137, "columns": [12]
+				},
+				{
+					"line": 138, "columns": [1]
+				},
+				{
+					"line": 212, "columns": [5]
+				}
+			],
+			"successors": [111],
+			"ir": [
+				"%8 = load ptr, ptr %value.i, align 8, !dbg !779, !tbaa !705",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %tb.i) #10, !dbg !780",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %value.i) #10, !dbg !780",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %type.i) #10, !dbg !780",
+				"br label %exit, !dbg !781"
+			]
+		},
+		{
+			"function": "_testcapi_exc_set_object_fetch",
+			"id": 111,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 214, "columns": [1]
+				},
+				{
+					"line": 215, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%return_value.0 = phi ptr [ %8, %_testcapi_exc_set_object_fetch_impl.exit ], [ null, %lor.lhs.false ], !dbg !700",
+				"ret ptr %return_value.0, !dbg !783"
+			]
+		},
+		{
+			"function": "_testcapi_err_setstring",
+			"id": 112,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 234, "columns": [5]
+				},
+				{
+					"line": 235, "columns": [5]
+				},
+				{
+					"line": 236, "columns": [5]
+				},
+				{
+					"line": 238, "columns": [10, 9]
+				}
+			],
+			"successors": [114, 113],
+			"ir": [
+				"%exc = alloca ptr, align 8",
+				"%value = alloca ptr, align 8",
+				"%value_length = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %exc) #10, !dbg !702",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %value) #10, !dbg !703",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %value_length) #10, !dbg !704",
+				"%call = call i32 (ptr, i64, ptr, ...) @_PyArg_ParseStack(ptr noundef %args, i64 noundef %nargs, ptr noundef nonnull @.str.41, ptr noundef nonnull %exc, ptr noundef nonnull %value, ptr noundef nonnull %value_length) #10, !dbg !705",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !705",
+				"br i1 %tobool.not, label %exit, label %if.end, !dbg !707"
+			]
+		},
+		{
+			"function": "_testcapi_err_setstring",
+			"id": 113,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 152, "columns": [5]
+				},
+				{
+					"line": 153, "columns": [5]
+				},
+				{
+					"line": 242, "columns": [57, 62, 5]
+				}
+			],
+			"successors": [114],
+			"ir": [
+				"%0 = load ptr, ptr %exc, align 8, !dbg !708, !tbaa !709",
+				"%1 = load ptr, ptr %value, align 8, !dbg !713, !tbaa !709",
+				"%cmp.i = icmp eq ptr %0, @_Py_NoneStruct, !dbg !724",
+				"%spec.store.select.i = select i1 %cmp.i, ptr null, ptr %0, !dbg !727",
+				"call void @PyErr_SetString(ptr noundef %spec.store.select.i, ptr noundef %1) #10, !dbg !728",
+				"br label %exit, !dbg !729"
+			]
+		},
+		{
+			"function": "_testcapi_err_setstring",
+			"id": 114,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 244, "columns": [1]
+				},
+				{
+					"line": 245, "columns": [5]
+				},
+				{
+					"line": 246, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %value_length) #10, !dbg !731",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %value) #10, !dbg !731",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %exc) #10, !dbg !731",
+				"ret ptr null, !dbg !732"
+			]
+		},
+		{
+			"function": "_testcapi_err_setfromerrnowithfilename",
+			"id": 115,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 265, "columns": [5]
+				},
+				{
+					"line": 266, "columns": [5]
+				},
+				{
+					"line": 267, "columns": [5]
+				},
+				{
+					"line": 268, "columns": [5]
+				},
+				{
+					"line": 270, "columns": [10, 9]
+				}
+			],
+			"successors": [117, 116],
+			"ir": [
+				"%error = alloca i32, align 4",
+				"%exc = alloca ptr, align 8",
+				"%value = alloca ptr, align 8",
+				"%value_length = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %error) #10, !dbg !703",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %exc) #10, !dbg !704",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %value) #10, !dbg !705",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %value_length) #10, !dbg !706",
+				"%call = call i32 (ptr, i64, ptr, ...) @_PyArg_ParseStack(ptr noundef %args, i64 noundef %nargs, ptr noundef nonnull @.str.42, ptr noundef nonnull %error, ptr noundef nonnull %exc, ptr noundef nonnull %value, ptr noundef nonnull %value_length) #10, !dbg !707",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !707",
+				"br i1 %tobool.not, label %exit, label %if.end, !dbg !709"
+			]
+		},
+		{
+			"function": "_testcapi_err_setfromerrnowithfilename",
+			"id": 116,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 171, "columns": [5]
+				},
+				{
+					"line": 172, "columns": [5, 11]
+				},
+				{
+					"line": 173, "columns": [5]
+				},
+				{
+					"line": 274, "columns": [72, 79, 84, 5]
+				}
+			],
+			"successors": [117],
+			"ir": [
+				"%0 = load i32, ptr %error, align 4, !dbg !710, !tbaa !711",
+				"%1 = load ptr, ptr %exc, align 8, !dbg !715, !tbaa !716",
+				"%2 = load ptr, ptr %value, align 8, !dbg !718, !tbaa !716",
+				"%cmp.i = icmp eq ptr %1, @_Py_NoneStruct, !dbg !730",
+				"%spec.store.select.i = select i1 %cmp.i, ptr null, ptr %1, !dbg !733",
+				"%call.i = tail call ptr @__errno_location() #11, !dbg !734",
+				"store i32 %0, ptr %call.i, align 4, !dbg !735, !tbaa !711",
+				"%call1.i = call ptr @PyErr_SetFromErrnoWithFilename(ptr noundef %spec.store.select.i, ptr noundef %2) #10, !dbg !736",
+				"br label %exit, !dbg !737"
+			]
+		},
+		{
+			"function": "_testcapi_err_setfromerrnowithfilename",
+			"id": 117,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 276, "columns": [1]
+				},
+				{
+					"line": 277, "columns": [5]
+				},
+				{
+					"line": 278, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %value_length) #10, !dbg !739",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %value) #10, !dbg !739",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %exc) #10, !dbg !739",
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %error) #10, !dbg !739",
+				"ret ptr null, !dbg !740"
+			]
+		},
+		{
+			"function": "_testcapi_raise_exception",
+			"id": 118,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 298, "columns": [10]
+				}
+			],
+			"successors": [120, 119],
+			"ir": [
+				"%or.cond = icmp eq i64 %nargs, 2, !dbg !701",
+				"br i1 %or.cond, label %if.end, label %lor.lhs.false, !dbg !701"
+			]
+		},
+		{
+			"function": "_testcapi_raise_exception",
+			"id": 119,
+			"name": "lor.lhs.false",
+			"debug": [
+				{
+					"line": 298, "columns": [10, 9]
+				}
+			],
+			"successors": [127, 120],
+			"ir": [
+				"%call = tail call i32 @_PyArg_CheckPositional(ptr noundef nonnull @.str.13, i64 noundef %nargs, i64 noundef 2, i64 noundef 2) #10, !dbg !701",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !701",
+				"br i1 %tobool.not, label %exit, label %if.end, !dbg !703"
+			]
+		},
+		{
+			"function": "_testcapi_raise_exception",
+			"id": 120,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 301, "columns": [11]
+				},
+				{
+					"line": 302, "columns": [29, 16]
+				},
+				{
+					"line": 303, "columns": [18, 24]
+				}
+			],
+			"successors": [122, 121],
+			"ir": [
+				"%0 = load ptr, ptr %args, align 8, !dbg !704, !tbaa !705",
+				"%arrayidx2 = getelementptr ptr, ptr %args, i64 1, !dbg !709",
+				"%1 = load ptr, ptr %arrayidx2, align 8, !dbg !709, !tbaa !705",
+				"%call3 = tail call i32 @PyLong_AsInt(ptr noundef %1) #10, !dbg !710",
+				"%cmp4 = icmp eq i32 %call3, -1, !dbg !711",
+				"br i1 %cmp4, label %land.lhs.true5, label %if.end.split, !dbg !713"
+			]
+		},
+		{
+			"function": "_testcapi_raise_exception",
+			"id": 121,
+			"name": "if.end.split",
+			"debug": [
+				{
+					"line": 303, "columns": [24]
+				},
+				{
+					"line": 306, "columns": [20]
+				}
+			],
+			"successors": [127],
+			"ir": [
+				"tail call fastcc void @_testcapi_raise_exception_impl(ptr noundef %0, i32 noundef %call3), !dbg !714",
+				"br label %exit, !dbg !713"
+			]
+		},
+		{
+			"function": "_testcapi_raise_exception",
+			"id": 122,
+			"name": "land.lhs.true5",
+			"debug": [
+				{
+					"line": 303, "columns": [27, 9]
+				}
+			],
+			"successors": [123, 127],
+			"ir": [
+				"%call6 = tail call ptr @PyErr_Occurred() #10, !dbg !715",
+				"%tobool7.not = icmp eq ptr %call6, null, !dbg !715",
+				"br i1 %tobool7.not, label %land.lhs.true5.split, label %exit, !dbg !716"
+			]
+		},
+		{
+			"function": "_testcapi_raise_exception",
+			"id": 123,
+			"name": "land.lhs.true5.split",
+			"debug": [
+				{
+					"line": 188, "columns": [26]
+				},
+				{
+					"line": 189, "columns": [18, 9]
+				}
+			],
+			"successors": [127, 124],
+			"ir": [
+				"%call.i = tail call ptr @PyTuple_New(i64 noundef -1) #10, !dbg !731",
+				"%cmp.i = icmp eq ptr %call.i, null, !dbg !732",
+				"br i1 %cmp.i, label %exit, label %for.cond.preheader.i, !dbg !734"
+			]
+		},
+		{
+			"function": "_testcapi_raise_exception",
+			"id": 124,
+			"name": "for.cond.preheader.i",
+			"debug": [
+				{
+					"line": 200, "columns": [5]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [125, 127],
+			"ir": [
+				"tail call void @PyErr_SetObject(ptr noundef %0, ptr noundef nonnull %call.i) #10, !dbg !735",
+				"%op.val.i25.i = load i64, ptr %call.i, align 8, !dbg !741, !tbaa !743",
+				"%2 = and i64 %op.val.i25.i, 2147483648, !dbg !749",
+				"%cmp.i.not.i26.i = icmp eq i64 %2, 0, !dbg !749",
+				"br i1 %cmp.i.not.i26.i, label %if.end.i29.i, label %exit, !dbg !750"
+			]
+		},
+		{
+			"function": "_testcapi_raise_exception",
+			"id": 125,
+			"name": "if.end.i29.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [126, 127],
+			"ir": [
+				"%dec.i27.i = add i64 %op.val.i25.i, -1, !dbg !751",
+				"store i64 %dec.i27.i, ptr %call.i, align 8, !dbg !751, !tbaa !743",
+				"%cmp.i28.i = icmp eq i64 %dec.i27.i, 0, !dbg !753",
+				"br i1 %cmp.i28.i, label %cleanup13.sink.split.i, label %exit, !dbg !754"
+			]
+		},
+		{
+			"function": "_testcapi_raise_exception",
+			"id": 126,
+			"name": "cleanup13.sink.split.i",
+			"debug": [
+				{
+					"line": 203, "columns": [1]
+				},
+				{
+					"line": 945, "columns": [9]
+				}
+			],
+			"successors": [127],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i) #10, !dbg !755",
+				"br label %exit, !dbg !758"
+			]
+		},
+		{
+			"function": "_testcapi_raise_exception",
+			"id": 127,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 308, "columns": [1]
+				},
+				{
+					"line": 309, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret ptr null, !dbg !760"
+			]
+		},
+		{
+			"function": "_testcapi_raise_memoryerror",
+			"id": 128,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 213, "columns": [12]
+				},
+				{
+					"line": 326, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call.i = tail call ptr @PyErr_NoMemory() #10, !dbg !699",
+				"ret ptr %call.i, !dbg !700"
+			]
+		},
+		{
+			"function": "_testcapi_set_exc_info",
+			"id": 129,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 378, "columns": [10]
+				}
+			],
+			"successors": [131, 130],
+			"ir": [
+				"%type.i = alloca ptr, align 8",
+				"%value.i = alloca ptr, align 8",
+				"%tb.i = alloca ptr, align 8",
+				"%or.cond = icmp eq i64 %nargs, 3, !dbg !702",
+				"br i1 %or.cond, label %if.end, label %lor.lhs.false, !dbg !702"
+			]
+		},
+		{
+			"function": "_testcapi_set_exc_info",
+			"id": 130,
+			"name": "lor.lhs.false",
+			"debug": [
+				{
+					"line": 378, "columns": [10, 9]
+				}
+			],
+			"successors": [150, 131],
+			"ir": [
+				"%call = tail call i32 @_PyArg_CheckPositional(ptr noundef nonnull @.str.15, i64 noundef %nargs, i64 noundef 3, i64 noundef 3) #10, !dbg !702",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !702",
+				"br i1 %tobool.not, label %exit, label %if.end, !dbg !704"
+			]
+		},
+		{
+			"function": "_testcapi_set_exc_info",
+			"id": 131,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 253, "columns": [5, 15, 42, 70]
+				},
+				{
+					"line": 254, "columns": [5]
+				},
+				{
+					"line": 381, "columns": [16]
+				},
+				{
+					"line": 382, "columns": [17]
+				},
+				{
+					"line": 383, "columns": [14]
+				},
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [133, 132],
+			"ir": [
+				"%0 = load ptr, ptr %args, align 8, !dbg !705, !tbaa !706",
+				"%arrayidx2 = getelementptr ptr, ptr %args, i64 1, !dbg !710",
+				"%1 = load ptr, ptr %arrayidx2, align 8, !dbg !710, !tbaa !706",
+				"%arrayidx3 = getelementptr ptr, ptr %args, i64 2, !dbg !711",
+				"%2 = load ptr, ptr %arrayidx3, align 8, !dbg !711, !tbaa !706",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %type.i) #10, !dbg !726",
+				"store ptr @uninitialized, ptr %type.i, align 8, !dbg !727, !tbaa !706",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %value.i) #10, !dbg !726",
+				"store ptr @uninitialized, ptr %value.i, align 8, !dbg !728, !tbaa !706",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %tb.i) #10, !dbg !726",
+				"store ptr @uninitialized, ptr %tb.i, align 8, !dbg !729, !tbaa !706",
+				"call void @PyErr_GetExcInfo(ptr noundef nonnull %type.i, ptr noundef nonnull %value.i, ptr noundef nonnull %tb.i) #10, !dbg !730",
+				"%3 = load i32, ptr %0, align 8, !dbg !738, !tbaa !739",
+				"%add.i.i = add i32 %3, 1, !dbg !740",
+				"%cmp.i.i = icmp eq i32 %add.i.i, 0, !dbg !741",
+				"br i1 %cmp.i.i, label %Py_INCREF.exit.i, label %if.end.i.i, !dbg !743"
+			]
+		},
+		{
+			"function": "_testcapi_set_exc_info",
+			"id": 132,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [133],
+			"ir": [
+				"store i32 %add.i.i, ptr %0, align 8, !dbg !744, !tbaa !739",
+				"br label %Py_INCREF.exit.i, !dbg !745"
+			]
+		},
+		{
+			"function": "_testcapi_set_exc_info",
+			"id": 133,
+			"name": "Py_INCREF.exit.i",
+			"debug": [
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [135, 134],
+			"ir": [
+				"%4 = load i32, ptr %1, align 8, !dbg !748, !tbaa !739",
+				"%add.i14.i = add i32 %4, 1, !dbg !749",
+				"%cmp.i15.i = icmp eq i32 %add.i14.i, 0, !dbg !750",
+				"br i1 %cmp.i15.i, label %Py_INCREF.exit17.i, label %if.end.i16.i, !dbg !751"
+			]
+		},
+		{
+			"function": "_testcapi_set_exc_info",
+			"id": 134,
+			"name": "if.end.i16.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [135],
+			"ir": [
+				"store i32 %add.i14.i, ptr %1, align 8, !dbg !752, !tbaa !739",
+				"br label %Py_INCREF.exit17.i, !dbg !753"
+			]
+		},
+		{
+			"function": "_testcapi_set_exc_info",
+			"id": 135,
+			"name": "Py_INCREF.exit17.i",
+			"debug": [
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [137, 136],
+			"ir": [
+				"%5 = load i32, ptr %2, align 8, !dbg !756, !tbaa !739",
+				"%add.i18.i = add i32 %5, 1, !dbg !757",
+				"%cmp.i19.i = icmp eq i32 %add.i18.i, 0, !dbg !758",
+				"br i1 %cmp.i19.i, label %Py_INCREF.exit21.i, label %if.end.i20.i, !dbg !759"
+			]
+		},
+		{
+			"function": "_testcapi_set_exc_info",
+			"id": 136,
+			"name": "if.end.i20.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [137],
+			"ir": [
+				"store i32 %add.i18.i, ptr %2, align 8, !dbg !760, !tbaa !739",
+				"br label %Py_INCREF.exit21.i, !dbg !761"
+			]
+		},
+		{
+			"function": "_testcapi_set_exc_info",
+			"id": 137,
+			"name": "Py_INCREF.exit21.i",
+			"debug": [
+				{
+					"line": 259, "columns": [5]
+				},
+				{
+					"line": 261, "columns": [26]
+				},
+				{
+					"line": 262, "columns": [13]
+				},
+				{
+					"line": 263, "columns": [13]
+				},
+				{
+					"line": 264, "columns": [13]
+				},
+				{
+					"line": 265, "columns": [5]
+				},
+				{
+					"line": 1037, "columns": [12, 9]
+				}
+			],
+			"successors": [141, 138],
+			"ir": [
+				"call void @PyErr_SetExcInfo(ptr noundef nonnull %0, ptr noundef nonnull %1, ptr noundef nonnull %2) #10, !dbg !762",
+				"%6 = load ptr, ptr %type.i, align 8, !dbg !763",
+				"%tobool.not.i = icmp eq ptr %6, null, !dbg !763",
+				"%cond.i = select i1 %tobool.not.i, ptr @_Py_NoneStruct, ptr %6, !dbg !763",
+				"%7 = load ptr, ptr %value.i, align 8, !dbg !764",
+				"%tobool1.not.i = icmp eq ptr %7, null, !dbg !764",
+				"%cond5.i = select i1 %tobool1.not.i, ptr @_Py_NoneStruct, ptr %7, !dbg !764",
+				"%8 = load ptr, ptr %tb.i, align 8, !dbg !765",
+				"%tobool6.not.i = icmp eq ptr %8, null, !dbg !765",
+				"%cond10.i = select i1 %tobool6.not.i, ptr @_Py_NoneStruct, ptr %8, !dbg !765",
+				"%call.i = call ptr (i64, ...) @PyTuple_Pack(i64 noundef 3, ptr noundef nonnull %cond.i, ptr noundef nonnull %cond5.i, ptr noundef nonnull %cond10.i) #10, !dbg !766",
+				"%9 = load ptr, ptr %type.i, align 8, !dbg !767, !tbaa !706",
+				"%cmp.not.i.i = icmp eq ptr %9, null, !dbg !773",
+				"br i1 %cmp.not.i.i, label %Py_XDECREF.exit.i, label %if.then.i.i, !dbg !775"
+			]
+		},
+		{
+			"function": "_testcapi_set_exc_info",
+			"id": 138,
+			"name": "if.then.i.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [139, 141],
+			"ir": [
+				"%op.val.i.i.i = load i64, ptr %9, align 8, !dbg !782, !tbaa !739",
+				"%10 = and i64 %op.val.i.i.i, 2147483648, !dbg !789",
+				"%cmp.i.not.i.i.i = icmp eq i64 %10, 0, !dbg !789",
+				"br i1 %cmp.i.not.i.i.i, label %if.end.i.i.i, label %Py_XDECREF.exit.i, !dbg !790"
+			]
+		},
+		{
+			"function": "_testcapi_set_exc_info",
+			"id": 139,
+			"name": "if.end.i.i.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [140, 141],
+			"ir": [
+				"%dec.i.i.i = add i64 %op.val.i.i.i, -1, !dbg !791",
+				"store i64 %dec.i.i.i, ptr %9, align 8, !dbg !791, !tbaa !739",
+				"%cmp.i.i.i = icmp eq i64 %dec.i.i.i, 0, !dbg !793",
+				"br i1 %cmp.i.i.i, label %if.then1.i.i.i, label %Py_XDECREF.exit.i, !dbg !794"
+			]
+		},
+		{
+			"function": "_testcapi_set_exc_info",
+			"id": 140,
+			"name": "if.then1.i.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [141],
+			"ir": [
+				"call void @_Py_Dealloc(ptr noundef nonnull %9) #10, !dbg !795",
+				"br label %Py_XDECREF.exit.i, !dbg !797"
+			]
+		},
+		{
+			"function": "_testcapi_set_exc_info",
+			"id": 141,
+			"name": "Py_XDECREF.exit.i",
+			"debug": [
+				{
+					"line": 266, "columns": [5]
+				},
+				{
+					"line": 1037, "columns": [12, 9]
+				}
+			],
+			"successors": [145, 142],
+			"ir": [
+				"%11 = load ptr, ptr %value.i, align 8, !dbg !798, !tbaa !706",
+				"%cmp.not.i23.i = icmp eq ptr %11, null, !dbg !801",
+				"br i1 %cmp.not.i23.i, label %Py_XDECREF.exit32.i, label %if.then.i26.i, !dbg !802"
+			]
+		},
+		{
+			"function": "_testcapi_set_exc_info",
+			"id": 142,
+			"name": "if.then.i26.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [143, 145],
+			"ir": [
+				"%op.val.i.i24.i = load i64, ptr %11, align 8, !dbg !805, !tbaa !739",
+				"%12 = and i64 %op.val.i.i24.i, 2147483648, !dbg !808",
+				"%cmp.i.not.i.i25.i = icmp eq i64 %12, 0, !dbg !808",
+				"br i1 %cmp.i.not.i.i25.i, label %if.end.i.i29.i, label %Py_XDECREF.exit32.i, !dbg !809"
+			]
+		},
+		{
+			"function": "_testcapi_set_exc_info",
+			"id": 143,
+			"name": "if.end.i.i29.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [144, 145],
+			"ir": [
+				"%dec.i.i27.i = add i64 %op.val.i.i24.i, -1, !dbg !810",
+				"store i64 %dec.i.i27.i, ptr %11, align 8, !dbg !810, !tbaa !739",
+				"%cmp.i.i28.i = icmp eq i64 %dec.i.i27.i, 0, !dbg !811",
+				"br i1 %cmp.i.i28.i, label %if.then1.i.i30.i, label %Py_XDECREF.exit32.i, !dbg !812"
+			]
+		},
+		{
+			"function": "_testcapi_set_exc_info",
+			"id": 144,
+			"name": "if.then1.i.i30.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [145],
+			"ir": [
+				"call void @_Py_Dealloc(ptr noundef nonnull %11) #10, !dbg !813",
+				"br label %Py_XDECREF.exit32.i, !dbg !814"
+			]
+		},
+		{
+			"function": "_testcapi_set_exc_info",
+			"id": 145,
+			"name": "Py_XDECREF.exit32.i",
+			"debug": [
+				{
+					"line": 267, "columns": [5]
+				},
+				{
+					"line": 1037, "columns": [12, 9]
+				}
+			],
+			"successors": [149, 146],
+			"ir": [
+				"%13 = load ptr, ptr %tb.i, align 8, !dbg !815, !tbaa !706",
+				"%cmp.not.i33.i = icmp eq ptr %13, null, !dbg !818",
+				"br i1 %cmp.not.i33.i, label %_testcapi_set_exc_info_impl.exit, label %if.then.i36.i, !dbg !819"
+			]
+		},
+		{
+			"function": "_testcapi_set_exc_info",
+			"id": 146,
+			"name": "if.then.i36.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [147, 149],
+			"ir": [
+				"%op.val.i.i34.i = load i64, ptr %13, align 8, !dbg !822, !tbaa !739",
+				"%14 = and i64 %op.val.i.i34.i, 2147483648, !dbg !825",
+				"%cmp.i.not.i.i35.i = icmp eq i64 %14, 0, !dbg !825",
+				"br i1 %cmp.i.not.i.i35.i, label %if.end.i.i39.i, label %_testcapi_set_exc_info_impl.exit, !dbg !826"
+			]
+		},
+		{
+			"function": "_testcapi_set_exc_info",
+			"id": 147,
+			"name": "if.end.i.i39.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [148, 149],
+			"ir": [
+				"%dec.i.i37.i = add i64 %op.val.i.i34.i, -1, !dbg !827",
+				"store i64 %dec.i.i37.i, ptr %13, align 8, !dbg !827, !tbaa !739",
+				"%cmp.i.i38.i = icmp eq i64 %dec.i.i37.i, 0, !dbg !828",
+				"br i1 %cmp.i.i38.i, label %if.then1.i.i40.i, label %_testcapi_set_exc_info_impl.exit, !dbg !829"
+			]
+		},
+		{
+			"function": "_testcapi_set_exc_info",
+			"id": 148,
+			"name": "if.then1.i.i40.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [149],
+			"ir": [
+				"call void @_Py_Dealloc(ptr noundef nonnull %13) #10, !dbg !830",
+				"br label %_testcapi_set_exc_info_impl.exit, !dbg !831"
+			]
+		},
+		{
+			"function": "_testcapi_set_exc_info",
+			"id": 149,
+			"name": "_testcapi_set_exc_info_impl.exit",
+			"debug": [
+				{
+					"line": 269, "columns": [1]
+				},
+				{
+					"line": 384, "columns": [5]
+				}
+			],
+			"successors": [150],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %tb.i) #10, !dbg !832",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %value.i) #10, !dbg !832",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %type.i) #10, !dbg !832",
+				"br label %exit, !dbg !833"
+			]
+		},
+		{
+			"function": "_testcapi_set_exc_info",
+			"id": 150,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 386, "columns": [1]
+				},
+				{
+					"line": 387, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%return_value.0 = phi ptr [ %call.i, %_testcapi_set_exc_info_impl.exit ], [ null, %lor.lhs.false ], !dbg !701",
+				"ret ptr %return_value.0, !dbg !835"
+			]
+		},
+		{
+			"function": "_testcapi_set_exception",
+			"id": 151,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 281, "columns": [21]
+				},
+				{
+					"line": 282, "columns": [5]
+				},
+				{
+					"line": 1233, "columns": [20, 31]
+				}
+			],
+			"successors": [153, 152],
+			"ir": [
+				"%call = tail call ptr @PyErr_GetHandledException() #10, !dbg !695",
+				"%0 = getelementptr i8, ptr %call, i64 8, !dbg !696",
+				"%call.val = load ptr, ptr %0, align 8, !dbg !696, !tbaa !697",
+				"%1 = getelementptr i8, ptr %call.val, i64 168, !dbg !696",
+				"%call1.val = load i64, ptr %1, align 8, !dbg !696, !tbaa !702",
+				"%and.i = and i64 %call1.val, 1073741824, !dbg !717",
+				"%cmp.i = icmp ne i64 %and.i, 0, !dbg !718",
+				"%cmp = icmp eq ptr %call, null, !dbg !696",
+				"%or.cond = or i1 %cmp, %cmp.i, !dbg !696",
+				"br i1 %or.cond, label %cond.end, label %cond.false, !dbg !696"
+			]
+		},
+		{
+			"function": "_testcapi_set_exception",
+			"id": 152,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 282, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.45, ptr noundef nonnull @.str.21, i32 noundef 282, ptr noundef nonnull @__PRETTY_FUNCTION__._testcapi_set_exception) #11, !dbg !696",
+				"unreachable, !dbg !696"
+			]
+		},
+		{
+			"function": "_testcapi_set_exception",
+			"id": 153,
+			"name": "cond.end",
+			"debug": [
+				{
+					"line": 283, "columns": [5]
+				},
+				{
+					"line": 284, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @PyErr_SetHandledException(ptr noundef %new_exc) #10, !dbg !719",
+				"ret ptr %call, !dbg !720"
+			]
+		},
+		{
+			"function": "_testcapi_traceback_print",
+			"id": 154,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 418, "columns": [10]
+				}
+			],
+			"successors": [156, 155],
+			"ir": [
+				"%or.cond = icmp eq i64 %nargs, 2, !dbg !701",
+				"br i1 %or.cond, label %if.end, label %lor.lhs.false, !dbg !701"
+			]
+		},
+		{
+			"function": "_testcapi_traceback_print",
+			"id": 155,
+			"name": "lor.lhs.false",
+			"debug": [
+				{
+					"line": 418, "columns": [10, 9]
+				}
+			],
+			"successors": [157, 156],
+			"ir": [
+				"%call = tail call i32 @_PyArg_CheckPositional(ptr noundef nonnull @.str.17, i64 noundef %nargs, i64 noundef 2, i64 noundef 2) #10, !dbg !701",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !701",
+				"br i1 %tobool.not, label %exit, label %if.end, !dbg !703"
+			]
+		},
+		{
+			"function": "_testcapi_traceback_print",
+			"id": 156,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 300, "columns": [9, 44]
+				},
+				{
+					"line": 421, "columns": [17]
+				},
+				{
+					"line": 422, "columns": [12]
+				},
+				{
+					"line": 423, "columns": [5]
+				}
+			],
+			"successors": [157],
+			"ir": [
+				"%0 = load ptr, ptr %args, align 8, !dbg !704, !tbaa !705",
+				"%arrayidx2 = getelementptr ptr, ptr %args, i64 1, !dbg !709",
+				"%1 = load ptr, ptr %arrayidx2, align 8, !dbg !709, !tbaa !705",
+				"%call.i = tail call i32 @PyTraceBack_Print(ptr noundef %0, ptr noundef %1) #10, !dbg !717",
+				"%cmp.i = icmp slt i32 %call.i, 0, !dbg !719",
+				"%._Py_NoneStruct.i = select i1 %cmp.i, ptr null, ptr @_Py_NoneStruct, !dbg !715",
+				"br label %exit, !dbg !720"
+			]
+		},
+		{
+			"function": "_testcapi_traceback_print",
+			"id": 157,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 425, "columns": [1]
+				},
+				{
+					"line": 426, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%return_value.0 = phi ptr [ %._Py_NoneStruct.i, %if.end ], [ null, %lor.lhs.false ], !dbg !700",
+				"ret ptr %return_value.0, !dbg !722"
+			]
+		},
+		{
+			"function": "_testcapi_unstable_exc_prep_reraise_star",
+			"id": 158,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 449, "columns": [10]
+				}
+			],
+			"successors": [160, 159],
+			"ir": [
+				"%or.cond = icmp eq i64 %nargs, 2, !dbg !701",
+				"br i1 %or.cond, label %if.end, label %lor.lhs.false, !dbg !701"
+			]
+		},
+		{
+			"function": "_testcapi_unstable_exc_prep_reraise_star",
+			"id": 159,
+			"name": "lor.lhs.false",
+			"debug": [
+				{
+					"line": 449, "columns": [10, 9]
+				}
+			],
+			"successors": [161, 160],
+			"ir": [
+				"%call = tail call i32 @_PyArg_CheckPositional(ptr noundef nonnull @.str.18, i64 noundef %nargs, i64 noundef 2, i64 noundef 2) #10, !dbg !701",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !701",
+				"br i1 %tobool.not, label %exit, label %if.end, !dbg !703"
+			]
+		},
+		{
+			"function": "_testcapi_unstable_exc_prep_reraise_star",
+			"id": 160,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 359, "columns": [12]
+				},
+				{
+					"line": 452, "columns": [12]
+				},
+				{
+					"line": 453, "columns": [12]
+				},
+				{
+					"line": 454, "columns": [5]
+				}
+			],
+			"successors": [161],
+			"ir": [
+				"%0 = load ptr, ptr %args, align 8, !dbg !704, !tbaa !705",
+				"%arrayidx2 = getelementptr ptr, ptr %args, i64 1, !dbg !709",
+				"%1 = load ptr, ptr %arrayidx2, align 8, !dbg !709, !tbaa !705",
+				"%call.i = tail call ptr @PyUnstable_Exc_PrepReraiseStar(ptr noundef %0, ptr noundef %1) #10, !dbg !717",
+				"br label %exit, !dbg !718"
+			]
+		},
+		{
+			"function": "_testcapi_unstable_exc_prep_reraise_star",
+			"id": 161,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 456, "columns": [1]
+				},
+				{
+					"line": 457, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%return_value.0 = phi ptr [ %call.i, %if.end ], [ null, %lor.lhs.false ], !dbg !700",
+				"ret ptr %return_value.0, !dbg !720"
+			]
+		},
+		{
+			"function": "_testcapi_raise_exception_impl",
+			"id": 162,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 188, "columns": [38, 26]
+				},
+				{
+					"line": 189, "columns": [18, 9]
+				}
+			],
+			"successors": [180, 163],
+			"ir": [
+				"%conv = sext i32 %num_args to i64, !dbg !702",
+				"%call = tail call ptr @PyTuple_New(i64 noundef %conv) #10, !dbg !703",
+				"%cmp = icmp eq ptr %call, null, !dbg !704",
+				"br i1 %cmp, label %cleanup13, label %for.cond.preheader, !dbg !706"
+			]
+		},
+		{
+			"function": "_testcapi_raise_exception_impl",
+			"id": 163,
+			"name": "for.cond.preheader",
+			"debug": [
+				{
+					"line": 192, "columns": [23, 5]
+				}
+			],
+			"successors": [164, 177],
+			"ir": [
+				"%cmp2.not1 = icmp sgt i32 %num_args, 0, !dbg !708",
+				"br i1 %cmp2.not1, label %for.body.lr.ph, label %for.end, !dbg !709"
+			]
+		},
+		{
+			"function": "_testcapi_raise_exception_impl",
+			"id": 164,
+			"name": "for.body.lr.ph",
+			"debug": [
+				{
+					"line": 192, "columns": [23, 5]
+				}
+			],
+			"successors": [165],
+			"ir": [
+				"%0 = getelementptr i8, ptr %call, i64 8",
+				"%ob_size.i.i = getelementptr inbounds %struct.PyVarObject, ptr %call, i64 0, i32 1",
+				"%wide.trip.count = zext i32 %num_args to i64, !dbg !708",
+				"br label %for.body, !dbg !709"
+			]
+		},
+		{
+			"function": "_testcapi_raise_exception_impl",
+			"id": 165,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 193, "columns": [23]
+				},
+				{
+					"line": 194, "columns": [15, 13]
+				}
+			],
+			"successors": [166, 168],
+			"ir": [
+				"%indvars.iv = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next, %for.inc ]",
+				"%call5 = tail call ptr @PyLong_FromLong(i64 noundef %indvars.iv) #10, !dbg !710",
+				"%cmp6.not = icmp eq ptr %call5, null, !dbg !712",
+				"br i1 %cmp6.not, label %if.then8, label %if.end9, !dbg !714"
+			]
+		},
+		{
+			"function": "_testcapi_raise_exception_impl",
+			"id": 166,
+			"name": "if.then8",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [167, 180],
+			"ir": [
+				"%op.val.i = load i64, ptr %call, align 8, !dbg !721, !tbaa !723",
+				"%1 = and i64 %op.val.i, 2147483648, !dbg !731",
+				"%cmp.i.not.i = icmp eq i64 %1, 0, !dbg !731",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %cleanup13, !dbg !732"
+			]
+		},
+		{
+			"function": "_testcapi_raise_exception_impl",
+			"id": 167,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [179, 180],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !733",
+				"store i64 %dec.i, ptr %call, align 8, !dbg !733, !tbaa !723",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !735",
+				"br i1 %cmp.i, label %cleanup13.sink.split, label %cleanup13, !dbg !736"
+			]
+		},
+		{
+			"function": "_testcapi_raise_exception_impl",
+			"id": 168,
+			"name": "if.end9",
+			"debug": [
+				{
+					"line": 32, "columns": [28]
+				}
+			],
+			"successors": [169, 170],
+			"ir": [
+				"%op.val.i32 = load ptr, ptr %0, align 8, !dbg !747, !tbaa !748",
+				"%2 = getelementptr i8, ptr %op.val.i32, i64 168, !dbg !747",
+				"%call.val.i = load i64, ptr %2, align 8, !dbg !747, !tbaa !751",
+				"%3 = and i64 %call.val.i, 67108864, !dbg !747",
+				"%tobool.not.i = icmp eq i64 %3, 0, !dbg !747",
+				"br i1 %tobool.not.i, label %cond.false.i, label %cond.end4.i, !dbg !747"
+			]
+		},
+		{
+			"function": "_testcapi_raise_exception_impl",
+			"id": 169,
+			"name": "cond.false.i",
+			"debug": [
+				{
+					"line": 32, "columns": [28]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.33, ptr noundef nonnull @.str.34, i32 noundef 32, ptr noundef nonnull @__PRETTY_FUNCTION__.PyTuple_SET_ITEM) #11, !dbg !747",
+				"unreachable, !dbg !747"
+			]
+		},
+		{
+			"function": "_testcapi_raise_exception_impl",
+			"id": 170,
+			"name": "cond.end4.i",
+			"debug": [
+				{
+					"line": 344, "columns": [5]
+				}
+			],
+			"successors": [171, 172],
+			"ir": [
+				"%cmp.not.i.i = icmp eq ptr %op.val.i32, @PyLong_Type, !dbg !762",
+				"br i1 %cmp.not.i.i, label %cond.false.i.i, label %cond.end.i.i, !dbg !762"
+			]
+		},
+		{
+			"function": "_testcapi_raise_exception_impl",
+			"id": 171,
+			"name": "cond.false.i.i",
+			"debug": [
+				{
+					"line": 344, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.35, ptr noundef nonnull @.str.36, i32 noundef 344, ptr noundef nonnull @__PRETTY_FUNCTION__.Py_SIZE) #11, !dbg !762",
+				"unreachable, !dbg !762"
+			]
+		},
+		{
+			"function": "_testcapi_raise_exception_impl",
+			"id": 172,
+			"name": "cond.end.i.i",
+			"debug": [
+				{
+					"line": 345, "columns": [5]
+				}
+			],
+			"successors": [173, 174],
+			"ir": [
+				"%cmp2.not.i.i = icmp eq ptr %op.val.i32, @PyBool_Type, !dbg !763",
+				"br i1 %cmp2.not.i.i, label %cond.false4.i.i, label %Py_SIZE.exit.i, !dbg !763"
+			]
+		},
+		{
+			"function": "_testcapi_raise_exception_impl",
+			"id": 173,
+			"name": "cond.false4.i.i",
+			"debug": [
+				{
+					"line": 345, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.37, ptr noundef nonnull @.str.36, i32 noundef 345, ptr noundef nonnull @__PRETTY_FUNCTION__.Py_SIZE) #11, !dbg !763",
+				"unreachable, !dbg !763"
+			]
+		},
+		{
+			"function": "_testcapi_raise_exception_impl",
+			"id": 174,
+			"name": "Py_SIZE.exit.i",
+			"debug": [
+				{
+					"line": 34, "columns": [5]
+				},
+				{
+					"line": 346, "columns": [36]
+				}
+			],
+			"successors": [176, 175],
+			"ir": [
+				"%4 = load i64, ptr %ob_size.i.i, align 8, !dbg !764, !tbaa !765",
+				"%cmp6.i = icmp sgt i64 %4, %indvars.iv, !dbg !766",
+				"br i1 %cmp6.i, label %for.inc, label %cond.false8.i, !dbg !766"
+			]
+		},
+		{
+			"function": "_testcapi_raise_exception_impl",
+			"id": 175,
+			"name": "cond.false8.i",
+			"debug": [
+				{
+					"line": 34, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.44, ptr noundef nonnull @.str.34, i32 noundef 34, ptr noundef nonnull @__PRETTY_FUNCTION__.PyTuple_SET_ITEM) #11, !dbg !766",
+				"unreachable, !dbg !766"
+			]
+		},
+		{
+			"function": "_testcapi_raise_exception_impl",
+			"id": 176,
+			"name": "for.inc",
+			"debug": [
+				{
+					"line": 35, "columns": [5, 27]
+				},
+				{
+					"line": 192, "columns": [35, 23, 5]
+				}
+			],
+			"successors": [177, 165],
+			"ir": [
+				"%arrayidx.i = getelementptr %struct.PyTupleObject, ptr %call, i64 0, i32 1, i64 %indvars.iv, !dbg !767",
+				"store ptr %call5, ptr %arrayidx.i, align 8, !dbg !768, !tbaa !769",
+				"%indvars.iv.next = add nuw nsw i64 %indvars.iv, 1, !dbg !770",
+				"%exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count, !dbg !708",
+				"br i1 %exitcond.not, label %for.end, label %for.body, !dbg !709, !llvm.loop !771"
+			]
+		},
+		{
+			"function": "_testcapi_raise_exception_impl",
+			"id": 177,
+			"name": "for.end",
+			"debug": [
+				{
+					"line": 200, "columns": [5]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [178, 180],
+			"ir": [
+				"tail call void @PyErr_SetObject(ptr noundef %exc, ptr noundef nonnull %call) #10, !dbg !774",
+				"%op.val.i25 = load i64, ptr %call, align 8, !dbg !777, !tbaa !723",
+				"%5 = and i64 %op.val.i25, 2147483648, !dbg !780",
+				"%cmp.i.not.i26 = icmp eq i64 %5, 0, !dbg !780",
+				"br i1 %cmp.i.not.i26, label %if.end.i29, label %cleanup13, !dbg !781"
+			]
+		},
+		{
+			"function": "_testcapi_raise_exception_impl",
+			"id": 178,
+			"name": "if.end.i29",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [179, 180],
+			"ir": [
+				"%dec.i27 = add i64 %op.val.i25, -1, !dbg !782",
+				"store i64 %dec.i27, ptr %call, align 8, !dbg !782, !tbaa !723",
+				"%cmp.i28 = icmp eq i64 %dec.i27, 0, !dbg !783",
+				"br i1 %cmp.i28, label %cleanup13.sink.split, label %cleanup13, !dbg !784"
+			]
+		},
+		{
+			"function": "_testcapi_raise_exception_impl",
+			"id": 179,
+			"name": "cleanup13.sink.split",
+			"debug": [
+				{
+					"line": 203, "columns": [1]
+				},
+				{
+					"line": 945, "columns": [9]
+				}
+			],
+			"successors": [180],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call) #10, !dbg !785",
+				"br label %cleanup13, !dbg !787"
+			]
+		},
+		{
+			"function": "_testcapi_raise_exception_impl",
+			"id": 180,
+			"name": "cleanup13",
+			"debug": [
+				{
+					"line": 203, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !787"
+			]
+		}
+	]
+}

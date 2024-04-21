@@ -1,0 +1,3376 @@
+{
+	"blocks": [
+		{
+			"function": "PyThread_init_thread",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 48, "columns": [9]
+				}
+			],
+			"successors": [1, 5],
+			"ir": [
+				"%0 = load i32, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15), align 8, !dbg !702, !tbaa !704",
+				"%tobool.not = icmp eq i32 %0, 0, !dbg !702",
+				"br i1 %tobool.not, label %if.end, label %return, !dbg !840"
+			]
+		},
+		{
+			"function": "PyThread_init_thread",
+			"id": 1,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 51, "columns": [17]
+				},
+				{
+					"line": 208, "columns": [10, 9]
+				}
+			],
+			"successors": [3, 2],
+			"ir": [
+				"store i32 1, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15), align 8, !dbg !841, !tbaa !704",
+				"%.b.i = load i1, ptr @PyThread__init_thread.lib_initialized, align 4, !dbg !842",
+				"br i1 %.b.i, label %if.end.i, label %if.then.i, !dbg !845"
+			]
+		},
+		{
+			"function": "PyThread_init_thread",
+			"id": 2,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 209, "columns": [25]
+				},
+				{
+					"line": 214, "columns": [5]
+				}
+			],
+			"successors": [3],
+			"ir": [
+				"store i1 true, ptr @PyThread__init_thread.lib_initialized, align 4, !dbg !846",
+				"br label %if.end.i, !dbg !848"
+			]
+		},
+		{
+			"function": "PyThread_init_thread",
+			"id": 3,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 138, "columns": [5]
+				},
+				{
+					"line": 140, "columns": [9, 57]
+				}
+			],
+			"successors": [4, 5],
+			"ir": [
+				"%call.i.i = tail call i32 @pthread_condattr_init(ptr noundef nonnull getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15, i32 1, i32 1)) #14, !dbg !849",
+				"%call1.i.i = tail call i32 @pthread_condattr_setclock(ptr noundef nonnull getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15, i32 1, i32 1), i32 noundef 1) #14, !dbg !852",
+				"%cmp.i.i = icmp eq i32 %call1.i.i, 0, !dbg !854",
+				"br i1 %cmp.i.i, label %if.then.i.i, label %return, !dbg !855"
+			]
+		},
+		{
+			"function": "PyThread_init_thread",
+			"id": 4,
+			"name": "if.then.i.i",
+			"debug": [
+				{
+					"line": 141, "columns": [28]
+				},
+				{
+					"line": 142, "columns": [5]
+				}
+			],
+			"successors": [5],
+			"ir": [
+				"store ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15, i32 1, i32 1), ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15, i32 1), align 8, !dbg !856, !tbaa !858",
+				"br label %return, !dbg !859"
+			]
+		},
+		{
+			"function": "PyThread_init_thread",
+			"id": 5,
+			"name": "return",
+			"debug": [
+				{
+					"line": 53, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !860"
+			]
+		},
+		{
+			"function": "_PyThread_cond_init",
+			"id": 6,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 150, "columns": [36, 12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15, i32 1), align 8, !dbg !741, !tbaa !742",
+				"%call = tail call i32 @pthread_cond_init(ptr noundef %cond, ptr noundef %0) #14, !dbg !878",
+				"ret i32 %call, !dbg !879"
+			]
+		},
+		{
+			"function": "_PyThread_cond_after",
+			"id": 7,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 157, "columns": [24]
+				},
+				{
+					"line": 160, "columns": [9]
+				}
+			],
+			"successors": [9, 8],
+			"ir": [
+				"%call = tail call i64 @_PyTime_FromMicrosecondsClamp(i64 noundef %us) #14, !dbg !718",
+				"%0 = load ptr, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15, i32 1), align 8, !dbg !719, !tbaa !721",
+				"%tobool.not = icmp eq ptr %0, null, !dbg !719",
+				"br i1 %tobool.not, label %if.else, label %if.then, !dbg !857"
+			]
+		},
+		{
+			"function": "_PyThread_cond_after",
+			"id": 8,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 161, "columns": [13]
+				},
+				{
+					"line": 162, "columns": [5]
+				}
+			],
+			"successors": [10],
+			"ir": [
+				"%call1 = tail call i64 @_PyTime_MonotonicUnchecked() #14, !dbg !858",
+				"br label %if.end, !dbg !860"
+			]
+		},
+		{
+			"function": "_PyThread_cond_after",
+			"id": 9,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 166, "columns": [13]
+				}
+			],
+			"successors": [10],
+			"ir": [
+				"%call2 = tail call i64 @_PyTime_TimeUnchecked() #14, !dbg !861",
+				"br label %if.end"
+			]
+		},
+		{
+			"function": "_PyThread_cond_after",
+			"id": 10,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 168, "columns": [9]
+				},
+				{
+					"line": 169, "columns": [5]
+				},
+				{
+					"line": 170, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%t.0 = phi i64 [ %call1, %if.then ], [ %call2, %if.else ], !dbg !863",
+				"%call3 = tail call i64 @_PyTime_Add(i64 noundef %t.0, i64 noundef %call) #14, !dbg !864",
+				"tail call void @_PyTime_AsTimespec_clamp(i64 noundef %call3, ptr noundef %abs) #14, !dbg !865",
+				"ret void, !dbg !866"
+			]
+		},
+		{
+			"function": "PyThread_start_joinable_thread",
+			"id": 11,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 311, "columns": [5, 15]
+				},
+				{
+					"line": 312, "columns": [9]
+				}
+			],
+			"successors": [12, 13],
+			"ir": [
+				"%th = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %th) #14, !dbg !713",
+				"store i64 0, ptr %th, align 8, !dbg !714, !tbaa !715",
+				"%call = call fastcc i32 @do_start_joinable_thread(ptr noundef %func, ptr noundef %arg, ptr noundef nonnull %th), !dbg !719, !range !721",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !719",
+				"br i1 %tobool.not, label %if.end, label %cleanup, !dbg !722"
+			]
+		},
+		{
+			"function": "PyThread_start_joinable_thread",
+			"id": 12,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 315, "columns": [33, 12]
+				},
+				{
+					"line": 316, "columns": [13]
+				},
+				{
+					"line": 319, "columns": [5]
+				}
+			],
+			"successors": [13],
+			"ir": [
+				"%0 = load i64, ptr %th, align 8, !dbg !723, !tbaa !715",
+				"store i64 %0, ptr %ident, align 8, !dbg !724, !tbaa !725",
+				"store i64 %0, ptr %handle, align 8, !dbg !727, !tbaa !715",
+				"br label %cleanup, !dbg !728"
+			]
+		},
+		{
+			"function": "PyThread_start_joinable_thread",
+			"id": 13,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 320, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ 0, %if.end ], [ -1, %entry ], !dbg !712",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %th) #14, !dbg !729",
+				"ret i32 %retval.0, !dbg !729"
+			]
+		},
+		{
+			"function": "do_start_joinable_thread",
+			"id": 14,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 248, "columns": [5]
+				},
+				{
+					"line": 251, "columns": [5, 20]
+				},
+				{
+					"line": 257, "columns": [10, 9]
+				}
+			],
+			"successors": [15, 19],
+			"ir": [
+				"%th = alloca i64, align 8",
+				"%attrs = alloca %union.pthread_attr_t, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %th) #14, !dbg !6975",
+				"call void @llvm.lifetime.start.p0(i64 56, ptr nonnull %attrs) #14, !dbg !6976",
+				"%0 = load i32, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15), align 8, !dbg !6978, !tbaa !6980",
+				"%tobool.not = icmp eq i32 %0, 0, !dbg !6978",
+				"br i1 %tobool.not, label %if.end.i, label %if.end, !dbg !7116"
+			]
+		},
+		{
+			"function": "do_start_joinable_thread",
+			"id": 15,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 51, "columns": [17]
+				},
+				{
+					"line": 208, "columns": [10, 9]
+				}
+			],
+			"successors": [17, 16],
+			"ir": [
+				"store i32 1, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15), align 8, !dbg !7117, !tbaa !6980",
+				"%.b.i.i = load i1, ptr @PyThread__init_thread.lib_initialized, align 4, !dbg !7120",
+				"br i1 %.b.i.i, label %if.end.i.i, label %if.then.i.i, !dbg !7123"
+			]
+		},
+		{
+			"function": "do_start_joinable_thread",
+			"id": 16,
+			"name": "if.then.i.i",
+			"debug": [
+				{
+					"line": 209, "columns": [25]
+				},
+				{
+					"line": 214, "columns": [5]
+				}
+			],
+			"successors": [17],
+			"ir": [
+				"store i1 true, ptr @PyThread__init_thread.lib_initialized, align 4, !dbg !7124",
+				"br label %if.end.i.i, !dbg !7126"
+			]
+		},
+		{
+			"function": "do_start_joinable_thread",
+			"id": 17,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 138, "columns": [5]
+				},
+				{
+					"line": 140, "columns": [9, 57]
+				}
+			],
+			"successors": [18, 19],
+			"ir": [
+				"%call.i.i.i = tail call i32 @pthread_condattr_init(ptr noundef nonnull getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15, i32 1, i32 1)) #14, !dbg !7127",
+				"%call1.i.i.i = tail call i32 @pthread_condattr_setclock(ptr noundef nonnull getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15, i32 1, i32 1), i32 noundef 1) #14, !dbg !7130",
+				"%cmp.i.i.i = icmp eq i32 %call1.i.i.i, 0, !dbg !7132",
+				"br i1 %cmp.i.i.i, label %if.then.i.i.i, label %if.end, !dbg !7133"
+			]
+		},
+		{
+			"function": "do_start_joinable_thread",
+			"id": 18,
+			"name": "if.then.i.i.i",
+			"debug": [
+				{
+					"line": 141, "columns": [28]
+				},
+				{
+					"line": 142, "columns": [5]
+				}
+			],
+			"successors": [19],
+			"ir": [
+				"store ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15, i32 1, i32 1), ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15, i32 1), align 8, !dbg !7134, !tbaa !7136",
+				"br label %if.end, !dbg !7137"
+			]
+		},
+		{
+			"function": "do_start_joinable_thread",
+			"id": 19,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 261, "columns": [9, 35]
+				}
+			],
+			"successors": [20, 28],
+			"ir": [
+				"%call = call i32 @pthread_attr_init(ptr noundef nonnull %attrs) #14, !dbg !7138",
+				"%cmp.not = icmp eq i32 %call, 0, !dbg !7140",
+				"br i1 %cmp.not, label %if.end2, label %cleanup33, !dbg !7141"
+			]
+		},
+		{
+			"function": "do_start_joinable_thread",
+			"id": 20,
+			"name": "if.end2",
+			"debug": [
+				{
+					"line": 137, "columns": [12]
+				},
+				{
+					"line": 266, "columns": [24]
+				}
+			],
+			"successors": [24, 21],
+			"ir": [
+				"%1 = call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !7142",
+				"%2 = load ptr, ptr %1, align 8, !dbg !7142, !tbaa !7148",
+				"%tobool4.not = icmp eq ptr %2, null, !dbg !7149",
+				"br i1 %tobool4.not, label %if.end18, label %cond.end, !dbg !7149"
+			]
+		},
+		{
+			"function": "do_start_joinable_thread",
+			"id": 21,
+			"name": "cond.end",
+			"debug": [
+				{
+					"line": 266, "columns": [41, 57]
+				},
+				{
+					"line": 267, "columns": [22]
+				},
+				{
+					"line": 268, "columns": [9]
+				}
+			],
+			"successors": [24, 22],
+			"ir": [
+				"%interp = getelementptr inbounds %struct._ts, ptr %2, i64 0, i32 2, !dbg !7150",
+				"%3 = load ptr, ptr %interp, align 8, !dbg !7150, !tbaa !7151",
+				"%stacksize5 = getelementptr inbounds %struct._is, ptr %3, i64 0, i32 9, i32 4, !dbg !7152",
+				"%4 = load i64, ptr %stacksize5, align 8, !dbg !7152, !tbaa !7153",
+				"%cmp6.not = icmp eq i64 %4, 0, !dbg !7154",
+				"br i1 %cmp6.not, label %if.end18, label %if.then12, !dbg !7155"
+			]
+		},
+		{
+			"function": "do_start_joinable_thread",
+			"id": 22,
+			"name": "if.then12",
+			"debug": [
+				{
+					"line": 269, "columns": [13, 52]
+				}
+			],
+			"successors": [24, 23],
+			"ir": [
+				"%call13 = call i32 @pthread_attr_setstacksize(ptr noundef nonnull %attrs, i64 noundef %4) #14, !dbg !7156",
+				"%cmp14.not = icmp eq i32 %call13, 0, !dbg !7160",
+				"br i1 %cmp14.not, label %if.end18, label %if.then15, !dbg !7161"
+			]
+		},
+		{
+			"function": "do_start_joinable_thread",
+			"id": 23,
+			"name": "if.then15",
+			"debug": [
+				{
+					"line": 270, "columns": [13]
+				},
+				{
+					"line": 271, "columns": [13]
+				}
+			],
+			"successors": [28],
+			"ir": [
+				"%call16 = call i32 @pthread_attr_destroy(ptr noundef nonnull %attrs) #14, !dbg !7162",
+				"br label %cleanup33, !dbg !7164"
+			]
+		},
+		{
+			"function": "do_start_joinable_thread",
+			"id": 24,
+			"name": "if.end18",
+			"debug": [
+				{
+					"line": 276, "columns": [5]
+				},
+				{
+					"line": 279, "columns": [35]
+				},
+				{
+					"line": 281, "columns": [18, 9]
+				}
+			],
+			"successors": [28, 25],
+			"ir": [
+				"%call19 = call i32 @pthread_attr_setscope(ptr noundef nonnull %attrs, i32 noundef 0) #14, !dbg !7165",
+				"%call20 = call ptr @PyMem_RawMalloc(i64 noundef 16) #14, !dbg !7166",
+				"%cmp21 = icmp eq ptr %call20, null, !dbg !7167",
+				"br i1 %cmp21, label %cleanup33, label %if.end23, !dbg !7169"
+			]
+		},
+		{
+			"function": "do_start_joinable_thread",
+			"id": 25,
+			"name": "if.end23",
+			"debug": [
+				{
+					"line": 285, "columns": [20]
+				},
+				{
+					"line": 286, "columns": [15, 19]
+				},
+				{
+					"line": 288, "columns": [14]
+				},
+				{
+					"line": 297, "columns": [5]
+				},
+				{
+					"line": 300, "columns": [16, 9]
+				}
+			],
+			"successors": [27, 26],
+			"ir": [
+				"store ptr %func, ptr %call20, align 8, !dbg !7170, !tbaa !7171",
+				"%arg25 = getelementptr inbounds %struct.pythread_callback, ptr %call20, i64 0, i32 1, !dbg !7173",
+				"store ptr %arg, ptr %arg25, align 8, !dbg !7174, !tbaa !7175",
+				"%call26 = call i32 @pthread_create(ptr noundef nonnull %th, ptr noundef nonnull %attrs, ptr noundef nonnull @pythread_wrapper, ptr noundef nonnull %call20) #14, !dbg !7176",
+				"%call27 = call i32 @pthread_attr_destroy(ptr noundef nonnull %attrs) #14, !dbg !7177",
+				"%cmp28.not = icmp eq i32 %call26, 0, !dbg !7178",
+				"br i1 %cmp28.not, label %if.end30, label %if.then29, !dbg !7180"
+			]
+		},
+		{
+			"function": "do_start_joinable_thread",
+			"id": 26,
+			"name": "if.then29",
+			"debug": [
+				{
+					"line": 301, "columns": [9]
+				},
+				{
+					"line": 302, "columns": [9]
+				}
+			],
+			"successors": [28],
+			"ir": [
+				"call void @PyMem_RawFree(ptr noundef nonnull %call20) #14, !dbg !7181",
+				"br label %cleanup33, !dbg !7183"
+			]
+		},
+		{
+			"function": "do_start_joinable_thread",
+			"id": 27,
+			"name": "if.end30",
+			"debug": [
+				{
+					"line": 304, "columns": [15, 13]
+				},
+				{
+					"line": 305, "columns": [5]
+				}
+			],
+			"successors": [28],
+			"ir": [
+				"%5 = load i64, ptr %th, align 8, !dbg !7184, !tbaa !7185",
+				"store i64 %5, ptr %out_id, align 8, !dbg !7186, !tbaa !7185",
+				"br label %cleanup33, !dbg !7187"
+			]
+		},
+		{
+			"function": "do_start_joinable_thread",
+			"id": 28,
+			"name": "cleanup33",
+			"debug": [
+				{
+					"line": 306, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.2 = phi i32 [ -1, %if.end ], [ -1, %if.then15 ], [ -1, %if.then29 ], [ 0, %if.end30 ], [ -1, %if.end18 ], !dbg !6974",
+				"call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %attrs) #14, !dbg !7188",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %th) #14, !dbg !7188",
+				"ret i32 %retval.2, !dbg !7188"
+			]
+		},
+		{
+			"function": "PyThread_start_new_thread",
+			"id": 29,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 325, "columns": [5, 15]
+				},
+				{
+					"line": 326, "columns": [9]
+				}
+			],
+			"successors": [30, 31],
+			"ir": [
+				"%th = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %th) #14, !dbg !709",
+				"store i64 0, ptr %th, align 8, !dbg !710, !tbaa !711",
+				"%call = call fastcc i32 @do_start_joinable_thread(ptr noundef %func, ptr noundef %arg, ptr noundef nonnull %th), !dbg !715, !range !717",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !715",
+				"br i1 %tobool.not, label %if.end, label %cleanup, !dbg !718"
+			]
+		},
+		{
+			"function": "PyThread_start_new_thread",
+			"id": 30,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 329, "columns": [20, 5]
+				},
+				{
+					"line": 331, "columns": [5]
+				}
+			],
+			"successors": [31],
+			"ir": [
+				"%0 = load i64, ptr %th, align 8, !dbg !719, !tbaa !711",
+				"%call1 = tail call i32 @pthread_detach(i64 noundef %0) #14, !dbg !720",
+				"br label %cleanup, !dbg !721"
+			]
+		},
+		{
+			"function": "PyThread_start_new_thread",
+			"id": 31,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 335, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i64 [ %0, %if.end ], [ -1, %entry ], !dbg !708",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %th) #14, !dbg !722",
+				"ret i64 %retval.0, !dbg !722"
+			]
+		},
+		{
+			"function": "PyThread_join_thread",
+			"id": 32,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 339, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call i32 @pthread_join(i64 noundef %th, ptr noundef null) #14, !dbg !707",
+				"ret i32 %call, !dbg !708"
+			]
+		},
+		{
+			"function": "PyThread_detach_thread",
+			"id": 33,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 344, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call i32 @pthread_detach(i64 noundef %th) #14, !dbg !707",
+				"ret i32 %call, !dbg !708"
+			]
+		},
+		{
+			"function": "PyThread_get_thread_ident_ex",
+			"id": 34,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 355, "columns": [5, 24]
+				},
+				{
+					"line": 356, "columns": [10, 9]
+				}
+			],
+			"successors": [35, 39],
+			"ir": [
+				"%threadid = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %threadid), !dbg !707",
+				"%0 = load i32, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15), align 8, !dbg !709, !tbaa !711",
+				"%tobool.not = icmp eq i32 %0, 0, !dbg !709",
+				"br i1 %tobool.not, label %if.end.i, label %if.end, !dbg !847"
+			]
+		},
+		{
+			"function": "PyThread_get_thread_ident_ex",
+			"id": 35,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 51, "columns": [17]
+				},
+				{
+					"line": 208, "columns": [10, 9]
+				}
+			],
+			"successors": [37, 36],
+			"ir": [
+				"store i32 1, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15), align 8, !dbg !848, !tbaa !711",
+				"%.b.i.i = load i1, ptr @PyThread__init_thread.lib_initialized, align 4, !dbg !851",
+				"br i1 %.b.i.i, label %if.end.i.i, label %if.then.i.i, !dbg !854"
+			]
+		},
+		{
+			"function": "PyThread_get_thread_ident_ex",
+			"id": 36,
+			"name": "if.then.i.i",
+			"debug": [
+				{
+					"line": 209, "columns": [25]
+				},
+				{
+					"line": 214, "columns": [5]
+				}
+			],
+			"successors": [37],
+			"ir": [
+				"store i1 true, ptr @PyThread__init_thread.lib_initialized, align 4, !dbg !855",
+				"br label %if.end.i.i, !dbg !857"
+			]
+		},
+		{
+			"function": "PyThread_get_thread_ident_ex",
+			"id": 37,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 138, "columns": [5]
+				},
+				{
+					"line": 140, "columns": [9, 57]
+				}
+			],
+			"successors": [38, 39],
+			"ir": [
+				"%call.i.i.i = tail call i32 @pthread_condattr_init(ptr noundef nonnull getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15, i32 1, i32 1)) #14, !dbg !858",
+				"%call1.i.i.i = tail call i32 @pthread_condattr_setclock(ptr noundef nonnull getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15, i32 1, i32 1), i32 noundef 1) #14, !dbg !861",
+				"%cmp.i.i.i = icmp eq i32 %call1.i.i.i, 0, !dbg !863",
+				"br i1 %cmp.i.i.i, label %if.then.i.i.i, label %if.end, !dbg !864"
+			]
+		},
+		{
+			"function": "PyThread_get_thread_ident_ex",
+			"id": 38,
+			"name": "if.then.i.i.i",
+			"debug": [
+				{
+					"line": 141, "columns": [28]
+				},
+				{
+					"line": 142, "columns": [5]
+				}
+			],
+			"successors": [39],
+			"ir": [
+				"store ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15, i32 1, i32 1), ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15, i32 1), align 8, !dbg !865, !tbaa !867",
+				"br label %if.end, !dbg !868"
+			]
+		},
+		{
+			"function": "PyThread_get_thread_ident_ex",
+			"id": 39,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 358, "columns": [16, 14]
+				},
+				{
+					"line": 360, "columns": [31, 5]
+				},
+				{
+					"line": 361, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call i64 @pthread_self() #15, !dbg !869",
+				"store volatile i64 %call, ptr %threadid, align 8, !dbg !870, !tbaa !871",
+				"%threadid.0.threadid.0.threadid.0.threadid.0. = load volatile i64, ptr %threadid, align 8, !dbg !872, !tbaa !871",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %threadid), !dbg !873",
+				"ret i64 %threadid.0.threadid.0.threadid.0.threadid.0., !dbg !874"
+			]
+		},
+		{
+			"function": "PyThread_get_thread_ident",
+			"id": 40,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 355, "columns": [5, 24]
+				},
+				{
+					"line": 356, "columns": [10, 9]
+				}
+			],
+			"successors": [41, 45],
+			"ir": [
+				"%threadid.i = alloca i64, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %threadid.i), !dbg !704",
+				"%0 = load i32, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15), align 8, !dbg !713, !tbaa !715",
+				"%tobool.not.i = icmp eq i32 %0, 0, !dbg !713",
+				"br i1 %tobool.not.i, label %if.end.i.i, label %PyThread_get_thread_ident_ex.exit, !dbg !851"
+			]
+		},
+		{
+			"function": "PyThread_get_thread_ident",
+			"id": 41,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 51, "columns": [17]
+				},
+				{
+					"line": 208, "columns": [10, 9]
+				}
+			],
+			"successors": [43, 42],
+			"ir": [
+				"store i32 1, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15), align 8, !dbg !852, !tbaa !715",
+				"%.b.i.i.i = load i1, ptr @PyThread__init_thread.lib_initialized, align 4, !dbg !855",
+				"br i1 %.b.i.i.i, label %if.end.i.i.i, label %if.then.i.i.i, !dbg !858"
+			]
+		},
+		{
+			"function": "PyThread_get_thread_ident",
+			"id": 42,
+			"name": "if.then.i.i.i",
+			"debug": [
+				{
+					"line": 209, "columns": [25]
+				},
+				{
+					"line": 214, "columns": [5]
+				}
+			],
+			"successors": [43],
+			"ir": [
+				"store i1 true, ptr @PyThread__init_thread.lib_initialized, align 4, !dbg !859",
+				"br label %if.end.i.i.i, !dbg !861"
+			]
+		},
+		{
+			"function": "PyThread_get_thread_ident",
+			"id": 43,
+			"name": "if.end.i.i.i",
+			"debug": [
+				{
+					"line": 138, "columns": [5]
+				},
+				{
+					"line": 140, "columns": [9, 57]
+				}
+			],
+			"successors": [44, 45],
+			"ir": [
+				"%call.i.i.i.i = tail call i32 @pthread_condattr_init(ptr noundef nonnull getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15, i32 1, i32 1)) #14, !dbg !862",
+				"%call1.i.i.i.i = tail call i32 @pthread_condattr_setclock(ptr noundef nonnull getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15, i32 1, i32 1), i32 noundef 1) #14, !dbg !865",
+				"%cmp.i.i.i.i = icmp eq i32 %call1.i.i.i.i, 0, !dbg !867",
+				"br i1 %cmp.i.i.i.i, label %if.then.i.i.i.i, label %PyThread_get_thread_ident_ex.exit, !dbg !868"
+			]
+		},
+		{
+			"function": "PyThread_get_thread_ident",
+			"id": 44,
+			"name": "if.then.i.i.i.i",
+			"debug": [
+				{
+					"line": 141, "columns": [28]
+				},
+				{
+					"line": 142, "columns": [5]
+				}
+			],
+			"successors": [45],
+			"ir": [
+				"store ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15, i32 1, i32 1), ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15, i32 1), align 8, !dbg !869, !tbaa !871",
+				"br label %PyThread_get_thread_ident_ex.exit, !dbg !872"
+			]
+		},
+		{
+			"function": "PyThread_get_thread_ident",
+			"id": 45,
+			"name": "PyThread_get_thread_ident_ex.exit",
+			"debug": [
+				{
+					"line": 358, "columns": [16, 14]
+				},
+				{
+					"line": 360, "columns": [31]
+				},
+				{
+					"line": 361, "columns": [1]
+				},
+				{
+					"line": 366, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call.i = tail call i64 @pthread_self() #15, !dbg !873",
+				"store volatile i64 %call.i, ptr %threadid.i, align 8, !dbg !874, !tbaa !875",
+				"%threadid.i.0.threadid.i.0.threadid.i.0.threadid.0.threadid.0.threadid.0..i = load volatile i64, ptr %threadid.i, align 8, !dbg !876, !tbaa !875",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %threadid.i), !dbg !877",
+				"ret i64 %threadid.i.0.threadid.i.0.threadid.i.0.threadid.0.threadid.0.threadid.0..i, !dbg !878"
+			]
+		},
+		{
+			"function": "PyThread_get_thread_native_id",
+			"id": 46,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 373, "columns": [10, 9]
+				}
+			],
+			"successors": [47, 51],
+			"ir": [
+				"%0 = load i32, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15), align 8, !dbg !708, !tbaa !710",
+				"%tobool.not = icmp eq i32 %0, 0, !dbg !708",
+				"br i1 %tobool.not, label %if.end.i, label %if.end, !dbg !846"
+			]
+		},
+		{
+			"function": "PyThread_get_thread_native_id",
+			"id": 47,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 51, "columns": [17]
+				},
+				{
+					"line": 208, "columns": [10, 9]
+				}
+			],
+			"successors": [49, 48],
+			"ir": [
+				"store i32 1, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15), align 8, !dbg !847, !tbaa !710",
+				"%.b.i.i = load i1, ptr @PyThread__init_thread.lib_initialized, align 4, !dbg !850",
+				"br i1 %.b.i.i, label %if.end.i.i, label %if.then.i.i, !dbg !853"
+			]
+		},
+		{
+			"function": "PyThread_get_thread_native_id",
+			"id": 48,
+			"name": "if.then.i.i",
+			"debug": [
+				{
+					"line": 209, "columns": [25]
+				},
+				{
+					"line": 214, "columns": [5]
+				}
+			],
+			"successors": [49],
+			"ir": [
+				"store i1 true, ptr @PyThread__init_thread.lib_initialized, align 4, !dbg !854",
+				"br label %if.end.i.i, !dbg !856"
+			]
+		},
+		{
+			"function": "PyThread_get_thread_native_id",
+			"id": 49,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 138, "columns": [5]
+				},
+				{
+					"line": 140, "columns": [9, 57]
+				}
+			],
+			"successors": [50, 51],
+			"ir": [
+				"%call.i.i.i = tail call i32 @pthread_condattr_init(ptr noundef nonnull getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15, i32 1, i32 1)) #14, !dbg !857",
+				"%call1.i.i.i = tail call i32 @pthread_condattr_setclock(ptr noundef nonnull getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15, i32 1, i32 1), i32 noundef 1) #14, !dbg !860",
+				"%cmp.i.i.i = icmp eq i32 %call1.i.i.i, 0, !dbg !862",
+				"br i1 %cmp.i.i.i, label %if.then.i.i.i, label %if.end, !dbg !863"
+			]
+		},
+		{
+			"function": "PyThread_get_thread_native_id",
+			"id": 50,
+			"name": "if.then.i.i.i",
+			"debug": [
+				{
+					"line": 141, "columns": [28]
+				},
+				{
+					"line": 142, "columns": [5]
+				}
+			],
+			"successors": [51],
+			"ir": [
+				"store ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15, i32 1, i32 1), ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15, i32 1), align 8, !dbg !864, !tbaa !866",
+				"br label %if.end, !dbg !867"
+			]
+		},
+		{
+			"function": "PyThread_get_thread_native_id",
+			"id": 51,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 380, "columns": [17]
+				},
+				{
+					"line": 400, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call i64 (i64, ...) @syscall(i64 noundef 186) #14, !dbg !868",
+				"%sext = shl i64 %call, 32, !dbg !870",
+				"%conv1 = ashr exact i64 %sext, 32, !dbg !870",
+				"ret i64 %conv1, !dbg !871"
+			]
+		},
+		{
+			"function": "PyThread_exit_thread",
+			"id": 52,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 407, "columns": [10, 9]
+				}
+			],
+			"successors": [53, 54],
+			"ir": [
+				"%0 = load i32, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15), align 8, !dbg !702, !tbaa !704",
+				"%tobool.not = icmp eq i32 %0, 0, !dbg !702",
+				"br i1 %tobool.not, label %if.then, label %if.end, !dbg !840"
+			]
+		},
+		{
+			"function": "PyThread_exit_thread",
+			"id": 53,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 408, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @exit(i32 noundef 0) #14, !dbg !841",
+				"unreachable, !dbg !841"
+			]
+		},
+		{
+			"function": "PyThread_exit_thread",
+			"id": 54,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 416, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @pthread_exit(ptr noundef null) #14, !dbg !842",
+				"unreachable, !dbg !842"
+			]
+		},
+		{
+			"function": "PyThread_allocate_lock",
+			"id": 55,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 432, "columns": [10, 9]
+				}
+			],
+			"successors": [56, 60],
+			"ir": [
+				"%0 = load i32, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15), align 8, !dbg !709, !tbaa !711",
+				"%tobool.not = icmp eq i32 %0, 0, !dbg !709",
+				"br i1 %tobool.not, label %if.end.i, label %if.end, !dbg !847"
+			]
+		},
+		{
+			"function": "PyThread_allocate_lock",
+			"id": 56,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 51, "columns": [17]
+				},
+				{
+					"line": 208, "columns": [10, 9]
+				}
+			],
+			"successors": [58, 57],
+			"ir": [
+				"store i32 1, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15), align 8, !dbg !848, !tbaa !711",
+				"%.b.i.i = load i1, ptr @PyThread__init_thread.lib_initialized, align 4, !dbg !851",
+				"br i1 %.b.i.i, label %if.end.i.i, label %if.then.i.i, !dbg !854"
+			]
+		},
+		{
+			"function": "PyThread_allocate_lock",
+			"id": 57,
+			"name": "if.then.i.i",
+			"debug": [
+				{
+					"line": 209, "columns": [25]
+				},
+				{
+					"line": 214, "columns": [5]
+				}
+			],
+			"successors": [58],
+			"ir": [
+				"store i1 true, ptr @PyThread__init_thread.lib_initialized, align 4, !dbg !855",
+				"br label %if.end.i.i, !dbg !857"
+			]
+		},
+		{
+			"function": "PyThread_allocate_lock",
+			"id": 58,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 138, "columns": [5]
+				},
+				{
+					"line": 140, "columns": [9, 57]
+				}
+			],
+			"successors": [59, 60],
+			"ir": [
+				"%call.i.i.i = tail call i32 @pthread_condattr_init(ptr noundef nonnull getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15, i32 1, i32 1)) #14, !dbg !858",
+				"%call1.i.i.i = tail call i32 @pthread_condattr_setclock(ptr noundef nonnull getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15, i32 1, i32 1), i32 noundef 1) #14, !dbg !861",
+				"%cmp.i.i.i = icmp eq i32 %call1.i.i.i, 0, !dbg !863",
+				"br i1 %cmp.i.i.i, label %if.then.i.i.i, label %if.end, !dbg !864"
+			]
+		},
+		{
+			"function": "PyThread_allocate_lock",
+			"id": 59,
+			"name": "if.then.i.i.i",
+			"debug": [
+				{
+					"line": 141, "columns": [28]
+				},
+				{
+					"line": 142, "columns": [5]
+				}
+			],
+			"successors": [60],
+			"ir": [
+				"store ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15, i32 1, i32 1), ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 15, i32 1), align 8, !dbg !865, !tbaa !867",
+				"br label %if.end, !dbg !868"
+			]
+		},
+		{
+			"function": "PyThread_allocate_lock",
+			"id": 60,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 435, "columns": [21]
+				},
+				{
+					"line": 437, "columns": [9]
+				}
+			],
+			"successors": [63, 61],
+			"ir": [
+				"%call = tail call ptr @PyMem_RawMalloc(i64 noundef 32) #14, !dbg !869",
+				"%tobool1.not = icmp eq ptr %call, null, !dbg !870",
+				"br i1 %tobool1.not, label %if.end9, label %if.then2, !dbg !872"
+			]
+		},
+		{
+			"function": "PyThread_allocate_lock",
+			"id": 61,
+			"name": "if.then2",
+			"debug": [
+				{
+					"line": 438, "columns": [18]
+				},
+				{
+					"line": 439, "columns": [9]
+				}
+			],
+			"successors": [63, 62],
+			"ir": [
+				"%call3 = tail call i32 @sem_init(ptr noundef nonnull %call, i32 noundef 0, i32 noundef 1) #14, !dbg !873",
+				"%cmp.not = icmp eq i32 %call3, 0, !dbg !875",
+				"br i1 %cmp.not, label %if.end9, label %if.then4, !dbg !877"
+			]
+		},
+		{
+			"function": "PyThread_allocate_lock",
+			"id": 62,
+			"name": "if.then4",
+			"debug": [
+				{
+					"line": 439, "columns": [9]
+				},
+				{
+					"line": 442, "columns": [13]
+				},
+				{
+					"line": 444, "columns": [9]
+				}
+			],
+			"successors": [63],
+			"ir": [
+				"tail call void @perror(ptr noundef nonnull @.str) #15, !dbg !878",
+				"tail call void @PyMem_RawFree(ptr noundef nonnull %call) #14, !dbg !880",
+				"br label %if.end9, !dbg !883"
+			]
+		},
+		{
+			"function": "PyThread_allocate_lock",
+			"id": 63,
+			"name": "if.end9",
+			"debug": [
+				{
+					"line": 447, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%lock.0 = phi ptr [ null, %if.then4 ], [ null, %if.end ], [ %call, %if.then2 ], !dbg !708",
+				"ret ptr %lock.0, !dbg !884"
+			]
+		},
+		{
+			"function": "PyThread_free_lock",
+			"id": 64,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 458, "columns": [10, 9]
+				}
+			],
+			"successors": [68, 65],
+			"ir": [
+				"%tobool.not = icmp eq ptr %lock, null, !dbg !710",
+				"br i1 %tobool.not, label %cleanup, label %if.end, !dbg !712"
+			]
+		},
+		{
+			"function": "PyThread_free_lock",
+			"id": 65,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 461, "columns": [14]
+				},
+				{
+					"line": 462, "columns": [5]
+				}
+			],
+			"successors": [67, 66],
+			"ir": [
+				"%call = tail call i32 @sem_destroy(ptr noundef nonnull %lock) #14, !dbg !713",
+				"%cmp.not = icmp eq i32 %call, 0, !dbg !714",
+				"br i1 %cmp.not, label %if.end2, label %if.then1, !dbg !716"
+			]
+		},
+		{
+			"function": "PyThread_free_lock",
+			"id": 66,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 462, "columns": [5]
+				}
+			],
+			"successors": [67],
+			"ir": [
+				"tail call void @perror(ptr noundef nonnull @.str.1) #15, !dbg !717",
+				"br label %if.end2, !dbg !717"
+			]
+		},
+		{
+			"function": "PyThread_free_lock",
+			"id": 67,
+			"name": "if.end2",
+			"debug": [
+				{
+					"line": 464, "columns": [5]
+				},
+				{
+					"line": 465, "columns": [1]
+				}
+			],
+			"successors": [68],
+			"ir": [
+				"tail call void @PyMem_RawFree(ptr noundef nonnull %lock) #14, !dbg !719",
+				"br label %cleanup, !dbg !720"
+			]
+		},
+		{
+			"function": "PyThread_free_lock",
+			"id": 68,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 465, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !720"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed",
+			"id": 69,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 490, "columns": [22, 9]
+				}
+			],
+			"successors": [70, 71],
+			"ir": [
+				"%abs_timeout = alloca %struct.timespec, align 8",
+				"%cmp = icmp sgt i64 %microseconds, -1, !dbg !725",
+				"br i1 %cmp, label %if.then, label %if.end, !dbg !727"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed",
+			"id": 70,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 499, "columns": [19]
+				},
+				{
+					"line": 500, "columns": [5]
+				}
+			],
+			"successors": [71],
+			"ir": [
+				"%call = tail call i64 @_PyTime_FromMicrosecondsClamp(i64 noundef %microseconds) #14, !dbg !728",
+				"br label %if.end, !dbg !730"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed",
+			"id": 71,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 506, "columns": [5, 21]
+				},
+				{
+					"line": 509, "columns": [41, 29]
+				},
+				{
+					"line": 510, "columns": [9]
+				},
+				{
+					"line": 520, "columns": [13]
+				}
+			],
+			"successors": [72, 77],
+			"ir": [
+				"%timeout.0 = phi i64 [ %call, %if.then ], [ -1, %entry ], !dbg !731",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %abs_timeout) #14, !dbg !732",
+				"%call1 = tail call i64 @_PyTime_MonotonicUnchecked() #14, !dbg !734",
+				"%call2 = tail call i64 @_PyTime_Add(i64 noundef %call1, i64 noundef %timeout.0) #14, !dbg !735",
+				"call void @_PyTime_AsTimespec_clamp(i64 noundef %call2, ptr noundef nonnull %abs_timeout) #14, !dbg !737",
+				"%cmp3 = icmp sgt i64 %timeout.0, 0",
+				"%tobool.not = icmp eq i32 %intr_flag, 0",
+				"br i1 %cmp3, label %if.end.split.us, label %if.end.split, !dbg !738"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed",
+			"id": 72,
+			"name": "if.end.split.us",
+			"debug": [
+			],
+			"successors": [74, 73],
+			"ir": [
+				"br i1 %tobool.not, label %while.cond.us, label %while.cond.us.us"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed",
+			"id": 73,
+			"name": "while.cond.us.us",
+			"debug": [
+				{
+					"line": 476, "columns": [20, 12]
+				},
+				{
+					"line": 522, "columns": [33]
+				}
+			],
+			"successors": [88, 89],
+			"ir": [
+				"%call5.us.us = call i32 @sem_clockwait(ptr noundef %lock, i32 noundef 1, ptr noundef nonnull %abs_timeout) #14, !dbg !740",
+				"%cmp.i.us.us = icmp eq i32 %call5.us.us, -1, !dbg !750",
+				"br i1 %cmp.i.us.us, label %while.end.sink.split, label %while.end, !dbg !751"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed",
+			"id": 74,
+			"name": "while.cond.us",
+			"debug": [
+				{
+					"line": 476, "columns": [20, 12]
+				},
+				{
+					"line": 522, "columns": [33]
+				}
+			],
+			"successors": [75, 76],
+			"ir": [
+				"%call5.us = call i32 @sem_clockwait(ptr noundef %lock, i32 noundef 1, ptr noundef nonnull %abs_timeout) #14, !dbg !740",
+				"%cmp.i.us = icmp eq i32 %call5.us, -1, !dbg !750",
+				"br i1 %cmp.i.us, label %cond.true.i.us, label %if.end16.us, !dbg !751"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed",
+			"id": 75,
+			"name": "cond.true.i.us",
+			"debug": [
+				{
+					"line": 476, "columns": [29, 12]
+				}
+			],
+			"successors": [76],
+			"ir": [
+				"%call.i.us = tail call ptr @__errno_location() #15, !dbg !752",
+				"%0 = load i32, ptr %call.i.us, align 4, !dbg !752, !tbaa !753",
+				"br label %if.end16.us, !dbg !751"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed",
+			"id": 76,
+			"name": "if.end16.us",
+			"debug": [
+				{
+					"line": 541, "columns": [23]
+				}
+			],
+			"successors": [74, 90],
+			"ir": [
+				"%status.0.us = phi i32 [ %0, %cond.true.i.us ], [ %call5.us, %while.cond.us ], !dbg !757",
+				"%cmp17.us.not = icmp eq i32 %status.0.us, 4",
+				"br i1 %cmp17.us.not, label %while.cond.us, label %if.then22, !dbg !758, !llvm.loop !760"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed",
+			"id": 77,
+			"name": "if.end.split",
+			"debug": [
+				{
+					"line": 532, "columns": [18]
+				}
+			],
+			"successors": [78, 83],
+			"ir": [
+				"%cmp8 = icmp eq i64 %timeout.0, 0",
+				"br i1 %cmp8, label %if.end.split.split.us, label %if.end.split.split, !dbg !763"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed",
+			"id": 78,
+			"name": "if.end.split.split.us",
+			"debug": [
+			],
+			"successors": [80, 79],
+			"ir": [
+				"br i1 %tobool.not, label %while.cond.us91, label %while.cond.us91.us"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed",
+			"id": 79,
+			"name": "while.cond.us91.us",
+			"debug": [
+				{
+					"line": 476, "columns": [20, 12]
+				},
+				{
+					"line": 533, "columns": [33]
+				}
+			],
+			"successors": [88, 89],
+			"ir": [
+				"%call10.us.us = call i32 @sem_trywait(ptr noundef %lock) #14, !dbg !764",
+				"%cmp.i78.us.us = icmp eq i32 %call10.us.us, -1, !dbg !769",
+				"br i1 %cmp.i78.us.us, label %while.end.sink.split, label %while.end, !dbg !770"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed",
+			"id": 80,
+			"name": "while.cond.us91",
+			"debug": [
+				{
+					"line": 476, "columns": [20, 12]
+				},
+				{
+					"line": 533, "columns": [33]
+				}
+			],
+			"successors": [81, 82],
+			"ir": [
+				"%call10.us = call i32 @sem_trywait(ptr noundef %lock) #14, !dbg !764",
+				"%cmp.i78.us = icmp eq i32 %call10.us, -1, !dbg !769",
+				"br i1 %cmp.i78.us, label %cond.true.i80.us, label %if.end16.us92, !dbg !770"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed",
+			"id": 81,
+			"name": "cond.true.i80.us",
+			"debug": [
+				{
+					"line": 476, "columns": [29, 12]
+				}
+			],
+			"successors": [82],
+			"ir": [
+				"%call.i79.us = tail call ptr @__errno_location() #15, !dbg !771",
+				"%1 = load i32, ptr %call.i79.us, align 4, !dbg !771, !tbaa !753",
+				"br label %if.end16.us92, !dbg !770"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed",
+			"id": 82,
+			"name": "if.end16.us92",
+			"debug": [
+				{
+					"line": 541, "columns": [23]
+				}
+			],
+			"successors": [80, 90],
+			"ir": [
+				"%status.0.us93 = phi i32 [ %1, %cond.true.i80.us ], [ %call10.us, %while.cond.us91 ], !dbg !757",
+				"%cmp17.us94.not = icmp eq i32 %status.0.us93, 4",
+				"br i1 %cmp17.us94.not, label %while.cond.us91, label %if.then22, !dbg !758, !llvm.loop !760"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed",
+			"id": 83,
+			"name": "if.end.split.split",
+			"debug": [
+				{
+					"line": 541, "columns": [23]
+				}
+			],
+			"successors": [85, 84],
+			"ir": [
+				"br i1 %tobool.not, label %while.cond, label %while.cond.us102, !dbg !758"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed",
+			"id": 84,
+			"name": "while.cond.us102",
+			"debug": [
+				{
+					"line": 476, "columns": [20, 12]
+				},
+				{
+					"line": 536, "columns": [33]
+				}
+			],
+			"successors": [88, 89],
+			"ir": [
+				"%call13.us = call i32 @sem_wait(ptr noundef %lock) #14, !dbg !772",
+				"%cmp.i83.us = icmp eq i32 %call13.us, -1, !dbg !776",
+				"br i1 %cmp.i83.us, label %while.end.sink.split, label %while.end, !dbg !777"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed",
+			"id": 85,
+			"name": "while.cond",
+			"debug": [
+				{
+					"line": 476, "columns": [20, 12]
+				},
+				{
+					"line": 536, "columns": [33]
+				}
+			],
+			"successors": [86, 87],
+			"ir": [
+				"%call13 = call i32 @sem_wait(ptr noundef %lock) #14, !dbg !772",
+				"%cmp.i83 = icmp eq i32 %call13, -1, !dbg !776",
+				"br i1 %cmp.i83, label %cond.true.i85, label %if.end16, !dbg !777"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed",
+			"id": 86,
+			"name": "cond.true.i85",
+			"debug": [
+				{
+					"line": 476, "columns": [29, 12]
+				}
+			],
+			"successors": [87],
+			"ir": [
+				"%call.i84 = tail call ptr @__errno_location() #15, !dbg !778",
+				"%2 = load i32, ptr %call.i84, align 4, !dbg !778, !tbaa !753",
+				"br label %if.end16, !dbg !777"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed",
+			"id": 87,
+			"name": "if.end16",
+			"debug": [
+				{
+					"line": 541, "columns": [23]
+				}
+			],
+			"successors": [85, 90],
+			"ir": [
+				"%status.0 = phi i32 [ %2, %cond.true.i85 ], [ %call13, %while.cond ], !dbg !757",
+				"%cmp17.not = icmp eq i32 %status.0, 4",
+				"br i1 %cmp17.not, label %while.cond, label %if.then22, !dbg !758, !llvm.loop !760"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed",
+			"id": 88,
+			"name": "while.end.sink.split",
+			"debug": [
+				{
+					"line": 476, "columns": [29]
+				}
+			],
+			"successors": [89],
+			"ir": [
+				"%call.i79.us.us = tail call ptr @__errno_location() #15, !dbg !779",
+				"%3 = load i32, ptr %call.i79.us.us, align 4, !dbg !779, !tbaa !753",
+				"br label %while.end"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed",
+			"id": 89,
+			"name": "while.end",
+			"debug": [
+				{
+					"line": 560, "columns": [21]
+				}
+			],
+			"successors": [97, 90],
+			"ir": [
+				"%.us-phi = phi i32 [ %call5.us.us, %while.cond.us.us ], [ %call10.us.us, %while.cond.us91.us ], [ %call13.us, %while.cond.us102 ], [ %3, %while.end.sink.split ]",
+				"%cmp21 = icmp eq i32 %.us-phi, 4",
+				"br i1 %cmp21, label %if.else49, label %if.then22, !dbg !780"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed",
+			"id": 90,
+			"name": "if.then22",
+			"debug": [
+				{
+					"line": 561, "columns": [13]
+				}
+			],
+			"successors": [91, 92],
+			"ir": [
+				"%.us-phi124 = phi i32 [ %.us-phi, %while.end ], [ %status.0.us, %if.end16.us ], [ %status.0.us93, %if.end16.us92 ], [ %status.0, %if.end16 ]",
+				"br i1 %cmp3, label %if.then24, label %if.else31, !dbg !782"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed",
+			"id": 91,
+			"name": "if.then24",
+			"debug": [
+				{
+					"line": 562, "columns": [17]
+				}
+			],
+			"successors": [96, 98, 97],
+			"ir": [
+				"switch i32 %.us-phi124, label %if.end46 [\n    i32 0, label %if.end56\n    i32 110, label %if.else49\n  ], !dbg !784"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed",
+			"id": 92,
+			"name": "if.else31",
+			"debug": [
+				{
+					"line": 570, "columns": [26, 18]
+				}
+			],
+			"successors": [93, 94],
+			"ir": [
+				"%cmp32 = icmp eq i64 %timeout.0, 0, !dbg !787",
+				"br i1 %cmp32, label %if.then33, label %if.else40, !dbg !789"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed",
+			"id": 93,
+			"name": "if.then33",
+			"debug": [
+				{
+					"line": 571, "columns": [17]
+				}
+			],
+			"successors": [96, 98, 97],
+			"ir": [
+				"switch i32 %.us-phi124, label %if.end46 [\n    i32 0, label %if.end56\n    i32 11, label %if.else49\n  ], !dbg !790"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed",
+			"id": 94,
+			"name": "if.else40",
+			"debug": [
+				{
+					"line": 576, "columns": [13]
+				}
+			],
+			"successors": [98, 95],
+			"ir": [
+				"%cond = icmp eq i32 %.us-phi124, 0, !dbg !792",
+				"br i1 %cond, label %if.end56, label %if.then42, !dbg !792"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed",
+			"id": 95,
+			"name": "if.then42",
+			"debug": [
+				{
+					"line": 576, "columns": [13]
+				}
+			],
+			"successors": [97],
+			"ir": [
+				"call void @perror(ptr noundef nonnull @.str.4) #16, !dbg !794",
+				"br label %if.else49, !dbg !794"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed",
+			"id": 96,
+			"name": "if.end46",
+			"debug": [
+				{
+					"line": 580, "columns": [16, 9]
+				}
+			],
+			"successors": [98, 97],
+			"ir": [
+				"%.str.2.sink = phi ptr [ @.str.2, %if.then24 ], [ @.str.3, %if.then33 ]",
+				"call void @perror(ptr noundef nonnull %.str.2.sink) #16, !dbg !797",
+				"%cmp47 = icmp eq i32 %.us-phi124, 0, !dbg !798",
+				"br i1 %cmp47, label %if.end56, label %if.else49, !dbg !800"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed",
+			"id": 97,
+			"name": "if.else49",
+			"debug": [
+			],
+			"successors": [98],
+			"ir": [
+				"%. = phi i32 [ 2, %while.end ], [ 0, %if.then42 ], [ 0, %if.then33 ], [ 0, %if.then24 ], [ 0, %if.end46 ]",
+				"br label %if.end56"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed",
+			"id": 98,
+			"name": "if.end56",
+			"debug": [
+				{
+					"line": 588, "columns": [5]
+				},
+				{
+					"line": 589, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%success.0 = phi i32 [ 1, %if.then33 ], [ 1, %if.then24 ], [ 1, %if.else40 ], [ 1, %if.end46 ], [ %., %if.else49 ], !dbg !801",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %abs_timeout) #14, !dbg !802",
+				"ret i32 %success.0, !dbg !803"
+			]
+		},
+		{
+			"function": "PyThread_release_lock",
+			"id": 99,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 599, "columns": [14]
+				},
+				{
+					"line": 600, "columns": [5]
+				}
+			],
+			"successors": [101, 100],
+			"ir": [
+				"%call = tail call i32 @sem_post(ptr noundef %lock) #14, !dbg !710",
+				"%cmp.not = icmp eq i32 %call, 0, !dbg !711",
+				"br i1 %cmp.not, label %if.end, label %if.then, !dbg !713"
+			]
+		},
+		{
+			"function": "PyThread_release_lock",
+			"id": 100,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 600, "columns": [5]
+				}
+			],
+			"successors": [101],
+			"ir": [
+				"tail call void @perror(ptr noundef nonnull @.str.5) #15, !dbg !714",
+				"br label %if.end, !dbg !714"
+			]
+		},
+		{
+			"function": "PyThread_release_lock",
+			"id": 101,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 601, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !716"
+			]
+		},
+		{
+			"function": "_PyThread_at_fork_reinit",
+			"id": 102,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 774, "columns": [35]
+				},
+				{
+					"line": 775, "columns": [18, 9]
+				}
+			],
+			"successors": [104, 103],
+			"ir": [
+				"%call = tail call ptr @PyThread_allocate_lock(), !dbg !709",
+				"%cmp = icmp eq ptr %call, null, !dbg !710",
+				"br i1 %cmp, label %cleanup, label %if.end, !dbg !712"
+			]
+		},
+		{
+			"function": "_PyThread_at_fork_reinit",
+			"id": 103,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 787, "columns": [11]
+				},
+				{
+					"line": 788, "columns": [5]
+				}
+			],
+			"successors": [104],
+			"ir": [
+				"store ptr %call, ptr %lock, align 8, !dbg !713, !tbaa !714",
+				"br label %cleanup, !dbg !718"
+			]
+		},
+		{
+			"function": "_PyThread_at_fork_reinit",
+			"id": 104,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 789, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ 0, %if.end ], [ -1, %entry ], !dbg !708",
+				"ret i32 %retval.0, !dbg !719"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock",
+			"id": 105,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 794, "columns": [46, 12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%tobool.not = icmp ne i32 %waitflag, 0, !dbg !708",
+				"%conv = sext i1 %tobool.not to i64, !dbg !708",
+				"%call = tail call i32 @PyThread_acquire_lock_timed(ptr noundef %lock, i64 noundef %conv, i32 noundef 0), !dbg !709, !range !710",
+				"ret i32 %call, !dbg !711"
+			]
+		},
+		{
+			"function": "PyThread_create_key",
+			"id": 106,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 862, "columns": [5]
+				},
+				{
+					"line": 863, "columns": [16]
+				},
+				{
+					"line": 864, "columns": [9]
+				}
+			],
+			"successors": [107, 109],
+			"ir": [
+				"%key = alloca i32, align 4",
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %key) #14, !dbg !707",
+				"%call = call i32 @pthread_key_create(ptr noundef nonnull %key, ptr noundef null) #14, !dbg !709",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !710",
+				"br i1 %tobool.not, label %if.end, label %cleanup, !dbg !712"
+			]
+		},
+		{
+			"function": "PyThread_create_key",
+			"id": 107,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 866, "columns": [9, 13]
+				}
+			],
+			"successors": [108, 109],
+			"ir": [
+				"%0 = load i32, ptr %key, align 4, !dbg !713, !tbaa !715",
+				"%cmp = icmp slt i32 %0, 0, !dbg !719",
+				"br i1 %cmp, label %if.then1, label %cleanup, !dbg !720"
+			]
+		},
+		{
+			"function": "PyThread_create_key",
+			"id": 108,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 868, "columns": [9]
+				},
+				{
+					"line": 869, "columns": [9, 15]
+				},
+				{
+					"line": 870, "columns": [9]
+				}
+			],
+			"successors": [109],
+			"ir": [
+				"%call2 = call i32 @pthread_key_delete(i32 noundef %0) #14, !dbg !721",
+				"%call3 = tail call ptr @__errno_location() #15, !dbg !723",
+				"store i32 12, ptr %call3, align 4, !dbg !724, !tbaa !715",
+				"br label %cleanup, !dbg !725"
+			]
+		},
+		{
+			"function": "PyThread_create_key",
+			"id": 109,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 876, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ -1, %if.then1 ], [ -1, %entry ], [ %0, %if.end ], !dbg !708",
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %key) #14, !dbg !726",
+				"ret i32 %retval.0, !dbg !726"
+			]
+		},
+		{
+			"function": "PyThread_delete_key",
+			"id": 110,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 882, "columns": [5]
+				},
+				{
+					"line": 884, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call i32 @pthread_key_delete(i32 noundef %key) #14, !dbg !707",
+				"ret void, !dbg !708"
+			]
+		},
+		{
+			"function": "PyThread_delete_key_value",
+			"id": 111,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 890, "columns": [5]
+				},
+				{
+					"line": 892, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call i32 @pthread_setspecific(i32 noundef %key, ptr noundef null) #14, !dbg !707",
+				"ret void, !dbg !708"
+			]
+		},
+		{
+			"function": "PyThread_set_key_value",
+			"id": 112,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 898, "columns": [16]
+				},
+				{
+					"line": 899, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call i32 @pthread_setspecific(i32 noundef %key, ptr noundef %value) #14, !dbg !709",
+				"%tobool.not = icmp ne i32 %call, 0, !dbg !710",
+				"%cond = sext i1 %tobool.not to i32, !dbg !710",
+				"ret i32 %cond, !dbg !711"
+			]
+		},
+		{
+			"function": "PyThread_get_key_value",
+			"id": 113,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 909, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call ptr @pthread_getspecific(i32 noundef %key) #14, !dbg !707",
+				"ret ptr %call, !dbg !708"
+			]
+		},
+		{
+			"function": "PyThread_ReInitTLS",
+			"id": 114,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 919, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !702"
+			]
+		},
+		{
+			"function": "PyThread_tss_create",
+			"id": 115,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 932, "columns": [14, 9]
+				}
+			],
+			"successors": [116, 118],
+			"ir": [
+				"%0 = load i32, ptr %key, align 4, !dbg !708, !tbaa !710",
+				"%tobool.not = icmp eq i32 %0, 0, !dbg !715",
+				"br i1 %tobool.not, label %if.end, label %return, !dbg !716"
+			]
+		},
+		{
+			"function": "PyThread_tss_create",
+			"id": 116,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 936, "columns": [42, 16]
+				},
+				{
+					"line": 937, "columns": [9]
+				}
+			],
+			"successors": [117, 118],
+			"ir": [
+				"%_key = getelementptr inbounds %struct._Py_tss_t, ptr %key, i64 0, i32 1, !dbg !717",
+				"%call = tail call i32 @pthread_key_create(ptr noundef nonnull %_key, ptr noundef null) #14, !dbg !718",
+				"%tobool1.not = icmp eq i32 %call, 0, !dbg !719",
+				"br i1 %tobool1.not, label %if.end3, label %return, !dbg !721"
+			]
+		},
+		{
+			"function": "PyThread_tss_create",
+			"id": 117,
+			"name": "if.end3",
+			"debug": [
+				{
+					"line": 940, "columns": [26]
+				},
+				{
+					"line": 941, "columns": [5]
+				}
+			],
+			"successors": [118],
+			"ir": [
+				"store i32 1, ptr %key, align 4, !dbg !722, !tbaa !710",
+				"br label %return, !dbg !723"
+			]
+		},
+		{
+			"function": "PyThread_tss_create",
+			"id": 118,
+			"name": "return",
+			"debug": [
+				{
+					"line": 942, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi i32 [ 0, %entry ], [ 0, %if.end3 ], [ -1, %if.end ], !dbg !707",
+				"ret i32 %retval.1, !dbg !724"
+			]
+		},
+		{
+			"function": "PyThread_tss_delete",
+			"id": 119,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 949, "columns": [15, 10, 9]
+				}
+			],
+			"successors": [121, 120],
+			"ir": [
+				"%0 = load i32, ptr %key, align 4, !dbg !707, !tbaa !709",
+				"%tobool.not = icmp eq i32 %0, 0, !dbg !714",
+				"br i1 %tobool.not, label %return, label %if.end, !dbg !715"
+			]
+		},
+		{
+			"function": "PyThread_tss_delete",
+			"id": 120,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 953, "columns": [29, 5]
+				},
+				{
+					"line": 955, "columns": [26]
+				},
+				{
+					"line": 956, "columns": [1]
+				}
+			],
+			"successors": [121],
+			"ir": [
+				"%_key = getelementptr inbounds %struct._Py_tss_t, ptr %key, i64 0, i32 1, !dbg !716",
+				"%1 = load i32, ptr %_key, align 4, !dbg !716, !tbaa !717",
+				"%call = tail call i32 @pthread_key_delete(i32 noundef %1) #14, !dbg !718",
+				"store i32 0, ptr %key, align 4, !dbg !719, !tbaa !709",
+				"br label %return, !dbg !720"
+			]
+		},
+		{
+			"function": "PyThread_tss_delete",
+			"id": 121,
+			"name": "return",
+			"debug": [
+				{
+					"line": 956, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !720"
+			]
+		},
+		{
+			"function": "PyThread_tss_set",
+			"id": 122,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 962, "columns": [41, 16]
+				},
+				{
+					"line": 963, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%_key = getelementptr inbounds %struct._Py_tss_t, ptr %key, i64 0, i32 1, !dbg !709",
+				"%0 = load i32, ptr %_key, align 4, !dbg !709, !tbaa !710",
+				"%call = tail call i32 @pthread_setspecific(i32 noundef %0, ptr noundef %value) #14, !dbg !715",
+				"%tobool.not = icmp ne i32 %call, 0, !dbg !716",
+				"%cond = sext i1 %tobool.not to i32, !dbg !716",
+				"ret i32 %cond, !dbg !717"
+			]
+		},
+		{
+			"function": "PyThread_tss_get",
+			"id": 123,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 970, "columns": [37, 12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%_key = getelementptr inbounds %struct._Py_tss_t, ptr %key, i64 0, i32 1, !dbg !707",
+				"%0 = load i32, ptr %_key, align 4, !dbg !707, !tbaa !708",
+				"%call = tail call ptr @pthread_getspecific(i32 noundef %0) #14, !dbg !713",
+				"ret ptr %call, !dbg !714"
+			]
+		},
+		{
+			"function": "PyThread_get_stacksize",
+			"id": 124,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 77, "columns": [47, 5]
+				},
+				{
+					"line": 137, "columns": [12]
+				},
+				{
+					"line": 211, "columns": [20]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !704",
+				"%1 = load ptr, ptr %0, align 8, !dbg !704, !tbaa !6960",
+				"%interp.i = getelementptr inbounds %struct._ts, ptr %1, i64 0, i32 2, !dbg !6965",
+				"%2 = load ptr, ptr %interp.i, align 8, !dbg !6965, !tbaa !6966",
+				"%stacksize = getelementptr inbounds %struct._is, ptr %2, i64 0, i32 9, i32 4, !dbg !6973",
+				"%3 = load i64, ptr %stacksize, align 8, !dbg !6973, !tbaa !6974",
+				"ret i64 %3, !dbg !7032"
+			]
+		},
+		{
+			"function": "PyThread_set_stacksize",
+			"id": 125,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 805, "columns": [5, 20]
+				},
+				{
+					"line": 811, "columns": [14, 9]
+				}
+			],
+			"successors": [126, 127],
+			"ir": [
+				"%attrs.i = alloca %union.pthread_attr_t, align 8",
+				"call void @llvm.lifetime.start.p0(i64 56, ptr nonnull %attrs.i) #14, !dbg !723",
+				"%cmp.i = icmp eq i64 %size, 0, !dbg !725",
+				"br i1 %cmp.i, label %if.then.i, label %if.end.i, !dbg !727"
+			]
+		},
+		{
+			"function": "PyThread_set_stacksize",
+			"id": 126,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 137, "columns": [12]
+				},
+				{
+					"line": 813, "columns": [9]
+				}
+			],
+			"successors": [131],
+			"ir": [
+				"%0 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !728",
+				"br label %cleanup.sink.split.i, !dbg !6986"
+			]
+		},
+		{
+			"function": "PyThread_set_stacksize",
+			"id": 127,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 823, "columns": [14, 9]
+				}
+			],
+			"successors": [128, 132],
+			"ir": [
+				"%cmp1.i = icmp ugt i64 %size, 32767, !dbg !6987",
+				"br i1 %cmp1.i, label %if.then2.i, label %_pythread_pthread_set_stacksize.exit, !dbg !6989"
+			]
+		},
+		{
+			"function": "PyThread_set_stacksize",
+			"id": 128,
+			"name": "if.then2.i",
+			"debug": [
+				{
+					"line": 825, "columns": [13, 39]
+				}
+			],
+			"successors": [129, 132],
+			"ir": [
+				"%call3.i = call i32 @pthread_attr_init(ptr noundef nonnull %attrs.i) #14, !dbg !6990",
+				"%cmp4.i = icmp eq i32 %call3.i, 0, !dbg !6993",
+				"br i1 %cmp4.i, label %if.then5.i, label %_pythread_pthread_set_stacksize.exit, !dbg !6994"
+			]
+		},
+		{
+			"function": "PyThread_set_stacksize",
+			"id": 129,
+			"name": "if.then5.i",
+			"debug": [
+				{
+					"line": 826, "columns": [18]
+				},
+				{
+					"line": 827, "columns": [13]
+				},
+				{
+					"line": 828, "columns": [20, 17]
+				}
+			],
+			"successors": [130, 132],
+			"ir": [
+				"%call6.i = call i32 @pthread_attr_setstacksize(ptr noundef nonnull %attrs.i, i64 noundef %size) #14, !dbg !6995",
+				"%call7.i = call i32 @pthread_attr_destroy(ptr noundef nonnull %attrs.i) #14, !dbg !6997",
+				"%cmp8.i = icmp eq i32 %call6.i, 0, !dbg !6998",
+				"br i1 %cmp8.i, label %if.then9.i, label %_pythread_pthread_set_stacksize.exit, !dbg !7000"
+			]
+		},
+		{
+			"function": "PyThread_set_stacksize",
+			"id": 130,
+			"name": "if.then9.i",
+			"debug": [
+				{
+					"line": 137, "columns": [12]
+				},
+				{
+					"line": 830, "columns": [17]
+				}
+			],
+			"successors": [131],
+			"ir": [
+				"%1 = call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !7001",
+				"br label %cleanup.sink.split.i, !dbg !7006"
+			]
+		},
+		{
+			"function": "PyThread_set_stacksize",
+			"id": 131,
+			"name": "cleanup.sink.split.i",
+			"debug": [
+				{
+					"line": 137, "columns": [12]
+				},
+				{
+					"line": 211, "columns": [20]
+				},
+				{
+					"line": 838, "columns": [1]
+				}
+			],
+			"successors": [132],
+			"ir": [
+				"%.sink22.i = phi ptr [ %1, %if.then9.i ], [ %0, %if.then.i ]",
+				"%2 = load ptr, ptr %.sink22.i, align 8, !dbg !7007, !tbaa !7010",
+				"%interp.i21.i = getelementptr inbounds %struct._ts, ptr %2, i64 0, i32 2, !dbg !7014",
+				"%3 = load ptr, ptr %interp.i21.i, align 8, !dbg !7014, !tbaa !7015",
+				"%stacksize12.i = getelementptr inbounds %struct._is, ptr %3, i64 0, i32 9, i32 4, !dbg !721",
+				"store i64 %size, ptr %stacksize12.i, align 8, !dbg !721, !tbaa !7022",
+				"br label %_pythread_pthread_set_stacksize.exit, !dbg !7080"
+			]
+		},
+		{
+			"function": "PyThread_set_stacksize",
+			"id": 132,
+			"name": "_pythread_pthread_set_stacksize.exit",
+			"debug": [
+				{
+					"line": 89, "columns": [5]
+				},
+				{
+					"line": 838, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0.i = phi i32 [ -1, %if.then2.i ], [ -1, %if.then5.i ], [ -1, %if.end.i ], [ 0, %cleanup.sink.split.i ], !dbg !721",
+				"call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %attrs.i) #14, !dbg !7080",
+				"ret i32 %retval.0.i, !dbg !7081"
+			]
+		},
+		{
+			"function": "PyThread_ParseTimeoutArg",
+			"id": 133,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 100, "columns": [13, 21]
+				}
+			],
+			"successors": [134, 135],
+			"ir": [
+				"%timeout = alloca i64, align 8",
+				"%cmp = icmp eq ptr %arg, null, !dbg !711",
+				"%cmp1 = icmp eq ptr %arg, @_Py_NoneStruct",
+				"%or.cond = or i1 %cmp, %cmp1, !dbg !713",
+				"%tobool.not = icmp eq i32 %blocking, 0, !dbg !710",
+				"br i1 %or.cond, label %if.then, label %if.end, !dbg !713"
+			]
+		},
+		{
+			"function": "PyThread_ParseTimeoutArg",
+			"id": 134,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 101, "columns": [22, 20]
+				},
+				{
+					"line": 102, "columns": [9]
+				}
+			],
+			"successors": [144],
+			"ir": [
+				"%cond = select i1 %tobool.not, i64 0, i64 -1000000000, !dbg !714",
+				"store i64 %cond, ptr %timeout_p, align 8, !dbg !716, !tbaa !717",
+				"br label %return, !dbg !721"
+			]
+		},
+		{
+			"function": "PyThread_ParseTimeoutArg",
+			"id": 135,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 104, "columns": [9]
+				}
+			],
+			"successors": [136, 137],
+			"ir": [
+				"br i1 %tobool.not, label %if.then3, label %if.end4, !dbg !722"
+			]
+		},
+		{
+			"function": "PyThread_ParseTimeoutArg",
+			"id": 136,
+			"name": "if.then3",
+			"debug": [
+				{
+					"line": 105, "columns": [25, 9]
+				},
+				{
+					"line": 107, "columns": [9]
+				}
+			],
+			"successors": [144],
+			"ir": [
+				"%0 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !723, !tbaa !726",
+				"tail call void @PyErr_SetString(ptr noundef %0, ptr noundef nonnull @.str.6) #14, !dbg !728",
+				"br label %return, !dbg !729"
+			]
+		},
+		{
+			"function": "PyThread_ParseTimeoutArg",
+			"id": 137,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 110, "columns": [5]
+				},
+				{
+					"line": 111, "columns": [9, 73]
+				}
+			],
+			"successors": [143, 138],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %timeout) #14, !dbg !730",
+				"%call = call i32 @_PyTime_FromSecondsObject(ptr noundef nonnull %timeout, ptr noundef nonnull %arg, i32 noundef 3) #14, !dbg !731",
+				"%cmp5 = icmp slt i32 %call, 0, !dbg !733",
+				"br i1 %cmp5, label %cleanup, label %if.end7, !dbg !734"
+			]
+		},
+		{
+			"function": "PyThread_ParseTimeoutArg",
+			"id": 138,
+			"name": "if.end7",
+			"debug": [
+				{
+					"line": 114, "columns": [9, 17]
+				}
+			],
+			"successors": [139, 140],
+			"ir": [
+				"%1 = load i64, ptr %timeout, align 8, !dbg !735, !tbaa !737",
+				"%cmp8 = icmp slt i64 %1, 0, !dbg !739",
+				"br i1 %cmp8, label %if.then9, label %if.end10, !dbg !740"
+			]
+		},
+		{
+			"function": "PyThread_ParseTimeoutArg",
+			"id": 139,
+			"name": "if.then9",
+			"debug": [
+				{
+					"line": 115, "columns": [25, 9]
+				},
+				{
+					"line": 117, "columns": [9]
+				}
+			],
+			"successors": [143],
+			"ir": [
+				"%2 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !741, !tbaa !726",
+				"call void @PyErr_SetString(ptr noundef %2, ptr noundef nonnull @.str.7) #14, !dbg !743",
+				"br label %cleanup, !dbg !744"
+			]
+		},
+		{
+			"function": "PyThread_ParseTimeoutArg",
+			"id": 140,
+			"name": "if.end10",
+			"debug": [
+				{
+					"line": 120, "columns": [9]
+				},
+				{
+					"line": 121, "columns": [55]
+				}
+			],
+			"successors": [141, 142],
+			"ir": [
+				"%call11 = call i64 @_PyTime_AsMicroseconds(i64 noundef %1, i32 noundef 3) #14, !dbg !745",
+				"%cmp12 = icmp sgt i64 %call11, 9223372036854775, !dbg !747",
+				"br i1 %cmp12, label %if.then13, label %if.end14, !dbg !748"
+			]
+		},
+		{
+			"function": "PyThread_ParseTimeoutArg",
+			"id": 141,
+			"name": "if.then13",
+			"debug": [
+				{
+					"line": 122, "columns": [25, 9]
+				},
+				{
+					"line": 124, "columns": [9]
+				}
+			],
+			"successors": [143],
+			"ir": [
+				"%3 = load ptr, ptr @PyExc_OverflowError, align 8, !dbg !749, !tbaa !726",
+				"call void @PyErr_SetString(ptr noundef %3, ptr noundef nonnull @.str.8) #14, !dbg !751",
+				"br label %cleanup, !dbg !752"
+			]
+		},
+		{
+			"function": "PyThread_ParseTimeoutArg",
+			"id": 142,
+			"name": "if.end14",
+			"debug": [
+				{
+					"line": 126, "columns": [18, 16]
+				},
+				{
+					"line": 127, "columns": [5]
+				}
+			],
+			"successors": [143],
+			"ir": [
+				"%4 = load i64, ptr %timeout, align 8, !dbg !753, !tbaa !737",
+				"store i64 %4, ptr %timeout_p, align 8, !dbg !754, !tbaa !717",
+				"br label %cleanup, !dbg !755"
+			]
+		},
+		{
+			"function": "PyThread_ParseTimeoutArg",
+			"id": 143,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 128, "columns": [1]
+				}
+			],
+			"successors": [144],
+			"ir": [
+				"%retval.0 = phi i32 [ -1, %if.then9 ], [ -1, %if.then13 ], [ 0, %if.end14 ], [ -1, %if.end4 ], !dbg !710",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %timeout) #14, !dbg !756",
+				"br label %return"
+			]
+		},
+		{
+			"function": "PyThread_ParseTimeoutArg",
+			"id": 144,
+			"name": "return",
+			"debug": [
+				{
+					"line": 128, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi i32 [ 0, %if.then ], [ %retval.0, %cleanup ], [ -1, %if.then3 ], !dbg !710",
+				"ret i32 %retval.1, !dbg !756"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed_with_retries",
+			"id": 145,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 136, "columns": [17, 9]
+				},
+				{
+					"line": 137, "columns": [12]
+				}
+			],
+			"successors": [146, 147],
+			"ir": [
+				"%0 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6962",
+				"%1 = load ptr, ptr %0, align 8, !dbg !6962, !tbaa !6968",
+				"%cmp = icmp sgt i64 %timeout, 0, !dbg !6972",
+				"br i1 %cmp, label %if.then, label %if.end, !dbg !6974"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed_with_retries",
+			"id": 146,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 137, "columns": [19]
+				},
+				{
+					"line": 138, "columns": [5]
+				}
+			],
+			"successors": [147],
+			"ir": [
+				"%call1 = tail call i64 @_PyDeadline_Init(i64 noundef %timeout) #14, !dbg !6975",
+				"br label %if.end, !dbg !6977"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed_with_retries",
+			"id": 147,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 141, "columns": [5]
+				}
+			],
+			"successors": [148],
+			"ir": [
+				"%endtime.0 = phi i64 [ %call1, %if.then ], [ 0, %entry ], !dbg !6961",
+				"br label %do.body.outer, !dbg !6978"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed_with_retries",
+			"id": 148,
+			"name": "do.body.outer",
+			"debug": [
+				{
+					"line": 141, "columns": [5]
+				}
+			],
+			"successors": [149],
+			"ir": [
+				"%timeout.addr.0.ph = phi i64 [ %call18, %if.then17 ], [ %timeout, %if.end ]",
+				"%cmp16 = icmp sgt i64 %timeout.addr.0.ph, 0",
+				"br label %do.body, !dbg !6978"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed_with_retries",
+			"id": 149,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 143, "columns": [24]
+				},
+				{
+					"line": 146, "columns": [13]
+				},
+				{
+					"line": 147, "columns": [15, 34]
+				}
+			],
+			"successors": [150, 151],
+			"ir": [
+				"%call2 = tail call i64 @_PyTime_AsMicroseconds(i64 noundef %timeout.addr.0.ph, i32 noundef 1) #14, !dbg !6979",
+				"%call3 = tail call i32 @PyThread_acquire_lock_timed(ptr noundef %lock, i64 noundef 0, i32 noundef 0), !dbg !6981, !range !6982",
+				"%cmp4 = icmp eq i32 %call3, 0, !dbg !6983",
+				"%cmp5 = icmp ne i64 %call2, 0",
+				"%or.cond = select i1 %cmp4, i1 %cmp5, i1 false, !dbg !6984",
+				"br i1 %or.cond, label %if.then6, label %if.end9, !dbg !6984"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed_with_retries",
+			"id": 150,
+			"name": "if.then6",
+			"debug": [
+				{
+					"line": 148, "columns": [13]
+				},
+				{
+					"line": 149, "columns": [17]
+				},
+				{
+					"line": 150, "columns": [13]
+				},
+				{
+					"line": 151, "columns": [9]
+				}
+			],
+			"successors": [151],
+			"ir": [
+				"%call7 = tail call ptr @PyEval_SaveThread() #14, !dbg !6985",
+				"%call8 = tail call i32 @PyThread_acquire_lock_timed(ptr noundef %lock, i64 noundef %call2, i32 noundef 1), !dbg !6987, !range !6982",
+				"tail call void @PyEval_RestoreThread(ptr noundef %call7) #14, !dbg !6988",
+				"br label %if.end9, !dbg !6989"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed_with_retries",
+			"id": 151,
+			"name": "if.end9",
+			"debug": [
+				{
+					"line": 153, "columns": [15, 13]
+				}
+			],
+			"successors": [152, 155],
+			"ir": [
+				"%r.0 = phi i32 [ %call8, %if.then6 ], [ %call3, %do.body ], !dbg !6980",
+				"%cmp10 = icmp eq i32 %r.0, 2, !dbg !6990",
+				"br i1 %cmp10, label %if.then11, label %cleanup25, !dbg !6992"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed_with_retries",
+			"id": 152,
+			"name": "if.then11",
+			"debug": [
+				{
+					"line": 157, "columns": [17, 50]
+				}
+			],
+			"successors": [155, 153],
+			"ir": [
+				"%call12 = tail call i32 @_PyEval_MakePendingCalls(ptr noundef %1) #14, !dbg !6993",
+				"%cmp13 = icmp slt i32 %call12, 0, !dbg !6996",
+				"br i1 %cmp13, label %cleanup25, label %if.end15, !dbg !6997"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed_with_retries",
+			"id": 153,
+			"name": "if.end15",
+			"debug": [
+				{
+					"line": 163, "columns": [17]
+				}
+			],
+			"successors": [154, 149],
+			"ir": [
+				"br i1 %cmp16, label %if.then17, label %do.body, !dbg !6998, !llvm.loop !6999"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed_with_retries",
+			"id": 154,
+			"name": "if.then17",
+			"debug": [
+				{
+					"line": 164, "columns": [27]
+				},
+				{
+					"line": 168, "columns": [29, 21]
+				}
+			],
+			"successors": [155, 148],
+			"ir": [
+				"%call18 = tail call i64 @_PyDeadline_Get(i64 noundef %endtime.0) #14, !dbg !7002",
+				"%cmp19 = icmp slt i64 %call18, 0, !dbg !7005",
+				"br i1 %cmp19, label %cleanup25, label %do.body.outer, !dbg !7007, !llvm.loop !6999"
+			]
+		},
+		{
+			"function": "PyThread_acquire_lock_timed_with_retries",
+			"id": 155,
+			"name": "cleanup25",
+			"debug": [
+				{
+					"line": 176, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.2 = phi i32 [ %r.0, %if.end9 ], [ 2, %if.then11 ], [ 0, %if.then17 ], !dbg !6961",
+				"ret i32 %retval.2, !dbg !7008"
+			]
+		},
+		{
+			"function": "PyThread_tss_alloc",
+			"id": 156,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 187, "columns": [37]
+				},
+				{
+					"line": 188, "columns": [17, 9]
+				}
+			],
+			"successors": [158, 157],
+			"ir": [
+				"%call = tail call ptr @PyMem_RawMalloc(i64 noundef 8) #14, !dbg !706",
+				"%cmp = icmp eq ptr %call, null, !dbg !708",
+				"br i1 %cmp, label %cleanup, label %if.end, !dbg !710"
+			]
+		},
+		{
+			"function": "PyThread_tss_alloc",
+			"id": 157,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 191, "columns": [30]
+				},
+				{
+					"line": 192, "columns": [5]
+				}
+			],
+			"successors": [158],
+			"ir": [
+				"store i32 0, ptr %call, align 4, !dbg !711, !tbaa !712",
+				"br label %cleanup, !dbg !717"
+			]
+		},
+		{
+			"function": "PyThread_tss_alloc",
+			"id": 158,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 193, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret ptr %call, !dbg !718"
+			]
+		},
+		{
+			"function": "PyThread_tss_free",
+			"id": 159,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 198, "columns": [13, 9]
+				}
+			],
+			"successors": [163, 160],
+			"ir": [
+				"%cmp.not = icmp eq ptr %key, null, !dbg !707",
+				"br i1 %cmp.not, label %if.end, label %if.then, !dbg !709"
+			]
+		},
+		{
+			"function": "PyThread_tss_free",
+			"id": 160,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 949, "columns": [15, 10, 9]
+				}
+			],
+			"successors": [162, 161],
+			"ir": [
+				"%0 = load i32, ptr %key, align 4, !dbg !716, !tbaa !718",
+				"%tobool.not.i = icmp eq i32 %0, 0, !dbg !723",
+				"br i1 %tobool.not.i, label %PyThread_tss_delete.exit, label %if.end.i, !dbg !724"
+			]
+		},
+		{
+			"function": "PyThread_tss_free",
+			"id": 161,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 953, "columns": [29, 5]
+				},
+				{
+					"line": 955, "columns": [26]
+				},
+				{
+					"line": 956, "columns": [1]
+				}
+			],
+			"successors": [162],
+			"ir": [
+				"%_key.i = getelementptr inbounds %struct._Py_tss_t, ptr %key, i64 0, i32 1, !dbg !725",
+				"%1 = load i32, ptr %_key.i, align 4, !dbg !725, !tbaa !726",
+				"%call.i = tail call i32 @pthread_key_delete(i32 noundef %1) #14, !dbg !727",
+				"store i32 0, ptr %key, align 4, !dbg !728, !tbaa !718",
+				"br label %PyThread_tss_delete.exit, !dbg !729"
+			]
+		},
+		{
+			"function": "PyThread_tss_free",
+			"id": 162,
+			"name": "PyThread_tss_delete.exit",
+			"debug": [
+				{
+					"line": 200, "columns": [9]
+				},
+				{
+					"line": 201, "columns": [5]
+				}
+			],
+			"successors": [163],
+			"ir": [
+				"tail call void @PyMem_RawFree(ptr noundef nonnull %key) #14, !dbg !730",
+				"br label %if.end, !dbg !731"
+			]
+		},
+		{
+			"function": "PyThread_tss_free",
+			"id": 163,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 202, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !732"
+			]
+		},
+		{
+			"function": "PyThread_tss_is_created",
+			"id": 164,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 208, "columns": [17, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = load i32, ptr %key, align 4, !dbg !707, !tbaa !708",
+				"ret i32 %0, !dbg !713"
+			]
+		},
+		{
+			"function": "PyThread_GetInfo",
+			"id": 165,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 30, "columns": [12]
+				},
+				{
+					"line": 137, "columns": [12]
+				},
+				{
+					"line": 211, "columns": [20]
+				},
+				{
+					"line": 240, "columns": [5, 10]
+				},
+				{
+					"line": 245, "columns": [82, 9]
+				}
+			],
+			"successors": [181, 166],
+			"ir": [
+				"%buffer = alloca [255 x i8], align 16",
+				"call void @llvm.lifetime.start.p0(i64 255, ptr nonnull %buffer) #14, !dbg !6955",
+				"%0 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6957",
+				"%1 = load ptr, ptr %0, align 8, !dbg !6957, !tbaa !6969",
+				"%interp.i = getelementptr inbounds %struct._ts, ptr %1, i64 0, i32 2, !dbg !6974",
+				"%2 = load ptr, ptr %interp.i, align 8, !dbg !6974, !tbaa !6975",
+				"%call.i = tail call i32 @_PyStructSequence_InitBuiltinWithFlags(ptr noundef %2, ptr noundef nonnull @ThreadInfoType, ptr noundef nonnull @threadinfo_desc, i64 noundef 0) #14, !dbg !6994",
+				"%cmp = icmp slt i32 %call.i, 0, !dbg !6995",
+				"br i1 %cmp, label %cleanup, label %if.end, !dbg !6996"
+			]
+		},
+		{
+			"function": "PyThread_GetInfo",
+			"id": 166,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 249, "columns": [18]
+				},
+				{
+					"line": 250, "columns": [20, 9]
+				}
+			],
+			"successors": [181, 167],
+			"ir": [
+				"%call2 = tail call ptr @PyStructSequence_New(ptr noundef nonnull @ThreadInfoType) #14, !dbg !6997",
+				"%cmp3 = icmp eq ptr %call2, null, !dbg !6998",
+				"br i1 %cmp3, label %cleanup, label %if.end5, !dbg !7000"
+			]
+		},
+		{
+			"function": "PyThread_GetInfo",
+			"id": 167,
+			"name": "if.end5",
+			"debug": [
+				{
+					"line": 253, "columns": [13]
+				},
+				{
+					"line": 254, "columns": [15, 9]
+				}
+			],
+			"successors": [168, 171],
+			"ir": [
+				"%call6 = tail call ptr @PyUnicode_FromString(ptr noundef nonnull @.str.9) #14, !dbg !7001",
+				"%cmp7 = icmp eq ptr %call6, null, !dbg !7002",
+				"br i1 %cmp7, label %if.then8, label %if.end9, !dbg !7004"
+			]
+		},
+		{
+			"function": "PyThread_GetInfo",
+			"id": 168,
+			"name": "if.then8",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [169, 181],
+			"ir": [
+				"%op.val.i = load i64, ptr %call2, align 8, !dbg !7011, !tbaa !7013",
+				"%3 = and i64 %op.val.i, 2147483648, !dbg !7019",
+				"%cmp.i.not.i = icmp eq i64 %3, 0, !dbg !7019",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %cleanup, !dbg !7020"
+			]
+		},
+		{
+			"function": "PyThread_GetInfo",
+			"id": 169,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [170, 181],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !7021",
+				"store i64 %dec.i, ptr %call2, align 8, !dbg !7021, !tbaa !7013",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !7023",
+				"br i1 %cmp.i, label %if.then1.i, label %cleanup, !dbg !7024"
+			]
+		},
+		{
+			"function": "PyThread_GetInfo",
+			"id": 170,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [181],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call2) #14, !dbg !7025",
+				"br label %cleanup, !dbg !7027"
+			]
+		},
+		{
+			"function": "PyThread_GetInfo",
+			"id": 171,
+			"name": "if.end9",
+			"debug": [
+				{
+					"line": 258, "columns": [5]
+				},
+				{
+					"line": 264, "columns": [13]
+				},
+				{
+					"line": 268, "columns": [15, 9]
+				}
+			],
+			"successors": [172, 175],
+			"ir": [
+				"tail call void @PyStructSequence_SetItem(ptr noundef nonnull %call2, i64 noundef 0, ptr noundef nonnull %call6) #14, !dbg !7028",
+				"%call10 = tail call ptr @PyUnicode_FromString(ptr noundef nonnull @.str.10) #14, !dbg !7029",
+				"%cmp11 = icmp eq ptr %call10, null, !dbg !7030",
+				"br i1 %cmp11, label %if.then13, label %if.end14, !dbg !7032"
+			]
+		},
+		{
+			"function": "PyThread_GetInfo",
+			"id": 172,
+			"name": "if.then13",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [173, 181],
+			"ir": [
+				"%op.val.i61 = load i64, ptr %call2, align 8, !dbg !7036, !tbaa !7013",
+				"%4 = and i64 %op.val.i61, 2147483648, !dbg !7039",
+				"%cmp.i.not.i62 = icmp eq i64 %4, 0, !dbg !7039",
+				"br i1 %cmp.i.not.i62, label %if.end.i65, label %cleanup, !dbg !7040"
+			]
+		},
+		{
+			"function": "PyThread_GetInfo",
+			"id": 173,
+			"name": "if.end.i65",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [174, 181],
+			"ir": [
+				"%dec.i63 = add i64 %op.val.i61, -1, !dbg !7041",
+				"store i64 %dec.i63, ptr %call2, align 8, !dbg !7041, !tbaa !7013",
+				"%cmp.i64 = icmp eq i64 %dec.i63, 0, !dbg !7042",
+				"br i1 %cmp.i64, label %if.then1.i66, label %cleanup, !dbg !7043"
+			]
+		},
+		{
+			"function": "PyThread_GetInfo",
+			"id": 174,
+			"name": "if.then1.i66",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [181],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call2) #14, !dbg !7044",
+				"br label %cleanup, !dbg !7045"
+			]
+		},
+		{
+			"function": "PyThread_GetInfo",
+			"id": 175,
+			"name": "if.end14",
+			"debug": [
+				{
+					"line": 275, "columns": [5]
+				},
+				{
+					"line": 280, "columns": [11]
+				},
+				{
+					"line": 281, "columns": [17]
+				}
+			],
+			"successors": [176, 178],
+			"ir": [
+				"tail call void @PyStructSequence_SetItem(ptr noundef nonnull %call2, i64 noundef 1, ptr noundef nonnull %call10) #14, !dbg !7046",
+				"%call17 = call i64 @confstr(i32 noundef 3, ptr noundef nonnull %buffer, i64 noundef 255) #14, !dbg !7047",
+				"%conv18 = trunc i64 %call17 to i32, !dbg !7047",
+				"%5 = add i32 %conv18, -2, !dbg !7048",
+				"%or.cond = icmp ult i32 %5, 253, !dbg !7048",
+				"br i1 %or.cond, label %if.then24, label %if.then35, !dbg !7048"
+			]
+		},
+		{
+			"function": "PyThread_GetInfo",
+			"id": 176,
+			"name": "if.then24",
+			"debug": [
+				{
+					"line": 282, "columns": [61, 17]
+				},
+				{
+					"line": 283, "columns": [19, 13]
+				}
+			],
+			"successors": [177, 180],
+			"ir": [
+				"%sub = add i64 %call17, 4294967295, !dbg !7050",
+				"%conv26 = and i64 %sub, 4294967295",
+				"%call27 = call ptr @PyUnicode_DecodeFSDefaultAndSize(ptr noundef nonnull %buffer, i64 noundef %conv26) #14, !dbg !7052",
+				"%cmp28 = icmp eq ptr %call27, null, !dbg !7053",
+				"br i1 %cmp28, label %if.then30, label %if.end37, !dbg !7055"
+			]
+		},
+		{
+			"function": "PyThread_GetInfo",
+			"id": 177,
+			"name": "if.then30",
+			"debug": [
+				{
+					"line": 284, "columns": [13]
+				}
+			],
+			"successors": [178],
+			"ir": [
+				"call void @PyErr_Clear() #14, !dbg !7056",
+				"br label %if.then35, !dbg !7056"
+			]
+		},
+		{
+			"function": "PyThread_GetInfo",
+			"id": 178,
+			"name": "if.then35",
+			"debug": [
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [180, 179],
+			"ir": [
+				"%6 = load i32, ptr @_Py_NoneStruct, align 8, !dbg !7071, !tbaa !7013",
+				"%add.i.i = add i32 %6, 1, !dbg !7072",
+				"%cmp.i.i = icmp eq i32 %add.i.i, 0, !dbg !7073",
+				"br i1 %cmp.i.i, label %if.end37, label %if.end.i.i, !dbg !7075"
+			]
+		},
+		{
+			"function": "PyThread_GetInfo",
+			"id": 179,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [180],
+			"ir": [
+				"store i32 %add.i.i, ptr @_Py_NoneStruct, align 8, !dbg !7076, !tbaa !7013",
+				"br label %if.end37, !dbg !7077"
+			]
+		},
+		{
+			"function": "PyThread_GetInfo",
+			"id": 180,
+			"name": "if.end37",
+			"debug": [
+				{
+					"line": 291, "columns": [5]
+				},
+				{
+					"line": 292, "columns": [5]
+				}
+			],
+			"successors": [181],
+			"ir": [
+				"%value.1 = phi ptr [ %call27, %if.then24 ], [ @_Py_NoneStruct, %if.then35 ], [ @_Py_NoneStruct, %if.end.i.i ], !dbg !6954",
+				"call void @PyStructSequence_SetItem(ptr noundef nonnull %call2, i64 noundef 2, ptr noundef nonnull %value.1) #14, !dbg !7078",
+				"br label %cleanup, !dbg !7079"
+			]
+		},
+		{
+			"function": "PyThread_GetInfo",
+			"id": 181,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 293, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call2, %if.end37 ], [ null, %entry ], [ null, %if.end ], [ null, %if.then8 ], [ null, %if.end.i ], [ null, %if.then1.i ], [ null, %if.then13 ], [ null, %if.end.i65 ], [ null, %if.then1.i66 ], !dbg !6954",
+				"call void @llvm.lifetime.end.p0(i64 255, ptr nonnull %buffer) #14, !dbg !7080",
+				"ret ptr %retval.0, !dbg !7080"
+			]
+		},
+		{
+			"function": "_PyThread_FiniType",
+			"id": 182,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 299, "columns": [5]
+				},
+				{
+					"line": 300, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @_PyStructSequence_FiniBuiltin(ptr noundef %interp, ptr noundef nonnull @ThreadInfoType) #14, !dbg !6951",
+				"ret void, !dbg !6952"
+			]
+		},
+		{
+			"function": "pythread_wrapper",
+			"id": 183,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 237, "columns": [38]
+				},
+				{
+					"line": 238, "columns": [32]
+				},
+				{
+					"line": 239, "columns": [5]
+				},
+				{
+					"line": 241, "columns": [5]
+				},
+				{
+					"line": 242, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = load ptr, ptr %arg, align 8, !dbg !716, !tbaa !717",
+				"%arg2 = getelementptr inbounds %struct.pythread_callback, ptr %arg, i64 0, i32 1, !dbg !722",
+				"%1 = load ptr, ptr %arg2, align 8, !dbg !722, !tbaa !723",
+				"tail call void @PyMem_RawFree(ptr noundef nonnull %arg) #14, !dbg !724",
+				"tail call void %0(ptr noundef %1) #14, !dbg !725",
+				"ret ptr null, !dbg !726"
+			]
+		}
+	]
+}

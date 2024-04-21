@@ -1,0 +1,276 @@
+{
+	"blocks": [
+		{
+			"function": "_Py_Deepfreeze_Init",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 21, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret i32 0, !dbg !128"
+			]
+		},
+		{
+			"function": "_Py_Deepfreeze_Fini",
+			"id": 1,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 27, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !128"
+			]
+		},
+		{
+			"function": "main",
+			"id": 2,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 66, "columns": [5, 14]
+				},
+				{
+					"line": 68, "columns": [5, 14]
+				},
+				{
+					"line": 69, "columns": [5]
+				},
+				{
+					"line": 71, "columns": [12, 32]
+				},
+				{
+					"line": 73, "columns": [12, 23]
+				},
+				{
+					"line": 75, "columns": [12, 21]
+				},
+				{
+					"line": 76, "columns": [12, 22]
+				},
+				{
+					"line": 81, "columns": [45, 14]
+				},
+				{
+					"line": 83, "columns": [9]
+				}
+			],
+			"successors": [3, 7],
+			"ir": [
+				"%status = alloca %struct.PyStatus, align 8",
+				"%config = alloca %struct.PyConfig, align 8",
+				"%tmp1 = alloca %struct.PyStatus, align 8",
+				"%tmp4 = alloca %struct.PyStatus, align 8",
+				"%tmp19 = alloca %struct.PyStatus, align 8",
+				"call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %status) #8, !dbg !223",
+				"call void @llvm.lifetime.start.p0(i64 448, ptr nonnull %config) #8, !dbg !225",
+				"call void @PyConfig_InitIsolatedConfig(ptr noundef nonnull %config) #8, !dbg !227",
+				"%pathconfig_warnings = getelementptr inbounds %struct.PyConfig, ptr %config, i64 0, i32 44, !dbg !228",
+				"store i32 0, ptr %pathconfig_warnings, align 8, !dbg !229, !tbaa !230",
+				"%parse_argv = getelementptr inbounds %struct.PyConfig, ptr %config, i64 0, i32 19, !dbg !238",
+				"store i32 1, ptr %parse_argv, align 8, !dbg !239, !tbaa !240",
+				"%isolated = getelementptr inbounds %struct.PyConfig, ptr %config, i64 0, i32 1, !dbg !241",
+				"store i32 0, ptr %isolated, align 4, !dbg !242, !tbaa !243",
+				"%safe_path = getelementptr inbounds %struct.PyConfig, ptr %config, i64 0, i32 41, !dbg !244",
+				"store i32 0, ptr %safe_path, align 4, !dbg !245, !tbaa !246",
+				"%conv = sext i32 %argc to i64, !dbg !247",
+				"call void @PyConfig_SetBytesArgv(ptr nonnull sret(%struct.PyStatus) align 8 %status, ptr noundef nonnull %config, i64 noundef %conv, ptr noundef %argv) #8, !dbg !248",
+				"%call = call i32 @PyStatus_Exception(ptr noundef nonnull byval(%struct.PyStatus) align 8 %status) #8, !dbg !249",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !249",
+				"br i1 %tobool.not, label %if.end, label %error, !dbg !251"
+			]
+		},
+		{
+			"function": "main",
+			"id": 3,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 87, "columns": [14]
+				},
+				{
+					"line": 88, "columns": [16, 29, 9]
+				}
+			],
+			"successors": [4, 5],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %tmp1) #8, !dbg !252",
+				"call void @PyConfig_Read(ptr nonnull sret(%struct.PyStatus) align 8 %tmp1, ptr noundef nonnull %config) #8, !dbg !252",
+				"call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %status, ptr noundef nonnull align 8 dereferenceable(32) %tmp1, i64 32, i1 false), !dbg !252, !tbaa.struct !253",
+				"call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %tmp1) #8, !dbg !252",
+				"%run_filename = getelementptr inbounds %struct.PyConfig, ptr %config, i64 0, i32 61, !dbg !257",
+				"%0 = load ptr, ptr %run_filename, align 8, !dbg !257, !tbaa !259",
+				"%cmp = icmp eq ptr %0, null, !dbg !260",
+				"br i1 %cmp, label %if.then3, label %do.body, !dbg !261"
+			]
+		},
+		{
+			"function": "main",
+			"id": 4,
+			"name": "if.then3",
+			"debug": [
+				{
+					"line": 89, "columns": [18]
+				},
+				{
+					"line": 90, "columns": [9]
+				}
+			],
+			"successors": [7],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %tmp4) #8, !dbg !262",
+				"call void @PyStatus_Error(ptr nonnull sret(%struct.PyStatus) align 8 %tmp4, ptr noundef nonnull @.str) #8, !dbg !262",
+				"call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %status, ptr noundef nonnull align 8 dereferenceable(32) %tmp4, i64 32, i1 false), !dbg !262, !tbaa.struct !253",
+				"call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %tmp4) #8, !dbg !262",
+				"br label %error, !dbg !264"
+			]
+		},
+		{
+			"function": "main",
+			"id": 5,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 100, "columns": [5]
+				},
+				{
+					"line": 101, "columns": [5]
+				},
+				{
+					"line": 102, "columns": [5]
+				},
+				{
+					"line": 103, "columns": [5]
+				},
+				{
+					"line": 105, "columns": [14]
+				},
+				{
+					"line": 106, "columns": [9]
+				}
+			],
+			"successors": [6, 7],
+			"ir": [
+				"%base_prefix = getelementptr inbounds %struct.PyConfig, ptr %config, i64 0, i32 55, !dbg !265",
+				"%1 = load ptr, ptr %base_prefix, align 8, !dbg !265, !tbaa !267",
+				"call void @PyMem_RawFree(ptr noundef %1) #8, !dbg !265",
+				"store ptr null, ptr %base_prefix, align 8, !dbg !265, !tbaa !267",
+				"%prefix = getelementptr inbounds %struct.PyConfig, ptr %config, i64 0, i32 54, !dbg !268",
+				"%2 = load ptr, ptr %prefix, align 8, !dbg !268, !tbaa !270",
+				"call void @PyMem_RawFree(ptr noundef %2) #8, !dbg !268",
+				"store ptr null, ptr %prefix, align 8, !dbg !268, !tbaa !270",
+				"%base_exec_prefix = getelementptr inbounds %struct.PyConfig, ptr %config, i64 0, i32 57, !dbg !271",
+				"%3 = load ptr, ptr %base_exec_prefix, align 8, !dbg !271, !tbaa !273",
+				"call void @PyMem_RawFree(ptr noundef %3) #8, !dbg !271",
+				"store ptr null, ptr %base_exec_prefix, align 8, !dbg !271, !tbaa !273",
+				"%exec_prefix = getelementptr inbounds %struct.PyConfig, ptr %config, i64 0, i32 56, !dbg !274",
+				"%4 = load ptr, ptr %exec_prefix, align 8, !dbg !274, !tbaa !276",
+				"call void @PyMem_RawFree(ptr noundef %4) #8, !dbg !274",
+				"store ptr null, ptr %exec_prefix, align 8, !dbg !274, !tbaa !276",
+				"call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %tmp19) #8, !dbg !277",
+				"call void @Py_InitializeFromConfig(ptr nonnull sret(%struct.PyStatus) align 8 %tmp19, ptr noundef nonnull %config) #8, !dbg !277",
+				"call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %status, ptr noundef nonnull align 8 dereferenceable(32) %tmp19, i64 32, i1 false), !dbg !277, !tbaa.struct !253",
+				"call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %tmp19) #8, !dbg !277",
+				"%call20 = call i32 @PyStatus_Exception(ptr noundef nonnull byval(%struct.PyStatus) align 8 %status) #8, !dbg !278",
+				"%tobool21.not = icmp eq i32 %call20, 0, !dbg !278",
+				"br i1 %tobool21.not, label %if.end23, label %error, !dbg !280"
+			]
+		},
+		{
+			"function": "main",
+			"id": 6,
+			"name": "if.end23",
+			"debug": [
+				{
+					"line": 109, "columns": [5]
+				},
+				{
+					"line": 111, "columns": [12, 5]
+				}
+			],
+			"successors": [10],
+			"ir": [
+				"call void @PyConfig_Clear(ptr noundef nonnull %config) #8, !dbg !281",
+				"%call24 = call i32 @Py_RunMain() #8, !dbg !282",
+				"br label %cleanup, !dbg !283"
+			]
+		},
+		{
+			"function": "main",
+			"id": 7,
+			"name": "error",
+			"debug": [
+				{
+					"line": 113, "columns": [1]
+				},
+				{
+					"line": 114, "columns": [5]
+				},
+				{
+					"line": 115, "columns": [9]
+				}
+			],
+			"successors": [9, 8],
+			"ir": [
+				"call void @PyConfig_Clear(ptr noundef nonnull %config) #8, !dbg !285",
+				"%call25 = call i32 @PyStatus_IsExit(ptr noundef nonnull byval(%struct.PyStatus) align 8 %status) #8, !dbg !286",
+				"%tobool26.not = icmp eq i32 %call25, 0, !dbg !286",
+				"br i1 %tobool26.not, label %if.end28, label %if.then27, !dbg !288"
+			]
+		},
+		{
+			"function": "main",
+			"id": 8,
+			"name": "if.then27",
+			"debug": [
+				{
+					"line": 116, "columns": [23, 9]
+				}
+			],
+			"successors": [10],
+			"ir": [
+				"%exitcode = getelementptr inbounds %struct.PyStatus, ptr %status, i64 0, i32 3, !dbg !289",
+				"%5 = load i32, ptr %exitcode, align 8, !dbg !289, !tbaa !291",
+				"br label %cleanup, !dbg !293"
+			]
+		},
+		{
+			"function": "main",
+			"id": 9,
+			"name": "if.end28",
+			"debug": [
+				{
+					"line": 118, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @Py_ExitStatusException(ptr noundef nonnull byval(%struct.PyStatus) align 8 %status) #9, !dbg !294",
+				"unreachable, !dbg !294"
+			]
+		},
+		{
+			"function": "main",
+			"id": 10,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 119, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ %5, %if.then27 ], [ %call24, %if.end23 ], !dbg !222",
+				"call void @llvm.lifetime.end.p0(i64 448, ptr nonnull %config) #8, !dbg !295",
+				"call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %status) #8, !dbg !295",
+				"ret i32 %retval.0, !dbg !295"
+			]
+		}
+	]
+}

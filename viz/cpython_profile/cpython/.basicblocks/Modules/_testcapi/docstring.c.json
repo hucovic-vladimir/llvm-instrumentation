@@ -1,0 +1,81 @@
+{
+	"blocks": [
+		{
+			"function": "_PyTestCapi_Init_Docstring",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 187, "columns": [9, 50]
+				}
+			],
+			"successors": [3, 1],
+			"ir": [
+				"%call = tail call i32 @PyModule_AddFunctions(ptr noundef %mod, ptr noundef nonnull @test_methods) #4, !dbg !549",
+				"%cmp = icmp slt i32 %call, 0, !dbg !551",
+				"br i1 %cmp, label %return, label %if.end, !dbg !552"
+			]
+		},
+		{
+			"function": "_PyTestCapi_Init_Docstring",
+			"id": 1,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 190, "columns": [9, 58]
+				}
+			],
+			"successors": [3, 2],
+			"ir": [
+				"%call1 = tail call i32 @PyModule_AddType(ptr noundef %mod, ptr noundef nonnull @DocStringNoSignatureTest) #4, !dbg !553",
+				"%cmp2 = icmp slt i32 %call1, 0, !dbg !555",
+				"br i1 %cmp2, label %return, label %if.end4, !dbg !556"
+			]
+		},
+		{
+			"function": "_PyTestCapi_Init_Docstring",
+			"id": 2,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 193, "columns": [9]
+				}
+			],
+			"successors": [3],
+			"ir": [
+				"%call5 = tail call i32 @PyModule_AddType(ptr noundef %mod, ptr noundef nonnull @DocStringUnrepresentableSignatureTest) #4, !dbg !557",
+				"%call5.lobit = ashr i32 %call5, 31, !dbg !548",
+				"br label %return, !dbg !548"
+			]
+		},
+		{
+			"function": "_PyTestCapi_Init_Docstring",
+			"id": 3,
+			"name": "return",
+			"debug": [
+				{
+					"line": 197, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ -1, %entry ], [ -1, %if.end ], [ %call5.lobit, %if.end4 ], !dbg !548",
+				"ret i32 %retval.0, !dbg !559"
+			]
+		},
+		{
+			"function": "test_with_docstring",
+			"id": 4,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 64, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret ptr @_Py_NoneStruct, !dbg !550"
+			]
+		}
+	]
+}

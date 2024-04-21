@@ -1,0 +1,365 @@
+{
+	"blocks": [
+		{
+			"function": "_PyTestCapi_Init_Bytes",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 48, "columns": [9]
+				},
+				{
+					"line": 53, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call i32 @PyModule_AddFunctions(ptr noundef %m, ptr noundef nonnull @test_methods) #6, !dbg !390",
+				"%call.lobit = ashr i32 %call, 31, !dbg !389",
+				"ret i32 %call.lobit, !dbg !392"
+			]
+		},
+		{
+			"function": "bytes_resize",
+			"id": 1,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 9, "columns": [5]
+				},
+				{
+					"line": 10, "columns": [5]
+				},
+				{
+					"line": 11, "columns": [5]
+				},
+				{
+					"line": 13, "columns": [10, 9]
+				}
+			],
+			"successors": [19, 2],
+			"ir": [
+				"%obj = alloca ptr, align 8",
+				"%newsize = alloca i64, align 8",
+				"%new = alloca i32, align 4",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %obj) #6, !dbg !397",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %newsize) #6, !dbg !398",
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %new) #6, !dbg !399",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.1, ptr noundef nonnull %obj, ptr noundef nonnull %newsize, ptr noundef nonnull %new) #6, !dbg !400",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !400",
+				"br i1 %tobool.not, label %cleanup33, label %do.body, !dbg !402"
+			]
+		},
+		{
+			"function": "bytes_resize",
+			"id": 2,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 16, "columns": [5]
+				}
+			],
+			"successors": [4, 3],
+			"ir": [
+				"%0 = load ptr, ptr %obj, align 8, !dbg !403, !tbaa !406",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !403",
+				"br i1 %cmp, label %do.end.thread, label %do.end, !dbg !410"
+			]
+		},
+		{
+			"function": "bytes_resize",
+			"id": 3,
+			"name": "do.end",
+			"debug": [
+				{
+					"line": 17, "columns": [9]
+				}
+			],
+			"successors": [11, 5],
+			"ir": [
+				"%1 = load i32, ptr %new, align 4, !dbg !411, !tbaa !412",
+				"%tobool3.not = icmp eq i32 %1, 0, !dbg !411",
+				"%cmp.not.i = icmp eq ptr %0, null, !dbg !414",
+				"br i1 %tobool3.not, label %if.else, label %if.then4, !dbg !415"
+			]
+		},
+		{
+			"function": "bytes_resize",
+			"id": 4,
+			"name": "do.end.thread",
+			"debug": [
+				{
+					"line": 16, "columns": [5]
+				},
+				{
+					"line": 17, "columns": [9]
+				}
+			],
+			"successors": [14, 6],
+			"ir": [
+				"store ptr null, ptr %obj, align 8, !dbg !416, !tbaa !406",
+				"%2 = load i32, ptr %new, align 4, !dbg !411, !tbaa !412",
+				"%tobool3.not38 = icmp eq i32 %2, 0, !dbg !411",
+				"br i1 %tobool3.not38, label %if.end19, label %cond.false, !dbg !415"
+			]
+		},
+		{
+			"function": "bytes_resize",
+			"id": 5,
+			"name": "if.then4",
+			"debug": [
+				{
+					"line": 18, "columns": [9]
+				}
+			],
+			"successors": [6, 7],
+			"ir": [
+				"br i1 %cmp.not.i, label %cond.false, label %cond.end, !dbg !418"
+			]
+		},
+		{
+			"function": "bytes_resize",
+			"id": 6,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 18, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.2, ptr noundef nonnull @.str.3, i32 noundef 18, ptr noundef nonnull @__PRETTY_FUNCTION__.bytes_resize) #7, !dbg !418",
+				"unreachable, !dbg !418"
+			]
+		},
+		{
+			"function": "bytes_resize",
+			"id": 7,
+			"name": "cond.end",
+			"debug": [
+				{
+					"line": 19, "columns": [9]
+				},
+				{
+					"line": 365, "columns": [24]
+				}
+			],
+			"successors": [9, 8],
+			"ir": [
+				"%3 = getelementptr i8, ptr %0, i64 8, !dbg !419",
+				"%.val = load ptr, ptr %3, align 8, !dbg !419, !tbaa !420",
+				"%cmp.i.not = icmp eq ptr %.val, @PyBytes_Type, !dbg !430",
+				"br i1 %cmp.i.not, label %cond.end10, label %cond.false9, !dbg !419"
+			]
+		},
+		{
+			"function": "bytes_resize",
+			"id": 8,
+			"name": "cond.false9",
+			"debug": [
+				{
+					"line": 19, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.4, ptr noundef nonnull @.str.3, i32 noundef 19, ptr noundef nonnull @__PRETTY_FUNCTION__.bytes_resize) #7, !dbg !419",
+				"unreachable, !dbg !419"
+			]
+		},
+		{
+			"function": "bytes_resize",
+			"id": 9,
+			"name": "cond.end10",
+			"debug": [
+				{
+					"line": 20, "columns": [60, 28]
+				},
+				{
+					"line": 21, "columns": [20, 13]
+				}
+			],
+			"successors": [19, 10],
+			"ir": [
+				"%call11 = call i64 @PyBytes_Size(ptr noundef nonnull %0) #6, !dbg !431",
+				"%call12 = call ptr @PyBytes_FromStringAndSize(ptr noundef null, i64 noundef %call11) #6, !dbg !432",
+				"%cmp13.not = icmp eq ptr %call12, null, !dbg !434",
+				"br i1 %cmp13.not, label %cleanup33, label %if.end15, !dbg !436"
+			]
+		},
+		{
+			"function": "bytes_resize",
+			"id": 10,
+			"name": "if.end15",
+			"debug": [
+				{
+					"line": 24, "columns": [16, 59, 42, 78, 65, 9]
+				},
+				{
+					"line": 25, "columns": [13]
+				}
+			],
+			"successors": [14],
+			"ir": [
+				"%call16 = call ptr @PyBytes_AsString(ptr noundef nonnull %call12) #6, !dbg !437",
+				"%4 = load ptr, ptr %obj, align 8, !dbg !438, !tbaa !406",
+				"%call17 = call ptr @PyBytes_AsString(ptr noundef %4) #6, !dbg !439",
+				"%5 = load ptr, ptr %obj, align 8, !dbg !440, !tbaa !406",
+				"%call18 = call i64 @PyBytes_Size(ptr noundef %5) #6, !dbg !441",
+				"call void @llvm.memcpy.p0.p0.i64(ptr align 1 %call16, ptr align 1 %call17, i64 %call18, i1 false), !dbg !442",
+				"store ptr %call12, ptr %obj, align 8, !dbg !443, !tbaa !406",
+				"br label %if.end19"
+			]
+		},
+		{
+			"function": "bytes_resize",
+			"id": 11,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 1027, "columns": [9]
+				}
+			],
+			"successors": [14, 12],
+			"ir": [
+				"br i1 %cmp.not.i, label %if.end19, label %if.then.i, !dbg !450"
+			]
+		},
+		{
+			"function": "bytes_resize",
+			"id": 12,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [14, 13],
+			"ir": [
+				"%6 = load i32, ptr %0, align 8, !dbg !460, !tbaa !461",
+				"%add.i.i = add i32 %6, 1, !dbg !462",
+				"%cmp.i.i = icmp eq i32 %add.i.i, 0, !dbg !463",
+				"br i1 %cmp.i.i, label %if.end19, label %if.end.i.i, !dbg !465"
+			]
+		},
+		{
+			"function": "bytes_resize",
+			"id": 13,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [14],
+			"ir": [
+				"store i32 %add.i.i, ptr %0, align 8, !dbg !466, !tbaa !461",
+				"br label %if.end19, !dbg !467"
+			]
+		},
+		{
+			"function": "bytes_resize",
+			"id": 14,
+			"name": "if.end19",
+			"debug": [
+				{
+					"line": 30, "columns": [31, 9, 40]
+				}
+			],
+			"successors": [15, 17],
+			"ir": [
+				"%7 = load i64, ptr %newsize, align 8, !dbg !468, !tbaa !470",
+				"%call20 = call i32 @_PyBytes_Resize(ptr noundef nonnull %obj, i64 noundef %7) #6, !dbg !472",
+				"%cmp21 = icmp slt i32 %call20, 0, !dbg !473",
+				"%8 = load ptr, ptr %obj, align 8, !dbg !474, !tbaa !406",
+				"%cmp23 = icmp eq ptr %8, null, !dbg !474",
+				"br i1 %cmp21, label %if.then22, label %if.else27, !dbg !475"
+			]
+		},
+		{
+			"function": "bytes_resize",
+			"id": 15,
+			"name": "if.then22",
+			"debug": [
+				{
+					"line": 31, "columns": [9]
+				}
+			],
+			"successors": [19, 16],
+			"ir": [
+				"br i1 %cmp23, label %cleanup33, label %cond.false25, !dbg !476"
+			]
+		},
+		{
+			"function": "bytes_resize",
+			"id": 16,
+			"name": "cond.false25",
+			"debug": [
+				{
+					"line": 31, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.5, ptr noundef nonnull @.str.3, i32 noundef 31, ptr noundef nonnull @__PRETTY_FUNCTION__.bytes_resize) #7, !dbg !476",
+				"unreachable, !dbg !476"
+			]
+		},
+		{
+			"function": "bytes_resize",
+			"id": 17,
+			"name": "if.else27",
+			"debug": [
+				{
+					"line": 34, "columns": [9]
+				}
+			],
+			"successors": [18, 19],
+			"ir": [
+				"br i1 %cmp23, label %cond.false30, label %cleanup33, !dbg !478"
+			]
+		},
+		{
+			"function": "bytes_resize",
+			"id": 18,
+			"name": "cond.false30",
+			"debug": [
+				{
+					"line": 34, "columns": [9]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.2, ptr noundef nonnull @.str.3, i32 noundef 34, ptr noundef nonnull @__PRETTY_FUNCTION__.bytes_resize) #7, !dbg !478",
+				"unreachable, !dbg !478"
+			]
+		},
+		{
+			"function": "bytes_resize",
+			"id": 19,
+			"name": "cleanup33",
+			"debug": [
+				{
+					"line": 37, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %entry ], [ null, %cond.end10 ], [ %8, %if.else27 ], [ null, %if.then22 ], !dbg !396",
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %new) #6, !dbg !480",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %newsize) #6, !dbg !480",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %obj) #6, !dbg !480",
+				"ret ptr %retval.1, !dbg !480"
+			]
+		}
+	]
+}

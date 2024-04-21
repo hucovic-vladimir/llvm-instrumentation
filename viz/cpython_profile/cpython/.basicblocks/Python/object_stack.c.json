@@ -1,0 +1,559 @@
+{
+	"blocks": [
+		{
+			"function": "_PyObjectStackChunk_New",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 23, "columns": [29, 37, 9]
+				},
+				{
+					"line": 137, "columns": [12]
+				},
+				{
+					"line": 285, "columns": [21]
+				}
+			],
+			"successors": [1, 2],
+			"ir": [
+				"%0 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !491",
+				"%1 = load ptr, ptr %0, align 8, !dbg !491, !tbaa !6785",
+				"%interp.i.i = getelementptr inbounds %struct._ts, ptr %1, i64 0, i32 2, !dbg !6790",
+				"%2 = load ptr, ptr %interp.i.i, align 8, !dbg !6790, !tbaa !6791",
+				"%numfree = getelementptr inbounds %struct._is, ptr %2, i64 0, i32 45, i32 0, i32 9, i32 1, !dbg !6800",
+				"%3 = load i64, ptr %numfree, align 8, !dbg !6800, !tbaa !6802",
+				"%cmp = icmp sgt i64 %3, 0, !dbg !6804",
+				"br i1 %cmp, label %if.then, label %if.else, !dbg !6805"
+			]
+		},
+		{
+			"function": "_PyObjectStackChunk_New",
+			"id": 1,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 15, "columns": [24]
+				},
+				{
+					"line": 24, "columns": [35]
+				},
+				{
+					"line": 25, "columns": [42, 35]
+				},
+				{
+					"line": 26, "columns": [36]
+				},
+				{
+					"line": 27, "columns": [5]
+				}
+			],
+			"successors": [3],
+			"ir": [
+				"%object_stacks.i = getelementptr inbounds %struct._is, ptr %2, i64 0, i32 45, i32 0, i32 9, !dbg !6806",
+				"%4 = load ptr, ptr %object_stacks.i, align 8, !dbg !6807, !tbaa !6809",
+				"%5 = load ptr, ptr %4, align 8, !dbg !6810, !tbaa !6811",
+				"store ptr %5, ptr %object_stacks.i, align 8, !dbg !6813, !tbaa !6809",
+				"%dec = add nsw i64 %3, -1, !dbg !6814",
+				"store i64 %dec, ptr %numfree, align 8, !dbg !6814, !tbaa !6802",
+				"br label %if.end6, !dbg !6815"
+			]
+		},
+		{
+			"function": "_PyObjectStackChunk_New",
+			"id": 2,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 32, "columns": [15]
+				},
+				{
+					"line": 33, "columns": [17, 13]
+				}
+			],
+			"successors": [4, 3],
+			"ir": [
+				"%call3 = tail call ptr @PyMem_RawMalloc(i64 noundef 2048) #6, !dbg !6816",
+				"%cmp4 = icmp eq ptr %call3, null, !dbg !6818",
+				"br i1 %cmp4, label %cleanup, label %if.end6, !dbg !6820"
+			]
+		},
+		{
+			"function": "_PyObjectStackChunk_New",
+			"id": 3,
+			"name": "if.end6",
+			"debug": [
+				{
+					"line": 38, "columns": [12]
+				},
+				{
+					"line": 39, "columns": [5]
+				}
+			],
+			"successors": [4],
+			"ir": [
+				"%buf.0 = phi ptr [ %4, %if.then ], [ %call3, %if.else ], !dbg !6821",
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %buf.0, i8 0, i64 16, i1 false), !dbg !6822",
+				"br label %cleanup, !dbg !6823"
+			]
+		},
+		{
+			"function": "_PyObjectStackChunk_New",
+			"id": 4,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 40, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %buf.0, %if.end6 ], [ null, %if.else ], !dbg !6799",
+				"ret ptr %retval.0, !dbg !6824"
+			]
+		},
+		{
+			"function": "_PyObjectStackChunk_Free",
+			"id": 5,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 47, "columns": [29, 42]
+				},
+				{
+					"line": 137, "columns": [12]
+				},
+				{
+					"line": 285, "columns": [21]
+				}
+			],
+			"successors": [6, 7],
+			"ir": [
+				"%0 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !492",
+				"%1 = load ptr, ptr %0, align 8, !dbg !492, !tbaa !6786",
+				"%interp.i.i = getelementptr inbounds %struct._ts, ptr %1, i64 0, i32 2, !dbg !6791",
+				"%2 = load ptr, ptr %interp.i.i, align 8, !dbg !6791, !tbaa !6792",
+				"%numfree = getelementptr inbounds %struct._is, ptr %2, i64 0, i32 45, i32 0, i32 9, i32 1, !dbg !6800",
+				"%3 = load i64, ptr %numfree, align 8, !dbg !6800, !tbaa !6802",
+				"%or.cond = icmp ult i64 %3, 4, !dbg !6804",
+				"br i1 %or.cond, label %if.then, label %if.else, !dbg !6804"
+			]
+		},
+		{
+			"function": "_PyObjectStackChunk_Free",
+			"id": 6,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 15, "columns": [24]
+				},
+				{
+					"line": 50, "columns": [41, 19]
+				},
+				{
+					"line": 51, "columns": [35]
+				},
+				{
+					"line": 52, "columns": [36]
+				},
+				{
+					"line": 53, "columns": [5]
+				}
+			],
+			"successors": [8],
+			"ir": [
+				"%object_stacks.i = getelementptr inbounds %struct._is, ptr %2, i64 0, i32 45, i32 0, i32 9, !dbg !6805",
+				"%4 = load ptr, ptr %object_stacks.i, align 8, !dbg !6806, !tbaa !6808",
+				"store ptr %4, ptr %buf, align 8, !dbg !6809, !tbaa !6810",
+				"store ptr %buf, ptr %object_stacks.i, align 8, !dbg !6812, !tbaa !6808",
+				"%inc = add nuw nsw i64 %3, 1, !dbg !6813",
+				"store i64 %inc, ptr %numfree, align 8, !dbg !6813, !tbaa !6802",
+				"br label %if.end, !dbg !6814"
+			]
+		},
+		{
+			"function": "_PyObjectStackChunk_Free",
+			"id": 7,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 55, "columns": [9]
+				}
+			],
+			"successors": [8],
+			"ir": [
+				"tail call void @PyMem_RawFree(ptr noundef %buf) #6, !dbg !6815",
+				"br label %if.end"
+			]
+		},
+		{
+			"function": "_PyObjectStackChunk_Free",
+			"id": 8,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 57, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !6817"
+			]
+		},
+		{
+			"function": "_PyObjectStack_Clear",
+			"id": 9,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 62, "columns": [19, 24, 5]
+				}
+			],
+			"successors": [15, 10],
+			"ir": [
+				"%0 = load ptr, ptr %queue, align 8, !dbg !492, !tbaa !493",
+				"%cmp.not7 = icmp eq ptr %0, null, !dbg !498",
+				"br i1 %cmp.not7, label %while.end, label %while.body.lr.ph, !dbg !499"
+			]
+		},
+		{
+			"function": "_PyObjectStack_Clear",
+			"id": 10,
+			"name": "while.body.lr.ph",
+			"debug": [
+				{
+					"line": 62, "columns": [5]
+				}
+			],
+			"successors": [11],
+			"ir": [
+				"%1 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate)",
+				"br label %while.body, !dbg !499"
+			]
+		},
+		{
+			"function": "_PyObjectStack_Clear",
+			"id": 11,
+			"name": "while.body",
+			"debug": [
+				{
+					"line": 47, "columns": [29, 42]
+				},
+				{
+					"line": 64, "columns": [14, 16]
+				},
+				{
+					"line": 65, "columns": [28, 21]
+				},
+				{
+					"line": 137, "columns": [12]
+				},
+				{
+					"line": 285, "columns": [21]
+				}
+			],
+			"successors": [12, 13],
+			"ir": [
+				"%2 = phi ptr [ %0, %while.body.lr.ph ], [ %8, %_PyObjectStackChunk_Free.exit ]",
+				"%n = getelementptr inbounds %struct._PyObjectStackChunk, ptr %2, i64 0, i32 1, !dbg !501",
+				"store i64 0, ptr %n, align 8, !dbg !502, !tbaa !503",
+				"%3 = load ptr, ptr %2, align 8, !dbg !506, !tbaa !507",
+				"store ptr %3, ptr %queue, align 8, !dbg !508, !tbaa !493",
+				"%4 = load ptr, ptr %1, align 8, !dbg !523, !tbaa !6817",
+				"%interp.i.i.i = getelementptr inbounds %struct._ts, ptr %4, i64 0, i32 2, !dbg !6819",
+				"%5 = load ptr, ptr %interp.i.i.i, align 8, !dbg !6819, !tbaa !6820",
+				"%numfree.i = getelementptr inbounds %struct._is, ptr %5, i64 0, i32 45, i32 0, i32 9, i32 1, !dbg !6827",
+				"%6 = load i64, ptr %numfree.i, align 8, !dbg !6827, !tbaa !6829",
+				"%or.cond.i = icmp ult i64 %6, 4, !dbg !6831",
+				"br i1 %or.cond.i, label %if.then.i, label %if.else.i, !dbg !6831"
+			]
+		},
+		{
+			"function": "_PyObjectStack_Clear",
+			"id": 12,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 15, "columns": [24]
+				},
+				{
+					"line": 50, "columns": [41, 19]
+				},
+				{
+					"line": 51, "columns": [35]
+				},
+				{
+					"line": 52, "columns": [36]
+				},
+				{
+					"line": 53, "columns": [5]
+				}
+			],
+			"successors": [14],
+			"ir": [
+				"%object_stacks.i.i = getelementptr inbounds %struct._is, ptr %5, i64 0, i32 45, i32 0, i32 9, !dbg !6832",
+				"%7 = load ptr, ptr %object_stacks.i.i, align 8, !dbg !6833, !tbaa !6835",
+				"store ptr %7, ptr %2, align 8, !dbg !6836, !tbaa !507",
+				"store ptr %2, ptr %object_stacks.i.i, align 8, !dbg !6837, !tbaa !6835",
+				"%inc.i = add nuw nsw i64 %6, 1, !dbg !6838",
+				"store i64 %inc.i, ptr %numfree.i, align 8, !dbg !6838, !tbaa !6829",
+				"br label %_PyObjectStackChunk_Free.exit, !dbg !6839"
+			]
+		},
+		{
+			"function": "_PyObjectStack_Clear",
+			"id": 13,
+			"name": "if.else.i",
+			"debug": [
+				{
+					"line": 55, "columns": [9]
+				},
+				{
+					"line": 62, "columns": [19]
+				}
+			],
+			"successors": [14],
+			"ir": [
+				"tail call void @PyMem_RawFree(ptr noundef nonnull %2) #6, !dbg !6840",
+				"%.pre = load ptr, ptr %queue, align 8, !dbg !492, !tbaa !493",
+				"br label %_PyObjectStackChunk_Free.exit"
+			]
+		},
+		{
+			"function": "_PyObjectStack_Clear",
+			"id": 14,
+			"name": "_PyObjectStackChunk_Free.exit",
+			"debug": [
+				{
+					"line": 62, "columns": [19, 24, 5]
+				}
+			],
+			"successors": [15, 11],
+			"ir": [
+				"%8 = phi ptr [ %3, %if.then.i ], [ %.pre, %if.else.i ], !dbg !492",
+				"%cmp.not = icmp eq ptr %8, null, !dbg !498",
+				"br i1 %cmp.not, label %while.end, label %while.body, !dbg !499, !llvm.loop !6842"
+			]
+		},
+		{
+			"function": "_PyObjectStack_Clear",
+			"id": 15,
+			"name": "while.end",
+			"debug": [
+				{
+					"line": 68, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !6845"
+			]
+		},
+		{
+			"function": "_PyObjectStack_Merge",
+			"id": 16,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 73, "columns": [14, 19, 9]
+				}
+			],
+			"successors": [21, 17],
+			"ir": [
+				"%0 = load ptr, ptr %src, align 8, !dbg !494, !tbaa !496",
+				"%cmp = icmp eq ptr %0, null, !dbg !501",
+				"br i1 %cmp, label %return, label %if.end, !dbg !502"
+			]
+		},
+		{
+			"function": "_PyObjectStack_Merge",
+			"id": 17,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 77, "columns": [14, 19, 9]
+				}
+			],
+			"successors": [20, 18],
+			"ir": [
+				"%1 = load ptr, ptr %dst, align 8, !dbg !503, !tbaa !496",
+				"%cmp2.not = icmp eq ptr %1, null, !dbg !504",
+				"br i1 %cmp2.not, label %if.end9, label %while.cond, !dbg !505"
+			]
+		},
+		{
+			"function": "_PyObjectStack_Merge",
+			"id": 18,
+			"name": "while.cond",
+			"debug": [
+				{
+					"line": 80, "columns": [22, 27, 9]
+				}
+			],
+			"successors": [19, 18],
+			"ir": [
+				"%last.0 = phi ptr [ %2, %while.cond ], [ %0, %if.end ], !dbg !506",
+				"%2 = load ptr, ptr %last.0, align 8, !dbg !507, !tbaa !508",
+				"%cmp5.not = icmp eq ptr %2, null, !dbg !511",
+				"br i1 %cmp5.not, label %while.end, label %while.cond, !dbg !512, !llvm.loop !513"
+			]
+		},
+		{
+			"function": "_PyObjectStack_Merge",
+			"id": 19,
+			"name": "while.end",
+			"debug": [
+				{
+					"line": 83, "columns": [20]
+				},
+				{
+					"line": 84, "columns": [5]
+				}
+			],
+			"successors": [20],
+			"ir": [
+				"store ptr %1, ptr %last.0, align 8, !dbg !516, !tbaa !508",
+				"br label %if.end9, !dbg !517"
+			]
+		},
+		{
+			"function": "_PyObjectStack_Merge",
+			"id": 20,
+			"name": "if.end9",
+			"debug": [
+				{
+					"line": 87, "columns": [15]
+				},
+				{
+					"line": 88, "columns": [15]
+				},
+				{
+					"line": 89, "columns": [1]
+				}
+			],
+			"successors": [21],
+			"ir": [
+				"store ptr %0, ptr %dst, align 8, !dbg !518, !tbaa !496",
+				"store ptr null, ptr %src, align 8, !dbg !519, !tbaa !496",
+				"br label %return, !dbg !520"
+			]
+		},
+		{
+			"function": "_PyObjectStack_Merge",
+			"id": 21,
+			"name": "return",
+			"debug": [
+				{
+					"line": 89, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !520"
+			]
+		},
+		{
+			"function": "_PyObjectStackChunk_ClearFreeList",
+			"id": 22,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 94, "columns": [10, 9]
+				}
+			],
+			"successors": [26, 23],
+			"ir": [
+				"%tobool.not = icmp eq i32 %is_finalization, 0, !dbg !635",
+				"br i1 %tobool.not, label %return, label %if.end, !dbg !637"
+			]
+		},
+		{
+			"function": "_PyObjectStackChunk_ClearFreeList",
+			"id": 23,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 100, "columns": [62]
+				},
+				{
+					"line": 101, "columns": [22, 30, 5]
+				}
+			],
+			"successors": [24, 25],
+			"ir": [
+				"%object_stacks = getelementptr inbounds %struct._Py_object_freelists, ptr %freelists, i64 0, i32 9, !dbg !638",
+				"%numfree = getelementptr inbounds %struct._Py_object_freelists, ptr %freelists, i64 0, i32 9, i32 1",
+				"%0 = load i64, ptr %numfree, align 8, !dbg !639, !tbaa !640",
+				"%cmp9 = icmp sgt i64 %0, 0, !dbg !646",
+				"br i1 %cmp9, label %while.body, label %while.end, !dbg !647"
+			]
+		},
+		{
+			"function": "_PyObjectStackChunk_ClearFreeList",
+			"id": 24,
+			"name": "while.body",
+			"debug": [
+				{
+					"line": 101, "columns": [22, 30, 5]
+				},
+				{
+					"line": 102, "columns": [46]
+				},
+				{
+					"line": 103, "columns": [32, 25]
+				},
+				{
+					"line": 104, "columns": [26]
+				},
+				{
+					"line": 105, "columns": [9]
+				}
+			],
+			"successors": [24, 25],
+			"ir": [
+				"%1 = phi i64 [ %4, %while.body ], [ %0, %if.end ]",
+				"%2 = load ptr, ptr %object_stacks, align 8, !dbg !648, !tbaa !649",
+				"%3 = load ptr, ptr %2, align 8, !dbg !651, !tbaa !652",
+				"store ptr %3, ptr %object_stacks, align 8, !dbg !654, !tbaa !649",
+				"%dec = add nsw i64 %1, -1, !dbg !655",
+				"store i64 %dec, ptr %numfree, align 8, !dbg !655, !tbaa !640",
+				"tail call void @PyMem_RawFree(ptr noundef nonnull %2) #6, !dbg !656",
+				"%4 = load i64, ptr %numfree, align 8, !dbg !639, !tbaa !640",
+				"%cmp = icmp sgt i64 %4, 0, !dbg !646",
+				"br i1 %cmp, label %while.body, label %while.end, !dbg !647, !llvm.loop !657"
+			]
+		},
+		{
+			"function": "_PyObjectStackChunk_ClearFreeList",
+			"id": 25,
+			"name": "while.end",
+			"debug": [
+				{
+					"line": 107, "columns": [23]
+				},
+				{
+					"line": 108, "columns": [1]
+				}
+			],
+			"successors": [26],
+			"ir": [
+				"store i64 -1, ptr %numfree, align 8, !dbg !660, !tbaa !640",
+				"br label %return, !dbg !661"
+			]
+		},
+		{
+			"function": "_PyObjectStackChunk_ClearFreeList",
+			"id": 26,
+			"name": "return",
+			"debug": [
+				{
+					"line": 108, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !661"
+			]
+		}
+	]
+}

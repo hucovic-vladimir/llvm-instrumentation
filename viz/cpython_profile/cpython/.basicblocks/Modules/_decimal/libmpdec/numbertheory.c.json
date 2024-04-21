@@ -1,0 +1,685 @@
+{
+	"blocks": [
+		{
+			"function": "_mpd_getkernel",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 59, "columns": [9]
+				},
+				{
+					"line": 61, "columns": [12, 16]
+				},
+				{
+					"line": 63, "columns": [14, 9]
+				},
+				{
+					"line": 68, "columns": [14]
+				}
+			],
+			"successors": [1, 5],
+			"ir": [
+				"%idxprom.i = sext i32 %modnum to i64, !dbg !44",
+				"%arrayidx.i = getelementptr [0 x i64], ptr @mpd_moduli, i64 0, i64 %idxprom.i, !dbg !44",
+				"%0 = load i64, ptr %arrayidx.i, align 8, !dbg !44, !tbaa !45",
+				"%arrayidx = getelementptr [0 x i64], ptr @mpd_roots, i64 0, i64 %idxprom.i, !dbg !49",
+				"%1 = load i64, ptr %arrayidx, align 8, !dbg !49, !tbaa !45",
+				"%sub = add i64 %0, -1, !dbg !50",
+				"%div = udiv i64 %sub, %n, !dbg !51",
+				"%cmp = icmp eq i32 %sign, -1, !dbg !52",
+				"br i1 %cmp, label %if.then, label %if.else, !dbg !54"
+			]
+		},
+		{
+			"function": "_mpd_getkernel",
+			"id": 1,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 64, "columns": [16]
+				},
+				{
+					"line": 281, "columns": [16, 5]
+				}
+			],
+			"successors": [9, 2],
+			"ir": [
+				"%sub2 = sub i64 %sub, %div, !dbg !55",
+				"%cmp.not8.i = icmp eq i64 %sub2, 0, !dbg !67",
+				"br i1 %cmp.not8.i, label %cleanup, label %while.body.i, !dbg !68"
+			]
+		},
+		{
+			"function": "_mpd_getkernel",
+			"id": 2,
+			"name": "while.body.i",
+			"debug": [
+				{
+					"line": 282, "columns": [17, 13]
+				}
+			],
+			"successors": [4, 3],
+			"ir": [
+				"%r.011.i = phi i64 [ %r.1.i, %if.end.i ], [ 1, %if.then ]",
+				"%base.addr.010.i = phi i64 [ %call1.i, %if.end.i ], [ %1, %if.then ]",
+				"%exp.addr.09.i = phi i64 [ %shr.i, %if.end.i ], [ %sub2, %if.then ]",
+				"%and.i = and i64 %exp.addr.09.i, 1, !dbg !69",
+				"%tobool.not.i = icmp eq i64 %and.i, 0, !dbg !69",
+				"br i1 %tobool.not.i, label %if.end.i, label %if.then.i, !dbg !72"
+			]
+		},
+		{
+			"function": "_mpd_getkernel",
+			"id": 3,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 283, "columns": [17, 13]
+				}
+			],
+			"successors": [4],
+			"ir": [
+				"%call.i = tail call fastcc i64 @x64_mulmod(i64 noundef %r.011.i, i64 noundef %base.addr.010.i, i64 noundef %0), !dbg !73",
+				"br label %if.end.i, !dbg !74"
+			]
+		},
+		{
+			"function": "_mpd_getkernel",
+			"id": 4,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 281, "columns": [16, 5]
+				},
+				{
+					"line": 284, "columns": [16]
+				},
+				{
+					"line": 285, "columns": [13]
+				}
+			],
+			"successors": [9, 2],
+			"ir": [
+				"%r.1.i = phi i64 [ %call.i, %if.then.i ], [ %r.011.i, %while.body.i ], !dbg !65",
+				"%call1.i = tail call fastcc i64 @x64_mulmod(i64 noundef %base.addr.010.i, i64 noundef %base.addr.010.i, i64 noundef %0), !dbg !75",
+				"%shr.i = lshr i64 %exp.addr.09.i, 1, !dbg !76",
+				"%cmp.not.i = icmp ult i64 %exp.addr.09.i, 2, !dbg !67",
+				"br i1 %cmp.not.i, label %cleanup, label %while.body.i, !dbg !68, !llvm.loop !77"
+			]
+		},
+		{
+			"function": "_mpd_getkernel",
+			"id": 5,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 281, "columns": [16, 5]
+				}
+			],
+			"successors": [9, 6],
+			"ir": [
+				"%cmp.not8.i11 = icmp ult i64 %sub, %n, !dbg !82",
+				"br i1 %cmp.not8.i11, label %cleanup, label %while.body.i17, !dbg !83"
+			]
+		},
+		{
+			"function": "_mpd_getkernel",
+			"id": 6,
+			"name": "while.body.i17",
+			"debug": [
+				{
+					"line": 282, "columns": [17, 13]
+				}
+			],
+			"successors": [8, 7],
+			"ir": [
+				"%r.011.i12 = phi i64 [ %r.1.i20, %if.end.i24 ], [ 1, %if.else ]",
+				"%base.addr.010.i13 = phi i64 [ %call1.i21, %if.end.i24 ], [ %1, %if.else ]",
+				"%exp.addr.09.i14 = phi i64 [ %shr.i22, %if.end.i24 ], [ %div, %if.else ]",
+				"%and.i15 = and i64 %exp.addr.09.i14, 1, !dbg !84",
+				"%tobool.not.i16 = icmp eq i64 %and.i15, 0, !dbg !84",
+				"br i1 %tobool.not.i16, label %if.end.i24, label %if.then.i19, !dbg !85"
+			]
+		},
+		{
+			"function": "_mpd_getkernel",
+			"id": 7,
+			"name": "if.then.i19",
+			"debug": [
+				{
+					"line": 283, "columns": [17, 13]
+				}
+			],
+			"successors": [8],
+			"ir": [
+				"%call.i18 = tail call fastcc i64 @x64_mulmod(i64 noundef %r.011.i12, i64 noundef %base.addr.010.i13, i64 noundef %0), !dbg !86",
+				"br label %if.end.i24, !dbg !87"
+			]
+		},
+		{
+			"function": "_mpd_getkernel",
+			"id": 8,
+			"name": "if.end.i24",
+			"debug": [
+				{
+					"line": 281, "columns": [16, 5]
+				},
+				{
+					"line": 284, "columns": [16]
+				},
+				{
+					"line": 285, "columns": [13]
+				}
+			],
+			"successors": [9, 6],
+			"ir": [
+				"%r.1.i20 = phi i64 [ %call.i18, %if.then.i19 ], [ %r.011.i12, %while.body.i17 ], !dbg !80",
+				"%call1.i21 = tail call fastcc i64 @x64_mulmod(i64 noundef %base.addr.010.i13, i64 noundef %base.addr.010.i13, i64 noundef %0), !dbg !88",
+				"%shr.i22 = lshr i64 %exp.addr.09.i14, 1, !dbg !89",
+				"%cmp.not.i23 = icmp ult i64 %exp.addr.09.i14, 2, !dbg !82",
+				"br i1 %cmp.not.i23, label %cleanup, label %while.body.i17, !dbg !83, !llvm.loop !90"
+			]
+		},
+		{
+			"function": "_mpd_getkernel",
+			"id": 9,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 67, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i64 [ 1, %if.then ], [ 1, %if.else ], [ %r.1.i, %if.end.i ], [ %r.1.i20, %if.end.i24 ], !dbg !92",
+				"ret i64 %retval.0, !dbg !93"
+			]
+		},
+		{
+			"function": "_mpd_init_fnt_params",
+			"id": 10,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 92, "columns": [14]
+				},
+				{
+					"line": 93, "columns": [15]
+				},
+				{
+					"line": 94, "columns": [17, 9]
+				}
+			],
+			"successors": [14, 11],
+			"ir": [
+				"%div24 = lshr i64 %n, 1, !dbg !50",
+				"%call = tail call ptr @mpd_sh_alloc(i64 noundef 24, i64 noundef %div24, i64 noundef 8) #6, !dbg !51",
+				"%cmp = icmp eq ptr %call, null, !dbg !52",
+				"br i1 %cmp, label %cleanup, label %if.end, !dbg !54"
+			]
+		},
+		{
+			"function": "_mpd_init_fnt_params",
+			"id": 11,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 68, "columns": [14]
+				},
+				{
+					"line": 99, "columns": [14]
+				},
+				{
+					"line": 101, "columns": [21]
+				},
+				{
+					"line": 102, "columns": [14, 22]
+				},
+				{
+					"line": 103, "columns": [14, 21]
+				},
+				{
+					"line": 107, "columns": [19, 5]
+				}
+			],
+			"successors": [14, 12],
+			"ir": [
+				"%idxprom.i = sext i32 %modnum to i64, !dbg !64",
+				"%arrayidx.i = getelementptr [0 x i64], ptr @mpd_moduli, i64 0, i64 %idxprom.i, !dbg !64",
+				"%0 = load i64, ptr %arrayidx.i, align 8, !dbg !64, !tbaa !65",
+				"%call1 = tail call i64 @_mpd_getkernel(i64 noundef %n, i32 noundef %sign, i32 noundef %modnum), !dbg !69",
+				"store i32 %modnum, ptr %call, align 8, !dbg !70, !tbaa !71",
+				"%modulus = getelementptr inbounds %struct.fnt_params, ptr %call, i64 0, i32 1, !dbg !73",
+				"store i64 %0, ptr %modulus, align 8, !dbg !74, !tbaa !65",
+				"%kernel3 = getelementptr inbounds %struct.fnt_params, ptr %call, i64 0, i32 2, !dbg !75",
+				"store i64 %call1, ptr %kernel3, align 8, !dbg !76, !tbaa !65",
+				"%cmp426.not = icmp ult i64 %n, 2, !dbg !77",
+				"br i1 %cmp426.not, label %cleanup, label %for.body.preheader, !dbg !80"
+			]
+		},
+		{
+			"function": "_mpd_init_fnt_params",
+			"id": 12,
+			"name": "for.body.preheader",
+			"debug": [
+				{
+					"line": 107, "columns": [5]
+				}
+			],
+			"successors": [13],
+			"ir": [
+				"%umax = tail call i64 @llvm.umax.i64(i64 %div24, i64 1), !dbg !80",
+				"br label %for.body, !dbg !80"
+			]
+		},
+		{
+			"function": "_mpd_init_fnt_params",
+			"id": 13,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 107, "columns": [29, 19, 5]
+				},
+				{
+					"line": 108, "columns": [9, 28]
+				},
+				{
+					"line": 109, "columns": [13]
+				}
+			],
+			"successors": [14, 13],
+			"ir": [
+				"%i.028 = phi i64 [ %inc, %for.body ], [ 0, %for.body.preheader ]",
+				"%w.027 = phi i64 [ %call5, %for.body ], [ 1, %for.body.preheader ]",
+				"%arrayidx = getelementptr %struct.fnt_params, ptr %call, i64 0, i32 3, i64 %i.028, !dbg !81",
+				"store i64 %w.027, ptr %arrayidx, align 8, !dbg !83, !tbaa !65",
+				"%call5 = tail call fastcc i64 @x64_mulmod(i64 noundef %w.027, i64 noundef %call1, i64 noundef %0), !dbg !84",
+				"%inc = add nuw nsw i64 %i.028, 1, !dbg !85",
+				"%exitcond.not = icmp eq i64 %inc, %umax, !dbg !77",
+				"br i1 %exitcond.not, label %cleanup, label %for.body, !dbg !80, !llvm.loop !86"
+			]
+		},
+		{
+			"function": "_mpd_init_fnt_params",
+			"id": 14,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 113, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret ptr %call, !dbg !89"
+			]
+		},
+		{
+			"function": "x64_mulmod",
+			"id": 15,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 56, "columns": [10, 27, 25]
+				},
+				{
+					"line": 58, "columns": [14, 11]
+				},
+				{
+					"line": 59, "columns": [11]
+				},
+				{
+					"line": 159, "columns": [11, 9]
+				}
+			],
+			"successors": [17, 16],
+			"ir": [
+				"%conv.i = zext i64 %a to i128, !dbg !46",
+				"%conv1.i = zext i64 %b to i128, !dbg !47",
+				"%mul.i = mul nuw i128 %conv1.i, %conv.i, !dbg !48",
+				"%shr.i = lshr i128 %mul.i, 64, !dbg !49",
+				"%conv2.i = trunc i128 %shr.i to i64, !dbg !50",
+				"%conv3.i = trunc i128 %mul.i to i64, !dbg !51",
+				"%and = and i64 %m, 4294967296, !dbg !52",
+				"%tobool.not = icmp eq i64 %and, 0, !dbg !52",
+				"br i1 %tobool.not, label %if.else, label %if.then, !dbg !54"
+			]
+		},
+		{
+			"function": "x64_mulmod",
+			"id": 16,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 163, "columns": [12]
+				},
+				{
+					"line": 165, "columns": [16]
+				},
+				{
+					"line": 166, "columns": [15, 13]
+				},
+				{
+					"line": 168, "columns": [11]
+				},
+				{
+					"line": 169, "columns": [16]
+				},
+				{
+					"line": 170, "columns": [16, 13]
+				},
+				{
+					"line": 174, "columns": [12]
+				},
+				{
+					"line": 176, "columns": [16]
+				},
+				{
+					"line": 177, "columns": [15, 13]
+				},
+				{
+					"line": 179, "columns": [11]
+				},
+				{
+					"line": 180, "columns": [16]
+				},
+				{
+					"line": 181, "columns": [16]
+				},
+				{
+					"line": 183, "columns": [20]
+				}
+			],
+			"successors": [20],
+			"ir": [
+				"%shr = lshr i64 %conv2.i, 32, !dbg !55",
+				"%sub = sub i64 %conv3.i, %conv2.i, !dbg !57",
+				"%cmp = icmp ult i64 %conv3.i, %conv2.i, !dbg !58",
+				"%dec = sext i1 %cmp to i64, !dbg !60",
+				"%spec.select = add nsw i64 %shr, %dec, !dbg !60",
+				"%shl = shl i64 %conv2.i, 32, !dbg !61",
+				"%add = add i64 %shl, %sub, !dbg !62",
+				"%cmp2 = icmp ult i64 %add, %shl, !dbg !63",
+				"%inc = zext i1 %cmp2 to i64, !dbg !65",
+				"%hi.1 = add nsw i64 %spec.select, %inc, !dbg !65",
+				"%shr5 = lshr i64 %hi.1, 32, !dbg !66",
+				"%sub6 = sub i64 %add, %hi.1, !dbg !67",
+				"%cmp7 = icmp ult i64 %add, %hi.1, !dbg !68",
+				"%dec9 = sext i1 %cmp7 to i64, !dbg !70",
+				"%hi.2 = add nsw i64 %shr5, %dec9, !dbg !70",
+				"%shl11 = shl i64 %hi.1, 32, !dbg !71",
+				"%add12 = add i64 %shl11, %sub6, !dbg !72",
+				"%cmp13 = icmp ult i64 %add12, %shl11, !dbg !73",
+				"br label %cleanup, !dbg !75"
+			]
+		},
+		{
+			"function": "x64_mulmod",
+			"id": 17,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 185, "columns": [16, 14]
+				}
+			],
+			"successors": [19, 18],
+			"ir": [
+				"%and20 = and i64 %m, 17179869184, !dbg !76",
+				"%tobool21.not = icmp eq i64 %and20, 0, !dbg !76",
+				"%sub69 = sub i64 %conv3.i, %conv2.i, !dbg !78",
+				"%cmp70 = icmp ult i64 %conv3.i, %conv2.i, !dbg !78",
+				"%dec72 = sext i1 %cmp70 to i64, !dbg !78",
+				"br i1 %tobool21.not, label %if.else67, label %if.then22, !dbg !79"
+			]
+		},
+		{
+			"function": "x64_mulmod",
+			"id": 18,
+			"name": "if.then22",
+			"debug": [
+				{
+					"line": 189, "columns": [12]
+				},
+				{
+					"line": 192, "columns": [13]
+				},
+				{
+					"line": 194, "columns": [11]
+				},
+				{
+					"line": 195, "columns": [16]
+				},
+				{
+					"line": 196, "columns": [16, 13]
+				},
+				{
+					"line": 200, "columns": [12]
+				},
+				{
+					"line": 202, "columns": [16]
+				},
+				{
+					"line": 203, "columns": [15, 13]
+				},
+				{
+					"line": 205, "columns": [11]
+				},
+				{
+					"line": 206, "columns": [16]
+				},
+				{
+					"line": 207, "columns": [16, 13]
+				},
+				{
+					"line": 211, "columns": [12]
+				},
+				{
+					"line": 213, "columns": [16]
+				},
+				{
+					"line": 214, "columns": [15, 13]
+				},
+				{
+					"line": 216, "columns": [11]
+				},
+				{
+					"line": 217, "columns": [16]
+				},
+				{
+					"line": 218, "columns": [16]
+				},
+				{
+					"line": 220, "columns": [20]
+				}
+			],
+			"successors": [20],
+			"ir": [
+				"%shr23 = lshr i64 %conv2.i, 30, !dbg !80",
+				"%spec.select203 = add nsw i64 %shr23, %dec72, !dbg !82",
+				"%shl29 = shl i64 %conv2.i, 34, !dbg !83",
+				"%add30 = add i64 %shl29, %sub69, !dbg !84",
+				"%cmp31 = icmp ult i64 %add30, %shl29, !dbg !85",
+				"%inc33 = zext i1 %cmp31 to i64, !dbg !87",
+				"%hi.5 = add nsw i64 %spec.select203, %inc33, !dbg !87",
+				"%shr35 = lshr i64 %hi.5, 30, !dbg !88",
+				"%sub36 = sub i64 %add30, %hi.5, !dbg !89",
+				"%cmp37 = icmp ult i64 %add30, %hi.5, !dbg !90",
+				"%dec39 = sext i1 %cmp37 to i64, !dbg !92",
+				"%hi.6 = add nsw i64 %shr35, %dec39, !dbg !92",
+				"%shl41 = shl i64 %hi.5, 34, !dbg !93",
+				"%add42 = add i64 %shl41, %sub36, !dbg !94",
+				"%cmp43 = icmp ult i64 %add42, %shl41, !dbg !95",
+				"%inc45 = zext i1 %cmp43 to i64, !dbg !97",
+				"%hi.7 = add nsw i64 %hi.6, %inc45, !dbg !97",
+				"%shr47 = lshr i64 %hi.7, 30, !dbg !98",
+				"%sub48 = sub i64 %add42, %hi.7, !dbg !99",
+				"%cmp49 = icmp ult i64 %add42, %hi.7, !dbg !100",
+				"%dec51 = sext i1 %cmp49 to i64, !dbg !102",
+				"%hi.8 = add nsw i64 %shr47, %dec51, !dbg !102",
+				"%shl53 = shl i64 %hi.7, 34, !dbg !103",
+				"%add54 = add i64 %shl53, %sub48, !dbg !104",
+				"%cmp55 = icmp ult i64 %add54, %shl53, !dbg !105",
+				"br label %cleanup, !dbg !107"
+			]
+		},
+		{
+			"function": "x64_mulmod",
+			"id": 19,
+			"name": "if.else67",
+			"debug": [
+				{
+					"line": 226, "columns": [12]
+				},
+				{
+					"line": 229, "columns": [13]
+				},
+				{
+					"line": 231, "columns": [11]
+				},
+				{
+					"line": 232, "columns": [16]
+				},
+				{
+					"line": 233, "columns": [16, 13]
+				},
+				{
+					"line": 237, "columns": [12]
+				},
+				{
+					"line": 239, "columns": [16]
+				},
+				{
+					"line": 240, "columns": [15, 13]
+				},
+				{
+					"line": 242, "columns": [11]
+				},
+				{
+					"line": 243, "columns": [16]
+				},
+				{
+					"line": 244, "columns": [16, 13]
+				},
+				{
+					"line": 248, "columns": [12]
+				},
+				{
+					"line": 250, "columns": [16]
+				},
+				{
+					"line": 251, "columns": [15, 13]
+				},
+				{
+					"line": 253, "columns": [11]
+				},
+				{
+					"line": 254, "columns": [16]
+				},
+				{
+					"line": 255, "columns": [16]
+				},
+				{
+					"line": 257, "columns": [20]
+				}
+			],
+			"successors": [20],
+			"ir": [
+				"%shr68 = lshr i64 %conv2.i, 24, !dbg !108",
+				"%spec.select204 = add nsw i64 %shr68, %dec72, !dbg !110",
+				"%shl74 = shl i64 %conv2.i, 40, !dbg !111",
+				"%add75 = add i64 %shl74, %sub69, !dbg !112",
+				"%cmp76 = icmp ult i64 %add75, %shl74, !dbg !113",
+				"%inc78 = zext i1 %cmp76 to i64, !dbg !115",
+				"%hi.11 = add nsw i64 %spec.select204, %inc78, !dbg !115",
+				"%shr80 = lshr i64 %hi.11, 24, !dbg !116",
+				"%sub81 = sub i64 %add75, %hi.11, !dbg !117",
+				"%cmp82 = icmp ult i64 %add75, %hi.11, !dbg !118",
+				"%dec84 = sext i1 %cmp82 to i64, !dbg !120",
+				"%hi.12 = add nsw i64 %shr80, %dec84, !dbg !120",
+				"%shl86 = shl i64 %hi.11, 40, !dbg !121",
+				"%add87 = add i64 %shl86, %sub81, !dbg !122",
+				"%cmp88 = icmp ult i64 %add87, %shl86, !dbg !123",
+				"%inc90 = zext i1 %cmp88 to i64, !dbg !125",
+				"%hi.13 = add nsw i64 %hi.12, %inc90, !dbg !125",
+				"%shr92 = lshr i64 %hi.13, 24, !dbg !126",
+				"%sub93 = sub i64 %add87, %hi.13, !dbg !127",
+				"%cmp94 = icmp ult i64 %add87, %hi.13, !dbg !128",
+				"%dec96 = sext i1 %cmp94 to i64, !dbg !130",
+				"%hi.14 = add nsw i64 %shr92, %dec96, !dbg !130",
+				"%shl98 = shl i64 %hi.13, 40, !dbg !131",
+				"%add99 = add i64 %shl98, %sub93, !dbg !132",
+				"%cmp100 = icmp ult i64 %add99, %shl98, !dbg !133",
+				"br label %cleanup, !dbg !135"
+			]
+		},
+		{
+			"function": "x64_mulmod",
+			"id": 20,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 259, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%cmp100.sink = phi i1 [ %cmp100, %if.else67 ], [ %cmp55, %if.then22 ], [ %cmp13, %if.then ]",
+				"%hi.14.sink = phi i64 [ %hi.14, %if.else67 ], [ %hi.8, %if.then22 ], [ %hi.2, %if.then ]",
+				"%add99.sink208 = phi i64 [ %add99, %if.else67 ], [ %add54, %if.then22 ], [ %add12, %if.then ]",
+				"%inc102.neg = sext i1 %cmp100.sink to i64, !dbg !136",
+				"%tobool104.not = icmp eq i64 %hi.14.sink, %inc102.neg, !dbg !136",
+				"%cmp106.not = icmp ult i64 %add99.sink208, %m",
+				"%or.cond171 = select i1 %tobool104.not, i1 %cmp106.not, i1 false, !dbg !136",
+				"%sub108 = select i1 %or.cond171, i64 0, i64 %m, !dbg !136",
+				"%spec.select207 = sub i64 %add99.sink208, %sub108, !dbg !136",
+				"ret i64 %spec.select207, !dbg !137"
+			]
+		},
+		{
+			"function": "_mpd_init_w3table",
+			"id": 21,
+			"name": "if.end.i.1",
+			"debug": [
+				{
+					"line": 68, "columns": [14]
+				},
+				{
+					"line": 127, "columns": [14]
+				},
+				{
+					"line": 129, "columns": [16]
+				},
+				{
+					"line": 130, "columns": [5, 16]
+				},
+				{
+					"line": 131, "columns": [5, 16]
+				},
+				{
+					"line": 132, "columns": [1]
+				},
+				{
+					"line": 283, "columns": [17]
+				},
+				{
+					"line": 284, "columns": [16]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%idxprom.i = sext i32 %modnum to i64, !dbg !42",
+				"%arrayidx.i = getelementptr [0 x i64], ptr @mpd_moduli, i64 0, i64 %idxprom.i, !dbg !42",
+				"%0 = load i64, ptr %arrayidx.i, align 8, !dbg !42, !tbaa !43",
+				"%call = tail call i64 @_mpd_getkernel(i64 noundef 3, i32 noundef %sign, i32 noundef %modnum), !dbg !47",
+				"store i64 1, ptr %w3table, align 8, !dbg !48, !tbaa !43",
+				"%arrayidx1 = getelementptr i64, ptr %w3table, i64 1, !dbg !49",
+				"store i64 %call, ptr %arrayidx1, align 8, !dbg !50, !tbaa !43",
+				"%call1.i = tail call fastcc i64 @x64_mulmod(i64 noundef %call, i64 noundef %call, i64 noundef %0), !dbg !62",
+				"%call.i.1 = tail call fastcc i64 @x64_mulmod(i64 noundef 1, i64 noundef %call1.i, i64 noundef %0), !dbg !64",
+				"%arrayidx3 = getelementptr i64, ptr %w3table, i64 2, !dbg !66",
+				"store i64 %call.i.1, ptr %arrayidx3, align 8, !dbg !67, !tbaa !43",
+				"ret void, !dbg !68"
+			]
+		}
+	]
+}

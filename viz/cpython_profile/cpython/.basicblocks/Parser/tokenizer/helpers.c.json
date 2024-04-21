@@ -1,0 +1,3493 @@
+{
+	"blocks": [
+		{
+			"function": "_PyTokenizer_syntaxerror",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 67, "columns": [5, 13]
+				},
+				{
+					"line": 68, "columns": [5]
+				},
+				{
+					"line": 69, "columns": [15]
+				},
+				{
+					"line": 70, "columns": [5]
+				},
+				{
+					"line": 71, "columns": [5]
+				},
+				{
+					"line": 72, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%vargs = alloca [1 x %struct.__va_list_tag], align 16",
+				"call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %vargs) #11, !dbg !610",
+				"call void @llvm.va_start(ptr nonnull %vargs), !dbg !612",
+				"call fastcc void @_syntaxerror_range(ptr noundef %tok, ptr noundef %format, i32 noundef -1, i32 noundef -1, ptr noundef nonnull %vargs), !dbg !613",
+				"call void @llvm.va_end(ptr nonnull %vargs), !dbg !614",
+				"call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %vargs) #11, !dbg !615",
+				"ret i32 64, !dbg !616"
+			]
+		},
+		{
+			"function": "_syntaxerror_range",
+			"id": 1,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 18, "columns": [14, 19, 9]
+				}
+			],
+			"successors": [19, 2],
+			"ir": [
+				"%done = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 8, !dbg !611",
+				"%0 = load i32, ptr %done, align 8, !dbg !611, !tbaa !613",
+				"%cmp = icmp eq i32 %0, 17, !dbg !619",
+				"br i1 %cmp, label %return, label %if.end, !dbg !620"
+			]
+		},
+		{
+			"function": "_syntaxerror_range",
+			"id": 2,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 22, "columns": [14]
+				},
+				{
+					"line": 23, "columns": [10, 9]
+				}
+			],
+			"successors": [18, 3],
+			"ir": [
+				"%call = tail call ptr @PyUnicode_FromFormatV(ptr noundef %format, ptr noundef %vargs) #11, !dbg !621",
+				"%tobool.not = icmp eq ptr %call, null, !dbg !622",
+				"br i1 %tobool.not, label %Py_XDECREF.exit, label %if.end2, !dbg !624"
+			]
+		},
+		{
+			"function": "_syntaxerror_range",
+			"id": 3,
+			"name": "if.end2",
+			"debug": [
+				{
+					"line": 27, "columns": [41, 58, 62, 15]
+				},
+				{
+					"line": 29, "columns": [10, 9]
+				}
+			],
+			"successors": [15, 4],
+			"ir": [
+				"%line_start = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 31, !dbg !625",
+				"%1 = load ptr, ptr %line_start, align 8, !dbg !625, !tbaa !626",
+				"%cur = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 1, !dbg !627",
+				"%2 = load ptr, ptr %cur, align 8, !dbg !627, !tbaa !628",
+				"%sub.ptr.lhs.cast = ptrtoint ptr %2 to i64, !dbg !629",
+				"%sub.ptr.rhs.cast = ptrtoint ptr %1 to i64, !dbg !629",
+				"%sub.ptr.sub = sub i64 %sub.ptr.lhs.cast, %sub.ptr.rhs.cast, !dbg !629",
+				"%call4 = tail call ptr @PyUnicode_DecodeUTF8(ptr noundef %1, i64 noundef %sub.ptr.sub, ptr noundef nonnull @.str.6) #11, !dbg !630",
+				"%tobool5.not = icmp eq ptr %call4, null, !dbg !631",
+				"br i1 %tobool5.not, label %if.then.i, label %if.end7, !dbg !633"
+			]
+		},
+		{
+			"function": "_syntaxerror_range",
+			"id": 4,
+			"name": "if.end7",
+			"debug": [
+				{
+					"line": 33, "columns": [20, 9]
+				}
+			],
+			"successors": [5, 6],
+			"ir": [
+				"%cmp8 = icmp eq i32 %col_offset, -1, !dbg !634",
+				"br i1 %cmp8, label %if.then9, label %if.end11, !dbg !636"
+			]
+		},
+		{
+			"function": "_syntaxerror_range",
+			"id": 5,
+			"name": "if.then9",
+			"debug": [
+				{
+					"line": 34, "columns": [27, 22]
+				},
+				{
+					"line": 35, "columns": [5]
+				}
+			],
+			"successors": [6],
+			"ir": [
+				"%3 = getelementptr i8, ptr %call4, i64 16, !dbg !637",
+				"%call4.val = load i64, ptr %3, align 8, !dbg !637, !tbaa !639",
+				"%conv = trunc i64 %call4.val to i32, !dbg !644",
+				"br label %if.end11, !dbg !645"
+			]
+		},
+		{
+			"function": "_syntaxerror_range",
+			"id": 6,
+			"name": "if.end11",
+			"debug": [
+				{
+					"line": 36, "columns": [24, 9]
+				},
+				{
+					"line": 40, "columns": [40, 27]
+				},
+				{
+					"line": 41, "columns": [26, 30, 18, 9]
+				}
+			],
+			"successors": [11, 7],
+			"ir": [
+				"%col_offset.addr.0 = phi i32 [ %conv, %if.then9 ], [ %col_offset, %if.end7 ]",
+				"%cmp12 = icmp eq i32 %end_col_offset, -1, !dbg !646",
+				"%spec.select = select i1 %cmp12, i32 %col_offset.addr.0, i32 %end_col_offset, !dbg !648",
+				"%4 = load ptr, ptr %line_start, align 8, !dbg !649, !tbaa !626",
+				"%call17 = tail call i64 @strcspn(ptr noundef %4, ptr noundef nonnull @.str.7) #12, !dbg !650",
+				"%5 = load ptr, ptr %cur, align 8, !dbg !651, !tbaa !628",
+				"%sub.ptr.lhs.cast20 = ptrtoint ptr %5 to i64, !dbg !653",
+				"%sub.ptr.rhs.cast21 = ptrtoint ptr %4 to i64, !dbg !653",
+				"%sub.ptr.sub22 = sub i64 %sub.ptr.lhs.cast20, %sub.ptr.rhs.cast21, !dbg !653",
+				"%cmp23.not = icmp eq i64 %call17, %sub.ptr.sub22, !dbg !654",
+				"br i1 %cmp23.not, label %if.end31, label %if.then25, !dbg !655"
+			]
+		},
+		{
+			"function": "_syntaxerror_range",
+			"id": 7,
+			"name": "if.then25",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [8, 10],
+			"ir": [
+				"%op.val.i = load i64, ptr %call4, align 8, !dbg !662, !tbaa !664",
+				"%6 = and i64 %op.val.i, 2147483648, !dbg !670",
+				"%cmp.i.not.i = icmp eq i64 %6, 0, !dbg !670",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %if.end28, !dbg !671"
+			]
+		},
+		{
+			"function": "_syntaxerror_range",
+			"id": 8,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [9, 10],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !672",
+				"store i64 %dec.i, ptr %call4, align 8, !dbg !672, !tbaa !664",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !674",
+				"br i1 %cmp.i, label %if.then1.i, label %if.end28, !dbg !675"
+			]
+		},
+		{
+			"function": "_syntaxerror_range",
+			"id": 9,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [10],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call4) #11, !dbg !676",
+				"br label %if.end28, !dbg !678"
+			]
+		},
+		{
+			"function": "_syntaxerror_range",
+			"id": 10,
+			"name": "if.end28",
+			"debug": [
+				{
+					"line": 43, "columns": [45, 19]
+				},
+				{
+					"line": 46, "columns": [10, 9]
+				}
+			],
+			"successors": [15, 11],
+			"ir": [
+				"%7 = load ptr, ptr %line_start, align 8, !dbg !679, !tbaa !626",
+				"%call27 = tail call ptr @PyUnicode_DecodeUTF8(ptr noundef %7, i64 noundef %call17, ptr noundef nonnull @.str.6) #11, !dbg !680",
+				"%tobool29.not = icmp eq ptr %call27, null, !dbg !681",
+				"br i1 %tobool29.not, label %if.then.i, label %if.end31, !dbg !683"
+			]
+		},
+		{
+			"function": "_syntaxerror_range",
+			"id": 11,
+			"name": "if.end31",
+			"debug": [
+				{
+					"line": 50, "columns": [54, 69, 12]
+				},
+				{
+					"line": 52, "columns": [9]
+				}
+			],
+			"successors": [15, 12],
+			"ir": [
+				"%errtext.071 = phi ptr [ %call27, %if.end28 ], [ %call4, %if.end11 ]",
+				"%filename = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 25, !dbg !684",
+				"%8 = load ptr, ptr %filename, align 8, !dbg !684, !tbaa !685",
+				"%lineno = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 17, !dbg !686",
+				"%9 = load i32, ptr %lineno, align 8, !dbg !686, !tbaa !687",
+				"%call33 = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.8, ptr noundef nonnull %call, ptr noundef %8, i32 noundef %9, i32 noundef %col_offset.addr.0, ptr noundef nonnull %errtext.071, i32 noundef %9, i32 noundef %spec.select) #11, !dbg !688",
+				"%tobool34.not = icmp eq ptr %call33, null, !dbg !689",
+				"br i1 %tobool34.not, label %if.then.i, label %if.then35, !dbg !691"
+			]
+		},
+		{
+			"function": "_syntaxerror_range",
+			"id": 12,
+			"name": "if.then35",
+			"debug": [
+				{
+					"line": 53, "columns": [25, 9]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [13, 15],
+			"ir": [
+				"%10 = load ptr, ptr @PyExc_SyntaxError, align 8, !dbg !692, !tbaa !694",
+				"tail call void @PyErr_SetObject(ptr noundef %10, ptr noundef nonnull %call33) #11, !dbg !695",
+				"%op.val.i61 = load i64, ptr %call33, align 8, !dbg !698, !tbaa !664",
+				"%11 = and i64 %op.val.i61, 2147483648, !dbg !701",
+				"%cmp.i.not.i62 = icmp eq i64 %11, 0, !dbg !701",
+				"br i1 %cmp.i.not.i62, label %if.end.i65, label %if.then.i, !dbg !702"
+			]
+		},
+		{
+			"function": "_syntaxerror_range",
+			"id": 13,
+			"name": "if.end.i65",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [14, 15],
+			"ir": [
+				"%dec.i63 = add i64 %op.val.i61, -1, !dbg !703",
+				"store i64 %dec.i63, ptr %call33, align 8, !dbg !703, !tbaa !664",
+				"%cmp.i64 = icmp eq i64 %dec.i63, 0, !dbg !704",
+				"br i1 %cmp.i64, label %if.then1.i66, label %if.then.i, !dbg !705"
+			]
+		},
+		{
+			"function": "_syntaxerror_range",
+			"id": 14,
+			"name": "if.then1.i66",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [15],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call33) #11, !dbg !706",
+				"br label %if.then.i, !dbg !707"
+			]
+		},
+		{
+			"function": "_syntaxerror_range",
+			"id": 15,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 57, "columns": [1]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [16, 18],
+			"ir": [
+				"%op.val.i.i = load i64, ptr %call, align 8, !dbg !718, !tbaa !664",
+				"%12 = and i64 %op.val.i.i, 2147483648, !dbg !721",
+				"%cmp.i.not.i.i = icmp eq i64 %12, 0, !dbg !721",
+				"br i1 %cmp.i.not.i.i, label %if.end.i.i, label %Py_XDECREF.exit, !dbg !722"
+			]
+		},
+		{
+			"function": "_syntaxerror_range",
+			"id": 16,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [17, 18],
+			"ir": [
+				"%dec.i.i = add i64 %op.val.i.i, -1, !dbg !723",
+				"store i64 %dec.i.i, ptr %call, align 8, !dbg !723, !tbaa !664",
+				"%cmp.i.i = icmp eq i64 %dec.i.i, 0, !dbg !724",
+				"br i1 %cmp.i.i, label %if.then1.i.i, label %Py_XDECREF.exit, !dbg !725"
+			]
+		},
+		{
+			"function": "_syntaxerror_range",
+			"id": 17,
+			"name": "if.then1.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [18],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call) #11, !dbg !726",
+				"br label %Py_XDECREF.exit, !dbg !727"
+			]
+		},
+		{
+			"function": "_syntaxerror_range",
+			"id": 18,
+			"name": "Py_XDECREF.exit",
+			"debug": [
+				{
+					"line": 59, "columns": [15]
+				}
+			],
+			"successors": [19],
+			"ir": [
+				"store i32 17, ptr %done, align 8, !dbg !728, !tbaa !613",
+				"br label %return"
+			]
+		},
+		{
+			"function": "_syntaxerror_range",
+			"id": 19,
+			"name": "return",
+			"debug": [
+				{
+					"line": 61, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !729"
+			]
+		},
+		{
+			"function": "_PyTokenizer_syntaxerror_known_range",
+			"id": 20,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 79, "columns": [5, 13]
+				},
+				{
+					"line": 80, "columns": [5]
+				},
+				{
+					"line": 81, "columns": [15]
+				},
+				{
+					"line": 82, "columns": [5]
+				},
+				{
+					"line": 83, "columns": [5]
+				},
+				{
+					"line": 84, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%vargs = alloca [1 x %struct.__va_list_tag], align 16",
+				"call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %vargs) #11, !dbg !612",
+				"call void @llvm.va_start(ptr nonnull %vargs), !dbg !614",
+				"call fastcc void @_syntaxerror_range(ptr noundef %tok, ptr noundef %format, i32 noundef %col_offset, i32 noundef %end_col_offset, ptr noundef nonnull %vargs), !dbg !615",
+				"call void @llvm.va_end(ptr nonnull %vargs), !dbg !616",
+				"call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %vargs) #11, !dbg !617",
+				"ret i32 64, !dbg !618"
+			]
+		},
+		{
+			"function": "_PyTokenizer_indenterror",
+			"id": 21,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 89, "columns": [10, 15]
+				},
+				{
+					"line": 90, "columns": [21, 10, 14]
+				},
+				{
+					"line": 91, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%done = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 8, !dbg !592",
+				"store i32 18, ptr %done, align 8, !dbg !593, !tbaa !594",
+				"%inp = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 2, !dbg !600",
+				"%0 = load ptr, ptr %inp, align 8, !dbg !600, !tbaa !601",
+				"%cur = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 1, !dbg !602",
+				"store ptr %0, ptr %cur, align 8, !dbg !603, !tbaa !604",
+				"ret i32 64, !dbg !605"
+			]
+		},
+		{
+			"function": "_PyTokenizer_error_ret",
+			"id": 22,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 97, "columns": [10, 25]
+				},
+				{
+					"line": 98, "columns": [15, 18, 26]
+				}
+			],
+			"successors": [23, 24],
+			"ir": [
+				"%decoding_erred = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 28, !dbg !594",
+				"store i32 1, ptr %decoding_erred, align 4, !dbg !595, !tbaa !596",
+				"%fp = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 9, !dbg !602",
+				"%0 = load ptr, ptr %fp, align 8, !dbg !602, !tbaa !604",
+				"%cmp.not = icmp eq ptr %0, null, !dbg !605",
+				"br i1 %cmp.not, label %lor.lhs.false, label %land.lhs.true, !dbg !606"
+			]
+		},
+		{
+			"function": "_PyTokenizer_error_ret",
+			"id": 23,
+			"name": "lor.lhs.false",
+			"debug": [
+				{
+					"line": 98, "columns": [34, 43, 52]
+				}
+			],
+			"successors": [26, 24],
+			"ir": [
+				"%readline = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 35, !dbg !607",
+				"%1 = load ptr, ptr %readline, align 8, !dbg !607, !tbaa !608",
+				"%cmp1.not = icmp eq ptr %1, null, !dbg !609",
+				"br i1 %cmp1.not, label %if.end, label %land.lhs.true, !dbg !610"
+			]
+		},
+		{
+			"function": "_PyTokenizer_error_ret",
+			"id": 24,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 98, "columns": [60, 64, 9]
+				}
+			],
+			"successors": [26, 25],
+			"ir": [
+				"%2 = load ptr, ptr %tok, align 8, !dbg !611, !tbaa !612",
+				"%cmp2.not = icmp eq ptr %2, null, !dbg !613",
+				"br i1 %cmp2.not, label %if.end, label %if.then, !dbg !614"
+			]
+		},
+		{
+			"function": "_PyTokenizer_error_ret",
+			"id": 25,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 99, "columns": [9]
+				},
+				{
+					"line": 100, "columns": [5]
+				}
+			],
+			"successors": [26],
+			"ir": [
+				"tail call void @PyMem_Free(ptr noundef nonnull %2) #11, !dbg !615",
+				"br label %if.end, !dbg !617"
+			]
+		},
+		{
+			"function": "_PyTokenizer_error_ret",
+			"id": 26,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 101, "columns": [25]
+				},
+				{
+					"line": 102, "columns": [16]
+				},
+				{
+					"line": 103, "columns": [10]
+				},
+				{
+					"line": 104, "columns": [10, 15]
+				},
+				{
+					"line": 105, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%end = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 6, !dbg !618",
+				"%done = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 8, !dbg !619",
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %tok, i8 0, i64 24, i1 false), !dbg !620",
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %end, i8 0, i64 16, i1 false), !dbg !621",
+				"store i32 22, ptr %done, align 8, !dbg !622, !tbaa !623",
+				"ret ptr null, !dbg !624"
+			]
+		},
+		{
+			"function": "_PyTokenizer_warn_invalid_escape_sequence",
+			"id": 27,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 111, "columns": [15, 10, 9]
+				}
+			],
+			"successors": [38, 28],
+			"ir": [
+				"%report_warnings = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 42, !dbg !596",
+				"%0 = load i32, ptr %report_warnings, align 8, !dbg !596, !tbaa !598",
+				"%tobool.not = icmp eq i32 %0, 0, !dbg !604",
+				"br i1 %tobool.not, label %return, label %if.end, !dbg !605"
+			]
+		},
+		{
+			"function": "_PyTokenizer_warn_invalid_escape_sequence",
+			"id": 28,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 115, "columns": [21]
+				},
+				{
+					"line": 117, "columns": [9]
+				},
+				{
+					"line": 120, "columns": [13, 9]
+				}
+			],
+			"successors": [38, 29],
+			"ir": [
+				"%sext = shl i32 %first_invalid_escape_char, 24, !dbg !606",
+				"%conv1 = ashr exact i32 %sext, 24, !dbg !606",
+				"%call = tail call ptr (ptr, ...) @PyUnicode_FromFormat(ptr noundef nonnull @.str, i32 noundef %conv1) #11, !dbg !607",
+				"%cmp = icmp eq ptr %call, null, !dbg !608",
+				"br i1 %cmp, label %return, label %if.end4, !dbg !610"
+			]
+		},
+		{
+			"function": "_PyTokenizer_warn_invalid_escape_sequence",
+			"id": 29,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 124, "columns": [34, 65, 9]
+				},
+				{
+					"line": 125, "columns": [39, 59]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [30, 35],
+			"ir": [
+				"%1 = load ptr, ptr @PyExc_SyntaxWarning, align 8, !dbg !611, !tbaa !613",
+				"%filename = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 25, !dbg !614",
+				"%2 = load ptr, ptr %filename, align 8, !dbg !614, !tbaa !615",
+				"%lineno = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 17, !dbg !616",
+				"%3 = load i32, ptr %lineno, align 8, !dbg !616, !tbaa !617",
+				"%call5 = tail call i32 @PyErr_WarnExplicitObject(ptr noundef %1, ptr noundef nonnull %call, ptr noundef %2, i32 noundef %3, ptr noundef null, ptr noundef null) #11, !dbg !618",
+				"%cmp6 = icmp slt i32 %call5, 0, !dbg !619",
+				"%op.val.i = load i64, ptr %call, align 8, !dbg !628, !tbaa !630",
+				"%4 = and i64 %op.val.i, 2147483648, !dbg !638",
+				"%cmp.i.not.i = icmp eq i64 %4, 0, !dbg !638",
+				"br i1 %cmp6, label %if.then8, label %if.end16, !dbg !639"
+			]
+		},
+		{
+			"function": "_PyTokenizer_warn_invalid_escape_sequence",
+			"id": 30,
+			"name": "if.then8",
+			"debug": [
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [31, 33],
+			"ir": [
+				"br i1 %cmp.i.not.i, label %if.end.i, label %Py_DECREF.exit, !dbg !640"
+			]
+		},
+		{
+			"function": "_PyTokenizer_warn_invalid_escape_sequence",
+			"id": 31,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [32, 33],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !641",
+				"store i64 %dec.i, ptr %call, align 8, !dbg !641, !tbaa !630",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !643",
+				"br i1 %cmp.i, label %if.then1.i, label %Py_DECREF.exit, !dbg !644"
+			]
+		},
+		{
+			"function": "_PyTokenizer_warn_invalid_escape_sequence",
+			"id": 32,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [33],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call) #11, !dbg !645",
+				"br label %Py_DECREF.exit, !dbg !647"
+			]
+		},
+		{
+			"function": "_PyTokenizer_warn_invalid_escape_sequence",
+			"id": 33,
+			"name": "Py_DECREF.exit",
+			"debug": [
+				{
+					"line": 128, "columns": [36, 13]
+				}
+			],
+			"successors": [38, 34],
+			"ir": [
+				"%5 = load ptr, ptr @PyExc_SyntaxWarning, align 8, !dbg !648, !tbaa !613",
+				"%call9 = tail call i32 @PyErr_ExceptionMatches(ptr noundef %5) #11, !dbg !650",
+				"%tobool10.not = icmp eq i32 %call9, 0, !dbg !650",
+				"br i1 %tobool10.not, label %return, label %if.then11, !dbg !651"
+			]
+		},
+		{
+			"function": "_PyTokenizer_warn_invalid_escape_sequence",
+			"id": 34,
+			"name": "if.then11",
+			"debug": [
+				{
+					"line": 131, "columns": [13]
+				},
+				{
+					"line": 132, "columns": [20, 13]
+				}
+			],
+			"successors": [38],
+			"ir": [
+				"tail call void @PyErr_Clear() #11, !dbg !652",
+				"%call14 = tail call i32 (ptr, ptr, ...) @_PyTokenizer_syntaxerror(ptr noundef nonnull %tok, ptr noundef nonnull @.str, i32 noundef %conv1), !dbg !654",
+				"br label %return, !dbg !655"
+			]
+		},
+		{
+			"function": "_PyTokenizer_warn_invalid_escape_sequence",
+			"id": 35,
+			"name": "if.end16",
+			"debug": [
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [36, 38],
+			"ir": [
+				"br i1 %cmp.i.not.i, label %if.end.i28, label %return, !dbg !656"
+			]
+		},
+		{
+			"function": "_PyTokenizer_warn_invalid_escape_sequence",
+			"id": 36,
+			"name": "if.end.i28",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [37, 38],
+			"ir": [
+				"%dec.i26 = add i64 %op.val.i, -1, !dbg !657",
+				"store i64 %dec.i26, ptr %call, align 8, !dbg !657, !tbaa !630",
+				"%cmp.i27 = icmp eq i64 %dec.i26, 0, !dbg !658",
+				"br i1 %cmp.i27, label %if.then1.i29, label %return, !dbg !659"
+			]
+		},
+		{
+			"function": "_PyTokenizer_warn_invalid_escape_sequence",
+			"id": 37,
+			"name": "if.then1.i29",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [38],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call) #11, !dbg !660",
+				"br label %return, !dbg !661"
+			]
+		},
+		{
+			"function": "_PyTokenizer_warn_invalid_escape_sequence",
+			"id": 38,
+			"name": "return",
+			"debug": [
+				{
+					"line": 140, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi i32 [ 0, %entry ], [ 64, %if.then11 ], [ -1, %if.end ], [ -1, %Py_DECREF.exit ], [ 0, %if.end16 ], [ 0, %if.end.i28 ], [ 0, %if.then1.i29 ], !dbg !595",
+				"ret i32 %retval.1, !dbg !662"
+			]
+		},
+		{
+			"function": "_PyTokenizer_parser_warn",
+			"id": 39,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 145, "columns": [15, 10, 9]
+				}
+			],
+			"successors": [52, 40],
+			"ir": [
+				"%vargs = alloca [1 x %struct.__va_list_tag], align 16",
+				"%report_warnings = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 42, !dbg !612",
+				"%0 = load i32, ptr %report_warnings, align 8, !dbg !612, !tbaa !614",
+				"%tobool.not = icmp eq i32 %0, 0, !dbg !620",
+				"br i1 %tobool.not, label %return, label %if.end, !dbg !621"
+			]
+		},
+		{
+			"function": "_PyTokenizer_parser_warn",
+			"id": 40,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 150, "columns": [5, 13]
+				},
+				{
+					"line": 151, "columns": [5]
+				},
+				{
+					"line": 152, "columns": [14]
+				},
+				{
+					"line": 153, "columns": [5]
+				},
+				{
+					"line": 154, "columns": [10, 9]
+				}
+			],
+			"successors": [50, 41],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %vargs) #11, !dbg !622",
+				"call void @llvm.va_start(ptr nonnull %vargs), !dbg !624",
+				"%call = call ptr @PyUnicode_FromFormatV(ptr noundef %format, ptr noundef nonnull %vargs) #11, !dbg !625",
+				"call void @llvm.va_end(ptr nonnull %vargs), !dbg !626",
+				"%tobool3.not = icmp eq ptr %call, null, !dbg !627",
+				"br i1 %tobool3.not, label %Py_XDECREF.exit, label %if.end5, !dbg !629"
+			]
+		},
+		{
+			"function": "_PyTokenizer_parser_warn",
+			"id": 41,
+			"name": "if.end5",
+			"debug": [
+				{
+					"line": 158, "columns": [57, 9]
+				},
+				{
+					"line": 159, "columns": [39, 59]
+				}
+			],
+			"successors": [42, 44],
+			"ir": [
+				"%filename = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 25, !dbg !630",
+				"%1 = load ptr, ptr %filename, align 8, !dbg !630, !tbaa !632",
+				"%lineno = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 17, !dbg !633",
+				"%2 = load i32, ptr %lineno, align 8, !dbg !633, !tbaa !634",
+				"%call6 = call i32 @PyErr_WarnExplicitObject(ptr noundef %category, ptr noundef nonnull %call, ptr noundef %1, i32 noundef %2, ptr noundef null, ptr noundef null) #11, !dbg !635",
+				"%cmp = icmp slt i32 %call6, 0, !dbg !636",
+				"br i1 %cmp, label %if.then7, label %if.end13, !dbg !637"
+			]
+		},
+		{
+			"function": "_PyTokenizer_parser_warn",
+			"id": 42,
+			"name": "if.then7",
+			"debug": [
+				{
+					"line": 160, "columns": [13]
+				}
+			],
+			"successors": [47, 43],
+			"ir": [
+				"%call8 = call i32 @PyErr_ExceptionMatches(ptr noundef %category) #11, !dbg !638",
+				"%tobool9.not = icmp eq i32 %call8, 0, !dbg !638",
+				"br i1 %tobool9.not, label %if.then.i, label %if.then10, !dbg !641"
+			]
+		},
+		{
+			"function": "_PyTokenizer_parser_warn",
+			"id": 43,
+			"name": "if.then10",
+			"debug": [
+				{
+					"line": 163, "columns": [13]
+				},
+				{
+					"line": 164, "columns": [13]
+				},
+				{
+					"line": 165, "columns": [9]
+				}
+			],
+			"successors": [47],
+			"ir": [
+				"call void @PyErr_Clear() #11, !dbg !642",
+				"%call11 = call i32 (ptr, ptr, ...) @_PyTokenizer_syntaxerror(ptr noundef nonnull %tok, ptr noundef nonnull @.str.1, ptr noundef nonnull %call), !dbg !644",
+				"br label %if.then.i, !dbg !645"
+			]
+		},
+		{
+			"function": "_PyTokenizer_parser_warn",
+			"id": 44,
+			"name": "if.end13",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [45, 51],
+			"ir": [
+				"%op.val.i = load i64, ptr %call, align 8, !dbg !651, !tbaa !653",
+				"%3 = and i64 %op.val.i, 2147483648, !dbg !659",
+				"%cmp.i.not.i = icmp eq i64 %3, 0, !dbg !659",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %cleanup, !dbg !660"
+			]
+		},
+		{
+			"function": "_PyTokenizer_parser_warn",
+			"id": 45,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [46, 51],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !661",
+				"store i64 %dec.i, ptr %call, align 8, !dbg !661, !tbaa !653",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !663",
+				"br i1 %cmp.i, label %if.then1.i, label %cleanup, !dbg !664"
+			]
+		},
+		{
+			"function": "_PyTokenizer_parser_warn",
+			"id": 46,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [51],
+			"ir": [
+				"call void @_Py_Dealloc(ptr noundef nonnull %call) #11, !dbg !665",
+				"br label %cleanup, !dbg !667"
+			]
+		},
+		{
+			"function": "_PyTokenizer_parser_warn",
+			"id": 47,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 171, "columns": [1]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [48, 50],
+			"ir": [
+				"%op.val.i.i = load i64, ptr %call, align 8, !dbg !678, !tbaa !653",
+				"%4 = and i64 %op.val.i.i, 2147483648, !dbg !681",
+				"%cmp.i.not.i.i = icmp eq i64 %4, 0, !dbg !681",
+				"br i1 %cmp.i.not.i.i, label %if.end.i.i, label %Py_XDECREF.exit, !dbg !682"
+			]
+		},
+		{
+			"function": "_PyTokenizer_parser_warn",
+			"id": 48,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [49, 50],
+			"ir": [
+				"%dec.i.i = add i64 %op.val.i.i, -1, !dbg !683",
+				"store i64 %dec.i.i, ptr %call, align 8, !dbg !683, !tbaa !653",
+				"%cmp.i.i = icmp eq i64 %dec.i.i, 0, !dbg !684",
+				"br i1 %cmp.i.i, label %if.then1.i.i, label %Py_XDECREF.exit, !dbg !685"
+			]
+		},
+		{
+			"function": "_PyTokenizer_parser_warn",
+			"id": 49,
+			"name": "if.then1.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [50],
+			"ir": [
+				"call void @_Py_Dealloc(ptr noundef nonnull %call) #11, !dbg !686",
+				"br label %Py_XDECREF.exit, !dbg !687"
+			]
+		},
+		{
+			"function": "_PyTokenizer_parser_warn",
+			"id": 50,
+			"name": "Py_XDECREF.exit",
+			"debug": [
+				{
+					"line": 173, "columns": [10, 15]
+				},
+				{
+					"line": 174, "columns": [5]
+				}
+			],
+			"successors": [51],
+			"ir": [
+				"%done = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 8, !dbg !688",
+				"store i32 17, ptr %done, align 8, !dbg !689, !tbaa !690",
+				"br label %cleanup, !dbg !691"
+			]
+		},
+		{
+			"function": "_PyTokenizer_parser_warn",
+			"id": 51,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 175, "columns": [1]
+				}
+			],
+			"successors": [52],
+			"ir": [
+				"%retval.0 = phi i32 [ -1, %Py_XDECREF.exit ], [ 0, %if.end13 ], [ 0, %if.end.i ], [ 0, %if.then1.i ], !dbg !611",
+				"call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %vargs) #11, !dbg !692",
+				"br label %return"
+			]
+		},
+		{
+			"function": "_PyTokenizer_parser_warn",
+			"id": 52,
+			"name": "return",
+			"debug": [
+				{
+					"line": 175, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi i32 [ %retval.0, %cleanup ], [ 0, %entry ], !dbg !611",
+				"ret i32 %retval.1, !dbg !692"
+			]
+		},
+		{
+			"function": "_PyTokenizer_new_string",
+			"id": 53,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 183, "columns": [45, 28]
+				},
+				{
+					"line": 184, "columns": [10, 9]
+				}
+			],
+			"successors": [54, 55],
+			"ir": [
+				"%add = add i64 %len, 1, !dbg !597",
+				"%call = tail call ptr @PyMem_Malloc(i64 noundef %add) #11, !dbg !598",
+				"%tobool.not = icmp eq ptr %call, null, !dbg !599",
+				"br i1 %tobool.not, label %if.then, label %if.end, !dbg !601"
+			]
+		},
+		{
+			"function": "_PyTokenizer_new_string",
+			"id": 54,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 185, "columns": [14, 19]
+				},
+				{
+					"line": 186, "columns": [9]
+				}
+			],
+			"successors": [56],
+			"ir": [
+				"%done = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 8, !dbg !602",
+				"store i32 15, ptr %done, align 8, !dbg !604, !tbaa !605",
+				"br label %cleanup, !dbg !611"
+			]
+		},
+		{
+			"function": "_PyTokenizer_new_string",
+			"id": 55,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 188, "columns": [5]
+				},
+				{
+					"line": 189, "columns": [5, 17]
+				},
+				{
+					"line": 190, "columns": [5]
+				}
+			],
+			"successors": [56],
+			"ir": [
+				"tail call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 1 %call, ptr align 1 %s, i64 %len, i1 false), !dbg !612",
+				"%arrayidx = getelementptr i8, ptr %call, i64 %len, !dbg !613",
+				"store i8 0, ptr %arrayidx, align 1, !dbg !614, !tbaa !615",
+				"br label %cleanup, !dbg !616"
+			]
+		},
+		{
+			"function": "_PyTokenizer_new_string",
+			"id": 56,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 191, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret ptr %call, !dbg !617"
+			]
+		},
+		{
+			"function": "_PyTokenizer_translate_into_utf8",
+			"id": 57,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 196, "columns": [43, 21]
+				},
+				{
+					"line": 197, "columns": [13, 9]
+				}
+			],
+			"successors": [61, 58],
+			"ir": [
+				"%call = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %str) #11, !dbg !462",
+				"%call1 = tail call ptr @PyUnicode_Decode(ptr noundef %str, i64 noundef %call, ptr noundef %enc, ptr noundef null) #12, !dbg !463",
+				"%cmp = icmp eq ptr %call1, null, !dbg !464",
+				"br i1 %cmp, label %cleanup, label %if.end, !dbg !466"
+			]
+		},
+		{
+			"function": "_PyTokenizer_translate_into_utf8",
+			"id": 58,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 199, "columns": [12]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [59, 61],
+			"ir": [
+				"%call2 = tail call ptr @PyUnicode_AsUTF8String(ptr noundef nonnull %call1) #12, !dbg !467",
+				"%op.val.i = load i64, ptr %call1, align 8, !dbg !473, !tbaa !475",
+				"%0 = and i64 %op.val.i, 2147483648, !dbg !483",
+				"%cmp.i.not.i = icmp eq i64 %0, 0, !dbg !483",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %cleanup, !dbg !484"
+			]
+		},
+		{
+			"function": "_PyTokenizer_translate_into_utf8",
+			"id": 59,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [60, 61],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !485",
+				"store i64 %dec.i, ptr %call1, align 8, !dbg !485, !tbaa !475",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !487",
+				"br i1 %cmp.i, label %if.then1.i, label %cleanup, !dbg !488"
+			]
+		},
+		{
+			"function": "_PyTokenizer_translate_into_utf8",
+			"id": 60,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [61],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call1) #12, !dbg !489",
+				"br label %cleanup, !dbg !491"
+			]
+		},
+		{
+			"function": "_PyTokenizer_translate_into_utf8",
+			"id": 61,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 202, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ null, %entry ], [ %call2, %if.end ], [ %call2, %if.end.i ], [ %call2, %if.then1.i ], !dbg !461",
+				"ret ptr %retval.0, !dbg !492"
+			]
+		},
+		{
+			"function": "_PyTokenizer_translate_newlines",
+			"id": 62,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 208, "columns": [28, 38]
+				},
+				{
+					"line": 211, "columns": [11]
+				},
+				{
+					"line": 212, "columns": [13, 9]
+				}
+			],
+			"successors": [65, 63],
+			"ir": [
+				"%call = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %s) #11, !dbg !606",
+				"%add = add i64 %call, 2, !dbg !607",
+				"%call1 = tail call ptr @PyMem_Malloc(i64 noundef %add) #12, !dbg !608",
+				"%cmp = icmp eq ptr %call1, null, !dbg !609",
+				"br i1 %cmp, label %if.then, label %for.cond.preheader, !dbg !611"
+			]
+		},
+		{
+			"function": "_PyTokenizer_translate_newlines",
+			"id": 63,
+			"name": "for.cond.preheader",
+			"debug": [
+				{
+					"line": 216, "columns": [25, 5]
+				}
+			],
+			"successors": [69, 64],
+			"ir": [
+				"%0 = load i8, ptr %s, align 1, !dbg !612, !tbaa !615",
+				"%tobool.not86 = icmp eq i8 %0, 0, !dbg !618",
+				"br i1 %tobool.not86, label %for.end, label %for.body.lr.ph, !dbg !618"
+			]
+		},
+		{
+			"function": "_PyTokenizer_translate_newlines",
+			"id": 64,
+			"name": "for.body.lr.ph",
+			"debug": [
+				{
+					"line": 216, "columns": [5]
+				}
+			],
+			"successors": [66],
+			"ir": [
+				"%tobool12 = icmp eq i32 %preserve_crlf, 0",
+				"br label %for.body, !dbg !618"
+			]
+		},
+		{
+			"function": "_PyTokenizer_translate_newlines",
+			"id": 65,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 213, "columns": [14, 19]
+				},
+				{
+					"line": 214, "columns": [9]
+				}
+			],
+			"successors": [75],
+			"ir": [
+				"%done = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 8, !dbg !619",
+				"store i32 15, ptr %done, align 8, !dbg !621, !tbaa !622",
+				"br label %cleanup, !dbg !626"
+			]
+		},
+		{
+			"function": "_PyTokenizer_translate_newlines",
+			"id": 66,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 218, "columns": [13]
+				}
+			],
+			"successors": [67, 68],
+			"ir": [
+				"%1 = phi i8 [ %0, %for.body.lr.ph ], [ %3, %if.end11 ]",
+				"%current.089 = phi ptr [ %call1, %for.body.lr.ph ], [ %incdec.ptr19, %if.end11 ]",
+				"%s.addr.088 = phi ptr [ %s, %for.body.lr.ph ], [ %incdec.ptr18, %if.end11 ]",
+				"%skip_next_lf.087 = phi i1 [ false, %for.body.lr.ph ], [ %or.cond, %if.end11 ]",
+				"%cmp4 = icmp eq i8 %1, 10",
+				"%or.cond76 = and i1 %skip_next_lf.087, %cmp4, !dbg !627",
+				"br i1 %or.cond76, label %if.then6, label %if.end11, !dbg !627"
+			]
+		},
+		{
+			"function": "_PyTokenizer_translate_newlines",
+			"id": 67,
+			"name": "if.then6",
+			"debug": [
+				{
+					"line": 221, "columns": [22, 21]
+				},
+				{
+					"line": 222, "columns": [22, 21]
+				}
+			],
+			"successors": [72, 68],
+			"ir": [
+				"%incdec.ptr = getelementptr i8, ptr %s.addr.088, i64 1, !dbg !629",
+				"%2 = load i8, ptr %incdec.ptr, align 1, !dbg !634, !tbaa !615",
+				"%tobool7.not = icmp eq i8 %2, 0, !dbg !635",
+				"br i1 %tobool7.not, label %if.end31, label %if.end11, !dbg !637"
+			]
+		},
+		{
+			"function": "_PyTokenizer_translate_newlines",
+			"id": 68,
+			"name": "if.end11",
+			"debug": [
+				{
+					"line": 216, "columns": [30, 41, 25, 5]
+				},
+				{
+					"line": 226, "columns": [28]
+				},
+				{
+					"line": 230, "columns": [18]
+				}
+			],
+			"successors": [69, 66],
+			"ir": [
+				"%s.addr.1 = phi ptr [ %incdec.ptr, %if.then6 ], [ %s.addr.088, %for.body ]",
+				"%c.1 = phi i8 [ %2, %if.then6 ], [ %1, %for.body ], !dbg !638",
+				"%cmp14 = icmp eq i8 %c.1, 13",
+				"%or.cond = and i1 %tobool12, %cmp14, !dbg !639",
+				"%spec.select77 = select i1 %or.cond, i8 10, i8 %c.1, !dbg !639",
+				"store i8 %spec.select77, ptr %current.089, align 1, !dbg !641, !tbaa !615",
+				"%incdec.ptr18 = getelementptr i8, ptr %s.addr.1, i64 1, !dbg !642",
+				"%incdec.ptr19 = getelementptr i8, ptr %current.089, i64 1, !dbg !643",
+				"%3 = load i8, ptr %incdec.ptr18, align 1, !dbg !612, !tbaa !615",
+				"%tobool.not = icmp eq i8 %3, 0, !dbg !618",
+				"br i1 %tobool.not, label %for.end, label %for.body, !dbg !618, !llvm.loop !644"
+			]
+		},
+		{
+			"function": "_PyTokenizer_translate_newlines",
+			"id": 69,
+			"name": "for.end",
+			"debug": [
+				{
+					"line": 216, "columns": [0]
+				},
+				{
+					"line": 234, "columns": [9, 20]
+				}
+			],
+			"successors": [72, 70],
+			"ir": [
+				"%current.0.lcssa = phi ptr [ %call1, %for.cond.preheader ], [ %incdec.ptr19, %if.end11 ], !dbg !647",
+				"%c.0.lcssa = phi i8 [ 0, %for.cond.preheader ], [ %spec.select77, %if.end11 ], !dbg !605",
+				"%tobool20.not = icmp eq i32 %exec_input, 0, !dbg !648",
+				"br i1 %tobool20.not, label %if.end31, label %switch.early.test, !dbg !650"
+			]
+		},
+		{
+			"function": "_PyTokenizer_translate_newlines",
+			"id": 70,
+			"name": "switch.early.test",
+			"debug": [
+				{
+					"line": 234, "columns": [20]
+				}
+			],
+			"successors": [71, 72, 72],
+			"ir": [
+				"switch i8 %c.0.lcssa, label %if.then29 [\n    i8 10, label %if.end31\n    i8 0, label %if.end31\n  ], !dbg !650"
+			]
+		},
+		{
+			"function": "_PyTokenizer_translate_newlines",
+			"id": 71,
+			"name": "if.then29",
+			"debug": [
+				{
+					"line": 235, "columns": [18]
+				},
+				{
+					"line": 236, "columns": [16]
+				},
+				{
+					"line": 237, "columns": [5]
+				}
+			],
+			"successors": [72],
+			"ir": [
+				"store i8 10, ptr %current.0.lcssa, align 1, !dbg !651, !tbaa !615",
+				"%incdec.ptr30 = getelementptr i8, ptr %current.0.lcssa, i64 1, !dbg !653",
+				"br label %if.end31, !dbg !654"
+			]
+		},
+		{
+			"function": "_PyTokenizer_translate_newlines",
+			"id": 72,
+			"name": "if.end31",
+			"debug": [
+				{
+					"line": 238, "columns": [14]
+				},
+				{
+					"line": 239, "columns": [28, 34]
+				},
+				{
+					"line": 240, "columns": [22, 38]
+				}
+			],
+			"successors": [73, 75],
+			"ir": [
+				"%current.1 = phi ptr [ %incdec.ptr30, %if.then29 ], [ %current.0.lcssa, %switch.early.test ], [ %current.0.lcssa, %for.end ], [ %current.0.lcssa, %switch.early.test ], [ %current.089, %if.then6 ], !dbg !605",
+				"store i8 0, ptr %current.1, align 1, !dbg !655, !tbaa !615",
+				"%sub.ptr.lhs.cast = ptrtoint ptr %current.1 to i64, !dbg !656",
+				"%sub.ptr.rhs.cast = ptrtoint ptr %call1 to i64, !dbg !656",
+				"%sub.ptr.sub = sub i64 %sub.ptr.lhs.cast, %sub.ptr.rhs.cast, !dbg !656",
+				"%add32 = add i64 %sub.ptr.sub, 1, !dbg !657",
+				"%cmp33 = icmp ult i64 %add32, %add, !dbg !658",
+				"%tobool36 = icmp ne i64 %add32, 0",
+				"%or.cond51 = and i1 %cmp33, %tobool36, !dbg !659",
+				"br i1 %or.cond51, label %if.then37, label %cleanup, !dbg !659"
+			]
+		},
+		{
+			"function": "_PyTokenizer_translate_newlines",
+			"id": 73,
+			"name": "if.then37",
+			"debug": [
+				{
+					"line": 242, "columns": [24]
+				},
+				{
+					"line": 243, "columns": [20, 13]
+				}
+			],
+			"successors": [74, 75],
+			"ir": [
+				"%call38 = tail call ptr @PyMem_Realloc(ptr noundef nonnull %call1, i64 noundef %add32) #12, !dbg !660",
+				"%cmp39 = icmp eq ptr %call38, null, !dbg !662",
+				"br i1 %cmp39, label %if.then41, label %cleanup, !dbg !664"
+			]
+		},
+		{
+			"function": "_PyTokenizer_translate_newlines",
+			"id": 74,
+			"name": "if.then41",
+			"debug": [
+				{
+					"line": 244, "columns": [13]
+				},
+				{
+					"line": 245, "columns": [9]
+				}
+			],
+			"successors": [75],
+			"ir": [
+				"tail call void @PyMem_Free(ptr noundef nonnull %call1) #12, !dbg !665",
+				"br label %cleanup, !dbg !667"
+			]
+		},
+		{
+			"function": "_PyTokenizer_translate_newlines",
+			"id": 75,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 249, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ null, %if.then ], [ %call1, %if.end31 ], [ null, %if.then41 ], [ %call38, %if.then37 ], !dbg !605",
+				"ret ptr %retval.0, !dbg !668"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_bom",
+			"id": 76,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 264, "columns": [11]
+				},
+				{
+					"line": 265, "columns": [10, 25]
+				},
+				{
+					"line": 266, "columns": [9]
+				}
+			],
+			"successors": [81, 88, 77],
+			"ir": [
+				"%call = tail call i32 %get_char(ptr noundef %tok) #11, !dbg !606",
+				"%decoding_state = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 27, !dbg !607",
+				"store i32 1, ptr %decoding_state, align 8, !dbg !608, !tbaa !609",
+				"switch i32 %call, label %if.else10 [\n    i32 -1, label %cleanup\n    i32 239, label %if.then2\n  ], !dbg !615"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_bom",
+			"id": 77,
+			"name": "if.then2",
+			"debug": [
+				{
+					"line": 269, "columns": [15]
+				},
+				{
+					"line": 270, "columns": [17, 13]
+				}
+			],
+			"successors": [79, 78],
+			"ir": [
+				"%call3 = tail call i32 %get_char(ptr noundef nonnull %tok) #11, !dbg !616",
+				"%cmp4.not = icmp eq i32 %call3, 187, !dbg !620",
+				"br i1 %cmp4.not, label %if.end, label %if.then5, !dbg !622"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_bom",
+			"id": 78,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 271, "columns": [13]
+				},
+				{
+					"line": 272, "columns": [13]
+				},
+				{
+					"line": 273, "columns": [13]
+				}
+			],
+			"successors": [88],
+			"ir": [
+				"tail call void %unget_char(i32 noundef %call3, ptr noundef nonnull %tok) #11, !dbg !623",
+				"tail call void %unget_char(i32 noundef 239, ptr noundef nonnull %tok) #11, !dbg !625",
+				"br label %cleanup, !dbg !626"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_bom",
+			"id": 79,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 275, "columns": [15]
+				},
+				{
+					"line": 276, "columns": [17, 13]
+				}
+			],
+			"successors": [82, 80],
+			"ir": [
+				"%call6 = tail call i32 %get_char(ptr noundef nonnull %tok) #11, !dbg !627",
+				"%cmp7.not = icmp eq i32 %call6, 191, !dbg !628",
+				"br i1 %cmp7.not, label %if.end12, label %if.then8, !dbg !630"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_bom",
+			"id": 80,
+			"name": "if.then8",
+			"debug": [
+				{
+					"line": 277, "columns": [13]
+				},
+				{
+					"line": 278, "columns": [13]
+				},
+				{
+					"line": 279, "columns": [13]
+				},
+				{
+					"line": 280, "columns": [13]
+				}
+			],
+			"successors": [88],
+			"ir": [
+				"tail call void %unget_char(i32 noundef %call6, ptr noundef nonnull %tok) #11, !dbg !631",
+				"tail call void %unget_char(i32 noundef 187, ptr noundef nonnull %tok) #11, !dbg !633",
+				"tail call void %unget_char(i32 noundef 239, ptr noundef nonnull %tok) #11, !dbg !634",
+				"br label %cleanup, !dbg !635"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_bom",
+			"id": 81,
+			"name": "if.else10",
+			"debug": [
+				{
+					"line": 283, "columns": [9]
+				},
+				{
+					"line": 284, "columns": [9]
+				}
+			],
+			"successors": [88],
+			"ir": [
+				"tail call void %unget_char(i32 noundef %call, ptr noundef nonnull %tok) #11, !dbg !636",
+				"br label %cleanup, !dbg !638"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_bom",
+			"id": 82,
+			"name": "if.end12",
+			"debug": [
+				{
+					"line": 286, "columns": [14, 23, 9]
+				}
+			],
+			"successors": [84, 83],
+			"ir": [
+				"%encoding = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 29, !dbg !639",
+				"%0 = load ptr, ptr %encoding, align 8, !dbg !639, !tbaa !641",
+				"%cmp13.not = icmp eq ptr %0, null, !dbg !642",
+				"br i1 %cmp13.not, label %if.end16, label %if.then14, !dbg !643"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_bom",
+			"id": 83,
+			"name": "if.then14",
+			"debug": [
+				{
+					"line": 287, "columns": [9]
+				}
+			],
+			"successors": [84],
+			"ir": [
+				"tail call void @PyMem_Free(ptr noundef nonnull %0) #11, !dbg !644",
+				"br label %if.end16, !dbg !644"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_bom",
+			"id": 84,
+			"name": "if.end16",
+			"debug": [
+				{
+					"line": 183, "columns": [28]
+				},
+				{
+					"line": 184, "columns": [10, 9]
+				}
+			],
+			"successors": [86, 85],
+			"ir": [
+				"%call.i = tail call ptr @PyMem_Malloc(i64 noundef 6) #11, !dbg !655",
+				"%tobool.not.i = icmp ne ptr %call.i, null, !dbg !656",
+				"br i1 %tobool.not.i, label %if.end.i, label %if.then.i, !dbg !658"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_bom",
+			"id": 85,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 185, "columns": [14, 19]
+				},
+				{
+					"line": 186, "columns": [9]
+				}
+			],
+			"successors": [87],
+			"ir": [
+				"%done.i = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 8, !dbg !659",
+				"store i32 15, ptr %done.i, align 8, !dbg !661, !tbaa !662",
+				"br label %_PyTokenizer_new_string.exit, !dbg !663"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_bom",
+			"id": 86,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 188, "columns": [5]
+				},
+				{
+					"line": 189, "columns": [5, 17]
+				},
+				{
+					"line": 190, "columns": [5]
+				}
+			],
+			"successors": [87],
+			"ir": [
+				"tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(5) %call.i, ptr noundef nonnull align 1 dereferenceable(5) @.str.2, i64 5, i1 false), !dbg !664",
+				"%arrayidx.i = getelementptr i8, ptr %call.i, i64 5, !dbg !665",
+				"store i8 0, ptr %arrayidx.i, align 1, !dbg !666, !tbaa !667",
+				"br label %_PyTokenizer_new_string.exit, !dbg !668"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_bom",
+			"id": 87,
+			"name": "_PyTokenizer_new_string.exit",
+			"debug": [
+				{
+					"line": 288, "columns": [19]
+				}
+			],
+			"successors": [88],
+			"ir": [
+				"store ptr %call.i, ptr %encoding, align 8, !dbg !669, !tbaa !641",
+				"%. = zext i1 %tobool.not.i to i32, !dbg !605",
+				"br label %cleanup, !dbg !605"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_bom",
+			"id": 88,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 293, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ 1, %if.then5 ], [ 1, %if.then8 ], [ 1, %if.else10 ], [ 1, %entry ], [ %., %_PyTokenizer_new_string.exit ], !dbg !605",
+				"ret i32 %retval.0, !dbg !670"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 89,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 383, "columns": [14, 9]
+				}
+			],
+			"successors": [91, 90],
+			"ir": [
+				"%buf.i.i = alloca [13 x i8], align 1",
+				"%cont_line = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 30, !dbg !604",
+				"%0 = load i32, ptr %cont_line, align 8, !dbg !604, !tbaa !606",
+				"%tobool.not = icmp eq i32 %0, 0, !dbg !612",
+				"br i1 %tobool.not, label %if.end, label %if.then, !dbg !613"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 90,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 385, "columns": [14, 29]
+				},
+				{
+					"line": 386, "columns": [9]
+				}
+			],
+			"successors": [160],
+			"ir": [
+				"%decoding_state = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 27, !dbg !614",
+				"store i32 2, ptr %decoding_state, align 8, !dbg !616, !tbaa !617",
+				"br label %cleanup, !dbg !618"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 91,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 332, "columns": [19, 5]
+				}
+			],
+			"successors": [92, 94],
+			"ir": [
+				"%sub.i = add i64 %size, -6",
+				"%cmp155.i = icmp sgt i64 %sub.i, 0, !dbg !643",
+				"br i1 %cmp155.i, label %for.body.i, label %for.end.i, !dbg !646"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 92,
+			"name": "for.body.i",
+			"debug": [
+				{
+					"line": 333, "columns": [13]
+				}
+			],
+			"successors": [144, 94, 93, 93, 93],
+			"ir": [
+				"%i.0156.i = phi i64 [ %inc.i, %for.inc.i ], [ 0, %if.end ]",
+				"%arrayidx.i = getelementptr i8, ptr %line, i64 %i.0156.i, !dbg !647",
+				"%1 = load i8, ptr %arrayidx.i, align 1, !dbg !647, !tbaa !650",
+				"switch i8 %1, label %if.end3 [\n    i8 35, label %for.end.i\n    i8 32, label %for.inc.i\n    i8 9, label %for.inc.i\n    i8 12, label %for.inc.i\n  ], !dbg !651"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 93,
+			"name": "for.inc.i",
+			"debug": [
+				{
+					"line": 332, "columns": [32, 19, 5]
+				}
+			],
+			"successors": [144, 92],
+			"ir": [
+				"%inc.i = add nuw nsw i64 %i.0156.i, 1, !dbg !652",
+				"%exitcond.not.i = icmp eq i64 %inc.i, %sub.i, !dbg !643",
+				"br i1 %exitcond.not.i, label %if.end3, label %for.body.i, !dbg !646, !llvm.loop !653"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 94,
+			"name": "for.end.i",
+			"debug": [
+				{
+					"line": 332, "columns": [0]
+				},
+				{
+					"line": 338, "columns": [14, 5]
+				}
+			],
+			"successors": [95, 144],
+			"ir": [
+				"%i.0.lcssa.i = phi i64 [ 0, %if.end ], [ %i.0156.i, %for.body.i ], !dbg !656",
+				"%cmp20160.i = icmp slt i64 %i.0.lcssa.i, %sub.i, !dbg !657",
+				"br i1 %cmp20160.i, label %for.body22.i, label %if.end3, !dbg !658"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 95,
+			"name": "for.body22.i",
+			"debug": [
+				{
+					"line": 339, "columns": [27]
+				},
+				{
+					"line": 340, "columns": [13, 36]
+				}
+			],
+			"successors": [96, 143],
+			"ir": [
+				"%i.1161.i = phi i64 [ %inc92.i, %for.inc91.i ], [ %i.0.lcssa.i, %for.end.i ]",
+				"%add.ptr.i = getelementptr i8, ptr %line, i64 %i.1161.i, !dbg !659",
+				"%bcmp.i = tail call i32 @bcmp(ptr noundef nonnull dereferenceable(6) %add.ptr.i, ptr noundef nonnull dereferenceable(6) @.str.9, i64 6), !dbg !661",
+				"%cmp23.i = icmp eq i32 %bcmp.i, 0, !dbg !662",
+				"br i1 %cmp23.i, label %if.then25.i, label %for.inc91.i, !dbg !663"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 96,
+			"name": "if.then25.i",
+			"debug": [
+				{
+					"line": 342, "columns": [15]
+				},
+				{
+					"line": 343, "columns": [17, 29]
+				}
+			],
+			"successors": [143, 97, 97],
+			"ir": [
+				"%add.ptr26.i = getelementptr i8, ptr %add.ptr.i, i64 6, !dbg !665",
+				"%2 = load i8, ptr %add.ptr26.i, align 1, !dbg !666, !tbaa !650",
+				"switch i8 %2, label %for.inc91.i [\n    i8 58, label %do.body.i.preheader\n    i8 61, label %do.body.i.preheader\n  ], !dbg !668"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 97,
+			"name": "do.body.i.preheader",
+			"debug": [
+				{
+					"line": 347, "columns": [34]
+				}
+			],
+			"successors": [98],
+			"ir": [
+				"br label %do.body.i, !dbg !669"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 98,
+			"name": "do.body.i",
+			"debug": [
+				{
+					"line": 346, "columns": [18]
+				},
+				{
+					"line": 347, "columns": [22, 34]
+				}
+			],
+			"successors": [100, 99, 99],
+			"ir": [
+				"%t.0.i = phi ptr [ %add.ptr26.i, %do.body.i.preheader ], [ %incdec.ptr.i, %do.body.i.backedge ], !dbg !664",
+				"%incdec.ptr.i = getelementptr i8, ptr %t.0.i, i64 1, !dbg !670",
+				"%3 = load i8, ptr %incdec.ptr.i, align 1, !dbg !672, !tbaa !650",
+				"switch i8 %3, label %while.cond.i [\n    i8 32, label %do.body.i.backedge\n    i8 9, label %do.body.i.backedge\n  ], !dbg !669"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 99,
+			"name": "do.body.i.backedge",
+			"debug": [
+			],
+			"successors": [98],
+			"ir": [
+				"br label %do.body.i, !dbg !660"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 100,
+			"name": "while.cond.i",
+			"debug": [
+				{
+					"line": 350, "columns": [20, 37]
+				}
+			],
+			"successors": [101, 102],
+			"ir": [
+				"%4 = phi i8 [ %.pr.i, %while.body.i ], [ %3, %do.body.i ], !dbg !673",
+				"%t.1.i = phi ptr [ %incdec.ptr66.i, %while.body.i ], [ %incdec.ptr.i, %do.body.i ], !dbg !664",
+				"%idxprom.i = zext i8 %4 to i64, !dbg !673",
+				"%arrayidx49.i = getelementptr [256 x i32], ptr @_Py_ctype_table, i64 0, i64 %idxprom.i, !dbg !673",
+				"%5 = load i32, ptr %arrayidx49.i, align 4, !dbg !673, !tbaa !674",
+				"%.fr.i = freeze i32 %5, !dbg !673",
+				"%and50.i = and i32 %.fr.i, 7, !dbg !673",
+				"%tobool.not.not.i = icmp eq i32 %and50.i, 0, !dbg !673",
+				"br i1 %tobool.not.not.i, label %switch.early.test.i, label %while.body.i, !dbg !675"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 101,
+			"name": "switch.early.test.i",
+			"debug": [
+				{
+					"line": 350, "columns": [37]
+				}
+			],
+			"successors": [103, 102, 102, 102],
+			"ir": [
+				"switch i8 %4, label %while.end.i [\n    i8 95, label %while.body.i\n    i8 46, label %while.body.i\n    i8 45, label %while.body.i\n  ], !dbg !675"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 102,
+			"name": "while.body.i",
+			"debug": [
+				{
+					"line": 350, "columns": [20, 13]
+				},
+				{
+					"line": 352, "columns": [18]
+				}
+			],
+			"successors": [100],
+			"ir": [
+				"%incdec.ptr66.i = getelementptr i8, ptr %t.1.i, i64 1, !dbg !676",
+				"%.pr.i = load i8, ptr %incdec.ptr66.i, align 1, !dbg !673, !tbaa !650",
+				"br label %while.cond.i, !dbg !677, !llvm.loop !678"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 103,
+			"name": "while.end.i",
+			"debug": [
+				{
+					"line": 354, "columns": [23, 17]
+				}
+			],
+			"successors": [104, 143],
+			"ir": [
+				"%cmp67.i = icmp ult ptr %incdec.ptr.i, %t.1.i, !dbg !679",
+				"br i1 %cmp67.i, label %if.then69.i, label %for.inc91.i, !dbg !680"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 104,
+			"name": "if.then69.i",
+			"debug": [
+				{
+					"line": 183, "columns": [45, 28]
+				},
+				{
+					"line": 184, "columns": [10, 9]
+				},
+				{
+					"line": 355, "columns": [60]
+				}
+			],
+			"successors": [105, 106],
+			"ir": [
+				"%sub.ptr.lhs.cast.i = ptrtoint ptr %t.1.i to i64, !dbg !681",
+				"%sub.ptr.rhs.cast.i = ptrtoint ptr %incdec.ptr.i to i64, !dbg !681",
+				"%sub.ptr.sub.i = sub i64 %sub.ptr.lhs.cast.i, %sub.ptr.rhs.cast.i, !dbg !681",
+				"%add.i.i = add i64 %sub.ptr.sub.i, 1, !dbg !692",
+				"%call.i.i = tail call ptr @PyMem_Malloc(i64 noundef %add.i.i) #11, !dbg !693",
+				"%tobool.not.i.i = icmp eq ptr %call.i.i, null, !dbg !694",
+				"br i1 %tobool.not.i.i, label %_PyTokenizer_new_string.exit.thread.i, label %if.end73.i, !dbg !696"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 105,
+			"name": "_PyTokenizer_new_string.exit.thread.i",
+			"debug": [
+				{
+					"line": 185, "columns": [14, 19]
+				},
+				{
+					"line": 357, "columns": [21]
+				}
+			],
+			"successors": [160],
+			"ir": [
+				"%done.i.i = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 8, !dbg !697",
+				"store i32 15, ptr %done.i.i, align 8, !dbg !699, !tbaa !700",
+				"br label %cleanup, !dbg !702"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 106,
+			"name": "if.end73.i",
+			"debug": [
+				{
+					"line": 188, "columns": [5]
+				},
+				{
+					"line": 189, "columns": [5, 17]
+				},
+				{
+					"line": 298, "columns": [5, 10]
+				},
+				{
+					"line": 301, "columns": [17]
+				},
+				{
+					"line": 302, "columns": [13]
+				}
+			],
+			"successors": [107, 131, 108],
+			"ir": [
+				"tail call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 1 %call.i.i, ptr nonnull align 1 %incdec.ptr.i, i64 %sub.ptr.sub.i, i1 false), !dbg !703",
+				"%arrayidx.i.i = getelementptr i8, ptr %call.i.i, i64 %sub.ptr.sub.i, !dbg !704",
+				"store i8 0, ptr %arrayidx.i.i, align 1, !dbg !705, !tbaa !650",
+				"call void @llvm.lifetime.start.p0(i64 13, ptr nonnull %buf.i.i) #11, !dbg !719",
+				"%6 = load i8, ptr %call.i.i, align 1, !dbg !721, !tbaa !650",
+				"switch i8 %6, label %if.else8.i.i [\n    i8 0, label %for.end.i.i\n    i8 95, label %for.inc.i.i\n  ], !dbg !723"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 107,
+			"name": "if.else8.i.i",
+			"debug": [
+				{
+					"line": 307, "columns": [22]
+				}
+			],
+			"successors": [108],
+			"ir": [
+				"%idxprom10.i.i = zext i8 %6 to i64, !dbg !724",
+				"%arrayidx11.i.i = getelementptr [256 x i8], ptr @_Py_ctype_tolower, i64 0, i64 %idxprom10.i.i, !dbg !724",
+				"%7 = load i8, ptr %arrayidx11.i.i, align 1, !dbg !724, !tbaa !650",
+				"br label %for.inc.i.i"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 108,
+			"name": "for.inc.i.i",
+			"debug": [
+				{
+					"line": 301, "columns": [17]
+				},
+				{
+					"line": 302, "columns": [13]
+				}
+			],
+			"successors": [109, 131, 110],
+			"ir": [
+				"%storemerge.i.i = phi i8 [ %7, %if.else8.i.i ], [ 45, %if.end73.i ], !dbg !727",
+				"store i8 %storemerge.i.i, ptr %buf.i.i, align 1, !dbg !727, !tbaa !650",
+				"%arrayidx.1.i.i = getelementptr i8, ptr %call.i.i, i64 1, !dbg !721",
+				"%8 = load i8, ptr %arrayidx.1.i.i, align 1, !dbg !721, !tbaa !650",
+				"switch i8 %8, label %if.else8.1.i.i [\n    i8 0, label %for.end.i.i\n    i8 95, label %for.inc.1.i.i\n  ], !dbg !723"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 109,
+			"name": "if.else8.1.i.i",
+			"debug": [
+				{
+					"line": 307, "columns": [22]
+				}
+			],
+			"successors": [110],
+			"ir": [
+				"%idxprom10.1.i.i = zext i8 %8 to i64, !dbg !724",
+				"%arrayidx11.1.i.i = getelementptr [256 x i8], ptr @_Py_ctype_tolower, i64 0, i64 %idxprom10.1.i.i, !dbg !724",
+				"%9 = load i8, ptr %arrayidx11.1.i.i, align 1, !dbg !724, !tbaa !650",
+				"br label %for.inc.1.i.i"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 110,
+			"name": "for.inc.1.i.i",
+			"debug": [
+				{
+					"line": 301, "columns": [17]
+				},
+				{
+					"line": 302, "columns": [13]
+				}
+			],
+			"successors": [111, 131, 112],
+			"ir": [
+				"%.sink.i.i = phi i8 [ %9, %if.else8.1.i.i ], [ 45, %for.inc.i.i ]",
+				"%arrayidx13.1.i.i = getelementptr inbounds [13 x i8], ptr %buf.i.i, i64 0, i64 1, !dbg !727",
+				"store i8 %.sink.i.i, ptr %arrayidx13.1.i.i, align 1, !dbg !727, !tbaa !650",
+				"%arrayidx.2.i.i = getelementptr i8, ptr %call.i.i, i64 2, !dbg !721",
+				"%10 = load i8, ptr %arrayidx.2.i.i, align 1, !dbg !721, !tbaa !650",
+				"switch i8 %10, label %if.else8.2.i.i [\n    i8 0, label %for.end.i.i\n    i8 95, label %for.inc.2.i.i\n  ], !dbg !723"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 111,
+			"name": "if.else8.2.i.i",
+			"debug": [
+				{
+					"line": 307, "columns": [22]
+				}
+			],
+			"successors": [112],
+			"ir": [
+				"%idxprom10.2.i.i = zext i8 %10 to i64, !dbg !724",
+				"%arrayidx11.2.i.i = getelementptr [256 x i8], ptr @_Py_ctype_tolower, i64 0, i64 %idxprom10.2.i.i, !dbg !724",
+				"%11 = load i8, ptr %arrayidx11.2.i.i, align 1, !dbg !724, !tbaa !650",
+				"br label %for.inc.2.i.i"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 112,
+			"name": "for.inc.2.i.i",
+			"debug": [
+				{
+					"line": 301, "columns": [17]
+				},
+				{
+					"line": 302, "columns": [13]
+				}
+			],
+			"successors": [113, 131, 114],
+			"ir": [
+				"%.sink78.i.i = phi i8 [ %11, %if.else8.2.i.i ], [ 45, %for.inc.1.i.i ]",
+				"%arrayidx13.2.i.i = getelementptr inbounds [13 x i8], ptr %buf.i.i, i64 0, i64 2, !dbg !727",
+				"store i8 %.sink78.i.i, ptr %arrayidx13.2.i.i, align 1, !dbg !727, !tbaa !650",
+				"%arrayidx.3.i.i = getelementptr i8, ptr %call.i.i, i64 3, !dbg !721",
+				"%12 = load i8, ptr %arrayidx.3.i.i, align 1, !dbg !721, !tbaa !650",
+				"switch i8 %12, label %if.else8.3.i.i [\n    i8 0, label %for.end.i.i\n    i8 95, label %for.inc.3.i.i\n  ], !dbg !723"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 113,
+			"name": "if.else8.3.i.i",
+			"debug": [
+				{
+					"line": 307, "columns": [22]
+				}
+			],
+			"successors": [114],
+			"ir": [
+				"%idxprom10.3.i.i = zext i8 %12 to i64, !dbg !724",
+				"%arrayidx11.3.i.i = getelementptr [256 x i8], ptr @_Py_ctype_tolower, i64 0, i64 %idxprom10.3.i.i, !dbg !724",
+				"%13 = load i8, ptr %arrayidx11.3.i.i, align 1, !dbg !724, !tbaa !650",
+				"br label %for.inc.3.i.i"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 114,
+			"name": "for.inc.3.i.i",
+			"debug": [
+				{
+					"line": 301, "columns": [17]
+				},
+				{
+					"line": 302, "columns": [13]
+				}
+			],
+			"successors": [115, 131, 116],
+			"ir": [
+				"%.sink79.i.i = phi i8 [ %13, %if.else8.3.i.i ], [ 45, %for.inc.2.i.i ]",
+				"%arrayidx13.3.i.i = getelementptr inbounds [13 x i8], ptr %buf.i.i, i64 0, i64 3, !dbg !727",
+				"store i8 %.sink79.i.i, ptr %arrayidx13.3.i.i, align 1, !dbg !727, !tbaa !650",
+				"%arrayidx.4.i.i = getelementptr i8, ptr %call.i.i, i64 4, !dbg !721",
+				"%14 = load i8, ptr %arrayidx.4.i.i, align 1, !dbg !721, !tbaa !650",
+				"switch i8 %14, label %if.else8.4.i.i [\n    i8 0, label %for.end.i.i\n    i8 95, label %for.inc.4.i.i\n  ], !dbg !723"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 115,
+			"name": "if.else8.4.i.i",
+			"debug": [
+				{
+					"line": 307, "columns": [22]
+				}
+			],
+			"successors": [116],
+			"ir": [
+				"%idxprom10.4.i.i = zext i8 %14 to i64, !dbg !724",
+				"%arrayidx11.4.i.i = getelementptr [256 x i8], ptr @_Py_ctype_tolower, i64 0, i64 %idxprom10.4.i.i, !dbg !724",
+				"%15 = load i8, ptr %arrayidx11.4.i.i, align 1, !dbg !724, !tbaa !650",
+				"br label %for.inc.4.i.i"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 116,
+			"name": "for.inc.4.i.i",
+			"debug": [
+				{
+					"line": 301, "columns": [17]
+				},
+				{
+					"line": 302, "columns": [13]
+				}
+			],
+			"successors": [117, 131, 118],
+			"ir": [
+				"%.sink80.i.i = phi i8 [ %15, %if.else8.4.i.i ], [ 45, %for.inc.3.i.i ]",
+				"%arrayidx13.4.i.i = getelementptr inbounds [13 x i8], ptr %buf.i.i, i64 0, i64 4, !dbg !727",
+				"store i8 %.sink80.i.i, ptr %arrayidx13.4.i.i, align 1, !dbg !727, !tbaa !650",
+				"%arrayidx.5.i.i = getelementptr i8, ptr %call.i.i, i64 5, !dbg !721",
+				"%16 = load i8, ptr %arrayidx.5.i.i, align 1, !dbg !721, !tbaa !650",
+				"switch i8 %16, label %if.else8.5.i.i [\n    i8 0, label %for.end.i.i\n    i8 95, label %for.inc.5.i.i\n  ], !dbg !723"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 117,
+			"name": "if.else8.5.i.i",
+			"debug": [
+				{
+					"line": 307, "columns": [22]
+				}
+			],
+			"successors": [118],
+			"ir": [
+				"%idxprom10.5.i.i = zext i8 %16 to i64, !dbg !724",
+				"%arrayidx11.5.i.i = getelementptr [256 x i8], ptr @_Py_ctype_tolower, i64 0, i64 %idxprom10.5.i.i, !dbg !724",
+				"%17 = load i8, ptr %arrayidx11.5.i.i, align 1, !dbg !724, !tbaa !650",
+				"br label %for.inc.5.i.i"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 118,
+			"name": "for.inc.5.i.i",
+			"debug": [
+				{
+					"line": 301, "columns": [17]
+				},
+				{
+					"line": 302, "columns": [13]
+				}
+			],
+			"successors": [119, 131, 120],
+			"ir": [
+				"%.sink81.i.i = phi i8 [ %17, %if.else8.5.i.i ], [ 45, %for.inc.4.i.i ]",
+				"%arrayidx13.5.i.i = getelementptr inbounds [13 x i8], ptr %buf.i.i, i64 0, i64 5, !dbg !727",
+				"store i8 %.sink81.i.i, ptr %arrayidx13.5.i.i, align 1, !dbg !727, !tbaa !650",
+				"%arrayidx.6.i.i = getelementptr i8, ptr %call.i.i, i64 6, !dbg !721",
+				"%18 = load i8, ptr %arrayidx.6.i.i, align 1, !dbg !721, !tbaa !650",
+				"switch i8 %18, label %if.else8.6.i.i [\n    i8 0, label %for.end.i.i\n    i8 95, label %for.inc.6.i.i\n  ], !dbg !723"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 119,
+			"name": "if.else8.6.i.i",
+			"debug": [
+				{
+					"line": 307, "columns": [22]
+				}
+			],
+			"successors": [120],
+			"ir": [
+				"%idxprom10.6.i.i = zext i8 %18 to i64, !dbg !724",
+				"%arrayidx11.6.i.i = getelementptr [256 x i8], ptr @_Py_ctype_tolower, i64 0, i64 %idxprom10.6.i.i, !dbg !724",
+				"%19 = load i8, ptr %arrayidx11.6.i.i, align 1, !dbg !724, !tbaa !650",
+				"br label %for.inc.6.i.i"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 120,
+			"name": "for.inc.6.i.i",
+			"debug": [
+				{
+					"line": 301, "columns": [17]
+				},
+				{
+					"line": 302, "columns": [13]
+				}
+			],
+			"successors": [121, 131, 122],
+			"ir": [
+				"%.sink82.i.i = phi i8 [ %19, %if.else8.6.i.i ], [ 45, %for.inc.5.i.i ]",
+				"%arrayidx13.6.i.i = getelementptr inbounds [13 x i8], ptr %buf.i.i, i64 0, i64 6, !dbg !727",
+				"store i8 %.sink82.i.i, ptr %arrayidx13.6.i.i, align 1, !dbg !727, !tbaa !650",
+				"%arrayidx.7.i.i = getelementptr i8, ptr %call.i.i, i64 7, !dbg !721",
+				"%20 = load i8, ptr %arrayidx.7.i.i, align 1, !dbg !721, !tbaa !650",
+				"switch i8 %20, label %if.else8.7.i.i [\n    i8 0, label %for.end.i.i\n    i8 95, label %for.inc.7.i.i\n  ], !dbg !723"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 121,
+			"name": "if.else8.7.i.i",
+			"debug": [
+				{
+					"line": 307, "columns": [22]
+				}
+			],
+			"successors": [122],
+			"ir": [
+				"%idxprom10.7.i.i = zext i8 %20 to i64, !dbg !724",
+				"%arrayidx11.7.i.i = getelementptr [256 x i8], ptr @_Py_ctype_tolower, i64 0, i64 %idxprom10.7.i.i, !dbg !724",
+				"%21 = load i8, ptr %arrayidx11.7.i.i, align 1, !dbg !724, !tbaa !650",
+				"br label %for.inc.7.i.i"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 122,
+			"name": "for.inc.7.i.i",
+			"debug": [
+				{
+					"line": 301, "columns": [17]
+				},
+				{
+					"line": 302, "columns": [13]
+				}
+			],
+			"successors": [123, 131, 124],
+			"ir": [
+				"%.sink83.i.i = phi i8 [ %21, %if.else8.7.i.i ], [ 45, %for.inc.6.i.i ]",
+				"%arrayidx13.7.i.i = getelementptr inbounds [13 x i8], ptr %buf.i.i, i64 0, i64 7, !dbg !727",
+				"store i8 %.sink83.i.i, ptr %arrayidx13.7.i.i, align 1, !dbg !727, !tbaa !650",
+				"%arrayidx.8.i.i = getelementptr i8, ptr %call.i.i, i64 8, !dbg !721",
+				"%22 = load i8, ptr %arrayidx.8.i.i, align 1, !dbg !721, !tbaa !650",
+				"switch i8 %22, label %if.else8.8.i.i [\n    i8 0, label %for.end.i.i\n    i8 95, label %for.inc.8.i.i\n  ], !dbg !723"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 123,
+			"name": "if.else8.8.i.i",
+			"debug": [
+				{
+					"line": 307, "columns": [22]
+				}
+			],
+			"successors": [124],
+			"ir": [
+				"%idxprom10.8.i.i = zext i8 %22 to i64, !dbg !724",
+				"%arrayidx11.8.i.i = getelementptr [256 x i8], ptr @_Py_ctype_tolower, i64 0, i64 %idxprom10.8.i.i, !dbg !724",
+				"%23 = load i8, ptr %arrayidx11.8.i.i, align 1, !dbg !724, !tbaa !650",
+				"br label %for.inc.8.i.i"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 124,
+			"name": "for.inc.8.i.i",
+			"debug": [
+				{
+					"line": 301, "columns": [17]
+				},
+				{
+					"line": 302, "columns": [13]
+				}
+			],
+			"successors": [125, 131, 126],
+			"ir": [
+				"%.sink84.i.i = phi i8 [ %23, %if.else8.8.i.i ], [ 45, %for.inc.7.i.i ]",
+				"%arrayidx13.8.i.i = getelementptr inbounds [13 x i8], ptr %buf.i.i, i64 0, i64 8, !dbg !727",
+				"store i8 %.sink84.i.i, ptr %arrayidx13.8.i.i, align 1, !dbg !727, !tbaa !650",
+				"%arrayidx.9.i.i = getelementptr i8, ptr %call.i.i, i64 9, !dbg !721",
+				"%24 = load i8, ptr %arrayidx.9.i.i, align 1, !dbg !721, !tbaa !650",
+				"switch i8 %24, label %if.else8.9.i.i [\n    i8 0, label %for.end.i.i\n    i8 95, label %for.inc.9.i.i\n  ], !dbg !723"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 125,
+			"name": "if.else8.9.i.i",
+			"debug": [
+				{
+					"line": 307, "columns": [22]
+				}
+			],
+			"successors": [126],
+			"ir": [
+				"%idxprom10.9.i.i = zext i8 %24 to i64, !dbg !724",
+				"%arrayidx11.9.i.i = getelementptr [256 x i8], ptr @_Py_ctype_tolower, i64 0, i64 %idxprom10.9.i.i, !dbg !724",
+				"%25 = load i8, ptr %arrayidx11.9.i.i, align 1, !dbg !724, !tbaa !650",
+				"br label %for.inc.9.i.i"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 126,
+			"name": "for.inc.9.i.i",
+			"debug": [
+				{
+					"line": 301, "columns": [17]
+				},
+				{
+					"line": 302, "columns": [13]
+				}
+			],
+			"successors": [127, 131, 128],
+			"ir": [
+				"%.sink85.i.i = phi i8 [ %25, %if.else8.9.i.i ], [ 45, %for.inc.8.i.i ]",
+				"%arrayidx13.9.i.i = getelementptr inbounds [13 x i8], ptr %buf.i.i, i64 0, i64 9, !dbg !727",
+				"store i8 %.sink85.i.i, ptr %arrayidx13.9.i.i, align 1, !dbg !727, !tbaa !650",
+				"%arrayidx.10.i.i = getelementptr i8, ptr %call.i.i, i64 10, !dbg !721",
+				"%26 = load i8, ptr %arrayidx.10.i.i, align 1, !dbg !721, !tbaa !650",
+				"switch i8 %26, label %if.else8.10.i.i [\n    i8 0, label %for.end.i.i\n    i8 95, label %for.inc.10.i.i\n  ], !dbg !723"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 127,
+			"name": "if.else8.10.i.i",
+			"debug": [
+				{
+					"line": 307, "columns": [22]
+				}
+			],
+			"successors": [128],
+			"ir": [
+				"%idxprom10.10.i.i = zext i8 %26 to i64, !dbg !724",
+				"%arrayidx11.10.i.i = getelementptr [256 x i8], ptr @_Py_ctype_tolower, i64 0, i64 %idxprom10.10.i.i, !dbg !724",
+				"%27 = load i8, ptr %arrayidx11.10.i.i, align 1, !dbg !724, !tbaa !650",
+				"br label %for.inc.10.i.i"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 128,
+			"name": "for.inc.10.i.i",
+			"debug": [
+				{
+					"line": 301, "columns": [17]
+				},
+				{
+					"line": 302, "columns": [13]
+				}
+			],
+			"successors": [129, 131, 130],
+			"ir": [
+				"%.sink86.i.i = phi i8 [ %27, %if.else8.10.i.i ], [ 45, %for.inc.9.i.i ]",
+				"%arrayidx13.10.i.i = getelementptr inbounds [13 x i8], ptr %buf.i.i, i64 0, i64 10, !dbg !727",
+				"store i8 %.sink86.i.i, ptr %arrayidx13.10.i.i, align 1, !dbg !727, !tbaa !650",
+				"%arrayidx.11.i.i = getelementptr i8, ptr %call.i.i, i64 11, !dbg !721",
+				"%28 = load i8, ptr %arrayidx.11.i.i, align 1, !dbg !721, !tbaa !650",
+				"switch i8 %28, label %if.else8.11.i.i [\n    i8 0, label %for.end.i.i\n    i8 95, label %for.end.sink.split.i.i\n  ], !dbg !723"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 129,
+			"name": "if.else8.11.i.i",
+			"debug": [
+				{
+					"line": 307, "columns": [22]
+				}
+			],
+			"successors": [130],
+			"ir": [
+				"%idxprom10.11.i.i = zext i8 %28 to i64, !dbg !724",
+				"%arrayidx11.11.i.i = getelementptr [256 x i8], ptr @_Py_ctype_tolower, i64 0, i64 %idxprom10.11.i.i, !dbg !724",
+				"%29 = load i8, ptr %arrayidx11.11.i.i, align 1, !dbg !724, !tbaa !650",
+				"br label %for.end.sink.split.i.i"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 130,
+			"name": "for.end.sink.split.i.i",
+			"debug": [
+				{
+					"line": 309, "columns": [5]
+				}
+			],
+			"successors": [131],
+			"ir": [
+				"%.sink87.i.i = phi i8 [ %29, %if.else8.11.i.i ], [ 45, %for.inc.10.i.i ]",
+				"%arrayidx7.11.i.i = getelementptr inbounds [13 x i8], ptr %buf.i.i, i64 0, i64 11, !dbg !727",
+				"store i8 %.sink87.i.i, ptr %arrayidx7.11.i.i, align 1, !dbg !727, !tbaa !650",
+				"br label %for.end.i.i, !dbg !728"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 131,
+			"name": "for.end.i.i",
+			"debug": [
+				{
+					"line": 300, "columns": [0]
+				},
+				{
+					"line": 309, "columns": [5, 12]
+				},
+				{
+					"line": 310, "columns": [9, 30, 35]
+				}
+			],
+			"successors": [139, 132],
+			"ir": [
+				"%i.0.lcssa.i.i = phi i64 [ 0, %if.end73.i ], [ 1, %for.inc.i.i ], [ 2, %for.inc.1.i.i ], [ 3, %for.inc.2.i.i ], [ 4, %for.inc.3.i.i ], [ 5, %for.inc.4.i.i ], [ 6, %for.inc.5.i.i ], [ 7, %for.inc.6.i.i ], [ 8, %for.inc.7.i.i ], [ 9, %for.inc.8.i.i ], [ 10, %for.inc.9.i.i ], [ 11, %for.inc.10.i.i ], [ 12, %for.end.sink.split.i.i ], !dbg !729",
+				"%arrayidx16.i.i = getelementptr [13 x i8], ptr %buf.i.i, i64 0, i64 %i.0.lcssa.i.i, !dbg !728",
+				"store i8 0, ptr %arrayidx16.i.i, align 1, !dbg !730, !tbaa !650",
+				"%bcmp.i.i = call i32 @bcmp(ptr noundef nonnull dereferenceable(6) %buf.i.i, ptr noundef nonnull dereferenceable(6) @.str.2, i64 6), !dbg !731",
+				"%cmp17.i.i = icmp eq i32 %bcmp.i.i, 0, !dbg !733",
+				"br i1 %cmp17.i.i, label %get_normal_name.exit.i, label %lor.lhs.false.i.i, !dbg !734"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 132,
+			"name": "lor.lhs.false.i.i",
+			"debug": [
+				{
+					"line": 310, "columns": [9]
+				},
+				{
+					"line": 311, "columns": [9, 35]
+				}
+			],
+			"successors": [139, 133],
+			"ir": [
+				"%bcmp66.i.i = call i32 @bcmp(ptr noundef nonnull dereferenceable(6) %buf.i.i, ptr noundef nonnull dereferenceable(6) @.str.10, i64 6), !dbg !735",
+				"%cmp21.i.i = icmp eq i32 %bcmp66.i.i, 0, !dbg !736",
+				"br i1 %cmp21.i.i, label %get_normal_name.exit.i, label %if.else24.i.i, !dbg !737"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 133,
+			"name": "if.else24.i.i",
+			"debug": [
+				{
+					"line": 313, "columns": [14, 37, 42]
+				}
+			],
+			"successors": [139, 134],
+			"ir": [
+				"%bcmp67.i.i = call i32 @bcmp(ptr noundef nonnull dereferenceable(8) %buf.i.i, ptr noundef nonnull dereferenceable(8) @.str.11, i64 8), !dbg !738",
+				"%cmp27.i.i = icmp eq i32 %bcmp67.i.i, 0, !dbg !740",
+				"br i1 %cmp27.i.i, label %get_normal_name.exit.i, label %lor.lhs.false29.i.i, !dbg !741"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 134,
+			"name": "lor.lhs.false29.i.i",
+			"debug": [
+				{
+					"line": 314, "columns": [14, 40, 45]
+				}
+			],
+			"successors": [139, 135],
+			"ir": [
+				"%bcmp68.i.i = call i32 @bcmp(ptr noundef nonnull dereferenceable(11) %buf.i.i, ptr noundef nonnull dereferenceable(11) @.str.12, i64 11), !dbg !742",
+				"%cmp32.i.i = icmp eq i32 %bcmp68.i.i, 0, !dbg !743",
+				"br i1 %cmp32.i.i, label %get_normal_name.exit.i, label %lor.lhs.false34.i.i, !dbg !744"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 135,
+			"name": "lor.lhs.false34.i.i",
+			"debug": [
+				{
+					"line": 315, "columns": [14, 41, 46]
+				}
+			],
+			"successors": [139, 136],
+			"ir": [
+				"%bcmp69.i.i = call i32 @bcmp(ptr noundef nonnull dereferenceable(12) %buf.i.i, ptr noundef nonnull dereferenceable(12) @.str.13, i64 12), !dbg !745",
+				"%cmp37.i.i = icmp eq i32 %bcmp69.i.i, 0, !dbg !746",
+				"br i1 %cmp37.i.i, label %get_normal_name.exit.i, label %lor.lhs.false39.i.i, !dbg !747"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 136,
+			"name": "lor.lhs.false39.i.i",
+			"debug": [
+				{
+					"line": 316, "columns": [14, 42, 47]
+				}
+			],
+			"successors": [139, 137],
+			"ir": [
+				"%bcmp70.i.i = call i32 @bcmp(ptr noundef nonnull dereferenceable(8) %buf.i.i, ptr noundef nonnull dereferenceable(8) @.str.14, i64 8), !dbg !748",
+				"%cmp42.i.i = icmp eq i32 %bcmp70.i.i, 0, !dbg !749",
+				"br i1 %cmp42.i.i, label %get_normal_name.exit.i, label %lor.lhs.false44.i.i, !dbg !750"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 137,
+			"name": "lor.lhs.false44.i.i",
+			"debug": [
+				{
+					"line": 317, "columns": [14, 46, 51]
+				}
+			],
+			"successors": [139, 138],
+			"ir": [
+				"%bcmp71.i.i = call i32 @bcmp(ptr noundef nonnull dereferenceable(11) %buf.i.i, ptr noundef nonnull dereferenceable(11) @.str.15, i64 11), !dbg !751",
+				"%cmp47.i.i = icmp eq i32 %bcmp71.i.i, 0, !dbg !752",
+				"br i1 %cmp47.i.i, label %get_normal_name.exit.i, label %lor.lhs.false49.i.i, !dbg !753"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 138,
+			"name": "lor.lhs.false49.i.i",
+			"debug": [
+				{
+					"line": 313, "columns": [14]
+				},
+				{
+					"line": 318, "columns": [14, 47]
+				}
+			],
+			"successors": [139],
+			"ir": [
+				"%bcmp72.i.i = call i32 @bcmp(ptr noundef nonnull dereferenceable(12) %buf.i.i, ptr noundef nonnull dereferenceable(12) @.str.16, i64 12), !dbg !754",
+				"%cmp52.i.i = icmp eq i32 %bcmp72.i.i, 0, !dbg !755",
+				"%spec.select.i.i = select i1 %cmp52.i.i, ptr @.str.12, ptr %call.i.i, !dbg !756",
+				"br label %get_normal_name.exit.i, !dbg !756"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 139,
+			"name": "get_normal_name.exit.i",
+			"debug": [
+				{
+					"line": 322, "columns": [1]
+				},
+				{
+					"line": 360, "columns": [23, 21]
+				}
+			],
+			"successors": [148, 140],
+			"ir": [
+				"%retval.0.i.i = phi ptr [ @.str.2, %lor.lhs.false.i.i ], [ @.str.2, %for.end.i.i ], [ @.str.12, %lor.lhs.false44.i.i ], [ @.str.12, %lor.lhs.false39.i.i ], [ @.str.12, %lor.lhs.false34.i.i ], [ @.str.12, %lor.lhs.false29.i.i ], [ @.str.12, %if.else24.i.i ], [ %spec.select.i.i, %lor.lhs.false49.i.i ], !dbg !757",
+				"call void @llvm.lifetime.end.p0(i64 13, ptr nonnull %buf.i.i) #11, !dbg !758",
+				"%cmp75.not.i = icmp eq ptr %call.i.i, %retval.0.i.i, !dbg !759",
+				"br i1 %cmp75.not.i, label %if.end35, label %if.then77.i, !dbg !761"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 140,
+			"name": "if.then77.i",
+			"debug": [
+				{
+					"line": 183, "columns": [45, 28]
+				},
+				{
+					"line": 184, "columns": [10, 9]
+				},
+				{
+					"line": 361, "columns": [21]
+				},
+				{
+					"line": 362, "columns": [52]
+				}
+			],
+			"successors": [141, 142],
+			"ir": [
+				"tail call void @PyMem_Free(ptr noundef nonnull %call.i.i) #11, !dbg !762",
+				"%call78.i = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %retval.0.i.i) #12, !dbg !764",
+				"%add.i136.i = add i64 %call78.i, 1, !dbg !767",
+				"%call.i137.i = tail call ptr @PyMem_Malloc(i64 noundef %add.i136.i) #11, !dbg !768",
+				"%tobool.not.i138.i = icmp eq ptr %call.i137.i, null, !dbg !769",
+				"br i1 %tobool.not.i138.i, label %_PyTokenizer_new_string.exit143.thread.i, label %_PyTokenizer_new_string.exit143.i, !dbg !770"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 141,
+			"name": "_PyTokenizer_new_string.exit143.thread.i",
+			"debug": [
+				{
+					"line": 185, "columns": [14, 19]
+				},
+				{
+					"line": 363, "columns": [25]
+				}
+			],
+			"successors": [160],
+			"ir": [
+				"%done.i139.i = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 8, !dbg !771",
+				"store i32 15, ptr %done.i139.i, align 8, !dbg !772, !tbaa !700",
+				"br label %cleanup, !dbg !773"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 142,
+			"name": "_PyTokenizer_new_string.exit143.i",
+			"debug": [
+				{
+					"line": 188, "columns": [5]
+				},
+				{
+					"line": 189, "columns": [5, 17]
+				},
+				{
+					"line": 363, "columns": [25]
+				}
+			],
+			"successors": [148],
+			"ir": [
+				"tail call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 1 %call.i137.i, ptr align 1 %retval.0.i.i, i64 %call78.i, i1 false), !dbg !774",
+				"%arrayidx.i141.i = getelementptr i8, ptr %call.i137.i, i64 %call78.i, !dbg !775",
+				"store i8 0, ptr %arrayidx.i141.i, align 1, !dbg !776, !tbaa !650",
+				"br label %if.end35, !dbg !773"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 143,
+			"name": "for.inc91.i",
+			"debug": [
+				{
+					"line": 338, "columns": [27, 14, 5]
+				}
+			],
+			"successors": [144, 95],
+			"ir": [
+				"%inc92.i = add nuw nsw i64 %i.1161.i, 1, !dbg !777",
+				"%exitcond163.not.i = icmp eq i64 %inc92.i, %sub.i, !dbg !657",
+				"br i1 %exitcond163.not.i, label %if.end3, label %for.body22.i, !dbg !658, !llvm.loop !778"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 144,
+			"name": "if.end3",
+			"debug": [
+				{
+					"line": 393, "columns": [23, 9]
+				}
+			],
+			"successors": [145, 160],
+			"ir": [
+				"%cmp100 = icmp sgt i64 %size, 0, !dbg !781",
+				"br i1 %cmp100, label %for.body, label %cleanup, !dbg !784"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 145,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 394, "columns": [17, 32]
+				}
+			],
+			"successors": [146, 160, 160, 160, 147, 147, 147],
+			"ir": [
+				"%i.0101 = phi i64 [ %inc, %for.inc ], [ 0, %if.end3 ]",
+				"%arrayidx = getelementptr i8, ptr %line, i64 %i.0101, !dbg !785",
+				"%30 = load i8, ptr %arrayidx, align 1, !dbg !785, !tbaa !650",
+				"switch i8 %30, label %if.then32 [\n    i8 35, label %cleanup\n    i8 10, label %cleanup\n    i8 13, label %cleanup\n    i8 32, label %for.inc\n    i8 9, label %for.inc\n    i8 12, label %for.inc\n  ], !dbg !788"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 146,
+			"name": "if.then32",
+			"debug": [
+				{
+					"line": 399, "columns": [22, 37]
+				},
+				{
+					"line": 400, "columns": [17]
+				}
+			],
+			"successors": [160],
+			"ir": [
+				"%decoding_state33 = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 27, !dbg !789",
+				"store i32 2, ptr %decoding_state33, align 8, !dbg !792, !tbaa !617",
+				"br label %cleanup, !dbg !793"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 147,
+			"name": "for.inc",
+			"debug": [
+				{
+					"line": 393, "columns": [32, 23, 9]
+				}
+			],
+			"successors": [160, 145],
+			"ir": [
+				"%inc = add nuw nsw i64 %i.0101, 1, !dbg !794",
+				"%exitcond.not = icmp eq i64 %inc, %size, !dbg !781",
+				"br i1 %exitcond.not, label %cleanup, label %for.body, !dbg !784, !llvm.loop !795"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 148,
+			"name": "if.end35",
+			"debug": [
+				{
+					"line": 405, "columns": [10, 25]
+				},
+				{
+					"line": 406, "columns": [14, 23, 9]
+				}
+			],
+			"successors": [149, 153],
+			"ir": [
+				"%cs.0.ph.ph = phi ptr [ %call.i137.i, %_PyTokenizer_new_string.exit143.i ], [ %call.i.i, %get_normal_name.exit.i ]",
+				"%decoding_state36 = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 27, !dbg !797",
+				"store i32 2, ptr %decoding_state36, align 8, !dbg !798, !tbaa !617",
+				"%encoding = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 29, !dbg !799",
+				"%31 = load ptr, ptr %encoding, align 8, !dbg !799, !tbaa !801",
+				"%cmp37 = icmp eq ptr %31, null, !dbg !802",
+				"br i1 %cmp37, label %if.then39, label %if.else, !dbg !803"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 149,
+			"name": "if.then39",
+			"debug": [
+				{
+					"line": 408, "columns": [13, 33, 38]
+				}
+			],
+			"successors": [152, 150],
+			"ir": [
+				"%call40 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %cs.0.ph.ph, ptr noundef nonnull dereferenceable(6) @.str.2) #12, !dbg !804",
+				"%cmp41.not = icmp eq i32 %call40, 0, !dbg !807",
+				"br i1 %cmp41.not, label %if.end49, label %land.lhs.true43, !dbg !808"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 150,
+			"name": "land.lhs.true43",
+			"debug": [
+				{
+					"line": 408, "columns": [42, 13]
+				}
+			],
+			"successors": [151, 152],
+			"ir": [
+				"%call44 = tail call i32 %set_readline(ptr noundef nonnull %tok, ptr noundef nonnull %cs.0.ph.ph) #11, !dbg !809",
+				"%tobool45.not = icmp eq i32 %call44, 0, !dbg !809",
+				"br i1 %tobool45.not, label %if.then46, label %if.end49, !dbg !810"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 151,
+			"name": "if.then46",
+			"debug": [
+				{
+					"line": 409, "columns": [13]
+				},
+				{
+					"line": 410, "columns": [26, 13]
+				},
+				{
+					"line": 411, "columns": [13]
+				},
+				{
+					"line": 412, "columns": [13]
+				}
+			],
+			"successors": [160],
+			"ir": [
+				"%call47 = tail call ptr @_PyTokenizer_error_ret(ptr noundef nonnull %tok), !dbg !811",
+				"%32 = load ptr, ptr @PyExc_SyntaxError, align 8, !dbg !813, !tbaa !814",
+				"%call48 = tail call ptr (ptr, ptr, ...) @PyErr_Format(ptr noundef %32, ptr noundef nonnull @.str.3, ptr noundef nonnull %cs.0.ph.ph) #11, !dbg !815",
+				"tail call void @PyMem_Free(ptr noundef nonnull %cs.0.ph.ph) #11, !dbg !816",
+				"br label %cleanup, !dbg !817"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 152,
+			"name": "if.end49",
+			"debug": [
+				{
+					"line": 414, "columns": [23]
+				},
+				{
+					"line": 415, "columns": [5]
+				}
+			],
+			"successors": [160],
+			"ir": [
+				"store ptr %cs.0.ph.ph, ptr %encoding, align 8, !dbg !818, !tbaa !801",
+				"br label %cleanup, !dbg !819"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 153,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 416, "columns": [13, 39]
+				}
+			],
+			"successors": [159, 154],
+			"ir": [
+				"%call52 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %31, ptr noundef nonnull dereferenceable(1) %cs.0.ph.ph) #12, !dbg !820",
+				"%cmp53.not = icmp eq i32 %call52, 0, !dbg !823",
+				"br i1 %cmp53.not, label %if.end58, label %if.then55, !dbg !824"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 154,
+			"name": "if.then55",
+			"debug": [
+				{
+					"line": 97, "columns": [10, 25]
+				},
+				{
+					"line": 98, "columns": [15, 18, 26]
+				}
+			],
+			"successors": [155, 156],
+			"ir": [
+				"%decoding_erred.i = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 28, !dbg !833",
+				"store i32 1, ptr %decoding_erred.i, align 4, !dbg !834, !tbaa !835",
+				"%fp.i = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 9, !dbg !836",
+				"%33 = load ptr, ptr %fp.i, align 8, !dbg !836, !tbaa !838",
+				"%cmp.not.i = icmp eq ptr %33, null, !dbg !839",
+				"br i1 %cmp.not.i, label %lor.lhs.false.i, label %land.lhs.true.i, !dbg !840"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 155,
+			"name": "lor.lhs.false.i",
+			"debug": [
+				{
+					"line": 98, "columns": [34, 43, 52]
+				}
+			],
+			"successors": [158, 156],
+			"ir": [
+				"%readline.i = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 35, !dbg !841",
+				"%34 = load ptr, ptr %readline.i, align 8, !dbg !841, !tbaa !842",
+				"%cmp1.not.i = icmp eq ptr %34, null, !dbg !843",
+				"br i1 %cmp1.not.i, label %_PyTokenizer_error_ret.exit, label %land.lhs.true.i, !dbg !844"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 156,
+			"name": "land.lhs.true.i",
+			"debug": [
+				{
+					"line": 98, "columns": [60, 64, 9]
+				}
+			],
+			"successors": [158, 157],
+			"ir": [
+				"%35 = load ptr, ptr %tok, align 8, !dbg !845, !tbaa !846",
+				"%cmp2.not.i = icmp eq ptr %35, null, !dbg !847",
+				"br i1 %cmp2.not.i, label %_PyTokenizer_error_ret.exit, label %if.then.i, !dbg !848"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 157,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 99, "columns": [9]
+				},
+				{
+					"line": 100, "columns": [5]
+				}
+			],
+			"successors": [158],
+			"ir": [
+				"tail call void @PyMem_Free(ptr noundef nonnull %35) #11, !dbg !849",
+				"br label %_PyTokenizer_error_ret.exit, !dbg !851"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 158,
+			"name": "_PyTokenizer_error_ret.exit",
+			"debug": [
+				{
+					"line": 101, "columns": [25]
+				},
+				{
+					"line": 102, "columns": [16]
+				},
+				{
+					"line": 103, "columns": [10]
+				},
+				{
+					"line": 104, "columns": [10, 15]
+				},
+				{
+					"line": 418, "columns": [26, 13]
+				},
+				{
+					"line": 420, "columns": [13]
+				},
+				{
+					"line": 421, "columns": [13]
+				}
+			],
+			"successors": [160],
+			"ir": [
+				"%end.i = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 6, !dbg !852",
+				"%done.i = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 8, !dbg !853",
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %tok, i8 0, i64 24, i1 false), !dbg !854",
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %end.i, i8 0, i64 16, i1 false), !dbg !855",
+				"store i32 22, ptr %done.i, align 8, !dbg !856, !tbaa !700",
+				"%36 = load ptr, ptr @PyExc_SyntaxError, align 8, !dbg !857, !tbaa !814",
+				"%call57 = tail call ptr (ptr, ptr, ...) @PyErr_Format(ptr noundef %36, ptr noundef nonnull @.str.4, ptr noundef nonnull %cs.0.ph.ph) #11, !dbg !858",
+				"tail call void @PyMem_Free(ptr noundef nonnull %cs.0.ph.ph) #11, !dbg !859",
+				"br label %cleanup, !dbg !860"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 159,
+			"name": "if.end58",
+			"debug": [
+				{
+					"line": 423, "columns": [9]
+				}
+			],
+			"successors": [160],
+			"ir": [
+				"tail call void @PyMem_Free(ptr noundef nonnull %cs.0.ph.ph) #11, !dbg !861",
+				"br label %cleanup"
+			]
+		},
+		{
+			"function": "_PyTokenizer_check_coding_spec",
+			"id": 160,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 426, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ 1, %if.then ], [ 0, %if.then46 ], [ 0, %_PyTokenizer_error_ret.exit ], [ 1, %if.then32 ], [ 1, %if.end58 ], [ 1, %if.end49 ], [ 0, %_PyTokenizer_new_string.exit.thread.i ], [ 0, %_PyTokenizer_new_string.exit143.thread.i ], [ 1, %if.end3 ], [ 1, %for.inc ], [ 1, %for.body ], [ 1, %for.body ], [ 1, %for.body ], !dbg !603",
+				"ret i32 %retval.0, !dbg !862"
+			]
+		},
+		{
+			"function": "_PyTokenizer_ensure_utf8",
+			"id": 161,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 496, "columns": [37, 5]
+				}
+			],
+			"successors": [180, 162],
+			"ir": [
+				"%0 = load i8, ptr %line, align 1, !dbg !598, !tbaa !601",
+				"%tobool.not24 = icmp eq i8 %0, 0, !dbg !604",
+				"br i1 %tobool.not24, label %cleanup, label %for.body, !dbg !604"
+			]
+		},
+		{
+			"function": "_PyTokenizer_ensure_utf8",
+			"id": 162,
+			"name": "for.body",
+			"debug": [
+				{
+					"line": 438, "columns": [12, 9]
+				}
+			],
+			"successors": [178, 163],
+			"ir": [
+				"%1 = phi i8 [ %11, %for.inc ], [ %0, %entry ]",
+				"%c.025 = phi ptr [ %add.ptr, %for.inc ], [ %line, %entry ]",
+				"%cmp.i = icmp sgt i8 %1, -1, !dbg !618",
+				"br i1 %cmp.i, label %for.inc, label %if.else.i, !dbg !620"
+			]
+		},
+		{
+			"function": "_PyTokenizer_ensure_utf8",
+			"id": 163,
+			"name": "if.else.i",
+			"debug": [
+				{
+					"line": 442, "columns": [17, 14]
+				}
+			],
+			"successors": [164, 165],
+			"ir": [
+				"%cmp3.i = icmp ult i8 %1, -32, !dbg !621",
+				"br i1 %cmp3.i, label %if.then5.i, label %if.else10.i, !dbg !623"
+			]
+		},
+		{
+			"function": "_PyTokenizer_ensure_utf8",
+			"id": 164,
+			"name": "if.then5.i",
+			"debug": [
+				{
+					"line": 444, "columns": [16, 13]
+				}
+			],
+			"successors": [179, 173],
+			"ir": [
+				"%cmp7.i = icmp ult i8 %1, -62, !dbg !624",
+				"br i1 %cmp7.i, label %if.then3, label %if.end55.i, !dbg !627"
+			]
+		},
+		{
+			"function": "_PyTokenizer_ensure_utf8",
+			"id": 165,
+			"name": "if.else10.i",
+			"debug": [
+				{
+					"line": 452, "columns": [17, 14]
+				}
+			],
+			"successors": [166, 169],
+			"ir": [
+				"%cmp12.i = icmp ult i8 %1, -16, !dbg !628",
+				"br i1 %cmp12.i, label %if.then14.i, label %if.else34.i, !dbg !630"
+			]
+		},
+		{
+			"function": "_PyTokenizer_ensure_utf8",
+			"id": 166,
+			"name": "if.then14.i",
+			"debug": [
+				{
+					"line": 454, "columns": [24]
+				}
+			],
+			"successors": [173, 167, 168],
+			"ir": [
+				"switch i8 %1, label %if.end55.i [\n    i8 -32, label %land.lhs.true.i\n    i8 -19, label %land.lhs.true26.i\n  ], !dbg !631"
+			]
+		},
+		{
+			"function": "_PyTokenizer_ensure_utf8",
+			"id": 167,
+			"name": "land.lhs.true.i",
+			"debug": [
+				{
+					"line": 454, "columns": [31, 27, 36, 13]
+				}
+			],
+			"successors": [179, 173],
+			"ir": [
+				"%add.ptr.i = getelementptr i8, ptr %c.025, i64 1, !dbg !634",
+				"%2 = load i8, ptr %add.ptr.i, align 1, !dbg !635, !tbaa !601",
+				"%cmp19.i = icmp ult i8 %2, -96, !dbg !636",
+				"br i1 %cmp19.i, label %if.then3, label %if.end55.i, !dbg !637"
+			]
+		},
+		{
+			"function": "_PyTokenizer_ensure_utf8",
+			"id": 168,
+			"name": "land.lhs.true26.i",
+			"debug": [
+				{
+					"line": 459, "columns": [36, 32, 41, 18]
+				}
+			],
+			"successors": [179, 173],
+			"ir": [
+				"%add.ptr27.i = getelementptr i8, ptr %c.025, i64 1, !dbg !638",
+				"%3 = load i8, ptr %add.ptr27.i, align 1, !dbg !640, !tbaa !601",
+				"%cmp29.i = icmp ugt i8 %3, -97, !dbg !641",
+				"br i1 %cmp29.i, label %if.then3, label %if.end55.i, !dbg !642"
+			]
+		},
+		{
+			"function": "_PyTokenizer_ensure_utf8",
+			"id": 169,
+			"name": "if.else34.i",
+			"debug": [
+				{
+					"line": 469, "columns": [17, 14]
+				}
+			],
+			"successors": [170, 179],
+			"ir": [
+				"%cmp36.i = icmp ult i8 %1, -11, !dbg !643",
+				"br i1 %cmp36.i, label %if.then38.i, label %if.then3, !dbg !645"
+			]
+		},
+		{
+			"function": "_PyTokenizer_ensure_utf8",
+			"id": 170,
+			"name": "if.then38.i",
+			"debug": [
+				{
+					"line": 471, "columns": [17, 13, 22]
+				}
+			],
+			"successors": [171, 172],
+			"ir": [
+				"%add.ptr39.i = getelementptr i8, ptr %c.025, i64 1, !dbg !646",
+				"%4 = load i8, ptr %add.ptr39.i, align 1, !dbg !649, !tbaa !601",
+				"%cmp41.i = icmp ult i8 %4, -112, !dbg !650",
+				"br i1 %cmp41.i, label %cond.true.i, label %cond.false.i, !dbg !651"
+			]
+		},
+		{
+			"function": "_PyTokenizer_ensure_utf8",
+			"id": 171,
+			"name": "cond.true.i",
+			"debug": [
+				{
+					"line": 471, "columns": [34, 13]
+				}
+			],
+			"successors": [179, 173],
+			"ir": [
+				"%cmp44.i = icmp eq i8 %1, -16, !dbg !652",
+				"br i1 %cmp44.i, label %if.then3, label %if.end55.i, !dbg !649"
+			]
+		},
+		{
+			"function": "_PyTokenizer_ensure_utf8",
+			"id": 172,
+			"name": "cond.false.i",
+			"debug": [
+				{
+					"line": 471, "columns": [47, 13]
+				}
+			],
+			"successors": [179, 173],
+			"ir": [
+				"%cmp47.i = icmp eq i8 %1, -12, !dbg !653",
+				"br i1 %cmp47.i, label %if.then3, label %if.end55.i, !dbg !651"
+			]
+		},
+		{
+			"function": "_PyTokenizer_ensure_utf8",
+			"id": 173,
+			"name": "if.end55.i",
+			"debug": [
+				{
+					"line": 483, "columns": [23]
+				},
+				{
+					"line": 484, "columns": [5]
+				},
+				{
+					"line": 485, "columns": [13, 32]
+				}
+			],
+			"successors": [179, 174],
+			"ir": [
+				"%expected.0.i = phi i32 [ 1, %if.then5.i ], [ 2, %land.lhs.true26.i ], [ 3, %cond.false.i ], [ 3, %cond.true.i ], [ 2, %land.lhs.true.i ], [ 2, %if.then14.i ], !dbg !654",
+				"%add.i = add nuw nsw i32 %expected.0.i, 1, !dbg !655",
+				"%5 = zext i32 %expected.0.i to i64, !dbg !656",
+				"%arrayidx.i = getelementptr i8, ptr %c.025, i64 %5, !dbg !658",
+				"%6 = load i8, ptr %arrayidx.i, align 1, !dbg !658, !tbaa !601",
+				"%or.cond.i = icmp sgt i8 %6, -65, !dbg !661",
+				"br i1 %or.cond.i, label %if.then3, label %for.cond.i, !dbg !661"
+			]
+		},
+		{
+			"function": "_PyTokenizer_ensure_utf8",
+			"id": 174,
+			"name": "for.cond.i",
+			"debug": [
+				{
+					"line": 484, "columns": [30, 5]
+				}
+			],
+			"successors": [178, 175],
+			"ir": [
+				"%indvars.iv.next = add nsw i64 %5, -1, !dbg !662",
+				"%7 = icmp eq i64 %indvars.iv.next, 0",
+				"br i1 %7, label %for.inc, label %for.body.i.1, !dbg !656, !llvm.loop !663"
+			]
+		},
+		{
+			"function": "_PyTokenizer_ensure_utf8",
+			"id": 175,
+			"name": "for.body.i.1",
+			"debug": [
+				{
+					"line": 485, "columns": [13, 32]
+				}
+			],
+			"successors": [179, 176],
+			"ir": [
+				"%arrayidx.i.1 = getelementptr i8, ptr %c.025, i64 %indvars.iv.next, !dbg !658",
+				"%8 = load i8, ptr %arrayidx.i.1, align 1, !dbg !658, !tbaa !601",
+				"%or.cond.i.1 = icmp sgt i8 %8, -65, !dbg !661",
+				"br i1 %or.cond.i.1, label %if.then3, label %for.cond.i.1, !dbg !661"
+			]
+		},
+		{
+			"function": "_PyTokenizer_ensure_utf8",
+			"id": 176,
+			"name": "for.cond.i.1",
+			"debug": [
+				{
+					"line": 484, "columns": [30, 5]
+				}
+			],
+			"successors": [178, 177],
+			"ir": [
+				"%indvars.iv.next.1 = add nsw i64 %5, -2, !dbg !662",
+				"%9 = icmp eq i64 %indvars.iv.next.1, 0",
+				"br i1 %9, label %for.inc, label %for.body.i.2, !dbg !656, !llvm.loop !663"
+			]
+		},
+		{
+			"function": "_PyTokenizer_ensure_utf8",
+			"id": 177,
+			"name": "for.body.i.2",
+			"debug": [
+				{
+					"line": 485, "columns": [13, 32]
+				}
+			],
+			"successors": [179, 178],
+			"ir": [
+				"%arrayidx.i.2 = getelementptr i8, ptr %c.025, i64 %indvars.iv.next.1, !dbg !658",
+				"%10 = load i8, ptr %arrayidx.i.2, align 1, !dbg !658, !tbaa !601",
+				"%or.cond.i.2 = icmp sgt i8 %10, -65, !dbg !661",
+				"br i1 %or.cond.i.2, label %if.then3, label %for.inc, !dbg !661"
+			]
+		},
+		{
+			"function": "_PyTokenizer_ensure_utf8",
+			"id": 178,
+			"name": "for.inc",
+			"debug": [
+				{
+					"line": 496, "columns": [43, 37, 5]
+				}
+			],
+			"successors": [180, 162],
+			"ir": [
+				"%retval.0.i = phi i32 [ 1, %for.body ], [ %add.i, %for.body.i.2 ], [ %add.i, %for.cond.i.1 ], [ %add.i, %for.cond.i ], !dbg !614",
+				"%idx.ext = zext i32 %retval.0.i to i64, !dbg !666",
+				"%add.ptr = getelementptr i8, ptr %c.025, i64 %idx.ext, !dbg !666",
+				"%11 = load i8, ptr %add.ptr, align 1, !dbg !598, !tbaa !601",
+				"%tobool.not = icmp eq i8 %11, 0, !dbg !604",
+				"br i1 %tobool.not, label %cleanup, label %for.body, !dbg !604, !llvm.loop !667"
+			]
+		},
+		{
+			"function": "_PyTokenizer_ensure_utf8",
+			"id": 179,
+			"name": "if.then3",
+			"debug": [
+				{
+					"line": 498, "columns": [23]
+				},
+				{
+					"line": 503, "columns": [22, 9]
+				},
+				{
+					"line": 508, "columns": [36, 51]
+				},
+				{
+					"line": 509, "columns": [9]
+				}
+			],
+			"successors": [180],
+			"ir": [
+				"%conv20 = zext i8 %1 to i32, !dbg !669",
+				"%12 = load ptr, ptr @PyExc_SyntaxError, align 8, !dbg !671, !tbaa !674",
+				"%filename = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 25, !dbg !676",
+				"%13 = load ptr, ptr %filename, align 8, !dbg !676, !tbaa !677",
+				"%lineno = getelementptr inbounds %struct.tok_state, ptr %tok, i64 0, i32 17, !dbg !680",
+				"%14 = load i32, ptr %lineno, align 8, !dbg !680, !tbaa !681",
+				"%call4 = tail call ptr (ptr, ptr, ...) @PyErr_Format(ptr noundef %12, ptr noundef nonnull @.str.5, i32 noundef %conv20, ptr noundef %13, i32 noundef %14) #11, !dbg !682",
+				"br label %cleanup, !dbg !683"
+			]
+		},
+		{
+			"function": "_PyTokenizer_ensure_utf8",
+			"id": 180,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 512, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ 0, %if.then3 ], [ 1, %entry ], [ 1, %for.inc ], !dbg !597",
+				"ret i32 %retval.0, !dbg !684"
+			]
+		}
+	]
+}

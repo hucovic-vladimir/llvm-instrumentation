@@ -1,0 +1,704 @@
+{
+	"blocks": [
+		{
+			"function": "RotatingTree_Add",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 42, "columns": [12, 18, 5]
+				}
+			],
+			"successors": [3, 1],
+			"ir": [
+				"%0 = load ptr, ptr %root, align 8, !dbg !47, !tbaa !48",
+				"%cmp.not12 = icmp eq ptr %0, null, !dbg !52",
+				"br i1 %cmp.not12, label %while.end, label %while.body.lr.ph, !dbg !53"
+			]
+		},
+		{
+			"function": "RotatingTree_Add",
+			"id": 1,
+			"name": "while.body.lr.ph",
+			"debug": [
+				{
+					"line": 42, "columns": [5]
+				}
+			],
+			"successors": [2],
+			"ir": [
+				"%1 = load ptr, ptr %node, align 8, !tbaa !54",
+				"br label %while.body, !dbg !53"
+			]
+		},
+		{
+			"function": "RotatingTree_Add",
+			"id": 2,
+			"name": "while.body",
+			"debug": [
+				{
+					"line": 42, "columns": [12, 18, 5]
+				},
+				{
+					"line": 43, "columns": [13]
+				}
+			],
+			"successors": [3, 2],
+			"ir": [
+				"%2 = phi ptr [ %0, %while.body.lr.ph ], [ %4, %while.body ]",
+				"%3 = load ptr, ptr %2, align 8, !dbg !56, !tbaa !54",
+				"%cmp2 = icmp ult ptr %1, %3, !dbg !56",
+				"%left = getelementptr inbounds %struct.rotating_node_s, ptr %2, i64 0, i32 1, !dbg !59",
+				"%right = getelementptr inbounds %struct.rotating_node_s, ptr %2, i64 0, i32 2, !dbg !59",
+				"%root.addr.1 = select i1 %cmp2, ptr %left, ptr %right, !dbg !59",
+				"%4 = load ptr, ptr %root.addr.1, align 8, !dbg !47, !tbaa !48",
+				"%cmp.not = icmp eq ptr %4, null, !dbg !52",
+				"br i1 %cmp.not, label %while.end, label %while.body, !dbg !53, !llvm.loop !60"
+			]
+		},
+		{
+			"function": "RotatingTree_Add",
+			"id": 3,
+			"name": "while.end",
+			"debug": [
+				{
+					"line": 48, "columns": [11]
+				},
+				{
+					"line": 49, "columns": [17]
+				},
+				{
+					"line": 50, "columns": [11]
+				},
+				{
+					"line": 51, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%root.addr.0.lcssa = phi ptr [ %root, %entry ], [ %root.addr.1, %while.body ]",
+				"%left3 = getelementptr inbounds %struct.rotating_node_s, ptr %node, i64 0, i32 1, !dbg !63",
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %left3, i8 0, i64 16, i1 false), !dbg !64",
+				"store ptr %node, ptr %root.addr.0.lcssa, align 8, !dbg !65, !tbaa !48",
+				"ret void, !dbg !66"
+			]
+		},
+		{
+			"function": "RotatingTree_Get",
+			"id": 4,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 74, "columns": [9]
+				},
+				{
+					"line": 105, "columns": [10]
+				}
+			],
+			"successors": [6, 5],
+			"ir": [
+				"%0 = cmpxchg ptr @random_mutex, i8 0, i8 1 seq_cst seq_cst, align 1, !dbg !85",
+				"%1 = extractvalue { i8, i1 } %0, 1, !dbg !85",
+				"br i1 %1, label %PyMutex_Lock.exit.i, label %if.then.i.i, !dbg !86"
+			]
+		},
+		{
+			"function": "RotatingTree_Get",
+			"id": 5,
+			"name": "if.then.i.i",
+			"debug": [
+				{
+					"line": 75, "columns": [9]
+				},
+				{
+					"line": 76, "columns": [5]
+				}
+			],
+			"successors": [6],
+			"ir": [
+				"tail call void @_PyMutex_LockSlow(ptr noundef nonnull @random_mutex) #5, !dbg !87",
+				"br label %PyMutex_Lock.exit.i, !dbg !89"
+			]
+		},
+		{
+			"function": "RotatingTree_Get",
+			"id": 6,
+			"name": "PyMutex_Lock.exit.i",
+			"debug": [
+				{
+					"line": 26, "columns": [9, 23]
+				}
+			],
+			"successors": [7, 8],
+			"ir": [
+				"%2 = load i32, ptr @random_stream, align 4, !dbg !90, !tbaa !92",
+				"%cmp.i = icmp ult i32 %2, 8, !dbg !96",
+				"br i1 %cmp.i, label %if.then.i, label %if.end.i, !dbg !97"
+			]
+		},
+		{
+			"function": "RotatingTree_Get",
+			"id": 7,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 27, "columns": [22]
+				},
+				{
+					"line": 29, "columns": [5]
+				}
+			],
+			"successors": [8],
+			"ir": [
+				"%3 = load i32, ptr @random_value, align 4, !dbg !98, !tbaa !92",
+				"%mul.i = mul i32 %3, 1082527, !dbg !98",
+				"store i32 %mul.i, ptr @random_value, align 4, !dbg !98, !tbaa !92",
+				"br label %if.end.i, !dbg !100"
+			]
+		},
+		{
+			"function": "RotatingTree_Get",
+			"id": 8,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 30, "columns": [14]
+				},
+				{
+					"line": 31, "columns": [19]
+				},
+				{
+					"line": 84, "columns": [9]
+				},
+				{
+					"line": 105, "columns": [10]
+				}
+			],
+			"successors": [10, 9],
+			"ir": [
+				"%4 = phi i32 [ %mul.i, %if.then.i ], [ %2, %PyMutex_Lock.exit.i ], !dbg !101",
+				"%shr.i = lshr i32 %4, 3, !dbg !102",
+				"store i32 %shr.i, ptr @random_stream, align 4, !dbg !102, !tbaa !92",
+				"%5 = cmpxchg ptr @random_mutex, i8 1, i8 0 seq_cst seq_cst, align 1, !dbg !112",
+				"%6 = extractvalue { i8, i1 } %5, 1, !dbg !112",
+				"br i1 %6, label %randombits.exit, label %if.then.i4.i, !dbg !113"
+			]
+		},
+		{
+			"function": "RotatingTree_Get",
+			"id": 9,
+			"name": "if.then.i4.i",
+			"debug": [
+				{
+					"line": 85, "columns": [9]
+				},
+				{
+					"line": 86, "columns": [5]
+				}
+			],
+			"successors": [10],
+			"ir": [
+				"tail call void @_PyMutex_UnlockSlow(ptr noundef nonnull @random_mutex) #5, !dbg !114",
+				"br label %randombits.exit, !dbg !116"
+			]
+		},
+		{
+			"function": "RotatingTree_Get",
+			"id": 10,
+			"name": "randombits.exit",
+			"debug": [
+				{
+					"line": 30, "columns": [28]
+				},
+				{
+					"line": 59, "columns": [23, 9]
+				}
+			],
+			"successors": [14, 11],
+			"ir": [
+				"%and.i = and i32 %4, 7, !dbg !117",
+				"%cmp.not = icmp eq i32 %and.i, 4, !dbg !118",
+				"%7 = load ptr, ptr %root, align 8, !dbg !119, !tbaa !120",
+				"%cmp11 = icmp eq ptr %7, null, !dbg !119",
+				"br i1 %cmp.not, label %if.else9, label %while.cond.preheader, !dbg !122"
+			]
+		},
+		{
+			"function": "RotatingTree_Get",
+			"id": 11,
+			"name": "while.cond.preheader",
+			"debug": [
+				{
+					"line": 62, "columns": [9]
+				}
+			],
+			"successors": [31, 12],
+			"ir": [
+				"br i1 %cmp11, label %return, label %while.body, !dbg !124"
+			]
+		},
+		{
+			"function": "RotatingTree_Get",
+			"id": 12,
+			"name": "while.body",
+			"debug": [
+				{
+					"line": 63, "columns": [23, 27, 17]
+				}
+			],
+			"successors": [31, 13],
+			"ir": [
+				"%node.0102 = phi ptr [ %node.0, %if.end ], [ %7, %while.cond.preheader ]",
+				"%8 = load ptr, ptr %node.0102, align 8, !dbg !125, !tbaa !128",
+				"%cmp3 = icmp eq ptr %8, %key, !dbg !130",
+				"br i1 %cmp3, label %return, label %if.end, !dbg !131"
+			]
+		},
+		{
+			"function": "RotatingTree_Get",
+			"id": 13,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 62, "columns": [21, 9]
+				},
+				{
+					"line": 65, "columns": [17]
+				}
+			],
+			"successors": [31, 12],
+			"ir": [
+				"%cmp6 = icmp ugt ptr %8, %key, !dbg !132",
+				"%left = getelementptr inbounds %struct.rotating_node_s, ptr %node.0102, i64 0, i32 1, !dbg !134",
+				"%right = getelementptr inbounds %struct.rotating_node_s, ptr %node.0102, i64 0, i32 2, !dbg !134",
+				"%node.1.in = select i1 %cmp6, ptr %left, ptr %right, !dbg !134",
+				"%node.0 = load ptr, ptr %node.1.in, align 8, !dbg !123, !tbaa !120",
+				"%cmp1.not = icmp eq ptr %node.0, null, !dbg !135",
+				"br i1 %cmp1.not, label %return, label %while.body, !dbg !124, !llvm.loop !136"
+			]
+		},
+		{
+			"function": "RotatingTree_Get",
+			"id": 14,
+			"name": "if.else9",
+			"debug": [
+				{
+					"line": 77, "columns": [13]
+				}
+			],
+			"successors": [31, 15],
+			"ir": [
+				"br i1 %cmp11, label %return, label %while.cond14.preheader, !dbg !140"
+			]
+		},
+		{
+			"function": "RotatingTree_Get",
+			"id": 15,
+			"name": "while.cond14.preheader",
+			"debug": [
+				{
+					"line": 80, "columns": [23, 27, 17]
+				}
+			],
+			"successors": [31, 16],
+			"ir": [
+				"%9 = load ptr, ptr %7, align 8, !dbg !141, !tbaa !128",
+				"%cmp17104 = icmp eq ptr %9, %key, !dbg !144",
+				"br i1 %cmp17104, label %return, label %if.end19, !dbg !145"
+			]
+		},
+		{
+			"function": "RotatingTree_Get",
+			"id": 16,
+			"name": "if.end19",
+			"debug": [
+				{
+					"line": 74, "columns": [9]
+				},
+				{
+					"line": 105, "columns": [10]
+				}
+			],
+			"successors": [18, 17],
+			"ir": [
+				"%node10.0106 = phi ptr [ %next.0, %if.end49 ], [ %7, %while.cond14.preheader ]",
+				"%pnode.0105 = phi ptr [ %pnode.1, %if.end49 ], [ %root, %while.cond14.preheader ]",
+				"%10 = cmpxchg ptr @random_mutex, i8 0, i8 1 seq_cst seq_cst, align 1, !dbg !152",
+				"%11 = extractvalue { i8, i1 } %10, 1, !dbg !152",
+				"br i1 %11, label %PyMutex_Lock.exit.i90, label %if.then.i.i88, !dbg !153"
+			]
+		},
+		{
+			"function": "RotatingTree_Get",
+			"id": 17,
+			"name": "if.then.i.i88",
+			"debug": [
+				{
+					"line": 75, "columns": [9]
+				},
+				{
+					"line": 76, "columns": [5]
+				}
+			],
+			"successors": [18],
+			"ir": [
+				"tail call void @_PyMutex_LockSlow(ptr noundef nonnull @random_mutex) #5, !dbg !154",
+				"br label %PyMutex_Lock.exit.i90, !dbg !155"
+			]
+		},
+		{
+			"function": "RotatingTree_Get",
+			"id": 18,
+			"name": "PyMutex_Lock.exit.i90",
+			"debug": [
+				{
+					"line": 26, "columns": [9, 23]
+				}
+			],
+			"successors": [19, 20],
+			"ir": [
+				"%12 = load i32, ptr @random_stream, align 4, !dbg !156, !tbaa !92",
+				"%cmp.i89 = icmp ult i32 %12, 2, !dbg !157",
+				"br i1 %cmp.i89, label %if.then.i92, label %if.end.i94, !dbg !158"
+			]
+		},
+		{
+			"function": "RotatingTree_Get",
+			"id": 19,
+			"name": "if.then.i92",
+			"debug": [
+				{
+					"line": 27, "columns": [22]
+				},
+				{
+					"line": 29, "columns": [5]
+				}
+			],
+			"successors": [20],
+			"ir": [
+				"%13 = load i32, ptr @random_value, align 4, !dbg !159, !tbaa !92",
+				"%mul.i91 = mul i32 %13, 1082527, !dbg !159",
+				"store i32 %mul.i91, ptr @random_value, align 4, !dbg !159, !tbaa !92",
+				"br label %if.end.i94, !dbg !160"
+			]
+		},
+		{
+			"function": "RotatingTree_Get",
+			"id": 20,
+			"name": "if.end.i94",
+			"debug": [
+				{
+					"line": 30, "columns": [14]
+				},
+				{
+					"line": 31, "columns": [19]
+				},
+				{
+					"line": 84, "columns": [9]
+				},
+				{
+					"line": 105, "columns": [10]
+				}
+			],
+			"successors": [22, 21],
+			"ir": [
+				"%14 = phi i32 [ %mul.i91, %if.then.i92 ], [ %12, %PyMutex_Lock.exit.i90 ], !dbg !161",
+				"%shr.i93 = lshr i32 %14, 1, !dbg !162",
+				"store i32 %shr.i93, ptr @random_stream, align 4, !dbg !162, !tbaa !92",
+				"%15 = cmpxchg ptr @random_mutex, i8 1, i8 0 seq_cst seq_cst, align 1, !dbg !167",
+				"%16 = extractvalue { i8, i1 } %15, 1, !dbg !167",
+				"br i1 %16, label %randombits.exit97, label %if.then.i4.i95, !dbg !168"
+			]
+		},
+		{
+			"function": "RotatingTree_Get",
+			"id": 21,
+			"name": "if.then.i4.i95",
+			"debug": [
+				{
+					"line": 85, "columns": [9]
+				},
+				{
+					"line": 86, "columns": [5]
+				}
+			],
+			"successors": [22],
+			"ir": [
+				"tail call void @_PyMutex_UnlockSlow(ptr noundef nonnull @random_mutex) #5, !dbg !169",
+				"br label %randombits.exit97, !dbg !170"
+			]
+		},
+		{
+			"function": "RotatingTree_Get",
+			"id": 22,
+			"name": "randombits.exit97",
+			"debug": [
+				{
+					"line": 30, "columns": [28]
+				},
+				{
+					"line": 82, "columns": [22]
+				},
+				{
+					"line": 83, "columns": [17]
+				}
+			],
+			"successors": [23, 26],
+			"ir": [
+				"%and.i96 = and i32 %14, 1, !dbg !171",
+				"%tobool.not = icmp eq i32 %and.i96, 0, !dbg !172",
+				"%17 = load ptr, ptr %node10.0106, align 8, !dbg !173, !tbaa !128",
+				"%cmp22 = icmp ugt ptr %17, %key, !dbg !173",
+				"br i1 %cmp22, label %if.then23, label %if.else36, !dbg !175"
+			]
+		},
+		{
+			"function": "RotatingTree_Get",
+			"id": 23,
+			"name": "if.then23",
+			"debug": [
+				{
+					"line": 84, "columns": [30]
+				},
+				{
+					"line": 85, "columns": [26, 21]
+				}
+			],
+			"successors": [31, 24],
+			"ir": [
+				"%left24 = getelementptr inbounds %struct.rotating_node_s, ptr %node10.0106, i64 0, i32 1, !dbg !176",
+				"%18 = load ptr, ptr %left24, align 8, !dbg !176, !tbaa !178",
+				"%cmp25 = icmp eq ptr %18, null, !dbg !179",
+				"br i1 %cmp25, label %return, label %if.end27, !dbg !181"
+			]
+		},
+		{
+			"function": "RotatingTree_Get",
+			"id": 24,
+			"name": "if.end27",
+			"debug": [
+				{
+					"line": 87, "columns": [21]
+				}
+			],
+			"successors": [25, 30],
+			"ir": [
+				"br i1 %tobool.not, label %if.then29, label %if.end49, !dbg !182"
+			]
+		},
+		{
+			"function": "RotatingTree_Get",
+			"id": 25,
+			"name": "if.then29",
+			"debug": [
+				{
+					"line": 88, "columns": [40]
+				},
+				{
+					"line": 91, "columns": [17]
+				}
+			],
+			"successors": [29],
+			"ir": [
+				"%right30 = getelementptr inbounds %struct.rotating_node_s, ptr %18, i64 0, i32 2, !dbg !183",
+				"br label %if.end49.sink.split, !dbg !186"
+			]
+		},
+		{
+			"function": "RotatingTree_Get",
+			"id": 26,
+			"name": "if.else36",
+			"debug": [
+				{
+					"line": 96, "columns": [30]
+				},
+				{
+					"line": 97, "columns": [26, 21]
+				}
+			],
+			"successors": [31, 27],
+			"ir": [
+				"%right37 = getelementptr inbounds %struct.rotating_node_s, ptr %node10.0106, i64 0, i32 2, !dbg !187",
+				"%19 = load ptr, ptr %right37, align 8, !dbg !187, !tbaa !189",
+				"%cmp38 = icmp eq ptr %19, null, !dbg !190",
+				"br i1 %cmp38, label %return, label %if.end40, !dbg !192"
+			]
+		},
+		{
+			"function": "RotatingTree_Get",
+			"id": 27,
+			"name": "if.end40",
+			"debug": [
+				{
+					"line": 99, "columns": [21]
+				}
+			],
+			"successors": [28, 30],
+			"ir": [
+				"br i1 %tobool.not, label %if.then42, label %if.end49, !dbg !193"
+			]
+		},
+		{
+			"function": "RotatingTree_Get",
+			"id": 28,
+			"name": "if.then42",
+			"debug": [
+				{
+					"line": 100, "columns": [41]
+				},
+				{
+					"line": 103, "columns": [17]
+				}
+			],
+			"successors": [29],
+			"ir": [
+				"%left43 = getelementptr inbounds %struct.rotating_node_s, ptr %19, i64 0, i32 1, !dbg !194",
+				"br label %if.end49.sink.split, !dbg !197"
+			]
+		},
+		{
+			"function": "RotatingTree_Get",
+			"id": 29,
+			"name": "if.end49.sink.split",
+			"debug": [
+				{
+					"line": 80, "columns": [23]
+				}
+			],
+			"successors": [30],
+			"ir": [
+				"%left43.sink115 = phi ptr [ %left43, %if.then42 ], [ %right30, %if.then29 ]",
+				"%right37.sink = phi ptr [ %right37, %if.then42 ], [ %left24, %if.then29 ]",
+				"%.sink = phi ptr [ %19, %if.then42 ], [ %18, %if.then29 ]",
+				"%20 = load ptr, ptr %left43.sink115, align 8, !dbg !198, !tbaa !120",
+				"store ptr %20, ptr %right37.sink, align 8, !dbg !198, !tbaa !120",
+				"store ptr %node10.0106, ptr %left43.sink115, align 8, !dbg !198, !tbaa !120",
+				"store ptr %.sink, ptr %pnode.0105, align 8, !dbg !198, !tbaa !120",
+				"br label %if.end49, !dbg !141"
+			]
+		},
+		{
+			"function": "RotatingTree_Get",
+			"id": 30,
+			"name": "if.end49",
+			"debug": [
+				{
+					"line": 80, "columns": [23, 27, 17]
+				}
+			],
+			"successors": [31, 16],
+			"ir": [
+				"%pnode.1 = phi ptr [ %left24, %if.end27 ], [ %right37, %if.end40 ], [ %pnode.0105, %if.end49.sink.split ], !dbg !139",
+				"%next.0 = phi ptr [ %18, %if.end27 ], [ %19, %if.end40 ], [ %.sink, %if.end49.sink.split ], !dbg !198",
+				"%21 = load ptr, ptr %next.0, align 8, !dbg !141, !tbaa !128",
+				"%cmp17 = icmp eq ptr %21, %key, !dbg !144",
+				"br i1 %cmp17, label %return, label %if.end19, !dbg !145, !llvm.loop !199"
+			]
+		},
+		{
+			"function": "RotatingTree_Get",
+			"id": 31,
+			"name": "return",
+			"debug": [
+				{
+					"line": 110, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.2 = phi ptr [ null, %if.else9 ], [ %7, %while.cond14.preheader ], [ null, %while.cond.preheader ], [ null, %if.else36 ], [ null, %if.then23 ], [ %next.0, %if.end49 ], [ null, %if.end ], [ %node.0102, %while.body ], !dbg !119",
+				"ret ptr %retval.2, !dbg !202"
+			]
+		},
+		{
+			"function": "RotatingTree_Enum",
+			"id": 32,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 121, "columns": [5]
+				}
+			],
+			"successors": [33],
+			"ir": [
+				"br label %while.cond, !dbg !54"
+			]
+		},
+		{
+			"function": "RotatingTree_Enum",
+			"id": 33,
+			"name": "while.cond",
+			"debug": [
+				{
+					"line": 121, "columns": [17, 5]
+				}
+			],
+			"successors": [36, 34],
+			"ir": [
+				"%root.addr.0 = phi ptr [ %root, %entry ], [ %1, %if.end ]",
+				"%cmp.not = icmp eq ptr %root.addr.0, null, !dbg !55",
+				"br i1 %cmp.not, label %cleanup, label %while.body, !dbg !54"
+			]
+		},
+		{
+			"function": "RotatingTree_Enum",
+			"id": 34,
+			"name": "while.body",
+			"debug": [
+				{
+					"line": 122, "columns": [42, 18]
+				},
+				{
+					"line": 123, "columns": [20, 13]
+				}
+			],
+			"successors": [35, 36],
+			"ir": [
+				"%left = getelementptr inbounds %struct.rotating_node_s, ptr %root.addr.0, i64 0, i32 1, !dbg !56",
+				"%0 = load ptr, ptr %left, align 8, !dbg !56, !tbaa !58",
+				"%call = tail call i32 @RotatingTree_Enum(ptr noundef %0, ptr noundef %enumfn, ptr noundef %arg), !dbg !63",
+				"%cmp1.not = icmp eq i32 %call, 0, !dbg !64",
+				"br i1 %cmp1.not, label %if.end, label %cleanup, !dbg !66"
+			]
+		},
+		{
+			"function": "RotatingTree_Enum",
+			"id": 35,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 124, "columns": [22]
+				},
+				{
+					"line": 125, "columns": [18]
+				},
+				{
+					"line": 126, "columns": [20, 13]
+				}
+			],
+			"successors": [33, 36],
+			"ir": [
+				"%right = getelementptr inbounds %struct.rotating_node_s, ptr %root.addr.0, i64 0, i32 2, !dbg !67",
+				"%1 = load ptr, ptr %right, align 8, !dbg !67, !tbaa !68",
+				"%call2 = tail call i32 %enumfn(ptr noundef nonnull %root.addr.0, ptr noundef %arg) #5, !dbg !69",
+				"%cmp3.not = icmp eq i32 %call2, 0, !dbg !70",
+				"br i1 %cmp3.not, label %while.cond, label %cleanup, !dbg !72, !llvm.loop !73"
+			]
+		},
+		{
+			"function": "RotatingTree_Enum",
+			"id": 36,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 130, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ %call, %while.body ], [ %call2, %if.end ], [ 0, %while.cond ], !dbg !53",
+				"ret i32 %retval.0, !dbg !76"
+			]
+		}
+	]
+}

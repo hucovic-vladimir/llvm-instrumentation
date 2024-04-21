@@ -1,0 +1,3215 @@
+{
+	"blocks": [
+		{
+			"function": "PyInit__queue",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 616, "columns": [11, 4]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call ptr @PyModuleDef_Init(ptr noundef nonnull @queuemodule) #8, !dbg !683",
+				"ret ptr %call, !dbg !684"
+			]
+		},
+		{
+			"function": "queue_traverse",
+			"id": 1,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 499, "columns": [32]
+				},
+				{
+					"line": 500, "columns": [5]
+				}
+			],
+			"successors": [3, 2],
+			"ir": [
+				"%0 = getelementptr i8, ptr %m, i64 32, !dbg !702",
+				"%m.val = load ptr, ptr %0, align 8, !dbg !702, !tbaa !703",
+				"%1 = load ptr, ptr %m.val, align 8, !dbg !709, !tbaa !710",
+				"%tobool.not = icmp eq ptr %1, null, !dbg !709",
+				"br i1 %tobool.not, label %do.body6, label %if.then, !dbg !712"
+			]
+		},
+		{
+			"function": "queue_traverse",
+			"id": 2,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 500, "columns": [5]
+				}
+			],
+			"successors": [3, 6],
+			"ir": [
+				"%call2 = tail call i32 %visit(ptr noundef nonnull %1, ptr noundef %arg) #8, !dbg !713",
+				"%tobool3.not = icmp eq i32 %call2, 0, !dbg !715",
+				"br i1 %tobool3.not, label %do.body6, label %cleanup21"
+			]
+		},
+		{
+			"function": "queue_traverse",
+			"id": 3,
+			"name": "do.body6",
+			"debug": [
+				{
+					"line": 501, "columns": [5]
+				}
+			],
+			"successors": [5, 4],
+			"ir": [
+				"%EmptyError = getelementptr inbounds %struct.simplequeue_state, ptr %m.val, i64 0, i32 1, !dbg !717",
+				"%2 = load ptr, ptr %EmptyError, align 8, !dbg !717, !tbaa !718",
+				"%tobool7.not = icmp eq ptr %2, null, !dbg !717",
+				"br i1 %tobool7.not, label %do.end20, label %if.then8, !dbg !719"
+			]
+		},
+		{
+			"function": "queue_traverse",
+			"id": 4,
+			"name": "if.then8",
+			"debug": [
+				{
+					"line": 501, "columns": [5]
+				}
+			],
+			"successors": [5, 6],
+			"ir": [
+				"%call11 = tail call i32 %visit(ptr noundef nonnull %2, ptr noundef %arg) #8, !dbg !720",
+				"%tobool12.not = icmp eq i32 %call11, 0, !dbg !722",
+				"br i1 %tobool12.not, label %do.end20, label %cleanup21"
+			]
+		},
+		{
+			"function": "queue_traverse",
+			"id": 5,
+			"name": "do.end20",
+			"debug": [
+				{
+					"line": 502, "columns": [5]
+				}
+			],
+			"successors": [6],
+			"ir": [
+				"br label %cleanup21, !dbg !724"
+			]
+		},
+		{
+			"function": "queue_traverse",
+			"id": 6,
+			"name": "cleanup21",
+			"debug": [
+				{
+					"line": 503, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.3 = phi i32 [ 0, %do.end20 ], [ %call11, %if.then8 ], [ %call2, %if.then ], !dbg !701",
+				"ret i32 %retval.3, !dbg !725"
+			]
+		},
+		{
+			"function": "queue_clear",
+			"id": 7,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 508, "columns": [32]
+				},
+				{
+					"line": 509, "columns": [5]
+				}
+			],
+			"successors": [11, 8],
+			"ir": [
+				"%0 = getelementptr i8, ptr %m, i64 32, !dbg !699",
+				"%m.val = load ptr, ptr %0, align 8, !dbg !699, !tbaa !700",
+				"%1 = load ptr, ptr %m.val, align 8, !dbg !707, !tbaa !708",
+				"%cmp.not = icmp eq ptr %1, null, !dbg !709",
+				"br i1 %cmp.not, label %if.end, label %if.then, !dbg !707"
+			]
+		},
+		{
+			"function": "queue_clear",
+			"id": 8,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 509, "columns": [5]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [9, 11],
+			"ir": [
+				"store ptr null, ptr %m.val, align 8, !dbg !711, !tbaa !708",
+				"%op.val.i = load i64, ptr %1, align 8, !dbg !718, !tbaa !720",
+				"%2 = and i64 %op.val.i, 2147483648, !dbg !726",
+				"%cmp.i.not.i = icmp eq i64 %2, 0, !dbg !726",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %if.end, !dbg !727"
+			]
+		},
+		{
+			"function": "queue_clear",
+			"id": 9,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [10, 11],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !728",
+				"store i64 %dec.i, ptr %1, align 8, !dbg !728, !tbaa !720",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !730",
+				"br i1 %cmp.i, label %if.then1.i, label %if.end, !dbg !731"
+			]
+		},
+		{
+			"function": "queue_clear",
+			"id": 10,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [11],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %1) #8, !dbg !732",
+				"br label %if.end, !dbg !734"
+			]
+		},
+		{
+			"function": "queue_clear",
+			"id": 11,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 510, "columns": [5]
+				}
+			],
+			"successors": [15, 12],
+			"ir": [
+				"%EmptyError = getelementptr inbounds %struct.simplequeue_state, ptr %m.val, i64 0, i32 1, !dbg !735",
+				"%3 = load ptr, ptr %EmptyError, align 8, !dbg !735, !tbaa !708",
+				"%cmp4.not = icmp eq ptr %3, null, !dbg !737",
+				"br i1 %cmp4.not, label %if.end6, label %if.then5, !dbg !735"
+			]
+		},
+		{
+			"function": "queue_clear",
+			"id": 12,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 510, "columns": [5]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [13, 15],
+			"ir": [
+				"store ptr null, ptr %EmptyError, align 8, !dbg !739, !tbaa !708",
+				"%op.val.i15 = load i64, ptr %3, align 8, !dbg !743, !tbaa !720",
+				"%4 = and i64 %op.val.i15, 2147483648, !dbg !746",
+				"%cmp.i.not.i16 = icmp eq i64 %4, 0, !dbg !746",
+				"br i1 %cmp.i.not.i16, label %if.end.i19, label %if.end6, !dbg !747"
+			]
+		},
+		{
+			"function": "queue_clear",
+			"id": 13,
+			"name": "if.end.i19",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [14, 15],
+			"ir": [
+				"%dec.i17 = add i64 %op.val.i15, -1, !dbg !748",
+				"store i64 %dec.i17, ptr %3, align 8, !dbg !748, !tbaa !720",
+				"%cmp.i18 = icmp eq i64 %dec.i17, 0, !dbg !749",
+				"br i1 %cmp.i18, label %if.then1.i20, label %if.end6, !dbg !750"
+			]
+		},
+		{
+			"function": "queue_clear",
+			"id": 14,
+			"name": "if.then1.i20",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [15],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %3) #8, !dbg !751",
+				"br label %if.end6, !dbg !752"
+			]
+		},
+		{
+			"function": "queue_clear",
+			"id": 15,
+			"name": "if.end6",
+			"debug": [
+				{
+					"line": 511, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret i32 0, !dbg !753"
+			]
+		},
+		{
+			"function": "queue_free",
+			"id": 16,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 508, "columns": [32]
+				},
+				{
+					"line": 509, "columns": [5]
+				}
+			],
+			"successors": [20, 17],
+			"ir": [
+				"%0 = getelementptr i8, ptr %m, i64 32, !dbg !704",
+				"%m.val.i = load ptr, ptr %0, align 8, !dbg !704, !tbaa !705",
+				"%1 = load ptr, ptr %m.val.i, align 8, !dbg !712, !tbaa !713",
+				"%cmp.not.i = icmp eq ptr %1, null, !dbg !714",
+				"br i1 %cmp.not.i, label %if.end.i, label %if.then.i, !dbg !712"
+			]
+		},
+		{
+			"function": "queue_free",
+			"id": 17,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 509, "columns": [5]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [18, 20],
+			"ir": [
+				"store ptr null, ptr %m.val.i, align 8, !dbg !716, !tbaa !713",
+				"%op.val.i.i = load i64, ptr %1, align 8, !dbg !723, !tbaa !725",
+				"%2 = and i64 %op.val.i.i, 2147483648, !dbg !731",
+				"%cmp.i.not.i.i = icmp eq i64 %2, 0, !dbg !731",
+				"br i1 %cmp.i.not.i.i, label %if.end.i.i, label %if.end.i, !dbg !732"
+			]
+		},
+		{
+			"function": "queue_free",
+			"id": 18,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [19, 20],
+			"ir": [
+				"%dec.i.i = add i64 %op.val.i.i, -1, !dbg !733",
+				"store i64 %dec.i.i, ptr %1, align 8, !dbg !733, !tbaa !725",
+				"%cmp.i.i = icmp eq i64 %dec.i.i, 0, !dbg !735",
+				"br i1 %cmp.i.i, label %if.then1.i.i, label %if.end.i, !dbg !736"
+			]
+		},
+		{
+			"function": "queue_free",
+			"id": 19,
+			"name": "if.then1.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [20],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %1) #8, !dbg !737",
+				"br label %if.end.i, !dbg !739"
+			]
+		},
+		{
+			"function": "queue_free",
+			"id": 20,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 510, "columns": [5]
+				}
+			],
+			"successors": [24, 21],
+			"ir": [
+				"%EmptyError.i = getelementptr inbounds %struct.simplequeue_state, ptr %m.val.i, i64 0, i32 1, !dbg !740",
+				"%3 = load ptr, ptr %EmptyError.i, align 8, !dbg !740, !tbaa !713",
+				"%cmp4.not.i = icmp eq ptr %3, null, !dbg !742",
+				"br i1 %cmp4.not.i, label %queue_clear.exit, label %if.then5.i, !dbg !740"
+			]
+		},
+		{
+			"function": "queue_free",
+			"id": 21,
+			"name": "if.then5.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 510, "columns": [5]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [22, 24],
+			"ir": [
+				"store ptr null, ptr %EmptyError.i, align 8, !dbg !744, !tbaa !713",
+				"%op.val.i15.i = load i64, ptr %3, align 8, !dbg !748, !tbaa !725",
+				"%4 = and i64 %op.val.i15.i, 2147483648, !dbg !751",
+				"%cmp.i.not.i16.i = icmp eq i64 %4, 0, !dbg !751",
+				"br i1 %cmp.i.not.i16.i, label %if.end.i19.i, label %queue_clear.exit, !dbg !752"
+			]
+		},
+		{
+			"function": "queue_free",
+			"id": 22,
+			"name": "if.end.i19.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [23, 24],
+			"ir": [
+				"%dec.i17.i = add i64 %op.val.i15.i, -1, !dbg !753",
+				"store i64 %dec.i17.i, ptr %3, align 8, !dbg !753, !tbaa !725",
+				"%cmp.i18.i = icmp eq i64 %dec.i17.i, 0, !dbg !754",
+				"br i1 %cmp.i18.i, label %if.then1.i20.i, label %queue_clear.exit, !dbg !755"
+			]
+		},
+		{
+			"function": "queue_free",
+			"id": 23,
+			"name": "if.then1.i20.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [24],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %3) #8, !dbg !756",
+				"br label %queue_clear.exit, !dbg !757"
+			]
+		},
+		{
+			"function": "queue_free",
+			"id": 24,
+			"name": "queue_clear.exit",
+			"debug": [
+				{
+					"line": 518, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !758"
+			]
+		},
+		{
+			"function": "queuemodule_exec",
+			"id": 25,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 569, "columns": [32]
+				},
+				{
+					"line": 571, "columns": [25, 12, 23]
+				},
+				{
+					"line": 575, "columns": [27, 9]
+				}
+			],
+			"successors": [29, 26],
+			"ir": [
+				"%0 = getelementptr i8, ptr %module, i64 32, !dbg !692",
+				"%module.val = load ptr, ptr %0, align 8, !dbg !692, !tbaa !693",
+				"%call1 = tail call ptr @PyErr_NewExceptionWithDoc(ptr noundef nonnull @.str.1, ptr noundef nonnull @.str.2, ptr noundef null, ptr noundef null) #8, !dbg !699",
+				"%EmptyError = getelementptr inbounds %struct.simplequeue_state, ptr %module.val, i64 0, i32 1, !dbg !700",
+				"store ptr %call1, ptr %EmptyError, align 8, !dbg !701, !tbaa !702",
+				"%cmp = icmp eq ptr %call1, null, !dbg !704",
+				"br i1 %cmp, label %cleanup, label %if.end, !dbg !706"
+			]
+		},
+		{
+			"function": "queuemodule_exec",
+			"id": 26,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 578, "columns": [9, 67]
+				}
+			],
+			"successors": [29, 27],
+			"ir": [
+				"%call4 = tail call i32 @PyModule_AddObjectRef(ptr noundef nonnull %module, ptr noundef nonnull @.str.3, ptr noundef nonnull %call1) #8, !dbg !707",
+				"%cmp5 = icmp slt i32 %call4, 0, !dbg !709",
+				"br i1 %cmp5, label %cleanup, label %if.end7, !dbg !710"
+			]
+		},
+		{
+			"function": "queuemodule_exec",
+			"id": 27,
+			"name": "if.end7",
+			"debug": [
+				{
+					"line": 582, "columns": [46, 28]
+				},
+				{
+					"line": 584, "columns": [32, 9]
+				}
+			],
+			"successors": [29, 28],
+			"ir": [
+				"%call8 = tail call ptr @PyType_FromModuleAndSpec(ptr noundef nonnull %module, ptr noundef nonnull @simplequeue_spec, ptr noundef null) #8, !dbg !711",
+				"store ptr %call8, ptr %module.val, align 8, !dbg !712, !tbaa !713",
+				"%cmp10 = icmp eq ptr %call8, null, !dbg !714",
+				"br i1 %cmp10, label %cleanup, label %if.end12, !dbg !716"
+			]
+		},
+		{
+			"function": "queuemodule_exec",
+			"id": 28,
+			"name": "if.end12",
+			"debug": [
+				{
+					"line": 587, "columns": [9]
+				}
+			],
+			"successors": [29],
+			"ir": [
+				"%call14 = tail call i32 @PyModule_AddType(ptr noundef nonnull %module, ptr noundef nonnull %call8) #8, !dbg !717",
+				"%call14.lobit = ashr i32 %call14, 31, !dbg !691",
+				"br label %cleanup, !dbg !691"
+			]
+		},
+		{
+			"function": "queuemodule_exec",
+			"id": 29,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 592, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ -1, %entry ], [ -1, %if.end ], [ -1, %if.end7 ], [ %call14.lobit, %if.end12 ], !dbg !691",
+				"ret i32 %retval.0, !dbg !719"
+			]
+		},
+		{
+			"function": "simplequeue_dealloc",
+			"id": 30,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 73, "columns": [29]
+				},
+				{
+					"line": 74, "columns": [33]
+				},
+				{
+					"line": 75, "columns": [27]
+				},
+				{
+					"line": 76, "columns": [27]
+				},
+				{
+					"line": 78, "columns": [18]
+				},
+				{
+					"line": 82, "columns": [38, 5]
+				},
+				{
+					"line": 209, "columns": [25]
+				},
+				{
+					"line": 216, "columns": [24]
+				},
+				{
+					"line": 218, "columns": [5]
+				}
+			],
+			"successors": [31, 35],
+			"ir": [
+				"%0 = getelementptr i8, ptr %self, i64 8, !dbg !688",
+				"%self.val9 = load ptr, ptr %0, align 8, !dbg !688, !tbaa !689",
+				"tail call void @PyObject_GC_UnTrack(ptr noundef %self) #8, !dbg !694",
+				"%buf.i = getelementptr inbounds %struct.simplequeueobject, ptr %self, i64 0, i32 2, !dbg !702",
+				"%items1.i.i = getelementptr inbounds %struct.simplequeueobject, ptr %self, i64 0, i32 2, i32 2, !dbg !717",
+				"%1 = load ptr, ptr %items1.i.i, align 8, !dbg !717, !tbaa !718",
+				"%num_items2.i.i = getelementptr inbounds %struct.simplequeueobject, ptr %self, i64 0, i32 2, i32 4, !dbg !721",
+				"%2 = load i64, ptr %num_items2.i.i, align 8, !dbg !721, !tbaa !722",
+				"%items_cap.i.i = getelementptr inbounds %struct.simplequeueobject, ptr %self, i64 0, i32 2, i32 3, !dbg !723",
+				"%3 = load i64, ptr %items_cap.i.i, align 8, !dbg !723, !tbaa !724",
+				"%get_idx.i.i = getelementptr inbounds %struct.simplequeueobject, ptr %self, i64 0, i32 2, i32 1, !dbg !725",
+				"%4 = load i64, ptr %get_idx.i.i, align 8, !dbg !725, !tbaa !726",
+				"%cmp18.i.i = icmp sgt i64 %2, 0, !dbg !728",
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(40) %buf.i, i8 0, i64 40, i1 false), !dbg !730",
+				"br i1 %cmp18.i.i, label %for.body.i.i, label %simplequeue_clear.exit, !dbg !731"
+			]
+		},
+		{
+			"function": "simplequeue_dealloc",
+			"id": 31,
+			"name": "for.body.i.i",
+			"debug": [
+				{
+					"line": 83, "columns": [9]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [32, 34],
+			"ir": [
+				"%n.020.i.i = phi i64 [ %dec.i.i, %Py_DECREF.exit.i.i ], [ %2, %entry ]",
+				"%idx.019.i.i = phi i64 [ %rem.i.i, %Py_DECREF.exit.i.i ], [ %4, %entry ]",
+				"%arrayidx.i.i = getelementptr ptr, ptr %1, i64 %idx.019.i.i, !dbg !732",
+				"%5 = load ptr, ptr %arrayidx.i.i, align 8, !dbg !732, !tbaa !734",
+				"%op.val.i.i.i = load i64, ptr %5, align 8, !dbg !740, !tbaa !742",
+				"%6 = and i64 %op.val.i.i.i, 2147483648, !dbg !748",
+				"%cmp.i.not.i.i.i = icmp eq i64 %6, 0, !dbg !748",
+				"br i1 %cmp.i.not.i.i.i, label %if.end.i.i.i, label %Py_DECREF.exit.i.i, !dbg !749"
+			]
+		},
+		{
+			"function": "simplequeue_dealloc",
+			"id": 32,
+			"name": "if.end.i.i.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [33, 34],
+			"ir": [
+				"%dec.i.i.i = add i64 %op.val.i.i.i, -1, !dbg !750",
+				"store i64 %dec.i.i.i, ptr %5, align 8, !dbg !750, !tbaa !742",
+				"%cmp.i.i.i = icmp eq i64 %dec.i.i.i, 0, !dbg !752",
+				"br i1 %cmp.i.i.i, label %if.then1.i.i.i, label %Py_DECREF.exit.i.i, !dbg !753"
+			]
+		},
+		{
+			"function": "simplequeue_dealloc",
+			"id": 33,
+			"name": "if.then1.i.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [34],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %5) #8, !dbg !754",
+				"br label %Py_DECREF.exit.i.i, !dbg !756"
+			]
+		},
+		{
+			"function": "simplequeue_dealloc",
+			"id": 34,
+			"name": "Py_DECREF.exit.i.i",
+			"debug": [
+				{
+					"line": 82, "columns": [54, 59, 67, 38, 5]
+				}
+			],
+			"successors": [31, 35],
+			"ir": [
+				"%add.i.i = add i64 %idx.019.i.i, 1, !dbg !757",
+				"%rem.i.i = srem i64 %add.i.i, %3, !dbg !758",
+				"%dec.i.i = add nsw i64 %n.020.i.i, -1, !dbg !759",
+				"%cmp.i.i = icmp sgt i64 %n.020.i.i, 1, !dbg !728",
+				"br i1 %cmp.i.i, label %for.body.i.i, label %simplequeue_clear.exit, !dbg !731, !llvm.loop !760"
+			]
+		},
+		{
+			"function": "simplequeue_dealloc",
+			"id": 35,
+			"name": "simplequeue_clear.exit",
+			"debug": [
+				{
+					"line": 85, "columns": [5]
+				},
+				{
+					"line": 220, "columns": [15, 27, 9]
+				}
+			],
+			"successors": [37, 36],
+			"ir": [
+				"tail call void @PyMem_Free(ptr noundef %1) #8, !dbg !763",
+				"%weakreflist = getelementptr inbounds %struct.simplequeueobject, ptr %self, i64 0, i32 3, !dbg !764",
+				"%7 = load ptr, ptr %weakreflist, align 8, !dbg !764, !tbaa !766",
+				"%cmp.not = icmp eq ptr %7, null, !dbg !769",
+				"br i1 %cmp.not, label %if.end, label %if.then, !dbg !770"
+			]
+		},
+		{
+			"function": "simplequeue_dealloc",
+			"id": 36,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 221, "columns": [9]
+				}
+			],
+			"successors": [37],
+			"ir": [
+				"tail call void @PyObject_ClearWeakRefs(ptr noundef nonnull %self) #8, !dbg !771",
+				"br label %if.end, !dbg !771"
+			]
+		},
+		{
+			"function": "simplequeue_dealloc",
+			"id": 37,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 222, "columns": [5, 20]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [38, 40],
+			"ir": [
+				"%self.val = load ptr, ptr %0, align 8, !dbg !772, !tbaa !689",
+				"%tp_free = getelementptr inbounds %struct._typeobject, ptr %self.val, i64 0, i32 38, !dbg !773",
+				"%8 = load ptr, ptr %tp_free, align 8, !dbg !773, !tbaa !774",
+				"tail call void %8(ptr noundef nonnull %self) #8, !dbg !772",
+				"%op.val.i = load i64, ptr %self.val9, align 8, !dbg !781, !tbaa !742",
+				"%9 = and i64 %op.val.i, 2147483648, !dbg !784",
+				"%cmp.i.not.i = icmp eq i64 %9, 0, !dbg !784",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %Py_DECREF.exit, !dbg !785"
+			]
+		},
+		{
+			"function": "simplequeue_dealloc",
+			"id": 38,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [39, 40],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !786",
+				"store i64 %dec.i, ptr %self.val9, align 8, !dbg !786, !tbaa !742",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !787",
+				"br i1 %cmp.i, label %if.then1.i, label %Py_DECREF.exit, !dbg !788"
+			]
+		},
+		{
+			"function": "simplequeue_dealloc",
+			"id": 39,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [40],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %self.val9) #8, !dbg !789",
+				"br label %Py_DECREF.exit, !dbg !790"
+			]
+		},
+		{
+			"function": "simplequeue_dealloc",
+			"id": 40,
+			"name": "Py_DECREF.exit",
+			"debug": [
+				{
+					"line": 224, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !791"
+			]
+		},
+		{
+			"function": "simplequeue_traverse",
+			"id": 41,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 230, "columns": [45, 58, 5]
+				}
+			],
+			"successors": [42, 46],
+			"ir": [
+				"%num_items2 = getelementptr inbounds %struct.simplequeueobject, ptr %self, i64 0, i32 2, i32 4, !dbg !705",
+				"%0 = load i64, ptr %num_items2, align 8, !dbg !705, !tbaa !706",
+				"%cmp.not51 = icmp sgt i64 %0, 0, !dbg !712",
+				"br i1 %cmp.not51, label %do.body.lr.ph, label %do.body11, !dbg !713"
+			]
+		},
+		{
+			"function": "simplequeue_traverse",
+			"id": 42,
+			"name": "do.body.lr.ph",
+			"debug": [
+				{
+					"line": 230, "columns": [5]
+				}
+			],
+			"successors": [43],
+			"ir": [
+				"%items.i = getelementptr inbounds %struct.simplequeueobject, ptr %self, i64 0, i32 2, i32 2",
+				"%get_idx.i = getelementptr inbounds %struct.simplequeueobject, ptr %self, i64 0, i32 2, i32 1",
+				"%items_cap.i = getelementptr inbounds %struct.simplequeueobject, ptr %self, i64 0, i32 2, i32 3",
+				"br label %do.body, !dbg !713"
+			]
+		},
+		{
+			"function": "simplequeue_traverse",
+			"id": 43,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 67, "columns": [17, 29, 37, 51, 44, 12]
+				},
+				{
+					"line": 231, "columns": [9]
+				}
+			],
+			"successors": [45, 44],
+			"ir": [
+				"%i.052 = phi i64 [ 0, %do.body.lr.ph ], [ %inc, %for.inc ]",
+				"%1 = load ptr, ptr %items.i, align 8, !dbg !722, !tbaa !723",
+				"%2 = load i64, ptr %get_idx.i, align 8, !dbg !724, !tbaa !725",
+				"%add.i = add i64 %2, %i.052, !dbg !726",
+				"%3 = load i64, ptr %items_cap.i, align 8, !dbg !727, !tbaa !728",
+				"%rem.i = srem i64 %add.i, %3, !dbg !729",
+				"%arrayidx.i = getelementptr ptr, ptr %1, i64 %rem.i, !dbg !730",
+				"%4 = load ptr, ptr %arrayidx.i, align 8, !dbg !730, !tbaa !731",
+				"%tobool.not = icmp eq ptr %4, null, !dbg !732",
+				"br i1 %tobool.not, label %for.inc, label %if.then, !dbg !733"
+			]
+		},
+		{
+			"function": "simplequeue_traverse",
+			"id": 44,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 231, "columns": [9]
+				}
+			],
+			"successors": [45, 49],
+			"ir": [
+				"%call4 = tail call i32 %visit(ptr noundef nonnull %4, ptr noundef %arg) #8, !dbg !736",
+				"%tobool5.not = icmp eq i32 %call4, 0, !dbg !738",
+				"br i1 %tobool5.not, label %for.inc, label %cleanup27"
+			]
+		},
+		{
+			"function": "simplequeue_traverse",
+			"id": 45,
+			"name": "for.inc",
+			"debug": [
+				{
+					"line": 230, "columns": [72, 58, 5]
+				}
+			],
+			"successors": [46, 43],
+			"ir": [
+				"%inc = add nuw nsw i64 %i.052, 1, !dbg !740",
+				"%exitcond.not = icmp eq i64 %inc, %0, !dbg !712",
+				"br i1 %exitcond.not, label %do.body11, label %do.body, !dbg !713, !llvm.loop !741"
+			]
+		},
+		{
+			"function": "simplequeue_traverse",
+			"id": 46,
+			"name": "do.body11",
+			"debug": [
+				{
+					"line": 233, "columns": [5]
+				}
+			],
+			"successors": [48, 47],
+			"ir": [
+				"%5 = getelementptr i8, ptr %self, i64 8, !dbg !744",
+				"%self.val43 = load ptr, ptr %5, align 8, !dbg !744, !tbaa !745",
+				"%tobool13.not = icmp eq ptr %self.val43, null, !dbg !744",
+				"br i1 %tobool13.not, label %do.end26, label %if.then14, !dbg !747"
+			]
+		},
+		{
+			"function": "simplequeue_traverse",
+			"id": 47,
+			"name": "if.then14",
+			"debug": [
+				{
+					"line": 233, "columns": [5]
+				}
+			],
+			"successors": [48, 49],
+			"ir": [
+				"%call17 = tail call i32 %visit(ptr noundef nonnull %self.val43, ptr noundef %arg) #8, !dbg !748",
+				"%tobool18.not = icmp eq i32 %call17, 0, !dbg !750",
+				"br i1 %tobool18.not, label %do.end26, label %cleanup27"
+			]
+		},
+		{
+			"function": "simplequeue_traverse",
+			"id": 48,
+			"name": "do.end26",
+			"debug": [
+				{
+					"line": 234, "columns": [5]
+				}
+			],
+			"successors": [49],
+			"ir": [
+				"br label %cleanup27, !dbg !752"
+			]
+		},
+		{
+			"function": "simplequeue_traverse",
+			"id": 49,
+			"name": "cleanup27",
+			"debug": [
+				{
+					"line": 235, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.5 = phi i32 [ 0, %do.end26 ], [ %call17, %if.then14 ], [ %call4, %if.then ], !dbg !703",
+				"ret i32 %retval.5, !dbg !753"
+			]
+		},
+		{
+			"function": "simplequeue_clear",
+			"id": 50,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 73, "columns": [29]
+				},
+				{
+					"line": 74, "columns": [33]
+				},
+				{
+					"line": 75, "columns": [27]
+				},
+				{
+					"line": 76, "columns": [27]
+				},
+				{
+					"line": 78, "columns": [18]
+				},
+				{
+					"line": 82, "columns": [38, 5]
+				},
+				{
+					"line": 209, "columns": [25]
+				}
+			],
+			"successors": [51, 55],
+			"ir": [
+				"%buf = getelementptr inbounds %struct.simplequeueobject, ptr %self, i64 0, i32 2, !dbg !687",
+				"%items1.i = getelementptr inbounds %struct.simplequeueobject, ptr %self, i64 0, i32 2, i32 2, !dbg !702",
+				"%0 = load ptr, ptr %items1.i, align 8, !dbg !702, !tbaa !703",
+				"%num_items2.i = getelementptr inbounds %struct.simplequeueobject, ptr %self, i64 0, i32 2, i32 4, !dbg !709",
+				"%1 = load i64, ptr %num_items2.i, align 8, !dbg !709, !tbaa !710",
+				"%items_cap.i = getelementptr inbounds %struct.simplequeueobject, ptr %self, i64 0, i32 2, i32 3, !dbg !711",
+				"%2 = load i64, ptr %items_cap.i, align 8, !dbg !711, !tbaa !712",
+				"%get_idx.i = getelementptr inbounds %struct.simplequeueobject, ptr %self, i64 0, i32 2, i32 1, !dbg !713",
+				"%3 = load i64, ptr %get_idx.i, align 8, !dbg !713, !tbaa !714",
+				"%cmp18.i = icmp sgt i64 %1, 0, !dbg !716",
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(40) %buf, i8 0, i64 40, i1 false), !dbg !718",
+				"br i1 %cmp18.i, label %for.body.i, label %RingBuf_Fini.exit, !dbg !719"
+			]
+		},
+		{
+			"function": "simplequeue_clear",
+			"id": 51,
+			"name": "for.body.i",
+			"debug": [
+				{
+					"line": 83, "columns": [9]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [52, 54],
+			"ir": [
+				"%n.020.i = phi i64 [ %dec.i, %Py_DECREF.exit.i ], [ %1, %entry ]",
+				"%idx.019.i = phi i64 [ %rem.i, %Py_DECREF.exit.i ], [ %3, %entry ]",
+				"%arrayidx.i = getelementptr ptr, ptr %0, i64 %idx.019.i, !dbg !720",
+				"%4 = load ptr, ptr %arrayidx.i, align 8, !dbg !720, !tbaa !722",
+				"%op.val.i.i = load i64, ptr %4, align 8, !dbg !728, !tbaa !730",
+				"%5 = and i64 %op.val.i.i, 2147483648, !dbg !736",
+				"%cmp.i.not.i.i = icmp eq i64 %5, 0, !dbg !736",
+				"br i1 %cmp.i.not.i.i, label %if.end.i.i, label %Py_DECREF.exit.i, !dbg !737"
+			]
+		},
+		{
+			"function": "simplequeue_clear",
+			"id": 52,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [53, 54],
+			"ir": [
+				"%dec.i.i = add i64 %op.val.i.i, -1, !dbg !738",
+				"store i64 %dec.i.i, ptr %4, align 8, !dbg !738, !tbaa !730",
+				"%cmp.i.i = icmp eq i64 %dec.i.i, 0, !dbg !740",
+				"br i1 %cmp.i.i, label %if.then1.i.i, label %Py_DECREF.exit.i, !dbg !741"
+			]
+		},
+		{
+			"function": "simplequeue_clear",
+			"id": 53,
+			"name": "if.then1.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [54],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %4) #8, !dbg !742",
+				"br label %Py_DECREF.exit.i, !dbg !744"
+			]
+		},
+		{
+			"function": "simplequeue_clear",
+			"id": 54,
+			"name": "Py_DECREF.exit.i",
+			"debug": [
+				{
+					"line": 82, "columns": [54, 59, 67, 38, 5]
+				}
+			],
+			"successors": [51, 55],
+			"ir": [
+				"%add.i = add i64 %idx.019.i, 1, !dbg !745",
+				"%rem.i = srem i64 %add.i, %2, !dbg !746",
+				"%dec.i = add nsw i64 %n.020.i, -1, !dbg !747",
+				"%cmp.i = icmp sgt i64 %n.020.i, 1, !dbg !716",
+				"br i1 %cmp.i, label %for.body.i, label %RingBuf_Fini.exit, !dbg !719, !llvm.loop !748"
+			]
+		},
+		{
+			"function": "simplequeue_clear",
+			"id": 55,
+			"name": "RingBuf_Fini.exit",
+			"debug": [
+				{
+					"line": 85, "columns": [5]
+				},
+				{
+					"line": 210, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @PyMem_Free(ptr noundef %0) #8, !dbg !751",
+				"ret i32 0, !dbg !752"
+			]
+		},
+		{
+			"function": "simplequeue_new",
+			"id": 56,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 25, "columns": [29, 66]
+				},
+				{
+					"line": 27, "columns": [15, 26]
+				}
+			],
+			"successors": [58, 57],
+			"ir": [
+				"%call = tail call ptr @PyType_GetModuleByDef(ptr noundef %type, ptr noundef nonnull @queuemodule) #8, !dbg !690",
+				"%0 = getelementptr i8, ptr %call, i64 32, !dbg !690",
+				"%call.val = load ptr, ptr %0, align 8, !dbg !690, !tbaa !691",
+				"%1 = load ptr, ptr %call.val, align 8, !dbg !697, !tbaa !698",
+				"%cmp = icmp eq ptr %1, %type, !dbg !700",
+				"br i1 %cmp, label %land.lhs.true, label %lor.lhs.false, !dbg !702"
+			]
+		},
+		{
+			"function": "simplequeue_new",
+			"id": 57,
+			"name": "lor.lhs.false",
+			"debug": [
+				{
+					"line": 27, "columns": [35, 55, 43, 64]
+				}
+			],
+			"successors": [62, 60],
+			"ir": [
+				"%tp_init = getelementptr inbounds %struct._typeobject, ptr %type, i64 0, i32 35, !dbg !703",
+				"%2 = load ptr, ptr %tp_init, align 8, !dbg !703, !tbaa !704",
+				"%tp_init2 = getelementptr inbounds %struct._typeobject, ptr %1, i64 0, i32 35, !dbg !710",
+				"%3 = load ptr, ptr %tp_init2, align 8, !dbg !710, !tbaa !704",
+				"%cmp3 = icmp ne ptr %2, %3, !dbg !711",
+				"%cmp4 = icmp eq ptr %args, null",
+				"%or.cond = or i1 %cmp4, %cmp3, !dbg !712",
+				"br i1 %or.cond, label %lor.lhs.false8, label %lor.lhs.false5.thread, !dbg !712"
+			]
+		},
+		{
+			"function": "simplequeue_new",
+			"id": 58,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 28, "columns": [10]
+				}
+			],
+			"successors": [63, 59],
+			"ir": [
+				"%cmp4.old = icmp eq ptr %args, null, !dbg !713",
+				"br i1 %cmp4.old, label %land.lhs.true12, label %lor.lhs.false5, !dbg !713"
+			]
+		},
+		{
+			"function": "simplequeue_new",
+			"id": 59,
+			"name": "lor.lhs.false5",
+			"debug": [
+				{
+					"line": 27, "columns": [9]
+				},
+				{
+					"line": 28, "columns": [10]
+				}
+			],
+			"successors": [70, 63],
+			"ir": [
+				"%call6 = tail call i32 @_PyArg_NoPositional(ptr noundef nonnull @.str.19, ptr noundef nonnull %args) #8, !dbg !713",
+				"%tobool.not = icmp eq i32 %call6, 0, !dbg !713",
+				"br i1 %tobool.not, label %exit, label %land.lhs.true12, !dbg !714"
+			]
+		},
+		{
+			"function": "simplequeue_new",
+			"id": 60,
+			"name": "lor.lhs.false5.thread",
+			"debug": [
+				{
+					"line": 27, "columns": [9]
+				},
+				{
+					"line": 28, "columns": [10]
+				}
+			],
+			"successors": [70, 61],
+			"ir": [
+				"%call633 = tail call i32 @_PyArg_NoPositional(ptr noundef nonnull @.str.19, ptr noundef nonnull %args) #8, !dbg !713",
+				"%tobool.not34 = icmp eq i32 %call633, 0, !dbg !713",
+				"br i1 %tobool.not34, label %exit, label %lor.lhs.false5.thread.lor.lhs.false8_crit_edge, !dbg !714"
+			]
+		},
+		{
+			"function": "simplequeue_new",
+			"id": 61,
+			"name": "lor.lhs.false5.thread.lor.lhs.false8_crit_edge",
+			"debug": [
+				{
+					"line": 27, "columns": [9]
+				},
+				{
+					"line": 31, "columns": [35, 55]
+				}
+			],
+			"successors": [62],
+			"ir": [
+				"%.pre = load ptr, ptr %tp_init, align 8, !dbg !715, !tbaa !704",
+				"%.pre36 = load ptr, ptr %tp_init2, align 8, !dbg !717, !tbaa !704",
+				"br label %lor.lhs.false8, !dbg !714"
+			]
+		},
+		{
+			"function": "simplequeue_new",
+			"id": 62,
+			"name": "lor.lhs.false8",
+			"debug": [
+				{
+					"line": 31, "columns": [55, 35, 43, 64]
+				}
+			],
+			"successors": [65, 64],
+			"ir": [
+				"%4 = phi ptr [ %.pre36, %lor.lhs.false5.thread.lor.lhs.false8_crit_edge ], [ %3, %lor.lhs.false ], !dbg !717",
+				"%5 = phi ptr [ %.pre, %lor.lhs.false5.thread.lor.lhs.false8_crit_edge ], [ %2, %lor.lhs.false ], !dbg !715",
+				"%cmp11 = icmp ne ptr %5, %4, !dbg !718",
+				"%cmp13 = icmp eq ptr %kwargs, null",
+				"%or.cond21 = or i1 %cmp13, %cmp11, !dbg !719",
+				"br i1 %or.cond21, label %if.end18, label %lor.lhs.false14, !dbg !719"
+			]
+		},
+		{
+			"function": "simplequeue_new",
+			"id": 63,
+			"name": "land.lhs.true12",
+			"debug": [
+				{
+					"line": 32, "columns": [10]
+				}
+			],
+			"successors": [65, 64],
+			"ir": [
+				"%cmp13.old = icmp eq ptr %kwargs, null, !dbg !720",
+				"br i1 %cmp13.old, label %if.end18, label %lor.lhs.false14, !dbg !720"
+			]
+		},
+		{
+			"function": "simplequeue_new",
+			"id": 64,
+			"name": "lor.lhs.false14",
+			"debug": [
+				{
+					"line": 31, "columns": [9]
+				},
+				{
+					"line": 32, "columns": [10]
+				}
+			],
+			"successors": [70, 65],
+			"ir": [
+				"%call15 = tail call i32 @_PyArg_NoKeywords(ptr noundef nonnull @.str.19, ptr noundef nonnull %kwargs) #8, !dbg !720",
+				"%tobool16.not = icmp eq i32 %call15, 0, !dbg !720",
+				"br i1 %tobool16.not, label %exit, label %if.end18, !dbg !721"
+			]
+		},
+		{
+			"function": "simplequeue_new",
+			"id": 65,
+			"name": "if.end18",
+			"debug": [
+				{
+					"line": 250, "columns": [40, 34]
+				},
+				{
+					"line": 251, "columns": [14, 9]
+				}
+			],
+			"successors": [70, 66],
+			"ir": [
+				"%tp_alloc.i = getelementptr inbounds %struct._typeobject, ptr %type, i64 0, i32 36, !dbg !730",
+				"%6 = load ptr, ptr %tp_alloc.i, align 8, !dbg !730, !tbaa !731",
+				"%call.i = tail call ptr %6(ptr noundef %type, i64 noundef 0) #8, !dbg !732",
+				"%cmp.not.i = icmp eq ptr %call.i, null, !dbg !733",
+				"br i1 %cmp.not.i, label %exit, label %if.then.i, !dbg !735"
+			]
+		},
+		{
+			"function": "simplequeue_new",
+			"id": 66,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 52, "columns": [18]
+				},
+				{
+					"line": 53, "columns": [10, 20]
+				},
+				{
+					"line": 54, "columns": [10, 20]
+				},
+				{
+					"line": 55, "columns": [18, 10, 16]
+				},
+				{
+					"line": 56, "columns": [20, 9]
+				},
+				{
+					"line": 252, "columns": [15, 27]
+				},
+				{
+					"line": 253, "columns": [33]
+				}
+			],
+			"successors": [67, 70],
+			"ir": [
+				"%weakreflist.i = getelementptr inbounds %struct.simplequeueobject, ptr %call.i, i64 0, i32 3, !dbg !736",
+				"store ptr null, ptr %weakreflist.i, align 8, !dbg !738, !tbaa !739",
+				"%buf.i = getelementptr inbounds %struct.simplequeueobject, ptr %call.i, i64 0, i32 2, !dbg !743",
+				"%items_cap.i.i = getelementptr inbounds %struct.simplequeueobject, ptr %call.i, i64 0, i32 2, i32 3, !dbg !753",
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %buf.i, i8 0, i64 16, i1 false), !dbg !754",
+				"store i64 8, ptr %items_cap.i.i, align 8, !dbg !755, !tbaa !756",
+				"%num_items.i.i = getelementptr inbounds %struct.simplequeueobject, ptr %call.i, i64 0, i32 2, i32 4, !dbg !757",
+				"store i64 0, ptr %num_items.i.i, align 8, !dbg !758, !tbaa !759",
+				"%call.i.i = tail call ptr @PyMem_Calloc(i64 noundef 8, i64 noundef 8) #8, !dbg !760",
+				"%items.i.i = getelementptr inbounds %struct.simplequeueobject, ptr %call.i, i64 0, i32 2, i32 2, !dbg !761",
+				"store ptr %call.i.i, ptr %items.i.i, align 8, !dbg !762, !tbaa !763",
+				"%cmp.i10.i = icmp eq ptr %call.i.i, null, !dbg !764",
+				"br i1 %cmp.i10.i, label %if.then3.i, label %exit, !dbg !766"
+			]
+		},
+		{
+			"function": "simplequeue_new",
+			"id": 67,
+			"name": "if.then3.i",
+			"debug": [
+				{
+					"line": 57, "columns": [9]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [68, 70],
+			"ir": [
+				"%call3.i.i = tail call ptr @PyErr_NoMemory() #8, !dbg !767",
+				"%op.val.i.i = load i64, ptr %call.i, align 8, !dbg !775, !tbaa !777",
+				"%7 = and i64 %op.val.i.i, 2147483648, !dbg !783",
+				"%cmp.i.not.i.i = icmp eq i64 %7, 0, !dbg !783",
+				"br i1 %cmp.i.not.i.i, label %if.end.i.i, label %exit, !dbg !784"
+			]
+		},
+		{
+			"function": "simplequeue_new",
+			"id": 68,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [69, 70],
+			"ir": [
+				"%dec.i.i = add i64 %op.val.i.i, -1, !dbg !785",
+				"store i64 %dec.i.i, ptr %call.i, align 8, !dbg !785, !tbaa !777",
+				"%cmp.i.i = icmp eq i64 %dec.i.i, 0, !dbg !787",
+				"br i1 %cmp.i.i, label %if.then1.i.i, label %exit, !dbg !788"
+			]
+		},
+		{
+			"function": "simplequeue_new",
+			"id": 69,
+			"name": "if.then1.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [70],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i) #8, !dbg !789",
+				"br label %exit, !dbg !791"
+			]
+		},
+		{
+			"function": "simplequeue_new",
+			"id": 70,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 37, "columns": [1]
+				},
+				{
+					"line": 38, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%return_value.0 = phi ptr [ null, %lor.lhs.false14 ], [ null, %lor.lhs.false5 ], [ null, %lor.lhs.false5.thread ], [ null, %if.end18 ], [ %call.i, %if.then.i ], [ null, %if.then3.i ], [ null, %if.end.i.i ], [ null, %if.then1.i.i ], !dbg !689",
+				"ret ptr %return_value.0, !dbg !793"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_empty",
+			"id": 71,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 185, "columns": [27]
+				},
+				{
+					"line": 312, "columns": [21]
+				},
+				{
+					"line": 317, "columns": [20]
+				},
+				{
+					"line": 319, "columns": [1]
+				},
+				{
+					"line": 320, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%0 = getelementptr i8, ptr %self, i64 56, !dbg !691",
+				"%self.val = load i64, ptr %0, align 8, !dbg !691, !tbaa !692",
+				"%cmp.i.i = icmp eq i64 %self.val, 0, !dbg !713",
+				"%conv = zext i1 %cmp.i.i to i64",
+				"%call2 = tail call ptr @PyBool_FromLong(i64 noundef %conv) #8, !dbg !714",
+				"ret ptr %call2, !dbg !716"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get",
+			"id": 72,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 229, "columns": [5, 15]
+				},
+				{
+					"line": 230, "columns": [36]
+				}
+			],
+			"successors": [74, 73],
+			"ir": [
+				"%argsbuf = alloca [2 x ptr], align 16",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %argsbuf) #8, !dbg !682",
+				"%tobool.not = icmp eq ptr %kwnames, null, !dbg !684",
+				"br i1 %tobool.not, label %cond.end, label %cond.end.thread, !dbg !684"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get",
+			"id": 73,
+			"name": "cond.end.thread",
+			"debug": [
+				{
+					"line": 230, "columns": [46, 33]
+				},
+				{
+					"line": 234, "columns": [12]
+				}
+			],
+			"successors": [75],
+			"ir": [
+				"%0 = getelementptr i8, ptr %kwnames, i64 16, !dbg !685",
+				"%kwnames.val = load i64, ptr %0, align 8, !dbg !685, !tbaa !686",
+				"%add45 = add i64 %kwnames.val, %nargs, !dbg !693",
+				"br label %cond.end9, !dbg !694"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get",
+			"id": 74,
+			"name": "cond.end",
+			"debug": [
+				{
+					"line": 234, "columns": [12]
+				}
+			],
+			"successors": [76, 75],
+			"ir": [
+				"%1 = icmp ult i64 %nargs, 3, !dbg !694",
+				"%cmp5 = icmp ne ptr %args, null, !dbg !694",
+				"%2 = and i1 %cmp5, %1, !dbg !694",
+				"br i1 %2, label %if.end, label %cond.end9, !dbg !694"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get",
+			"id": 75,
+			"name": "cond.end9",
+			"debug": [
+				{
+					"line": 234, "columns": [12]
+				},
+				{
+					"line": 235, "columns": [10, 9]
+				}
+			],
+			"successors": [82, 76],
+			"ir": [
+				"%add49 = phi i64 [ %add45, %cond.end.thread ], [ %nargs, %cond.end ]",
+				"%call8 = call ptr @_PyArg_UnpackKeywords(ptr noundef %args, i64 noundef %nargs, ptr noundef null, ptr noundef %kwnames, ptr noundef nonnull @_queue_SimpleQueue_get._parser, i32 noundef 0, i32 noundef 2, i32 noundef 0, ptr noundef nonnull %argsbuf) #8, !dbg !694",
+				"%tobool11.not = icmp eq ptr %call8, null, !dbg !695",
+				"br i1 %tobool11.not, label %exit, label %if.end, !dbg !697"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get",
+			"id": 76,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 238, "columns": [10, 9]
+				}
+			],
+			"successors": [81, 77],
+			"ir": [
+				"%cond1055 = phi ptr [ %call8, %cond.end9 ], [ %args, %cond.end ]",
+				"%add5054 = phi i64 [ %add49, %cond.end9 ], [ %nargs, %cond.end ]",
+				"%tobool12.not = icmp eq i64 %add5054, 0, !dbg !698",
+				"br i1 %tobool12.not, label %skip_optional_pos, label %if.end14, !dbg !700"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get",
+			"id": 77,
+			"name": "if.end14",
+			"debug": [
+				{
+					"line": 241, "columns": [9]
+				}
+			],
+			"successors": [80, 78],
+			"ir": [
+				"%3 = load ptr, ptr %cond1055, align 8, !dbg !701, !tbaa !703",
+				"%tobool15.not = icmp eq ptr %3, null, !dbg !701",
+				"br i1 %tobool15.not, label %if.end25, label %if.then16, !dbg !704"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get",
+			"id": 78,
+			"name": "if.then16",
+			"debug": [
+				{
+					"line": 242, "columns": [17]
+				},
+				{
+					"line": 243, "columns": [19, 13]
+				}
+			],
+			"successors": [82, 79],
+			"ir": [
+				"%call18 = call i32 @PyObject_IsTrue(ptr noundef nonnull %3) #8, !dbg !705",
+				"%cmp19 = icmp slt i32 %call18, 0, !dbg !707",
+				"br i1 %cmp19, label %exit, label %if.end21, !dbg !709"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get",
+			"id": 79,
+			"name": "if.end21",
+			"debug": [
+				{
+					"line": 246, "columns": [14, 13]
+				}
+			],
+			"successors": [81, 80],
+			"ir": [
+				"%tobool22.not = icmp eq i64 %add5054, 1, !dbg !710",
+				"br i1 %tobool22.not, label %skip_optional_pos, label %if.end25, !dbg !712"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get",
+			"id": 80,
+			"name": "if.end25",
+			"debug": [
+				{
+					"line": 250, "columns": [19, 5]
+				}
+			],
+			"successors": [81],
+			"ir": [
+				"%block.0 = phi i32 [ %call18, %if.end21 ], [ 1, %if.end14 ], !dbg !681",
+				"%arrayidx26 = getelementptr ptr, ptr %cond1055, i64 1, !dbg !713",
+				"%4 = load ptr, ptr %arrayidx26, align 8, !dbg !713, !tbaa !703",
+				"br label %skip_optional_pos, !dbg !714"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get",
+			"id": 81,
+			"name": "skip_optional_pos",
+			"debug": [
+				{
+					"line": 251, "columns": [1]
+				},
+				{
+					"line": 253, "columns": [20, 5]
+				}
+			],
+			"successors": [82],
+			"ir": [
+				"%block.1 = phi i32 [ %block.0, %if.end25 ], [ %call18, %if.end21 ], [ 1, %if.end ], !dbg !681",
+				"%timeout_obj.0 = phi ptr [ %4, %if.end25 ], [ @_Py_NoneStruct, %if.end21 ], [ @_Py_NoneStruct, %if.end ], !dbg !681",
+				"%call27 = call fastcc ptr @_queue_SimpleQueue_get_impl(ptr noundef %self, ptr noundef %cls, i32 noundef %block.1, ptr noundef %timeout_obj.0), !dbg !716",
+				"br label %exit, !dbg !717"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get",
+			"id": 82,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 256, "columns": [1]
+				},
+				{
+					"line": 257, "columns": [5]
+				},
+				{
+					"line": 258, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%return_value.0 = phi ptr [ null, %if.then16 ], [ %call27, %skip_optional_pos ], [ null, %cond.end9 ], !dbg !681",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %argsbuf) #8, !dbg !719",
+				"ret ptr %return_value.0, !dbg !720"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_nowait",
+			"id": 83,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 281, "columns": [9, 15]
+				}
+			],
+			"successors": [84, 86],
+			"ir": [
+				"%tobool.not = icmp eq i64 %nargs, 0, !dbg !691",
+				"br i1 %tobool.not, label %lor.lhs.false, label %if.then, !dbg !693"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_nowait",
+			"id": 84,
+			"name": "lor.lhs.false",
+			"debug": [
+				{
+					"line": 281, "columns": [19, 27]
+				}
+			],
+			"successors": [87, 85],
+			"ir": [
+				"%tobool1.not = icmp eq ptr %kwnames, null, !dbg !694",
+				"br i1 %tobool1.not, label %if.end, label %land.lhs.true, !dbg !695"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_nowait",
+			"id": 85,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 281, "columns": [30, 9]
+				}
+			],
+			"successors": [87, 86],
+			"ir": [
+				"%0 = getelementptr i8, ptr %kwnames, i64 16, !dbg !696",
+				"%kwnames.val = load i64, ptr %0, align 8, !dbg !696, !tbaa !697",
+				"%tobool2.not = icmp eq i64 %kwnames.val, 0, !dbg !696",
+				"br i1 %tobool2.not, label %if.end, label %if.then, !dbg !704"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_nowait",
+			"id": 86,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 282, "columns": [25, 9]
+				},
+				{
+					"line": 283, "columns": [9]
+				}
+			],
+			"successors": [88],
+			"ir": [
+				"%1 = load ptr, ptr @PyExc_TypeError, align 8, !dbg !705, !tbaa !707",
+				"tail call void @PyErr_SetString(ptr noundef %1, ptr noundef nonnull @.str.17) #8, !dbg !708",
+				"br label %exit, !dbg !709"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_nowait",
+			"id": 87,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 286, "columns": [5]
+				},
+				{
+					"line": 465, "columns": [12]
+				}
+			],
+			"successors": [88],
+			"ir": [
+				"%call.i = tail call fastcc ptr @_queue_SimpleQueue_get_impl(ptr noundef %self, ptr noundef %cls, i32 noundef 0, ptr noundef nonnull @_Py_NoneStruct), !dbg !718",
+				"br label %exit, !dbg !719"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_nowait",
+			"id": 88,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 289, "columns": [1]
+				},
+				{
+					"line": 290, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%return_value.0 = phi ptr [ null, %if.then ], [ %call.i, %if.end ], !dbg !690",
+				"ret ptr %return_value.0, !dbg !721"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_put",
+			"id": 89,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 86, "columns": [5, 15]
+				},
+				{
+					"line": 87, "columns": [36]
+				}
+			],
+			"successors": [91, 90],
+			"ir": [
+				"%argsbuf = alloca [3 x ptr], align 16",
+				"call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %argsbuf) #8, !dbg !682",
+				"%tobool.not = icmp eq ptr %kwnames, null, !dbg !684",
+				"br i1 %tobool.not, label %cond.end, label %cond.end.thread, !dbg !684"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_put",
+			"id": 90,
+			"name": "cond.end.thread",
+			"debug": [
+				{
+					"line": 87, "columns": [46, 33]
+				},
+				{
+					"line": 92, "columns": [12]
+				}
+			],
+			"successors": [92],
+			"ir": [
+				"%0 = getelementptr i8, ptr %kwnames, i64 16, !dbg !685",
+				"%kwnames.val = load i64, ptr %0, align 8, !dbg !685, !tbaa !686",
+				"%add47 = add i64 %kwnames.val, %nargs, !dbg !693",
+				"br label %cond.end9, !dbg !694"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_put",
+			"id": 91,
+			"name": "cond.end",
+			"debug": [
+				{
+					"line": 92, "columns": [12]
+				}
+			],
+			"successors": [93, 92],
+			"ir": [
+				"%1 = add i64 %nargs, -1, !dbg !694",
+				"%2 = icmp ult i64 %1, 3, !dbg !694",
+				"%cmp5 = icmp ne ptr %args, null, !dbg !694",
+				"%3 = and i1 %cmp5, %2, !dbg !694",
+				"br i1 %3, label %if.end, label %cond.end9, !dbg !694"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_put",
+			"id": 92,
+			"name": "cond.end9",
+			"debug": [
+				{
+					"line": 92, "columns": [12]
+				},
+				{
+					"line": 93, "columns": [10, 9]
+				}
+			],
+			"successors": [97, 93],
+			"ir": [
+				"%add51 = phi i64 [ %add47, %cond.end.thread ], [ %nargs, %cond.end ]",
+				"%call8 = call ptr @_PyArg_UnpackKeywords(ptr noundef %args, i64 noundef %nargs, ptr noundef null, ptr noundef %kwnames, ptr noundef nonnull @_queue_SimpleQueue_put._parser, i32 noundef 1, i32 noundef 3, i32 noundef 0, ptr noundef nonnull %argsbuf) #8, !dbg !694",
+				"%tobool11.not = icmp eq ptr %call8, null, !dbg !695",
+				"br i1 %tobool11.not, label %exit, label %if.end, !dbg !697"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_put",
+			"id": 93,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 96, "columns": [12]
+				},
+				{
+					"line": 97, "columns": [10, 9]
+				}
+			],
+			"successors": [96, 94],
+			"ir": [
+				"%cond1057 = phi ptr [ %call8, %cond.end9 ], [ %args, %cond.end ]",
+				"%add5256 = phi i64 [ %add51, %cond.end9 ], [ %nargs, %cond.end ]",
+				"%4 = load ptr, ptr %cond1057, align 8, !dbg !698, !tbaa !699",
+				"%tobool12.not = icmp eq i64 %add5256, 1, !dbg !700",
+				"br i1 %tobool12.not, label %skip_optional_pos, label %if.end14, !dbg !702"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_put",
+			"id": 94,
+			"name": "if.end14",
+			"debug": [
+				{
+					"line": 100, "columns": [9]
+				}
+			],
+			"successors": [96, 95],
+			"ir": [
+				"%arrayidx15 = getelementptr ptr, ptr %cond1057, i64 1, !dbg !703",
+				"%5 = load ptr, ptr %arrayidx15, align 8, !dbg !703, !tbaa !699",
+				"%tobool16.not = icmp eq ptr %5, null, !dbg !703",
+				"br i1 %tobool16.not, label %skip_optional_pos, label %if.then17, !dbg !705"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_put",
+			"id": 95,
+			"name": "if.then17",
+			"debug": [
+				{
+					"line": 101, "columns": [17]
+				},
+				{
+					"line": 102, "columns": [19, 13]
+				}
+			],
+			"successors": [97, 96],
+			"ir": [
+				"%call19 = call i32 @PyObject_IsTrue(ptr noundef nonnull %5) #8, !dbg !706",
+				"%cmp20 = icmp slt i32 %call19, 0, !dbg !708",
+				"br i1 %cmp20, label %exit, label %skip_optional_pos, !dbg !710"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_put",
+			"id": 96,
+			"name": "skip_optional_pos",
+			"debug": [
+				{
+					"line": 110, "columns": [1]
+				},
+				{
+					"line": 112, "columns": [20, 5]
+				}
+			],
+			"successors": [97],
+			"ir": [
+				"%call28 = call fastcc ptr @_queue_SimpleQueue_put_impl(ptr noundef %self, ptr noundef %4), !dbg !712",
+				"br label %exit, !dbg !713"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_put",
+			"id": 97,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 115, "columns": [1]
+				},
+				{
+					"line": 116, "columns": [5]
+				},
+				{
+					"line": 117, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%return_value.0 = phi ptr [ null, %if.then17 ], [ %call28, %skip_optional_pos ], [ null, %cond.end9 ], !dbg !681",
+				"call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %argsbuf) #8, !dbg !715",
+				"ret ptr %return_value.0, !dbg !716"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_put_nowait",
+			"id": 98,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 163, "columns": [5, 15]
+				},
+				{
+					"line": 166, "columns": [12]
+				}
+			],
+			"successors": [100, 99],
+			"ir": [
+				"%argsbuf = alloca [1 x ptr], align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %argsbuf) #8, !dbg !682",
+				"%cmp = icmp eq ptr %kwnames, null, !dbg !684",
+				"%0 = icmp eq i64 %nargs, 1, !dbg !684",
+				"%or.cond7 = and i1 %0, %cmp, !dbg !684",
+				"%cmp5 = icmp ne ptr %args, null, !dbg !684",
+				"%or.cond8 = and i1 %cmp5, %or.cond7, !dbg !684",
+				"br i1 %or.cond8, label %if.end, label %cond.end, !dbg !684"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_put_nowait",
+			"id": 99,
+			"name": "cond.end",
+			"debug": [
+				{
+					"line": 166, "columns": [12]
+				},
+				{
+					"line": 167, "columns": [10, 9]
+				}
+			],
+			"successors": [101, 100],
+			"ir": [
+				"%call = call ptr @_PyArg_UnpackKeywords(ptr noundef %args, i64 noundef %nargs, ptr noundef null, ptr noundef %kwnames, ptr noundef nonnull @_queue_SimpleQueue_put_nowait._parser, i32 noundef 1, i32 noundef 1, i32 noundef 0, ptr noundef nonnull %argsbuf) #8, !dbg !684",
+				"%tobool.not = icmp eq ptr %call, null, !dbg !685",
+				"br i1 %tobool.not, label %exit, label %if.end, !dbg !687"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_put_nowait",
+			"id": 100,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 170, "columns": [12]
+				},
+				{
+					"line": 172, "columns": [5]
+				},
+				{
+					"line": 336, "columns": [12]
+				}
+			],
+			"successors": [101],
+			"ir": [
+				"%cond18 = phi ptr [ %call, %cond.end ], [ %args, %entry ]",
+				"%1 = load ptr, ptr %cond18, align 8, !dbg !688, !tbaa !689",
+				"%call.i = call fastcc ptr @_queue_SimpleQueue_put_impl(ptr noundef %self, ptr noundef %1), !dbg !701",
+				"br label %exit, !dbg !702"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_put_nowait",
+			"id": 101,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 175, "columns": [1]
+				},
+				{
+					"line": 176, "columns": [5]
+				},
+				{
+					"line": 177, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%return_value.0 = phi ptr [ %call.i, %if.end ], [ null, %cond.end ], !dbg !681",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %argsbuf) #8, !dbg !704",
+				"ret ptr %return_value.0, !dbg !705"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_qsize",
+			"id": 102,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 342, "columns": [21]
+				},
+				{
+					"line": 344, "columns": [24, 31]
+				}
+			],
+			"successors": [103, 104],
+			"ir": [
+				"%0 = getelementptr i8, ptr %self, i64 56, !dbg !691",
+				"%self.val = load i64, ptr %0, align 8, !dbg !691, !tbaa !692",
+				"%cmp = icmp eq i64 %self.val, -1, !dbg !698",
+				"br i1 %cmp, label %land.lhs.true, label %if.end, !dbg !700"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_qsize",
+			"id": 103,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 344, "columns": [34, 9]
+				}
+			],
+			"successors": [104, 105],
+			"ir": [
+				"%call1 = tail call ptr @PyErr_Occurred() #8, !dbg !701",
+				"%tobool.not = icmp eq ptr %call1, null, !dbg !701",
+				"br i1 %tobool.not, label %if.end, label %exit, !dbg !702"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_qsize",
+			"id": 104,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 347, "columns": [20, 5]
+				}
+			],
+			"successors": [105],
+			"ir": [
+				"%call2 = tail call ptr @PyLong_FromSsize_t(i64 noundef %self.val) #8, !dbg !703",
+				"br label %exit, !dbg !704"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_qsize",
+			"id": 105,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 349, "columns": [1]
+				},
+				{
+					"line": 350, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%return_value.0 = phi ptr [ null, %land.lhs.true ], [ %call2, %if.end ], !dbg !690",
+				"ret ptr %return_value.0, !dbg !706"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_impl",
+			"id": 106,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 379, "columns": [15, 20]
+				}
+			],
+			"successors": [112, 107],
+			"ir": [
+				"%timeout = alloca i64, align 8",
+				"%waiting = alloca i8, align 1",
+				"%item = alloca ptr, align 8",
+				"%cmp = icmp eq i32 %block, 0, !dbg !705",
+				"%cmp1 = icmp eq ptr %timeout_obj, @_Py_NoneStruct",
+				"%or.cond = or i1 %cmp, %cmp1, !dbg !706",
+				"br i1 %or.cond, label %if.end8, label %if.then, !dbg !706"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_impl",
+			"id": 107,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 381, "columns": [9]
+				},
+				{
+					"line": 382, "columns": [13]
+				},
+				{
+					"line": 383, "columns": [75]
+				}
+			],
+			"successors": [110, 108],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %timeout) #8, !dbg !707",
+				"%call = call i32 @_PyTime_FromSecondsObject(ptr noundef nonnull %timeout, ptr noundef %timeout_obj, i32 noundef 1) #8, !dbg !709",
+				"%cmp2 = icmp slt i32 %call, 0, !dbg !711",
+				"br i1 %cmp2, label %cleanup.thread, label %if.end, !dbg !712"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_impl",
+			"id": 108,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 386, "columns": [13, 21]
+				}
+			],
+			"successors": [109, 111],
+			"ir": [
+				"%0 = load i64, ptr %timeout, align 8, !dbg !713, !tbaa !715",
+				"%cmp4 = icmp slt i64 %0, 0, !dbg !719",
+				"br i1 %cmp4, label %if.then5, label %cleanup, !dbg !720"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_impl",
+			"id": 109,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 387, "columns": [29, 13]
+				},
+				{
+					"line": 389, "columns": [13]
+				}
+			],
+			"successors": [110],
+			"ir": [
+				"%1 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !721, !tbaa !723",
+				"call void @PyErr_SetString(ptr noundef %1, ptr noundef nonnull @.str.16) #8, !dbg !725",
+				"br label %cleanup.thread, !dbg !726"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_impl",
+			"id": 110,
+			"name": "cleanup.thread",
+			"debug": [
+				{
+					"line": 392, "columns": [5]
+				}
+			],
+			"successors": [138],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %timeout) #8, !dbg !727",
+				"br label %cleanup42"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_impl",
+			"id": 111,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 391, "columns": [19]
+				},
+				{
+					"line": 392, "columns": [5]
+				}
+			],
+			"successors": [112],
+			"ir": [
+				"%call7 = call i64 @_PyDeadline_Init(i64 noundef %0) #8, !dbg !728",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %timeout) #8, !dbg !727",
+				"br label %if.end8"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_impl",
+			"id": 112,
+			"name": "if.end8",
+			"debug": [
+				{
+					"line": 185, "columns": [27]
+				},
+				{
+					"line": 375, "columns": [14]
+				},
+				{
+					"line": 395, "columns": [14, 13]
+				}
+			],
+			"successors": [113, 118],
+			"ir": [
+				"%endtime.1 = phi i64 [ 0, %entry ], [ %call7, %cleanup ], !dbg !729",
+				"%2 = getelementptr %struct.simplequeueobject, ptr %self, i64 0, i32 2, i32 4",
+				"%buf.val76 = load i64, ptr %2, align 8, !dbg !730, !tbaa !732",
+				"%cmp.i77 = icmp eq i64 %buf.val76, 0, !dbg !742",
+				"br i1 %cmp.i77, label %if.end13.lr.ph, label %if.then10, !dbg !743"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_impl",
+			"id": 113,
+			"name": "if.end13.lr.ph",
+			"debug": [
+				{
+					"line": 399, "columns": [13]
+				}
+			],
+			"successors": [129, 114],
+			"ir": [
+				"%has_threads_waiting = getelementptr inbounds %struct.simplequeueobject, ptr %self, i64 0, i32 1",
+				"br i1 %cmp, label %if.then14, label %if.end13.lr.ph.split, !dbg !744"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_impl",
+			"id": 114,
+			"name": "if.end13.lr.ph.split",
+			"debug": [
+				{
+					"line": 404, "columns": [13]
+				}
+			],
+			"successors": [115, 128],
+			"ir": [
+				"%cmp17.not = icmp eq i64 %endtime.1, 0",
+				"br i1 %cmp17.not, label %if.end13.us, label %if.end13, !dbg !745"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_impl",
+			"id": 115,
+			"name": "if.end13.us",
+			"debug": [
+				{
+					"line": 411, "columns": [9, 14]
+				},
+				{
+					"line": 412, "columns": [35]
+				},
+				{
+					"line": 414, "columns": [9, 19]
+				},
+				{
+					"line": 415, "columns": [18]
+				},
+				{
+					"line": 418, "columns": [9]
+				}
+			],
+			"successors": [135, 132, 133, 116, 117],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %waiting) #8, !dbg !747",
+				"store i8 1, ptr %waiting, align 1, !dbg !748, !tbaa !749",
+				"store i8 1, ptr %has_threads_waiting, align 8, !dbg !751, !tbaa !752",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %item) #8, !dbg !755",
+				"store ptr null, ptr %item, align 8, !dbg !756, !tbaa !723",
+				"%call27.us = call i32 @_PyParkingLot_Park(ptr noundef nonnull %has_threads_waiting, ptr noundef nonnull %waiting, i64 noundef 1, i64 noundef -1, ptr noundef nonnull %item, i32 noundef 1) #8, !dbg !757",
+				"switch i32 %call27.us, label %sw.default [\n    i32 0, label %sw.bb\n    i32 -2, label %sw.bb28\n    i32 -3, label %sw.bb30.us\n    i32 -1, label %cleanup39.us\n  ], !dbg !758"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_impl",
+			"id": 116,
+			"name": "sw.bb30.us",
+			"debug": [
+				{
+					"line": 428, "columns": [21, 43]
+				}
+			],
+			"successors": [136, 117],
+			"ir": [
+				"%call31.us = call i32 @Py_MakePendingCalls() #8, !dbg !759",
+				"%cmp32.us = icmp slt i32 %call31.us, 0, !dbg !763",
+				"br i1 %cmp32.us, label %cleanup39.thread66, label %cleanup39.us, !dbg !764"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_impl",
+			"id": 117,
+			"name": "cleanup39.us",
+			"debug": [
+				{
+					"line": 185, "columns": [27]
+				},
+				{
+					"line": 395, "columns": [14, 13]
+				},
+				{
+					"line": 444, "columns": [5]
+				}
+			],
+			"successors": [115, 118],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %item) #8, !dbg !765",
+				"call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %waiting) #8, !dbg !765",
+				"%buf.val.us = load i64, ptr %2, align 8, !dbg !730, !tbaa !732",
+				"%cmp.i.us = icmp eq i64 %buf.val.us, 0, !dbg !742",
+				"br i1 %cmp.i.us, label %if.end13.us, label %if.then10, !dbg !743, !llvm.loop !766"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_impl",
+			"id": 118,
+			"name": "if.then10",
+			"debug": [
+				{
+					"line": 138, "columns": [14, 32, 42, 24, 9]
+				},
+				{
+					"line": 395, "columns": [37]
+				}
+			],
+			"successors": [119, 127],
+			"ir": [
+				"%3 = phi i64 [ %buf.val76, %if.end8 ], [ %buf.val.us, %cleanup39.us ], [ %buf.val, %cleanup39 ], !dbg !769",
+				"%buf.le = getelementptr inbounds %struct.simplequeueobject, ptr %self, i64 0, i32 2, !dbg !779",
+				"%items_cap.i = getelementptr inbounds %struct.simplequeueobject, ptr %self, i64 0, i32 2, i32 3, !dbg !781",
+				"%4 = load i64, ptr %items_cap.i, align 8, !dbg !781, !tbaa !782",
+				"%div.i = sdiv i64 %4, 4, !dbg !783",
+				"%cmp.i54 = icmp slt i64 %3, %div.i, !dbg !784",
+				"br i1 %cmp.i54, label %if.then.i, label %RingBuf_Get.exit, !dbg !785"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_impl",
+			"id": 119,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 95, "columns": [31]
+				},
+				{
+					"line": 96, "columns": [22, 9]
+				},
+				{
+					"line": 145, "columns": [50]
+				}
+			],
+			"successors": [127, 120],
+			"ir": [
+				"%div2.i = sdiv i64 %4, 2, !dbg !786",
+				"%cond.i.i = call i64 @llvm.smax.i64(i64 %div2.i, i64 8), !dbg !800",
+				"%cmp1.i.i = icmp eq i64 %cond.i.i, %4, !dbg !801",
+				"br i1 %cmp1.i.i, label %RingBuf_Get.exit, label %if.end.i.i, !dbg !803"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_impl",
+			"id": 120,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 101, "columns": [28]
+				},
+				{
+					"line": 102, "columns": [19, 9]
+				}
+			],
+			"successors": [121, 122],
+			"ir": [
+				"%call.i.i = call ptr @PyMem_Calloc(i64 noundef %cond.i.i, i64 noundef 8) #8, !dbg !804",
+				"%cmp2.i.i = icmp eq ptr %call.i.i, null, !dbg !805",
+				"br i1 %cmp2.i.i, label %if.end.i.if.end_crit_edge.i, label %if.end4.i.i, !dbg !807"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_impl",
+			"id": 121,
+			"name": "if.end.i.if.end_crit_edge.i",
+			"debug": [
+				{
+					"line": 102, "columns": [9]
+				},
+				{
+					"line": 150, "columns": [46]
+				},
+				{
+					"line": 151, "columns": [19]
+				}
+			],
+			"successors": [127],
+			"ir": [
+				"%.pre.i = load i64, ptr %items_cap.i, align 8, !dbg !808, !tbaa !782",
+				"%.pre21.i = load i64, ptr %2, align 8, !dbg !809, !tbaa !732",
+				"br label %RingBuf_Get.exit, !dbg !807"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_impl",
+			"id": 122,
+			"name": "if.end4.i.i",
+			"debug": [
+				{
+					"line": 109, "columns": [9]
+				},
+				{
+					"line": 110, "columns": [19, 9]
+				}
+			],
+			"successors": [123, 124],
+			"ir": [
+				"%5 = load i64, ptr %2, align 8, !dbg !810, !tbaa !732",
+				"%6 = load i64, ptr %items_cap.i, align 8, !dbg !810, !tbaa !782",
+				"%get_idx.i.i = getelementptr inbounds %struct.simplequeueobject, ptr %self, i64 0, i32 2, i32 1, !dbg !810",
+				"%7 = load i64, ptr %get_idx.i.i, align 8, !dbg !810, !tbaa !811",
+				"%sub.i.i = sub i64 %6, %7, !dbg !810",
+				"%sub..i.i = call i64 @llvm.smin.i64(i64 %5, i64 %sub.i.i), !dbg !810",
+				"%cmp15.i.i = icmp sgt i64 %sub..i.i, 0, !dbg !812",
+				"br i1 %cmp15.i.i, label %if.then16.i.i, label %if.end18.i.i, !dbg !814"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_impl",
+			"id": 123,
+			"name": "if.then16.i.i",
+			"debug": [
+				{
+					"line": 111, "columns": [32, 38, 9]
+				},
+				{
+					"line": 112, "columns": [26]
+				},
+				{
+					"line": 113, "columns": [5]
+				},
+				{
+					"line": 117, "columns": [33]
+				}
+			],
+			"successors": [124],
+			"ir": [
+				"%items.i.i = getelementptr inbounds %struct.simplequeueobject, ptr %self, i64 0, i32 2, i32 2, !dbg !815",
+				"%8 = load ptr, ptr %items.i.i, align 8, !dbg !815, !tbaa !817",
+				"%add.ptr.i.i = getelementptr ptr, ptr %8, i64 %7, !dbg !818",
+				"%mul.i.i = shl i64 %sub..i.i, 3, !dbg !819",
+				"call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 8 %call.i.i, ptr align 8 %add.ptr.i.i, i64 %mul.i.i, i1 false), !dbg !820",
+				"%.pre.i.i = load i64, ptr %2, align 8, !dbg !821, !tbaa !732",
+				"br label %if.end18.i.i, !dbg !822"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_impl",
+			"id": 124,
+			"name": "if.end18.i.i",
+			"debug": [
+				{
+					"line": 117, "columns": [33, 43]
+				},
+				{
+					"line": 118, "columns": [19, 9]
+				}
+			],
+			"successors": [125, 126],
+			"ir": [
+				"%9 = phi i64 [ %.pre.i.i, %if.then16.i.i ], [ %5, %if.end4.i.i ], !dbg !821",
+				"%sub20.i.i = sub i64 %9, %sub..i.i, !dbg !823",
+				"%cmp21.i.i = icmp sgt i64 %sub20.i.i, 0, !dbg !824",
+				"br i1 %cmp21.i.i, label %if.then22.i.i, label %if.end26.i.i, !dbg !826"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_impl",
+			"id": 125,
+			"name": "if.then22.i.i",
+			"debug": [
+				{
+					"line": 119, "columns": [26, 44, 9]
+				},
+				{
+					"line": 120, "columns": [26]
+				},
+				{
+					"line": 121, "columns": [5]
+				}
+			],
+			"successors": [126],
+			"ir": [
+				"%add.ptr23.i.i = getelementptr ptr, ptr %call.i.i, i64 %sub..i.i, !dbg !827",
+				"%items24.i.i = getelementptr inbounds %struct.simplequeueobject, ptr %self, i64 0, i32 2, i32 2, !dbg !829",
+				"%10 = load ptr, ptr %items24.i.i, align 8, !dbg !829, !tbaa !817",
+				"%mul25.i.i = shl i64 %sub20.i.i, 3, !dbg !830",
+				"call void @llvm.memcpy.p0.p0.i64(ptr align 8 %add.ptr23.i.i, ptr align 8 %10, i64 %mul25.i.i, i1 false), !dbg !831",
+				"br label %if.end26.i.i, !dbg !832"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_impl",
+			"id": 126,
+			"name": "if.end26.i.i",
+			"debug": [
+				{
+					"line": 123, "columns": [21, 5]
+				},
+				{
+					"line": 124, "columns": [16]
+				},
+				{
+					"line": 125, "columns": [20]
+				},
+				{
+					"line": 126, "columns": [18]
+				},
+				{
+					"line": 127, "columns": [25, 18]
+				}
+			],
+			"successors": [127],
+			"ir": [
+				"%items27.i.i = getelementptr inbounds %struct.simplequeueobject, ptr %self, i64 0, i32 2, i32 2, !dbg !833",
+				"%11 = load ptr, ptr %items27.i.i, align 8, !dbg !833, !tbaa !817",
+				"call void @PyMem_Free(ptr noundef %11) #8, !dbg !834",
+				"store ptr %call.i.i, ptr %items27.i.i, align 8, !dbg !835, !tbaa !817",
+				"store i64 %cond.i.i, ptr %items_cap.i, align 8, !dbg !836, !tbaa !782",
+				"store i64 0, ptr %get_idx.i.i, align 8, !dbg !837, !tbaa !811",
+				"%12 = load i64, ptr %2, align 8, !dbg !838, !tbaa !732",
+				"store i64 %12, ptr %buf.le, align 8, !dbg !839, !tbaa !840",
+				"br label %RingBuf_Get.exit"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_impl",
+			"id": 127,
+			"name": "RingBuf_Get.exit",
+			"debug": [
+				{
+					"line": 148, "columns": [27, 38, 22]
+				},
+				{
+					"line": 149, "columns": [30]
+				},
+				{
+					"line": 150, "columns": [46, 34, 39, 18]
+				},
+				{
+					"line": 151, "columns": [19]
+				},
+				{
+					"line": 396, "columns": [13]
+				}
+			],
+			"successors": [138],
+			"ir": [
+				"%13 = phi i64 [ %.pre21.i, %if.end.i.if.end_crit_edge.i ], [ %12, %if.end26.i.i ], [ %3, %if.then.i ], [ %3, %if.then10 ], !dbg !809",
+				"%14 = phi i64 [ %.pre.i, %if.end.i.if.end_crit_edge.i ], [ %cond.i.i, %if.end26.i.i ], [ %4, %if.then.i ], [ %4, %if.then10 ], !dbg !808",
+				"%items.i = getelementptr inbounds %struct.simplequeueobject, ptr %self, i64 0, i32 2, i32 2, !dbg !841",
+				"%15 = load ptr, ptr %items.i, align 8, !dbg !841, !tbaa !817",
+				"%get_idx.i = getelementptr inbounds %struct.simplequeueobject, ptr %self, i64 0, i32 2, i32 1, !dbg !842",
+				"%16 = load i64, ptr %get_idx.i, align 8, !dbg !842, !tbaa !811",
+				"%arrayidx.i = getelementptr ptr, ptr %15, i64 %16, !dbg !843",
+				"%17 = load ptr, ptr %arrayidx.i, align 8, !dbg !843, !tbaa !723",
+				"store ptr null, ptr %arrayidx.i, align 8, !dbg !844, !tbaa !723",
+				"%add.i = add i64 %16, 1, !dbg !845",
+				"%rem.i = srem i64 %add.i, %14, !dbg !846",
+				"store i64 %rem.i, ptr %get_idx.i, align 8, !dbg !847, !tbaa !811",
+				"%dec.i = add i64 %13, -1, !dbg !809",
+				"store i64 %dec.i, ptr %2, align 8, !dbg !809, !tbaa !732",
+				"br label %cleanup42, !dbg !848"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_impl",
+			"id": 128,
+			"name": "if.end13",
+			"debug": [
+				{
+					"line": 405, "columns": [26]
+				},
+				{
+					"line": 406, "columns": [28, 17]
+				}
+			],
+			"successors": [130, 131],
+			"ir": [
+				"%call19 = call i64 @_PyDeadline_Get(i64 noundef %endtime.1) #8, !dbg !849",
+				"%cmp20 = icmp slt i64 %call19, 0, !dbg !852",
+				"br i1 %cmp20, label %cleanup39.thread, label %if.end24, !dbg !854"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_impl",
+			"id": 129,
+			"name": "if.then14",
+			"debug": [
+				{
+					"line": 342, "columns": [24]
+				},
+				{
+					"line": 344, "columns": [32]
+				},
+				{
+					"line": 345, "columns": [26, 5]
+				},
+				{
+					"line": 400, "columns": [13]
+				}
+			],
+			"successors": [138],
+			"ir": [
+				"%call.i = call ptr @PyType_GetModule(ptr noundef %cls) #8, !dbg !872",
+				"%18 = getelementptr i8, ptr %call.i, i64 32, !dbg !873",
+				"%call.val.i = load ptr, ptr %18, align 8, !dbg !873, !tbaa !874",
+				"%EmptyError.i = getelementptr inbounds %struct.simplequeue_state, ptr %call.val.i, i64 0, i32 1, !dbg !876",
+				"%19 = load ptr, ptr %EmptyError.i, align 8, !dbg !876, !tbaa !877",
+				"call void @PyErr_SetNone(ptr noundef %19) #8, !dbg !879",
+				"br label %cleanup42, !dbg !880"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_impl",
+			"id": 130,
+			"name": "cleanup39.thread",
+			"debug": [
+				{
+					"line": 342, "columns": [24]
+				},
+				{
+					"line": 344, "columns": [32]
+				},
+				{
+					"line": 345, "columns": [26, 5]
+				}
+			],
+			"successors": [138],
+			"ir": [
+				"%call.i55 = call ptr @PyType_GetModule(ptr noundef %cls) #8, !dbg !884",
+				"%20 = getelementptr i8, ptr %call.i55, i64 32, !dbg !885",
+				"%call.val.i56 = load ptr, ptr %20, align 8, !dbg !885, !tbaa !874",
+				"%EmptyError.i57 = getelementptr inbounds %struct.simplequeue_state, ptr %call.val.i56, i64 0, i32 1, !dbg !886",
+				"%21 = load ptr, ptr %EmptyError.i57, align 8, !dbg !886, !tbaa !877",
+				"call void @PyErr_SetNone(ptr noundef %21) #8, !dbg !887",
+				"br label %cleanup42"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_impl",
+			"id": 131,
+			"name": "if.end24",
+			"debug": [
+				{
+					"line": 411, "columns": [9, 14]
+				},
+				{
+					"line": 412, "columns": [35]
+				},
+				{
+					"line": 414, "columns": [9, 19]
+				},
+				{
+					"line": 415, "columns": [18]
+				},
+				{
+					"line": 418, "columns": [9]
+				}
+			],
+			"successors": [135, 132, 133, 134, 137],
+			"ir": [
+				"call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %waiting) #8, !dbg !747",
+				"store i8 1, ptr %waiting, align 1, !dbg !748, !tbaa !749",
+				"store i8 1, ptr %has_threads_waiting, align 8, !dbg !751, !tbaa !752",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %item) #8, !dbg !755",
+				"store ptr null, ptr %item, align 8, !dbg !756, !tbaa !723",
+				"%call27 = call i32 @_PyParkingLot_Park(ptr noundef nonnull %has_threads_waiting, ptr noundef nonnull %waiting, i64 noundef 1, i64 noundef %call19, ptr noundef nonnull %item, i32 noundef 1) #8, !dbg !757",
+				"switch i32 %call27, label %sw.default [\n    i32 0, label %sw.bb\n    i32 -2, label %sw.bb28\n    i32 -3, label %sw.bb30\n    i32 -1, label %cleanup39\n  ], !dbg !758"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_impl",
+			"id": 132,
+			"name": "sw.bb",
+			"debug": [
+				{
+					"line": 421, "columns": [24, 17]
+				}
+			],
+			"successors": [136],
+			"ir": [
+				"%22 = load ptr, ptr %item, align 8, !dbg !888, !tbaa !723",
+				"br label %cleanup39.thread66, !dbg !890"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_impl",
+			"id": 133,
+			"name": "sw.bb28",
+			"debug": [
+				{
+					"line": 342, "columns": [24]
+				},
+				{
+					"line": 344, "columns": [32]
+				},
+				{
+					"line": 345, "columns": [26, 5]
+				},
+				{
+					"line": 424, "columns": [17]
+				}
+			],
+			"successors": [136],
+			"ir": [
+				"%call.i58 = call ptr @PyType_GetModule(ptr noundef %cls) #8, !dbg !894",
+				"%23 = getelementptr i8, ptr %call.i58, i64 32, !dbg !895",
+				"%call.val.i59 = load ptr, ptr %23, align 8, !dbg !895, !tbaa !874",
+				"%EmptyError.i60 = getelementptr inbounds %struct.simplequeue_state, ptr %call.val.i59, i64 0, i32 1, !dbg !896",
+				"%24 = load ptr, ptr %EmptyError.i60, align 8, !dbg !896, !tbaa !877",
+				"call void @PyErr_SetNone(ptr noundef %24) #8, !dbg !897",
+				"br label %cleanup39.thread66, !dbg !898"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_impl",
+			"id": 134,
+			"name": "sw.bb30",
+			"debug": [
+				{
+					"line": 428, "columns": [21, 43]
+				}
+			],
+			"successors": [136, 137],
+			"ir": [
+				"%call31 = call i32 @Py_MakePendingCalls() #8, !dbg !759",
+				"%cmp32 = icmp slt i32 %call31, 0, !dbg !763",
+				"br i1 %cmp32, label %cleanup39.thread66, label %cleanup39, !dbg !764"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_impl",
+			"id": 135,
+			"name": "sw.default",
+			"debug": [
+				{
+					"line": 441, "columns": [17]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"unreachable, !dbg !899"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_impl",
+			"id": 136,
+			"name": "cleanup39.thread66",
+			"debug": [
+				{
+					"line": 444, "columns": [5]
+				}
+			],
+			"successors": [138],
+			"ir": [
+				"%retval.3.ph = phi ptr [ %22, %sw.bb ], [ null, %sw.bb28 ], [ null, %sw.bb30.us ], [ null, %sw.bb30 ]",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %item) #8, !dbg !765",
+				"call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %waiting) #8, !dbg !765",
+				"br label %cleanup42"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_impl",
+			"id": 137,
+			"name": "cleanup39",
+			"debug": [
+				{
+					"line": 185, "columns": [27]
+				},
+				{
+					"line": 395, "columns": [14, 13]
+				},
+				{
+					"line": 444, "columns": [5]
+				}
+			],
+			"successors": [128, 118],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %item) #8, !dbg !765",
+				"call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %waiting) #8, !dbg !765",
+				"%buf.val = load i64, ptr %2, align 8, !dbg !730, !tbaa !732",
+				"%cmp.i = icmp eq i64 %buf.val, 0, !dbg !742",
+				"br i1 %cmp.i, label %if.end13, label %if.then10, !dbg !743, !llvm.loop !766"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_get_impl",
+			"id": 138,
+			"name": "cleanup42",
+			"debug": [
+				{
+					"line": 445, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.5 = phi ptr [ null, %if.then14 ], [ %17, %RingBuf_Get.exit ], [ null, %cleanup.thread ], [ null, %cleanup39.thread ], [ %retval.3.ph, %cleanup39.thread66 ], !dbg !704",
+				"ret ptr %retval.5, !dbg !901"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_put_impl",
+			"id": 139,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 302, "columns": [5, 17, 24]
+				},
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [141, 140],
+			"ir": [
+				"%data = alloca %struct.HandoffData, align 8",
+				"call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %data) #8, !dbg !697",
+				"store i8 0, ptr %data, align 8, !dbg !699, !tbaa !700",
+				"%queue = getelementptr inbounds %struct.HandoffData, ptr %data, i64 0, i32 1, !dbg !699",
+				"store ptr %self, ptr %queue, align 8, !dbg !699, !tbaa !706",
+				"%item1 = getelementptr inbounds %struct.HandoffData, ptr %data, i64 0, i32 2, !dbg !699",
+				"%0 = load i32, ptr %item, align 8, !dbg !719, !tbaa !720",
+				"%add.i.i = add i32 %0, 1, !dbg !721",
+				"%cmp.i.i = icmp eq i32 %add.i.i, 0, !dbg !722",
+				"br i1 %cmp.i.i, label %_Py_NewRef.exit, label %if.end.i.i, !dbg !724"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_put_impl",
+			"id": 140,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [141],
+			"ir": [
+				"store i32 %add.i.i, ptr %item, align 8, !dbg !725, !tbaa !720",
+				"br label %_Py_NewRef.exit, !dbg !726"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_put_impl",
+			"id": 141,
+			"name": "_Py_NewRef.exit",
+			"debug": [
+				{
+					"line": 302, "columns": [24]
+				},
+				{
+					"line": 307, "columns": [15, 9]
+				}
+			],
+			"successors": [143, 142],
+			"ir": [
+				"store ptr %item, ptr %item1, align 8, !dbg !699, !tbaa !727",
+				"%has_threads_waiting = getelementptr inbounds %struct.simplequeueobject, ptr %self, i64 0, i32 1, !dbg !728",
+				"%1 = load i8, ptr %has_threads_waiting, align 8, !dbg !728, !tbaa !730, !range !735, !noundef !736",
+				"%tobool.not = icmp eq i8 %1, 0, !dbg !728",
+				"br i1 %tobool.not, label %if.then5, label %if.end, !dbg !737"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_put_impl",
+			"id": 142,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 309, "columns": [9]
+				},
+				{
+					"line": 312, "columns": [15, 9]
+				}
+			],
+			"successors": [143, 153],
+			"ir": [
+				"call void @_PyParkingLot_Unpark(ptr noundef nonnull %has_threads_waiting, ptr noundef nonnull @maybe_handoff_item, ptr noundef nonnull %data) #8, !dbg !738",
+				"%.pre = load i8, ptr %data, align 8, !dbg !740, !tbaa !700, !range !735",
+				"%2 = icmp eq i8 %.pre, 0, !dbg !740",
+				"br i1 %2, label %if.then5, label %cleanup, !dbg !742"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_put_impl",
+			"id": 143,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 163, "columns": [14, 32, 24, 9]
+				},
+				{
+					"line": 313, "columns": [32]
+				}
+			],
+			"successors": [144, 152],
+			"ir": [
+				"%buf = getelementptr inbounds %struct.simplequeueobject, ptr %self, i64 0, i32 2, !dbg !743",
+				"%num_items.i = getelementptr inbounds %struct.simplequeueobject, ptr %self, i64 0, i32 2, i32 4, !dbg !755",
+				"%3 = load i64, ptr %num_items.i, align 8, !dbg !755, !tbaa !757",
+				"%items_cap.i = getelementptr inbounds %struct.simplequeueobject, ptr %self, i64 0, i32 2, i32 3, !dbg !758",
+				"%4 = load i64, ptr %items_cap.i, align 8, !dbg !758, !tbaa !759",
+				"%cmp.i = icmp eq i64 %3, %4, !dbg !760",
+				"br i1 %cmp.i, label %if.then.i, label %RingBuf_Put.exit, !dbg !761"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_put_impl",
+			"id": 144,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 95, "columns": [31]
+				},
+				{
+					"line": 96, "columns": [22, 9]
+				},
+				{
+					"line": 165, "columns": [48]
+				}
+			],
+			"successors": [152, 145],
+			"ir": [
+				"%mul.i = shl i64 %3, 1, !dbg !762",
+				"%cond.i.i = call i64 @llvm.smax.i64(i64 %mul.i, i64 8), !dbg !777",
+				"%cmp1.i.i = icmp eq i64 %cond.i.i, %3, !dbg !778",
+				"br i1 %cmp1.i.i, label %RingBuf_Put.exit, label %if.end.i.i14, !dbg !780"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_put_impl",
+			"id": 145,
+			"name": "if.end.i.i14",
+			"debug": [
+				{
+					"line": 101, "columns": [28]
+				},
+				{
+					"line": 102, "columns": [19, 9]
+				}
+			],
+			"successors": [151, 146],
+			"ir": [
+				"%call.i.i = call ptr @PyMem_Calloc(i64 noundef %cond.i.i, i64 noundef 8) #8, !dbg !781",
+				"%cmp2.i.i = icmp eq ptr %call.i.i, null, !dbg !782",
+				"br i1 %cmp2.i.i, label %RingBuf_Put.exit.thread, label %if.end4.i.i, !dbg !784"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_put_impl",
+			"id": 146,
+			"name": "if.end4.i.i",
+			"debug": [
+				{
+					"line": 109, "columns": [9]
+				},
+				{
+					"line": 110, "columns": [19, 9]
+				}
+			],
+			"successors": [147, 148],
+			"ir": [
+				"%5 = load i64, ptr %num_items.i, align 8, !dbg !785, !tbaa !757",
+				"%6 = load i64, ptr %items_cap.i, align 8, !dbg !785, !tbaa !759",
+				"%get_idx.i.i = getelementptr inbounds %struct.simplequeueobject, ptr %self, i64 0, i32 2, i32 1, !dbg !785",
+				"%7 = load i64, ptr %get_idx.i.i, align 8, !dbg !785, !tbaa !786",
+				"%sub.i.i = sub i64 %6, %7, !dbg !785",
+				"%sub..i.i = call i64 @llvm.smin.i64(i64 %5, i64 %sub.i.i), !dbg !785",
+				"%cmp15.i.i = icmp sgt i64 %sub..i.i, 0, !dbg !787",
+				"br i1 %cmp15.i.i, label %if.then16.i.i, label %if.end18.i.i, !dbg !789"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_put_impl",
+			"id": 147,
+			"name": "if.then16.i.i",
+			"debug": [
+				{
+					"line": 111, "columns": [32, 38, 9]
+				},
+				{
+					"line": 112, "columns": [26]
+				},
+				{
+					"line": 113, "columns": [5]
+				},
+				{
+					"line": 117, "columns": [33]
+				}
+			],
+			"successors": [148],
+			"ir": [
+				"%items.i.i = getelementptr inbounds %struct.simplequeueobject, ptr %self, i64 0, i32 2, i32 2, !dbg !790",
+				"%8 = load ptr, ptr %items.i.i, align 8, !dbg !790, !tbaa !792",
+				"%add.ptr.i.i = getelementptr ptr, ptr %8, i64 %7, !dbg !793",
+				"%mul.i.i = shl i64 %sub..i.i, 3, !dbg !794",
+				"call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 8 %call.i.i, ptr align 8 %add.ptr.i.i, i64 %mul.i.i, i1 false), !dbg !795",
+				"%.pre.i.i = load i64, ptr %num_items.i, align 8, !dbg !796, !tbaa !757",
+				"br label %if.end18.i.i, !dbg !797"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_put_impl",
+			"id": 148,
+			"name": "if.end18.i.i",
+			"debug": [
+				{
+					"line": 117, "columns": [33, 43]
+				},
+				{
+					"line": 118, "columns": [19, 9]
+				}
+			],
+			"successors": [149, 150],
+			"ir": [
+				"%9 = phi i64 [ %.pre.i.i, %if.then16.i.i ], [ %5, %if.end4.i.i ], !dbg !796",
+				"%sub20.i.i = sub i64 %9, %sub..i.i, !dbg !798",
+				"%cmp21.i.i = icmp sgt i64 %sub20.i.i, 0, !dbg !799",
+				"br i1 %cmp21.i.i, label %if.then22.i.i, label %if.end26.i.i, !dbg !801"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_put_impl",
+			"id": 149,
+			"name": "if.then22.i.i",
+			"debug": [
+				{
+					"line": 119, "columns": [26, 44, 9]
+				},
+				{
+					"line": 120, "columns": [26]
+				},
+				{
+					"line": 121, "columns": [5]
+				}
+			],
+			"successors": [150],
+			"ir": [
+				"%add.ptr23.i.i = getelementptr ptr, ptr %call.i.i, i64 %sub..i.i, !dbg !802",
+				"%items24.i.i = getelementptr inbounds %struct.simplequeueobject, ptr %self, i64 0, i32 2, i32 2, !dbg !804",
+				"%10 = load ptr, ptr %items24.i.i, align 8, !dbg !804, !tbaa !792",
+				"%mul25.i.i = shl i64 %sub20.i.i, 3, !dbg !805",
+				"call void @llvm.memcpy.p0.p0.i64(ptr align 8 %add.ptr23.i.i, ptr align 8 %10, i64 %mul25.i.i, i1 false), !dbg !806",
+				"br label %if.end26.i.i, !dbg !807"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_put_impl",
+			"id": 150,
+			"name": "if.end26.i.i",
+			"debug": [
+				{
+					"line": 123, "columns": [21, 5]
+				},
+				{
+					"line": 124, "columns": [16]
+				},
+				{
+					"line": 125, "columns": [20]
+				},
+				{
+					"line": 126, "columns": [18]
+				},
+				{
+					"line": 127, "columns": [25, 18]
+				}
+			],
+			"successors": [152],
+			"ir": [
+				"%items27.i.i = getelementptr inbounds %struct.simplequeueobject, ptr %self, i64 0, i32 2, i32 2, !dbg !808",
+				"%11 = load ptr, ptr %items27.i.i, align 8, !dbg !808, !tbaa !792",
+				"call void @PyMem_Free(ptr noundef %11) #8, !dbg !809",
+				"store ptr %call.i.i, ptr %items27.i.i, align 8, !dbg !810, !tbaa !792",
+				"store i64 %cond.i.i, ptr %items_cap.i, align 8, !dbg !811, !tbaa !759",
+				"store i64 0, ptr %get_idx.i.i, align 8, !dbg !812, !tbaa !786",
+				"%12 = load i64, ptr %num_items.i, align 8, !dbg !813, !tbaa !757",
+				"store i64 %12, ptr %buf, align 8, !dbg !814, !tbaa !815",
+				"br label %RingBuf_Put.exit"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_put_impl",
+			"id": 151,
+			"name": "RingBuf_Put.exit.thread",
+			"debug": [
+				{
+					"line": 166, "columns": [13]
+				},
+				{
+					"line": 313, "columns": [13]
+				}
+			],
+			"successors": [153],
+			"ir": [
+				"%call4.i = call ptr @PyErr_NoMemory() #8, !dbg !816",
+				"br label %cleanup, !dbg !818"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_put_impl",
+			"id": 152,
+			"name": "RingBuf_Put.exit",
+			"debug": [
+				{
+					"line": 170, "columns": [10, 21, 5, 30]
+				},
+				{
+					"line": 171, "columns": [46, 34, 39, 18]
+				},
+				{
+					"line": 172, "columns": [19]
+				},
+				{
+					"line": 313, "columns": [13]
+				}
+			],
+			"successors": [153],
+			"ir": [
+				"%13 = phi i64 [ %12, %if.end26.i.i ], [ %3, %if.then.i ], [ %3, %if.then5 ], !dbg !819",
+				"%14 = phi i64 [ %cond.i.i, %if.end26.i.i ], [ %3, %if.then.i ], [ %4, %if.then5 ], !dbg !820",
+				"%items.i = getelementptr inbounds %struct.simplequeueobject, ptr %self, i64 0, i32 2, i32 2, !dbg !821",
+				"%15 = load ptr, ptr %items.i, align 8, !dbg !821, !tbaa !792",
+				"%16 = load i64, ptr %buf, align 8, !dbg !822, !tbaa !815",
+				"%arrayidx.i = getelementptr ptr, ptr %15, i64 %16, !dbg !823",
+				"store ptr %item, ptr %arrayidx.i, align 8, !dbg !824, !tbaa !825",
+				"%add.i = add i64 %16, 1, !dbg !826",
+				"%rem.i = srem i64 %add.i, %14, !dbg !827",
+				"store i64 %rem.i, ptr %buf, align 8, !dbg !828, !tbaa !815",
+				"%inc.i = add i64 %13, 1, !dbg !819",
+				"store i64 %inc.i, ptr %num_items.i, align 8, !dbg !819, !tbaa !757",
+				"br label %cleanup, !dbg !818"
+			]
+		},
+		{
+			"function": "_queue_SimpleQueue_put_impl",
+			"id": 153,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 318, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ null, %RingBuf_Put.exit.thread ], [ @_Py_NoneStruct, %RingBuf_Put.exit ], [ @_Py_NoneStruct, %if.end ], !dbg !696",
+				"call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %data) #8, !dbg !829",
+				"ret ptr %retval.0, !dbg !829"
+			]
+		},
+		{
+			"function": "maybe_handoff_item",
+			"id": 154,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 271, "columns": [14, 9]
+				}
+			],
+			"successors": [156, 155],
+			"ir": [
+				"%cmp = icmp eq ptr %item, null, !dbg !696",
+				"br i1 %cmp, label %if.end, label %if.else, !dbg !698"
+			]
+		},
+		{
+			"function": "maybe_handoff_item",
+			"id": 155,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 277, "columns": [23, 15]
+				}
+			],
+			"successors": [156],
+			"ir": [
+				"%item1 = getelementptr inbounds %struct.HandoffData, ptr %data, i64 0, i32 2, !dbg !699",
+				"%0 = load ptr, ptr %item1, align 8, !dbg !699, !tbaa !701",
+				"store ptr %0, ptr %item, align 8, !dbg !707, !tbaa !708",
+				"br label %if.end"
+			]
+		},
+		{
+			"function": "maybe_handoff_item",
+			"id": 156,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 280, "columns": [40, 11, 18, 38]
+				},
+				{
+					"line": 281, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%storemerge = phi i8 [ 1, %if.else ], [ 0, %entry ], !dbg !709",
+				"store i8 %storemerge, ptr %data, align 8, !dbg !709, !tbaa !710",
+				"%tobool = icmp ne i32 %has_more_waiters, 0, !dbg !711",
+				"%queue = getelementptr inbounds %struct.HandoffData, ptr %data, i64 0, i32 1, !dbg !712",
+				"%1 = load ptr, ptr %queue, align 8, !dbg !712, !tbaa !713",
+				"%has_threads_waiting = getelementptr inbounds %struct.simplequeueobject, ptr %1, i64 0, i32 1, !dbg !714",
+				"%frombool = zext i1 %tobool to i8, !dbg !715",
+				"store i8 %frombool, ptr %has_threads_waiting, align 8, !dbg !715, !tbaa !716",
+				"ret void, !dbg !721"
+			]
+		}
+	]
+}

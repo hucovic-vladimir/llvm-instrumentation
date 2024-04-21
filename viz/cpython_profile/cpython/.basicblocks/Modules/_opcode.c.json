@@ -1,0 +1,5321 @@
+{
+	"blocks": [
+		{
+			"function": "_opcode_exec",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 394, "columns": [9]
+				},
+				{
+					"line": 398, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call i32 @PyModule_AddIntConstant(ptr noundef %m, ptr noundef nonnull @.str, i64 noundef 1) #6, !dbg !1068",
+				"%call.lobit = ashr i32 %call, 31, !dbg !1067",
+				"ret i32 %call.lobit, !dbg !1070"
+			]
+		},
+		{
+			"function": "PyInit__opcode",
+			"id": 1,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 418, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call ptr @PyModuleDef_Init(ptr noundef nonnull @opcodemodule) #6, !dbg !1066",
+				"ret ptr %call, !dbg !1067"
+			]
+		},
+		{
+			"function": "_opcode_stack_effect",
+			"id": 2,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 53, "columns": [5, 15]
+				},
+				{
+					"line": 54, "columns": [36]
+				}
+			],
+			"successors": [4, 3],
+			"ir": [
+				"%argsbuf = alloca [3 x ptr], align 16",
+				"call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %argsbuf) #6, !dbg !1065",
+				"%tobool.not = icmp eq ptr %kwnames, null, !dbg !1067",
+				"br i1 %tobool.not, label %cond.end, label %cond.true, !dbg !1067"
+			]
+		},
+		{
+			"function": "_opcode_stack_effect",
+			"id": 3,
+			"name": "cond.true",
+			"debug": [
+				{
+					"line": 54, "columns": [46, 36]
+				}
+			],
+			"successors": [4],
+			"ir": [
+				"%0 = getelementptr i8, ptr %kwnames, i64 16, !dbg !1068",
+				"%kwnames.val = load i64, ptr %0, align 8, !dbg !1068, !tbaa !1069",
+				"br label %cond.end, !dbg !1067"
+			]
+		},
+		{
+			"function": "_opcode_stack_effect",
+			"id": 4,
+			"name": "cond.end",
+			"debug": [
+				{
+					"line": 54, "columns": [36, 33, 77]
+				},
+				{
+					"line": 60, "columns": [12]
+				}
+			],
+			"successors": [6, 5],
+			"ir": [
+				"%cond = phi i64 [ %kwnames.val, %cond.true ], [ 0, %entry ], !dbg !1067",
+				"%add = add i64 %cond, %nargs, !dbg !1076",
+				"%sub = add i64 %add, -1, !dbg !1077",
+				"%1 = add i64 %nargs, -1, !dbg !1078",
+				"%2 = icmp ult i64 %1, 2, !dbg !1078",
+				"%cmp5 = icmp ne ptr %args, null, !dbg !1078",
+				"%3 = and i1 %cmp5, %2, !dbg !1078",
+				"%or.cond36 = and i1 %tobool.not, %3, !dbg !1078",
+				"br i1 %or.cond36, label %if.end, label %cond.end9, !dbg !1078"
+			]
+		},
+		{
+			"function": "_opcode_stack_effect",
+			"id": 5,
+			"name": "cond.end9",
+			"debug": [
+				{
+					"line": 60, "columns": [12]
+				},
+				{
+					"line": 61, "columns": [10, 9]
+				}
+			],
+			"successors": [22, 6],
+			"ir": [
+				"%call8 = call ptr @_PyArg_UnpackKeywords(ptr noundef %args, i64 noundef %nargs, ptr noundef null, ptr noundef %kwnames, ptr noundef nonnull @_opcode_stack_effect._parser, i32 noundef 1, i32 noundef 2, i32 noundef 0, ptr noundef nonnull %argsbuf) #6, !dbg !1078",
+				"%tobool11.not = icmp eq ptr %call8, null, !dbg !1079",
+				"br i1 %tobool11.not, label %exit, label %if.end, !dbg !1081"
+			]
+		},
+		{
+			"function": "_opcode_stack_effect",
+			"id": 6,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 64, "columns": [27, 14]
+				},
+				{
+					"line": 65, "columns": [16, 22]
+				}
+			],
+			"successors": [7, 8],
+			"ir": [
+				"%cond1055 = phi ptr [ %call8, %cond.end9 ], [ %args, %cond.end ]",
+				"%4 = load ptr, ptr %cond1055, align 8, !dbg !1082, !tbaa !1083",
+				"%call12 = call i32 @PyLong_AsInt(ptr noundef %4) #6, !dbg !1084",
+				"%cmp13 = icmp eq i32 %call12, -1, !dbg !1085",
+				"br i1 %cmp13, label %land.lhs.true14, label %if.end18, !dbg !1087"
+			]
+		},
+		{
+			"function": "_opcode_stack_effect",
+			"id": 7,
+			"name": "land.lhs.true14",
+			"debug": [
+				{
+					"line": 65, "columns": [25, 9]
+				}
+			],
+			"successors": [8, 22],
+			"ir": [
+				"%call15 = call ptr @PyErr_Occurred() #6, !dbg !1088",
+				"%tobool16.not = icmp eq ptr %call15, null, !dbg !1088",
+				"br i1 %tobool16.not, label %if.end18, label %exit, !dbg !1089"
+			]
+		},
+		{
+			"function": "_opcode_stack_effect",
+			"id": 8,
+			"name": "if.end18",
+			"debug": [
+				{
+					"line": 68, "columns": [15, 9]
+				}
+			],
+			"successors": [10, 9],
+			"ir": [
+				"%cmp19 = icmp slt i64 %nargs, 2, !dbg !1090",
+				"br i1 %cmp19, label %skip_optional_posonly, label %if.end21, !dbg !1092"
+			]
+		},
+		{
+			"function": "_opcode_stack_effect",
+			"id": 9,
+			"name": "if.end21",
+			"debug": [
+				{
+					"line": 71, "columns": [13]
+				},
+				{
+					"line": 72, "columns": [13, 5]
+				}
+			],
+			"successors": [10],
+			"ir": [
+				"%dec = add i64 %add, -2, !dbg !1093",
+				"%arrayidx22 = getelementptr ptr, ptr %cond1055, i64 1, !dbg !1094",
+				"%5 = load ptr, ptr %arrayidx22, align 8, !dbg !1094, !tbaa !1083",
+				"br label %skip_optional_posonly, !dbg !1095"
+			]
+		},
+		{
+			"function": "_opcode_stack_effect",
+			"id": 10,
+			"name": "skip_optional_posonly",
+			"debug": [
+				{
+					"line": 73, "columns": [1]
+				},
+				{
+					"line": 74, "columns": [10, 9]
+				}
+			],
+			"successors": [12, 11],
+			"ir": [
+				"%noptargs.0 = phi i64 [ %sub, %if.end18 ], [ %dec, %if.end21 ], !dbg !1064",
+				"%oparg.0 = phi ptr [ @_Py_NoneStruct, %if.end18 ], [ %5, %if.end21 ], !dbg !1064",
+				"%tobool23.not = icmp eq i64 %noptargs.0, 0, !dbg !1097",
+				"br i1 %tobool23.not, label %skip_optional_kwonly, label %if.end25, !dbg !1099"
+			]
+		},
+		{
+			"function": "_opcode_stack_effect",
+			"id": 11,
+			"name": "if.end25",
+			"debug": [
+				{
+					"line": 77, "columns": [12, 5]
+				}
+			],
+			"successors": [12],
+			"ir": [
+				"%arrayidx26 = getelementptr ptr, ptr %cond1055, i64 2, !dbg !1100",
+				"%6 = load ptr, ptr %arrayidx26, align 8, !dbg !1100, !tbaa !1083",
+				"br label %skip_optional_kwonly, !dbg !1101"
+			]
+		},
+		{
+			"function": "_opcode_stack_effect",
+			"id": 12,
+			"name": "skip_optional_kwonly",
+			"debug": [
+				{
+					"line": 40, "columns": [15, 9]
+				},
+				{
+					"line": 78, "columns": [1]
+				}
+			],
+			"successors": [15, 13],
+			"ir": [
+				"%jump.0 = phi ptr [ %6, %if.end25 ], [ @_Py_NoneStruct, %skip_optional_posonly ], !dbg !1064",
+				"%cmp.not.i = icmp eq ptr %oparg.0, @_Py_NoneStruct, !dbg !1116",
+				"br i1 %cmp.not.i, label %if.end5.i, label %if.then.i, !dbg !1118"
+			]
+		},
+		{
+			"function": "_opcode_stack_effect",
+			"id": 13,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 41, "columns": [26, 21]
+				},
+				{
+					"line": 42, "columns": [24, 31]
+				}
+			],
+			"successors": [14, 15],
+			"ir": [
+				"%call.i = call i64 @PyLong_AsLong(ptr noundef %oparg.0) #6, !dbg !1119",
+				"%conv.i = trunc i64 %call.i to i32, !dbg !1121",
+				"%cmp1.i = icmp eq i32 %conv.i, -1, !dbg !1122",
+				"br i1 %cmp1.i, label %land.lhs.true.i, label %if.end5.i, !dbg !1124"
+			]
+		},
+		{
+			"function": "_opcode_stack_effect",
+			"id": 14,
+			"name": "land.lhs.true.i",
+			"debug": [
+				{
+					"line": 42, "columns": [34, 13]
+				}
+			],
+			"successors": [15, 20],
+			"ir": [
+				"%call3.i = call ptr @PyErr_Occurred() #6, !dbg !1125",
+				"%tobool.not.i = icmp eq ptr %call3.i, null, !dbg !1125",
+				"br i1 %tobool.not.i, label %if.end5.i, label %land.lhs.true29, !dbg !1126"
+			]
+		},
+		{
+			"function": "_opcode_stack_effect",
+			"id": 15,
+			"name": "if.end5.i",
+			"debug": [
+				{
+					"line": 47, "columns": [14, 9]
+				}
+			],
+			"successors": [18, 16],
+			"ir": [
+				"%oparg_int.0.i = phi i32 [ -1, %land.lhs.true.i ], [ %conv.i, %if.then.i ], [ 0, %skip_optional_kwonly ], !dbg !1114",
+				"%cmp6.i = icmp eq ptr %jump.0, @_Py_NoneStruct, !dbg !1127",
+				"br i1 %cmp6.i, label %if.end19.i, label %if.else.i, !dbg !1129"
+			]
+		},
+		{
+			"function": "_opcode_stack_effect",
+			"id": 16,
+			"name": "if.else.i",
+			"debug": [
+				{
+					"line": 50, "columns": [19, 14]
+				}
+			],
+			"successors": [18, 17],
+			"ir": [
+				"%cmp9.i = icmp eq ptr %jump.0, @_Py_TrueStruct, !dbg !1130",
+				"br i1 %cmp9.i, label %if.end19.i, label %if.else12.i, !dbg !1132"
+			]
+		},
+		{
+			"function": "_opcode_stack_effect",
+			"id": 17,
+			"name": "if.else12.i",
+			"debug": [
+				{
+					"line": 53, "columns": [19, 14]
+				}
+			],
+			"successors": [18, 19],
+			"ir": [
+				"%cmp13.i = icmp eq ptr %jump.0, @_Py_FalseStruct, !dbg !1133",
+				"br i1 %cmp13.i, label %if.end19.i, label %cleanup25.sink.split.i, !dbg !1135"
+			]
+		},
+		{
+			"function": "_opcode_stack_effect",
+			"id": 18,
+			"name": "if.end19.i",
+			"debug": [
+				{
+					"line": 61, "columns": [18]
+				},
+				{
+					"line": 62, "columns": [9]
+				}
+			],
+			"successors": [21, 19, 20],
+			"ir": [
+				"%jump_int.0.i = phi i32 [ -1, %if.end5.i ], [ 1, %if.else.i ], [ 0, %if.else12.i ], !dbg !1136",
+				"%call20.i = call i32 @PyCompile_OpcodeStackEffectWithJump(i32 noundef %call12, i32 noundef %oparg_int.0.i, i32 noundef %jump_int.0.i) #6, !dbg !1137",
+				"switch i32 %call20.i, label %if.end33 [\n    i32 2147483647, label %cleanup25.sink.split.i\n    i32 -1, label %land.lhs.true29\n  ], !dbg !1138"
+			]
+		},
+		{
+			"function": "_opcode_stack_effect",
+			"id": 19,
+			"name": "cleanup25.sink.split.i",
+			"debug": [
+				{
+					"line": 67, "columns": [1]
+				}
+			],
+			"successors": [20],
+			"ir": [
+				"%.str.20.sink.i = phi ptr [ @.str.19, %if.else12.i ], [ @.str.20, %if.end19.i ]",
+				"%7 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !1114, !tbaa !1083",
+				"call void @PyErr_SetString(ptr noundef %7, ptr noundef nonnull %.str.20.sink.i) #6, !dbg !1114",
+				"br label %land.lhs.true29, !dbg !1139"
+			]
+		},
+		{
+			"function": "_opcode_stack_effect",
+			"id": 20,
+			"name": "land.lhs.true29",
+			"debug": [
+				{
+					"line": 80, "columns": [34, 9]
+				}
+			],
+			"successors": [21, 22],
+			"ir": [
+				"%call30 = call ptr @PyErr_Occurred() #6, !dbg !1140",
+				"%tobool31.not = icmp eq ptr %call30, null, !dbg !1140",
+				"br i1 %tobool31.not, label %if.end33, label %exit, !dbg !1142"
+			]
+		},
+		{
+			"function": "_opcode_stack_effect",
+			"id": 21,
+			"name": "if.end33",
+			"debug": [
+				{
+					"line": 83, "columns": [36, 20, 5]
+				}
+			],
+			"successors": [22],
+			"ir": [
+				"%retval.1.i58 = phi i32 [ -1, %land.lhs.true29 ], [ %call20.i, %if.end19.i ]",
+				"%conv = sext i32 %retval.1.i58 to i64, !dbg !1143",
+				"%call34 = call ptr @PyLong_FromLong(i64 noundef %conv) #6, !dbg !1144",
+				"br label %exit, !dbg !1145"
+			]
+		},
+		{
+			"function": "_opcode_stack_effect",
+			"id": 22,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 85, "columns": [1]
+				},
+				{
+					"line": 86, "columns": [5]
+				},
+				{
+					"line": 87, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%return_value.0 = phi ptr [ null, %land.lhs.true14 ], [ null, %land.lhs.true29 ], [ %call34, %if.end33 ], [ null, %cond.end9 ], !dbg !1064",
+				"call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %argsbuf) #6, !dbg !1147",
+				"ret ptr %return_value.0, !dbg !1148"
+			]
+		},
+		{
+			"function": "_opcode_is_valid",
+			"id": 23,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 130, "columns": [5, 15]
+				},
+				{
+					"line": 134, "columns": [12]
+				}
+			],
+			"successors": [25, 24],
+			"ir": [
+				"%argsbuf = alloca [1 x ptr], align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %argsbuf) #6, !dbg !1065",
+				"%cmp = icmp eq ptr %kwnames, null, !dbg !1067",
+				"%0 = icmp eq i64 %nargs, 1, !dbg !1067",
+				"%or.cond21 = and i1 %0, %cmp, !dbg !1067",
+				"%cmp5 = icmp ne ptr %args, null, !dbg !1067",
+				"%or.cond22 = and i1 %cmp5, %or.cond21, !dbg !1067",
+				"br i1 %or.cond22, label %if.end, label %cond.end, !dbg !1067"
+			]
+		},
+		{
+			"function": "_opcode_is_valid",
+			"id": 24,
+			"name": "cond.end",
+			"debug": [
+				{
+					"line": 134, "columns": [12]
+				},
+				{
+					"line": 135, "columns": [10, 9]
+				}
+			],
+			"successors": [30, 25],
+			"ir": [
+				"%call = call ptr @_PyArg_UnpackKeywords(ptr noundef %args, i64 noundef %nargs, ptr noundef null, ptr noundef %kwnames, ptr noundef nonnull @_opcode_is_valid._parser, i32 noundef 1, i32 noundef 1, i32 noundef 0, ptr noundef nonnull %argsbuf) #6, !dbg !1067",
+				"%tobool.not = icmp eq ptr %call, null, !dbg !1068",
+				"br i1 %tobool.not, label %exit, label %if.end, !dbg !1070"
+			]
+		},
+		{
+			"function": "_opcode_is_valid",
+			"id": 25,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 138, "columns": [27, 14]
+				},
+				{
+					"line": 139, "columns": [16, 22]
+				}
+			],
+			"successors": [26, 27],
+			"ir": [
+				"%cond37 = phi ptr [ %call, %cond.end ], [ %args, %entry ]",
+				"%1 = load ptr, ptr %cond37, align 8, !dbg !1071, !tbaa !1072",
+				"%call6 = call i32 @PyLong_AsInt(ptr noundef %1) #6, !dbg !1076",
+				"%cmp7 = icmp eq i32 %call6, -1, !dbg !1077",
+				"br i1 %cmp7, label %land.lhs.true8, label %if.end12, !dbg !1079"
+			]
+		},
+		{
+			"function": "_opcode_is_valid",
+			"id": 26,
+			"name": "land.lhs.true8",
+			"debug": [
+				{
+					"line": 139, "columns": [25, 9]
+				}
+			],
+			"successors": [27, 30],
+			"ir": [
+				"%call9 = call ptr @PyErr_Occurred() #6, !dbg !1080",
+				"%tobool10.not = icmp eq ptr %call9, null, !dbg !1080",
+				"br i1 %tobool10.not, label %if.end12, label %exit, !dbg !1081"
+			]
+		},
+		{
+			"function": "_opcode_is_valid",
+			"id": 27,
+			"name": "if.end12",
+			"debug": [
+				{
+					"line": 82, "columns": [12]
+				},
+				{
+					"line": 143, "columns": [24, 31]
+				}
+			],
+			"successors": [28, 29],
+			"ir": [
+				"%.sink = phi i32 [ %call6, %if.end ], [ -1, %land.lhs.true8 ]",
+				"%call.i34 = call i32 @_PyCompile_OpcodeIsValid(i32 noundef %.sink) #6, !dbg !1082",
+				"%cmp14 = icmp eq i32 %call.i34, -1, !dbg !1090",
+				"br i1 %cmp14, label %land.lhs.true15, label %if.end19, !dbg !1092"
+			]
+		},
+		{
+			"function": "_opcode_is_valid",
+			"id": 28,
+			"name": "land.lhs.true15",
+			"debug": [
+				{
+					"line": 143, "columns": [34, 9]
+				}
+			],
+			"successors": [29, 30],
+			"ir": [
+				"%call16 = call ptr @PyErr_Occurred() #6, !dbg !1093",
+				"%tobool17.not = icmp eq ptr %call16, null, !dbg !1093",
+				"br i1 %tobool17.not, label %if.end19, label %exit, !dbg !1094"
+			]
+		},
+		{
+			"function": "_opcode_is_valid",
+			"id": 29,
+			"name": "if.end19",
+			"debug": [
+				{
+					"line": 146, "columns": [36, 20, 5]
+				}
+			],
+			"successors": [30],
+			"ir": [
+				"%conv = sext i32 %call.i34 to i64, !dbg !1095",
+				"%call20 = call ptr @PyBool_FromLong(i64 noundef %conv) #6, !dbg !1096",
+				"br label %exit, !dbg !1097"
+			]
+		},
+		{
+			"function": "_opcode_is_valid",
+			"id": 30,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 148, "columns": [1]
+				},
+				{
+					"line": 149, "columns": [5]
+				},
+				{
+					"line": 150, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%return_value.0 = phi ptr [ null, %land.lhs.true8 ], [ null, %land.lhs.true15 ], [ %call20, %if.end19 ], [ null, %cond.end ], !dbg !1064",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %argsbuf) #6, !dbg !1099",
+				"ret ptr %return_value.0, !dbg !1100"
+			]
+		},
+		{
+			"function": "_opcode_has_arg",
+			"id": 31,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 193, "columns": [5, 15]
+				},
+				{
+					"line": 197, "columns": [12]
+				}
+			],
+			"successors": [33, 32],
+			"ir": [
+				"%argsbuf = alloca [1 x ptr], align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %argsbuf) #6, !dbg !1065",
+				"%cmp = icmp eq ptr %kwnames, null, !dbg !1067",
+				"%0 = icmp eq i64 %nargs, 1, !dbg !1067",
+				"%or.cond21 = and i1 %0, %cmp, !dbg !1067",
+				"%cmp5 = icmp ne ptr %args, null, !dbg !1067",
+				"%or.cond22 = and i1 %cmp5, %or.cond21, !dbg !1067",
+				"br i1 %or.cond22, label %if.end, label %cond.end, !dbg !1067"
+			]
+		},
+		{
+			"function": "_opcode_has_arg",
+			"id": 32,
+			"name": "cond.end",
+			"debug": [
+				{
+					"line": 197, "columns": [12]
+				},
+				{
+					"line": 198, "columns": [10, 9]
+				}
+			],
+			"successors": [39, 33],
+			"ir": [
+				"%call = call ptr @_PyArg_UnpackKeywords(ptr noundef %args, i64 noundef %nargs, ptr noundef null, ptr noundef %kwnames, ptr noundef nonnull @_opcode_has_arg._parser, i32 noundef 1, i32 noundef 1, i32 noundef 0, ptr noundef nonnull %argsbuf) #6, !dbg !1067",
+				"%tobool.not = icmp eq ptr %call, null, !dbg !1068",
+				"br i1 %tobool.not, label %exit, label %if.end, !dbg !1070"
+			]
+		},
+		{
+			"function": "_opcode_has_arg",
+			"id": 33,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 201, "columns": [27, 14]
+				},
+				{
+					"line": 202, "columns": [16, 22]
+				}
+			],
+			"successors": [35, 34],
+			"ir": [
+				"%cond43 = phi ptr [ %call, %cond.end ], [ %args, %entry ]",
+				"%1 = load ptr, ptr %cond43, align 8, !dbg !1071, !tbaa !1072",
+				"%call6 = call i32 @PyLong_AsInt(ptr noundef %1) #6, !dbg !1076",
+				"%cmp7 = icmp eq i32 %call6, -1, !dbg !1077",
+				"br i1 %cmp7, label %land.lhs.true8, label %if.end.split, !dbg !1079"
+			]
+		},
+		{
+			"function": "_opcode_has_arg",
+			"id": 34,
+			"name": "if.end.split",
+			"debug": [
+				{
+					"line": 98, "columns": [12, 45]
+				}
+			],
+			"successors": [38, 37],
+			"ir": [
+				"%call.i = call i32 @_PyCompile_OpcodeIsValid(i32 noundef %call6) #6, !dbg !1088",
+				"%tobool.not.i = icmp eq i32 %call.i, 0, !dbg !1088",
+				"br i1 %tobool.not.i, label %if.end19, label %if.end19.sink.split, !dbg !1089"
+			]
+		},
+		{
+			"function": "_opcode_has_arg",
+			"id": 35,
+			"name": "land.lhs.true8",
+			"debug": [
+				{
+					"line": 202, "columns": [25, 9]
+				}
+			],
+			"successors": [36, 39],
+			"ir": [
+				"%call9 = call ptr @PyErr_Occurred() #6, !dbg !1090",
+				"%tobool10.not = icmp eq ptr %call9, null, !dbg !1090",
+				"br i1 %tobool10.not, label %land.lhs.true8.split, label %exit, !dbg !1091"
+			]
+		},
+		{
+			"function": "_opcode_has_arg",
+			"id": 36,
+			"name": "land.lhs.true8.split",
+			"debug": [
+				{
+					"line": 98, "columns": [12, 45]
+				}
+			],
+			"successors": [38, 37],
+			"ir": [
+				"%call.i34 = call i32 @_PyCompile_OpcodeIsValid(i32 noundef -1) #6, !dbg !1094",
+				"%tobool.not.i35 = icmp eq i32 %call.i34, 0, !dbg !1094",
+				"br i1 %tobool.not.i35, label %if.end19, label %if.end19.sink.split, !dbg !1095"
+			]
+		},
+		{
+			"function": "_opcode_has_arg",
+			"id": 37,
+			"name": "if.end19.sink.split",
+			"debug": [
+				{
+					"line": 98, "columns": [45]
+				},
+				{
+					"line": 99, "columns": [12]
+				}
+			],
+			"successors": [38],
+			"ir": [
+				"%.sink = phi i32 [ %call6, %if.end.split ], [ -1, %land.lhs.true8.split ]",
+				"%call1.i36 = call i32 @_PyCompile_OpcodeHasArg(i32 noundef %.sink) #6, !dbg !1096",
+				"%tobool2.i37 = icmp ne i32 %call1.i36, 0, !dbg !1098",
+				"%2 = zext i1 %tobool2.i37 to i64",
+				"br label %if.end19"
+			]
+		},
+		{
+			"function": "_opcode_has_arg",
+			"id": 38,
+			"name": "if.end19",
+			"debug": [
+				{
+					"line": 209, "columns": [20, 5]
+				}
+			],
+			"successors": [39],
+			"ir": [
+				"%phi.call.shrunk = phi i64 [ 0, %if.end.split ], [ 0, %land.lhs.true8.split ], [ %2, %if.end19.sink.split ]",
+				"%call20 = call ptr @PyBool_FromLong(i64 noundef %phi.call.shrunk) #6, !dbg !1099",
+				"br label %exit, !dbg !1100"
+			]
+		},
+		{
+			"function": "_opcode_has_arg",
+			"id": 39,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 211, "columns": [1]
+				},
+				{
+					"line": 212, "columns": [5]
+				},
+				{
+					"line": 213, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%return_value.0 = phi ptr [ null, %land.lhs.true8 ], [ %call20, %if.end19 ], [ null, %cond.end ], !dbg !1064",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %argsbuf) #6, !dbg !1102",
+				"ret ptr %return_value.0, !dbg !1103"
+			]
+		},
+		{
+			"function": "_opcode_has_const",
+			"id": 40,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 256, "columns": [5, 15]
+				},
+				{
+					"line": 260, "columns": [12]
+				}
+			],
+			"successors": [42, 41],
+			"ir": [
+				"%argsbuf = alloca [1 x ptr], align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %argsbuf) #6, !dbg !1065",
+				"%cmp = icmp eq ptr %kwnames, null, !dbg !1067",
+				"%0 = icmp eq i64 %nargs, 1, !dbg !1067",
+				"%or.cond21 = and i1 %0, %cmp, !dbg !1067",
+				"%cmp5 = icmp ne ptr %args, null, !dbg !1067",
+				"%or.cond22 = and i1 %cmp5, %or.cond21, !dbg !1067",
+				"br i1 %or.cond22, label %if.end, label %cond.end, !dbg !1067"
+			]
+		},
+		{
+			"function": "_opcode_has_const",
+			"id": 41,
+			"name": "cond.end",
+			"debug": [
+				{
+					"line": 260, "columns": [12]
+				},
+				{
+					"line": 261, "columns": [10, 9]
+				}
+			],
+			"successors": [48, 42],
+			"ir": [
+				"%call = call ptr @_PyArg_UnpackKeywords(ptr noundef %args, i64 noundef %nargs, ptr noundef null, ptr noundef %kwnames, ptr noundef nonnull @_opcode_has_const._parser, i32 noundef 1, i32 noundef 1, i32 noundef 0, ptr noundef nonnull %argsbuf) #6, !dbg !1067",
+				"%tobool.not = icmp eq ptr %call, null, !dbg !1068",
+				"br i1 %tobool.not, label %exit, label %if.end, !dbg !1070"
+			]
+		},
+		{
+			"function": "_opcode_has_const",
+			"id": 42,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 264, "columns": [27, 14]
+				},
+				{
+					"line": 265, "columns": [16, 22]
+				}
+			],
+			"successors": [44, 43],
+			"ir": [
+				"%cond43 = phi ptr [ %call, %cond.end ], [ %args, %entry ]",
+				"%1 = load ptr, ptr %cond43, align 8, !dbg !1071, !tbaa !1072",
+				"%call6 = call i32 @PyLong_AsInt(ptr noundef %1) #6, !dbg !1076",
+				"%cmp7 = icmp eq i32 %call6, -1, !dbg !1077",
+				"br i1 %cmp7, label %land.lhs.true8, label %if.end.split, !dbg !1079"
+			]
+		},
+		{
+			"function": "_opcode_has_const",
+			"id": 43,
+			"name": "if.end.split",
+			"debug": [
+				{
+					"line": 115, "columns": [12, 45]
+				}
+			],
+			"successors": [47, 46],
+			"ir": [
+				"%call.i = call i32 @_PyCompile_OpcodeIsValid(i32 noundef %call6) #6, !dbg !1088",
+				"%tobool.not.i = icmp eq i32 %call.i, 0, !dbg !1088",
+				"br i1 %tobool.not.i, label %if.end19, label %if.end19.sink.split, !dbg !1089"
+			]
+		},
+		{
+			"function": "_opcode_has_const",
+			"id": 44,
+			"name": "land.lhs.true8",
+			"debug": [
+				{
+					"line": 265, "columns": [25, 9]
+				}
+			],
+			"successors": [45, 48],
+			"ir": [
+				"%call9 = call ptr @PyErr_Occurred() #6, !dbg !1090",
+				"%tobool10.not = icmp eq ptr %call9, null, !dbg !1090",
+				"br i1 %tobool10.not, label %land.lhs.true8.split, label %exit, !dbg !1091"
+			]
+		},
+		{
+			"function": "_opcode_has_const",
+			"id": 45,
+			"name": "land.lhs.true8.split",
+			"debug": [
+				{
+					"line": 115, "columns": [12, 45]
+				}
+			],
+			"successors": [47, 46],
+			"ir": [
+				"%call.i34 = call i32 @_PyCompile_OpcodeIsValid(i32 noundef -1) #6, !dbg !1094",
+				"%tobool.not.i35 = icmp eq i32 %call.i34, 0, !dbg !1094",
+				"br i1 %tobool.not.i35, label %if.end19, label %if.end19.sink.split, !dbg !1095"
+			]
+		},
+		{
+			"function": "_opcode_has_const",
+			"id": 46,
+			"name": "if.end19.sink.split",
+			"debug": [
+				{
+					"line": 115, "columns": [45]
+				},
+				{
+					"line": 116, "columns": [12]
+				}
+			],
+			"successors": [47],
+			"ir": [
+				"%.sink = phi i32 [ %call6, %if.end.split ], [ -1, %land.lhs.true8.split ]",
+				"%call1.i36 = call i32 @_PyCompile_OpcodeHasConst(i32 noundef %.sink) #6, !dbg !1096",
+				"%tobool2.i37 = icmp ne i32 %call1.i36, 0, !dbg !1098",
+				"%2 = zext i1 %tobool2.i37 to i64",
+				"br label %if.end19"
+			]
+		},
+		{
+			"function": "_opcode_has_const",
+			"id": 47,
+			"name": "if.end19",
+			"debug": [
+				{
+					"line": 272, "columns": [20, 5]
+				}
+			],
+			"successors": [48],
+			"ir": [
+				"%phi.call.shrunk = phi i64 [ 0, %if.end.split ], [ 0, %land.lhs.true8.split ], [ %2, %if.end19.sink.split ]",
+				"%call20 = call ptr @PyBool_FromLong(i64 noundef %phi.call.shrunk) #6, !dbg !1099",
+				"br label %exit, !dbg !1100"
+			]
+		},
+		{
+			"function": "_opcode_has_const",
+			"id": 48,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 274, "columns": [1]
+				},
+				{
+					"line": 275, "columns": [5]
+				},
+				{
+					"line": 276, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%return_value.0 = phi ptr [ null, %land.lhs.true8 ], [ %call20, %if.end19 ], [ null, %cond.end ], !dbg !1064",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %argsbuf) #6, !dbg !1102",
+				"ret ptr %return_value.0, !dbg !1103"
+			]
+		},
+		{
+			"function": "_opcode_has_name",
+			"id": 49,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 319, "columns": [5, 15]
+				},
+				{
+					"line": 323, "columns": [12]
+				}
+			],
+			"successors": [51, 50],
+			"ir": [
+				"%argsbuf = alloca [1 x ptr], align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %argsbuf) #6, !dbg !1065",
+				"%cmp = icmp eq ptr %kwnames, null, !dbg !1067",
+				"%0 = icmp eq i64 %nargs, 1, !dbg !1067",
+				"%or.cond21 = and i1 %0, %cmp, !dbg !1067",
+				"%cmp5 = icmp ne ptr %args, null, !dbg !1067",
+				"%or.cond22 = and i1 %cmp5, %or.cond21, !dbg !1067",
+				"br i1 %or.cond22, label %if.end, label %cond.end, !dbg !1067"
+			]
+		},
+		{
+			"function": "_opcode_has_name",
+			"id": 50,
+			"name": "cond.end",
+			"debug": [
+				{
+					"line": 323, "columns": [12]
+				},
+				{
+					"line": 324, "columns": [10, 9]
+				}
+			],
+			"successors": [57, 51],
+			"ir": [
+				"%call = call ptr @_PyArg_UnpackKeywords(ptr noundef %args, i64 noundef %nargs, ptr noundef null, ptr noundef %kwnames, ptr noundef nonnull @_opcode_has_name._parser, i32 noundef 1, i32 noundef 1, i32 noundef 0, ptr noundef nonnull %argsbuf) #6, !dbg !1067",
+				"%tobool.not = icmp eq ptr %call, null, !dbg !1068",
+				"br i1 %tobool.not, label %exit, label %if.end, !dbg !1070"
+			]
+		},
+		{
+			"function": "_opcode_has_name",
+			"id": 51,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 327, "columns": [27, 14]
+				},
+				{
+					"line": 328, "columns": [16, 22]
+				}
+			],
+			"successors": [53, 52],
+			"ir": [
+				"%cond43 = phi ptr [ %call, %cond.end ], [ %args, %entry ]",
+				"%1 = load ptr, ptr %cond43, align 8, !dbg !1071, !tbaa !1072",
+				"%call6 = call i32 @PyLong_AsInt(ptr noundef %1) #6, !dbg !1076",
+				"%cmp7 = icmp eq i32 %call6, -1, !dbg !1077",
+				"br i1 %cmp7, label %land.lhs.true8, label %if.end.split, !dbg !1079"
+			]
+		},
+		{
+			"function": "_opcode_has_name",
+			"id": 52,
+			"name": "if.end.split",
+			"debug": [
+				{
+					"line": 132, "columns": [12, 45]
+				}
+			],
+			"successors": [56, 55],
+			"ir": [
+				"%call.i = call i32 @_PyCompile_OpcodeIsValid(i32 noundef %call6) #6, !dbg !1088",
+				"%tobool.not.i = icmp eq i32 %call.i, 0, !dbg !1088",
+				"br i1 %tobool.not.i, label %if.end19, label %if.end19.sink.split, !dbg !1089"
+			]
+		},
+		{
+			"function": "_opcode_has_name",
+			"id": 53,
+			"name": "land.lhs.true8",
+			"debug": [
+				{
+					"line": 328, "columns": [25, 9]
+				}
+			],
+			"successors": [54, 57],
+			"ir": [
+				"%call9 = call ptr @PyErr_Occurred() #6, !dbg !1090",
+				"%tobool10.not = icmp eq ptr %call9, null, !dbg !1090",
+				"br i1 %tobool10.not, label %land.lhs.true8.split, label %exit, !dbg !1091"
+			]
+		},
+		{
+			"function": "_opcode_has_name",
+			"id": 54,
+			"name": "land.lhs.true8.split",
+			"debug": [
+				{
+					"line": 132, "columns": [12, 45]
+				}
+			],
+			"successors": [56, 55],
+			"ir": [
+				"%call.i34 = call i32 @_PyCompile_OpcodeIsValid(i32 noundef -1) #6, !dbg !1094",
+				"%tobool.not.i35 = icmp eq i32 %call.i34, 0, !dbg !1094",
+				"br i1 %tobool.not.i35, label %if.end19, label %if.end19.sink.split, !dbg !1095"
+			]
+		},
+		{
+			"function": "_opcode_has_name",
+			"id": 55,
+			"name": "if.end19.sink.split",
+			"debug": [
+				{
+					"line": 132, "columns": [45]
+				},
+				{
+					"line": 133, "columns": [12]
+				}
+			],
+			"successors": [56],
+			"ir": [
+				"%.sink = phi i32 [ %call6, %if.end.split ], [ -1, %land.lhs.true8.split ]",
+				"%call1.i36 = call i32 @_PyCompile_OpcodeHasName(i32 noundef %.sink) #6, !dbg !1096",
+				"%tobool2.i37 = icmp ne i32 %call1.i36, 0, !dbg !1098",
+				"%2 = zext i1 %tobool2.i37 to i64",
+				"br label %if.end19"
+			]
+		},
+		{
+			"function": "_opcode_has_name",
+			"id": 56,
+			"name": "if.end19",
+			"debug": [
+				{
+					"line": 335, "columns": [20, 5]
+				}
+			],
+			"successors": [57],
+			"ir": [
+				"%phi.call.shrunk = phi i64 [ 0, %if.end.split ], [ 0, %land.lhs.true8.split ], [ %2, %if.end19.sink.split ]",
+				"%call20 = call ptr @PyBool_FromLong(i64 noundef %phi.call.shrunk) #6, !dbg !1099",
+				"br label %exit, !dbg !1100"
+			]
+		},
+		{
+			"function": "_opcode_has_name",
+			"id": 57,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 337, "columns": [1]
+				},
+				{
+					"line": 338, "columns": [5]
+				},
+				{
+					"line": 339, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%return_value.0 = phi ptr [ null, %land.lhs.true8 ], [ %call20, %if.end19 ], [ null, %cond.end ], !dbg !1064",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %argsbuf) #6, !dbg !1102",
+				"ret ptr %return_value.0, !dbg !1103"
+			]
+		},
+		{
+			"function": "_opcode_has_jump",
+			"id": 58,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 382, "columns": [5, 15]
+				},
+				{
+					"line": 386, "columns": [12]
+				}
+			],
+			"successors": [60, 59],
+			"ir": [
+				"%argsbuf = alloca [1 x ptr], align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %argsbuf) #6, !dbg !1065",
+				"%cmp = icmp eq ptr %kwnames, null, !dbg !1067",
+				"%0 = icmp eq i64 %nargs, 1, !dbg !1067",
+				"%or.cond21 = and i1 %0, %cmp, !dbg !1067",
+				"%cmp5 = icmp ne ptr %args, null, !dbg !1067",
+				"%or.cond22 = and i1 %cmp5, %or.cond21, !dbg !1067",
+				"br i1 %or.cond22, label %if.end, label %cond.end, !dbg !1067"
+			]
+		},
+		{
+			"function": "_opcode_has_jump",
+			"id": 59,
+			"name": "cond.end",
+			"debug": [
+				{
+					"line": 386, "columns": [12]
+				},
+				{
+					"line": 387, "columns": [10, 9]
+				}
+			],
+			"successors": [66, 60],
+			"ir": [
+				"%call = call ptr @_PyArg_UnpackKeywords(ptr noundef %args, i64 noundef %nargs, ptr noundef null, ptr noundef %kwnames, ptr noundef nonnull @_opcode_has_jump._parser, i32 noundef 1, i32 noundef 1, i32 noundef 0, ptr noundef nonnull %argsbuf) #6, !dbg !1067",
+				"%tobool.not = icmp eq ptr %call, null, !dbg !1068",
+				"br i1 %tobool.not, label %exit, label %if.end, !dbg !1070"
+			]
+		},
+		{
+			"function": "_opcode_has_jump",
+			"id": 60,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 390, "columns": [27, 14]
+				},
+				{
+					"line": 391, "columns": [16, 22]
+				}
+			],
+			"successors": [62, 61],
+			"ir": [
+				"%cond43 = phi ptr [ %call, %cond.end ], [ %args, %entry ]",
+				"%1 = load ptr, ptr %cond43, align 8, !dbg !1071, !tbaa !1072",
+				"%call6 = call i32 @PyLong_AsInt(ptr noundef %1) #6, !dbg !1076",
+				"%cmp7 = icmp eq i32 %call6, -1, !dbg !1077",
+				"br i1 %cmp7, label %land.lhs.true8, label %if.end.split, !dbg !1079"
+			]
+		},
+		{
+			"function": "_opcode_has_jump",
+			"id": 61,
+			"name": "if.end.split",
+			"debug": [
+				{
+					"line": 149, "columns": [12, 45]
+				}
+			],
+			"successors": [65, 64],
+			"ir": [
+				"%call.i = call i32 @_PyCompile_OpcodeIsValid(i32 noundef %call6) #6, !dbg !1088",
+				"%tobool.not.i = icmp eq i32 %call.i, 0, !dbg !1088",
+				"br i1 %tobool.not.i, label %if.end19, label %if.end19.sink.split, !dbg !1089"
+			]
+		},
+		{
+			"function": "_opcode_has_jump",
+			"id": 62,
+			"name": "land.lhs.true8",
+			"debug": [
+				{
+					"line": 391, "columns": [25, 9]
+				}
+			],
+			"successors": [63, 66],
+			"ir": [
+				"%call9 = call ptr @PyErr_Occurred() #6, !dbg !1090",
+				"%tobool10.not = icmp eq ptr %call9, null, !dbg !1090",
+				"br i1 %tobool10.not, label %land.lhs.true8.split, label %exit, !dbg !1091"
+			]
+		},
+		{
+			"function": "_opcode_has_jump",
+			"id": 63,
+			"name": "land.lhs.true8.split",
+			"debug": [
+				{
+					"line": 149, "columns": [12, 45]
+				}
+			],
+			"successors": [65, 64],
+			"ir": [
+				"%call.i34 = call i32 @_PyCompile_OpcodeIsValid(i32 noundef -1) #6, !dbg !1094",
+				"%tobool.not.i35 = icmp eq i32 %call.i34, 0, !dbg !1094",
+				"br i1 %tobool.not.i35, label %if.end19, label %if.end19.sink.split, !dbg !1095"
+			]
+		},
+		{
+			"function": "_opcode_has_jump",
+			"id": 64,
+			"name": "if.end19.sink.split",
+			"debug": [
+				{
+					"line": 149, "columns": [45]
+				},
+				{
+					"line": 150, "columns": [12]
+				}
+			],
+			"successors": [65],
+			"ir": [
+				"%.sink = phi i32 [ %call6, %if.end.split ], [ -1, %land.lhs.true8.split ]",
+				"%call1.i36 = call i32 @_PyCompile_OpcodeHasJump(i32 noundef %.sink) #6, !dbg !1096",
+				"%tobool2.i37 = icmp ne i32 %call1.i36, 0, !dbg !1098",
+				"%2 = zext i1 %tobool2.i37 to i64",
+				"br label %if.end19"
+			]
+		},
+		{
+			"function": "_opcode_has_jump",
+			"id": 65,
+			"name": "if.end19",
+			"debug": [
+				{
+					"line": 398, "columns": [20, 5]
+				}
+			],
+			"successors": [66],
+			"ir": [
+				"%phi.call.shrunk = phi i64 [ 0, %if.end.split ], [ 0, %land.lhs.true8.split ], [ %2, %if.end19.sink.split ]",
+				"%call20 = call ptr @PyBool_FromLong(i64 noundef %phi.call.shrunk) #6, !dbg !1099",
+				"br label %exit, !dbg !1100"
+			]
+		},
+		{
+			"function": "_opcode_has_jump",
+			"id": 66,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 400, "columns": [1]
+				},
+				{
+					"line": 401, "columns": [5]
+				},
+				{
+					"line": 402, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%return_value.0 = phi ptr [ null, %land.lhs.true8 ], [ %call20, %if.end19 ], [ null, %cond.end ], !dbg !1064",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %argsbuf) #6, !dbg !1102",
+				"ret ptr %return_value.0, !dbg !1103"
+			]
+		},
+		{
+			"function": "_opcode_has_free",
+			"id": 67,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 450, "columns": [5, 15]
+				},
+				{
+					"line": 454, "columns": [12]
+				}
+			],
+			"successors": [69, 68],
+			"ir": [
+				"%argsbuf = alloca [1 x ptr], align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %argsbuf) #6, !dbg !1065",
+				"%cmp = icmp eq ptr %kwnames, null, !dbg !1067",
+				"%0 = icmp eq i64 %nargs, 1, !dbg !1067",
+				"%or.cond21 = and i1 %0, %cmp, !dbg !1067",
+				"%cmp5 = icmp ne ptr %args, null, !dbg !1067",
+				"%or.cond22 = and i1 %cmp5, %or.cond21, !dbg !1067",
+				"br i1 %or.cond22, label %if.end, label %cond.end, !dbg !1067"
+			]
+		},
+		{
+			"function": "_opcode_has_free",
+			"id": 68,
+			"name": "cond.end",
+			"debug": [
+				{
+					"line": 454, "columns": [12]
+				},
+				{
+					"line": 455, "columns": [10, 9]
+				}
+			],
+			"successors": [75, 69],
+			"ir": [
+				"%call = call ptr @_PyArg_UnpackKeywords(ptr noundef %args, i64 noundef %nargs, ptr noundef null, ptr noundef %kwnames, ptr noundef nonnull @_opcode_has_free._parser, i32 noundef 1, i32 noundef 1, i32 noundef 0, ptr noundef nonnull %argsbuf) #6, !dbg !1067",
+				"%tobool.not = icmp eq ptr %call, null, !dbg !1068",
+				"br i1 %tobool.not, label %exit, label %if.end, !dbg !1070"
+			]
+		},
+		{
+			"function": "_opcode_has_free",
+			"id": 69,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 458, "columns": [27, 14]
+				},
+				{
+					"line": 459, "columns": [16, 22]
+				}
+			],
+			"successors": [71, 70],
+			"ir": [
+				"%cond43 = phi ptr [ %call, %cond.end ], [ %args, %entry ]",
+				"%1 = load ptr, ptr %cond43, align 8, !dbg !1071, !tbaa !1072",
+				"%call6 = call i32 @PyLong_AsInt(ptr noundef %1) #6, !dbg !1076",
+				"%cmp7 = icmp eq i32 %call6, -1, !dbg !1077",
+				"br i1 %cmp7, label %land.lhs.true8, label %if.end.split, !dbg !1079"
+			]
+		},
+		{
+			"function": "_opcode_has_free",
+			"id": 70,
+			"name": "if.end.split",
+			"debug": [
+				{
+					"line": 172, "columns": [12, 45]
+				}
+			],
+			"successors": [74, 73],
+			"ir": [
+				"%call.i = call i32 @_PyCompile_OpcodeIsValid(i32 noundef %call6) #6, !dbg !1088",
+				"%tobool.not.i = icmp eq i32 %call.i, 0, !dbg !1088",
+				"br i1 %tobool.not.i, label %if.end19, label %if.end19.sink.split, !dbg !1089"
+			]
+		},
+		{
+			"function": "_opcode_has_free",
+			"id": 71,
+			"name": "land.lhs.true8",
+			"debug": [
+				{
+					"line": 459, "columns": [25, 9]
+				}
+			],
+			"successors": [72, 75],
+			"ir": [
+				"%call9 = call ptr @PyErr_Occurred() #6, !dbg !1090",
+				"%tobool10.not = icmp eq ptr %call9, null, !dbg !1090",
+				"br i1 %tobool10.not, label %land.lhs.true8.split, label %exit, !dbg !1091"
+			]
+		},
+		{
+			"function": "_opcode_has_free",
+			"id": 72,
+			"name": "land.lhs.true8.split",
+			"debug": [
+				{
+					"line": 172, "columns": [12, 45]
+				}
+			],
+			"successors": [74, 73],
+			"ir": [
+				"%call.i34 = call i32 @_PyCompile_OpcodeIsValid(i32 noundef -1) #6, !dbg !1094",
+				"%tobool.not.i35 = icmp eq i32 %call.i34, 0, !dbg !1094",
+				"br i1 %tobool.not.i35, label %if.end19, label %if.end19.sink.split, !dbg !1095"
+			]
+		},
+		{
+			"function": "_opcode_has_free",
+			"id": 73,
+			"name": "if.end19.sink.split",
+			"debug": [
+				{
+					"line": 172, "columns": [45]
+				},
+				{
+					"line": 173, "columns": [12]
+				}
+			],
+			"successors": [74],
+			"ir": [
+				"%.sink = phi i32 [ %call6, %if.end.split ], [ -1, %land.lhs.true8.split ]",
+				"%call1.i36 = call i32 @_PyCompile_OpcodeHasFree(i32 noundef %.sink) #6, !dbg !1096",
+				"%tobool2.i37 = icmp ne i32 %call1.i36, 0, !dbg !1098",
+				"%2 = zext i1 %tobool2.i37 to i64",
+				"br label %if.end19"
+			]
+		},
+		{
+			"function": "_opcode_has_free",
+			"id": 74,
+			"name": "if.end19",
+			"debug": [
+				{
+					"line": 466, "columns": [20, 5]
+				}
+			],
+			"successors": [75],
+			"ir": [
+				"%phi.call.shrunk = phi i64 [ 0, %if.end.split ], [ 0, %land.lhs.true8.split ], [ %2, %if.end19.sink.split ]",
+				"%call20 = call ptr @PyBool_FromLong(i64 noundef %phi.call.shrunk) #6, !dbg !1099",
+				"br label %exit, !dbg !1100"
+			]
+		},
+		{
+			"function": "_opcode_has_free",
+			"id": 75,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 468, "columns": [1]
+				},
+				{
+					"line": 469, "columns": [5]
+				},
+				{
+					"line": 470, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%return_value.0 = phi ptr [ null, %land.lhs.true8 ], [ %call20, %if.end19 ], [ null, %cond.end ], !dbg !1064",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %argsbuf) #6, !dbg !1102",
+				"ret ptr %return_value.0, !dbg !1103"
+			]
+		},
+		{
+			"function": "_opcode_has_local",
+			"id": 76,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 513, "columns": [5, 15]
+				},
+				{
+					"line": 517, "columns": [12]
+				}
+			],
+			"successors": [78, 77],
+			"ir": [
+				"%argsbuf = alloca [1 x ptr], align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %argsbuf) #6, !dbg !1065",
+				"%cmp = icmp eq ptr %kwnames, null, !dbg !1067",
+				"%0 = icmp eq i64 %nargs, 1, !dbg !1067",
+				"%or.cond21 = and i1 %0, %cmp, !dbg !1067",
+				"%cmp5 = icmp ne ptr %args, null, !dbg !1067",
+				"%or.cond22 = and i1 %cmp5, %or.cond21, !dbg !1067",
+				"br i1 %or.cond22, label %if.end, label %cond.end, !dbg !1067"
+			]
+		},
+		{
+			"function": "_opcode_has_local",
+			"id": 77,
+			"name": "cond.end",
+			"debug": [
+				{
+					"line": 517, "columns": [12]
+				},
+				{
+					"line": 518, "columns": [10, 9]
+				}
+			],
+			"successors": [84, 78],
+			"ir": [
+				"%call = call ptr @_PyArg_UnpackKeywords(ptr noundef %args, i64 noundef %nargs, ptr noundef null, ptr noundef %kwnames, ptr noundef nonnull @_opcode_has_local._parser, i32 noundef 1, i32 noundef 1, i32 noundef 0, ptr noundef nonnull %argsbuf) #6, !dbg !1067",
+				"%tobool.not = icmp eq ptr %call, null, !dbg !1068",
+				"br i1 %tobool.not, label %exit, label %if.end, !dbg !1070"
+			]
+		},
+		{
+			"function": "_opcode_has_local",
+			"id": 78,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 521, "columns": [27, 14]
+				},
+				{
+					"line": 522, "columns": [16, 22]
+				}
+			],
+			"successors": [80, 79],
+			"ir": [
+				"%cond43 = phi ptr [ %call, %cond.end ], [ %args, %entry ]",
+				"%1 = load ptr, ptr %cond43, align 8, !dbg !1071, !tbaa !1072",
+				"%call6 = call i32 @PyLong_AsInt(ptr noundef %1) #6, !dbg !1076",
+				"%cmp7 = icmp eq i32 %call6, -1, !dbg !1077",
+				"br i1 %cmp7, label %land.lhs.true8, label %if.end.split, !dbg !1079"
+			]
+		},
+		{
+			"function": "_opcode_has_local",
+			"id": 79,
+			"name": "if.end.split",
+			"debug": [
+				{
+					"line": 190, "columns": [12, 45]
+				}
+			],
+			"successors": [83, 82],
+			"ir": [
+				"%call.i = call i32 @_PyCompile_OpcodeIsValid(i32 noundef %call6) #6, !dbg !1088",
+				"%tobool.not.i = icmp eq i32 %call.i, 0, !dbg !1088",
+				"br i1 %tobool.not.i, label %if.end19, label %if.end19.sink.split, !dbg !1089"
+			]
+		},
+		{
+			"function": "_opcode_has_local",
+			"id": 80,
+			"name": "land.lhs.true8",
+			"debug": [
+				{
+					"line": 522, "columns": [25, 9]
+				}
+			],
+			"successors": [81, 84],
+			"ir": [
+				"%call9 = call ptr @PyErr_Occurred() #6, !dbg !1090",
+				"%tobool10.not = icmp eq ptr %call9, null, !dbg !1090",
+				"br i1 %tobool10.not, label %land.lhs.true8.split, label %exit, !dbg !1091"
+			]
+		},
+		{
+			"function": "_opcode_has_local",
+			"id": 81,
+			"name": "land.lhs.true8.split",
+			"debug": [
+				{
+					"line": 190, "columns": [12, 45]
+				}
+			],
+			"successors": [83, 82],
+			"ir": [
+				"%call.i34 = call i32 @_PyCompile_OpcodeIsValid(i32 noundef -1) #6, !dbg !1094",
+				"%tobool.not.i35 = icmp eq i32 %call.i34, 0, !dbg !1094",
+				"br i1 %tobool.not.i35, label %if.end19, label %if.end19.sink.split, !dbg !1095"
+			]
+		},
+		{
+			"function": "_opcode_has_local",
+			"id": 82,
+			"name": "if.end19.sink.split",
+			"debug": [
+				{
+					"line": 190, "columns": [45]
+				},
+				{
+					"line": 191, "columns": [12]
+				}
+			],
+			"successors": [83],
+			"ir": [
+				"%.sink = phi i32 [ %call6, %if.end.split ], [ -1, %land.lhs.true8.split ]",
+				"%call1.i36 = call i32 @_PyCompile_OpcodeHasLocal(i32 noundef %.sink) #6, !dbg !1096",
+				"%tobool2.i37 = icmp ne i32 %call1.i36, 0, !dbg !1098",
+				"%2 = zext i1 %tobool2.i37 to i64",
+				"br label %if.end19"
+			]
+		},
+		{
+			"function": "_opcode_has_local",
+			"id": 83,
+			"name": "if.end19",
+			"debug": [
+				{
+					"line": 529, "columns": [20, 5]
+				}
+			],
+			"successors": [84],
+			"ir": [
+				"%phi.call.shrunk = phi i64 [ 0, %if.end.split ], [ 0, %land.lhs.true8.split ], [ %2, %if.end19.sink.split ]",
+				"%call20 = call ptr @PyBool_FromLong(i64 noundef %phi.call.shrunk) #6, !dbg !1099",
+				"br label %exit, !dbg !1100"
+			]
+		},
+		{
+			"function": "_opcode_has_local",
+			"id": 84,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 531, "columns": [1]
+				},
+				{
+					"line": 532, "columns": [5]
+				},
+				{
+					"line": 533, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%return_value.0 = phi ptr [ null, %land.lhs.true8 ], [ %call20, %if.end19 ], [ null, %cond.end ], !dbg !1064",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %argsbuf) #6, !dbg !1102",
+				"ret ptr %return_value.0, !dbg !1103"
+			]
+		},
+		{
+			"function": "_opcode_has_exc",
+			"id": 85,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 576, "columns": [5, 15]
+				},
+				{
+					"line": 580, "columns": [12]
+				}
+			],
+			"successors": [87, 86],
+			"ir": [
+				"%argsbuf = alloca [1 x ptr], align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %argsbuf) #6, !dbg !1065",
+				"%cmp = icmp eq ptr %kwnames, null, !dbg !1067",
+				"%0 = icmp eq i64 %nargs, 1, !dbg !1067",
+				"%or.cond21 = and i1 %0, %cmp, !dbg !1067",
+				"%cmp5 = icmp ne ptr %args, null, !dbg !1067",
+				"%or.cond22 = and i1 %cmp5, %or.cond21, !dbg !1067",
+				"br i1 %or.cond22, label %if.end, label %cond.end, !dbg !1067"
+			]
+		},
+		{
+			"function": "_opcode_has_exc",
+			"id": 86,
+			"name": "cond.end",
+			"debug": [
+				{
+					"line": 580, "columns": [12]
+				},
+				{
+					"line": 581, "columns": [10, 9]
+				}
+			],
+			"successors": [93, 87],
+			"ir": [
+				"%call = call ptr @_PyArg_UnpackKeywords(ptr noundef %args, i64 noundef %nargs, ptr noundef null, ptr noundef %kwnames, ptr noundef nonnull @_opcode_has_exc._parser, i32 noundef 1, i32 noundef 1, i32 noundef 0, ptr noundef nonnull %argsbuf) #6, !dbg !1067",
+				"%tobool.not = icmp eq ptr %call, null, !dbg !1068",
+				"br i1 %tobool.not, label %exit, label %if.end, !dbg !1070"
+			]
+		},
+		{
+			"function": "_opcode_has_exc",
+			"id": 87,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 584, "columns": [27, 14]
+				},
+				{
+					"line": 585, "columns": [16, 22]
+				}
+			],
+			"successors": [89, 88],
+			"ir": [
+				"%cond43 = phi ptr [ %call, %cond.end ], [ %args, %entry ]",
+				"%1 = load ptr, ptr %cond43, align 8, !dbg !1071, !tbaa !1072",
+				"%call6 = call i32 @PyLong_AsInt(ptr noundef %1) #6, !dbg !1076",
+				"%cmp7 = icmp eq i32 %call6, -1, !dbg !1077",
+				"br i1 %cmp7, label %land.lhs.true8, label %if.end.split, !dbg !1079"
+			]
+		},
+		{
+			"function": "_opcode_has_exc",
+			"id": 88,
+			"name": "if.end.split",
+			"debug": [
+				{
+					"line": 207, "columns": [12, 45]
+				}
+			],
+			"successors": [92, 91],
+			"ir": [
+				"%call.i = call i32 @_PyCompile_OpcodeIsValid(i32 noundef %call6) #6, !dbg !1088",
+				"%tobool.not.i = icmp eq i32 %call.i, 0, !dbg !1088",
+				"br i1 %tobool.not.i, label %if.end19, label %if.end19.sink.split, !dbg !1089"
+			]
+		},
+		{
+			"function": "_opcode_has_exc",
+			"id": 89,
+			"name": "land.lhs.true8",
+			"debug": [
+				{
+					"line": 585, "columns": [25, 9]
+				}
+			],
+			"successors": [90, 93],
+			"ir": [
+				"%call9 = call ptr @PyErr_Occurred() #6, !dbg !1090",
+				"%tobool10.not = icmp eq ptr %call9, null, !dbg !1090",
+				"br i1 %tobool10.not, label %land.lhs.true8.split, label %exit, !dbg !1091"
+			]
+		},
+		{
+			"function": "_opcode_has_exc",
+			"id": 90,
+			"name": "land.lhs.true8.split",
+			"debug": [
+				{
+					"line": 207, "columns": [12, 45]
+				}
+			],
+			"successors": [92, 91],
+			"ir": [
+				"%call.i34 = call i32 @_PyCompile_OpcodeIsValid(i32 noundef -1) #6, !dbg !1094",
+				"%tobool.not.i35 = icmp eq i32 %call.i34, 0, !dbg !1094",
+				"br i1 %tobool.not.i35, label %if.end19, label %if.end19.sink.split, !dbg !1095"
+			]
+		},
+		{
+			"function": "_opcode_has_exc",
+			"id": 91,
+			"name": "if.end19.sink.split",
+			"debug": [
+				{
+					"line": 207, "columns": [45]
+				},
+				{
+					"line": 208, "columns": [12]
+				}
+			],
+			"successors": [92],
+			"ir": [
+				"%.sink = phi i32 [ %call6, %if.end.split ], [ -1, %land.lhs.true8.split ]",
+				"%call1.i36 = call i32 @_PyCompile_OpcodeHasExc(i32 noundef %.sink) #6, !dbg !1096",
+				"%tobool2.i37 = icmp ne i32 %call1.i36, 0, !dbg !1098",
+				"%2 = zext i1 %tobool2.i37 to i64",
+				"br label %if.end19"
+			]
+		},
+		{
+			"function": "_opcode_has_exc",
+			"id": 92,
+			"name": "if.end19",
+			"debug": [
+				{
+					"line": 592, "columns": [20, 5]
+				}
+			],
+			"successors": [93],
+			"ir": [
+				"%phi.call.shrunk = phi i64 [ 0, %if.end.split ], [ 0, %land.lhs.true8.split ], [ %2, %if.end19.sink.split ]",
+				"%call20 = call ptr @PyBool_FromLong(i64 noundef %phi.call.shrunk) #6, !dbg !1099",
+				"br label %exit, !dbg !1100"
+			]
+		},
+		{
+			"function": "_opcode_has_exc",
+			"id": 93,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 594, "columns": [1]
+				},
+				{
+					"line": 595, "columns": [5]
+				},
+				{
+					"line": 596, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%return_value.0 = phi ptr [ null, %land.lhs.true8 ], [ %call20, %if.end19 ], [ null, %cond.end ], !dbg !1064",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %argsbuf) #6, !dbg !1102",
+				"ret ptr %return_value.0, !dbg !1103"
+			]
+		},
+		{
+			"function": "_opcode_get_specialization_stats",
+			"id": 94,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 613, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret ptr @_Py_NoneStruct, !dbg !1069"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 95,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 242, "columns": [22]
+				},
+				{
+					"line": 243, "columns": [14, 9]
+				}
+			],
+			"successors": [230, 96],
+			"ir": [
+				"%call.i = tail call ptr @PyList_New(i64 noundef 26) #6, !dbg !1129",
+				"%cmp.i = icmp eq ptr %call.i, null, !dbg !1130",
+				"br i1 %cmp.i, label %_opcode_get_nb_ops_impl.exit, label %do.body.i, !dbg !1132"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 96,
+			"name": "do.body.i",
+			"debug": [
+				{
+					"line": 256, "columns": [5]
+				}
+			],
+			"successors": [97, 100],
+			"ir": [
+				"%call1.i = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.22, ptr noundef nonnull @.str.23, ptr noundef nonnull @.str.24) #6, !dbg !1133",
+				"%cmp2.not.i = icmp eq ptr %call1.i, null, !dbg !1135",
+				"br i1 %cmp2.not.i, label %if.then3.i, label %do.body5.i, !dbg !1133"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 97,
+			"name": "if.then3.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [98, 230],
+			"ir": [
+				"%op.val.i.i = load i64, ptr %call.i, align 8, !dbg !1143, !tbaa !1145",
+				"%0 = and i64 %op.val.i.i, 2147483648, !dbg !1153",
+				"%cmp.i.not.i.i = icmp eq i64 %0, 0, !dbg !1153",
+				"br i1 %cmp.i.not.i.i, label %if.end.i.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1154"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 98,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [99, 230],
+			"ir": [
+				"%dec.i.i = add i64 %op.val.i.i, -1, !dbg !1155",
+				"store i64 %dec.i.i, ptr %call.i, align 8, !dbg !1155, !tbaa !1145",
+				"%cmp.i.i = icmp eq i64 %dec.i.i, 0, !dbg !1157",
+				"br i1 %cmp.i.i, label %if.then1.i.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1158"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 99,
+			"name": "if.then1.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [230],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i) #6, !dbg !1159",
+				"br label %_opcode_get_nb_ops_impl.exit, !dbg !1161"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 100,
+			"name": "do.body5.i",
+			"debug": [
+				{
+					"line": 47, "columns": [26]
+				},
+				{
+					"line": 256, "columns": [5]
+				},
+				{
+					"line": 257, "columns": [5]
+				}
+			],
+			"successors": [101, 104],
+			"ir": [
+				"%1 = getelementptr i8, ptr %call.i, i64 24, !dbg !1133",
+				"%call.val448.i = load ptr, ptr %1, align 8, !dbg !1133, !tbaa !1162",
+				"store ptr %call1.i, ptr %call.val448.i, align 8, !dbg !1178, !tbaa !1179",
+				"%call7.i = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.22, ptr noundef nonnull @.str.25, ptr noundef nonnull @.str.26) #6, !dbg !1180",
+				"%cmp8.not.i = icmp eq ptr %call7.i, null, !dbg !1182",
+				"br i1 %cmp8.not.i, label %if.then9.i, label %do.body16.i, !dbg !1180"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 101,
+			"name": "if.then9.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [102, 230],
+			"ir": [
+				"%op.val.i449.i = load i64, ptr %call.i, align 8, !dbg !1187, !tbaa !1145",
+				"%2 = and i64 %op.val.i449.i, 2147483648, !dbg !1190",
+				"%cmp.i.not.i450.i = icmp eq i64 %2, 0, !dbg !1190",
+				"br i1 %cmp.i.not.i450.i, label %if.end.i453.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1191"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 102,
+			"name": "if.end.i453.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [103, 230],
+			"ir": [
+				"%dec.i451.i = add i64 %op.val.i449.i, -1, !dbg !1192",
+				"store i64 %dec.i451.i, ptr %call.i, align 8, !dbg !1192, !tbaa !1145",
+				"%cmp.i452.i = icmp eq i64 %dec.i451.i, 0, !dbg !1193",
+				"br i1 %cmp.i452.i, label %if.then1.i454.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1194"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 103,
+			"name": "if.then1.i454.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [230],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i) #6, !dbg !1195",
+				"br label %_opcode_get_nb_ops_impl.exit, !dbg !1196"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 104,
+			"name": "do.body16.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 257, "columns": [5]
+				},
+				{
+					"line": 258, "columns": [5]
+				}
+			],
+			"successors": [105, 108],
+			"ir": [
+				"%call.val447.i = load ptr, ptr %1, align 8, !dbg !1180, !tbaa !1162",
+				"%arrayidx.i.i = getelementptr ptr, ptr %call.val447.i, i64 1, !dbg !1199",
+				"store ptr %call7.i, ptr %arrayidx.i.i, align 8, !dbg !1200, !tbaa !1179",
+				"%call18.i = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.22, ptr noundef nonnull @.str.27, ptr noundef nonnull @.str.28) #6, !dbg !1201",
+				"%cmp19.not.i = icmp eq ptr %call18.i, null, !dbg !1203",
+				"br i1 %cmp19.not.i, label %if.then20.i, label %do.body27.i, !dbg !1201"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 105,
+			"name": "if.then20.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [106, 230],
+			"ir": [
+				"%op.val.i456.i = load i64, ptr %call.i, align 8, !dbg !1208, !tbaa !1145",
+				"%3 = and i64 %op.val.i456.i, 2147483648, !dbg !1211",
+				"%cmp.i.not.i457.i = icmp eq i64 %3, 0, !dbg !1211",
+				"br i1 %cmp.i.not.i457.i, label %if.end.i460.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1212"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 106,
+			"name": "if.end.i460.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [107, 230],
+			"ir": [
+				"%dec.i458.i = add i64 %op.val.i456.i, -1, !dbg !1213",
+				"store i64 %dec.i458.i, ptr %call.i, align 8, !dbg !1213, !tbaa !1145",
+				"%cmp.i459.i = icmp eq i64 %dec.i458.i, 0, !dbg !1214",
+				"br i1 %cmp.i459.i, label %if.then1.i461.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1215"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 107,
+			"name": "if.then1.i461.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [230],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i) #6, !dbg !1216",
+				"br label %_opcode_get_nb_ops_impl.exit, !dbg !1217"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 108,
+			"name": "do.body27.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 258, "columns": [5]
+				},
+				{
+					"line": 259, "columns": [5]
+				}
+			],
+			"successors": [109, 112],
+			"ir": [
+				"%call.val446.i = load ptr, ptr %1, align 8, !dbg !1201, !tbaa !1162",
+				"%arrayidx.i631.i = getelementptr ptr, ptr %call.val446.i, i64 2, !dbg !1220",
+				"store ptr %call18.i, ptr %arrayidx.i631.i, align 8, !dbg !1221, !tbaa !1179",
+				"%call29.i = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.22, ptr noundef nonnull @.str.29, ptr noundef nonnull @.str.30) #6, !dbg !1222",
+				"%cmp30.not.i = icmp eq ptr %call29.i, null, !dbg !1224",
+				"br i1 %cmp30.not.i, label %if.then31.i, label %do.body38.i, !dbg !1222"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 109,
+			"name": "if.then31.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [110, 230],
+			"ir": [
+				"%op.val.i463.i = load i64, ptr %call.i, align 8, !dbg !1229, !tbaa !1145",
+				"%4 = and i64 %op.val.i463.i, 2147483648, !dbg !1232",
+				"%cmp.i.not.i464.i = icmp eq i64 %4, 0, !dbg !1232",
+				"br i1 %cmp.i.not.i464.i, label %if.end.i467.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1233"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 110,
+			"name": "if.end.i467.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [111, 230],
+			"ir": [
+				"%dec.i465.i = add i64 %op.val.i463.i, -1, !dbg !1234",
+				"store i64 %dec.i465.i, ptr %call.i, align 8, !dbg !1234, !tbaa !1145",
+				"%cmp.i466.i = icmp eq i64 %dec.i465.i, 0, !dbg !1235",
+				"br i1 %cmp.i466.i, label %if.then1.i468.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1236"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 111,
+			"name": "if.then1.i468.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [230],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i) #6, !dbg !1237",
+				"br label %_opcode_get_nb_ops_impl.exit, !dbg !1238"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 112,
+			"name": "do.body38.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 259, "columns": [5]
+				},
+				{
+					"line": 260, "columns": [5]
+				}
+			],
+			"successors": [113, 116],
+			"ir": [
+				"%call.val445.i = load ptr, ptr %1, align 8, !dbg !1222, !tbaa !1162",
+				"%arrayidx.i632.i = getelementptr ptr, ptr %call.val445.i, i64 3, !dbg !1241",
+				"store ptr %call29.i, ptr %arrayidx.i632.i, align 8, !dbg !1242, !tbaa !1179",
+				"%call40.i = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.22, ptr noundef nonnull @.str.31, ptr noundef nonnull @.str.32) #6, !dbg !1243",
+				"%cmp41.not.i = icmp eq ptr %call40.i, null, !dbg !1245",
+				"br i1 %cmp41.not.i, label %if.then42.i, label %do.body49.i, !dbg !1243"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 113,
+			"name": "if.then42.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [114, 230],
+			"ir": [
+				"%op.val.i470.i = load i64, ptr %call.i, align 8, !dbg !1250, !tbaa !1145",
+				"%5 = and i64 %op.val.i470.i, 2147483648, !dbg !1253",
+				"%cmp.i.not.i471.i = icmp eq i64 %5, 0, !dbg !1253",
+				"br i1 %cmp.i.not.i471.i, label %if.end.i474.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1254"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 114,
+			"name": "if.end.i474.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [115, 230],
+			"ir": [
+				"%dec.i472.i = add i64 %op.val.i470.i, -1, !dbg !1255",
+				"store i64 %dec.i472.i, ptr %call.i, align 8, !dbg !1255, !tbaa !1145",
+				"%cmp.i473.i = icmp eq i64 %dec.i472.i, 0, !dbg !1256",
+				"br i1 %cmp.i473.i, label %if.then1.i475.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1257"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 115,
+			"name": "if.then1.i475.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [230],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i) #6, !dbg !1258",
+				"br label %_opcode_get_nb_ops_impl.exit, !dbg !1259"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 116,
+			"name": "do.body49.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 260, "columns": [5]
+				},
+				{
+					"line": 261, "columns": [5]
+				}
+			],
+			"successors": [117, 120],
+			"ir": [
+				"%call.val444.i = load ptr, ptr %1, align 8, !dbg !1243, !tbaa !1162",
+				"%arrayidx.i633.i = getelementptr ptr, ptr %call.val444.i, i64 4, !dbg !1262",
+				"store ptr %call40.i, ptr %arrayidx.i633.i, align 8, !dbg !1263, !tbaa !1179",
+				"%call51.i = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.22, ptr noundef nonnull @.str.33, ptr noundef nonnull @.str.34) #6, !dbg !1264",
+				"%cmp52.not.i = icmp eq ptr %call51.i, null, !dbg !1266",
+				"br i1 %cmp52.not.i, label %if.then53.i, label %do.body60.i, !dbg !1264"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 117,
+			"name": "if.then53.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [118, 230],
+			"ir": [
+				"%op.val.i477.i = load i64, ptr %call.i, align 8, !dbg !1271, !tbaa !1145",
+				"%6 = and i64 %op.val.i477.i, 2147483648, !dbg !1274",
+				"%cmp.i.not.i478.i = icmp eq i64 %6, 0, !dbg !1274",
+				"br i1 %cmp.i.not.i478.i, label %if.end.i481.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1275"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 118,
+			"name": "if.end.i481.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [119, 230],
+			"ir": [
+				"%dec.i479.i = add i64 %op.val.i477.i, -1, !dbg !1276",
+				"store i64 %dec.i479.i, ptr %call.i, align 8, !dbg !1276, !tbaa !1145",
+				"%cmp.i480.i = icmp eq i64 %dec.i479.i, 0, !dbg !1277",
+				"br i1 %cmp.i480.i, label %if.then1.i482.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1278"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 119,
+			"name": "if.then1.i482.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [230],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i) #6, !dbg !1279",
+				"br label %_opcode_get_nb_ops_impl.exit, !dbg !1280"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 120,
+			"name": "do.body60.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 261, "columns": [5]
+				},
+				{
+					"line": 262, "columns": [5]
+				}
+			],
+			"successors": [121, 124],
+			"ir": [
+				"%call.val443.i = load ptr, ptr %1, align 8, !dbg !1264, !tbaa !1162",
+				"%arrayidx.i634.i = getelementptr ptr, ptr %call.val443.i, i64 5, !dbg !1283",
+				"store ptr %call51.i, ptr %arrayidx.i634.i, align 8, !dbg !1284, !tbaa !1179",
+				"%call62.i = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.22, ptr noundef nonnull @.str.35, ptr noundef nonnull @.str.36) #6, !dbg !1285",
+				"%cmp63.not.i = icmp eq ptr %call62.i, null, !dbg !1287",
+				"br i1 %cmp63.not.i, label %if.then64.i, label %do.body71.i, !dbg !1285"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 121,
+			"name": "if.then64.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [122, 230],
+			"ir": [
+				"%op.val.i484.i = load i64, ptr %call.i, align 8, !dbg !1292, !tbaa !1145",
+				"%7 = and i64 %op.val.i484.i, 2147483648, !dbg !1295",
+				"%cmp.i.not.i485.i = icmp eq i64 %7, 0, !dbg !1295",
+				"br i1 %cmp.i.not.i485.i, label %if.end.i488.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1296"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 122,
+			"name": "if.end.i488.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [123, 230],
+			"ir": [
+				"%dec.i486.i = add i64 %op.val.i484.i, -1, !dbg !1297",
+				"store i64 %dec.i486.i, ptr %call.i, align 8, !dbg !1297, !tbaa !1145",
+				"%cmp.i487.i = icmp eq i64 %dec.i486.i, 0, !dbg !1298",
+				"br i1 %cmp.i487.i, label %if.then1.i489.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1299"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 123,
+			"name": "if.then1.i489.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [230],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i) #6, !dbg !1300",
+				"br label %_opcode_get_nb_ops_impl.exit, !dbg !1301"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 124,
+			"name": "do.body71.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 262, "columns": [5]
+				},
+				{
+					"line": 263, "columns": [5]
+				}
+			],
+			"successors": [125, 128],
+			"ir": [
+				"%call.val442.i = load ptr, ptr %1, align 8, !dbg !1285, !tbaa !1162",
+				"%arrayidx.i635.i = getelementptr ptr, ptr %call.val442.i, i64 6, !dbg !1304",
+				"store ptr %call62.i, ptr %arrayidx.i635.i, align 8, !dbg !1305, !tbaa !1179",
+				"%call73.i = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.22, ptr noundef nonnull @.str.37, ptr noundef nonnull @.str.38) #6, !dbg !1306",
+				"%cmp74.not.i = icmp eq ptr %call73.i, null, !dbg !1308",
+				"br i1 %cmp74.not.i, label %if.then75.i, label %do.body82.i, !dbg !1306"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 125,
+			"name": "if.then75.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [126, 230],
+			"ir": [
+				"%op.val.i491.i = load i64, ptr %call.i, align 8, !dbg !1313, !tbaa !1145",
+				"%8 = and i64 %op.val.i491.i, 2147483648, !dbg !1316",
+				"%cmp.i.not.i492.i = icmp eq i64 %8, 0, !dbg !1316",
+				"br i1 %cmp.i.not.i492.i, label %if.end.i495.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1317"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 126,
+			"name": "if.end.i495.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [127, 230],
+			"ir": [
+				"%dec.i493.i = add i64 %op.val.i491.i, -1, !dbg !1318",
+				"store i64 %dec.i493.i, ptr %call.i, align 8, !dbg !1318, !tbaa !1145",
+				"%cmp.i494.i = icmp eq i64 %dec.i493.i, 0, !dbg !1319",
+				"br i1 %cmp.i494.i, label %if.then1.i496.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1320"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 127,
+			"name": "if.then1.i496.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [230],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i) #6, !dbg !1321",
+				"br label %_opcode_get_nb_ops_impl.exit, !dbg !1322"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 128,
+			"name": "do.body82.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 263, "columns": [5]
+				},
+				{
+					"line": 264, "columns": [5]
+				}
+			],
+			"successors": [129, 132],
+			"ir": [
+				"%call.val441.i = load ptr, ptr %1, align 8, !dbg !1306, !tbaa !1162",
+				"%arrayidx.i636.i = getelementptr ptr, ptr %call.val441.i, i64 7, !dbg !1325",
+				"store ptr %call73.i, ptr %arrayidx.i636.i, align 8, !dbg !1326, !tbaa !1179",
+				"%call84.i = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.22, ptr noundef nonnull @.str.39, ptr noundef nonnull @.str.40) #6, !dbg !1327",
+				"%cmp85.not.i = icmp eq ptr %call84.i, null, !dbg !1329",
+				"br i1 %cmp85.not.i, label %if.then86.i, label %do.body93.i, !dbg !1327"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 129,
+			"name": "if.then86.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [130, 230],
+			"ir": [
+				"%op.val.i498.i = load i64, ptr %call.i, align 8, !dbg !1334, !tbaa !1145",
+				"%9 = and i64 %op.val.i498.i, 2147483648, !dbg !1337",
+				"%cmp.i.not.i499.i = icmp eq i64 %9, 0, !dbg !1337",
+				"br i1 %cmp.i.not.i499.i, label %if.end.i502.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1338"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 130,
+			"name": "if.end.i502.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [131, 230],
+			"ir": [
+				"%dec.i500.i = add i64 %op.val.i498.i, -1, !dbg !1339",
+				"store i64 %dec.i500.i, ptr %call.i, align 8, !dbg !1339, !tbaa !1145",
+				"%cmp.i501.i = icmp eq i64 %dec.i500.i, 0, !dbg !1340",
+				"br i1 %cmp.i501.i, label %if.then1.i503.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1341"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 131,
+			"name": "if.then1.i503.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [230],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i) #6, !dbg !1342",
+				"br label %_opcode_get_nb_ops_impl.exit, !dbg !1343"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 132,
+			"name": "do.body93.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 264, "columns": [5]
+				},
+				{
+					"line": 265, "columns": [5]
+				}
+			],
+			"successors": [133, 136],
+			"ir": [
+				"%call.val440.i = load ptr, ptr %1, align 8, !dbg !1327, !tbaa !1162",
+				"%arrayidx.i637.i = getelementptr ptr, ptr %call.val440.i, i64 8, !dbg !1346",
+				"store ptr %call84.i, ptr %arrayidx.i637.i, align 8, !dbg !1347, !tbaa !1179",
+				"%call95.i = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.22, ptr noundef nonnull @.str.41, ptr noundef nonnull @.str.42) #6, !dbg !1348",
+				"%cmp96.not.i = icmp eq ptr %call95.i, null, !dbg !1350",
+				"br i1 %cmp96.not.i, label %if.then97.i, label %do.body104.i, !dbg !1348"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 133,
+			"name": "if.then97.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [134, 230],
+			"ir": [
+				"%op.val.i505.i = load i64, ptr %call.i, align 8, !dbg !1355, !tbaa !1145",
+				"%10 = and i64 %op.val.i505.i, 2147483648, !dbg !1358",
+				"%cmp.i.not.i506.i = icmp eq i64 %10, 0, !dbg !1358",
+				"br i1 %cmp.i.not.i506.i, label %if.end.i509.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1359"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 134,
+			"name": "if.end.i509.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [135, 230],
+			"ir": [
+				"%dec.i507.i = add i64 %op.val.i505.i, -1, !dbg !1360",
+				"store i64 %dec.i507.i, ptr %call.i, align 8, !dbg !1360, !tbaa !1145",
+				"%cmp.i508.i = icmp eq i64 %dec.i507.i, 0, !dbg !1361",
+				"br i1 %cmp.i508.i, label %if.then1.i510.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1362"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 135,
+			"name": "if.then1.i510.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [230],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i) #6, !dbg !1363",
+				"br label %_opcode_get_nb_ops_impl.exit, !dbg !1364"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 136,
+			"name": "do.body104.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 265, "columns": [5]
+				},
+				{
+					"line": 266, "columns": [5]
+				}
+			],
+			"successors": [137, 140],
+			"ir": [
+				"%call.val439.i = load ptr, ptr %1, align 8, !dbg !1348, !tbaa !1162",
+				"%arrayidx.i638.i = getelementptr ptr, ptr %call.val439.i, i64 9, !dbg !1367",
+				"store ptr %call95.i, ptr %arrayidx.i638.i, align 8, !dbg !1368, !tbaa !1179",
+				"%call106.i = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.22, ptr noundef nonnull @.str.43, ptr noundef nonnull @.str.44) #6, !dbg !1369",
+				"%cmp107.not.i = icmp eq ptr %call106.i, null, !dbg !1371",
+				"br i1 %cmp107.not.i, label %if.then108.i, label %do.body115.i, !dbg !1369"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 137,
+			"name": "if.then108.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [138, 230],
+			"ir": [
+				"%op.val.i512.i = load i64, ptr %call.i, align 8, !dbg !1376, !tbaa !1145",
+				"%11 = and i64 %op.val.i512.i, 2147483648, !dbg !1379",
+				"%cmp.i.not.i513.i = icmp eq i64 %11, 0, !dbg !1379",
+				"br i1 %cmp.i.not.i513.i, label %if.end.i516.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1380"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 138,
+			"name": "if.end.i516.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [139, 230],
+			"ir": [
+				"%dec.i514.i = add i64 %op.val.i512.i, -1, !dbg !1381",
+				"store i64 %dec.i514.i, ptr %call.i, align 8, !dbg !1381, !tbaa !1145",
+				"%cmp.i515.i = icmp eq i64 %dec.i514.i, 0, !dbg !1382",
+				"br i1 %cmp.i515.i, label %if.then1.i517.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1383"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 139,
+			"name": "if.then1.i517.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [230],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i) #6, !dbg !1384",
+				"br label %_opcode_get_nb_ops_impl.exit, !dbg !1385"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 140,
+			"name": "do.body115.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 266, "columns": [5]
+				},
+				{
+					"line": 267, "columns": [5]
+				}
+			],
+			"successors": [141, 144],
+			"ir": [
+				"%call.val438.i = load ptr, ptr %1, align 8, !dbg !1369, !tbaa !1162",
+				"%arrayidx.i639.i = getelementptr ptr, ptr %call.val438.i, i64 10, !dbg !1388",
+				"store ptr %call106.i, ptr %arrayidx.i639.i, align 8, !dbg !1389, !tbaa !1179",
+				"%call117.i = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.22, ptr noundef nonnull @.str.45, ptr noundef nonnull @.str.46) #6, !dbg !1390",
+				"%cmp118.not.i = icmp eq ptr %call117.i, null, !dbg !1392",
+				"br i1 %cmp118.not.i, label %if.then119.i, label %do.body126.i, !dbg !1390"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 141,
+			"name": "if.then119.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [142, 230],
+			"ir": [
+				"%op.val.i519.i = load i64, ptr %call.i, align 8, !dbg !1397, !tbaa !1145",
+				"%12 = and i64 %op.val.i519.i, 2147483648, !dbg !1400",
+				"%cmp.i.not.i520.i = icmp eq i64 %12, 0, !dbg !1400",
+				"br i1 %cmp.i.not.i520.i, label %if.end.i523.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1401"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 142,
+			"name": "if.end.i523.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [143, 230],
+			"ir": [
+				"%dec.i521.i = add i64 %op.val.i519.i, -1, !dbg !1402",
+				"store i64 %dec.i521.i, ptr %call.i, align 8, !dbg !1402, !tbaa !1145",
+				"%cmp.i522.i = icmp eq i64 %dec.i521.i, 0, !dbg !1403",
+				"br i1 %cmp.i522.i, label %if.then1.i524.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1404"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 143,
+			"name": "if.then1.i524.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [230],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i) #6, !dbg !1405",
+				"br label %_opcode_get_nb_ops_impl.exit, !dbg !1406"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 144,
+			"name": "do.body126.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 267, "columns": [5]
+				},
+				{
+					"line": 268, "columns": [5]
+				}
+			],
+			"successors": [145, 148],
+			"ir": [
+				"%call.val437.i = load ptr, ptr %1, align 8, !dbg !1390, !tbaa !1162",
+				"%arrayidx.i640.i = getelementptr ptr, ptr %call.val437.i, i64 11, !dbg !1409",
+				"store ptr %call117.i, ptr %arrayidx.i640.i, align 8, !dbg !1410, !tbaa !1179",
+				"%call128.i = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.22, ptr noundef nonnull @.str.47, ptr noundef nonnull @.str.48) #6, !dbg !1411",
+				"%cmp129.not.i = icmp eq ptr %call128.i, null, !dbg !1413",
+				"br i1 %cmp129.not.i, label %if.then130.i, label %do.body137.i, !dbg !1411"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 145,
+			"name": "if.then130.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [146, 230],
+			"ir": [
+				"%op.val.i526.i = load i64, ptr %call.i, align 8, !dbg !1418, !tbaa !1145",
+				"%13 = and i64 %op.val.i526.i, 2147483648, !dbg !1421",
+				"%cmp.i.not.i527.i = icmp eq i64 %13, 0, !dbg !1421",
+				"br i1 %cmp.i.not.i527.i, label %if.end.i530.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1422"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 146,
+			"name": "if.end.i530.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [147, 230],
+			"ir": [
+				"%dec.i528.i = add i64 %op.val.i526.i, -1, !dbg !1423",
+				"store i64 %dec.i528.i, ptr %call.i, align 8, !dbg !1423, !tbaa !1145",
+				"%cmp.i529.i = icmp eq i64 %dec.i528.i, 0, !dbg !1424",
+				"br i1 %cmp.i529.i, label %if.then1.i531.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1425"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 147,
+			"name": "if.then1.i531.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [230],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i) #6, !dbg !1426",
+				"br label %_opcode_get_nb_ops_impl.exit, !dbg !1427"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 148,
+			"name": "do.body137.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 268, "columns": [5]
+				},
+				{
+					"line": 269, "columns": [5]
+				}
+			],
+			"successors": [149, 152],
+			"ir": [
+				"%call.val436.i = load ptr, ptr %1, align 8, !dbg !1411, !tbaa !1162",
+				"%arrayidx.i641.i = getelementptr ptr, ptr %call.val436.i, i64 12, !dbg !1430",
+				"store ptr %call128.i, ptr %arrayidx.i641.i, align 8, !dbg !1431, !tbaa !1179",
+				"%call139.i = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.22, ptr noundef nonnull @.str.49, ptr noundef nonnull @.str.50) #6, !dbg !1432",
+				"%cmp140.not.i = icmp eq ptr %call139.i, null, !dbg !1434",
+				"br i1 %cmp140.not.i, label %if.then141.i, label %do.body148.i, !dbg !1432"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 149,
+			"name": "if.then141.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [150, 230],
+			"ir": [
+				"%op.val.i533.i = load i64, ptr %call.i, align 8, !dbg !1439, !tbaa !1145",
+				"%14 = and i64 %op.val.i533.i, 2147483648, !dbg !1442",
+				"%cmp.i.not.i534.i = icmp eq i64 %14, 0, !dbg !1442",
+				"br i1 %cmp.i.not.i534.i, label %if.end.i537.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1443"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 150,
+			"name": "if.end.i537.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [151, 230],
+			"ir": [
+				"%dec.i535.i = add i64 %op.val.i533.i, -1, !dbg !1444",
+				"store i64 %dec.i535.i, ptr %call.i, align 8, !dbg !1444, !tbaa !1145",
+				"%cmp.i536.i = icmp eq i64 %dec.i535.i, 0, !dbg !1445",
+				"br i1 %cmp.i536.i, label %if.then1.i538.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1446"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 151,
+			"name": "if.then1.i538.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [230],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i) #6, !dbg !1447",
+				"br label %_opcode_get_nb_ops_impl.exit, !dbg !1448"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 152,
+			"name": "do.body148.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 269, "columns": [5]
+				},
+				{
+					"line": 270, "columns": [5]
+				}
+			],
+			"successors": [153, 156],
+			"ir": [
+				"%call.val435.i = load ptr, ptr %1, align 8, !dbg !1432, !tbaa !1162",
+				"%arrayidx.i642.i = getelementptr ptr, ptr %call.val435.i, i64 13, !dbg !1451",
+				"store ptr %call139.i, ptr %arrayidx.i642.i, align 8, !dbg !1452, !tbaa !1179",
+				"%call150.i = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.22, ptr noundef nonnull @.str.51, ptr noundef nonnull @.str.52) #6, !dbg !1453",
+				"%cmp151.not.i = icmp eq ptr %call150.i, null, !dbg !1455",
+				"br i1 %cmp151.not.i, label %if.then152.i, label %do.body159.i, !dbg !1453"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 153,
+			"name": "if.then152.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [154, 230],
+			"ir": [
+				"%op.val.i540.i = load i64, ptr %call.i, align 8, !dbg !1460, !tbaa !1145",
+				"%15 = and i64 %op.val.i540.i, 2147483648, !dbg !1463",
+				"%cmp.i.not.i541.i = icmp eq i64 %15, 0, !dbg !1463",
+				"br i1 %cmp.i.not.i541.i, label %if.end.i544.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1464"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 154,
+			"name": "if.end.i544.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [155, 230],
+			"ir": [
+				"%dec.i542.i = add i64 %op.val.i540.i, -1, !dbg !1465",
+				"store i64 %dec.i542.i, ptr %call.i, align 8, !dbg !1465, !tbaa !1145",
+				"%cmp.i543.i = icmp eq i64 %dec.i542.i, 0, !dbg !1466",
+				"br i1 %cmp.i543.i, label %if.then1.i545.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1467"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 155,
+			"name": "if.then1.i545.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [230],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i) #6, !dbg !1468",
+				"br label %_opcode_get_nb_ops_impl.exit, !dbg !1469"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 156,
+			"name": "do.body159.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 270, "columns": [5]
+				},
+				{
+					"line": 271, "columns": [5]
+				}
+			],
+			"successors": [157, 160],
+			"ir": [
+				"%call.val434.i = load ptr, ptr %1, align 8, !dbg !1453, !tbaa !1162",
+				"%arrayidx.i643.i = getelementptr ptr, ptr %call.val434.i, i64 14, !dbg !1472",
+				"store ptr %call150.i, ptr %arrayidx.i643.i, align 8, !dbg !1473, !tbaa !1179",
+				"%call161.i = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.22, ptr noundef nonnull @.str.53, ptr noundef nonnull @.str.54) #6, !dbg !1474",
+				"%cmp162.not.i = icmp eq ptr %call161.i, null, !dbg !1476",
+				"br i1 %cmp162.not.i, label %if.then163.i, label %do.body170.i, !dbg !1474"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 157,
+			"name": "if.then163.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [158, 230],
+			"ir": [
+				"%op.val.i547.i = load i64, ptr %call.i, align 8, !dbg !1481, !tbaa !1145",
+				"%16 = and i64 %op.val.i547.i, 2147483648, !dbg !1484",
+				"%cmp.i.not.i548.i = icmp eq i64 %16, 0, !dbg !1484",
+				"br i1 %cmp.i.not.i548.i, label %if.end.i551.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1485"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 158,
+			"name": "if.end.i551.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [159, 230],
+			"ir": [
+				"%dec.i549.i = add i64 %op.val.i547.i, -1, !dbg !1486",
+				"store i64 %dec.i549.i, ptr %call.i, align 8, !dbg !1486, !tbaa !1145",
+				"%cmp.i550.i = icmp eq i64 %dec.i549.i, 0, !dbg !1487",
+				"br i1 %cmp.i550.i, label %if.then1.i552.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1488"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 159,
+			"name": "if.then1.i552.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [230],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i) #6, !dbg !1489",
+				"br label %_opcode_get_nb_ops_impl.exit, !dbg !1490"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 160,
+			"name": "do.body170.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 271, "columns": [5]
+				},
+				{
+					"line": 272, "columns": [5]
+				}
+			],
+			"successors": [161, 164],
+			"ir": [
+				"%call.val433.i = load ptr, ptr %1, align 8, !dbg !1474, !tbaa !1162",
+				"%arrayidx.i644.i = getelementptr ptr, ptr %call.val433.i, i64 15, !dbg !1493",
+				"store ptr %call161.i, ptr %arrayidx.i644.i, align 8, !dbg !1494, !tbaa !1179",
+				"%call172.i = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.22, ptr noundef nonnull @.str.55, ptr noundef nonnull @.str.56) #6, !dbg !1495",
+				"%cmp173.not.i = icmp eq ptr %call172.i, null, !dbg !1497",
+				"br i1 %cmp173.not.i, label %if.then174.i, label %do.body181.i, !dbg !1495"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 161,
+			"name": "if.then174.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [162, 230],
+			"ir": [
+				"%op.val.i554.i = load i64, ptr %call.i, align 8, !dbg !1502, !tbaa !1145",
+				"%17 = and i64 %op.val.i554.i, 2147483648, !dbg !1505",
+				"%cmp.i.not.i555.i = icmp eq i64 %17, 0, !dbg !1505",
+				"br i1 %cmp.i.not.i555.i, label %if.end.i558.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1506"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 162,
+			"name": "if.end.i558.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [163, 230],
+			"ir": [
+				"%dec.i556.i = add i64 %op.val.i554.i, -1, !dbg !1507",
+				"store i64 %dec.i556.i, ptr %call.i, align 8, !dbg !1507, !tbaa !1145",
+				"%cmp.i557.i = icmp eq i64 %dec.i556.i, 0, !dbg !1508",
+				"br i1 %cmp.i557.i, label %if.then1.i559.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1509"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 163,
+			"name": "if.then1.i559.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [230],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i) #6, !dbg !1510",
+				"br label %_opcode_get_nb_ops_impl.exit, !dbg !1511"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 164,
+			"name": "do.body181.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 272, "columns": [5]
+				},
+				{
+					"line": 273, "columns": [5]
+				}
+			],
+			"successors": [165, 168],
+			"ir": [
+				"%call.val432.i = load ptr, ptr %1, align 8, !dbg !1495, !tbaa !1162",
+				"%arrayidx.i645.i = getelementptr ptr, ptr %call.val432.i, i64 16, !dbg !1514",
+				"store ptr %call172.i, ptr %arrayidx.i645.i, align 8, !dbg !1515, !tbaa !1179",
+				"%call183.i = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.22, ptr noundef nonnull @.str.57, ptr noundef nonnull @.str.58) #6, !dbg !1516",
+				"%cmp184.not.i = icmp eq ptr %call183.i, null, !dbg !1518",
+				"br i1 %cmp184.not.i, label %if.then185.i, label %do.body192.i, !dbg !1516"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 165,
+			"name": "if.then185.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [166, 230],
+			"ir": [
+				"%op.val.i561.i = load i64, ptr %call.i, align 8, !dbg !1523, !tbaa !1145",
+				"%18 = and i64 %op.val.i561.i, 2147483648, !dbg !1526",
+				"%cmp.i.not.i562.i = icmp eq i64 %18, 0, !dbg !1526",
+				"br i1 %cmp.i.not.i562.i, label %if.end.i565.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1527"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 166,
+			"name": "if.end.i565.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [167, 230],
+			"ir": [
+				"%dec.i563.i = add i64 %op.val.i561.i, -1, !dbg !1528",
+				"store i64 %dec.i563.i, ptr %call.i, align 8, !dbg !1528, !tbaa !1145",
+				"%cmp.i564.i = icmp eq i64 %dec.i563.i, 0, !dbg !1529",
+				"br i1 %cmp.i564.i, label %if.then1.i566.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1530"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 167,
+			"name": "if.then1.i566.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [230],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i) #6, !dbg !1531",
+				"br label %_opcode_get_nb_ops_impl.exit, !dbg !1532"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 168,
+			"name": "do.body192.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 273, "columns": [5]
+				},
+				{
+					"line": 274, "columns": [5]
+				}
+			],
+			"successors": [169, 172],
+			"ir": [
+				"%call.val431.i = load ptr, ptr %1, align 8, !dbg !1516, !tbaa !1162",
+				"%arrayidx.i646.i = getelementptr ptr, ptr %call.val431.i, i64 17, !dbg !1535",
+				"store ptr %call183.i, ptr %arrayidx.i646.i, align 8, !dbg !1536, !tbaa !1179",
+				"%call194.i = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.22, ptr noundef nonnull @.str.59, ptr noundef nonnull @.str.60) #6, !dbg !1537",
+				"%cmp195.not.i = icmp eq ptr %call194.i, null, !dbg !1539",
+				"br i1 %cmp195.not.i, label %if.then196.i, label %do.body203.i, !dbg !1537"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 169,
+			"name": "if.then196.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [170, 230],
+			"ir": [
+				"%op.val.i568.i = load i64, ptr %call.i, align 8, !dbg !1544, !tbaa !1145",
+				"%19 = and i64 %op.val.i568.i, 2147483648, !dbg !1547",
+				"%cmp.i.not.i569.i = icmp eq i64 %19, 0, !dbg !1547",
+				"br i1 %cmp.i.not.i569.i, label %if.end.i572.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1548"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 170,
+			"name": "if.end.i572.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [171, 230],
+			"ir": [
+				"%dec.i570.i = add i64 %op.val.i568.i, -1, !dbg !1549",
+				"store i64 %dec.i570.i, ptr %call.i, align 8, !dbg !1549, !tbaa !1145",
+				"%cmp.i571.i = icmp eq i64 %dec.i570.i, 0, !dbg !1550",
+				"br i1 %cmp.i571.i, label %if.then1.i573.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1551"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 171,
+			"name": "if.then1.i573.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [230],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i) #6, !dbg !1552",
+				"br label %_opcode_get_nb_ops_impl.exit, !dbg !1553"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 172,
+			"name": "do.body203.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 274, "columns": [5]
+				},
+				{
+					"line": 275, "columns": [5]
+				}
+			],
+			"successors": [173, 176],
+			"ir": [
+				"%call.val430.i = load ptr, ptr %1, align 8, !dbg !1537, !tbaa !1162",
+				"%arrayidx.i647.i = getelementptr ptr, ptr %call.val430.i, i64 18, !dbg !1556",
+				"store ptr %call194.i, ptr %arrayidx.i647.i, align 8, !dbg !1557, !tbaa !1179",
+				"%call205.i = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.22, ptr noundef nonnull @.str.61, ptr noundef nonnull @.str.62) #6, !dbg !1558",
+				"%cmp206.not.i = icmp eq ptr %call205.i, null, !dbg !1560",
+				"br i1 %cmp206.not.i, label %if.then207.i, label %do.body214.i, !dbg !1558"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 173,
+			"name": "if.then207.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [174, 230],
+			"ir": [
+				"%op.val.i575.i = load i64, ptr %call.i, align 8, !dbg !1565, !tbaa !1145",
+				"%20 = and i64 %op.val.i575.i, 2147483648, !dbg !1568",
+				"%cmp.i.not.i576.i = icmp eq i64 %20, 0, !dbg !1568",
+				"br i1 %cmp.i.not.i576.i, label %if.end.i579.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1569"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 174,
+			"name": "if.end.i579.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [175, 230],
+			"ir": [
+				"%dec.i577.i = add i64 %op.val.i575.i, -1, !dbg !1570",
+				"store i64 %dec.i577.i, ptr %call.i, align 8, !dbg !1570, !tbaa !1145",
+				"%cmp.i578.i = icmp eq i64 %dec.i577.i, 0, !dbg !1571",
+				"br i1 %cmp.i578.i, label %if.then1.i580.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1572"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 175,
+			"name": "if.then1.i580.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [230],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i) #6, !dbg !1573",
+				"br label %_opcode_get_nb_ops_impl.exit, !dbg !1574"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 176,
+			"name": "do.body214.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 275, "columns": [5]
+				},
+				{
+					"line": 276, "columns": [5]
+				}
+			],
+			"successors": [177, 180],
+			"ir": [
+				"%call.val429.i = load ptr, ptr %1, align 8, !dbg !1558, !tbaa !1162",
+				"%arrayidx.i648.i = getelementptr ptr, ptr %call.val429.i, i64 19, !dbg !1577",
+				"store ptr %call205.i, ptr %arrayidx.i648.i, align 8, !dbg !1578, !tbaa !1179",
+				"%call216.i = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.22, ptr noundef nonnull @.str.63, ptr noundef nonnull @.str.64) #6, !dbg !1579",
+				"%cmp217.not.i = icmp eq ptr %call216.i, null, !dbg !1581",
+				"br i1 %cmp217.not.i, label %if.then218.i, label %do.body225.i, !dbg !1579"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 177,
+			"name": "if.then218.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [178, 230],
+			"ir": [
+				"%op.val.i582.i = load i64, ptr %call.i, align 8, !dbg !1586, !tbaa !1145",
+				"%21 = and i64 %op.val.i582.i, 2147483648, !dbg !1589",
+				"%cmp.i.not.i583.i = icmp eq i64 %21, 0, !dbg !1589",
+				"br i1 %cmp.i.not.i583.i, label %if.end.i586.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1590"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 178,
+			"name": "if.end.i586.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [179, 230],
+			"ir": [
+				"%dec.i584.i = add i64 %op.val.i582.i, -1, !dbg !1591",
+				"store i64 %dec.i584.i, ptr %call.i, align 8, !dbg !1591, !tbaa !1145",
+				"%cmp.i585.i = icmp eq i64 %dec.i584.i, 0, !dbg !1592",
+				"br i1 %cmp.i585.i, label %if.then1.i587.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1593"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 179,
+			"name": "if.then1.i587.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [230],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i) #6, !dbg !1594",
+				"br label %_opcode_get_nb_ops_impl.exit, !dbg !1595"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 180,
+			"name": "do.body225.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 276, "columns": [5]
+				},
+				{
+					"line": 277, "columns": [5]
+				}
+			],
+			"successors": [181, 184],
+			"ir": [
+				"%call.val428.i = load ptr, ptr %1, align 8, !dbg !1579, !tbaa !1162",
+				"%arrayidx.i649.i = getelementptr ptr, ptr %call.val428.i, i64 20, !dbg !1598",
+				"store ptr %call216.i, ptr %arrayidx.i649.i, align 8, !dbg !1599, !tbaa !1179",
+				"%call227.i = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.22, ptr noundef nonnull @.str.65, ptr noundef nonnull @.str.66) #6, !dbg !1600",
+				"%cmp228.not.i = icmp eq ptr %call227.i, null, !dbg !1602",
+				"br i1 %cmp228.not.i, label %if.then229.i, label %do.body236.i, !dbg !1600"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 181,
+			"name": "if.then229.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [182, 230],
+			"ir": [
+				"%op.val.i589.i = load i64, ptr %call.i, align 8, !dbg !1607, !tbaa !1145",
+				"%22 = and i64 %op.val.i589.i, 2147483648, !dbg !1610",
+				"%cmp.i.not.i590.i = icmp eq i64 %22, 0, !dbg !1610",
+				"br i1 %cmp.i.not.i590.i, label %if.end.i593.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1611"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 182,
+			"name": "if.end.i593.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [183, 230],
+			"ir": [
+				"%dec.i591.i = add i64 %op.val.i589.i, -1, !dbg !1612",
+				"store i64 %dec.i591.i, ptr %call.i, align 8, !dbg !1612, !tbaa !1145",
+				"%cmp.i592.i = icmp eq i64 %dec.i591.i, 0, !dbg !1613",
+				"br i1 %cmp.i592.i, label %if.then1.i594.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1614"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 183,
+			"name": "if.then1.i594.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [230],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i) #6, !dbg !1615",
+				"br label %_opcode_get_nb_ops_impl.exit, !dbg !1616"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 184,
+			"name": "do.body236.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 277, "columns": [5]
+				},
+				{
+					"line": 278, "columns": [5]
+				}
+			],
+			"successors": [185, 188],
+			"ir": [
+				"%call.val427.i = load ptr, ptr %1, align 8, !dbg !1600, !tbaa !1162",
+				"%arrayidx.i650.i = getelementptr ptr, ptr %call.val427.i, i64 21, !dbg !1619",
+				"store ptr %call227.i, ptr %arrayidx.i650.i, align 8, !dbg !1620, !tbaa !1179",
+				"%call238.i = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.22, ptr noundef nonnull @.str.67, ptr noundef nonnull @.str.68) #6, !dbg !1621",
+				"%cmp239.not.i = icmp eq ptr %call238.i, null, !dbg !1623",
+				"br i1 %cmp239.not.i, label %if.then240.i, label %do.body247.i, !dbg !1621"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 185,
+			"name": "if.then240.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [186, 230],
+			"ir": [
+				"%op.val.i596.i = load i64, ptr %call.i, align 8, !dbg !1628, !tbaa !1145",
+				"%23 = and i64 %op.val.i596.i, 2147483648, !dbg !1631",
+				"%cmp.i.not.i597.i = icmp eq i64 %23, 0, !dbg !1631",
+				"br i1 %cmp.i.not.i597.i, label %if.end.i600.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1632"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 186,
+			"name": "if.end.i600.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [187, 230],
+			"ir": [
+				"%dec.i598.i = add i64 %op.val.i596.i, -1, !dbg !1633",
+				"store i64 %dec.i598.i, ptr %call.i, align 8, !dbg !1633, !tbaa !1145",
+				"%cmp.i599.i = icmp eq i64 %dec.i598.i, 0, !dbg !1634",
+				"br i1 %cmp.i599.i, label %if.then1.i601.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1635"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 187,
+			"name": "if.then1.i601.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [230],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i) #6, !dbg !1636",
+				"br label %_opcode_get_nb_ops_impl.exit, !dbg !1637"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 188,
+			"name": "do.body247.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 278, "columns": [5]
+				},
+				{
+					"line": 279, "columns": [5]
+				}
+			],
+			"successors": [189, 192],
+			"ir": [
+				"%call.val426.i = load ptr, ptr %1, align 8, !dbg !1621, !tbaa !1162",
+				"%arrayidx.i651.i = getelementptr ptr, ptr %call.val426.i, i64 22, !dbg !1640",
+				"store ptr %call238.i, ptr %arrayidx.i651.i, align 8, !dbg !1641, !tbaa !1179",
+				"%call249.i = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.22, ptr noundef nonnull @.str.69, ptr noundef nonnull @.str.70) #6, !dbg !1642",
+				"%cmp250.not.i = icmp eq ptr %call249.i, null, !dbg !1644",
+				"br i1 %cmp250.not.i, label %if.then251.i, label %do.body258.i, !dbg !1642"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 189,
+			"name": "if.then251.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [190, 230],
+			"ir": [
+				"%op.val.i603.i = load i64, ptr %call.i, align 8, !dbg !1649, !tbaa !1145",
+				"%24 = and i64 %op.val.i603.i, 2147483648, !dbg !1652",
+				"%cmp.i.not.i604.i = icmp eq i64 %24, 0, !dbg !1652",
+				"br i1 %cmp.i.not.i604.i, label %if.end.i607.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1653"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 190,
+			"name": "if.end.i607.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [191, 230],
+			"ir": [
+				"%dec.i605.i = add i64 %op.val.i603.i, -1, !dbg !1654",
+				"store i64 %dec.i605.i, ptr %call.i, align 8, !dbg !1654, !tbaa !1145",
+				"%cmp.i606.i = icmp eq i64 %dec.i605.i, 0, !dbg !1655",
+				"br i1 %cmp.i606.i, label %if.then1.i608.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1656"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 191,
+			"name": "if.then1.i608.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [230],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i) #6, !dbg !1657",
+				"br label %_opcode_get_nb_ops_impl.exit, !dbg !1658"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 192,
+			"name": "do.body258.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 279, "columns": [5]
+				},
+				{
+					"line": 280, "columns": [5]
+				}
+			],
+			"successors": [193, 196],
+			"ir": [
+				"%call.val425.i = load ptr, ptr %1, align 8, !dbg !1642, !tbaa !1162",
+				"%arrayidx.i652.i = getelementptr ptr, ptr %call.val425.i, i64 23, !dbg !1661",
+				"store ptr %call249.i, ptr %arrayidx.i652.i, align 8, !dbg !1662, !tbaa !1179",
+				"%call260.i = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.22, ptr noundef nonnull @.str.71, ptr noundef nonnull @.str.72) #6, !dbg !1663",
+				"%cmp261.not.i = icmp eq ptr %call260.i, null, !dbg !1665",
+				"br i1 %cmp261.not.i, label %if.then262.i, label %do.body269.i, !dbg !1663"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 193,
+			"name": "if.then262.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [194, 230],
+			"ir": [
+				"%op.val.i610.i = load i64, ptr %call.i, align 8, !dbg !1670, !tbaa !1145",
+				"%25 = and i64 %op.val.i610.i, 2147483648, !dbg !1673",
+				"%cmp.i.not.i611.i = icmp eq i64 %25, 0, !dbg !1673",
+				"br i1 %cmp.i.not.i611.i, label %if.end.i614.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1674"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 194,
+			"name": "if.end.i614.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [195, 230],
+			"ir": [
+				"%dec.i612.i = add i64 %op.val.i610.i, -1, !dbg !1675",
+				"store i64 %dec.i612.i, ptr %call.i, align 8, !dbg !1675, !tbaa !1145",
+				"%cmp.i613.i = icmp eq i64 %dec.i612.i, 0, !dbg !1676",
+				"br i1 %cmp.i613.i, label %if.then1.i615.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1677"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 195,
+			"name": "if.then1.i615.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [230],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i) #6, !dbg !1678",
+				"br label %_opcode_get_nb_ops_impl.exit, !dbg !1679"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 196,
+			"name": "do.body269.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 280, "columns": [5]
+				},
+				{
+					"line": 281, "columns": [5]
+				}
+			],
+			"successors": [197, 200],
+			"ir": [
+				"%call.val424.i = load ptr, ptr %1, align 8, !dbg !1663, !tbaa !1162",
+				"%arrayidx.i653.i = getelementptr ptr, ptr %call.val424.i, i64 24, !dbg !1682",
+				"store ptr %call260.i, ptr %arrayidx.i653.i, align 8, !dbg !1683, !tbaa !1179",
+				"%call271.i = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.22, ptr noundef nonnull @.str.73, ptr noundef nonnull @.str.74) #6, !dbg !1684",
+				"%cmp272.not.i = icmp eq ptr %call271.i, null, !dbg !1686",
+				"br i1 %cmp272.not.i, label %if.then273.i, label %cleanup275.i, !dbg !1684"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 197,
+			"name": "if.then273.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [198, 230],
+			"ir": [
+				"%op.val.i617.i = load i64, ptr %call.i, align 8, !dbg !1691, !tbaa !1145",
+				"%26 = and i64 %op.val.i617.i, 2147483648, !dbg !1694",
+				"%cmp.i.not.i618.i = icmp eq i64 %26, 0, !dbg !1694",
+				"br i1 %cmp.i.not.i618.i, label %if.end.i621.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1695"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 198,
+			"name": "if.end.i621.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [199, 230],
+			"ir": [
+				"%dec.i619.i = add i64 %op.val.i617.i, -1, !dbg !1696",
+				"store i64 %dec.i619.i, ptr %call.i, align 8, !dbg !1696, !tbaa !1145",
+				"%cmp.i620.i = icmp eq i64 %dec.i619.i, 0, !dbg !1697",
+				"br i1 %cmp.i620.i, label %if.then1.i622.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1698"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 199,
+			"name": "if.then1.i622.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [230],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i) #6, !dbg !1699",
+				"br label %_opcode_get_nb_ops_impl.exit, !dbg !1700"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 200,
+			"name": "cleanup275.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 281, "columns": [5]
+				},
+				{
+					"line": 286, "columns": [13, 38]
+				}
+			],
+			"successors": [201, 205],
+			"ir": [
+				"%call.val.i = load ptr, ptr %1, align 8, !dbg !1684, !tbaa !1162",
+				"%arrayidx.i654.i = getelementptr ptr, ptr %call.val.i, i64 25, !dbg !1703",
+				"store ptr %call271.i, ptr %arrayidx.i654.i, align 8, !dbg !1704, !tbaa !1179",
+				"%27 = load ptr, ptr %1, align 8, !tbaa !1162",
+				"%28 = load ptr, ptr %27, align 8, !dbg !1706, !tbaa !1179",
+				"%cmp281.i = icmp eq ptr %28, null, !dbg !1710",
+				"br i1 %cmp281.i, label %if.then282.i, label %for.inc.i, !dbg !1711"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 201,
+			"name": "if.then282.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [202, 204],
+			"ir": [
+				"%i.02.lcssa.wide.i = phi i32 [ 0, %cleanup275.i ], [ 1, %for.inc.i ], [ 2, %for.inc.1.i ], [ 3, %for.inc.2.i ], [ 4, %for.inc.3.i ], [ 5, %for.inc.4.i ], [ 6, %for.inc.5.i ], [ 7, %for.inc.6.i ], [ 8, %for.inc.7.i ], [ 9, %for.inc.8.i ], [ 10, %for.inc.9.i ], [ 11, %for.inc.10.i ], [ 12, %for.inc.11.i ], [ 13, %for.inc.12.i ], [ 14, %for.inc.13.i ], [ 15, %for.inc.14.i ], [ 16, %for.inc.15.i ], [ 17, %for.inc.16.i ], [ 18, %for.inc.17.i ], [ 19, %for.inc.18.i ], [ 20, %for.inc.19.i ], [ 21, %for.inc.20.i ], [ 22, %for.inc.21.i ], [ 23, %for.inc.22.i ], [ 24, %for.inc.23.i ], [ 25, %for.inc.24.i ]",
+				"%op.val.i624.i = load i64, ptr %call.i, align 8, !dbg !1715, !tbaa !1145",
+				"%29 = and i64 %op.val.i624.i, 2147483648, !dbg !1718",
+				"%cmp.i.not.i625.i = icmp eq i64 %29, 0, !dbg !1718",
+				"br i1 %cmp.i.not.i625.i, label %if.end.i628.i, label %Py_DECREF.exit630.i, !dbg !1719"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 202,
+			"name": "if.end.i628.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [203, 204],
+			"ir": [
+				"%dec.i626.i = add i64 %op.val.i624.i, -1, !dbg !1720",
+				"store i64 %dec.i626.i, ptr %call.i, align 8, !dbg !1720, !tbaa !1145",
+				"%cmp.i627.i = icmp eq i64 %dec.i626.i, 0, !dbg !1721",
+				"br i1 %cmp.i627.i, label %if.then1.i629.i, label %Py_DECREF.exit630.i, !dbg !1722"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 203,
+			"name": "if.then1.i629.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [204],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i) #6, !dbg !1723",
+				"br label %Py_DECREF.exit630.i, !dbg !1724"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 204,
+			"name": "Py_DECREF.exit630.i",
+			"debug": [
+				{
+					"line": 288, "columns": [26, 13]
+				},
+				{
+					"line": 291, "columns": [13]
+				}
+			],
+			"successors": [230],
+			"ir": [
+				"%30 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !1725, !tbaa !1179",
+				"%call283.i = tail call ptr (ptr, ptr, ...) @PyErr_Format(ptr noundef %30, ptr noundef nonnull @.str.75, i32 noundef %i.02.lcssa.wide.i) #6, !dbg !1726",
+				"br label %_opcode_get_nb_ops_impl.exit, !dbg !1727"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 205,
+			"name": "for.inc.i",
+			"debug": [
+				{
+					"line": 286, "columns": [13, 38]
+				}
+			],
+			"successors": [201, 206],
+			"ir": [
+				"%arrayidx.1.i = getelementptr ptr, ptr %27, i64 1, !dbg !1706",
+				"%31 = load ptr, ptr %arrayidx.1.i, align 8, !dbg !1706, !tbaa !1179",
+				"%cmp281.1.i = icmp eq ptr %31, null, !dbg !1710",
+				"br i1 %cmp281.1.i, label %if.then282.i, label %for.inc.1.i, !dbg !1711"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 206,
+			"name": "for.inc.1.i",
+			"debug": [
+				{
+					"line": 286, "columns": [13, 38]
+				}
+			],
+			"successors": [201, 207],
+			"ir": [
+				"%arrayidx.2.i = getelementptr ptr, ptr %27, i64 2, !dbg !1706",
+				"%32 = load ptr, ptr %arrayidx.2.i, align 8, !dbg !1706, !tbaa !1179",
+				"%cmp281.2.i = icmp eq ptr %32, null, !dbg !1710",
+				"br i1 %cmp281.2.i, label %if.then282.i, label %for.inc.2.i, !dbg !1711"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 207,
+			"name": "for.inc.2.i",
+			"debug": [
+				{
+					"line": 286, "columns": [13, 38]
+				}
+			],
+			"successors": [201, 208],
+			"ir": [
+				"%arrayidx.3.i = getelementptr ptr, ptr %27, i64 3, !dbg !1706",
+				"%33 = load ptr, ptr %arrayidx.3.i, align 8, !dbg !1706, !tbaa !1179",
+				"%cmp281.3.i = icmp eq ptr %33, null, !dbg !1710",
+				"br i1 %cmp281.3.i, label %if.then282.i, label %for.inc.3.i, !dbg !1711"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 208,
+			"name": "for.inc.3.i",
+			"debug": [
+				{
+					"line": 286, "columns": [13, 38]
+				}
+			],
+			"successors": [201, 209],
+			"ir": [
+				"%arrayidx.4.i = getelementptr ptr, ptr %27, i64 4, !dbg !1706",
+				"%34 = load ptr, ptr %arrayidx.4.i, align 8, !dbg !1706, !tbaa !1179",
+				"%cmp281.4.i = icmp eq ptr %34, null, !dbg !1710",
+				"br i1 %cmp281.4.i, label %if.then282.i, label %for.inc.4.i, !dbg !1711"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 209,
+			"name": "for.inc.4.i",
+			"debug": [
+				{
+					"line": 286, "columns": [13, 38]
+				}
+			],
+			"successors": [201, 210],
+			"ir": [
+				"%arrayidx.5.i = getelementptr ptr, ptr %27, i64 5, !dbg !1706",
+				"%35 = load ptr, ptr %arrayidx.5.i, align 8, !dbg !1706, !tbaa !1179",
+				"%cmp281.5.i = icmp eq ptr %35, null, !dbg !1710",
+				"br i1 %cmp281.5.i, label %if.then282.i, label %for.inc.5.i, !dbg !1711"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 210,
+			"name": "for.inc.5.i",
+			"debug": [
+				{
+					"line": 286, "columns": [13, 38]
+				}
+			],
+			"successors": [201, 211],
+			"ir": [
+				"%arrayidx.6.i = getelementptr ptr, ptr %27, i64 6, !dbg !1706",
+				"%36 = load ptr, ptr %arrayidx.6.i, align 8, !dbg !1706, !tbaa !1179",
+				"%cmp281.6.i = icmp eq ptr %36, null, !dbg !1710",
+				"br i1 %cmp281.6.i, label %if.then282.i, label %for.inc.6.i, !dbg !1711"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 211,
+			"name": "for.inc.6.i",
+			"debug": [
+				{
+					"line": 286, "columns": [13, 38]
+				}
+			],
+			"successors": [201, 212],
+			"ir": [
+				"%arrayidx.7.i = getelementptr ptr, ptr %27, i64 7, !dbg !1706",
+				"%37 = load ptr, ptr %arrayidx.7.i, align 8, !dbg !1706, !tbaa !1179",
+				"%cmp281.7.i = icmp eq ptr %37, null, !dbg !1710",
+				"br i1 %cmp281.7.i, label %if.then282.i, label %for.inc.7.i, !dbg !1711"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 212,
+			"name": "for.inc.7.i",
+			"debug": [
+				{
+					"line": 286, "columns": [13, 38]
+				}
+			],
+			"successors": [201, 213],
+			"ir": [
+				"%arrayidx.8.i = getelementptr ptr, ptr %27, i64 8, !dbg !1706",
+				"%38 = load ptr, ptr %arrayidx.8.i, align 8, !dbg !1706, !tbaa !1179",
+				"%cmp281.8.i = icmp eq ptr %38, null, !dbg !1710",
+				"br i1 %cmp281.8.i, label %if.then282.i, label %for.inc.8.i, !dbg !1711"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 213,
+			"name": "for.inc.8.i",
+			"debug": [
+				{
+					"line": 286, "columns": [13, 38]
+				}
+			],
+			"successors": [201, 214],
+			"ir": [
+				"%arrayidx.9.i = getelementptr ptr, ptr %27, i64 9, !dbg !1706",
+				"%39 = load ptr, ptr %arrayidx.9.i, align 8, !dbg !1706, !tbaa !1179",
+				"%cmp281.9.i = icmp eq ptr %39, null, !dbg !1710",
+				"br i1 %cmp281.9.i, label %if.then282.i, label %for.inc.9.i, !dbg !1711"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 214,
+			"name": "for.inc.9.i",
+			"debug": [
+				{
+					"line": 286, "columns": [13, 38]
+				}
+			],
+			"successors": [201, 215],
+			"ir": [
+				"%arrayidx.10.i = getelementptr ptr, ptr %27, i64 10, !dbg !1706",
+				"%40 = load ptr, ptr %arrayidx.10.i, align 8, !dbg !1706, !tbaa !1179",
+				"%cmp281.10.i = icmp eq ptr %40, null, !dbg !1710",
+				"br i1 %cmp281.10.i, label %if.then282.i, label %for.inc.10.i, !dbg !1711"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 215,
+			"name": "for.inc.10.i",
+			"debug": [
+				{
+					"line": 286, "columns": [13, 38]
+				}
+			],
+			"successors": [201, 216],
+			"ir": [
+				"%arrayidx.11.i = getelementptr ptr, ptr %27, i64 11, !dbg !1706",
+				"%41 = load ptr, ptr %arrayidx.11.i, align 8, !dbg !1706, !tbaa !1179",
+				"%cmp281.11.i = icmp eq ptr %41, null, !dbg !1710",
+				"br i1 %cmp281.11.i, label %if.then282.i, label %for.inc.11.i, !dbg !1711"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 216,
+			"name": "for.inc.11.i",
+			"debug": [
+				{
+					"line": 286, "columns": [13, 38]
+				}
+			],
+			"successors": [201, 217],
+			"ir": [
+				"%arrayidx.12.i = getelementptr ptr, ptr %27, i64 12, !dbg !1706",
+				"%42 = load ptr, ptr %arrayidx.12.i, align 8, !dbg !1706, !tbaa !1179",
+				"%cmp281.12.i = icmp eq ptr %42, null, !dbg !1710",
+				"br i1 %cmp281.12.i, label %if.then282.i, label %for.inc.12.i, !dbg !1711"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 217,
+			"name": "for.inc.12.i",
+			"debug": [
+				{
+					"line": 286, "columns": [13, 38]
+				}
+			],
+			"successors": [201, 218],
+			"ir": [
+				"%arrayidx.13.i = getelementptr ptr, ptr %27, i64 13, !dbg !1706",
+				"%43 = load ptr, ptr %arrayidx.13.i, align 8, !dbg !1706, !tbaa !1179",
+				"%cmp281.13.i = icmp eq ptr %43, null, !dbg !1710",
+				"br i1 %cmp281.13.i, label %if.then282.i, label %for.inc.13.i, !dbg !1711"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 218,
+			"name": "for.inc.13.i",
+			"debug": [
+				{
+					"line": 286, "columns": [13, 38]
+				}
+			],
+			"successors": [201, 219],
+			"ir": [
+				"%arrayidx.14.i = getelementptr ptr, ptr %27, i64 14, !dbg !1706",
+				"%44 = load ptr, ptr %arrayidx.14.i, align 8, !dbg !1706, !tbaa !1179",
+				"%cmp281.14.i = icmp eq ptr %44, null, !dbg !1710",
+				"br i1 %cmp281.14.i, label %if.then282.i, label %for.inc.14.i, !dbg !1711"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 219,
+			"name": "for.inc.14.i",
+			"debug": [
+				{
+					"line": 286, "columns": [13, 38]
+				}
+			],
+			"successors": [201, 220],
+			"ir": [
+				"%arrayidx.15.i = getelementptr ptr, ptr %27, i64 15, !dbg !1706",
+				"%45 = load ptr, ptr %arrayidx.15.i, align 8, !dbg !1706, !tbaa !1179",
+				"%cmp281.15.i = icmp eq ptr %45, null, !dbg !1710",
+				"br i1 %cmp281.15.i, label %if.then282.i, label %for.inc.15.i, !dbg !1711"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 220,
+			"name": "for.inc.15.i",
+			"debug": [
+				{
+					"line": 286, "columns": [13, 38]
+				}
+			],
+			"successors": [201, 221],
+			"ir": [
+				"%arrayidx.16.i = getelementptr ptr, ptr %27, i64 16, !dbg !1706",
+				"%46 = load ptr, ptr %arrayidx.16.i, align 8, !dbg !1706, !tbaa !1179",
+				"%cmp281.16.i = icmp eq ptr %46, null, !dbg !1710",
+				"br i1 %cmp281.16.i, label %if.then282.i, label %for.inc.16.i, !dbg !1711"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 221,
+			"name": "for.inc.16.i",
+			"debug": [
+				{
+					"line": 286, "columns": [13, 38]
+				}
+			],
+			"successors": [201, 222],
+			"ir": [
+				"%arrayidx.17.i = getelementptr ptr, ptr %27, i64 17, !dbg !1706",
+				"%47 = load ptr, ptr %arrayidx.17.i, align 8, !dbg !1706, !tbaa !1179",
+				"%cmp281.17.i = icmp eq ptr %47, null, !dbg !1710",
+				"br i1 %cmp281.17.i, label %if.then282.i, label %for.inc.17.i, !dbg !1711"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 222,
+			"name": "for.inc.17.i",
+			"debug": [
+				{
+					"line": 286, "columns": [13, 38]
+				}
+			],
+			"successors": [201, 223],
+			"ir": [
+				"%arrayidx.18.i = getelementptr ptr, ptr %27, i64 18, !dbg !1706",
+				"%48 = load ptr, ptr %arrayidx.18.i, align 8, !dbg !1706, !tbaa !1179",
+				"%cmp281.18.i = icmp eq ptr %48, null, !dbg !1710",
+				"br i1 %cmp281.18.i, label %if.then282.i, label %for.inc.18.i, !dbg !1711"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 223,
+			"name": "for.inc.18.i",
+			"debug": [
+				{
+					"line": 286, "columns": [13, 38]
+				}
+			],
+			"successors": [201, 224],
+			"ir": [
+				"%arrayidx.19.i = getelementptr ptr, ptr %27, i64 19, !dbg !1706",
+				"%49 = load ptr, ptr %arrayidx.19.i, align 8, !dbg !1706, !tbaa !1179",
+				"%cmp281.19.i = icmp eq ptr %49, null, !dbg !1710",
+				"br i1 %cmp281.19.i, label %if.then282.i, label %for.inc.19.i, !dbg !1711"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 224,
+			"name": "for.inc.19.i",
+			"debug": [
+				{
+					"line": 286, "columns": [13, 38]
+				}
+			],
+			"successors": [201, 225],
+			"ir": [
+				"%arrayidx.20.i = getelementptr ptr, ptr %27, i64 20, !dbg !1706",
+				"%50 = load ptr, ptr %arrayidx.20.i, align 8, !dbg !1706, !tbaa !1179",
+				"%cmp281.20.i = icmp eq ptr %50, null, !dbg !1710",
+				"br i1 %cmp281.20.i, label %if.then282.i, label %for.inc.20.i, !dbg !1711"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 225,
+			"name": "for.inc.20.i",
+			"debug": [
+				{
+					"line": 286, "columns": [13, 38]
+				}
+			],
+			"successors": [201, 226],
+			"ir": [
+				"%arrayidx.21.i = getelementptr ptr, ptr %27, i64 21, !dbg !1706",
+				"%51 = load ptr, ptr %arrayidx.21.i, align 8, !dbg !1706, !tbaa !1179",
+				"%cmp281.21.i = icmp eq ptr %51, null, !dbg !1710",
+				"br i1 %cmp281.21.i, label %if.then282.i, label %for.inc.21.i, !dbg !1711"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 226,
+			"name": "for.inc.21.i",
+			"debug": [
+				{
+					"line": 286, "columns": [13, 38]
+				}
+			],
+			"successors": [201, 227],
+			"ir": [
+				"%arrayidx.22.i = getelementptr ptr, ptr %27, i64 22, !dbg !1706",
+				"%52 = load ptr, ptr %arrayidx.22.i, align 8, !dbg !1706, !tbaa !1179",
+				"%cmp281.22.i = icmp eq ptr %52, null, !dbg !1710",
+				"br i1 %cmp281.22.i, label %if.then282.i, label %for.inc.22.i, !dbg !1711"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 227,
+			"name": "for.inc.22.i",
+			"debug": [
+				{
+					"line": 286, "columns": [13, 38]
+				}
+			],
+			"successors": [201, 228],
+			"ir": [
+				"%arrayidx.23.i = getelementptr ptr, ptr %27, i64 23, !dbg !1706",
+				"%53 = load ptr, ptr %arrayidx.23.i, align 8, !dbg !1706, !tbaa !1179",
+				"%cmp281.23.i = icmp eq ptr %53, null, !dbg !1710",
+				"br i1 %cmp281.23.i, label %if.then282.i, label %for.inc.23.i, !dbg !1711"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 228,
+			"name": "for.inc.23.i",
+			"debug": [
+				{
+					"line": 286, "columns": [13, 38]
+				}
+			],
+			"successors": [201, 229],
+			"ir": [
+				"%arrayidx.24.i = getelementptr ptr, ptr %27, i64 24, !dbg !1706",
+				"%54 = load ptr, ptr %arrayidx.24.i, align 8, !dbg !1706, !tbaa !1179",
+				"%cmp281.24.i = icmp eq ptr %54, null, !dbg !1710",
+				"br i1 %cmp281.24.i, label %if.then282.i, label %for.inc.24.i, !dbg !1711"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 229,
+			"name": "for.inc.24.i",
+			"debug": [
+				{
+					"line": 286, "columns": [13, 38]
+				}
+			],
+			"successors": [201, 230],
+			"ir": [
+				"%arrayidx.25.i = getelementptr ptr, ptr %27, i64 25, !dbg !1706",
+				"%55 = load ptr, ptr %arrayidx.25.i, align 8, !dbg !1706, !tbaa !1179",
+				"%cmp281.25.i = icmp eq ptr %55, null, !dbg !1710",
+				"br i1 %cmp281.25.i, label %if.then282.i, label %_opcode_get_nb_ops_impl.exit, !dbg !1711"
+			]
+		},
+		{
+			"function": "_opcode_get_nb_ops",
+			"id": 230,
+			"name": "_opcode_get_nb_ops_impl.exit",
+			"debug": [
+				{
+					"line": 633, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.27.i = phi ptr [ null, %entry ], [ null, %if.then1.i.i ], [ null, %if.end.i.i ], [ null, %if.then3.i ], [ null, %if.then1.i454.i ], [ null, %if.end.i453.i ], [ null, %if.then9.i ], [ null, %if.then1.i461.i ], [ null, %if.end.i460.i ], [ null, %if.then20.i ], [ null, %if.then1.i468.i ], [ null, %if.end.i467.i ], [ null, %if.then31.i ], [ null, %if.then1.i475.i ], [ null, %if.end.i474.i ], [ null, %if.then42.i ], [ null, %if.then1.i482.i ], [ null, %if.end.i481.i ], [ null, %if.then53.i ], [ null, %if.then1.i489.i ], [ null, %if.end.i488.i ], [ null, %if.then64.i ], [ null, %if.then1.i496.i ], [ null, %if.end.i495.i ], [ null, %if.then75.i ], [ null, %if.then1.i503.i ], [ null, %if.end.i502.i ], [ null, %if.then86.i ], [ null, %if.then1.i510.i ], [ null, %if.end.i509.i ], [ null, %if.then97.i ], [ null, %if.then1.i517.i ], [ null, %if.end.i516.i ], [ null, %if.then108.i ], [ null, %if.then1.i524.i ], [ null, %if.end.i523.i ], [ null, %if.then119.i ], [ null, %if.then1.i531.i ], [ null, %if.end.i530.i ], [ null, %if.then130.i ], [ null, %if.then1.i538.i ], [ null, %if.end.i537.i ], [ null, %if.then141.i ], [ null, %if.then1.i545.i ], [ null, %if.end.i544.i ], [ null, %if.then152.i ], [ null, %if.then1.i552.i ], [ null, %if.end.i551.i ], [ null, %if.then163.i ], [ null, %if.then1.i559.i ], [ null, %if.end.i558.i ], [ null, %if.then174.i ], [ null, %if.then1.i566.i ], [ null, %if.end.i565.i ], [ null, %if.then185.i ], [ null, %if.then1.i573.i ], [ null, %if.end.i572.i ], [ null, %if.then196.i ], [ null, %if.then1.i580.i ], [ null, %if.end.i579.i ], [ null, %if.then207.i ], [ null, %if.then1.i587.i ], [ null, %if.end.i586.i ], [ null, %if.then218.i ], [ null, %if.then1.i594.i ], [ null, %if.end.i593.i ], [ null, %if.then229.i ], [ null, %if.then1.i601.i ], [ null, %if.end.i600.i ], [ null, %if.then240.i ], [ null, %if.then1.i608.i ], [ null, %if.end.i607.i ], [ null, %if.then251.i ], [ null, %if.then1.i615.i ], [ null, %if.end.i614.i ], [ null, %if.then262.i ], [ null, %if.then1.i622.i ], [ null, %if.end.i621.i ], [ null, %if.then273.i ], [ null, %Py_DECREF.exit630.i ], [ %call.i, %for.inc.24.i ], !dbg !1127",
+				"ret ptr %retval.27.i, !dbg !1728"
+			]
+		},
+		{
+			"function": "_opcode_get_intrinsic1_descs",
+			"id": 231,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 308, "columns": [22]
+				},
+				{
+					"line": 309, "columns": [14, 9]
+				}
+			],
+			"successors": [248, 232],
+			"ir": [
+				"%call.i = tail call ptr @PyList_New(i64 noundef 12) #6, !dbg !1080",
+				"%cmp.i = icmp eq ptr %call.i, null, !dbg !1081",
+				"br i1 %cmp.i, label %_opcode_get_intrinsic1_descs_impl.exit, label %for.cond.preheader.i, !dbg !1083"
+			]
+		},
+		{
+			"function": "_opcode_get_intrinsic1_descs",
+			"id": 232,
+			"name": "for.cond.preheader.i",
+			"debug": [
+				{
+					"line": 313, "columns": [26]
+				},
+				{
+					"line": 314, "columns": [18, 13]
+				}
+			],
+			"successors": [233, 236],
+			"ir": [
+				"%0 = getelementptr i8, ptr %call.i, i64 24",
+				"%call2.i = tail call ptr @_PyCompile_GetUnaryIntrinsicName(i32 noundef 0) #6, !dbg !1085",
+				"%cmp3.not.i = icmp eq ptr %call2.i, null, !dbg !1087",
+				"br i1 %cmp3.not.i, label %if.then4.i, label %for.inc.i, !dbg !1089"
+			]
+		},
+		{
+			"function": "_opcode_get_intrinsic1_descs",
+			"id": 233,
+			"name": "if.then4.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [234, 248],
+			"ir": [
+				"%op.val.i.i = load i64, ptr %call.i, align 8, !dbg !1096, !tbaa !1098",
+				"%1 = and i64 %op.val.i.i, 2147483648, !dbg !1106",
+				"%cmp.i.not.i.i = icmp eq i64 %1, 0, !dbg !1106",
+				"br i1 %cmp.i.not.i.i, label %if.end.i.i, label %_opcode_get_intrinsic1_descs_impl.exit, !dbg !1107"
+			]
+		},
+		{
+			"function": "_opcode_get_intrinsic1_descs",
+			"id": 234,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [235, 248],
+			"ir": [
+				"%dec.i.i = add i64 %op.val.i.i, -1, !dbg !1108",
+				"store i64 %dec.i.i, ptr %call.i, align 8, !dbg !1108, !tbaa !1098",
+				"%cmp.i.i = icmp eq i64 %dec.i.i, 0, !dbg !1110",
+				"br i1 %cmp.i.i, label %if.then1.i.i, label %_opcode_get_intrinsic1_descs_impl.exit, !dbg !1111"
+			]
+		},
+		{
+			"function": "_opcode_get_intrinsic1_descs",
+			"id": 235,
+			"name": "if.then1.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [248],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i) #6, !dbg !1112",
+				"br label %_opcode_get_intrinsic1_descs_impl.exit, !dbg !1114"
+			]
+		},
+		{
+			"function": "_opcode_get_intrinsic1_descs",
+			"id": 236,
+			"name": "for.inc.i",
+			"debug": [
+				{
+					"line": 47, "columns": [26]
+				},
+				{
+					"line": 313, "columns": [26]
+				},
+				{
+					"line": 314, "columns": [18, 13]
+				},
+				{
+					"line": 318, "columns": [9]
+				}
+			],
+			"successors": [233, 237],
+			"ir": [
+				"%call.val.i = load ptr, ptr %0, align 8, !dbg !1115, !tbaa !1116",
+				"store ptr %call2.i, ptr %call.val.i, align 8, !dbg !1132, !tbaa !1133",
+				"%call2.1.i = tail call ptr @_PyCompile_GetUnaryIntrinsicName(i32 noundef 1) #6, !dbg !1085",
+				"%cmp3.not.1.i = icmp eq ptr %call2.1.i, null, !dbg !1087",
+				"br i1 %cmp3.not.1.i, label %if.then4.i, label %for.inc.1.i, !dbg !1089"
+			]
+		},
+		{
+			"function": "_opcode_get_intrinsic1_descs",
+			"id": 237,
+			"name": "for.inc.1.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 313, "columns": [26]
+				},
+				{
+					"line": 314, "columns": [18, 13]
+				},
+				{
+					"line": 318, "columns": [9]
+				}
+			],
+			"successors": [233, 238],
+			"ir": [
+				"%call.val.1.i = load ptr, ptr %0, align 8, !dbg !1115, !tbaa !1116",
+				"%arrayidx.i.1.i = getelementptr ptr, ptr %call.val.1.i, i64 1, !dbg !1134",
+				"store ptr %call2.1.i, ptr %arrayidx.i.1.i, align 8, !dbg !1132, !tbaa !1133",
+				"%call2.2.i = tail call ptr @_PyCompile_GetUnaryIntrinsicName(i32 noundef 2) #6, !dbg !1085",
+				"%cmp3.not.2.i = icmp eq ptr %call2.2.i, null, !dbg !1087",
+				"br i1 %cmp3.not.2.i, label %if.then4.i, label %for.inc.2.i, !dbg !1089"
+			]
+		},
+		{
+			"function": "_opcode_get_intrinsic1_descs",
+			"id": 238,
+			"name": "for.inc.2.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 313, "columns": [26]
+				},
+				{
+					"line": 314, "columns": [18, 13]
+				},
+				{
+					"line": 318, "columns": [9]
+				}
+			],
+			"successors": [233, 239],
+			"ir": [
+				"%call.val.2.i = load ptr, ptr %0, align 8, !dbg !1115, !tbaa !1116",
+				"%arrayidx.i.2.i = getelementptr ptr, ptr %call.val.2.i, i64 2, !dbg !1134",
+				"store ptr %call2.2.i, ptr %arrayidx.i.2.i, align 8, !dbg !1132, !tbaa !1133",
+				"%call2.3.i = tail call ptr @_PyCompile_GetUnaryIntrinsicName(i32 noundef 3) #6, !dbg !1085",
+				"%cmp3.not.3.i = icmp eq ptr %call2.3.i, null, !dbg !1087",
+				"br i1 %cmp3.not.3.i, label %if.then4.i, label %for.inc.3.i, !dbg !1089"
+			]
+		},
+		{
+			"function": "_opcode_get_intrinsic1_descs",
+			"id": 239,
+			"name": "for.inc.3.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 313, "columns": [26]
+				},
+				{
+					"line": 314, "columns": [18, 13]
+				},
+				{
+					"line": 318, "columns": [9]
+				}
+			],
+			"successors": [233, 240],
+			"ir": [
+				"%call.val.3.i = load ptr, ptr %0, align 8, !dbg !1115, !tbaa !1116",
+				"%arrayidx.i.3.i = getelementptr ptr, ptr %call.val.3.i, i64 3, !dbg !1134",
+				"store ptr %call2.3.i, ptr %arrayidx.i.3.i, align 8, !dbg !1132, !tbaa !1133",
+				"%call2.4.i = tail call ptr @_PyCompile_GetUnaryIntrinsicName(i32 noundef 4) #6, !dbg !1085",
+				"%cmp3.not.4.i = icmp eq ptr %call2.4.i, null, !dbg !1087",
+				"br i1 %cmp3.not.4.i, label %if.then4.i, label %for.inc.4.i, !dbg !1089"
+			]
+		},
+		{
+			"function": "_opcode_get_intrinsic1_descs",
+			"id": 240,
+			"name": "for.inc.4.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 313, "columns": [26]
+				},
+				{
+					"line": 314, "columns": [18, 13]
+				},
+				{
+					"line": 318, "columns": [9]
+				}
+			],
+			"successors": [233, 241],
+			"ir": [
+				"%call.val.4.i = load ptr, ptr %0, align 8, !dbg !1115, !tbaa !1116",
+				"%arrayidx.i.4.i = getelementptr ptr, ptr %call.val.4.i, i64 4, !dbg !1134",
+				"store ptr %call2.4.i, ptr %arrayidx.i.4.i, align 8, !dbg !1132, !tbaa !1133",
+				"%call2.5.i = tail call ptr @_PyCompile_GetUnaryIntrinsicName(i32 noundef 5) #6, !dbg !1085",
+				"%cmp3.not.5.i = icmp eq ptr %call2.5.i, null, !dbg !1087",
+				"br i1 %cmp3.not.5.i, label %if.then4.i, label %for.inc.5.i, !dbg !1089"
+			]
+		},
+		{
+			"function": "_opcode_get_intrinsic1_descs",
+			"id": 241,
+			"name": "for.inc.5.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 313, "columns": [26]
+				},
+				{
+					"line": 314, "columns": [18, 13]
+				},
+				{
+					"line": 318, "columns": [9]
+				}
+			],
+			"successors": [233, 242],
+			"ir": [
+				"%call.val.5.i = load ptr, ptr %0, align 8, !dbg !1115, !tbaa !1116",
+				"%arrayidx.i.5.i = getelementptr ptr, ptr %call.val.5.i, i64 5, !dbg !1134",
+				"store ptr %call2.5.i, ptr %arrayidx.i.5.i, align 8, !dbg !1132, !tbaa !1133",
+				"%call2.6.i = tail call ptr @_PyCompile_GetUnaryIntrinsicName(i32 noundef 6) #6, !dbg !1085",
+				"%cmp3.not.6.i = icmp eq ptr %call2.6.i, null, !dbg !1087",
+				"br i1 %cmp3.not.6.i, label %if.then4.i, label %for.inc.6.i, !dbg !1089"
+			]
+		},
+		{
+			"function": "_opcode_get_intrinsic1_descs",
+			"id": 242,
+			"name": "for.inc.6.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 313, "columns": [26]
+				},
+				{
+					"line": 314, "columns": [18, 13]
+				},
+				{
+					"line": 318, "columns": [9]
+				}
+			],
+			"successors": [233, 243],
+			"ir": [
+				"%call.val.6.i = load ptr, ptr %0, align 8, !dbg !1115, !tbaa !1116",
+				"%arrayidx.i.6.i = getelementptr ptr, ptr %call.val.6.i, i64 6, !dbg !1134",
+				"store ptr %call2.6.i, ptr %arrayidx.i.6.i, align 8, !dbg !1132, !tbaa !1133",
+				"%call2.7.i = tail call ptr @_PyCompile_GetUnaryIntrinsicName(i32 noundef 7) #6, !dbg !1085",
+				"%cmp3.not.7.i = icmp eq ptr %call2.7.i, null, !dbg !1087",
+				"br i1 %cmp3.not.7.i, label %if.then4.i, label %for.inc.7.i, !dbg !1089"
+			]
+		},
+		{
+			"function": "_opcode_get_intrinsic1_descs",
+			"id": 243,
+			"name": "for.inc.7.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 313, "columns": [26]
+				},
+				{
+					"line": 314, "columns": [18, 13]
+				},
+				{
+					"line": 318, "columns": [9]
+				}
+			],
+			"successors": [233, 244],
+			"ir": [
+				"%call.val.7.i = load ptr, ptr %0, align 8, !dbg !1115, !tbaa !1116",
+				"%arrayidx.i.7.i = getelementptr ptr, ptr %call.val.7.i, i64 7, !dbg !1134",
+				"store ptr %call2.7.i, ptr %arrayidx.i.7.i, align 8, !dbg !1132, !tbaa !1133",
+				"%call2.8.i = tail call ptr @_PyCompile_GetUnaryIntrinsicName(i32 noundef 8) #6, !dbg !1085",
+				"%cmp3.not.8.i = icmp eq ptr %call2.8.i, null, !dbg !1087",
+				"br i1 %cmp3.not.8.i, label %if.then4.i, label %for.inc.8.i, !dbg !1089"
+			]
+		},
+		{
+			"function": "_opcode_get_intrinsic1_descs",
+			"id": 244,
+			"name": "for.inc.8.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 313, "columns": [26]
+				},
+				{
+					"line": 314, "columns": [18, 13]
+				},
+				{
+					"line": 318, "columns": [9]
+				}
+			],
+			"successors": [233, 245],
+			"ir": [
+				"%call.val.8.i = load ptr, ptr %0, align 8, !dbg !1115, !tbaa !1116",
+				"%arrayidx.i.8.i = getelementptr ptr, ptr %call.val.8.i, i64 8, !dbg !1134",
+				"store ptr %call2.8.i, ptr %arrayidx.i.8.i, align 8, !dbg !1132, !tbaa !1133",
+				"%call2.9.i = tail call ptr @_PyCompile_GetUnaryIntrinsicName(i32 noundef 9) #6, !dbg !1085",
+				"%cmp3.not.9.i = icmp eq ptr %call2.9.i, null, !dbg !1087",
+				"br i1 %cmp3.not.9.i, label %if.then4.i, label %for.inc.9.i, !dbg !1089"
+			]
+		},
+		{
+			"function": "_opcode_get_intrinsic1_descs",
+			"id": 245,
+			"name": "for.inc.9.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 313, "columns": [26]
+				},
+				{
+					"line": 314, "columns": [18, 13]
+				},
+				{
+					"line": 318, "columns": [9]
+				}
+			],
+			"successors": [233, 246],
+			"ir": [
+				"%call.val.9.i = load ptr, ptr %0, align 8, !dbg !1115, !tbaa !1116",
+				"%arrayidx.i.9.i = getelementptr ptr, ptr %call.val.9.i, i64 9, !dbg !1134",
+				"store ptr %call2.9.i, ptr %arrayidx.i.9.i, align 8, !dbg !1132, !tbaa !1133",
+				"%call2.10.i = tail call ptr @_PyCompile_GetUnaryIntrinsicName(i32 noundef 10) #6, !dbg !1085",
+				"%cmp3.not.10.i = icmp eq ptr %call2.10.i, null, !dbg !1087",
+				"br i1 %cmp3.not.10.i, label %if.then4.i, label %for.inc.10.i, !dbg !1089"
+			]
+		},
+		{
+			"function": "_opcode_get_intrinsic1_descs",
+			"id": 246,
+			"name": "for.inc.10.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 313, "columns": [26]
+				},
+				{
+					"line": 314, "columns": [18, 13]
+				},
+				{
+					"line": 318, "columns": [9]
+				}
+			],
+			"successors": [233, 247],
+			"ir": [
+				"%call.val.10.i = load ptr, ptr %0, align 8, !dbg !1115, !tbaa !1116",
+				"%arrayidx.i.10.i = getelementptr ptr, ptr %call.val.10.i, i64 10, !dbg !1134",
+				"store ptr %call2.10.i, ptr %arrayidx.i.10.i, align 8, !dbg !1132, !tbaa !1133",
+				"%call2.11.i = tail call ptr @_PyCompile_GetUnaryIntrinsicName(i32 noundef 11) #6, !dbg !1085",
+				"%cmp3.not.11.i = icmp eq ptr %call2.11.i, null, !dbg !1087",
+				"br i1 %cmp3.not.11.i, label %if.then4.i, label %for.inc.11.i, !dbg !1089"
+			]
+		},
+		{
+			"function": "_opcode_get_intrinsic1_descs",
+			"id": 247,
+			"name": "for.inc.11.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 318, "columns": [9]
+				},
+				{
+					"line": 321, "columns": [1]
+				}
+			],
+			"successors": [248],
+			"ir": [
+				"%call.val.11.i = load ptr, ptr %0, align 8, !dbg !1115, !tbaa !1116",
+				"%arrayidx.i.11.i = getelementptr ptr, ptr %call.val.11.i, i64 11, !dbg !1134",
+				"store ptr %call2.11.i, ptr %arrayidx.i.11.i, align 8, !dbg !1132, !tbaa !1133",
+				"br label %_opcode_get_intrinsic1_descs_impl.exit, !dbg !1135"
+			]
+		},
+		{
+			"function": "_opcode_get_intrinsic1_descs",
+			"id": 248,
+			"name": "_opcode_get_intrinsic1_descs_impl.exit",
+			"debug": [
+				{
+					"line": 651, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.3.i = phi ptr [ null, %entry ], [ null, %if.then4.i ], [ null, %if.end.i.i ], [ null, %if.then1.i.i ], [ %call.i, %for.inc.11.i ], !dbg !1078",
+				"ret ptr %retval.3.i, !dbg !1136"
+			]
+		},
+		{
+			"function": "_opcode_get_intrinsic2_descs",
+			"id": 249,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 335, "columns": [22]
+				},
+				{
+					"line": 336, "columns": [14, 9]
+				}
+			],
+			"successors": [259, 250],
+			"ir": [
+				"%call.i = tail call ptr @PyList_New(i64 noundef 5) #6, !dbg !1080",
+				"%cmp.i = icmp eq ptr %call.i, null, !dbg !1081",
+				"br i1 %cmp.i, label %_opcode_get_intrinsic2_descs_impl.exit, label %for.cond.preheader.i, !dbg !1083"
+			]
+		},
+		{
+			"function": "_opcode_get_intrinsic2_descs",
+			"id": 250,
+			"name": "for.cond.preheader.i",
+			"debug": [
+				{
+					"line": 340, "columns": [26]
+				},
+				{
+					"line": 341, "columns": [18, 13]
+				}
+			],
+			"successors": [251, 254],
+			"ir": [
+				"%0 = getelementptr i8, ptr %call.i, i64 24",
+				"%call2.i = tail call ptr @_PyCompile_GetBinaryIntrinsicName(i32 noundef 0) #6, !dbg !1085",
+				"%cmp3.not.i = icmp eq ptr %call2.i, null, !dbg !1087",
+				"br i1 %cmp3.not.i, label %if.then4.i, label %for.inc.i, !dbg !1089"
+			]
+		},
+		{
+			"function": "_opcode_get_intrinsic2_descs",
+			"id": 251,
+			"name": "if.then4.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [252, 259],
+			"ir": [
+				"%op.val.i.i = load i64, ptr %call.i, align 8, !dbg !1096, !tbaa !1098",
+				"%1 = and i64 %op.val.i.i, 2147483648, !dbg !1106",
+				"%cmp.i.not.i.i = icmp eq i64 %1, 0, !dbg !1106",
+				"br i1 %cmp.i.not.i.i, label %if.end.i.i, label %_opcode_get_intrinsic2_descs_impl.exit, !dbg !1107"
+			]
+		},
+		{
+			"function": "_opcode_get_intrinsic2_descs",
+			"id": 252,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [253, 259],
+			"ir": [
+				"%dec.i.i = add i64 %op.val.i.i, -1, !dbg !1108",
+				"store i64 %dec.i.i, ptr %call.i, align 8, !dbg !1108, !tbaa !1098",
+				"%cmp.i.i = icmp eq i64 %dec.i.i, 0, !dbg !1110",
+				"br i1 %cmp.i.i, label %if.then1.i.i, label %_opcode_get_intrinsic2_descs_impl.exit, !dbg !1111"
+			]
+		},
+		{
+			"function": "_opcode_get_intrinsic2_descs",
+			"id": 253,
+			"name": "if.then1.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [259],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i) #6, !dbg !1112",
+				"br label %_opcode_get_intrinsic2_descs_impl.exit, !dbg !1114"
+			]
+		},
+		{
+			"function": "_opcode_get_intrinsic2_descs",
+			"id": 254,
+			"name": "for.inc.i",
+			"debug": [
+				{
+					"line": 47, "columns": [26]
+				},
+				{
+					"line": 340, "columns": [26]
+				},
+				{
+					"line": 341, "columns": [18, 13]
+				},
+				{
+					"line": 345, "columns": [9]
+				}
+			],
+			"successors": [251, 255],
+			"ir": [
+				"%call.val.i = load ptr, ptr %0, align 8, !dbg !1115, !tbaa !1116",
+				"store ptr %call2.i, ptr %call.val.i, align 8, !dbg !1132, !tbaa !1133",
+				"%call2.1.i = tail call ptr @_PyCompile_GetBinaryIntrinsicName(i32 noundef 1) #6, !dbg !1085",
+				"%cmp3.not.1.i = icmp eq ptr %call2.1.i, null, !dbg !1087",
+				"br i1 %cmp3.not.1.i, label %if.then4.i, label %for.inc.1.i, !dbg !1089"
+			]
+		},
+		{
+			"function": "_opcode_get_intrinsic2_descs",
+			"id": 255,
+			"name": "for.inc.1.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 340, "columns": [26]
+				},
+				{
+					"line": 341, "columns": [18, 13]
+				},
+				{
+					"line": 345, "columns": [9]
+				}
+			],
+			"successors": [251, 256],
+			"ir": [
+				"%call.val.1.i = load ptr, ptr %0, align 8, !dbg !1115, !tbaa !1116",
+				"%arrayidx.i.1.i = getelementptr ptr, ptr %call.val.1.i, i64 1, !dbg !1134",
+				"store ptr %call2.1.i, ptr %arrayidx.i.1.i, align 8, !dbg !1132, !tbaa !1133",
+				"%call2.2.i = tail call ptr @_PyCompile_GetBinaryIntrinsicName(i32 noundef 2) #6, !dbg !1085",
+				"%cmp3.not.2.i = icmp eq ptr %call2.2.i, null, !dbg !1087",
+				"br i1 %cmp3.not.2.i, label %if.then4.i, label %for.inc.2.i, !dbg !1089"
+			]
+		},
+		{
+			"function": "_opcode_get_intrinsic2_descs",
+			"id": 256,
+			"name": "for.inc.2.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 340, "columns": [26]
+				},
+				{
+					"line": 341, "columns": [18, 13]
+				},
+				{
+					"line": 345, "columns": [9]
+				}
+			],
+			"successors": [251, 257],
+			"ir": [
+				"%call.val.2.i = load ptr, ptr %0, align 8, !dbg !1115, !tbaa !1116",
+				"%arrayidx.i.2.i = getelementptr ptr, ptr %call.val.2.i, i64 2, !dbg !1134",
+				"store ptr %call2.2.i, ptr %arrayidx.i.2.i, align 8, !dbg !1132, !tbaa !1133",
+				"%call2.3.i = tail call ptr @_PyCompile_GetBinaryIntrinsicName(i32 noundef 3) #6, !dbg !1085",
+				"%cmp3.not.3.i = icmp eq ptr %call2.3.i, null, !dbg !1087",
+				"br i1 %cmp3.not.3.i, label %if.then4.i, label %for.inc.3.i, !dbg !1089"
+			]
+		},
+		{
+			"function": "_opcode_get_intrinsic2_descs",
+			"id": 257,
+			"name": "for.inc.3.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 340, "columns": [26]
+				},
+				{
+					"line": 341, "columns": [18, 13]
+				},
+				{
+					"line": 345, "columns": [9]
+				}
+			],
+			"successors": [251, 258],
+			"ir": [
+				"%call.val.3.i = load ptr, ptr %0, align 8, !dbg !1115, !tbaa !1116",
+				"%arrayidx.i.3.i = getelementptr ptr, ptr %call.val.3.i, i64 3, !dbg !1134",
+				"store ptr %call2.3.i, ptr %arrayidx.i.3.i, align 8, !dbg !1132, !tbaa !1133",
+				"%call2.4.i = tail call ptr @_PyCompile_GetBinaryIntrinsicName(i32 noundef 4) #6, !dbg !1085",
+				"%cmp3.not.4.i = icmp eq ptr %call2.4.i, null, !dbg !1087",
+				"br i1 %cmp3.not.4.i, label %if.then4.i, label %for.inc.4.i, !dbg !1089"
+			]
+		},
+		{
+			"function": "_opcode_get_intrinsic2_descs",
+			"id": 258,
+			"name": "for.inc.4.i",
+			"debug": [
+				{
+					"line": 47, "columns": [5, 26]
+				},
+				{
+					"line": 345, "columns": [9]
+				},
+				{
+					"line": 348, "columns": [1]
+				}
+			],
+			"successors": [259],
+			"ir": [
+				"%call.val.4.i = load ptr, ptr %0, align 8, !dbg !1115, !tbaa !1116",
+				"%arrayidx.i.4.i = getelementptr ptr, ptr %call.val.4.i, i64 4, !dbg !1134",
+				"store ptr %call2.4.i, ptr %arrayidx.i.4.i, align 8, !dbg !1132, !tbaa !1133",
+				"br label %_opcode_get_intrinsic2_descs_impl.exit, !dbg !1135"
+			]
+		},
+		{
+			"function": "_opcode_get_intrinsic2_descs",
+			"id": 259,
+			"name": "_opcode_get_intrinsic2_descs_impl.exit",
+			"debug": [
+				{
+					"line": 669, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.3.i = phi ptr [ null, %entry ], [ null, %if.then4.i ], [ null, %if.end.i.i ], [ null, %if.then1.i.i ], [ %call.i, %for.inc.4.i ], !dbg !1078",
+				"ret ptr %retval.3.i, !dbg !1136"
+			]
+		},
+		{
+			"function": "_opcode_get_executor",
+			"id": 260,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 713, "columns": [5, 15]
+				},
+				{
+					"line": 717, "columns": [12]
+				}
+			],
+			"successors": [262, 261],
+			"ir": [
+				"%argsbuf = alloca [2 x ptr], align 16",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %argsbuf) #6, !dbg !1065",
+				"%cmp = icmp eq ptr %kwnames, null, !dbg !1067",
+				"%0 = icmp eq i64 %nargs, 2, !dbg !1067",
+				"%or.cond15 = and i1 %0, %cmp, !dbg !1067",
+				"%cmp5 = icmp ne ptr %args, null, !dbg !1067",
+				"%or.cond16 = and i1 %cmp5, %or.cond15, !dbg !1067",
+				"br i1 %or.cond16, label %if.end, label %cond.end, !dbg !1067"
+			]
+		},
+		{
+			"function": "_opcode_get_executor",
+			"id": 261,
+			"name": "cond.end",
+			"debug": [
+				{
+					"line": 717, "columns": [12]
+				},
+				{
+					"line": 718, "columns": [10, 9]
+				}
+			],
+			"successors": [270, 262],
+			"ir": [
+				"%call = call ptr @_PyArg_UnpackKeywords(ptr noundef %args, i64 noundef %nargs, ptr noundef null, ptr noundef %kwnames, ptr noundef nonnull @_opcode_get_executor._parser, i32 noundef 2, i32 noundef 2, i32 noundef 0, ptr noundef nonnull %argsbuf) #6, !dbg !1067",
+				"%tobool.not = icmp eq ptr %call, null, !dbg !1068",
+				"br i1 %tobool.not, label %exit, label %if.end, !dbg !1070"
+			]
+		},
+		{
+			"function": "_opcode_get_executor",
+			"id": 262,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 721, "columns": [12]
+				},
+				{
+					"line": 722, "columns": [27, 14]
+				},
+				{
+					"line": 723, "columns": [16, 22]
+				}
+			],
+			"successors": [266, 263],
+			"ir": [
+				"%cond39 = phi ptr [ %call, %cond.end ], [ %args, %entry ]",
+				"%1 = load ptr, ptr %cond39, align 8, !dbg !1071, !tbaa !1072",
+				"%arrayidx6 = getelementptr ptr, ptr %cond39, i64 1, !dbg !1076",
+				"%2 = load ptr, ptr %arrayidx6, align 8, !dbg !1076, !tbaa !1072",
+				"%call7 = call i32 @PyLong_AsInt(ptr noundef %2) #6, !dbg !1077",
+				"%cmp8 = icmp eq i32 %call7, -1, !dbg !1078",
+				"br i1 %cmp8, label %land.lhs.true9, label %if.end.split, !dbg !1080"
+			]
+		},
+		{
+			"function": "_opcode_get_executor",
+			"id": 263,
+			"name": "if.end.split",
+			"debug": [
+				{
+					"line": 364, "columns": [10, 9]
+				},
+				{
+					"line": 365, "columns": [24]
+				}
+			],
+			"successors": [265, 264],
+			"ir": [
+				"%3 = getelementptr i8, ptr %1, i64 8, !dbg !1088",
+				"%code.val6.i = load ptr, ptr %3, align 8, !dbg !1088, !tbaa !1090",
+				"%cmp.i.not.i = icmp eq ptr %code.val6.i, @PyCode_Type, !dbg !1100",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %if.then.i, !dbg !1101"
+			]
+		},
+		{
+			"function": "_opcode_get_executor",
+			"id": 264,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 365, "columns": [22, 9]
+				},
+				{
+					"line": 367, "columns": [37]
+				},
+				{
+					"line": 368, "columns": [9]
+				}
+			],
+			"successors": [270],
+			"ir": [
+				"%4 = load ptr, ptr @PyExc_TypeError, align 8, !dbg !1102, !tbaa !1072",
+				"%tp_name.i = getelementptr inbounds %struct._typeobject, ptr %code.val6.i, i64 0, i32 1, !dbg !1104",
+				"%5 = load ptr, ptr %tp_name.i, align 8, !dbg !1104, !tbaa !1105",
+				"%call2.i = call ptr (ptr, ptr, ...) @PyErr_Format(ptr noundef %4, ptr noundef nonnull @.str.78, ptr noundef %5) #6, !dbg !1111",
+				"br label %exit, !dbg !1112"
+			]
+		},
+		{
+			"function": "_opcode_get_executor",
+			"id": 265,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 370, "columns": [24, 5]
+				}
+			],
+			"successors": [270],
+			"ir": [
+				"%call3.i = call ptr @PyUnstable_GetExecutor(ptr noundef nonnull %1, i32 noundef %call7) #6, !dbg !1113",
+				"br label %exit, !dbg !1114"
+			]
+		},
+		{
+			"function": "_opcode_get_executor",
+			"id": 266,
+			"name": "land.lhs.true9",
+			"debug": [
+				{
+					"line": 723, "columns": [25, 9]
+				}
+			],
+			"successors": [267, 270],
+			"ir": [
+				"%call10 = call ptr @PyErr_Occurred() #6, !dbg !1115",
+				"%tobool11.not = icmp eq ptr %call10, null, !dbg !1115",
+				"br i1 %tobool11.not, label %land.lhs.true9.split, label %exit, !dbg !1116"
+			]
+		},
+		{
+			"function": "_opcode_get_executor",
+			"id": 267,
+			"name": "land.lhs.true9.split",
+			"debug": [
+				{
+					"line": 364, "columns": [10, 9]
+				},
+				{
+					"line": 365, "columns": [24]
+				}
+			],
+			"successors": [269, 268],
+			"ir": [
+				"%6 = getelementptr i8, ptr %1, i64 8, !dbg !1119",
+				"%code.val6.i28 = load ptr, ptr %6, align 8, !dbg !1119, !tbaa !1090",
+				"%cmp.i.not.i29 = icmp eq ptr %code.val6.i28, @PyCode_Type, !dbg !1122",
+				"br i1 %cmp.i.not.i29, label %if.end.i34, label %if.then.i32, !dbg !1123"
+			]
+		},
+		{
+			"function": "_opcode_get_executor",
+			"id": 268,
+			"name": "if.then.i32",
+			"debug": [
+				{
+					"line": 365, "columns": [22, 9]
+				},
+				{
+					"line": 367, "columns": [37]
+				},
+				{
+					"line": 368, "columns": [9]
+				}
+			],
+			"successors": [270],
+			"ir": [
+				"%7 = load ptr, ptr @PyExc_TypeError, align 8, !dbg !1124, !tbaa !1072",
+				"%tp_name.i30 = getelementptr inbounds %struct._typeobject, ptr %code.val6.i28, i64 0, i32 1, !dbg !1125",
+				"%8 = load ptr, ptr %tp_name.i30, align 8, !dbg !1125, !tbaa !1105",
+				"%call2.i31 = call ptr (ptr, ptr, ...) @PyErr_Format(ptr noundef %7, ptr noundef nonnull @.str.78, ptr noundef %8) #6, !dbg !1126",
+				"br label %exit, !dbg !1127"
+			]
+		},
+		{
+			"function": "_opcode_get_executor",
+			"id": 269,
+			"name": "if.end.i34",
+			"debug": [
+				{
+					"line": 370, "columns": [24, 5]
+				}
+			],
+			"successors": [270],
+			"ir": [
+				"%call3.i33 = call ptr @PyUnstable_GetExecutor(ptr noundef nonnull %1, i32 noundef -1) #6, !dbg !1128",
+				"br label %exit, !dbg !1129"
+			]
+		},
+		{
+			"function": "_opcode_get_executor",
+			"id": 270,
+			"name": "exit",
+			"debug": [
+				{
+					"line": 728, "columns": [1]
+				},
+				{
+					"line": 729, "columns": [5]
+				},
+				{
+					"line": 730, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%return_value.0 = phi ptr [ null, %land.lhs.true9 ], [ null, %cond.end ], [ %call3.i, %if.end.i ], [ null, %if.then.i ], [ %call3.i33, %if.end.i34 ], [ null, %if.then.i32 ], !dbg !1064",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %argsbuf) #6, !dbg !1131",
+				"ret ptr %return_value.0, !dbg !1132"
+			]
+		}
+	]
+}

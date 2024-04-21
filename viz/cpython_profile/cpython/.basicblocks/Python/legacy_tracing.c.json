@@ -1,0 +1,4497 @@
+{
+	"blocks": [
+		{
+			"function": "_PyEval_SetOpcodeTrace",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 128, "columns": [49, 58]
+				},
+				{
+					"line": 129, "columns": [5, 27]
+				},
+				{
+					"line": 131, "columns": [9, 81]
+				}
+			],
+			"successors": [7, 1],
+			"ir": [
+				"%events = alloca i32, align 4",
+				"%f_frame = getelementptr inbounds %struct._frame, ptr %frame, i64 0, i32 2, !dbg !722",
+				"%0 = load ptr, ptr %f_frame, align 8, !dbg !722, !tbaa !723",
+				"%1 = load ptr, ptr %0, align 8, !dbg !730, !tbaa !731",
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %events) #5, !dbg !734",
+				"store i32 0, ptr %events, align 4, !dbg !735, !tbaa !736",
+				"%call = call i32 @_PyMonitoring_GetLocalEvents(ptr noundef %1, i32 noundef 7, ptr noundef nonnull %events) #5, !dbg !737",
+				"%cmp = icmp slt i32 %call, 0, !dbg !739",
+				"br i1 %cmp, label %cleanup, label %if.end, !dbg !740"
+			]
+		},
+		{
+			"function": "_PyEval_SetOpcodeTrace",
+			"id": 1,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 135, "columns": [9]
+				}
+			],
+			"successors": [2, 4],
+			"ir": [
+				"%2 = load i32, ptr %events, align 4, !dbg !741, !tbaa !736",
+				"%and = and i32 %2, 64, !dbg !741",
+				"%tobool2.not = icmp eq i32 %and, 0, !dbg !741",
+				"br i1 %enable, label %if.then1, label %if.else, !dbg !743"
+			]
+		},
+		{
+			"function": "_PyEval_SetOpcodeTrace",
+			"id": 2,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 136, "columns": [13]
+				}
+			],
+			"successors": [3, 7],
+			"ir": [
+				"br i1 %tobool2.not, label %if.end4, label %cleanup, !dbg !744"
+			]
+		},
+		{
+			"function": "_PyEval_SetOpcodeTrace",
+			"id": 3,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 139, "columns": [16]
+				},
+				{
+					"line": 140, "columns": [5]
+				}
+			],
+			"successors": [6],
+			"ir": [
+				"%or = or i32 %2, 64, !dbg !746",
+				"br label %if.end10, !dbg !747"
+			]
+		},
+		{
+			"function": "_PyEval_SetOpcodeTrace",
+			"id": 4,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 141, "columns": [13]
+				}
+			],
+			"successors": [7, 5],
+			"ir": [
+				"br i1 %tobool2.not, label %cleanup, label %if.end8, !dbg !748"
+			]
+		},
+		{
+			"function": "_PyEval_SetOpcodeTrace",
+			"id": 5,
+			"name": "if.end8",
+			"debug": [
+				{
+					"line": 144, "columns": [16]
+				}
+			],
+			"successors": [6],
+			"ir": [
+				"%and9 = and i32 %2, -65, !dbg !750",
+				"br label %if.end10"
+			]
+		},
+		{
+			"function": "_PyEval_SetOpcodeTrace",
+			"id": 6,
+			"name": "if.end10",
+			"debug": [
+				{
+					"line": 146, "columns": [12, 5]
+				}
+			],
+			"successors": [7],
+			"ir": [
+				"%storemerge = phi i32 [ %and9, %if.end8 ], [ %or, %if.end4 ], !dbg !741",
+				"store i32 %storemerge, ptr %events, align 4, !dbg !741, !tbaa !736",
+				"%call11 = call i32 @_PyMonitoring_SetLocalEvents(ptr noundef %1, i32 noundef 7, i32 noundef %storemerge) #5, !dbg !751",
+				"br label %cleanup, !dbg !752"
+			]
+		},
+		{
+			"function": "_PyEval_SetOpcodeTrace",
+			"id": 7,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 147, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ %call11, %if.end10 ], [ -1, %entry ], [ 0, %if.then1 ], [ 0, %if.else ], !dbg !721",
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %events) #5, !dbg !753",
+				"ret i32 %retval.0, !dbg !753"
+			]
+		},
+		{
+			"function": "_PyEval_SetProfile",
+			"id": 8,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 137, "columns": [12]
+				},
+				{
+					"line": 427, "columns": [9, 62]
+				}
+			],
+			"successors": [32, 9],
+			"ir": [
+				"%0 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6798",
+				"%1 = load ptr, ptr %0, align 8, !dbg !6798, !tbaa !6805",
+				"%call1 = tail call i32 (ptr, ptr, ptr, ...) @_PySys_Audit(ptr noundef %1, ptr noundef nonnull @.str.1, ptr noundef null) #5, !dbg !6809",
+				"%cmp = icmp slt i32 %call1, 0, !dbg !6811",
+				"br i1 %cmp, label %cleanup, label %if.end, !dbg !6812"
+			]
+		},
+		{
+			"function": "_PyEval_SetProfile",
+			"id": 9,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 431, "columns": [18, 26, 9]
+				}
+			],
+			"successors": [10, 24],
+			"ir": [
+				"%interp = getelementptr inbounds %struct._ts, ptr %tstate, i64 0, i32 2, !dbg !6813",
+				"%2 = load ptr, ptr %interp, align 8, !dbg !6813, !tbaa !6815",
+				"%sys_profile_initialized = getelementptr inbounds %struct._is, ptr %2, i64 0, i32 61, !dbg !6822",
+				"%3 = load i8, ptr %sys_profile_initialized, align 1, !dbg !6822, !tbaa !6823, !range !6881, !noundef !6803",
+				"%tobool.not = icmp eq i8 %3, 0, !dbg !6822",
+				"br i1 %tobool.not, label %if.then2, label %if.end33, !dbg !6882"
+			]
+		},
+		{
+			"function": "_PyEval_SetProfile",
+			"id": 10,
+			"name": "if.then2",
+			"debug": [
+				{
+					"line": 432, "columns": [49]
+				},
+				{
+					"line": 433, "columns": [13]
+				}
+			],
+			"successors": [11, 32],
+			"ir": [
+				"store i8 1, ptr %sys_profile_initialized, align 1, !dbg !6883, !tbaa !6823",
+				"%call5 = tail call fastcc i32 @set_callbacks(i32 noundef 6, ptr noundef nonnull @sys_profile_start, i32 noundef 0, i32 noundef 0, i32 noundef 1), !dbg !6885, !range !6887",
+				"%tobool6.not = icmp eq i32 %call5, 0, !dbg !6885",
+				"br i1 %tobool6.not, label %if.end8, label %cleanup, !dbg !6888"
+			]
+		},
+		{
+			"function": "_PyEval_SetProfile",
+			"id": 11,
+			"name": "if.end8",
+			"debug": [
+				{
+					"line": 389, "columns": [9]
+				},
+				{
+					"line": 390, "columns": [18, 9]
+				}
+			],
+			"successors": [32, 12],
+			"ir": [
+				"%call.i = tail call ptr @_PyObject_New(ptr noundef nonnull @_PyLegacyEventHandler_Type) #5, !dbg !6902",
+				"%cmp.i = icmp eq ptr %call.i, null, !dbg !6903",
+				"br i1 %cmp.i, label %cleanup, label %if.end.i, !dbg !6905"
+			]
+		},
+		{
+			"function": "_PyEval_SetProfile",
+			"id": 12,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 393, "columns": [15, 26]
+				},
+				{
+					"line": 394, "columns": [15, 21]
+				},
+				{
+					"line": 395, "columns": [5]
+				},
+				{
+					"line": 1037, "columns": [12, 9]
+				}
+			],
+			"successors": [16, 13],
+			"ir": [
+				"%vectorcall1.i = getelementptr inbounds %struct._PyLegacyEventHandler, ptr %call.i, i64 0, i32 1, !dbg !6906",
+				"store ptr @sys_profile_throw, ptr %vectorcall1.i, align 8, !dbg !6907, !tbaa !6908",
+				"%event.i = getelementptr inbounds %struct._PyLegacyEventHandler, ptr %call.i, i64 0, i32 2, !dbg !6910",
+				"store i32 0, ptr %event.i, align 8, !dbg !6911, !tbaa !6912",
+				"%call2.i = tail call ptr @_PyMonitoring_RegisterCallback(i32 noundef 6, i32 noundef 13, ptr noundef nonnull %call.i) #5, !dbg !6913",
+				"%cmp.not.i.i = icmp eq ptr %call2.i, null, !dbg !6919",
+				"br i1 %cmp.not.i.i, label %Py_XDECREF.exit.i, label %if.then.i.i, !dbg !6921"
+			]
+		},
+		{
+			"function": "_PyEval_SetProfile",
+			"id": 13,
+			"name": "if.then.i.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [14, 16],
+			"ir": [
+				"%op.val.i.i.i = load i64, ptr %call2.i, align 8, !dbg !6928, !tbaa !6930",
+				"%4 = and i64 %op.val.i.i.i, 2147483648, !dbg !6936",
+				"%cmp.i.not.i.i.i = icmp eq i64 %4, 0, !dbg !6936",
+				"br i1 %cmp.i.not.i.i.i, label %if.end.i.i.i, label %Py_XDECREF.exit.i, !dbg !6937"
+			]
+		},
+		{
+			"function": "_PyEval_SetProfile",
+			"id": 14,
+			"name": "if.end.i.i.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [15, 16],
+			"ir": [
+				"%dec.i.i.i = add i64 %op.val.i.i.i, -1, !dbg !6938",
+				"store i64 %dec.i.i.i, ptr %call2.i, align 8, !dbg !6938, !tbaa !6930",
+				"%cmp.i.i.i = icmp eq i64 %dec.i.i.i, 0, !dbg !6940",
+				"br i1 %cmp.i.i.i, label %if.then1.i.i.i, label %Py_XDECREF.exit.i, !dbg !6941"
+			]
+		},
+		{
+			"function": "_PyEval_SetProfile",
+			"id": 15,
+			"name": "if.then1.i.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [16],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call2.i) #5, !dbg !6942",
+				"br label %Py_XDECREF.exit.i, !dbg !6944"
+			]
+		},
+		{
+			"function": "_PyEval_SetProfile",
+			"id": 16,
+			"name": "Py_XDECREF.exit.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [17, 19],
+			"ir": [
+				"%op.val.i.i = load i64, ptr %call.i, align 8, !dbg !6947, !tbaa !6930",
+				"%5 = and i64 %op.val.i.i, 2147483648, !dbg !6950",
+				"%cmp.i.not.i.i = icmp eq i64 %5, 0, !dbg !6950",
+				"br i1 %cmp.i.not.i.i, label %if.end.i.i, label %if.end12, !dbg !6951"
+			]
+		},
+		{
+			"function": "_PyEval_SetProfile",
+			"id": 17,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [18, 19],
+			"ir": [
+				"%dec.i.i = add i64 %op.val.i.i, -1, !dbg !6952",
+				"store i64 %dec.i.i, ptr %call.i, align 8, !dbg !6952, !tbaa !6930",
+				"%cmp.i.i = icmp eq i64 %dec.i.i, 0, !dbg !6953",
+				"br i1 %cmp.i.i, label %if.then1.i.i, label %if.end12, !dbg !6954"
+			]
+		},
+		{
+			"function": "_PyEval_SetProfile",
+			"id": 18,
+			"name": "if.then1.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [19],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i) #5, !dbg !6955",
+				"br label %if.end12, !dbg !6956"
+			]
+		},
+		{
+			"function": "_PyEval_SetProfile",
+			"id": 19,
+			"name": "if.end12",
+			"debug": [
+				{
+					"line": 443, "columns": [13]
+				}
+			],
+			"successors": [20, 32],
+			"ir": [
+				"%call13 = tail call fastcc i32 @set_callbacks(i32 noundef 6, ptr noundef nonnull @sys_profile_return, i32 noundef 3, i32 noundef 2, i32 noundef 3), !dbg !6957, !range !6887",
+				"%tobool14.not = icmp eq i32 %call13, 0, !dbg !6957",
+				"br i1 %tobool14.not, label %if.end16, label %cleanup, !dbg !6959"
+			]
+		},
+		{
+			"function": "_PyEval_SetProfile",
+			"id": 20,
+			"name": "if.end16",
+			"debug": [
+				{
+					"line": 448, "columns": [13]
+				}
+			],
+			"successors": [21, 32],
+			"ir": [
+				"%call17 = tail call fastcc i32 @set_callbacks(i32 noundef 6, ptr noundef nonnull @sys_profile_unwind, i32 noundef 3, i32 noundef 12, i32 noundef -1), !dbg !6960, !range !6887",
+				"%tobool18.not = icmp eq i32 %call17, 0, !dbg !6960",
+				"br i1 %tobool18.not, label %if.end20, label %cleanup, !dbg !6962"
+			]
+		},
+		{
+			"function": "_PyEval_SetProfile",
+			"id": 21,
+			"name": "if.end20",
+			"debug": [
+				{
+					"line": 453, "columns": [13]
+				}
+			],
+			"successors": [22, 32],
+			"ir": [
+				"%call21 = tail call fastcc i32 @set_callbacks(i32 noundef 6, ptr noundef nonnull @sys_profile_call_or_return, i32 noundef 4, i32 noundef 4, i32 noundef -1), !dbg !6963, !range !6887",
+				"%tobool22.not = icmp eq i32 %call21, 0, !dbg !6963",
+				"br i1 %tobool22.not, label %if.end24, label %cleanup, !dbg !6965"
+			]
+		},
+		{
+			"function": "_PyEval_SetProfile",
+			"id": 22,
+			"name": "if.end24",
+			"debug": [
+				{
+					"line": 458, "columns": [13]
+				}
+			],
+			"successors": [23, 32],
+			"ir": [
+				"%call25 = tail call fastcc i32 @set_callbacks(i32 noundef 6, ptr noundef nonnull @sys_profile_call_or_return, i32 noundef 6, i32 noundef 15, i32 noundef -1), !dbg !6966, !range !6887",
+				"%tobool26.not = icmp eq i32 %call25, 0, !dbg !6966",
+				"br i1 %tobool26.not, label %if.end28, label %cleanup, !dbg !6968"
+			]
+		},
+		{
+			"function": "_PyEval_SetProfile",
+			"id": 23,
+			"name": "if.end28",
+			"debug": [
+				{
+					"line": 463, "columns": [13]
+				}
+			],
+			"successors": [24, 32],
+			"ir": [
+				"%call29 = tail call fastcc i32 @set_callbacks(i32 noundef 6, ptr noundef nonnull @sys_profile_call_or_return, i32 noundef 5, i32 noundef 16, i32 noundef -1), !dbg !6969, !range !6887",
+				"%tobool30.not = icmp eq i32 %call29, 0, !dbg !6969",
+				"br i1 %tobool30.not, label %if.end33, label %cleanup, !dbg !6971"
+			]
+		},
+		{
+			"function": "_PyEval_SetProfile",
+			"id": 24,
+			"name": "if.end33",
+			"debug": [
+				{
+					"line": 470, "columns": [23, 43, 57, 32]
+				},
+				{
+					"line": 471, "columns": [27]
+				},
+				{
+					"line": 472, "columns": [40]
+				},
+				{
+					"line": 1027, "columns": [12, 9]
+				}
+			],
+			"successors": [27, 25],
+			"ir": [
+				"%cmp34 = icmp ne ptr %func, null, !dbg !6972",
+				"%conv = zext i1 %cmp34 to i64, !dbg !6972",
+				"%c_profilefunc = getelementptr inbounds %struct._ts, ptr %tstate, i64 0, i32 14, !dbg !6973",
+				"%6 = load ptr, ptr %c_profilefunc, align 8, !dbg !6973, !tbaa !6974",
+				"%cmp35 = icmp ne ptr %6, null, !dbg !6975",
+				"%conv36.neg = sext i1 %cmp35 to i64, !dbg !6975",
+				"%sub = add nsw i64 %conv36.neg, %conv, !dbg !6976",
+				"store ptr %func, ptr %c_profilefunc, align 8, !dbg !6977, !tbaa !6974",
+				"%c_profileobj = getelementptr inbounds %struct._ts, ptr %tstate, i64 0, i32 16, !dbg !6978",
+				"%7 = load ptr, ptr %c_profileobj, align 8, !dbg !6978, !tbaa !6979",
+				"%cmp.not.i.i56 = icmp eq ptr %arg, null, !dbg !6990",
+				"br i1 %cmp.not.i.i56, label %_Py_XNewRef.exit, label %if.then.i.i58, !dbg !6992"
+			]
+		},
+		{
+			"function": "_PyEval_SetProfile",
+			"id": 25,
+			"name": "if.then.i.i58",
+			"debug": [
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [27, 26],
+			"ir": [
+				"%8 = load i32, ptr %arg, align 8, !dbg !7001, !tbaa !6930",
+				"%add.i.i.i = add i32 %8, 1, !dbg !7002",
+				"%cmp.i.i.i57 = icmp eq i32 %add.i.i.i, 0, !dbg !7003",
+				"br i1 %cmp.i.i.i57, label %_Py_XNewRef.exit, label %if.end.i.i.i59, !dbg !7005"
+			]
+		},
+		{
+			"function": "_PyEval_SetProfile",
+			"id": 26,
+			"name": "if.end.i.i.i59",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [27],
+			"ir": [
+				"store i32 %add.i.i.i, ptr %arg, align 8, !dbg !7006, !tbaa !6930",
+				"br label %_Py_XNewRef.exit, !dbg !7007"
+			]
+		},
+		{
+			"function": "_PyEval_SetProfile",
+			"id": 27,
+			"name": "_Py_XNewRef.exit",
+			"debug": [
+				{
+					"line": 473, "columns": [26]
+				},
+				{
+					"line": 1037, "columns": [12, 9]
+				}
+			],
+			"successors": [31, 28],
+			"ir": [
+				"store ptr %arg, ptr %c_profileobj, align 8, !dbg !7008, !tbaa !6979",
+				"%cmp.not.i = icmp eq ptr %7, null, !dbg !7011",
+				"br i1 %cmp.not.i, label %Py_XDECREF.exit, label %if.then.i, !dbg !7012"
+			]
+		},
+		{
+			"function": "_PyEval_SetProfile",
+			"id": 28,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [29, 31],
+			"ir": [
+				"%op.val.i.i60 = load i64, ptr %7, align 8, !dbg !7015, !tbaa !6930",
+				"%9 = and i64 %op.val.i.i60, 2147483648, !dbg !7018",
+				"%cmp.i.not.i.i61 = icmp eq i64 %9, 0, !dbg !7018",
+				"br i1 %cmp.i.not.i.i61, label %if.end.i.i64, label %Py_XDECREF.exit, !dbg !7019"
+			]
+		},
+		{
+			"function": "_PyEval_SetProfile",
+			"id": 29,
+			"name": "if.end.i.i64",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [30, 31],
+			"ir": [
+				"%dec.i.i62 = add i64 %op.val.i.i60, -1, !dbg !7020",
+				"store i64 %dec.i.i62, ptr %7, align 8, !dbg !7020, !tbaa !6930",
+				"%cmp.i.i63 = icmp eq i64 %dec.i.i62, 0, !dbg !7021",
+				"br i1 %cmp.i.i63, label %if.then1.i.i65, label %Py_XDECREF.exit, !dbg !7022"
+			]
+		},
+		{
+			"function": "_PyEval_SetProfile",
+			"id": 30,
+			"name": "if.then1.i.i65",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [31],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %7) #5, !dbg !7023",
+				"br label %Py_XDECREF.exit, !dbg !7024"
+			]
+		},
+		{
+			"function": "_PyEval_SetProfile",
+			"id": 31,
+			"name": "Py_XDECREF.exit",
+			"debug": [
+				{
+					"line": 475, "columns": [13, 21, 43]
+				},
+				{
+					"line": 479, "columns": [9]
+				},
+				{
+					"line": 486, "columns": [12]
+				}
+			],
+			"successors": [32],
+			"ir": [
+				"%10 = load ptr, ptr %interp, align 8, !dbg !7025, !tbaa !6815",
+				"%sys_profiling_threads = getelementptr inbounds %struct._is, ptr %10, i64 0, i32 63, !dbg !7026",
+				"%11 = load i64, ptr %sys_profiling_threads, align 8, !dbg !7027, !tbaa !7028",
+				"%add = add i64 %sub, %11, !dbg !7027",
+				"store i64 %add, ptr %sys_profiling_threads, align 8, !dbg !7027, !tbaa !7028",
+				"%tobool44.not = icmp eq i64 %add, 0, !dbg !7029",
+				"%spec.store.select = select i1 %tobool44.not, i32 0, i32 12319, !dbg !7031",
+				"%call47 = tail call i32 @_PyMonitoring_SetEvents(i32 noundef 6, i32 noundef %spec.store.select) #5, !dbg !7032",
+				"br label %cleanup"
+			]
+		},
+		{
+			"function": "_PyEval_SetProfile",
+			"id": 32,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 487, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ %call47, %Py_XDECREF.exit ], [ -1, %entry ], [ -1, %if.then2 ], [ -1, %if.end12 ], [ -1, %if.end16 ], [ -1, %if.end20 ], [ -1, %if.end24 ], [ -1, %if.end28 ], [ -1, %if.end8 ], !dbg !6797",
+				"ret i32 %retval.0, !dbg !7033"
+			]
+		},
+		{
+			"function": "set_callbacks",
+			"id": 33,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 389, "columns": [9]
+				},
+				{
+					"line": 390, "columns": [18, 9]
+				}
+			],
+			"successors": [46, 34],
+			"ir": [
+				"%call = tail call ptr @_PyObject_New(ptr noundef nonnull @_PyLegacyEventHandler_Type) #5, !dbg !680",
+				"%cmp = icmp eq ptr %call, null, !dbg !681",
+				"br i1 %cmp, label %cleanup, label %if.end, !dbg !683"
+			]
+		},
+		{
+			"function": "set_callbacks",
+			"id": 34,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 393, "columns": [15, 26]
+				},
+				{
+					"line": 394, "columns": [15, 21]
+				},
+				{
+					"line": 395, "columns": [5]
+				},
+				{
+					"line": 1037, "columns": [12, 9]
+				}
+			],
+			"successors": [38, 35],
+			"ir": [
+				"%vectorcall1 = getelementptr inbounds %struct._PyLegacyEventHandler, ptr %call, i64 0, i32 1, !dbg !684",
+				"store ptr %vectorcall, ptr %vectorcall1, align 8, !dbg !685, !tbaa !686",
+				"%event = getelementptr inbounds %struct._PyLegacyEventHandler, ptr %call, i64 0, i32 2, !dbg !693",
+				"store i32 %legacy_event, ptr %event, align 8, !dbg !694, !tbaa !695",
+				"%call2 = tail call ptr @_PyMonitoring_RegisterCallback(i32 noundef %tool, i32 noundef %event1, ptr noundef nonnull %call) #5, !dbg !696",
+				"%cmp.not.i = icmp eq ptr %call2, null, !dbg !702",
+				"br i1 %cmp.not.i, label %Py_XDECREF.exit, label %if.then.i, !dbg !704"
+			]
+		},
+		{
+			"function": "set_callbacks",
+			"id": 35,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [36, 38],
+			"ir": [
+				"%op.val.i.i = load i64, ptr %call2, align 8, !dbg !711, !tbaa !713",
+				"%0 = and i64 %op.val.i.i, 2147483648, !dbg !719",
+				"%cmp.i.not.i.i = icmp eq i64 %0, 0, !dbg !719",
+				"br i1 %cmp.i.not.i.i, label %if.end.i.i, label %Py_XDECREF.exit, !dbg !720"
+			]
+		},
+		{
+			"function": "set_callbacks",
+			"id": 36,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [37, 38],
+			"ir": [
+				"%dec.i.i = add i64 %op.val.i.i, -1, !dbg !721",
+				"store i64 %dec.i.i, ptr %call2, align 8, !dbg !721, !tbaa !713",
+				"%cmp.i.i = icmp eq i64 %dec.i.i, 0, !dbg !723",
+				"br i1 %cmp.i.i, label %if.then1.i.i, label %Py_XDECREF.exit, !dbg !724"
+			]
+		},
+		{
+			"function": "set_callbacks",
+			"id": 37,
+			"name": "if.then1.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [38],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call2) #5, !dbg !725",
+				"br label %Py_XDECREF.exit, !dbg !727"
+			]
+		},
+		{
+			"function": "set_callbacks",
+			"id": 38,
+			"name": "Py_XDECREF.exit",
+			"debug": [
+				{
+					"line": 396, "columns": [16, 9]
+				}
+			],
+			"successors": [39, 43],
+			"ir": [
+				"%cmp3 = icmp sgt i32 %event2, -1, !dbg !728",
+				"br i1 %cmp3, label %if.then4, label %if.end6, !dbg !730"
+			]
+		},
+		{
+			"function": "set_callbacks",
+			"id": 39,
+			"name": "if.then4",
+			"debug": [
+				{
+					"line": 397, "columns": [9]
+				},
+				{
+					"line": 1037, "columns": [12, 9]
+				}
+			],
+			"successors": [43, 40],
+			"ir": [
+				"%call5 = tail call ptr @_PyMonitoring_RegisterCallback(i32 noundef %tool, i32 noundef %event2, ptr noundef nonnull %call) #5, !dbg !731",
+				"%cmp.not.i15 = icmp eq ptr %call5, null, !dbg !735",
+				"br i1 %cmp.not.i15, label %if.end6, label %if.then.i18, !dbg !736"
+			]
+		},
+		{
+			"function": "set_callbacks",
+			"id": 40,
+			"name": "if.then.i18",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [41, 43],
+			"ir": [
+				"%op.val.i.i16 = load i64, ptr %call5, align 8, !dbg !739, !tbaa !713",
+				"%1 = and i64 %op.val.i.i16, 2147483648, !dbg !742",
+				"%cmp.i.not.i.i17 = icmp eq i64 %1, 0, !dbg !742",
+				"br i1 %cmp.i.not.i.i17, label %if.end.i.i21, label %if.end6, !dbg !743"
+			]
+		},
+		{
+			"function": "set_callbacks",
+			"id": 41,
+			"name": "if.end.i.i21",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [42, 43],
+			"ir": [
+				"%dec.i.i19 = add i64 %op.val.i.i16, -1, !dbg !744",
+				"store i64 %dec.i.i19, ptr %call5, align 8, !dbg !744, !tbaa !713",
+				"%cmp.i.i20 = icmp eq i64 %dec.i.i19, 0, !dbg !745",
+				"br i1 %cmp.i.i20, label %if.then1.i.i22, label %if.end6, !dbg !746"
+			]
+		},
+		{
+			"function": "set_callbacks",
+			"id": 42,
+			"name": "if.then1.i.i22",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [43],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call5) #5, !dbg !747",
+				"br label %if.end6, !dbg !748"
+			]
+		},
+		{
+			"function": "set_callbacks",
+			"id": 43,
+			"name": "if.end6",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [44, 46],
+			"ir": [
+				"%op.val.i = load i64, ptr %call, align 8, !dbg !751, !tbaa !713",
+				"%2 = and i64 %op.val.i, 2147483648, !dbg !754",
+				"%cmp.i.not.i = icmp eq i64 %2, 0, !dbg !754",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %cleanup, !dbg !755"
+			]
+		},
+		{
+			"function": "set_callbacks",
+			"id": 44,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [45, 46],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !756",
+				"store i64 %dec.i, ptr %call, align 8, !dbg !756, !tbaa !713",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !757",
+				"br i1 %cmp.i, label %if.then1.i, label %cleanup, !dbg !758"
+			]
+		},
+		{
+			"function": "set_callbacks",
+			"id": 45,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [46],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call) #5, !dbg !759",
+				"br label %cleanup, !dbg !760"
+			]
+		},
+		{
+			"function": "set_callbacks",
+			"id": 46,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 401, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ -1, %entry ], [ 0, %if.end6 ], [ 0, %if.end.i ], [ 0, %if.then1.i ], !dbg !679",
+				"ret i32 %retval.0, !dbg !761"
+			]
+		},
+		{
+			"function": "sys_profile_start",
+			"id": 47,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 30, "columns": [17, 31, 9]
+				},
+				{
+					"line": 137, "columns": [12]
+				}
+			],
+			"successors": [56, 48],
+			"ir": [
+				"%0 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6806",
+				"%1 = load ptr, ptr %0, align 8, !dbg !6806, !tbaa !6813",
+				"%c_profilefunc.i = getelementptr inbounds %struct._ts, ptr %1, i64 0, i32 14, !dbg !6817",
+				"%2 = load ptr, ptr %c_profilefunc.i, align 8, !dbg !6817, !tbaa !6819",
+				"%cmp.i = icmp eq ptr %2, null, !dbg !6826",
+				"br i1 %cmp.i, label %call_profile_func.exit, label %if.end.i, !dbg !6827"
+			]
+		},
+		{
+			"function": "sys_profile_start",
+			"id": 48,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 33, "columns": [28]
+				},
+				{
+					"line": 34, "columns": [15, 9]
+				}
+			],
+			"successors": [49, 50],
+			"ir": [
+				"%call1.i = tail call ptr @PyEval_GetFrame() #5, !dbg !6828",
+				"%cmp2.i = icmp eq ptr %call1.i, null, !dbg !6829",
+				"br i1 %cmp2.i, label %if.then3.i, label %if.end4.i, !dbg !6831"
+			]
+		},
+		{
+			"function": "sys_profile_start",
+			"id": 49,
+			"name": "if.then3.i",
+			"debug": [
+				{
+					"line": 35, "columns": [25, 9]
+				},
+				{
+					"line": 37, "columns": [9]
+				}
+			],
+			"successors": [56],
+			"ir": [
+				"%3 = load ptr, ptr @PyExc_SystemError, align 8, !dbg !6832, !tbaa !6813",
+				"tail call void @PyErr_SetString(ptr noundef %3, ptr noundef nonnull @.str.3) #5, !dbg !6834",
+				"br label %call_profile_func.exit, !dbg !6835"
+			]
+		},
+		{
+			"function": "sys_profile_start",
+			"id": 50,
+			"name": "if.end4.i",
+			"debug": [
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [52, 51],
+			"ir": [
+				"%4 = load i32, ptr %call1.i, align 8, !dbg !6843, !tbaa !6844",
+				"%add.i.i = add i32 %4, 1, !dbg !6845",
+				"%cmp.i.i = icmp eq i32 %add.i.i, 0, !dbg !6846",
+				"br i1 %cmp.i.i, label %Py_INCREF.exit.i, label %if.end.i.i, !dbg !6848"
+			]
+		},
+		{
+			"function": "sys_profile_start",
+			"id": 51,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [52],
+			"ir": [
+				"store i32 %add.i.i, ptr %call1.i, align 8, !dbg !6849, !tbaa !6844",
+				"br label %Py_INCREF.exit.i, !dbg !6850"
+			]
+		},
+		{
+			"function": "sys_profile_start",
+			"id": 52,
+			"name": "Py_INCREF.exit.i",
+			"debug": [
+				{
+					"line": 40, "columns": [23, 45, 72, 15]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [53, 55],
+			"ir": [
+				"%5 = load ptr, ptr %c_profilefunc.i, align 8, !dbg !6851, !tbaa !6819",
+				"%c_profileobj.i = getelementptr inbounds %struct._ts, ptr %1, i64 0, i32 16, !dbg !6852",
+				"%6 = load ptr, ptr %c_profileobj.i, align 8, !dbg !6852, !tbaa !6853",
+				"%event.i = getelementptr inbounds %struct._PyLegacyEventHandler, ptr %self, i64 0, i32 2, !dbg !6854",
+				"%7 = load i32, ptr %event.i, align 8, !dbg !6854, !tbaa !6855",
+				"%call6.i = tail call i32 %5(ptr noundef %6, ptr noundef nonnull %call1.i, i32 noundef %7, ptr noundef nonnull @_Py_NoneStruct) #5, !dbg !6858",
+				"%op.val.i.i = load i64, ptr %call1.i, align 8, !dbg !6864, !tbaa !6844",
+				"%8 = and i64 %op.val.i.i, 2147483648, !dbg !6871",
+				"%cmp.i.not.i.i = icmp eq i64 %8, 0, !dbg !6871",
+				"br i1 %cmp.i.not.i.i, label %if.end.i17.i, label %Py_DECREF.exit.i, !dbg !6872"
+			]
+		},
+		{
+			"function": "sys_profile_start",
+			"id": 53,
+			"name": "if.end.i17.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [54, 55],
+			"ir": [
+				"%dec.i.i = add i64 %op.val.i.i, -1, !dbg !6873",
+				"store i64 %dec.i.i, ptr %call1.i, align 8, !dbg !6873, !tbaa !6844",
+				"%cmp.i16.i = icmp eq i64 %dec.i.i, 0, !dbg !6875",
+				"br i1 %cmp.i16.i, label %if.then1.i.i, label %Py_DECREF.exit.i, !dbg !6876"
+			]
+		},
+		{
+			"function": "sys_profile_start",
+			"id": 54,
+			"name": "if.then1.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [55],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call1.i) #5, !dbg !6877",
+				"br label %Py_DECREF.exit.i, !dbg !6879"
+			]
+		},
+		{
+			"function": "sys_profile_start",
+			"id": 55,
+			"name": "Py_DECREF.exit.i",
+			"debug": [
+				{
+					"line": 42, "columns": [9]
+				}
+			],
+			"successors": [56],
+			"ir": [
+				"%tobool.not.i = icmp eq i32 %call6.i, 0, !dbg !6880",
+				"%_Py_NoneStruct..i = select i1 %tobool.not.i, ptr @_Py_NoneStruct, ptr null, !dbg !6804",
+				"br label %call_profile_func.exit"
+			]
+		},
+		{
+			"function": "sys_profile_start",
+			"id": 56,
+			"name": "call_profile_func.exit",
+			"debug": [
+				{
+					"line": 55, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.2.i = phi ptr [ @_Py_NoneStruct, %entry ], [ null, %if.then3.i ], [ %_Py_NoneStruct..i, %Py_DECREF.exit.i ], !dbg !6804",
+				"ret ptr %retval.2.i, !dbg !6882"
+			]
+		},
+		{
+			"function": "sys_profile_throw",
+			"id": 57,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 30, "columns": [17, 31, 9]
+				},
+				{
+					"line": 137, "columns": [12]
+				}
+			],
+			"successors": [66, 58],
+			"ir": [
+				"%0 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6806",
+				"%1 = load ptr, ptr %0, align 8, !dbg !6806, !tbaa !6813",
+				"%c_profilefunc.i = getelementptr inbounds %struct._ts, ptr %1, i64 0, i32 14, !dbg !6817",
+				"%2 = load ptr, ptr %c_profilefunc.i, align 8, !dbg !6817, !tbaa !6819",
+				"%cmp.i = icmp eq ptr %2, null, !dbg !6826",
+				"br i1 %cmp.i, label %call_profile_func.exit, label %if.end.i, !dbg !6827"
+			]
+		},
+		{
+			"function": "sys_profile_throw",
+			"id": 58,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 33, "columns": [28]
+				},
+				{
+					"line": 34, "columns": [15, 9]
+				}
+			],
+			"successors": [59, 60],
+			"ir": [
+				"%call1.i = tail call ptr @PyEval_GetFrame() #5, !dbg !6828",
+				"%cmp2.i = icmp eq ptr %call1.i, null, !dbg !6829",
+				"br i1 %cmp2.i, label %if.then3.i, label %if.end4.i, !dbg !6831"
+			]
+		},
+		{
+			"function": "sys_profile_throw",
+			"id": 59,
+			"name": "if.then3.i",
+			"debug": [
+				{
+					"line": 35, "columns": [25, 9]
+				},
+				{
+					"line": 37, "columns": [9]
+				}
+			],
+			"successors": [66],
+			"ir": [
+				"%3 = load ptr, ptr @PyExc_SystemError, align 8, !dbg !6832, !tbaa !6813",
+				"tail call void @PyErr_SetString(ptr noundef %3, ptr noundef nonnull @.str.3) #5, !dbg !6834",
+				"br label %call_profile_func.exit, !dbg !6835"
+			]
+		},
+		{
+			"function": "sys_profile_throw",
+			"id": 60,
+			"name": "if.end4.i",
+			"debug": [
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [62, 61],
+			"ir": [
+				"%4 = load i32, ptr %call1.i, align 8, !dbg !6843, !tbaa !6844",
+				"%add.i.i = add i32 %4, 1, !dbg !6845",
+				"%cmp.i.i = icmp eq i32 %add.i.i, 0, !dbg !6846",
+				"br i1 %cmp.i.i, label %Py_INCREF.exit.i, label %if.end.i.i, !dbg !6848"
+			]
+		},
+		{
+			"function": "sys_profile_throw",
+			"id": 61,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [62],
+			"ir": [
+				"store i32 %add.i.i, ptr %call1.i, align 8, !dbg !6849, !tbaa !6844",
+				"br label %Py_INCREF.exit.i, !dbg !6850"
+			]
+		},
+		{
+			"function": "sys_profile_throw",
+			"id": 62,
+			"name": "Py_INCREF.exit.i",
+			"debug": [
+				{
+					"line": 40, "columns": [23, 45, 72, 15]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [63, 65],
+			"ir": [
+				"%5 = load ptr, ptr %c_profilefunc.i, align 8, !dbg !6851, !tbaa !6819",
+				"%c_profileobj.i = getelementptr inbounds %struct._ts, ptr %1, i64 0, i32 16, !dbg !6852",
+				"%6 = load ptr, ptr %c_profileobj.i, align 8, !dbg !6852, !tbaa !6853",
+				"%event.i = getelementptr inbounds %struct._PyLegacyEventHandler, ptr %self, i64 0, i32 2, !dbg !6854",
+				"%7 = load i32, ptr %event.i, align 8, !dbg !6854, !tbaa !6855",
+				"%call6.i = tail call i32 %5(ptr noundef %6, ptr noundef nonnull %call1.i, i32 noundef %7, ptr noundef nonnull @_Py_NoneStruct) #5, !dbg !6858",
+				"%op.val.i.i = load i64, ptr %call1.i, align 8, !dbg !6864, !tbaa !6844",
+				"%8 = and i64 %op.val.i.i, 2147483648, !dbg !6871",
+				"%cmp.i.not.i.i = icmp eq i64 %8, 0, !dbg !6871",
+				"br i1 %cmp.i.not.i.i, label %if.end.i17.i, label %Py_DECREF.exit.i, !dbg !6872"
+			]
+		},
+		{
+			"function": "sys_profile_throw",
+			"id": 63,
+			"name": "if.end.i17.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [64, 65],
+			"ir": [
+				"%dec.i.i = add i64 %op.val.i.i, -1, !dbg !6873",
+				"store i64 %dec.i.i, ptr %call1.i, align 8, !dbg !6873, !tbaa !6844",
+				"%cmp.i16.i = icmp eq i64 %dec.i.i, 0, !dbg !6875",
+				"br i1 %cmp.i16.i, label %if.then1.i.i, label %Py_DECREF.exit.i, !dbg !6876"
+			]
+		},
+		{
+			"function": "sys_profile_throw",
+			"id": 64,
+			"name": "if.then1.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [65],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call1.i) #5, !dbg !6877",
+				"br label %Py_DECREF.exit.i, !dbg !6879"
+			]
+		},
+		{
+			"function": "sys_profile_throw",
+			"id": 65,
+			"name": "Py_DECREF.exit.i",
+			"debug": [
+				{
+					"line": 42, "columns": [9]
+				}
+			],
+			"successors": [66],
+			"ir": [
+				"%tobool.not.i = icmp eq i32 %call6.i, 0, !dbg !6880",
+				"%_Py_NoneStruct..i = select i1 %tobool.not.i, ptr @_Py_NoneStruct, ptr null, !dbg !6804",
+				"br label %call_profile_func.exit"
+			]
+		},
+		{
+			"function": "sys_profile_throw",
+			"id": 66,
+			"name": "call_profile_func.exit",
+			"debug": [
+				{
+					"line": 65, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.2.i = phi ptr [ @_Py_NoneStruct, %entry ], [ null, %if.then3.i ], [ %_Py_NoneStruct..i, %Py_DECREF.exit.i ], !dbg !6804",
+				"ret ptr %retval.2.i, !dbg !6882"
+			]
+		},
+		{
+			"function": "sys_profile_return",
+			"id": 67,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 30, "columns": [17, 31, 9]
+				},
+				{
+					"line": 75, "columns": [36]
+				},
+				{
+					"line": 137, "columns": [12]
+				}
+			],
+			"successors": [76, 68],
+			"ir": [
+				"%arrayidx = getelementptr ptr, ptr %args, i64 2, !dbg !678",
+				"%0 = load ptr, ptr %arrayidx, align 8, !dbg !678, !tbaa !679",
+				"%1 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6811",
+				"%2 = load ptr, ptr %1, align 8, !dbg !6811, !tbaa !679",
+				"%c_profilefunc.i = getelementptr inbounds %struct._ts, ptr %2, i64 0, i32 14, !dbg !6818",
+				"%3 = load ptr, ptr %c_profilefunc.i, align 8, !dbg !6818, !tbaa !6820",
+				"%cmp.i = icmp eq ptr %3, null, !dbg !6827",
+				"br i1 %cmp.i, label %call_profile_func.exit, label %if.end.i, !dbg !6828"
+			]
+		},
+		{
+			"function": "sys_profile_return",
+			"id": 68,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 33, "columns": [28]
+				},
+				{
+					"line": 34, "columns": [15, 9]
+				}
+			],
+			"successors": [69, 70],
+			"ir": [
+				"%call1.i = tail call ptr @PyEval_GetFrame() #5, !dbg !6829",
+				"%cmp2.i = icmp eq ptr %call1.i, null, !dbg !6830",
+				"br i1 %cmp2.i, label %if.then3.i, label %if.end4.i, !dbg !6832"
+			]
+		},
+		{
+			"function": "sys_profile_return",
+			"id": 69,
+			"name": "if.then3.i",
+			"debug": [
+				{
+					"line": 35, "columns": [25, 9]
+				},
+				{
+					"line": 37, "columns": [9]
+				}
+			],
+			"successors": [76],
+			"ir": [
+				"%4 = load ptr, ptr @PyExc_SystemError, align 8, !dbg !6833, !tbaa !679",
+				"tail call void @PyErr_SetString(ptr noundef %4, ptr noundef nonnull @.str.3) #5, !dbg !6835",
+				"br label %call_profile_func.exit, !dbg !6836"
+			]
+		},
+		{
+			"function": "sys_profile_return",
+			"id": 70,
+			"name": "if.end4.i",
+			"debug": [
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [72, 71],
+			"ir": [
+				"%5 = load i32, ptr %call1.i, align 8, !dbg !6844, !tbaa !6845",
+				"%add.i.i = add i32 %5, 1, !dbg !6846",
+				"%cmp.i.i = icmp eq i32 %add.i.i, 0, !dbg !6847",
+				"br i1 %cmp.i.i, label %Py_INCREF.exit.i, label %if.end.i.i, !dbg !6849"
+			]
+		},
+		{
+			"function": "sys_profile_return",
+			"id": 71,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [72],
+			"ir": [
+				"store i32 %add.i.i, ptr %call1.i, align 8, !dbg !6850, !tbaa !6845",
+				"br label %Py_INCREF.exit.i, !dbg !6851"
+			]
+		},
+		{
+			"function": "sys_profile_return",
+			"id": 72,
+			"name": "Py_INCREF.exit.i",
+			"debug": [
+				{
+					"line": 40, "columns": [23, 45, 72, 15]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [73, 75],
+			"ir": [
+				"%6 = load ptr, ptr %c_profilefunc.i, align 8, !dbg !6852, !tbaa !6820",
+				"%c_profileobj.i = getelementptr inbounds %struct._ts, ptr %2, i64 0, i32 16, !dbg !6853",
+				"%7 = load ptr, ptr %c_profileobj.i, align 8, !dbg !6853, !tbaa !6854",
+				"%event.i = getelementptr inbounds %struct._PyLegacyEventHandler, ptr %self, i64 0, i32 2, !dbg !6855",
+				"%8 = load i32, ptr %event.i, align 8, !dbg !6855, !tbaa !6856",
+				"%call6.i = tail call i32 %6(ptr noundef %7, ptr noundef nonnull %call1.i, i32 noundef %8, ptr noundef %0) #5, !dbg !6859",
+				"%op.val.i.i = load i64, ptr %call1.i, align 8, !dbg !6865, !tbaa !6845",
+				"%9 = and i64 %op.val.i.i, 2147483648, !dbg !6872",
+				"%cmp.i.not.i.i = icmp eq i64 %9, 0, !dbg !6872",
+				"br i1 %cmp.i.not.i.i, label %if.end.i17.i, label %Py_DECREF.exit.i, !dbg !6873"
+			]
+		},
+		{
+			"function": "sys_profile_return",
+			"id": 73,
+			"name": "if.end.i17.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [74, 75],
+			"ir": [
+				"%dec.i.i = add i64 %op.val.i.i, -1, !dbg !6874",
+				"store i64 %dec.i.i, ptr %call1.i, align 8, !dbg !6874, !tbaa !6845",
+				"%cmp.i16.i = icmp eq i64 %dec.i.i, 0, !dbg !6876",
+				"br i1 %cmp.i16.i, label %if.then1.i.i, label %Py_DECREF.exit.i, !dbg !6877"
+			]
+		},
+		{
+			"function": "sys_profile_return",
+			"id": 74,
+			"name": "if.then1.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [75],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call1.i) #5, !dbg !6878",
+				"br label %Py_DECREF.exit.i, !dbg !6880"
+			]
+		},
+		{
+			"function": "sys_profile_return",
+			"id": 75,
+			"name": "Py_DECREF.exit.i",
+			"debug": [
+				{
+					"line": 42, "columns": [9]
+				}
+			],
+			"successors": [76],
+			"ir": [
+				"%tobool.not.i = icmp eq i32 %call6.i, 0, !dbg !6881",
+				"%_Py_NoneStruct..i = select i1 %tobool.not.i, ptr @_Py_NoneStruct, ptr null, !dbg !6809",
+				"br label %call_profile_func.exit"
+			]
+		},
+		{
+			"function": "sys_profile_return",
+			"id": 76,
+			"name": "call_profile_func.exit",
+			"debug": [
+				{
+					"line": 75, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.2.i = phi ptr [ @_Py_NoneStruct, %entry ], [ null, %if.then3.i ], [ %_Py_NoneStruct..i, %Py_DECREF.exit.i ], !dbg !6809",
+				"ret ptr %retval.2.i, !dbg !6883"
+			]
+		},
+		{
+			"function": "sys_profile_unwind",
+			"id": 77,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 30, "columns": [17, 31, 9]
+				},
+				{
+					"line": 137, "columns": [12]
+				}
+			],
+			"successors": [86, 78],
+			"ir": [
+				"%0 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6806",
+				"%1 = load ptr, ptr %0, align 8, !dbg !6806, !tbaa !6813",
+				"%c_profilefunc.i = getelementptr inbounds %struct._ts, ptr %1, i64 0, i32 14, !dbg !6817",
+				"%2 = load ptr, ptr %c_profilefunc.i, align 8, !dbg !6817, !tbaa !6819",
+				"%cmp.i = icmp eq ptr %2, null, !dbg !6826",
+				"br i1 %cmp.i, label %call_profile_func.exit, label %if.end.i, !dbg !6827"
+			]
+		},
+		{
+			"function": "sys_profile_unwind",
+			"id": 78,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 33, "columns": [28]
+				},
+				{
+					"line": 34, "columns": [15, 9]
+				}
+			],
+			"successors": [79, 80],
+			"ir": [
+				"%call1.i = tail call ptr @PyEval_GetFrame() #5, !dbg !6828",
+				"%cmp2.i = icmp eq ptr %call1.i, null, !dbg !6829",
+				"br i1 %cmp2.i, label %if.then3.i, label %if.end4.i, !dbg !6831"
+			]
+		},
+		{
+			"function": "sys_profile_unwind",
+			"id": 79,
+			"name": "if.then3.i",
+			"debug": [
+				{
+					"line": 35, "columns": [25, 9]
+				},
+				{
+					"line": 37, "columns": [9]
+				}
+			],
+			"successors": [86],
+			"ir": [
+				"%3 = load ptr, ptr @PyExc_SystemError, align 8, !dbg !6832, !tbaa !6813",
+				"tail call void @PyErr_SetString(ptr noundef %3, ptr noundef nonnull @.str.3) #5, !dbg !6834",
+				"br label %call_profile_func.exit, !dbg !6835"
+			]
+		},
+		{
+			"function": "sys_profile_unwind",
+			"id": 80,
+			"name": "if.end4.i",
+			"debug": [
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [82, 81],
+			"ir": [
+				"%4 = load i32, ptr %call1.i, align 8, !dbg !6843, !tbaa !6844",
+				"%add.i.i = add i32 %4, 1, !dbg !6845",
+				"%cmp.i.i = icmp eq i32 %add.i.i, 0, !dbg !6846",
+				"br i1 %cmp.i.i, label %Py_INCREF.exit.i, label %if.end.i.i, !dbg !6848"
+			]
+		},
+		{
+			"function": "sys_profile_unwind",
+			"id": 81,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [82],
+			"ir": [
+				"store i32 %add.i.i, ptr %call1.i, align 8, !dbg !6849, !tbaa !6844",
+				"br label %Py_INCREF.exit.i, !dbg !6850"
+			]
+		},
+		{
+			"function": "sys_profile_unwind",
+			"id": 82,
+			"name": "Py_INCREF.exit.i",
+			"debug": [
+				{
+					"line": 40, "columns": [23, 45, 72, 15]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [83, 85],
+			"ir": [
+				"%5 = load ptr, ptr %c_profilefunc.i, align 8, !dbg !6851, !tbaa !6819",
+				"%c_profileobj.i = getelementptr inbounds %struct._ts, ptr %1, i64 0, i32 16, !dbg !6852",
+				"%6 = load ptr, ptr %c_profileobj.i, align 8, !dbg !6852, !tbaa !6853",
+				"%event.i = getelementptr inbounds %struct._PyLegacyEventHandler, ptr %self, i64 0, i32 2, !dbg !6854",
+				"%7 = load i32, ptr %event.i, align 8, !dbg !6854, !tbaa !6855",
+				"%call6.i = tail call i32 %5(ptr noundef %6, ptr noundef nonnull %call1.i, i32 noundef %7, ptr noundef null) #5, !dbg !6858",
+				"%op.val.i.i = load i64, ptr %call1.i, align 8, !dbg !6864, !tbaa !6844",
+				"%8 = and i64 %op.val.i.i, 2147483648, !dbg !6871",
+				"%cmp.i.not.i.i = icmp eq i64 %8, 0, !dbg !6871",
+				"br i1 %cmp.i.not.i.i, label %if.end.i17.i, label %Py_DECREF.exit.i, !dbg !6872"
+			]
+		},
+		{
+			"function": "sys_profile_unwind",
+			"id": 83,
+			"name": "if.end.i17.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [84, 85],
+			"ir": [
+				"%dec.i.i = add i64 %op.val.i.i, -1, !dbg !6873",
+				"store i64 %dec.i.i, ptr %call1.i, align 8, !dbg !6873, !tbaa !6844",
+				"%cmp.i16.i = icmp eq i64 %dec.i.i, 0, !dbg !6875",
+				"br i1 %cmp.i16.i, label %if.then1.i.i, label %Py_DECREF.exit.i, !dbg !6876"
+			]
+		},
+		{
+			"function": "sys_profile_unwind",
+			"id": 84,
+			"name": "if.then1.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [85],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call1.i) #5, !dbg !6877",
+				"br label %Py_DECREF.exit.i, !dbg !6879"
+			]
+		},
+		{
+			"function": "sys_profile_unwind",
+			"id": 85,
+			"name": "Py_DECREF.exit.i",
+			"debug": [
+				{
+					"line": 42, "columns": [9]
+				}
+			],
+			"successors": [86],
+			"ir": [
+				"%tobool.not.i = icmp eq i32 %call6.i, 0, !dbg !6880",
+				"%_Py_NoneStruct..i = select i1 %tobool.not.i, ptr @_Py_NoneStruct, ptr null, !dbg !6804",
+				"br label %call_profile_func.exit"
+			]
+		},
+		{
+			"function": "sys_profile_unwind",
+			"id": 86,
+			"name": "call_profile_func.exit",
+			"debug": [
+				{
+					"line": 85, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.2.i = phi ptr [ @_Py_NoneStruct, %entry ], [ null, %if.then3.i ], [ %_Py_NoneStruct..i, %Py_DECREF.exit.i ], !dbg !6804",
+				"ret ptr %retval.2.i, !dbg !6882"
+			]
+		},
+		{
+			"function": "sys_profile_call_or_return",
+			"id": 87,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 95, "columns": [26]
+				},
+				{
+					"line": 96, "columns": [9]
+				},
+				{
+					"line": 365, "columns": [24]
+				},
+				{
+					"line": 538, "columns": [33]
+				}
+			],
+			"successors": [89, 88],
+			"ir": [
+				"%arrayidx = getelementptr ptr, ptr %args, i64 2, !dbg !684",
+				"%0 = load ptr, ptr %arrayidx, align 8, !dbg !684, !tbaa !685",
+				"%1 = getelementptr i8, ptr %0, i64 8, !dbg !689",
+				"%.val30 = load ptr, ptr %1, align 8, !dbg !689, !tbaa !691",
+				"%cmp.i.not.i31 = icmp eq ptr %.val30, @PyCFunction_Type, !dbg !707",
+				"br i1 %cmp.i.not.i31, label %if.then, label %PyObject_TypeCheck.exit, !dbg !708"
+			]
+		},
+		{
+			"function": "sys_profile_call_or_return",
+			"id": 88,
+			"name": "PyObject_TypeCheck.exit",
+			"debug": [
+				{
+					"line": 96, "columns": [9]
+				},
+				{
+					"line": 538, "columns": [36, 33]
+				}
+			],
+			"successors": [98, 89],
+			"ir": [
+				"%call2.i = tail call i32 @PyType_IsSubtype(ptr noundef %.val30, ptr noundef nonnull @PyCFunction_Type) #5, !dbg !709",
+				"%tobool3.i.not = icmp eq i32 %call2.i, 0, !dbg !708",
+				"br i1 %tobool3.i.not, label %if.end, label %if.then, !dbg !710"
+			]
+		},
+		{
+			"function": "sys_profile_call_or_return",
+			"id": 89,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 30, "columns": [17, 31, 9]
+				},
+				{
+					"line": 137, "columns": [12]
+				}
+			],
+			"successors": [113, 90],
+			"ir": [
+				"%2 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6840",
+				"%3 = load ptr, ptr %2, align 8, !dbg !6840, !tbaa !685",
+				"%c_profilefunc.i = getelementptr inbounds %struct._ts, ptr %3, i64 0, i32 14, !dbg !6847",
+				"%4 = load ptr, ptr %c_profilefunc.i, align 8, !dbg !6847, !tbaa !6849",
+				"%cmp.i32 = icmp eq ptr %4, null, !dbg !6856",
+				"br i1 %cmp.i32, label %cleanup17, label %if.end.i33, !dbg !6857"
+			]
+		},
+		{
+			"function": "sys_profile_call_or_return",
+			"id": 90,
+			"name": "if.end.i33",
+			"debug": [
+				{
+					"line": 33, "columns": [28]
+				},
+				{
+					"line": 34, "columns": [15, 9]
+				}
+			],
+			"successors": [91, 92],
+			"ir": [
+				"%call1.i = tail call ptr @PyEval_GetFrame() #5, !dbg !6858",
+				"%cmp2.i = icmp eq ptr %call1.i, null, !dbg !6859",
+				"br i1 %cmp2.i, label %if.then3.i, label %if.end4.i, !dbg !6861"
+			]
+		},
+		{
+			"function": "sys_profile_call_or_return",
+			"id": 91,
+			"name": "if.then3.i",
+			"debug": [
+				{
+					"line": 35, "columns": [25, 9]
+				},
+				{
+					"line": 37, "columns": [9]
+				}
+			],
+			"successors": [113],
+			"ir": [
+				"%5 = load ptr, ptr @PyExc_SystemError, align 8, !dbg !6862, !tbaa !685",
+				"tail call void @PyErr_SetString(ptr noundef %5, ptr noundef nonnull @.str.3) #5, !dbg !6864",
+				"br label %cleanup17, !dbg !6865"
+			]
+		},
+		{
+			"function": "sys_profile_call_or_return",
+			"id": 92,
+			"name": "if.end4.i",
+			"debug": [
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [94, 93],
+			"ir": [
+				"%6 = load i32, ptr %call1.i, align 8, !dbg !6873, !tbaa !6874",
+				"%add.i.i = add i32 %6, 1, !dbg !6875",
+				"%cmp.i.i = icmp eq i32 %add.i.i, 0, !dbg !6876",
+				"br i1 %cmp.i.i, label %Py_INCREF.exit.i, label %if.end.i.i, !dbg !6878"
+			]
+		},
+		{
+			"function": "sys_profile_call_or_return",
+			"id": 93,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [94],
+			"ir": [
+				"store i32 %add.i.i, ptr %call1.i, align 8, !dbg !6879, !tbaa !6874",
+				"br label %Py_INCREF.exit.i, !dbg !6880"
+			]
+		},
+		{
+			"function": "sys_profile_call_or_return",
+			"id": 94,
+			"name": "Py_INCREF.exit.i",
+			"debug": [
+				{
+					"line": 40, "columns": [23, 45, 72, 15]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [95, 97],
+			"ir": [
+				"%7 = load ptr, ptr %c_profilefunc.i, align 8, !dbg !6881, !tbaa !6849",
+				"%c_profileobj.i = getelementptr inbounds %struct._ts, ptr %3, i64 0, i32 16, !dbg !6882",
+				"%8 = load ptr, ptr %c_profileobj.i, align 8, !dbg !6882, !tbaa !6883",
+				"%event.i = getelementptr inbounds %struct._PyLegacyEventHandler, ptr %self, i64 0, i32 2, !dbg !6884",
+				"%9 = load i32, ptr %event.i, align 8, !dbg !6884, !tbaa !6885",
+				"%call6.i = tail call i32 %7(ptr noundef %8, ptr noundef nonnull %call1.i, i32 noundef %9, ptr noundef nonnull %0) #5, !dbg !6887",
+				"%op.val.i.i = load i64, ptr %call1.i, align 8, !dbg !6893, !tbaa !6874",
+				"%10 = and i64 %op.val.i.i, 2147483648, !dbg !6900",
+				"%cmp.i.not.i.i = icmp eq i64 %10, 0, !dbg !6900",
+				"br i1 %cmp.i.not.i.i, label %if.end.i17.i, label %Py_DECREF.exit.i, !dbg !6901"
+			]
+		},
+		{
+			"function": "sys_profile_call_or_return",
+			"id": 95,
+			"name": "if.end.i17.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [96, 97],
+			"ir": [
+				"%dec.i.i = add i64 %op.val.i.i, -1, !dbg !6902",
+				"store i64 %dec.i.i, ptr %call1.i, align 8, !dbg !6902, !tbaa !6874",
+				"%cmp.i16.i = icmp eq i64 %dec.i.i, 0, !dbg !6904",
+				"br i1 %cmp.i16.i, label %if.then1.i.i, label %Py_DECREF.exit.i, !dbg !6905"
+			]
+		},
+		{
+			"function": "sys_profile_call_or_return",
+			"id": 96,
+			"name": "if.then1.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [97],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call1.i) #5, !dbg !6906",
+				"br label %Py_DECREF.exit.i, !dbg !6908"
+			]
+		},
+		{
+			"function": "sys_profile_call_or_return",
+			"id": 97,
+			"name": "Py_DECREF.exit.i",
+			"debug": [
+				{
+					"line": 42, "columns": [9]
+				}
+			],
+			"successors": [113],
+			"ir": [
+				"%tobool.not.i = icmp eq i32 %call6.i, 0, !dbg !6909",
+				"%_Py_NoneStruct..i = select i1 %tobool.not.i, ptr @_Py_NoneStruct, ptr null, !dbg !6837",
+				"br label %cleanup17"
+			]
+		},
+		{
+			"function": "sys_profile_call_or_return",
+			"id": 98,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 99, "columns": [9, 27]
+				}
+			],
+			"successors": [99, 113],
+			"ir": [
+				"%.val29 = load ptr, ptr %1, align 8, !dbg !6911, !tbaa !691",
+				"%cmp = icmp eq ptr %.val29, @PyMethodDescr_Type, !dbg !6912",
+				"br i1 %cmp, label %if.then3, label %cleanup17, !dbg !6913"
+			]
+		},
+		{
+			"function": "sys_profile_call_or_return",
+			"id": 99,
+			"name": "if.then3",
+			"debug": [
+				{
+					"line": 100, "columns": [30]
+				},
+				{
+					"line": 105, "columns": [22, 13]
+				}
+			],
+			"successors": [113, 100],
+			"ir": [
+				"%arrayidx4 = getelementptr ptr, ptr %args, i64 3, !dbg !6914",
+				"%11 = load ptr, ptr %arrayidx4, align 8, !dbg !6914, !tbaa !685",
+				"%cmp5 = icmp eq ptr %11, @_PyInstrumentation_MISSING, !dbg !6916",
+				"br i1 %cmp5, label %cleanup17, label %if.end7, !dbg !6918"
+			]
+		},
+		{
+			"function": "sys_profile_call_or_return",
+			"id": 100,
+			"name": "if.end7",
+			"debug": [
+				{
+					"line": 108, "columns": [45, 26]
+				},
+				{
+					"line": 109, "columns": [44]
+				},
+				{
+					"line": 110, "columns": [18, 13]
+				}
+			],
+			"successors": [113, 101],
+			"ir": [
+				"%12 = load ptr, ptr getelementptr inbounds (%struct._typeobject, ptr @PyMethodDescr_Type, i64 0, i32 32), align 8, !dbg !6919, !tbaa !6920",
+				"%13 = getelementptr i8, ptr %11, i64 8, !dbg !6924",
+				"%.val = load ptr, ptr %13, align 8, !dbg !6924, !tbaa !691",
+				"%call10 = tail call ptr %12(ptr noundef nonnull %0, ptr noundef %11, ptr noundef %.val) #5, !dbg !6925",
+				"%cmp11 = icmp eq ptr %call10, null, !dbg !6926",
+				"br i1 %cmp11, label %cleanup17, label %if.end13, !dbg !6928"
+			]
+		},
+		{
+			"function": "sys_profile_call_or_return",
+			"id": 101,
+			"name": "if.end13",
+			"debug": [
+				{
+					"line": 30, "columns": [17, 31, 9]
+				},
+				{
+					"line": 137, "columns": [12]
+				}
+			],
+			"successors": [110, 102],
+			"ir": [
+				"%14 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6931",
+				"%15 = load ptr, ptr %14, align 8, !dbg !6931, !tbaa !685",
+				"%c_profilefunc.i34 = getelementptr inbounds %struct._ts, ptr %15, i64 0, i32 14, !dbg !6933",
+				"%16 = load ptr, ptr %c_profilefunc.i34, align 8, !dbg !6933, !tbaa !6849",
+				"%cmp.i35 = icmp eq ptr %16, null, !dbg !6934",
+				"br i1 %cmp.i35, label %call_profile_func.exit58, label %if.end.i38, !dbg !6935"
+			]
+		},
+		{
+			"function": "sys_profile_call_or_return",
+			"id": 102,
+			"name": "if.end.i38",
+			"debug": [
+				{
+					"line": 33, "columns": [28]
+				},
+				{
+					"line": 34, "columns": [15, 9]
+				}
+			],
+			"successors": [103, 104],
+			"ir": [
+				"%call1.i36 = tail call ptr @PyEval_GetFrame() #5, !dbg !6936",
+				"%cmp2.i37 = icmp eq ptr %call1.i36, null, !dbg !6937",
+				"br i1 %cmp2.i37, label %if.then3.i39, label %if.end4.i42, !dbg !6938"
+			]
+		},
+		{
+			"function": "sys_profile_call_or_return",
+			"id": 103,
+			"name": "if.then3.i39",
+			"debug": [
+				{
+					"line": 35, "columns": [25, 9]
+				},
+				{
+					"line": 37, "columns": [9]
+				}
+			],
+			"successors": [110],
+			"ir": [
+				"%17 = load ptr, ptr @PyExc_SystemError, align 8, !dbg !6939, !tbaa !685",
+				"tail call void @PyErr_SetString(ptr noundef %17, ptr noundef nonnull @.str.3) #5, !dbg !6940",
+				"br label %call_profile_func.exit58, !dbg !6941"
+			]
+		},
+		{
+			"function": "sys_profile_call_or_return",
+			"id": 104,
+			"name": "if.end4.i42",
+			"debug": [
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [106, 105],
+			"ir": [
+				"%18 = load i32, ptr %call1.i36, align 8, !dbg !6944, !tbaa !6874",
+				"%add.i.i40 = add i32 %18, 1, !dbg !6945",
+				"%cmp.i.i41 = icmp eq i32 %add.i.i40, 0, !dbg !6946",
+				"br i1 %cmp.i.i41, label %Py_INCREF.exit.i49, label %if.end.i.i43, !dbg !6947"
+			]
+		},
+		{
+			"function": "sys_profile_call_or_return",
+			"id": 105,
+			"name": "if.end.i.i43",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [106],
+			"ir": [
+				"store i32 %add.i.i40, ptr %call1.i36, align 8, !dbg !6948, !tbaa !6874",
+				"br label %Py_INCREF.exit.i49, !dbg !6949"
+			]
+		},
+		{
+			"function": "sys_profile_call_or_return",
+			"id": 106,
+			"name": "Py_INCREF.exit.i49",
+			"debug": [
+				{
+					"line": 40, "columns": [23, 45, 72, 15]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [107, 109],
+			"ir": [
+				"%19 = load ptr, ptr %c_profilefunc.i34, align 8, !dbg !6950, !tbaa !6849",
+				"%c_profileobj.i44 = getelementptr inbounds %struct._ts, ptr %15, i64 0, i32 16, !dbg !6951",
+				"%20 = load ptr, ptr %c_profileobj.i44, align 8, !dbg !6951, !tbaa !6883",
+				"%event.i45 = getelementptr inbounds %struct._PyLegacyEventHandler, ptr %self, i64 0, i32 2, !dbg !6952",
+				"%21 = load i32, ptr %event.i45, align 8, !dbg !6952, !tbaa !6885",
+				"%call6.i46 = tail call i32 %19(ptr noundef %20, ptr noundef nonnull %call1.i36, i32 noundef %21, ptr noundef nonnull %call10) #5, !dbg !6953",
+				"%op.val.i.i47 = load i64, ptr %call1.i36, align 8, !dbg !6956, !tbaa !6874",
+				"%22 = and i64 %op.val.i.i47, 2147483648, !dbg !6959",
+				"%cmp.i.not.i.i48 = icmp eq i64 %22, 0, !dbg !6959",
+				"br i1 %cmp.i.not.i.i48, label %if.end.i17.i52, label %Py_DECREF.exit.i56, !dbg !6960"
+			]
+		},
+		{
+			"function": "sys_profile_call_or_return",
+			"id": 107,
+			"name": "if.end.i17.i52",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [108, 109],
+			"ir": [
+				"%dec.i.i50 = add i64 %op.val.i.i47, -1, !dbg !6961",
+				"store i64 %dec.i.i50, ptr %call1.i36, align 8, !dbg !6961, !tbaa !6874",
+				"%cmp.i16.i51 = icmp eq i64 %dec.i.i50, 0, !dbg !6962",
+				"br i1 %cmp.i16.i51, label %if.then1.i.i53, label %Py_DECREF.exit.i56, !dbg !6963"
+			]
+		},
+		{
+			"function": "sys_profile_call_or_return",
+			"id": 108,
+			"name": "if.then1.i.i53",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [109],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call1.i36) #5, !dbg !6964",
+				"br label %Py_DECREF.exit.i56, !dbg !6965"
+			]
+		},
+		{
+			"function": "sys_profile_call_or_return",
+			"id": 109,
+			"name": "Py_DECREF.exit.i56",
+			"debug": [
+				{
+					"line": 42, "columns": [9]
+				}
+			],
+			"successors": [110],
+			"ir": [
+				"%tobool.not.i54 = icmp eq i32 %call6.i46, 0, !dbg !6966",
+				"%_Py_NoneStruct..i55 = select i1 %tobool.not.i54, ptr @_Py_NoneStruct, ptr null, !dbg !6929",
+				"br label %call_profile_func.exit58"
+			]
+		},
+		{
+			"function": "sys_profile_call_or_return",
+			"id": 110,
+			"name": "call_profile_func.exit58",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [111, 113],
+			"ir": [
+				"%retval.2.i57 = phi ptr [ @_Py_NoneStruct, %if.end13 ], [ null, %if.then3.i39 ], [ %_Py_NoneStruct..i55, %Py_DECREF.exit.i56 ], !dbg !6929",
+				"%op.val.i = load i64, ptr %call10, align 8, !dbg !6969, !tbaa !6874",
+				"%23 = and i64 %op.val.i, 2147483648, !dbg !6972",
+				"%cmp.i.not.i = icmp eq i64 %23, 0, !dbg !6972",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %cleanup17, !dbg !6973"
+			]
+		},
+		{
+			"function": "sys_profile_call_or_return",
+			"id": 111,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [112, 113],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !6974",
+				"store i64 %dec.i, ptr %call10, align 8, !dbg !6974, !tbaa !6874",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !6975",
+				"br i1 %cmp.i, label %if.then1.i, label %cleanup17, !dbg !6976"
+			]
+		},
+		{
+			"function": "sys_profile_call_or_return",
+			"id": 112,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [113],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call10) #5, !dbg !6977",
+				"br label %cleanup17, !dbg !6978"
+			]
+		},
+		{
+			"function": "sys_profile_call_or_return",
+			"id": 113,
+			"name": "cleanup17",
+			"debug": [
+				{
+					"line": 118, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.2 = phi ptr [ @_Py_NoneStruct, %if.then3 ], [ null, %if.end7 ], [ @_Py_NoneStruct, %if.end ], [ @_Py_NoneStruct, %if.then ], [ null, %if.then3.i ], [ %_Py_NoneStruct..i, %Py_DECREF.exit.i ], [ %retval.2.i57, %call_profile_func.exit58 ], [ %retval.2.i57, %if.end.i ], [ %retval.2.i57, %if.then1.i ], !dbg !683",
+				"ret ptr %retval.2, !dbg !6979"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 114,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 137, "columns": [12]
+				},
+				{
+					"line": 499, "columns": [9, 60]
+				}
+			],
+			"successors": [154, 115],
+			"ir": [
+				"%events.i = alloca i32, align 4",
+				"%0 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6804",
+				"%1 = load ptr, ptr %0, align 8, !dbg !6804, !tbaa !6811",
+				"%call1 = tail call i32 (ptr, ptr, ptr, ...) @_PySys_Audit(ptr noundef %1, ptr noundef nonnull @.str.2, ptr noundef null) #5, !dbg !6815",
+				"%cmp = icmp slt i32 %call1, 0, !dbg !6817",
+				"br i1 %cmp, label %cleanup71, label %if.end, !dbg !6818"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 115,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 505, "columns": [18, 26, 9]
+				}
+			],
+			"successors": [116, 139],
+			"ir": [
+				"%interp = getelementptr inbounds %struct._ts, ptr %tstate, i64 0, i32 2, !dbg !6819",
+				"%2 = load ptr, ptr %interp, align 8, !dbg !6819, !tbaa !6821",
+				"%sys_trace_initialized = getelementptr inbounds %struct._is, ptr %2, i64 0, i32 62, !dbg !6828",
+				"%3 = load i8, ptr %sys_trace_initialized, align 8, !dbg !6828, !tbaa !6829, !range !6887, !noundef !6809",
+				"%tobool.not = icmp eq i8 %3, 0, !dbg !6828",
+				"br i1 %tobool.not, label %if.then2, label %if.end41, !dbg !6888"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 116,
+			"name": "if.then2",
+			"debug": [
+				{
+					"line": 506, "columns": [47]
+				},
+				{
+					"line": 507, "columns": [13]
+				}
+			],
+			"successors": [117, 154],
+			"ir": [
+				"store i8 1, ptr %sys_trace_initialized, align 8, !dbg !6889, !tbaa !6829",
+				"%call5 = tail call fastcc i32 @set_callbacks(i32 noundef 7, ptr noundef nonnull @sys_trace_start, i32 noundef 0, i32 noundef 0, i32 noundef 1), !dbg !6891, !range !6893",
+				"%tobool6.not = icmp eq i32 %call5, 0, !dbg !6891",
+				"br i1 %tobool6.not, label %if.end8, label %cleanup71, !dbg !6894"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 117,
+			"name": "if.end8",
+			"debug": [
+				{
+					"line": 389, "columns": [9]
+				},
+				{
+					"line": 390, "columns": [18, 9]
+				}
+			],
+			"successors": [154, 118],
+			"ir": [
+				"%call.i = tail call ptr @_PyObject_New(ptr noundef nonnull @_PyLegacyEventHandler_Type) #5, !dbg !6908",
+				"%cmp.i = icmp eq ptr %call.i, null, !dbg !6909",
+				"br i1 %cmp.i, label %cleanup71, label %if.end.i, !dbg !6911"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 118,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 393, "columns": [15, 26]
+				},
+				{
+					"line": 394, "columns": [15, 21]
+				},
+				{
+					"line": 395, "columns": [5]
+				},
+				{
+					"line": 1037, "columns": [12, 9]
+				}
+			],
+			"successors": [122, 119],
+			"ir": [
+				"%vectorcall1.i = getelementptr inbounds %struct._PyLegacyEventHandler, ptr %call.i, i64 0, i32 1, !dbg !6912",
+				"store ptr @sys_trace_throw, ptr %vectorcall1.i, align 8, !dbg !6913, !tbaa !6914",
+				"%event.i = getelementptr inbounds %struct._PyLegacyEventHandler, ptr %call.i, i64 0, i32 2, !dbg !6916",
+				"store i32 0, ptr %event.i, align 8, !dbg !6917, !tbaa !6918",
+				"%call2.i = tail call ptr @_PyMonitoring_RegisterCallback(i32 noundef 7, i32 noundef 13, ptr noundef nonnull %call.i) #5, !dbg !6919",
+				"%cmp.not.i.i = icmp eq ptr %call2.i, null, !dbg !6925",
+				"br i1 %cmp.not.i.i, label %Py_XDECREF.exit.i, label %if.then.i.i, !dbg !6927"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 119,
+			"name": "if.then.i.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [120, 122],
+			"ir": [
+				"%op.val.i.i.i = load i64, ptr %call2.i, align 8, !dbg !6934, !tbaa !6936",
+				"%4 = and i64 %op.val.i.i.i, 2147483648, !dbg !6942",
+				"%cmp.i.not.i.i.i = icmp eq i64 %4, 0, !dbg !6942",
+				"br i1 %cmp.i.not.i.i.i, label %if.end.i.i.i, label %Py_XDECREF.exit.i, !dbg !6943"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 120,
+			"name": "if.end.i.i.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [121, 122],
+			"ir": [
+				"%dec.i.i.i = add i64 %op.val.i.i.i, -1, !dbg !6944",
+				"store i64 %dec.i.i.i, ptr %call2.i, align 8, !dbg !6944, !tbaa !6936",
+				"%cmp.i.i.i = icmp eq i64 %dec.i.i.i, 0, !dbg !6946",
+				"br i1 %cmp.i.i.i, label %if.then1.i.i.i, label %Py_XDECREF.exit.i, !dbg !6947"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 121,
+			"name": "if.then1.i.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [122],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call2.i) #5, !dbg !6948",
+				"br label %Py_XDECREF.exit.i, !dbg !6950"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 122,
+			"name": "Py_XDECREF.exit.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [123, 125],
+			"ir": [
+				"%op.val.i.i = load i64, ptr %call.i, align 8, !dbg !6953, !tbaa !6936",
+				"%5 = and i64 %op.val.i.i, 2147483648, !dbg !6956",
+				"%cmp.i.not.i.i = icmp eq i64 %5, 0, !dbg !6956",
+				"br i1 %cmp.i.not.i.i, label %if.end.i.i, label %if.end12, !dbg !6957"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 123,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [124, 125],
+			"ir": [
+				"%dec.i.i = add i64 %op.val.i.i, -1, !dbg !6958",
+				"store i64 %dec.i.i, ptr %call.i, align 8, !dbg !6958, !tbaa !6936",
+				"%cmp.i.i = icmp eq i64 %dec.i.i, 0, !dbg !6959",
+				"br i1 %cmp.i.i, label %if.then1.i.i, label %if.end12, !dbg !6960"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 124,
+			"name": "if.then1.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [125],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i) #5, !dbg !6961",
+				"br label %if.end12, !dbg !6962"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 125,
+			"name": "if.end12",
+			"debug": [
+				{
+					"line": 389, "columns": [9]
+				},
+				{
+					"line": 390, "columns": [18, 9]
+				}
+			],
+			"successors": [154, 126],
+			"ir": [
+				"%call.i84 = tail call ptr @_PyObject_New(ptr noundef nonnull @_PyLegacyEventHandler_Type) #5, !dbg !6966",
+				"%cmp.i85 = icmp eq ptr %call.i84, null, !dbg !6967",
+				"br i1 %cmp.i85, label %cleanup71, label %if.end.i90, !dbg !6968"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 126,
+			"name": "if.end.i90",
+			"debug": [
+				{
+					"line": 393, "columns": [15, 26]
+				},
+				{
+					"line": 394, "columns": [15, 21]
+				},
+				{
+					"line": 395, "columns": [5]
+				},
+				{
+					"line": 1037, "columns": [12, 9]
+				}
+			],
+			"successors": [130, 127],
+			"ir": [
+				"%vectorcall1.i86 = getelementptr inbounds %struct._PyLegacyEventHandler, ptr %call.i84, i64 0, i32 1, !dbg !6969",
+				"store ptr @sys_trace_return, ptr %vectorcall1.i86, align 8, !dbg !6970, !tbaa !6914",
+				"%event.i87 = getelementptr inbounds %struct._PyLegacyEventHandler, ptr %call.i84, i64 0, i32 2, !dbg !6971",
+				"store i32 3, ptr %event.i87, align 8, !dbg !6972, !tbaa !6918",
+				"%call2.i88 = tail call ptr @_PyMonitoring_RegisterCallback(i32 noundef 7, i32 noundef 2, ptr noundef nonnull %call.i84) #5, !dbg !6973",
+				"%cmp.not.i.i89 = icmp eq ptr %call2.i88, null, !dbg !6976",
+				"br i1 %cmp.not.i.i89, label %Py_XDECREF.exit.i98, label %if.then.i.i93, !dbg !6977"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 127,
+			"name": "if.then.i.i93",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [128, 130],
+			"ir": [
+				"%op.val.i.i.i91 = load i64, ptr %call2.i88, align 8, !dbg !6980, !tbaa !6936",
+				"%6 = and i64 %op.val.i.i.i91, 2147483648, !dbg !6983",
+				"%cmp.i.not.i.i.i92 = icmp eq i64 %6, 0, !dbg !6983",
+				"br i1 %cmp.i.not.i.i.i92, label %if.end.i.i.i96, label %Py_XDECREF.exit.i98, !dbg !6984"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 128,
+			"name": "if.end.i.i.i96",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [129, 130],
+			"ir": [
+				"%dec.i.i.i94 = add i64 %op.val.i.i.i91, -1, !dbg !6985",
+				"store i64 %dec.i.i.i94, ptr %call2.i88, align 8, !dbg !6985, !tbaa !6936",
+				"%cmp.i.i.i95 = icmp eq i64 %dec.i.i.i94, 0, !dbg !6986",
+				"br i1 %cmp.i.i.i95, label %if.then1.i.i.i97, label %Py_XDECREF.exit.i98, !dbg !6987"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 129,
+			"name": "if.then1.i.i.i97",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [130],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call2.i88) #5, !dbg !6988",
+				"br label %Py_XDECREF.exit.i98, !dbg !6989"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 130,
+			"name": "Py_XDECREF.exit.i98",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [131, 133],
+			"ir": [
+				"%op.val.i.i99 = load i64, ptr %call.i84, align 8, !dbg !6992, !tbaa !6936",
+				"%7 = and i64 %op.val.i.i99, 2147483648, !dbg !6995",
+				"%cmp.i.not.i.i100 = icmp eq i64 %7, 0, !dbg !6995",
+				"br i1 %cmp.i.not.i.i100, label %if.end.i.i103, label %if.end16, !dbg !6996"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 131,
+			"name": "if.end.i.i103",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [132, 133],
+			"ir": [
+				"%dec.i.i101 = add i64 %op.val.i.i99, -1, !dbg !6997",
+				"store i64 %dec.i.i101, ptr %call.i84, align 8, !dbg !6997, !tbaa !6936",
+				"%cmp.i.i102 = icmp eq i64 %dec.i.i101, 0, !dbg !6998",
+				"br i1 %cmp.i.i102, label %if.then1.i.i104, label %if.end16, !dbg !6999"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 132,
+			"name": "if.then1.i.i104",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [133],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call.i84) #5, !dbg !7000",
+				"br label %if.end16, !dbg !7001"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 133,
+			"name": "if.end16",
+			"debug": [
+				{
+					"line": 522, "columns": [13]
+				}
+			],
+			"successors": [134, 154],
+			"ir": [
+				"%call17 = tail call fastcc i32 @set_callbacks(i32 noundef 7, ptr noundef nonnull @sys_trace_yield, i32 noundef 3, i32 noundef 3, i32 noundef -1), !dbg !7002, !range !6893",
+				"%tobool18.not = icmp eq i32 %call17, 0, !dbg !7002",
+				"br i1 %tobool18.not, label %if.end20, label %cleanup71, !dbg !7004"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 134,
+			"name": "if.end20",
+			"debug": [
+				{
+					"line": 527, "columns": [13]
+				}
+			],
+			"successors": [135, 154],
+			"ir": [
+				"%call21 = tail call fastcc i32 @set_callbacks(i32 noundef 7, ptr noundef nonnull @sys_trace_exception_func, i32 noundef 1, i32 noundef 10, i32 noundef 9), !dbg !7005, !range !6893",
+				"%tobool22.not = icmp eq i32 %call21, 0, !dbg !7005",
+				"br i1 %tobool22.not, label %if.end24, label %cleanup71, !dbg !7007"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 135,
+			"name": "if.end24",
+			"debug": [
+				{
+					"line": 532, "columns": [13]
+				}
+			],
+			"successors": [136, 154],
+			"ir": [
+				"%call25 = tail call fastcc i32 @set_callbacks(i32 noundef 7, ptr noundef nonnull @sys_trace_line_func, i32 noundef 2, i32 noundef 5, i32 noundef -1), !dbg !7008, !range !6893",
+				"%tobool26.not = icmp eq i32 %call25, 0, !dbg !7008",
+				"br i1 %tobool26.not, label %if.end28, label %cleanup71, !dbg !7010"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 136,
+			"name": "if.end28",
+			"debug": [
+				{
+					"line": 537, "columns": [13]
+				}
+			],
+			"successors": [137, 154],
+			"ir": [
+				"%call29 = tail call fastcc i32 @set_callbacks(i32 noundef 7, ptr noundef nonnull @sys_trace_unwind, i32 noundef 3, i32 noundef 12, i32 noundef -1), !dbg !7011, !range !6893",
+				"%tobool30.not = icmp eq i32 %call29, 0, !dbg !7011",
+				"br i1 %tobool30.not, label %if.end32, label %cleanup71, !dbg !7013"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 137,
+			"name": "if.end32",
+			"debug": [
+				{
+					"line": 542, "columns": [13]
+				}
+			],
+			"successors": [138, 154],
+			"ir": [
+				"%call33 = tail call fastcc i32 @set_callbacks(i32 noundef 7, ptr noundef nonnull @sys_trace_jump_func, i32 noundef 2, i32 noundef 7, i32 noundef -1), !dbg !7014, !range !6893",
+				"%tobool34.not = icmp eq i32 %call33, 0, !dbg !7014",
+				"br i1 %tobool34.not, label %if.end36, label %cleanup71, !dbg !7016"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 138,
+			"name": "if.end36",
+			"debug": [
+				{
+					"line": 547, "columns": [13]
+				}
+			],
+			"successors": [139, 154],
+			"ir": [
+				"%call37 = tail call fastcc i32 @set_callbacks(i32 noundef 7, ptr noundef nonnull @sys_trace_instruction_func, i32 noundef 7, i32 noundef 6, i32 noundef -1), !dbg !7017, !range !6893",
+				"%tobool38.not = icmp eq i32 %call37, 0, !dbg !7017",
+				"br i1 %tobool38.not, label %if.end41, label %cleanup71, !dbg !7019"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 139,
+			"name": "if.end41",
+			"debug": [
+				{
+					"line": 554, "columns": [23, 43, 55, 32]
+				},
+				{
+					"line": 555, "columns": [25]
+				},
+				{
+					"line": 556, "columns": [38]
+				},
+				{
+					"line": 1027, "columns": [12, 9]
+				}
+			],
+			"successors": [142, 140],
+			"ir": [
+				"%cmp42 = icmp ne ptr %func, null, !dbg !7020",
+				"%conv = zext i1 %cmp42 to i64, !dbg !7020",
+				"%c_tracefunc = getelementptr inbounds %struct._ts, ptr %tstate, i64 0, i32 15, !dbg !7021",
+				"%8 = load ptr, ptr %c_tracefunc, align 8, !dbg !7021, !tbaa !7022",
+				"%cmp43 = icmp ne ptr %8, null, !dbg !7023",
+				"%conv44.neg = sext i1 %cmp43 to i64, !dbg !7023",
+				"%sub = add nsw i64 %conv44.neg, %conv, !dbg !7024",
+				"store ptr %func, ptr %c_tracefunc, align 8, !dbg !7025, !tbaa !7022",
+				"%c_traceobj = getelementptr inbounds %struct._ts, ptr %tstate, i64 0, i32 17, !dbg !7026",
+				"%9 = load ptr, ptr %c_traceobj, align 8, !dbg !7026, !tbaa !7027",
+				"%cmp.not.i.i107 = icmp eq ptr %arg, null, !dbg !7038",
+				"br i1 %cmp.not.i.i107, label %_Py_XNewRef.exit, label %if.then.i.i109, !dbg !7040"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 140,
+			"name": "if.then.i.i109",
+			"debug": [
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [142, 141],
+			"ir": [
+				"%10 = load i32, ptr %arg, align 8, !dbg !7049, !tbaa !6936",
+				"%add.i.i.i = add i32 %10, 1, !dbg !7050",
+				"%cmp.i.i.i108 = icmp eq i32 %add.i.i.i, 0, !dbg !7051",
+				"br i1 %cmp.i.i.i108, label %_Py_XNewRef.exit, label %if.end.i.i.i110, !dbg !7053"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 141,
+			"name": "if.end.i.i.i110",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [142],
+			"ir": [
+				"store i32 %add.i.i.i, ptr %arg, align 8, !dbg !7054, !tbaa !6936",
+				"br label %_Py_XNewRef.exit, !dbg !7055"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 142,
+			"name": "_Py_XNewRef.exit",
+			"debug": [
+				{
+					"line": 557, "columns": [24]
+				},
+				{
+					"line": 1037, "columns": [12, 9]
+				}
+			],
+			"successors": [146, 143],
+			"ir": [
+				"store ptr %arg, ptr %c_traceobj, align 8, !dbg !7056, !tbaa !7027",
+				"%cmp.not.i = icmp eq ptr %9, null, !dbg !7059",
+				"br i1 %cmp.not.i, label %Py_XDECREF.exit, label %if.then.i, !dbg !7060"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 143,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [144, 146],
+			"ir": [
+				"%op.val.i.i111 = load i64, ptr %9, align 8, !dbg !7063, !tbaa !6936",
+				"%11 = and i64 %op.val.i.i111, 2147483648, !dbg !7066",
+				"%cmp.i.not.i.i112 = icmp eq i64 %11, 0, !dbg !7066",
+				"br i1 %cmp.i.not.i.i112, label %if.end.i.i115, label %Py_XDECREF.exit, !dbg !7067"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 144,
+			"name": "if.end.i.i115",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [145, 146],
+			"ir": [
+				"%dec.i.i113 = add i64 %op.val.i.i111, -1, !dbg !7068",
+				"store i64 %dec.i.i113, ptr %9, align 8, !dbg !7068, !tbaa !6936",
+				"%cmp.i.i114 = icmp eq i64 %dec.i.i113, 0, !dbg !7069",
+				"br i1 %cmp.i.i114, label %if.then1.i.i116, label %Py_XDECREF.exit, !dbg !7070"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 145,
+			"name": "if.then1.i.i116",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [146],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %9) #5, !dbg !7071",
+				"br label %Py_XDECREF.exit, !dbg !7072"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 146,
+			"name": "Py_XDECREF.exit",
+			"debug": [
+				{
+					"line": 559, "columns": [13, 21, 41]
+				},
+				{
+					"line": 563, "columns": [9]
+				}
+			],
+			"successors": [153, 147],
+			"ir": [
+				"%12 = load ptr, ptr %interp, align 8, !dbg !7073, !tbaa !6821",
+				"%sys_tracing_threads = getelementptr inbounds %struct._is, ptr %12, i64 0, i32 64, !dbg !7074",
+				"%13 = load i64, ptr %sys_tracing_threads, align 8, !dbg !7075, !tbaa !7076",
+				"%add = add i64 %sub, %13, !dbg !7075",
+				"store i64 %add, ptr %sys_tracing_threads, align 8, !dbg !7075, !tbaa !7076",
+				"%tobool52.not = icmp eq i64 %add, 0, !dbg !7077",
+				"br i1 %tobool52.not, label %if.end66, label %if.then53, !dbg !7078"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 147,
+			"name": "if.then53",
+			"debug": [
+				{
+					"line": 573, "columns": [32]
+				},
+				{
+					"line": 574, "columns": [20, 13]
+				}
+			],
+			"successors": [153, 148],
+			"ir": [
+				"%call54 = tail call ptr @PyEval_GetFrame() #5, !dbg !7079",
+				"%f_trace_opcodes = getelementptr inbounds %struct._frame, ptr %call54, i64 0, i32 6, !dbg !7081",
+				"%14 = load i8, ptr %f_trace_opcodes, align 1, !dbg !7081, !tbaa !7082",
+				"%tobool55.not = icmp eq i8 %14, 0, !dbg !7084",
+				"br i1 %tobool55.not, label %if.end66, label %if.then56, !dbg !7085"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 148,
+			"name": "if.then56",
+			"debug": [
+				{
+					"line": 128, "columns": [49, 58]
+				},
+				{
+					"line": 129, "columns": [5, 27]
+				},
+				{
+					"line": 131, "columns": [9, 81]
+				}
+			],
+			"successors": [149, 150],
+			"ir": [
+				"%f_frame.i = getelementptr inbounds %struct._frame, ptr %call54, i64 0, i32 2, !dbg !7098",
+				"%15 = load ptr, ptr %f_frame.i, align 8, !dbg !7098, !tbaa !7099",
+				"%16 = load ptr, ptr %15, align 8, !dbg !7100, !tbaa !7101",
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %events.i) #5, !dbg !7104",
+				"store i32 0, ptr %events.i, align 4, !dbg !7105, !tbaa !7106",
+				"%call.i118 = call i32 @_PyMonitoring_GetLocalEvents(ptr noundef %16, i32 noundef 7, ptr noundef nonnull %events.i) #5, !dbg !7107",
+				"%cmp.i119 = icmp slt i32 %call.i118, 0, !dbg !7109",
+				"br i1 %cmp.i119, label %_PyEval_SetOpcodeTrace.exit.thread128, label %if.end.i120, !dbg !7110"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 149,
+			"name": "_PyEval_SetOpcodeTrace.exit.thread128",
+			"debug": [
+				{
+					"line": 147, "columns": [1]
+				}
+			],
+			"successors": [154],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %events.i) #5, !dbg !7111",
+				"br label %cleanup71"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 150,
+			"name": "if.end.i120",
+			"debug": [
+				{
+					"line": 136, "columns": [13]
+				}
+			],
+			"successors": [152, 151],
+			"ir": [
+				"%17 = load i32, ptr %events.i, align 4, !dbg !7113, !tbaa !7106",
+				"%and.i = and i32 %17, 64, !dbg !7113",
+				"%tobool2.not.i = icmp eq i32 %and.i, 0, !dbg !7113",
+				"br i1 %tobool2.not.i, label %_PyEval_SetOpcodeTrace.exit, label %_PyEval_SetOpcodeTrace.exit.thread, !dbg !7115"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 151,
+			"name": "_PyEval_SetOpcodeTrace.exit.thread",
+			"debug": [
+				{
+					"line": 147, "columns": [1]
+				}
+			],
+			"successors": [153],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %events.i) #5, !dbg !7111",
+				"br label %if.end66"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 152,
+			"name": "_PyEval_SetOpcodeTrace.exit",
+			"debug": [
+				{
+					"line": 139, "columns": [16]
+				},
+				{
+					"line": 146, "columns": [12]
+				},
+				{
+					"line": 147, "columns": [1]
+				},
+				{
+					"line": 576, "columns": [21]
+				}
+			],
+			"successors": [153, 154],
+			"ir": [
+				"%or.i = or i32 %17, 64, !dbg !7117",
+				"store i32 %or.i, ptr %events.i, align 4, !dbg !7113, !tbaa !7106",
+				"%call11.i = call i32 @_PyMonitoring_SetLocalEvents(ptr noundef %16, i32 noundef 7, i32 noundef %or.i) #5, !dbg !7118",
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %events.i) #5, !dbg !7111",
+				"%cmp58.not = icmp eq i32 %call11.i, 0, !dbg !7119",
+				"br i1 %cmp58.not, label %if.end66, label %cleanup71"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 153,
+			"name": "if.end66",
+			"debug": [
+				{
+					"line": 582, "columns": [12, 5]
+				}
+			],
+			"successors": [154],
+			"ir": [
+				"%events.0 = phi i32 [ 0, %Py_XDECREF.exit ], [ 16303, %if.then53 ], [ 16303, %_PyEval_SetOpcodeTrace.exit ], [ 16303, %_PyEval_SetOpcodeTrace.exit.thread ], !dbg !6803",
+				"%call67 = call i32 @_PyMonitoring_SetEvents(i32 noundef 7, i32 noundef %events.0) #5, !dbg !7121",
+				"br label %cleanup71, !dbg !7122"
+			]
+		},
+		{
+			"function": "_PyEval_SetTrace",
+			"id": 154,
+			"name": "cleanup71",
+			"debug": [
+				{
+					"line": 583, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.4 = phi i32 [ -1, %entry ], [ -1, %if.then2 ], [ -1, %if.end16 ], [ -1, %if.end20 ], [ -1, %if.end24 ], [ -1, %if.end28 ], [ -1, %if.end32 ], [ -1, %if.end36 ], [ %call67, %if.end66 ], [ -1, %if.end8 ], [ -1, %if.end12 ], [ -1, %_PyEval_SetOpcodeTrace.exit.thread128 ], [ %call11.i, %_PyEval_SetOpcodeTrace.exit ], !dbg !6803",
+				"ret i32 %retval.4, !dbg !7123"
+			]
+		},
+		{
+			"function": "sys_trace_start",
+			"id": 155,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 208, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call fastcc ptr @call_trace_func(ptr noundef %self, ptr noundef nonnull @_Py_NoneStruct), !dbg !678",
+				"ret ptr %call, !dbg !679"
+			]
+		},
+		{
+			"function": "sys_trace_throw",
+			"id": 156,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 218, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call fastcc ptr @call_trace_func(ptr noundef %self, ptr noundef nonnull @_Py_NoneStruct), !dbg !678",
+				"ret ptr %call, !dbg !679"
+			]
+		},
+		{
+			"function": "sys_trace_return",
+			"id": 157,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 240, "columns": [21]
+				},
+				{
+					"line": 241, "columns": [21]
+				},
+				{
+					"line": 242, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%arrayidx = getelementptr ptr, ptr %args, i64 2, !dbg !680",
+				"%0 = load ptr, ptr %arrayidx, align 8, !dbg !680, !tbaa !681",
+				"%call = tail call fastcc ptr @call_trace_func(ptr noundef %self, ptr noundef %0), !dbg !685",
+				"ret ptr %call, !dbg !686"
+			]
+		},
+		{
+			"function": "sys_trace_yield",
+			"id": 158,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 252, "columns": [34, 12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%arrayidx = getelementptr ptr, ptr %args, i64 2, !dbg !678",
+				"%0 = load ptr, ptr %arrayidx, align 8, !dbg !678, !tbaa !679",
+				"%call = tail call fastcc ptr @call_trace_func(ptr noundef %self, ptr noundef %0), !dbg !683",
+				"ret ptr %call, !dbg !684"
+			]
+		},
+		{
+			"function": "sys_trace_exception_func",
+			"id": 159,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 184, "columns": [21]
+				},
+				{
+					"line": 186, "columns": [34]
+				},
+				{
+					"line": 187, "columns": [20]
+				},
+				{
+					"line": 188, "columns": [12, 9]
+				}
+			],
+			"successors": [160, 162],
+			"ir": [
+				"%arrayidx = getelementptr ptr, ptr %args, i64 2, !dbg !683",
+				"%0 = load ptr, ptr %arrayidx, align 8, !dbg !683, !tbaa !684",
+				"%1 = getelementptr i8, ptr %0, i64 8, !dbg !688",
+				"%.val = load ptr, ptr %1, align 8, !dbg !688, !tbaa !689",
+				"%call1 = tail call ptr @PyException_GetTraceback(ptr noundef %0) #5, !dbg !691",
+				"%cmp = icmp eq ptr %call1, null, !dbg !692",
+				"br i1 %cmp, label %if.then, label %if.end, !dbg !694"
+			]
+		},
+		{
+			"function": "sys_trace_exception_func",
+			"id": 160,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [162, 161],
+			"ir": [
+				"%2 = load i32, ptr @_Py_NoneStruct, align 8, !dbg !708, !tbaa !709",
+				"%add.i.i = add i32 %2, 1, !dbg !710",
+				"%cmp.i.i = icmp eq i32 %add.i.i, 0, !dbg !711",
+				"br i1 %cmp.i.i, label %if.end, label %if.end.i.i, !dbg !713"
+			]
+		},
+		{
+			"function": "sys_trace_exception_func",
+			"id": 161,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [162],
+			"ir": [
+				"store i32 %add.i.i, ptr @_Py_NoneStruct, align 8, !dbg !714, !tbaa !709",
+				"br label %if.end, !dbg !715"
+			]
+		},
+		{
+			"function": "sys_trace_exception_func",
+			"id": 162,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 191, "columns": [23]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [163, 165],
+			"ir": [
+				"%tb.0 = phi ptr [ %call1, %entry ], [ @_Py_NoneStruct, %if.then ], [ @_Py_NoneStruct, %if.end.i.i ], !dbg !682",
+				"%call3 = tail call ptr (i64, ...) @PyTuple_Pack(i64 noundef 3, ptr noundef %.val, ptr noundef nonnull %0, ptr noundef nonnull %tb.0) #5, !dbg !716",
+				"%op.val.i = load i64, ptr %tb.0, align 8, !dbg !722, !tbaa !709",
+				"%3 = and i64 %op.val.i, 2147483648, !dbg !729",
+				"%cmp.i.not.i = icmp eq i64 %3, 0, !dbg !729",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %Py_DECREF.exit, !dbg !730"
+			]
+		},
+		{
+			"function": "sys_trace_exception_func",
+			"id": 163,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [164, 165],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !731",
+				"store i64 %dec.i, ptr %tb.0, align 8, !dbg !731, !tbaa !709",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !733",
+				"br i1 %cmp.i, label %if.then1.i, label %Py_DECREF.exit, !dbg !734"
+			]
+		},
+		{
+			"function": "sys_trace_exception_func",
+			"id": 164,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [165],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %tb.0) #5, !dbg !735",
+				"br label %Py_DECREF.exit, !dbg !737"
+			]
+		},
+		{
+			"function": "sys_trace_exception_func",
+			"id": 165,
+			"name": "Py_DECREF.exit",
+			"debug": [
+				{
+					"line": 193, "columns": [15, 9]
+				}
+			],
+			"successors": [169, 166],
+			"ir": [
+				"%cmp4 = icmp eq ptr %call3, null, !dbg !738",
+				"br i1 %cmp4, label %cleanup, label %if.end6, !dbg !740"
+			]
+		},
+		{
+			"function": "sys_trace_exception_func",
+			"id": 166,
+			"name": "if.end6",
+			"debug": [
+				{
+					"line": 196, "columns": [21]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [167, 169],
+			"ir": [
+				"%call7 = tail call fastcc ptr @call_trace_func(ptr noundef %self, ptr noundef nonnull %call3), !dbg !741",
+				"%op.val.i17 = load i64, ptr %call3, align 8, !dbg !744, !tbaa !709",
+				"%4 = and i64 %op.val.i17, 2147483648, !dbg !747",
+				"%cmp.i.not.i18 = icmp eq i64 %4, 0, !dbg !747",
+				"br i1 %cmp.i.not.i18, label %if.end.i21, label %cleanup, !dbg !748"
+			]
+		},
+		{
+			"function": "sys_trace_exception_func",
+			"id": 167,
+			"name": "if.end.i21",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [168, 169],
+			"ir": [
+				"%dec.i19 = add i64 %op.val.i17, -1, !dbg !749",
+				"store i64 %dec.i19, ptr %call3, align 8, !dbg !749, !tbaa !709",
+				"%cmp.i20 = icmp eq i64 %dec.i19, 0, !dbg !750",
+				"br i1 %cmp.i20, label %if.then1.i22, label %cleanup, !dbg !751"
+			]
+		},
+		{
+			"function": "sys_trace_exception_func",
+			"id": 168,
+			"name": "if.then1.i22",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [169],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call3) #5, !dbg !752",
+				"br label %cleanup, !dbg !753"
+			]
+		},
+		{
+			"function": "sys_trace_exception_func",
+			"id": 169,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 199, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ null, %Py_DECREF.exit ], [ %call7, %if.end6 ], [ %call7, %if.end.i21 ], [ %call7, %if.then1.i22 ], !dbg !682",
+				"ret ptr %retval.0, !dbg !754"
+			]
+		},
+		{
+			"function": "sys_trace_line_func",
+			"id": 170,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 137, "columns": [12]
+				},
+				{
+					"line": 314, "columns": [17, 29, 9]
+				}
+			],
+			"successors": [180, 171],
+			"ir": [
+				"%0 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6798",
+				"%1 = load ptr, ptr %0, align 8, !dbg !6798, !tbaa !6805",
+				"%c_tracefunc = getelementptr inbounds %struct._ts, ptr %1, i64 0, i32 15, !dbg !6809",
+				"%2 = load ptr, ptr %c_tracefunc, align 8, !dbg !6809, !tbaa !6811",
+				"%cmp = icmp eq ptr %2, null, !dbg !6818",
+				"br i1 %cmp, label %cleanup8, label %if.end, !dbg !6819"
+			]
+		},
+		{
+			"function": "sys_trace_line_func",
+			"id": 171,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 318, "columns": [29, 16]
+				},
+				{
+					"line": 320, "columns": [28]
+				},
+				{
+					"line": 321, "columns": [15, 9]
+				}
+			],
+			"successors": [172, 173],
+			"ir": [
+				"%arrayidx = getelementptr ptr, ptr %args, i64 1, !dbg !6820",
+				"%3 = load ptr, ptr %arrayidx, align 8, !dbg !6820, !tbaa !6805",
+				"%call1 = tail call i32 @PyLong_AsInt(ptr noundef %3) #5, !dbg !6821",
+				"%call2 = tail call ptr @PyEval_GetFrame() #5, !dbg !6822",
+				"%cmp3 = icmp eq ptr %call2, null, !dbg !6823",
+				"br i1 %cmp3, label %if.then4, label %if.end5, !dbg !6825"
+			]
+		},
+		{
+			"function": "sys_trace_line_func",
+			"id": 172,
+			"name": "if.then4",
+			"debug": [
+				{
+					"line": 322, "columns": [25, 9]
+				},
+				{
+					"line": 324, "columns": [9]
+				}
+			],
+			"successors": [180],
+			"ir": [
+				"%4 = load ptr, ptr @PyExc_SystemError, align 8, !dbg !6826, !tbaa !6805",
+				"tail call void @PyErr_SetString(ptr noundef %4, ptr noundef nonnull @.str.4) #5, !dbg !6828",
+				"br label %cleanup8, !dbg !6829"
+			]
+		},
+		{
+			"function": "sys_trace_line_func",
+			"id": 173,
+			"name": "if.end5",
+			"debug": [
+				{
+					"line": 290, "columns": [17, 10, 9]
+				}
+			],
+			"successors": [180, 174],
+			"ir": [
+				"%f_trace_lines.i = getelementptr inbounds %struct._frame, ptr %call2, i64 0, i32 5, !dbg !6841",
+				"%5 = load i8, ptr %f_trace_lines.i, align 4, !dbg !6841, !tbaa !6843",
+				"%tobool.not.i = icmp eq i8 %5, 0, !dbg !6846",
+				"%cmp.i = icmp slt i32 %call1, 0",
+				"%or.cond.i = or i1 %cmp.i, %tobool.not.i, !dbg !6847",
+				"br i1 %or.cond.i, label %cleanup8, label %if.end2.i, !dbg !6847"
+			]
+		},
+		{
+			"function": "sys_trace_line_func",
+			"id": 174,
+			"name": "if.end2.i",
+			"debug": [
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [176, 175],
+			"ir": [
+				"%6 = load i32, ptr %call2, align 8, !dbg !6855, !tbaa !6856",
+				"%add.i.i = add i32 %6, 1, !dbg !6857",
+				"%cmp.i.i = icmp eq i32 %add.i.i, 0, !dbg !6858",
+				"br i1 %cmp.i.i, label %Py_INCREF.exit.i, label %if.end.i.i, !dbg !6860"
+			]
+		},
+		{
+			"function": "sys_trace_line_func",
+			"id": 175,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [176],
+			"ir": [
+				"store i32 %add.i.i, ptr %call2, align 8, !dbg !6861, !tbaa !6856",
+				"br label %Py_INCREF.exit.i, !dbg !6862"
+			]
+		},
+		{
+			"function": "sys_trace_line_func",
+			"id": 176,
+			"name": "Py_INCREF.exit.i",
+			"debug": [
+				{
+					"line": 297, "columns": [12, 21]
+				},
+				{
+					"line": 298, "columns": [23, 43, 68, 15]
+				},
+				{
+					"line": 299, "columns": [21]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [177, 179],
+			"ir": [
+				"%f_lineno.i = getelementptr inbounds %struct._frame, ptr %call2, i64 0, i32 4, !dbg !6863",
+				"store i32 %call1, ptr %f_lineno.i, align 8, !dbg !6864, !tbaa !6865",
+				"%7 = load ptr, ptr %c_tracefunc, align 8, !dbg !6866, !tbaa !6811",
+				"%c_traceobj.i = getelementptr inbounds %struct._ts, ptr %1, i64 0, i32 17, !dbg !6867",
+				"%8 = load ptr, ptr %c_traceobj.i, align 8, !dbg !6867, !tbaa !6868",
+				"%event.i = getelementptr inbounds %struct._PyLegacyEventHandler, ptr %self, i64 0, i32 2, !dbg !6869",
+				"%9 = load i32, ptr %event.i, align 8, !dbg !6869, !tbaa !6870",
+				"%call.i = tail call i32 %7(ptr noundef %8, ptr noundef nonnull %call2, i32 noundef %9, ptr noundef nonnull @_Py_NoneStruct) #5, !dbg !6872",
+				"store i32 0, ptr %f_lineno.i, align 8, !dbg !6873, !tbaa !6865",
+				"%op.val.i.i = load i64, ptr %call2, align 8, !dbg !6879, !tbaa !6856",
+				"%10 = and i64 %op.val.i.i, 2147483648, !dbg !6886",
+				"%cmp.i.not.i.i = icmp eq i64 %10, 0, !dbg !6886",
+				"br i1 %cmp.i.not.i.i, label %if.end.i15.i, label %Py_DECREF.exit.i, !dbg !6887"
+			]
+		},
+		{
+			"function": "sys_trace_line_func",
+			"id": 177,
+			"name": "if.end.i15.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [178, 179],
+			"ir": [
+				"%dec.i.i = add i64 %op.val.i.i, -1, !dbg !6888",
+				"store i64 %dec.i.i, ptr %call2, align 8, !dbg !6888, !tbaa !6856",
+				"%cmp.i14.i = icmp eq i64 %dec.i.i, 0, !dbg !6890",
+				"br i1 %cmp.i14.i, label %if.then1.i.i, label %Py_DECREF.exit.i, !dbg !6891"
+			]
+		},
+		{
+			"function": "sys_trace_line_func",
+			"id": 178,
+			"name": "if.then1.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [179],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call2) #5, !dbg !6892",
+				"br label %Py_DECREF.exit.i, !dbg !6894"
+			]
+		},
+		{
+			"function": "sys_trace_line_func",
+			"id": 179,
+			"name": "Py_DECREF.exit.i",
+			"debug": [
+				{
+					"line": 301, "columns": [9]
+				}
+			],
+			"successors": [180],
+			"ir": [
+				"%tobool4.not.i = icmp eq i32 %call.i, 0, !dbg !6895",
+				"%_Py_NoneStruct..i = select i1 %tobool4.not.i, ptr @_Py_NoneStruct, ptr null, !dbg !6839",
+				"br label %cleanup8"
+			]
+		},
+		{
+			"function": "sys_trace_line_func",
+			"id": 180,
+			"name": "cleanup8",
+			"debug": [
+				{
+					"line": 328, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ @_Py_NoneStruct, %entry ], [ null, %if.then4 ], [ %_Py_NoneStruct..i, %Py_DECREF.exit.i ], [ @_Py_NoneStruct, %if.end5 ], !dbg !6797",
+				"ret ptr %retval.1, !dbg !6897"
+			]
+		},
+		{
+			"function": "sys_trace_unwind",
+			"id": 181,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 228, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call fastcc ptr @call_trace_func(ptr noundef %self, ptr noundef null), !dbg !678",
+				"ret ptr %call, !dbg !679"
+			]
+		},
+		{
+			"function": "sys_trace_jump_func",
+			"id": 182,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 137, "columns": [12]
+				},
+				{
+					"line": 340, "columns": [17, 29, 9]
+				}
+			],
+			"successors": [194, 183],
+			"ir": [
+				"%0 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6802",
+				"%1 = load ptr, ptr %0, align 8, !dbg !6802, !tbaa !6809",
+				"%c_tracefunc = getelementptr inbounds %struct._ts, ptr %1, i64 0, i32 15, !dbg !6813",
+				"%2 = load ptr, ptr %c_tracefunc, align 8, !dbg !6813, !tbaa !6815",
+				"%cmp = icmp eq ptr %2, null, !dbg !6822",
+				"br i1 %cmp, label %cleanup32, label %if.end, !dbg !6823"
+			]
+		},
+		{
+			"function": "sys_trace_jump_func",
+			"id": 183,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 344, "columns": [29, 16]
+				},
+				{
+					"line": 346, "columns": [27, 14]
+				},
+				{
+					"line": 348, "columns": [12, 9]
+				}
+			],
+			"successors": [194, 184],
+			"ir": [
+				"%arrayidx = getelementptr ptr, ptr %args, i64 1, !dbg !6824",
+				"%3 = load ptr, ptr %arrayidx, align 8, !dbg !6824, !tbaa !6809",
+				"%call1 = tail call i32 @PyLong_AsInt(ptr noundef %3) #5, !dbg !6825",
+				"%conv2 = ashr i32 %call1, 1, !dbg !6825",
+				"%arrayidx3 = getelementptr ptr, ptr %args, i64 2, !dbg !6826",
+				"%4 = load ptr, ptr %arrayidx3, align 8, !dbg !6826, !tbaa !6809",
+				"%call4 = tail call i32 @PyLong_AsInt(ptr noundef %4) #5, !dbg !6827",
+				"%conv7 = ashr i32 %call4, 1, !dbg !6827",
+				"%cmp8 = icmp sgt i32 %conv7, %conv2, !dbg !6828",
+				"br i1 %cmp8, label %cleanup32, label %if.end11, !dbg !6830"
+			]
+		},
+		{
+			"function": "sys_trace_jump_func",
+			"id": 184,
+			"name": "if.end11",
+			"debug": [
+				{
+					"line": 352, "columns": [42]
+				},
+				{
+					"line": 356, "columns": [19]
+				},
+				{
+					"line": 357, "columns": [21]
+				},
+				{
+					"line": 358, "columns": [17, 9]
+				}
+			],
+			"successors": [185, 194],
+			"ir": [
+				"%5 = load ptr, ptr %args, align 8, !dbg !6831, !tbaa !6809",
+				"%call13 = tail call i32 @_Py_Instrumentation_GetLine(ptr noundef %5, i32 noundef %conv7) #5, !dbg !6832",
+				"%call14 = tail call i32 @_Py_Instrumentation_GetLine(ptr noundef %5, i32 noundef %conv2) #5, !dbg !6833",
+				"%cmp15.not = icmp eq i32 %call13, %call14, !dbg !6834",
+				"br i1 %cmp15.not, label %if.end18, label %cleanup32, !dbg !6836"
+			]
+		},
+		{
+			"function": "sys_trace_jump_func",
+			"id": 185,
+			"name": "if.end18",
+			"debug": [
+				{
+					"line": 362, "columns": [28]
+				},
+				{
+					"line": 363, "columns": [15, 9]
+				}
+			],
+			"successors": [186, 187],
+			"ir": [
+				"%call19 = tail call ptr @PyEval_GetFrame() #5, !dbg !6837",
+				"%cmp20 = icmp eq ptr %call19, null, !dbg !6838",
+				"br i1 %cmp20, label %if.then22, label %if.end23, !dbg !6840"
+			]
+		},
+		{
+			"function": "sys_trace_jump_func",
+			"id": 186,
+			"name": "if.then22",
+			"debug": [
+				{
+					"line": 364, "columns": [25, 9]
+				},
+				{
+					"line": 366, "columns": [9]
+				}
+			],
+			"successors": [194],
+			"ir": [
+				"%6 = load ptr, ptr @PyExc_SystemError, align 8, !dbg !6841, !tbaa !6809",
+				"tail call void @PyErr_SetString(ptr noundef %6, ptr noundef nonnull @.str.4) #5, !dbg !6843",
+				"br label %cleanup32, !dbg !6844"
+			]
+		},
+		{
+			"function": "sys_trace_jump_func",
+			"id": 187,
+			"name": "if.end23",
+			"debug": [
+				{
+					"line": 368, "columns": [17, 10, 9]
+				}
+			],
+			"successors": [194, 188],
+			"ir": [
+				"%f_trace_lines = getelementptr inbounds %struct._frame, ptr %call19, i64 0, i32 5, !dbg !6845",
+				"%7 = load i8, ptr %f_trace_lines, align 4, !dbg !6845, !tbaa !6847",
+				"%tobool.not = icmp eq i8 %7, 0, !dbg !6850",
+				"%cmp.i = icmp slt i32 %call13, 0",
+				"%or.cond = select i1 %tobool.not, i1 true, i1 %cmp.i, !dbg !6851",
+				"br i1 %or.cond, label %cleanup32, label %if.end2.i, !dbg !6851"
+			]
+		},
+		{
+			"function": "sys_trace_jump_func",
+			"id": 188,
+			"name": "if.end2.i",
+			"debug": [
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [190, 189],
+			"ir": [
+				"%8 = load i32, ptr %call19, align 8, !dbg !6870, !tbaa !6871",
+				"%add.i.i = add i32 %8, 1, !dbg !6872",
+				"%cmp.i.i = icmp eq i32 %add.i.i, 0, !dbg !6873",
+				"br i1 %cmp.i.i, label %Py_INCREF.exit.i, label %if.end.i.i, !dbg !6875"
+			]
+		},
+		{
+			"function": "sys_trace_jump_func",
+			"id": 189,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [190],
+			"ir": [
+				"store i32 %add.i.i, ptr %call19, align 8, !dbg !6876, !tbaa !6871",
+				"br label %Py_INCREF.exit.i, !dbg !6877"
+			]
+		},
+		{
+			"function": "sys_trace_jump_func",
+			"id": 190,
+			"name": "Py_INCREF.exit.i",
+			"debug": [
+				{
+					"line": 297, "columns": [12, 21]
+				},
+				{
+					"line": 298, "columns": [23, 43, 68, 15]
+				},
+				{
+					"line": 299, "columns": [21]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [191, 193],
+			"ir": [
+				"%f_lineno.i = getelementptr inbounds %struct._frame, ptr %call19, i64 0, i32 4, !dbg !6878",
+				"store i32 %call13, ptr %f_lineno.i, align 8, !dbg !6879, !tbaa !6880",
+				"%9 = load ptr, ptr %c_tracefunc, align 8, !dbg !6881, !tbaa !6815",
+				"%c_traceobj.i = getelementptr inbounds %struct._ts, ptr %1, i64 0, i32 17, !dbg !6882",
+				"%10 = load ptr, ptr %c_traceobj.i, align 8, !dbg !6882, !tbaa !6883",
+				"%event.i = getelementptr inbounds %struct._PyLegacyEventHandler, ptr %self, i64 0, i32 2, !dbg !6884",
+				"%11 = load i32, ptr %event.i, align 8, !dbg !6884, !tbaa !6885",
+				"%call.i = tail call i32 %9(ptr noundef %10, ptr noundef nonnull %call19, i32 noundef %11, ptr noundef nonnull @_Py_NoneStruct) #5, !dbg !6887",
+				"store i32 0, ptr %f_lineno.i, align 8, !dbg !6888, !tbaa !6880",
+				"%op.val.i.i = load i64, ptr %call19, align 8, !dbg !6894, !tbaa !6871",
+				"%12 = and i64 %op.val.i.i, 2147483648, !dbg !6901",
+				"%cmp.i.not.i.i = icmp eq i64 %12, 0, !dbg !6901",
+				"br i1 %cmp.i.not.i.i, label %if.end.i15.i, label %Py_DECREF.exit.i, !dbg !6902"
+			]
+		},
+		{
+			"function": "sys_trace_jump_func",
+			"id": 191,
+			"name": "if.end.i15.i",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [192, 193],
+			"ir": [
+				"%dec.i.i = add i64 %op.val.i.i, -1, !dbg !6903",
+				"store i64 %dec.i.i, ptr %call19, align 8, !dbg !6903, !tbaa !6871",
+				"%cmp.i14.i = icmp eq i64 %dec.i.i, 0, !dbg !6905",
+				"br i1 %cmp.i14.i, label %if.then1.i.i, label %Py_DECREF.exit.i, !dbg !6906"
+			]
+		},
+		{
+			"function": "sys_trace_jump_func",
+			"id": 192,
+			"name": "if.then1.i.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [193],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call19) #5, !dbg !6907",
+				"br label %Py_DECREF.exit.i, !dbg !6909"
+			]
+		},
+		{
+			"function": "sys_trace_jump_func",
+			"id": 193,
+			"name": "Py_DECREF.exit.i",
+			"debug": [
+				{
+					"line": 301, "columns": [9]
+				}
+			],
+			"successors": [194],
+			"ir": [
+				"%tobool4.not.i = icmp eq i32 %call.i, 0, !dbg !6910",
+				"%_Py_NoneStruct..i = select i1 %tobool4.not.i, ptr @_Py_NoneStruct, ptr null, !dbg !6861",
+				"br label %cleanup32"
+			]
+		},
+		{
+			"function": "sys_trace_jump_func",
+			"id": 194,
+			"name": "cleanup32",
+			"debug": [
+				{
+					"line": 372, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.3 = phi ptr [ @_Py_NoneStruct, %entry ], [ @_PyInstrumentation_DISABLE, %if.end ], [ @_PyInstrumentation_DISABLE, %if.end11 ], [ null, %if.then22 ], [ @_Py_NoneStruct, %if.end23 ], [ %_Py_NoneStruct..i, %Py_DECREF.exit.i ], !dbg !6801",
+				"ret ptr %retval.3, !dbg !6912"
+			]
+		},
+		{
+			"function": "sys_trace_instruction_func",
+			"id": 195,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 262, "columns": [28]
+				},
+				{
+					"line": 263, "columns": [15, 9]
+				}
+			],
+			"successors": [196, 197],
+			"ir": [
+				"%events.i = alloca i32, align 4",
+				"%call = tail call ptr @PyEval_GetFrame() #5, !dbg !6798",
+				"%cmp = icmp eq ptr %call, null, !dbg !6799",
+				"br i1 %cmp, label %if.then, label %if.end, !dbg !6801"
+			]
+		},
+		{
+			"function": "sys_trace_instruction_func",
+			"id": 196,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 264, "columns": [25, 9]
+				},
+				{
+					"line": 266, "columns": [9]
+				}
+			],
+			"successors": [211],
+			"ir": [
+				"%0 = load ptr, ptr @PyExc_SystemError, align 8, !dbg !6802, !tbaa !6804",
+				"tail call void @PyErr_SetString(ptr noundef %0, ptr noundef nonnull @.str.4) #5, !dbg !6808",
+				"br label %cleanup15, !dbg !6809"
+			]
+		},
+		{
+			"function": "sys_trace_instruction_func",
+			"id": 197,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 137, "columns": [12]
+				},
+				{
+					"line": 269, "columns": [18, 10, 30]
+				}
+			],
+			"successors": [199, 198],
+			"ir": [
+				"%1 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6810",
+				"%2 = load ptr, ptr %1, align 8, !dbg !6810, !tbaa !6804",
+				"%c_tracefunc = getelementptr inbounds %struct._ts, ptr %2, i64 0, i32 15, !dbg !6817",
+				"%3 = load ptr, ptr %c_tracefunc, align 8, !dbg !6817, !tbaa !6819",
+				"%tobool.not = icmp eq ptr %3, null, !dbg !6826",
+				"br i1 %tobool.not, label %if.then3, label %lor.lhs.false, !dbg !6827"
+			]
+		},
+		{
+			"function": "sys_trace_instruction_func",
+			"id": 198,
+			"name": "lor.lhs.false",
+			"debug": [
+				{
+					"line": 269, "columns": [41, 34, 9]
+				}
+			],
+			"successors": [199, 205],
+			"ir": [
+				"%f_trace_opcodes = getelementptr inbounds %struct._frame, ptr %call, i64 0, i32 6, !dbg !6828",
+				"%4 = load i8, ptr %f_trace_opcodes, align 1, !dbg !6828, !tbaa !6829",
+				"%tobool2.not = icmp eq i8 %4, 0, !dbg !6832",
+				"br i1 %tobool2.not, label %if.then3, label %if.end8, !dbg !6833"
+			]
+		},
+		{
+			"function": "sys_trace_instruction_func",
+			"id": 199,
+			"name": "if.then3",
+			"debug": [
+				{
+					"line": 128, "columns": [49, 58]
+				},
+				{
+					"line": 129, "columns": [5, 27]
+				},
+				{
+					"line": 131, "columns": [9, 81]
+				}
+			],
+			"successors": [200, 201],
+			"ir": [
+				"%f_frame.i = getelementptr inbounds %struct._frame, ptr %call, i64 0, i32 2, !dbg !6848",
+				"%5 = load ptr, ptr %f_frame.i, align 8, !dbg !6848, !tbaa !6849",
+				"%6 = load ptr, ptr %5, align 8, !dbg !6850, !tbaa !6851",
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %events.i) #5, !dbg !6854",
+				"store i32 0, ptr %events.i, align 4, !dbg !6855, !tbaa !6856",
+				"%call.i = call i32 @_PyMonitoring_GetLocalEvents(ptr noundef %6, i32 noundef 7, ptr noundef nonnull %events.i) #5, !dbg !6857",
+				"%cmp.i27 = icmp slt i32 %call.i, 0, !dbg !6859",
+				"br i1 %cmp.i27, label %_PyEval_SetOpcodeTrace.exit.thread32, label %if.end.i28, !dbg !6860"
+			]
+		},
+		{
+			"function": "sys_trace_instruction_func",
+			"id": 200,
+			"name": "_PyEval_SetOpcodeTrace.exit.thread32",
+			"debug": [
+				{
+					"line": 147, "columns": [1]
+				}
+			],
+			"successors": [211],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %events.i) #5, !dbg !6861",
+				"br label %cleanup15, !dbg !6862"
+			]
+		},
+		{
+			"function": "sys_trace_instruction_func",
+			"id": 201,
+			"name": "if.end.i28",
+			"debug": [
+				{
+					"line": 141, "columns": [13]
+				}
+			],
+			"successors": [202, 203],
+			"ir": [
+				"%7 = load i32, ptr %events.i, align 4, !dbg !6863, !tbaa !6856",
+				"%and.i = and i32 %7, 64, !dbg !6863",
+				"%tobool2.not.i = icmp eq i32 %and.i, 0, !dbg !6863",
+				"br i1 %tobool2.not.i, label %_PyEval_SetOpcodeTrace.exit.thread, label %_PyEval_SetOpcodeTrace.exit, !dbg !6865"
+			]
+		},
+		{
+			"function": "sys_trace_instruction_func",
+			"id": 202,
+			"name": "_PyEval_SetOpcodeTrace.exit.thread",
+			"debug": [
+				{
+					"line": 147, "columns": [1]
+				}
+			],
+			"successors": [204],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %events.i) #5, !dbg !6861",
+				"br label %8, !dbg !6862"
+			]
+		},
+		{
+			"function": "sys_trace_instruction_func",
+			"id": 203,
+			"name": "_PyEval_SetOpcodeTrace.exit",
+			"debug": [
+				{
+					"line": 144, "columns": [16]
+				},
+				{
+					"line": 146, "columns": [12]
+				},
+				{
+					"line": 147, "columns": [1]
+				},
+				{
+					"line": 270, "columns": [50]
+				}
+			],
+			"successors": [204, 211],
+			"ir": [
+				"%and9.i = and i32 %7, -65, !dbg !6867",
+				"store i32 %and9.i, ptr %events.i, align 4, !dbg !6863, !tbaa !6856",
+				"%call11.i = call i32 @_PyMonitoring_SetLocalEvents(ptr noundef %6, i32 noundef 7, i32 noundef %and9.i) #5, !dbg !6868",
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %events.i) #5, !dbg !6861",
+				"%call11.i.fr = freeze i32 %call11.i, !dbg !6869",
+				"%cmp5.not = icmp eq i32 %call11.i.fr, 0, !dbg !6869",
+				"br i1 %cmp5.not, label %8, label %cleanup15, !dbg !6862"
+			]
+		},
+		{
+			"function": "sys_trace_instruction_func",
+			"id": 204,
+			"name": "",
+			"debug": [
+			],
+			"successors": [211],
+			"ir": [
+				"br label %cleanup15, !dbg !6862"
+			]
+		},
+		{
+			"function": "sys_trace_instruction_func",
+			"id": 205,
+			"name": "if.end8",
+			"debug": [
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [207, 206],
+			"ir": [
+				"%9 = load i32, ptr %call, align 8, !dbg !6877, !tbaa !6878",
+				"%add.i = add i32 %9, 1, !dbg !6879",
+				"%cmp.i = icmp eq i32 %add.i, 0, !dbg !6880",
+				"br i1 %cmp.i, label %Py_INCREF.exit, label %if.end.i, !dbg !6882"
+			]
+		},
+		{
+			"function": "sys_trace_instruction_func",
+			"id": 206,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 276, "columns": [23]
+				},
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [207],
+			"ir": [
+				"store i32 %add.i, ptr %call, align 8, !dbg !6883, !tbaa !6878",
+				"%.pre = load ptr, ptr %c_tracefunc, align 8, !dbg !6884, !tbaa !6819",
+				"br label %Py_INCREF.exit, !dbg !6885"
+			]
+		},
+		{
+			"function": "sys_trace_instruction_func",
+			"id": 207,
+			"name": "Py_INCREF.exit",
+			"debug": [
+				{
+					"line": 276, "columns": [23, 43, 68, 15]
+				},
+				{
+					"line": 277, "columns": [12, 21]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [208, 210],
+			"ir": [
+				"%10 = phi ptr [ %3, %if.end8 ], [ %.pre, %if.end.i ], !dbg !6884",
+				"%c_traceobj = getelementptr inbounds %struct._ts, ptr %2, i64 0, i32 17, !dbg !6886",
+				"%11 = load ptr, ptr %c_traceobj, align 8, !dbg !6886, !tbaa !6887",
+				"%event = getelementptr inbounds %struct._PyLegacyEventHandler, ptr %self, i64 0, i32 2, !dbg !6888",
+				"%12 = load i32, ptr %event, align 8, !dbg !6888, !tbaa !6889",
+				"%call10 = tail call i32 %10(ptr noundef %11, ptr noundef nonnull %call, i32 noundef %12, ptr noundef nonnull @_Py_NoneStruct) #5, !dbg !6891",
+				"%f_lineno = getelementptr inbounds %struct._frame, ptr %call, i64 0, i32 4, !dbg !6892",
+				"store i32 0, ptr %f_lineno, align 8, !dbg !6893, !tbaa !6894",
+				"%op.val.i = load i64, ptr %call, align 8, !dbg !6900, !tbaa !6878",
+				"%13 = and i64 %op.val.i, 2147483648, !dbg !6907",
+				"%cmp.i.not.i = icmp eq i64 %13, 0, !dbg !6907",
+				"br i1 %cmp.i.not.i, label %if.end.i26, label %Py_DECREF.exit, !dbg !6908"
+			]
+		},
+		{
+			"function": "sys_trace_instruction_func",
+			"id": 208,
+			"name": "if.end.i26",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [209, 210],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !6909",
+				"store i64 %dec.i, ptr %call, align 8, !dbg !6909, !tbaa !6878",
+				"%cmp.i25 = icmp eq i64 %dec.i, 0, !dbg !6911",
+				"br i1 %cmp.i25, label %if.then1.i, label %Py_DECREF.exit, !dbg !6912"
+			]
+		},
+		{
+			"function": "sys_trace_instruction_func",
+			"id": 209,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [210],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call) #5, !dbg !6913",
+				"br label %Py_DECREF.exit, !dbg !6915"
+			]
+		},
+		{
+			"function": "sys_trace_instruction_func",
+			"id": 210,
+			"name": "Py_DECREF.exit",
+			"debug": [
+				{
+					"line": 279, "columns": [9]
+				}
+			],
+			"successors": [211],
+			"ir": [
+				"%tobool11.not = icmp eq i32 %call10, 0, !dbg !6916",
+				"%_Py_NoneStruct.24 = select i1 %tobool11.not, ptr @_Py_NoneStruct, ptr null, !dbg !6797",
+				"br label %cleanup15"
+			]
+		},
+		{
+			"function": "sys_trace_instruction_func",
+			"id": 211,
+			"name": "cleanup15",
+			"debug": [
+				{
+					"line": 283, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.2 = phi ptr [ null, %if.then ], [ %_Py_NoneStruct.24, %Py_DECREF.exit ], [ @_Py_NoneStruct, %8 ], [ null, %_PyEval_SetOpcodeTrace.exit ], [ null, %_PyEval_SetOpcodeTrace.exit.thread32 ], !dbg !6797",
+				"ret ptr %retval.2, !dbg !6918"
+			]
+		},
+		{
+			"function": "call_trace_func",
+			"id": 212,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 137, "columns": [12]
+				},
+				{
+					"line": 153, "columns": [17, 29, 9]
+				}
+			],
+			"successors": [227, 213],
+			"ir": [
+				"%events.i = alloca i32, align 4",
+				"%0 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6796",
+				"%1 = load ptr, ptr %0, align 8, !dbg !6796, !tbaa !6803",
+				"%c_tracefunc = getelementptr inbounds %struct._ts, ptr %1, i64 0, i32 15, !dbg !6807",
+				"%2 = load ptr, ptr %c_tracefunc, align 8, !dbg !6807, !tbaa !6809",
+				"%cmp = icmp eq ptr %2, null, !dbg !6816",
+				"br i1 %cmp, label %cleanup17, label %if.end, !dbg !6817"
+			]
+		},
+		{
+			"function": "call_trace_func",
+			"id": 213,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 156, "columns": [28]
+				},
+				{
+					"line": 157, "columns": [15, 9]
+				}
+			],
+			"successors": [214, 215],
+			"ir": [
+				"%call1 = tail call ptr @PyEval_GetFrame() #5, !dbg !6818",
+				"%cmp2 = icmp eq ptr %call1, null, !dbg !6819",
+				"br i1 %cmp2, label %if.then3, label %if.end4, !dbg !6821"
+			]
+		},
+		{
+			"function": "call_trace_func",
+			"id": 214,
+			"name": "if.then3",
+			"debug": [
+				{
+					"line": 158, "columns": [25, 9]
+				},
+				{
+					"line": 160, "columns": [9]
+				}
+			],
+			"successors": [227],
+			"ir": [
+				"%3 = load ptr, ptr @PyExc_SystemError, align 8, !dbg !6822, !tbaa !6803",
+				"tail call void @PyErr_SetString(ptr noundef %3, ptr noundef nonnull @.str.4) #5, !dbg !6824",
+				"br label %cleanup17, !dbg !6825"
+			]
+		},
+		{
+			"function": "call_trace_func",
+			"id": 215,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 162, "columns": [16, 9]
+				}
+			],
+			"successors": [221, 216],
+			"ir": [
+				"%f_trace_opcodes = getelementptr inbounds %struct._frame, ptr %call1, i64 0, i32 6, !dbg !6826",
+				"%4 = load i8, ptr %f_trace_opcodes, align 1, !dbg !6826, !tbaa !6828",
+				"%tobool.not = icmp eq i8 %4, 0, !dbg !6831",
+				"br i1 %tobool.not, label %if.end10, label %if.then5, !dbg !6832"
+			]
+		},
+		{
+			"function": "call_trace_func",
+			"id": 216,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 128, "columns": [49, 58]
+				},
+				{
+					"line": 129, "columns": [5, 27]
+				},
+				{
+					"line": 131, "columns": [9, 81]
+				}
+			],
+			"successors": [217, 218],
+			"ir": [
+				"%f_frame.i = getelementptr inbounds %struct._frame, ptr %call1, i64 0, i32 2, !dbg !6847",
+				"%5 = load ptr, ptr %f_frame.i, align 8, !dbg !6847, !tbaa !6848",
+				"%6 = load ptr, ptr %5, align 8, !dbg !6849, !tbaa !6850",
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %events.i) #5, !dbg !6853",
+				"store i32 0, ptr %events.i, align 4, !dbg !6854, !tbaa !6855",
+				"%call.i = call i32 @_PyMonitoring_GetLocalEvents(ptr noundef %6, i32 noundef 7, ptr noundef nonnull %events.i) #5, !dbg !6856",
+				"%cmp.i27 = icmp slt i32 %call.i, 0, !dbg !6858",
+				"br i1 %cmp.i27, label %_PyEval_SetOpcodeTrace.exit.thread32, label %if.end.i28, !dbg !6859"
+			]
+		},
+		{
+			"function": "call_trace_func",
+			"id": 217,
+			"name": "_PyEval_SetOpcodeTrace.exit.thread32",
+			"debug": [
+				{
+					"line": 147, "columns": [1]
+				},
+				{
+					"line": 163, "columns": [13]
+				}
+			],
+			"successors": [227],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %events.i) #5, !dbg !6860",
+				"br label %cleanup17, !dbg !6861"
+			]
+		},
+		{
+			"function": "call_trace_func",
+			"id": 218,
+			"name": "if.end.i28",
+			"debug": [
+				{
+					"line": 136, "columns": [13]
+				}
+			],
+			"successors": [220, 219],
+			"ir": [
+				"%7 = load i32, ptr %events.i, align 4, !dbg !6862, !tbaa !6855",
+				"%and.i = and i32 %7, 64, !dbg !6862",
+				"%tobool2.not.i = icmp eq i32 %and.i, 0, !dbg !6862",
+				"br i1 %tobool2.not.i, label %_PyEval_SetOpcodeTrace.exit, label %_PyEval_SetOpcodeTrace.exit.thread, !dbg !6864"
+			]
+		},
+		{
+			"function": "call_trace_func",
+			"id": 219,
+			"name": "_PyEval_SetOpcodeTrace.exit.thread",
+			"debug": [
+				{
+					"line": 147, "columns": [1]
+				},
+				{
+					"line": 163, "columns": [13]
+				}
+			],
+			"successors": [221],
+			"ir": [
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %events.i) #5, !dbg !6860",
+				"br label %if.end10, !dbg !6861"
+			]
+		},
+		{
+			"function": "call_trace_func",
+			"id": 220,
+			"name": "_PyEval_SetOpcodeTrace.exit",
+			"debug": [
+				{
+					"line": 139, "columns": [16]
+				},
+				{
+					"line": 146, "columns": [12]
+				},
+				{
+					"line": 147, "columns": [1]
+				},
+				{
+					"line": 163, "columns": [49, 13]
+				}
+			],
+			"successors": [221, 227],
+			"ir": [
+				"%or.i = or i32 %7, 64, !dbg !6866",
+				"store i32 %or.i, ptr %events.i, align 4, !dbg !6862, !tbaa !6855",
+				"%call11.i = call i32 @_PyMonitoring_SetLocalEvents(ptr noundef %6, i32 noundef 7, i32 noundef %or.i) #5, !dbg !6867",
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %events.i) #5, !dbg !6860",
+				"%cmp7.not = icmp eq i32 %call11.i, 0, !dbg !6868",
+				"br i1 %cmp7.not, label %if.end10, label %cleanup17, !dbg !6861"
+			]
+		},
+		{
+			"function": "call_trace_func",
+			"id": 221,
+			"name": "if.end10",
+			"debug": [
+				{
+					"line": 820, "columns": [30]
+				},
+				{
+					"line": 821, "columns": [41]
+				},
+				{
+					"line": 822, "columns": [20, 9]
+				}
+			],
+			"successors": [223, 222],
+			"ir": [
+				"%8 = load i32, ptr %call1, align 8, !dbg !6876, !tbaa !6877",
+				"%add.i = add i32 %8, 1, !dbg !6878",
+				"%cmp.i = icmp eq i32 %add.i, 0, !dbg !6879",
+				"br i1 %cmp.i, label %Py_INCREF.exit, label %if.end.i, !dbg !6881"
+			]
+		},
+		{
+			"function": "call_trace_func",
+			"id": 222,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 827, "columns": [40]
+				},
+				{
+					"line": 840, "columns": [1]
+				}
+			],
+			"successors": [223],
+			"ir": [
+				"store i32 %add.i, ptr %call1, align 8, !dbg !6882, !tbaa !6877",
+				"br label %Py_INCREF.exit, !dbg !6883"
+			]
+		},
+		{
+			"function": "call_trace_func",
+			"id": 223,
+			"name": "Py_INCREF.exit",
+			"debug": [
+				{
+					"line": 169, "columns": [23, 43, 68, 15]
+				},
+				{
+					"line": 357, "columns": [49]
+				},
+				{
+					"line": 940, "columns": [9]
+				}
+			],
+			"successors": [224, 226],
+			"ir": [
+				"%9 = load ptr, ptr %c_tracefunc, align 8, !dbg !6884, !tbaa !6809",
+				"%c_traceobj = getelementptr inbounds %struct._ts, ptr %1, i64 0, i32 17, !dbg !6885",
+				"%10 = load ptr, ptr %c_traceobj, align 8, !dbg !6885, !tbaa !6886",
+				"%event = getelementptr inbounds %struct._PyLegacyEventHandler, ptr %self, i64 0, i32 2, !dbg !6887",
+				"%11 = load i32, ptr %event, align 8, !dbg !6887, !tbaa !6888",
+				"%call12 = call i32 %9(ptr noundef %10, ptr noundef nonnull %call1, i32 noundef %11, ptr noundef %arg) #5, !dbg !6890",
+				"%op.val.i = load i64, ptr %call1, align 8, !dbg !6896, !tbaa !6877",
+				"%12 = and i64 %op.val.i, 2147483648, !dbg !6903",
+				"%cmp.i.not.i = icmp eq i64 %12, 0, !dbg !6903",
+				"br i1 %cmp.i.not.i, label %if.end.i26, label %Py_DECREF.exit, !dbg !6904"
+			]
+		},
+		{
+			"function": "call_trace_func",
+			"id": 224,
+			"name": "if.end.i26",
+			"debug": [
+				{
+					"line": 944, "columns": [9, 25]
+				}
+			],
+			"successors": [225, 226],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !6905",
+				"store i64 %dec.i, ptr %call1, align 8, !dbg !6905, !tbaa !6877",
+				"%cmp.i25 = icmp eq i64 %dec.i, 0, !dbg !6907",
+				"br i1 %cmp.i25, label %if.then1.i, label %Py_DECREF.exit, !dbg !6908"
+			]
+		},
+		{
+			"function": "call_trace_func",
+			"id": 225,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 945, "columns": [9]
+				},
+				{
+					"line": 946, "columns": [5]
+				}
+			],
+			"successors": [226],
+			"ir": [
+				"call void @_Py_Dealloc(ptr noundef nonnull %call1) #5, !dbg !6909",
+				"br label %Py_DECREF.exit, !dbg !6911"
+			]
+		},
+		{
+			"function": "call_trace_func",
+			"id": 226,
+			"name": "Py_DECREF.exit",
+			"debug": [
+				{
+					"line": 171, "columns": [9]
+				}
+			],
+			"successors": [227],
+			"ir": [
+				"%tobool13.not = icmp eq i32 %call12, 0, !dbg !6912",
+				"%_Py_NoneStruct. = select i1 %tobool13.not, ptr @_Py_NoneStruct, ptr null, !dbg !6795",
+				"br label %cleanup17"
+			]
+		},
+		{
+			"function": "call_trace_func",
+			"id": 227,
+			"name": "cleanup17",
+			"debug": [
+				{
+					"line": 175, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.2 = phi ptr [ @_Py_NoneStruct, %entry ], [ null, %if.then3 ], [ %_Py_NoneStruct., %Py_DECREF.exit ], [ null, %_PyEval_SetOpcodeTrace.exit ], [ null, %_PyEval_SetOpcodeTrace.exit.thread32 ], !dbg !6795",
+				"ret ptr %retval.2, !dbg !6914"
+			]
+		}
+	]
+}

@@ -1,0 +1,97 @@
+{
+	"blocks": [
+		{
+			"function": "PyInit__contextvars",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 66, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call = tail call ptr @PyModuleDef_Init(ptr noundef nonnull @_contextvarsmodule) #3, !dbg !408",
+				"ret ptr %call, !dbg !409"
+			]
+		},
+		{
+			"function": "_contextvars_copy_context",
+			"id": 1,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 19, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call.i = tail call ptr @PyContext_CopyCurrent() #3, !dbg !416",
+				"ret ptr %call.i, !dbg !417"
+			]
+		},
+		{
+			"function": "_contextvars_exec",
+			"id": 2,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 33, "columns": [9, 46]
+				}
+			],
+			"successors": [5, 3],
+			"ir": [
+				"%call = tail call i32 @PyModule_AddType(ptr noundef %m, ptr noundef nonnull @PyContext_Type) #3, !dbg !410",
+				"%cmp = icmp slt i32 %call, 0, !dbg !412",
+				"br i1 %cmp, label %return, label %if.end, !dbg !413"
+			]
+		},
+		{
+			"function": "_contextvars_exec",
+			"id": 3,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 36, "columns": [9, 49]
+				}
+			],
+			"successors": [5, 4],
+			"ir": [
+				"%call1 = tail call i32 @PyModule_AddType(ptr noundef %m, ptr noundef nonnull @PyContextVar_Type) #3, !dbg !414",
+				"%cmp2 = icmp slt i32 %call1, 0, !dbg !416",
+				"br i1 %cmp2, label %return, label %if.end4, !dbg !417"
+			]
+		},
+		{
+			"function": "_contextvars_exec",
+			"id": 4,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 39, "columns": [9]
+				}
+			],
+			"successors": [5],
+			"ir": [
+				"%call5 = tail call i32 @PyModule_AddType(ptr noundef %m, ptr noundef nonnull @PyContextToken_Type) #3, !dbg !418",
+				"%call5.lobit = ashr i32 %call5, 31, !dbg !409",
+				"br label %return, !dbg !409"
+			]
+		},
+		{
+			"function": "_contextvars_exec",
+			"id": 5,
+			"name": "return",
+			"debug": [
+				{
+					"line": 43, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi i32 [ -1, %entry ], [ -1, %if.end ], [ %call5.lobit, %if.end4 ], !dbg !409",
+				"ret i32 %retval.0, !dbg !420"
+			]
+		}
+	]
+}

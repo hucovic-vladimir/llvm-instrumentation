@@ -1,0 +1,116 @@
+{
+	"blocks": [
+		{
+			"function": "_Py_InitVersion",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 13, "columns": [9]
+				}
+			],
+			"successors": [2, 1],
+			"ir": [
+				"%.b = load i1, ptr @initialized, align 4, !dbg !38",
+				"br i1 %.b, label %return, label %if.end, !dbg !40"
+			]
+		},
+		{
+			"function": "_Py_InitVersion",
+			"id": 1,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 16, "columns": [17]
+				},
+				{
+					"line": 17, "columns": [5]
+				},
+				{
+					"line": 18, "columns": [31, 50]
+				},
+				{
+					"line": 19, "columns": [1]
+				}
+			],
+			"successors": [2],
+			"ir": [
+				"store i1 true, ptr @initialized, align 4, !dbg !41",
+				"%call = tail call ptr @Py_GetBuildInfo() #2, !dbg !42",
+				"%call1 = tail call ptr @Py_GetCompiler() #2, !dbg !43",
+				"%call2 = tail call i32 (ptr, i64, ptr, ...) @PyOS_snprintf(ptr noundef nonnull @version, i64 noundef 250, ptr noundef nonnull @.str, ptr noundef nonnull @.str.1, ptr noundef %call, ptr noundef %call1) #2, !dbg !44",
+				"br label %return, !dbg !45"
+			]
+		},
+		{
+			"function": "_Py_InitVersion",
+			"id": 2,
+			"name": "return",
+			"debug": [
+				{
+					"line": 19, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret void, !dbg !45"
+			]
+		},
+		{
+			"function": "Py_GetVersion",
+			"id": 3,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 13, "columns": [9]
+				}
+			],
+			"successors": [5, 4],
+			"ir": [
+				"%.b.i = load i1, ptr @initialized, align 4, !dbg !40",
+				"br i1 %.b.i, label %_Py_InitVersion.exit, label %if.end.i, !dbg !46"
+			]
+		},
+		{
+			"function": "Py_GetVersion",
+			"id": 4,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 16, "columns": [17]
+				},
+				{
+					"line": 17, "columns": [5]
+				},
+				{
+					"line": 18, "columns": [31, 50]
+				},
+				{
+					"line": 19, "columns": [1]
+				}
+			],
+			"successors": [5],
+			"ir": [
+				"store i1 true, ptr @initialized, align 4, !dbg !47",
+				"%call.i = tail call ptr @Py_GetBuildInfo() #2, !dbg !48",
+				"%call1.i = tail call ptr @Py_GetCompiler() #2, !dbg !49",
+				"%call2.i = tail call i32 (ptr, i64, ptr, ...) @PyOS_snprintf(ptr noundef nonnull @version, i64 noundef 250, ptr noundef nonnull @.str, ptr noundef nonnull @.str.1, ptr noundef %call.i, ptr noundef %call1.i) #2, !dbg !50",
+				"br label %_Py_InitVersion.exit, !dbg !51"
+			]
+		},
+		{
+			"function": "Py_GetVersion",
+			"id": 5,
+			"name": "_Py_InitVersion.exit",
+			"debug": [
+				{
+					"line": 25, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"ret ptr @version, !dbg !52"
+			]
+		}
+	]
+}

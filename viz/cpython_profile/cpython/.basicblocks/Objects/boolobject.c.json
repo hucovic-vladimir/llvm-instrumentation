@@ -1,0 +1,646 @@
+{
+	"blocks": [
+		{
+			"function": "PyBool_FromLong",
+			"id": 0,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 23, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%tobool.not = icmp eq i64 %ok, 0, !dbg !396",
+				"%cond = select i1 %tobool.not, ptr @_Py_FalseStruct, ptr @_Py_TrueStruct, !dbg !396",
+				"ret ptr %cond, !dbg !397"
+			]
+		},
+		{
+			"function": "bool_dealloc",
+			"id": 1,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 166, "columns": [5]
+				},
+				{
+					"line": 167, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @_Py_SetImmortal(ptr noundef %boolean) #5, !dbg !394",
+				"ret void, !dbg !395"
+			]
+		},
+		{
+			"function": "bool_repr",
+			"id": 2,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 16, "columns": [17, 12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%cmp = icmp eq ptr %self, @_Py_TrueStruct, !dbg !394",
+				"%cond = select i1 %cmp, ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 40, i32 0, i32 3, i32 1, i32 7), ptr getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 40, i32 0, i32 3, i32 1, i32 2), !dbg !395",
+				"ret ptr %cond, !dbg !396"
+			]
+		},
+		{
+			"function": "bool_new",
+			"id": 3,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 31, "columns": [5, 15]
+				},
+				{
+					"line": 34, "columns": [10]
+				}
+			],
+			"successors": [5, 4],
+			"ir": [
+				"%x = alloca ptr, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %x) #5, !dbg !398",
+				"store ptr @_Py_FalseStruct, ptr %x, align 8, !dbg !399, !tbaa !400",
+				"%cmp = icmp eq ptr %kwds, null, !dbg !404",
+				"br i1 %cmp, label %if.end, label %lor.lhs.false, !dbg !404"
+			]
+		},
+		{
+			"function": "bool_new",
+			"id": 4,
+			"name": "lor.lhs.false",
+			"debug": [
+				{
+					"line": 34, "columns": [10, 9]
+				}
+			],
+			"successors": [8, 5],
+			"ir": [
+				"%call = tail call i32 @_PyArg_NoKeywords(ptr noundef nonnull @.str, ptr noundef nonnull %kwds) #5, !dbg !404",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !404",
+				"br i1 %tobool.not, label %cleanup, label %if.end, !dbg !406"
+			]
+		},
+		{
+			"function": "bool_new",
+			"id": 5,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 36, "columns": [10, 9]
+				}
+			],
+			"successors": [8, 6],
+			"ir": [
+				"%call1 = call i32 (ptr, ptr, i64, i64, ...) @PyArg_UnpackTuple(ptr noundef %args, ptr noundef nonnull @.str, i64 noundef 0, i64 noundef 1, ptr noundef nonnull %x) #5, !dbg !407",
+				"%tobool2.not = icmp eq i32 %call1, 0, !dbg !407",
+				"br i1 %tobool2.not, label %cleanup, label %if.end4, !dbg !409"
+			]
+		},
+		{
+			"function": "bool_new",
+			"id": 6,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 38, "columns": [26, 10]
+				},
+				{
+					"line": 39, "columns": [12, 9]
+				}
+			],
+			"successors": [8, 7],
+			"ir": [
+				"%0 = load ptr, ptr %x, align 8, !dbg !410, !tbaa !400",
+				"%call5 = call i32 @PyObject_IsTrue(ptr noundef %0) #5, !dbg !411",
+				"%cmp6 = icmp slt i32 %call5, 0, !dbg !412",
+				"br i1 %cmp6, label %cleanup, label %if.end9, !dbg !414"
+			]
+		},
+		{
+			"function": "bool_new",
+			"id": 7,
+			"name": "if.end9",
+			"debug": [
+				{
+					"line": 23, "columns": [12]
+				},
+				{
+					"line": 41, "columns": [5]
+				}
+			],
+			"successors": [8],
+			"ir": [
+				"%tobool.not.i = icmp eq i32 %call5, 0, !dbg !422",
+				"%cond.i = select i1 %tobool.not.i, ptr @_Py_FalseStruct, ptr @_Py_TrueStruct, !dbg !422",
+				"br label %cleanup, !dbg !423"
+			]
+		},
+		{
+			"function": "bool_new",
+			"id": 8,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 42, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %cond.i, %if.end9 ], [ null, %lor.lhs.false ], [ null, %if.end ], [ null, %if.end4 ], !dbg !397",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %x) #5, !dbg !424",
+				"ret ptr %retval.0, !dbg !424"
+			]
+		},
+		{
+			"function": "bool_vectorcall",
+			"id": 9,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 49, "columns": [10]
+				}
+			],
+			"successors": [11, 10],
+			"ir": [
+				"%cmp = icmp eq ptr %kwnames, null, !dbg !399",
+				"br i1 %cmp, label %if.end, label %lor.lhs.false, !dbg !399"
+			]
+		},
+		{
+			"function": "bool_vectorcall",
+			"id": 10,
+			"name": "lor.lhs.false",
+			"debug": [
+				{
+					"line": 49, "columns": [10, 9]
+				}
+			],
+			"successors": [17, 11],
+			"ir": [
+				"%call = tail call i32 @_PyArg_NoKwnames(ptr noundef nonnull @.str, ptr noundef nonnull %kwnames) #5, !dbg !399",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !399",
+				"br i1 %tobool.not, label %cleanup18, label %if.end, !dbg !401"
+			]
+		},
+		{
+			"function": "bool_vectorcall",
+			"id": 11,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 35, "columns": [14]
+				},
+				{
+					"line": 54, "columns": [10]
+				}
+			],
+			"successors": [13, 12],
+			"ir": [
+				"%and.i = and i64 %nargsf, 9223372036854775807, !dbg !410",
+				"%cmp3 = icmp ult i64 %and.i, 2, !dbg !411",
+				"br i1 %cmp3, label %if.end8, label %lor.lhs.false4, !dbg !411"
+			]
+		},
+		{
+			"function": "bool_vectorcall",
+			"id": 12,
+			"name": "lor.lhs.false4",
+			"debug": [
+				{
+					"line": 54, "columns": [10, 9]
+				}
+			],
+			"successors": [17, 14],
+			"ir": [
+				"%call5 = tail call i32 @_PyArg_CheckPositional(ptr noundef nonnull @.str, i64 noundef %and.i, i64 noundef 0, i64 noundef 1) #5, !dbg !411",
+				"%tobool6.not = icmp eq i32 %call5, 0, !dbg !411",
+				"br i1 %tobool6.not, label %cleanup18, label %if.then10, !dbg !413"
+			]
+		},
+		{
+			"function": "bool_vectorcall",
+			"id": 13,
+			"name": "if.end8",
+			"debug": [
+				{
+					"line": 59, "columns": [9]
+				}
+			],
+			"successors": [16, 14],
+			"ir": [
+				"%tobool9.not = icmp eq i64 %and.i, 0, !dbg !414",
+				"br i1 %tobool9.not, label %if.end16.thread, label %if.then10, !dbg !416"
+			]
+		},
+		{
+			"function": "bool_vectorcall",
+			"id": 14,
+			"name": "if.then10",
+			"debug": [
+				{
+					"line": 23, "columns": [12]
+				},
+				{
+					"line": 60, "columns": [30, 14]
+				},
+				{
+					"line": 61, "columns": [16, 13]
+				}
+			],
+			"successors": [17, 15],
+			"ir": [
+				"%0 = load ptr, ptr %args, align 8, !dbg !417, !tbaa !419",
+				"%call11 = tail call i32 @PyObject_IsTrue(ptr noundef %0) #5, !dbg !423",
+				"%call11.fr = freeze i32 %call11, !dbg !424",
+				"%cmp12 = icmp slt i32 %call11.fr, 0, !dbg !431",
+				"br i1 %cmp12, label %cleanup18, label %if.end16, !dbg !433"
+			]
+		},
+		{
+			"function": "bool_vectorcall",
+			"id": 15,
+			"name": "if.end16",
+			"debug": [
+				{
+					"line": 23, "columns": [12]
+				}
+			],
+			"successors": [16, 17],
+			"ir": [
+				"%tobool.not.i = icmp eq i32 %call11.fr, 0, !dbg !424",
+				"br i1 %tobool.not.i, label %if.end16.thread, label %cleanup18, !dbg !424"
+			]
+		},
+		{
+			"function": "bool_vectorcall",
+			"id": 16,
+			"name": "if.end16.thread",
+			"debug": [
+				{
+					"line": 23, "columns": [12]
+				}
+			],
+			"successors": [17],
+			"ir": [
+				"br label %cleanup18, !dbg !424"
+			]
+		},
+		{
+			"function": "bool_vectorcall",
+			"id": 17,
+			"name": "cleanup18",
+			"debug": [
+				{
+					"line": 66, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %lor.lhs.false ], [ null, %lor.lhs.false4 ], [ null, %if.then10 ], [ @_Py_FalseStruct, %if.end16.thread ], [ @_Py_TrueStruct, %if.end16 ], !dbg !398",
+				"ret ptr %retval.1, !dbg !435"
+			]
+		},
+		{
+			"function": "bool_invert",
+			"id": 18,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 73, "columns": [22, 9]
+				},
+				{
+					"line": 80, "columns": [25]
+				}
+			],
+			"successors": [20, 19],
+			"ir": [
+				"%0 = load ptr, ptr @PyExc_DeprecationWarning, align 8, !dbg !394, !tbaa !396",
+				"%call = tail call i32 @PyErr_WarnEx(ptr noundef %0, ptr noundef nonnull @.str.1, i64 noundef 1) #5, !dbg !400",
+				"%cmp = icmp slt i32 %call, 0, !dbg !401",
+				"br i1 %cmp, label %return, label %if.end, !dbg !402"
+			]
+		},
+		{
+			"function": "bool_invert",
+			"id": 19,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 83, "columns": [24, 38, 12, 5]
+				}
+			],
+			"successors": [20],
+			"ir": [
+				"%1 = load ptr, ptr getelementptr inbounds (%struct._typeobject, ptr @PyLong_Type, i64 0, i32 10), align 8, !dbg !403, !tbaa !404",
+				"%nb_invert = getelementptr inbounds %struct.PyNumberMethods, ptr %1, i64 0, i32 10, !dbg !411",
+				"%2 = load ptr, ptr %nb_invert, align 8, !dbg !411, !tbaa !412",
+				"%call1 = tail call ptr %2(ptr noundef %v) #5, !dbg !414",
+				"br label %return, !dbg !415"
+			]
+		},
+		{
+			"function": "bool_invert",
+			"id": 20,
+			"name": "return",
+			"debug": [
+				{
+					"line": 84, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call1, %if.end ], [ null, %entry ], !dbg !393",
+				"ret ptr %retval.0, !dbg !416"
+			]
+		},
+		{
+			"function": "bool_and",
+			"id": 21,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 89, "columns": [10, 26]
+				},
+				{
+					"line": 365, "columns": [24]
+				}
+			],
+			"successors": [22, 23],
+			"ir": [
+				"%0 = getelementptr i8, ptr %a, i64 8, !dbg !395",
+				"%a.val = load ptr, ptr %0, align 8, !dbg !395, !tbaa !397",
+				"%cmp.i.not = icmp eq ptr %a.val, @PyBool_Type, !dbg !410",
+				"br i1 %cmp.i.not, label %lor.lhs.false, label %if.then, !dbg !411"
+			]
+		},
+		{
+			"function": "bool_and",
+			"id": 22,
+			"name": "lor.lhs.false",
+			"debug": [
+				{
+					"line": 89, "columns": [30, 9]
+				},
+				{
+					"line": 365, "columns": [24]
+				}
+			],
+			"successors": [24, 23],
+			"ir": [
+				"%1 = getelementptr i8, ptr %b, i64 8, !dbg !412",
+				"%b.val = load ptr, ptr %1, align 8, !dbg !412, !tbaa !397",
+				"%cmp.i13.not = icmp eq ptr %b.val, @PyBool_Type, !dbg !415",
+				"br i1 %cmp.i13.not, label %if.end, label %if.then, !dbg !416"
+			]
+		},
+		{
+			"function": "bool_and",
+			"id": 23,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 90, "columns": [28, 42, 16, 9]
+				}
+			],
+			"successors": [25],
+			"ir": [
+				"%2 = load ptr, ptr getelementptr inbounds (%struct._typeobject, ptr @PyLong_Type, i64 0, i32 10), align 8, !dbg !417, !tbaa !418",
+				"%nb_and = getelementptr inbounds %struct.PyNumberMethods, ptr %2, i64 0, i32 13, !dbg !424",
+				"%3 = load ptr, ptr %nb_and, align 8, !dbg !424, !tbaa !425",
+				"%call3 = tail call ptr %3(ptr noundef nonnull %a, ptr noundef %b) #5, !dbg !427",
+				"br label %return, !dbg !428"
+			]
+		},
+		{
+			"function": "bool_and",
+			"id": 24,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 23, "columns": [12]
+				},
+				{
+					"line": 91, "columns": [31, 48, 5]
+				}
+			],
+			"successors": [25],
+			"ir": [
+				"%cmp = icmp ne ptr %a, @_Py_TrueStruct, !dbg !429",
+				"%cmp4 = icmp ne ptr %b, @_Py_TrueStruct, !dbg !430",
+				"%and12.not = or i1 %cmp, %cmp4, !dbg !431",
+				"%cond.i = select i1 %and12.not, ptr @_Py_FalseStruct, ptr @_Py_TrueStruct, !dbg !438",
+				"br label %return, !dbg !439"
+			]
+		},
+		{
+			"function": "bool_and",
+			"id": 25,
+			"name": "return",
+			"debug": [
+				{
+					"line": 92, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %cond.i, %if.end ], [ %call3, %if.then ], !dbg !394",
+				"ret ptr %retval.0, !dbg !440"
+			]
+		},
+		{
+			"function": "bool_xor",
+			"id": 26,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 105, "columns": [10, 26]
+				},
+				{
+					"line": 365, "columns": [24]
+				}
+			],
+			"successors": [27, 28],
+			"ir": [
+				"%0 = getelementptr i8, ptr %a, i64 8, !dbg !395",
+				"%a.val = load ptr, ptr %0, align 8, !dbg !395, !tbaa !397",
+				"%cmp.i.not = icmp eq ptr %a.val, @PyBool_Type, !dbg !410",
+				"br i1 %cmp.i.not, label %lor.lhs.false, label %if.then, !dbg !411"
+			]
+		},
+		{
+			"function": "bool_xor",
+			"id": 27,
+			"name": "lor.lhs.false",
+			"debug": [
+				{
+					"line": 105, "columns": [30, 9]
+				},
+				{
+					"line": 365, "columns": [24]
+				}
+			],
+			"successors": [29, 28],
+			"ir": [
+				"%1 = getelementptr i8, ptr %b, i64 8, !dbg !412",
+				"%b.val = load ptr, ptr %1, align 8, !dbg !412, !tbaa !397",
+				"%cmp.i13.not = icmp eq ptr %b.val, @PyBool_Type, !dbg !415",
+				"br i1 %cmp.i13.not, label %if.end, label %if.then, !dbg !416"
+			]
+		},
+		{
+			"function": "bool_xor",
+			"id": 28,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 106, "columns": [28, 42, 16, 9]
+				}
+			],
+			"successors": [30],
+			"ir": [
+				"%2 = load ptr, ptr getelementptr inbounds (%struct._typeobject, ptr @PyLong_Type, i64 0, i32 10), align 8, !dbg !417, !tbaa !418",
+				"%nb_xor = getelementptr inbounds %struct.PyNumberMethods, ptr %2, i64 0, i32 14, !dbg !424",
+				"%3 = load ptr, ptr %nb_xor, align 8, !dbg !424, !tbaa !425",
+				"%call3 = tail call ptr %3(ptr noundef nonnull %a, ptr noundef %b) #5, !dbg !427",
+				"br label %return, !dbg !428"
+			]
+		},
+		{
+			"function": "bool_xor",
+			"id": 29,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 23, "columns": [12]
+				},
+				{
+					"line": 107, "columns": [31, 48, 5]
+				}
+			],
+			"successors": [30],
+			"ir": [
+				"%cmp = icmp ne ptr %a, @_Py_TrueStruct, !dbg !429",
+				"%cmp4 = icmp eq ptr %b, @_Py_TrueStruct, !dbg !430",
+				"%tobool.not.i = xor i1 %cmp, %cmp4, !dbg !438",
+				"%cond.i = select i1 %tobool.not.i, ptr @_Py_FalseStruct, ptr @_Py_TrueStruct, !dbg !438",
+				"br label %return, !dbg !439"
+			]
+		},
+		{
+			"function": "bool_xor",
+			"id": 30,
+			"name": "return",
+			"debug": [
+				{
+					"line": 108, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %cond.i, %if.end ], [ %call3, %if.then ], !dbg !394",
+				"ret ptr %retval.0, !dbg !440"
+			]
+		},
+		{
+			"function": "bool_or",
+			"id": 31,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 97, "columns": [10, 26]
+				},
+				{
+					"line": 365, "columns": [24]
+				}
+			],
+			"successors": [32, 33],
+			"ir": [
+				"%0 = getelementptr i8, ptr %a, i64 8, !dbg !395",
+				"%a.val = load ptr, ptr %0, align 8, !dbg !395, !tbaa !397",
+				"%cmp.i.not = icmp eq ptr %a.val, @PyBool_Type, !dbg !410",
+				"br i1 %cmp.i.not, label %lor.lhs.false, label %if.then, !dbg !411"
+			]
+		},
+		{
+			"function": "bool_or",
+			"id": 32,
+			"name": "lor.lhs.false",
+			"debug": [
+				{
+					"line": 97, "columns": [30, 9]
+				},
+				{
+					"line": 365, "columns": [24]
+				}
+			],
+			"successors": [34, 33],
+			"ir": [
+				"%1 = getelementptr i8, ptr %b, i64 8, !dbg !412",
+				"%b.val = load ptr, ptr %1, align 8, !dbg !412, !tbaa !397",
+				"%cmp.i13.not = icmp eq ptr %b.val, @PyBool_Type, !dbg !415",
+				"br i1 %cmp.i13.not, label %if.end, label %if.then, !dbg !416"
+			]
+		},
+		{
+			"function": "bool_or",
+			"id": 33,
+			"name": "if.then",
+			"debug": [
+				{
+					"line": 98, "columns": [28, 42, 16, 9]
+				}
+			],
+			"successors": [35],
+			"ir": [
+				"%2 = load ptr, ptr getelementptr inbounds (%struct._typeobject, ptr @PyLong_Type, i64 0, i32 10), align 8, !dbg !417, !tbaa !418",
+				"%nb_or = getelementptr inbounds %struct.PyNumberMethods, ptr %2, i64 0, i32 15, !dbg !424",
+				"%3 = load ptr, ptr %nb_or, align 8, !dbg !424, !tbaa !425",
+				"%call3 = tail call ptr %3(ptr noundef nonnull %a, ptr noundef %b) #5, !dbg !427",
+				"br label %return, !dbg !428"
+			]
+		},
+		{
+			"function": "bool_or",
+			"id": 34,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 23, "columns": [12]
+				},
+				{
+					"line": 99, "columns": [31, 48, 5]
+				}
+			],
+			"successors": [35],
+			"ir": [
+				"%cmp = icmp ne ptr %a, @_Py_TrueStruct, !dbg !429",
+				"%cmp4 = icmp ne ptr %b, @_Py_TrueStruct, !dbg !430",
+				"%or12.not = and i1 %cmp, %cmp4, !dbg !431",
+				"%cond.i = select i1 %or12.not, ptr @_Py_FalseStruct, ptr @_Py_TrueStruct, !dbg !438",
+				"br label %return, !dbg !439"
+			]
+		},
+		{
+			"function": "bool_or",
+			"id": 35,
+			"name": "return",
+			"debug": [
+				{
+					"line": 100, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %cond.i, %if.end ], [ %call3, %if.then ], !dbg !394",
+				"ret ptr %retval.0, !dbg !440"
+			]
+		}
+	]
+}
