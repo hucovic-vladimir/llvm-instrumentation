@@ -27,7 +27,9 @@
 #include <llvm/Analysis/CFGPrinter.h>
 #include <llvm/Support/GraphWriter.h>
 #include <llvm/Analysis/CallGraph.h>
+#include <filesystem>
 
+namespace fs = std::filesystem;
 
 
 using blockWrapperMap = std::unordered_map<BasicBlock*, BasicBlockWrapper*>;
@@ -103,11 +105,7 @@ void incrementCounter(Module &M, Instruction* insertionPoint, unsigned long bbIn
 /// @param path The path to get the file name from
 /// @return The file name
 const std::string getFileName(const std::string& path) {
-	size_t pos = path.find_last_of("/\\");
-	if (pos != std::string::npos) {
-		return path.substr(pos + 1);
-	}
-	return path;
+	return fs::path(path).filename().string();
 }
 
 /// @todo Move elsewhere
@@ -262,8 +260,19 @@ PreservedAnalyses InstructionCount::run(Module &M, ModuleAnalysisManager &MAM){
 		}
 	}
 
+	fs::create_directory(".basicblocks");
+	// could be removed later
+	fs::create_directory(".llfiles");
+	fs::create_directory(".patterns");
+
 	std::error_code EC;
-	raw_fd_ostream bbFile(".basicblocks/" + getFileName(M.getName().str()) + ".json", EC);
+	std::string sourceFileName = getFileName(M.getSourceFileName());
+	errs() << "Source file name: " << sourceFileName << "\n";
+	std::string directories = fs::path(M.getSourceFileName()).parent_path().string();
+	errs() << "Directories: " << directories << "\n";
+	if(directories.size())
+		fs::create_directories(".basicblocks/" + directories);
+	raw_fd_ostream bbFile(".basicblocks/" + M.getSourceFileName() + ".json", EC);
 	bbFile << "{\n";
 	bbFile << PassUtilities::getTabs(1) << "\"blocks\": [\n";
 	for(auto& wrapper : wrappersVec) {
@@ -352,7 +361,13 @@ PreservedAnalyses InstructionCount::run(Module &M, ModuleAnalysisManager &MAM){
 
 
 	if(patterns.size() > 0){
-		raw_fd_ostream patternFile(".patterns/" + getFileName(M.getName().str()) + ".json", EC);
+		std::string sourceFileName = getFileName(M.getSourceFileName());
+		errs() << "Source file name: " << sourceFileName << "\n";
+		std::string directories = fs::path(M.getSourceFileName()).parent_path().string();
+		errs() << "Directories: " << directories << "\n";
+		if(directories.size())
+			fs::create_directories(".patterns/" + directories);
+		raw_fd_ostream patternFile(".patterns/" + directories + "/" + sourceFileName + ".json", EC);
 		patternFile << "{\n";
 		patternFile << PassUtilities::getTabs(1) << "\"functions\": [\n";
 		for(auto p : patterns) {
