@@ -4,9 +4,8 @@
 # the INSTCODE_SRC_PATH variable should be set to the directory with the instrumentation code.
 # Afterwards, this script should be passed to clang as a linker script.
 
-
-LINKER=ld
-INSTCODE_SRC_PATH="/home/vladimir/Documents/IP1/LLVMPass/src"
+LINKER=ld.lld
+INSTCODE_SRC_PATH="/home/vladimir/Documents/llvm-instrumentation/src"
 INSTCODE_OBJ_FILE="./instrumentationCode.o"
 
 cp ./modules.tmp $INSTCODE_SRC_PATH/modules.tmp

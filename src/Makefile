@@ -1,7 +1,7 @@
 # TODO rework this entire thing
 
-CFLAGS = -Wall -Wextra -Werror -O3 -march=native -S -emit-llvm -g3
-CFLAGS_LIB = -Wall -Wextra -Werror -O3 -march=native -g3 -c
+override CFLAGS = -Wall -Wextra -O3 -march=native -S -emit-llvm -g3
+override CFLAGS_LIB = -Wall -Wextra  -O3 -march=native -g3 -c
 BBCOUNT = 0
 
 all: 
@@ -27,4 +27,5 @@ c:
 	clang $(CFLAGS) instrumentationCode.c -o instrumentationCode.ll -DBBCOUNT=$(BBCOUNT) -std=c2x -fPIC
 
 c-multiple-arrays:
-	clang $(CFLAGS) instrumentationCode_new.c -o instrumentationCode_new.ll -std=c2x -fPIC -fpass-plugin=../build/src/libPostInstrumentationPass.so -O3
+	echo CFLAGS: $(CFLAGS)
+	clang $(CFLAGS) instrumentationCode_new.c -o instrumentationCode_new.ll -std=c2x -fpass-plugin=/home/vladimir/Documents/llvm-instrumentation/build/src/libPostInstrumentationPass.so -O3
