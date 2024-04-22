@@ -262,7 +262,7 @@ PreservedAnalyses InstructionCount::run(Module &M, ModuleAnalysisManager &MAM){
 
 	fs::create_directory(".basicblocks");
 	// could be removed later
-	fs::create_directory(".llfiles");
+	/* fs::create_directory(".llfiles"); */
 	fs::create_directory(".patterns");
 
 	std::error_code EC;
@@ -345,12 +345,12 @@ PreservedAnalyses InstructionCount::run(Module &M, ModuleAnalysisManager &MAM){
 
 	/// dump the instrumented module to a file in the .llfiles directory
 	/// mostly for debugging purposes - could be turned on or off in compilation
-	raw_fd_ostream llFileStream(".llfiles/" + getFileName(M.getName().str()) + ".ll", EC);
-	if(EC){
-		std::cerr << "Failed to open " << M.getName().str() << " for writing" << "\n";
-		exit(1);
-	}
-	M.print(llFileStream, nullptr);
+	/* raw_fd_ostream llFileStream(".llfiles/" + getFileName(M.getName().str()) + ".ll", EC); */
+	/* if(EC){ */
+	/* 	std::cerr << "Failed to open " << M.getName().str() << " for writing" << "\n"; */
+	/* 	exit(1); */
+	/* } */
+	/* M.print(llFileStream, nullptr); */
 
 	std::fstream arraysFile("./modules.tmp", std::ios::out | std::ios::app);	
 	if(!arraysFile.is_open()){
