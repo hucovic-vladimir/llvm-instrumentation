@@ -3,10 +3,28 @@ import json as js
 from bs4 import BeautifulSoup
 import re
 import os
+import pathlib
 
 patterns_dir = ".patterns/"
 blocks_dir = ".basicblocks/"
 llfiles_dir = ".llfiles/"
+
+functions = js.load(open(patterns_dir + "bio.c.json", "r"))["functions"]
+
+index_html_template = open("index_template.html").read()
+
+functions_html_template = open("functions_template.html").read()
+
+blocks_html_template = open("blocks_template.html").read()
+
+code_html_template = open("source_code_template.html").read()
+
+index_soup = BeautifulSoup(index_html_template.replace(".project_name.", "ccsds"), "html.parser")
+
+body = index_soup.find("body")
+
+
+
 
 def insert_cfg(soup: BeautifulSoup, function_blocks, function_total_instructions, func_name, module_name) -> None:
     #print(function_total_instructions)
@@ -46,9 +64,10 @@ def insert_cfg(soup: BeautifulSoup, function_blocks, function_total_instructions
         )
         soup.find("body").append(bb_details)
 
+
     body = soup.find("body")
     body.append(soup_svg_graph)
-    body.append(soup.new_tag("div", attrs={"functionTotalInstructions": function_total_instructions}))
+    body.append(soup.new_tag("div", attrs={"functionTotalInstructions": function_total_instructions, "id": "func_total"}))
     return
 
 def process_patterns(patterns, module_blocks):
@@ -88,7 +107,7 @@ for blocks_file in blocks_files:
     grouped_by_modules[blocks_file.replace(".json", "")] = grouped_by_function
             
 
-profile = js.load(open(".profiles/profile_data_pid_10576.json", "r"))["modules"]
+profile = js.load(open(".profiles/profile_data_pid_94047.json", "r"))["modules"]
 
 
 profile_grouped_by_module = {}
@@ -102,6 +121,18 @@ for module, info in profile_grouped_by_module.items():
     if(module.replace(".c", ".c.json") in os.listdir(patterns_dir)):
         patterns_file = open(f"{patterns_dir}{module.replace(".c", ".c.json")}")
         patterns_json = js.load(patterns_file)
+
+    code_html_path = pathlib.Path(module.replace(".c", ".c.html"))
+    code_html_path.parent.mkdir(parents=True, exist_ok=True)
+    source_code_soup = BeautifulSoup(code_html_template, "html.parser")
+    with open(module, "r", encoding="utf-8") as code_file:
+        code = code_file.read()
+        html_code_element = source_code_soup.find(id="modulecode")
+        html_code_element.string = code
+        with open(module.replace(".c", ".c.html"), "w", encoding="utf-8") as code_html_file:
+            code_html_file.write(str(source_code_soup))
+
+        
     id_map = {}
     id_map = {block["id"] : block["executionCount"] for block in info}
     module_block_execution_counts[module] = id_map
@@ -117,17 +148,7 @@ for module, info in grouped_by_modules.items():
             else:
                 block.update({"executionCount": 0})
         
-functions = js.load(open(patterns_dir + "bio.c.json", "r"))["functions"]
 
-index_html_template = open("index_template.html").read()
-
-functions_html_template = open("functions_template.html").read()
-
-blocks_html_template = open("blocks_template.html").read()
-
-index_soup = BeautifulSoup(index_html_template.replace(".project_name.", "ccsds"), "html.parser")
-
-body = index_soup.find("body")
 
 new_paragraph = index_soup.new_tag('p')
 new_paragraph.string = "List of modules:"
@@ -156,9 +177,6 @@ for i, file in enumerate(blocks_files):
     file = file.replace(".json", "")
     tbody = table.find("tbody", id="modules-tbody")
     orig_file_name = file.replace(".json", "")
-    module_file = BeautifulSoup(functions_html_template.replace(".module_name.", orig_file_name), "html.parser")
-    module_body = module_file.find("body")
-    ul_functions = module_file.new_tag("ul")
 
     for func_name, blocks in grouped_by_modules[file].items():
         graph_soup = BeautifulSoup(blocks_html_template.replace(".function_name.", func_name), "html.parser")
@@ -167,17 +185,6 @@ for i, file in enumerate(blocks_files):
         with open(graph_file_name, "w") as graph_html_file:
             graph_html_file.write(str(graph_soup))
             
-        li_func = module_file.new_tag("li")
-        link_func = module_file.new_tag("a", href=graph_file_name)
-        link_func.string = func_name
-        li_func.append(link_func)
-        ul_functions.append(li_func)
-
-    
-    module_body.append(ul_functions)
-    with open(file.replace(".c", ".c.html"), "w") as module_html_file:
-        module_html_file.write(str(module_file))
-
     tr = index_soup.new_tag("tr")
     td_module_name = index_soup.new_tag("td")
     
