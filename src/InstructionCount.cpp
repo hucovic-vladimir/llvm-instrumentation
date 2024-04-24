@@ -7,6 +7,7 @@
 #include "../headers/HalfDiamondPattern.h"
 #include "../headers/UnconditionalJumpPattern.h"
 #include "../headers/FunctionPatterns.h"
+#include "../headers/SumOfExitsPattern.h"
 #include <algorithm>
 #include <bits/node_handle.h>
 #include <llvm/ADT/ilist_node_options.h>
@@ -262,7 +263,7 @@ PreservedAnalyses InstructionCount::run(Module &M, ModuleAnalysisManager &MAM){
 
 	fs::create_directory(".basicblocks");
 	// could be removed later
-	fs::create_directory(".llfiles");
+	/* fs::create_directory(".llfiles"); */
 	fs::create_directory(".patterns");
 
 	std::error_code EC;
@@ -302,6 +303,14 @@ PreservedAnalyses InstructionCount::run(Module &M, ModuleAnalysisManager &MAM){
 			auto patternNonInstrumentedBlocks = pattern->getNonInstrumentedBlocks();
 			for(auto& block : patternNonInstrumentedBlocks) {
 				nonInstrumentedBlocks.push_back(block->getBB());
+			}
+		}
+
+		if(std::find(nonInstrumentedBlocks.begin(), nonInstrumentedBlocks.end(), &F.getEntryBlock()) == nonInstrumentedBlocks.end()) {
+			SumOfExitsPattern* sumOfExits = SumOfExitsPattern::checkForPattern(wrappers, wrappers[&F.getEntryBlock()], nonInstrumentedBlocks);
+			if(sumOfExits) {
+				funcPatterns.push_back(sumOfExits);
+				nonInstrumentedBlocks.push_back(&F.getEntryBlock());
 			}
 		}
 

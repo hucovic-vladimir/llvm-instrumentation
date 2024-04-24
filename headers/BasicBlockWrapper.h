@@ -84,8 +84,17 @@ class BasicBlockWrapper {
 				std::string instructionStr;
 				raw_string_ostream rso(instructionStr);
 				i->print(rso);
+				// TODO put escapes into function
 				while(instructionStr.find("\n") != std::string::npos)
 					instructionStr.replace(instructionStr.find("\n"), 1, "\\n");
+				// count number of quotes in string
+				std::string escapedOutput;
+				for(char c : instructionStr) {
+					if(c == '\"')
+						escapedOutput += "\\";
+					escapedOutput += c;
+				}
+				instructionStr = escapedOutput;
 				ss << tabs(depth+2) << "\"" << instructionStr.erase(0, 2) << "\"";
 				if(i != nonDebugInstructions.back())
 					ss << ",";
