@@ -20,6 +20,7 @@ const formatIrInstructions = (ir) => {
 
 
 const openBlockDetail = (node) => {
+    window.scrollTo(0, 0)
     $("div#block-info").show()
     console.log(node)
     let dataNodeId = `data_${$(node).attr("id")}`
