@@ -7,6 +7,7 @@
 #include "../headers/HalfDiamondPattern.h"
 #include "../headers/UnconditionalJumpPattern.h"
 #include "../headers/FunctionPatterns.h"
+#include "../headers/SumOfExitsPattern.h"
 #include <algorithm>
 #include <bits/node_handle.h>
 #include <llvm/ADT/ilist_node_options.h>
@@ -305,6 +306,14 @@ PreservedAnalyses InstructionCount::run(Module &M, ModuleAnalysisManager &MAM){
 			}
 		}
 
+		if(std::find(nonInstrumentedBlocks.begin(), nonInstrumentedBlocks.end(), &F.getEntryBlock()) == nonInstrumentedBlocks.end()) {
+			SumOfExitsPattern* sumOfExits = SumOfExitsPattern::checkForPattern(wrappers, wrappers[&F.getEntryBlock()], nonInstrumentedBlocks);
+			if(sumOfExits) {
+				funcPatterns.push_back(sumOfExits);
+				nonInstrumentedBlocks.push_back(&F.getEntryBlock());
+			}
+		}
+
 		FunctionPatterns* funcPatternsObj = new FunctionPatterns(&F, funcPatterns);
 		if(funcPatternsObj->getPatternCount() > 0)
 			patterns.push_back(funcPatternsObj);
@@ -345,12 +354,12 @@ PreservedAnalyses InstructionCount::run(Module &M, ModuleAnalysisManager &MAM){
 
 	/// dump the instrumented module to a file in the .llfiles directory
 	/// mostly for debugging purposes - could be turned on or off in compilation
-	/* raw_fd_ostream llFileStream(".llfiles/" + getFileName(M.getName().str()) + ".ll", EC); */
-	/* if(EC){ */
-	/* 	std::cerr << "Failed to open " << M.getName().str() << " for writing" << "\n"; */
-	/* 	exit(1); */
-	/* } */
-	/* M.print(llFileStream, nullptr); */
+	raw_fd_ostream llFileStream(".llfiles/" + getFileName(M.getName().str()) + ".ll", EC);
+	if(EC){
+		std::cerr << "Failed to open " << M.getName().str() << " for writing" << "\n";
+		exit(1);
+	}
+	M.print(llFileStream, nullptr);
 
 	std::fstream arraysFile("./modules.tmp", std::ios::out | std::ios::app);	
 	if(!arraysFile.is_open()){
