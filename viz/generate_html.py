@@ -8,7 +8,15 @@ from concurrent.futures import ProcessPoolExecutor
 import copy
 import sys
 
-
+def format_instruction_count(num):
+    if num < 1000:
+        return str(num)
+    elif num < 1000000:
+        return f'{num / 1000:.2f}K'.replace('.', ',')
+    elif num < 1000000000:
+        return f'{num / 1000000:.2f}M'.replace('.', ',')
+    else:
+        return f'{num / 1000000000:.2f}B'.replace('.', ',')
 
 def process_json_files(blocks_dir):
     grouped_by_modules = {}
@@ -80,7 +88,13 @@ def insert_cfg(soup: BeautifulSoup, function_blocks, function_total_instructions
     blocks2 = {block["id"] : block for block in blocks}
 
     for i, block in enumerate(blocks):
-        node = dot.node(str(block["id"]), block["name"], shape="rectangle", width="1.5", height="1", fontsize="15", tooltip=block["name"])
+        node = dot.node(str(block["id"]), 
+                        f"{block["name"]}\n\n{format_instruction_count(block["executionCount"] * len(block["ir"]))}",
+                            shape="rectangle",
+                            width="1.5", 
+                            height="1", 
+                            fontsize="15", 
+                            tooltip=block["name"])
 
     for block in blocks:
         for successorId in block["successors"]:
