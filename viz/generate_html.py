@@ -5,8 +5,12 @@ import re
 import os
 import pathlib
 from concurrent.futures import ProcessPoolExecutor
-import copy
 import sys
+import shutil
+
+out_dir = pathlib.Path(".profile_viz/")
+script_dir = pathlib.Path(__file__).resolve().parent
+
 
 def format_instruction_count(num):
     if num < 1000:
@@ -20,10 +24,11 @@ def format_instruction_count(num):
 
 def process_json_files(blocks_dir):
     grouped_by_modules = {}
-
+    print(blocks_dir)
     # Walk through all directories and files in blocks_dir
     for dirpath, dirnames, filenames in os.walk(blocks_dir):
         for filename in filenames:
+            print(dirpath + filename)
             # Check if the file is a JSON file
             if filename.endswith(".json"):
                 full_path = os.path.join(dirpath, filename)
@@ -71,7 +76,7 @@ def process_patterns(patterns, module_blocks):
 def render_and_save_graph(blocks_html_template, module_name, func_name, blocks, total_instructions, idx):
     graph_soup = BeautifulSoup(replace_script_and_style_links_in_template(blocks_html_template.replace(".function_name.", func_name), module_name), "html.parser")
     insert_cfg(graph_soup, blocks, total_instructions, func_name, module_name)
-    graph_file_name = f"{out_dir}{module_name}_{func_name}.html"
+    graph_file_name = pathlib.Path(out_dir / pathlib.Path(f"{module_name}_{func_name}.html"))
     with open(graph_file_name, "w") as graph_html_file:
         graph_html_file.write(str(graph_soup))
     return f"Processed {graph_file_name}"
@@ -140,53 +145,54 @@ def process_func(args):
 
 def replace_script_and_style_links_in_template(template, module_path):
     resolved_paths = {
-        "index.table.js": count_dirs_in_path(module_path) * "../" + "index_table.js",
-        "prism.js.script": count_dirs_in_path(module_path) * "../" + "vizlib/prism.js",
-        "prism.css.link": count_dirs_in_path(module_path) * "../" + "vizlib/prism.css",
-        "code.view.script": count_dirs_in_path(module_path) * "../" + "code_view_script.js",
-        "cfg.script": count_dirs_in_path(module_path) * "../" + "cfg_script.js"
+        "index.table.js": script_dir / (count_dirs_in_path(module_path) * "../" + "vizlib/index_table.js"),
+        "prism.js.script": script_dir / (count_dirs_in_path(module_path) * "../" + "vizlib/prism.js"),
+        "prism.css.link": script_dir / (count_dirs_in_path(module_path) * "../" + "vizlib/prism.css"),
+        "code.view.script": script_dir / (count_dirs_in_path(module_path) * "../" + "vizlib/code_view_script.js"),
+        "cfg.script": script_dir / (count_dirs_in_path(module_path) * "../" + "vizlib/cfg_script.js")
     }
     for string, resolved_path in resolved_paths.items():
-        template = template.replace(string, resolved_path)
+        template = template.replace(string, str(resolved_path))
     return template
 
 if __name__ == "__main__":
-    patterns_dir = ".patterns/"
-    blocks_dir = ".basicblocks/"
-    llfiles_dir = ".llfiles/"
-    prism_lib_dir = "vizlib/"
-    out_dir = "viz/.profile_viz/"
-
     if(len(sys.argv) == 2):
         profile_file = sys.argv[1]
     else:
         print("Error: no profile specified for visualization.")
         exit()
 
+    profile_file_path = pathlib.Path(profile_file).resolve()
+    patterns_dir = profile_file_path.parent / pathlib.Path(".patterns/")
+    blocks_dir = profile_file_path.parent / pathlib.Path(".basicblocks/")
+    lib_dir = script_dir / pathlib.Path("vizlib/")
+    pathlib.Path(out_dir / "vizlib/").mkdir(parents=True, exist_ok=True)
+
+    shutil.copytree(lib_dir, out_dir / "vizlib/", dirs_exist_ok=True)
 
     absolute_paths = {
         "index.table.js": pathlib.Path("./index_table.js").resolve(),
-        "prism.js.script": pathlib.Path(prism_lib_dir + "prism.js").resolve(),
-        "prism.css.link": pathlib.Path(prism_lib_dir + "prism.css").resolve(),
+        "prism.js.script": pathlib.Path(lib_dir / "prism.js").resolve(),
+        "prism.css.link": pathlib.Path(lib_dir / "prism.css").resolve(),
         "code.view.script": pathlib.Path("./code_view_script").resolve(),
         "cfg.script": pathlib.Path("./cfg_script.js").resolve()
     }
 
-    index_html_template = open("index_template.html").read()
+    index_html_template = open(script_dir / "index_template.html").read()
 
-    functions_html_template = open("functions_template.html").read()
+    functions_html_template = open(script_dir / "functions_template.html").read()
 
-    blocks_html_template = open("blocks_template.html").read()
+    blocks_html_template = open(script_dir / "blocks_template.html").read()
 
-    code_html_template = open("source_code_template.html").read()
+    code_html_template = open(script_dir / "source_code_template.html").read()
 
     index_soup = BeautifulSoup(replace_script_and_style_links_in_template(index_html_template, "./"), "html.parser")
 
     body = index_soup.find("body")
 
-    grouped_by_modules = process_json_files(blocks_dir)
+    grouped_by_modules = process_json_files(str(blocks_dir))
 
-    profile = js.load(open(profile_file, "r"))["modules"]
+    profile = js.load(open(profile_file_path, "r"))["modules"]
 
     profile_grouped_by_module = {}
 
@@ -197,14 +203,15 @@ if __name__ == "__main__":
 
     for module, info in profile_grouped_by_module.items():
         patterns_json = None
-        if(module.replace(".c", ".c.json") in os.listdir(patterns_dir)):
-            patterns_file = open(f"{patterns_dir}{module.replace(".c", ".c.json")}")
+        json_file = module.replace(".c", ".c.json")
+        if(json_file in os.listdir(patterns_dir)):
+            patterns_file = open(f"{patterns_dir}/{json_file}")
             patterns_json = js.load(patterns_file)
 
-        code_html_path = pathlib.Path(out_dir + module.replace(".c", ".c.html"))
+        code_html_path = pathlib.Path(out_dir / pathlib.Path(module.replace(".c", ".c.html")))
         code_html_path.parent.mkdir(parents=True, exist_ok=True)
         source_code_soup = BeautifulSoup(replace_script_and_style_links_in_template(code_html_template, module), "html.parser")
-        with open(module, "r", encoding="utf-8") as code_file:
+        with open(profile_file_path.parent / module, "r", encoding="utf-8") as code_file:
             code = code_file.read()
             html_code_element = source_code_soup.find(id="modulecode")
             html_code_element.string = code
@@ -294,5 +301,5 @@ if __name__ == "__main__":
     body.append(table)
 
 
-    with open(out_dir + "index.html", "w") as index_file:
+    with open(out_dir / pathlib.Path("index.html"), "w") as index_file:
         index_file.write(str(index_soup))
