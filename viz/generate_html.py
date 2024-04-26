@@ -71,7 +71,7 @@ def process_patterns(patterns, module_blocks):
 def render_and_save_graph(blocks_html_template, module_name, func_name, blocks, total_instructions, idx):
     graph_soup = BeautifulSoup(replace_script_and_style_links_in_template(blocks_html_template.replace(".function_name.", func_name), module_name), "html.parser")
     insert_cfg(graph_soup, blocks, total_instructions, func_name, module_name)
-    graph_file_name = f"{module_name}_{func_name}.html"
+    graph_file_name = f"{out_dir}{module_name}_{func_name}.html"
     with open(graph_file_name, "w") as graph_html_file:
         graph_html_file.write(str(graph_soup))
     return f"Processed {graph_file_name}"
@@ -155,6 +155,7 @@ if __name__ == "__main__":
     blocks_dir = ".basicblocks/"
     llfiles_dir = ".llfiles/"
     prism_lib_dir = "vizlib/"
+    out_dir = "viz/.profile_viz/"
 
     if(len(sys.argv) == 2):
         profile_file = sys.argv[1]
@@ -200,14 +201,14 @@ if __name__ == "__main__":
             patterns_file = open(f"{patterns_dir}{module.replace(".c", ".c.json")}")
             patterns_json = js.load(patterns_file)
 
-        code_html_path = pathlib.Path(module.replace(".c", ".c.html"))
+        code_html_path = pathlib.Path(out_dir + module.replace(".c", ".c.html"))
         code_html_path.parent.mkdir(parents=True, exist_ok=True)
         source_code_soup = BeautifulSoup(replace_script_and_style_links_in_template(code_html_template, module), "html.parser")
         with open(module, "r", encoding="utf-8") as code_file:
             code = code_file.read()
             html_code_element = source_code_soup.find(id="modulecode")
             html_code_element.string = code
-            with open(module.replace(".c", ".c.html"), "w", encoding="utf-8") as code_html_file:
+            with open(code_html_path, "w", encoding="utf-8") as code_html_file:
                 code_html_file.write(str(source_code_soup))
 
             
@@ -293,5 +294,5 @@ if __name__ == "__main__":
     body.append(table)
 
 
-    with open("index.html", "w") as index_file:
+    with open(out_dir + "index.html", "w") as index_file:
         index_file.write(str(index_soup))
