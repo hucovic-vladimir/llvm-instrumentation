@@ -6,10 +6,24 @@
 			"name": "entry",
 			"debug": [
 				{
-					"line": 13, "columns": [22, 2]
+					"line": 9, "columns": [30, 62]
+				},
+				{
+					"line": 13, "columns": [10, 22, 2]
 				}
 			],
-			"successors": [3, 1, 2]
+			"successors": [3, 1, 2],
+			"ir": [
+				"%retval = alloca i32, align 4",
+				"%frame.addr = alloca ptr, align 8",
+				"%parameters.addr = alloca ptr, align 8",
+				"store ptr %frame, ptr %frame.addr, align 8",
+				"store ptr %parameters, ptr %parameters.addr, align 8",
+				"%0 = load ptr, ptr %parameters.addr, align 8, !dbg !59",
+				"%DWTtype = getelementptr inbounds %struct.parameters, ptr %0, i32 0, i32 0, !dbg !60",
+				"%1 = load i32, ptr %DWTtype, align 8, !dbg !60",
+				"switch i32 %1, label %sw.default [\n    i32 0, label %sw.bb\n    i32 1, label %sw.bb1\n  ], !dbg !61"
+			]
 		},
 		{
 			"function": "dwt_encode",
@@ -17,10 +31,16 @@
 			"name": "sw.bb",
 			"debug": [
 				{
-					"line": 15, "columns": [11, 4]
+					"line": 15, "columns": [27, 11, 4]
 				}
 			],
-			"successors": [3]
+			"successors": [4],
+			"ir": [
+				"%2 = load ptr, ptr %frame.addr, align 8, !dbg !62",
+				"%call = call i32 @dwtfloat_encode(ptr noundef %2), !dbg !64",
+				"store i32 %call, ptr %retval, align 4, !dbg !65",
+				"br label %return, !dbg !65"
+			]
 		},
 		{
 			"function": "dwt_encode",
@@ -28,65 +48,141 @@
 			"name": "sw.bb1",
 			"debug": [
 				{
-					"line": 17, "columns": [44, 11, 4]
+					"line": 17, "columns": [25, 32, 44, 11, 4]
 				}
 			],
-			"successors": [3]
+			"successors": [4],
+			"ir": [
+				"%3 = load ptr, ptr %frame.addr, align 8, !dbg !66",
+				"%4 = load ptr, ptr %parameters.addr, align 8, !dbg !67",
+				"%weight = getelementptr inbounds %struct.parameters, ptr %4, i32 0, i32 2, !dbg !68",
+				"%arraydecay = getelementptr inbounds [12 x i32], ptr %weight, i64 0, i64 0, !dbg !67",
+				"%call2 = call i32 @dwtint_encode(ptr noundef %3, ptr noundef %arraydecay), !dbg !69",
+				"store i32 %call2, ptr %retval, align 4, !dbg !70",
+				"br label %return, !dbg !70"
+			]
 		},
 		{
 			"function": "dwt_encode",
 			"id": 3,
+			"name": "sw.default",
+			"debug": [
+				{
+					"line": 19, "columns": [4]
+				}
+			],
+			"successors": [4],
+			"ir": [
+				"store i32 12288, ptr %retval, align 4, !dbg !71",
+				"br label %return, !dbg !71"
+			]
+		},
+		{
+			"function": "dwt_encode",
+			"id": 4,
 			"name": "return",
 			"debug": [
 				{
 					"line": 21, "columns": [1]
 				}
 			],
-			"successors": []
-		},
-		{
-			"function": "dwt_decode",
-			"id": 4,
-			"name": "entry",
-			"debug": [
-				{
-					"line": 27, "columns": [22, 2]
-				}
-			],
-			"successors": [7, 5, 6]
+			"successors": [],
+			"ir": [
+				"%5 = load i32, ptr %retval, align 4, !dbg !72",
+				"ret i32 %5, !dbg !72"
+			]
 		},
 		{
 			"function": "dwt_decode",
 			"id": 5,
-			"name": "sw.bb",
+			"name": "entry",
 			"debug": [
 				{
-					"line": 29, "columns": [11, 4]
+					"line": 23, "columns": [30, 62]
+				},
+				{
+					"line": 27, "columns": [10, 22, 2]
 				}
 			],
-			"successors": [7]
+			"successors": [8, 6, 7],
+			"ir": [
+				"%retval = alloca i32, align 4",
+				"%frame.addr = alloca ptr, align 8",
+				"%parameters.addr = alloca ptr, align 8",
+				"store ptr %frame, ptr %frame.addr, align 8",
+				"store ptr %parameters, ptr %parameters.addr, align 8",
+				"%0 = load ptr, ptr %parameters.addr, align 8, !dbg !59",
+				"%DWTtype = getelementptr inbounds %struct.parameters, ptr %0, i32 0, i32 0, !dbg !60",
+				"%1 = load i32, ptr %DWTtype, align 8, !dbg !60",
+				"switch i32 %1, label %sw.default [\n    i32 0, label %sw.bb\n    i32 1, label %sw.bb1\n  ], !dbg !61"
+			]
 		},
 		{
 			"function": "dwt_decode",
 			"id": 6,
-			"name": "sw.bb1",
+			"name": "sw.bb",
 			"debug": [
 				{
-					"line": 31, "columns": [44, 11, 4]
+					"line": 29, "columns": [27, 11, 4]
 				}
 			],
-			"successors": [7]
+			"successors": [9],
+			"ir": [
+				"%2 = load ptr, ptr %frame.addr, align 8, !dbg !62",
+				"%call = call i32 @dwtfloat_decode(ptr noundef %2), !dbg !64",
+				"store i32 %call, ptr %retval, align 4, !dbg !65",
+				"br label %return, !dbg !65"
+			]
 		},
 		{
 			"function": "dwt_decode",
 			"id": 7,
+			"name": "sw.bb1",
+			"debug": [
+				{
+					"line": 31, "columns": [25, 32, 44, 11, 4]
+				}
+			],
+			"successors": [9],
+			"ir": [
+				"%3 = load ptr, ptr %frame.addr, align 8, !dbg !66",
+				"%4 = load ptr, ptr %parameters.addr, align 8, !dbg !67",
+				"%weight = getelementptr inbounds %struct.parameters, ptr %4, i32 0, i32 2, !dbg !68",
+				"%arraydecay = getelementptr inbounds [12 x i32], ptr %weight, i64 0, i64 0, !dbg !67",
+				"%call2 = call i32 @dwtint_decode(ptr noundef %3, ptr noundef %arraydecay), !dbg !69",
+				"store i32 %call2, ptr %retval, align 4, !dbg !70",
+				"br label %return, !dbg !70"
+			]
+		},
+		{
+			"function": "dwt_decode",
+			"id": 8,
+			"name": "sw.default",
+			"debug": [
+				{
+					"line": 33, "columns": [4]
+				}
+			],
+			"successors": [9],
+			"ir": [
+				"store i32 12288, ptr %retval, align 4, !dbg !71",
+				"br label %return, !dbg !71"
+			]
+		},
+		{
+			"function": "dwt_decode",
+			"id": 9,
 			"name": "return",
 			"debug": [
 				{
 					"line": 35, "columns": [1]
 				}
 			],
-			"successors": []
+			"successors": [],
+			"ir": [
+				"%5 = load i32, ptr %retval, align 4, !dbg !72",
+				"ret i32 %5, !dbg !72"
+			]
 		}
 	]
 }
