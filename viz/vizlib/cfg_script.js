@@ -28,7 +28,7 @@ const openBlockDetail = (node) => {
     $("div#block-ir").html(formatIrInstructions($(dataNode).attr("ir")))
     let lines = $(dataNode).attr("lines").split(",")
     let moduleName = $(dataNode).attr("modulename")
-    let blockName = $(node).find("text").text()
+    let blockName = $($(node).find("text")[0]).text()
     $("div#location").html(formatSourceCodeLocationInfo(moduleName, lines))
     $("div#num-instructions").html(`Number of LLVM IR instructions: ${$(dataNode).attr("blockinstructioncount")}`)
     $("div#num-executions").html(`Number of block executions: ${$(dataNode).attr("executioncount")}`)

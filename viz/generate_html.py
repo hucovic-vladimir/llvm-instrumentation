@@ -71,7 +71,18 @@ def process_patterns(patterns, module_blocks):
                     module_blocks[pattern["joinBlock"]] = 0
                     module_blocks[pattern["joinBlock"]] += module_blocks[branch_block]
             elif(type == "unconditionalJump"):
-                module_blocks[pattern["start"]] = module_blocks[pattern["jumpDestination"]]
+                if(pattern["jumpDestination"] in module_blocks):
+                    module_blocks[pattern["start"]] = module_blocks[pattern["jumpDestination"]]
+                else:
+                    module_blocks[pattern["start"]] = 0
+            elif(type == "sumOfExits"):
+                module_blocks[pattern["entry"]] = 0
+                for exit in pattern["exitBlocks"]:
+                    if(exit in module_blocks):
+                        module_blocks[pattern["entry"]] += module_blocks[exit]
+                    else:
+                        module_blocks[exit] = 0
+
 
 def render_and_save_graph(blocks_html_template, module_name, func_name, blocks, total_instructions, idx):
     graph_soup = BeautifulSoup(replace_script_and_style_links_in_template(blocks_html_template.replace(".function_name.", func_name), module_name), "html.parser")
@@ -299,6 +310,7 @@ if __name__ == "__main__":
         tbody.append(tr)
 
     body.append(table)
+    body.find("div", id="program-total-instructions").string = str(total_instructions_program)
 
 
     with open(out_dir / pathlib.Path("index.html"), "w") as index_file:

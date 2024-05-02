@@ -14,10 +14,10 @@ const formatChildTable = (rowData, rowId, moduleName) => {
     }
     return (
         `
-        <table class="child-table display" id="details${rowId}">
+        <table class="child-table display" id="details${rowId}" style="width: 100%">
             <thead>
                 <th>Function name</th>
-                <th>Instruction execution count</th>
+                <th>Number of executed instructions</th>
                 <th>% of module</th>
             </thead>
             <tbody>
@@ -55,6 +55,8 @@ $(document).ready(function() {
         "order": [[2, "desc"]]
     });
 
+    $("div#program-total-instructions").html("Total number of executed instructions: " + Number($("#program-total-instructions").html()).toLocaleString())
+
     $("#modules tbody").on('click', 'button.expand-row', function(){
         console.log("clicked")
         let tr = $(this).closest('tr');
@@ -64,7 +66,6 @@ $(document).ready(function() {
         const funcInstructions = tr.attr('data-instruction-counts').split(",")
         const funcRatios = tr.attr('data-ratio').split(",")
         link = tr.find("a")
-
 
         if (row.child.isShown()) {
             // This row is already open - close it
