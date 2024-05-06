@@ -129,7 +129,7 @@ def insert_cfg(soup: BeautifulSoup, function_blocks, function_total_instructions
 
     for i, block in enumerate(blocks):
         node = dot.node(str(block["id"]), 
-                        f"{block["name"]}\n\n{format_instruction_count(block["executionCount"] * len(block["ir"]))}",
+                        f"{block['name']}\n\n{format_instruction_count(block['executionCount'] * len(block['ir']))}",
                             shape="rectangle",
                             width="1.5", 
                             height="1", 
@@ -148,7 +148,7 @@ def insert_cfg(soup: BeautifulSoup, function_blocks, function_total_instructions
         lines = list(str(debug["line"]) for debug in blocks2[int(title.string)]["debug"])
         bb_details = soup.new_tag("div", attrs=
             {
-                "id": f"data_{node["id"]}",
+                "id": f"data_{node['id']}",
                 "ir": "\\n".join(blocks2[int(title.string)]["ir"]),
                 "style": "display: none",
                 "executionCount": blocks2[int(title.string)]["executionCount"],
@@ -344,7 +344,7 @@ if __name__ == "__main__":
         td_instructions = index_soup.new_tag("td")
         td_instructions.string = str(total_instructions_for_modules[file]["total"])
         td_percent_instructions = index_soup.new_tag("td")
-        td_percent_instructions.string = f"{(total_instructions_for_modules[file]["total"] / total_instructions_program * 100):.2f}%"
+        td_percent_instructions.string = f"{(total_instructions_for_modules[file]['total'] / total_instructions_program * 100):.2f}%"
         tr.append(index_soup.new_tag("td", id="expand-td"))
         tr.append(td_module_name)
         tr.append(td_instructions)
@@ -352,7 +352,7 @@ if __name__ == "__main__":
         tr["data-functions"] = ",".join(grouped_by_modules[file].keys())
         tr["data-instruction-counts"] = ",".join([f"{count}" for count in [total_instructions_for_modules[file][key] for key in grouped_by_modules[file]]])
         try:
-            tr["data-ratio"] = ",".join([f"{int(count) / total_instructions_for_modules[file]["total"] * 100:.2f}" for count in tr["data-instruction-counts"].split(",")])
+            tr["data-ratio"] = ",".join([f"{int(count) / total_instructions_for_modules[file]['total'] * 100:.2f}" for count in tr['data-instruction-counts'].split(",")])
         except:
             tr["data-ratio"] = ",".join(f"{0:.2f}" for _ in grouped_by_modules[file])
 
