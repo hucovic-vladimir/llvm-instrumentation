@@ -1,10 +1,32 @@
 {
 	"functions": [
 		{
-			"functionName": "_PyEval_InitGIL",
+			"functionName": "_PyEval_ThreadsInitialized",
 			"patterns": [
 				{
 					"id": 0,
+					"type": "sumOfExits",
+					"entry": 2,
+					"exitBlocks": [5]
+				}
+			]
+		},
+		{
+			"functionName": "PyEval_ThreadsInitialized",
+			"patterns": [
+				{
+					"id": 1,
+					"type": "sumOfExits",
+					"entry": 6,
+					"exitBlocks": [9]
+				}
+			]
+		},
+		{
+			"functionName": "_PyEval_InitGIL",
+			"patterns": [
+				{
+					"id": 2,
 					"type": "diamond",
 					"condBlock": 10,
 					"joinBlock": 13,
@@ -13,21 +35,49 @@
 			]
 		},
 		{
+			"functionName": "_PyEval_FiniGIL",
+			"patterns": [
+				{
+					"id": 3,
+					"type": "sumOfExits",
+					"entry": 14,
+					"exitBlocks": [18, 20, 22, 24, 27]
+				}
+			]
+		},
+		{
+			"functionName": "PyEval_AcquireLock",
+			"patterns": [
+				{
+					"id": 4,
+					"type": "sumOfExits",
+					"entry": 30,
+					"exitBlocks": [31, 32]
+				}
+			]
+		},
+		{
 			"functionName": "take_gil",
 			"patterns": [
 				{
-					"id": 1,
+					"id": 5,
 					"type": "halfDiamond",
 					"condBlock": 53,
 					"joinBlock": 55,
 					"branchBlocks": [54]
 				},
 				{
-					"id": 2,
+					"id": 6,
 					"type": "halfDiamond",
 					"condBlock": 46,
 					"joinBlock": 48,
 					"branchBlocks": [47]
+				},
+				{
+					"id": 7,
+					"type": "sumOfExits",
+					"entry": 33,
+					"exitBlocks": [34, 38, 40, 45, 48, 52, 56, 58, 61, 62, 71, 72]
 				}
 			]
 		},
@@ -35,11 +85,61 @@
 			"functionName": "drop_gil",
 			"patterns": [
 				{
-					"id": 3,
+					"id": 8,
 					"type": "halfDiamond",
 					"condBlock": 76,
 					"joinBlock": 78,
 					"branchBlocks": [77]
+				},
+				{
+					"id": 9,
+					"type": "sumOfExits",
+					"entry": 74,
+					"exitBlocks": [75, 79, 81, 83, 87, 90, 92, 93]
+				}
+			]
+		},
+		{
+			"functionName": "_PyEval_AcquireLock",
+			"patterns": [
+				{
+					"id": 10,
+					"type": "sumOfExits",
+					"entry": 94,
+					"exitBlocks": [95, 96]
+				}
+			]
+		},
+		{
+			"functionName": "PyEval_AcquireThread",
+			"patterns": [
+				{
+					"id": 11,
+					"type": "sumOfExits",
+					"entry": 98,
+					"exitBlocks": [99, 100]
+				}
+			]
+		},
+		{
+			"functionName": "_PyEval_ReInitThreads",
+			"patterns": [
+				{
+					"id": 12,
+					"type": "sumOfExits",
+					"entry": 102,
+					"exitBlocks": [105]
+				}
+			]
+		},
+		{
+			"functionName": "PyEval_RestoreThread",
+			"patterns": [
+				{
+					"id": 13,
+					"type": "sumOfExits",
+					"entry": 107,
+					"exitBlocks": [108, 109]
 				}
 			]
 		},
@@ -47,14 +147,14 @@
 			"functionName": "_PyEval_AddPendingCall",
 			"patterns": [
 				{
-					"id": 4,
+					"id": 14,
 					"type": "halfDiamond",
 					"condBlock": 111,
 					"joinBlock": 113,
 					"branchBlocks": [112]
 				},
 				{
-					"id": 5,
+					"id": 15,
 					"type": "halfDiamond",
 					"condBlock": 115,
 					"joinBlock": 117,
@@ -66,14 +166,14 @@
 			"functionName": "Py_AddPendingCall",
 			"patterns": [
 				{
-					"id": 6,
+					"id": 16,
 					"type": "halfDiamond",
 					"condBlock": 127,
 					"joinBlock": 129,
 					"branchBlocks": [128]
 				},
 				{
-					"id": 7,
+					"id": 17,
 					"type": "halfDiamond",
 					"condBlock": 131,
 					"joinBlock": 133,
@@ -85,14 +185,14 @@
 			"functionName": "_Py_set_eval_breaker_bit_all",
 			"patterns": [
 				{
-					"id": 8,
+					"id": 18,
 					"type": "halfDiamond",
 					"condBlock": 134,
 					"joinBlock": 136,
 					"branchBlocks": [135]
 				},
 				{
-					"id": 9,
+					"id": 19,
 					"type": "halfDiamond",
 					"condBlock": 137,
 					"joinBlock": 139,
@@ -104,14 +204,14 @@
 			"functionName": "_Py_unset_eval_breaker_bit_all",
 			"patterns": [
 				{
-					"id": 10,
+					"id": 20,
 					"type": "halfDiamond",
 					"condBlock": 141,
 					"joinBlock": 143,
 					"branchBlocks": [142]
 				},
 				{
-					"id": 11,
+					"id": 21,
 					"type": "halfDiamond",
 					"condBlock": 145,
 					"joinBlock": 147,
@@ -123,7 +223,7 @@
 			"functionName": "_Py_FinishPendingCalls",
 			"patterns": [
 				{
-					"id": 12,
+					"id": 22,
 					"type": "halfDiamond",
 					"condBlock": 149,
 					"joinBlock": 151,
@@ -135,14 +235,14 @@
 			"functionName": "make_pending_calls",
 			"patterns": [
 				{
-					"id": 13,
+					"id": 23,
 					"type": "halfDiamond",
 					"condBlock": 152,
 					"joinBlock": 154,
 					"branchBlocks": [153]
 				},
 				{
-					"id": 14,
+					"id": 24,
 					"type": "halfDiamond",
 					"condBlock": 157,
 					"joinBlock": 159,
@@ -151,17 +251,39 @@
 			]
 		},
 		{
+			"functionName": "_PyEval_MakePendingCalls",
+			"patterns": [
+				{
+					"id": 25,
+					"type": "sumOfExits",
+					"entry": 166,
+					"exitBlocks": [172]
+				}
+			]
+		},
+		{
+			"functionName": "Py_MakePendingCalls",
+			"patterns": [
+				{
+					"id": 26,
+					"type": "sumOfExits",
+					"entry": 173,
+					"exitBlocks": [181]
+				}
+			]
+		},
+		{
 			"functionName": "_Py_HandlePending",
 			"patterns": [
 				{
-					"id": 15,
+					"id": 27,
 					"type": "halfDiamond",
 					"condBlock": 183,
 					"joinBlock": 185,
 					"branchBlocks": [184]
 				},
 				{
-					"id": 16,
+					"id": 28,
 					"type": "halfDiamond",
 					"condBlock": 191,
 					"joinBlock": 193,
@@ -170,28 +292,45 @@
 			]
 		},
 		{
+			"functionName": "create_gil",
+			"patterns": [
+				{
+					"id": 29,
+					"type": "sumOfExits",
+					"entry": 201,
+					"exitBlocks": [202, 204, 206, 208, 209]
+				}
+			]
+		},
+		{
 			"functionName": "_make_pending_calls",
 			"patterns": [
 				{
-					"id": 17,
+					"id": 30,
 					"type": "halfDiamond",
 					"condBlock": 212,
 					"joinBlock": 214,
 					"branchBlocks": [213]
 				},
 				{
-					"id": 18,
+					"id": 31,
 					"type": "halfDiamond",
 					"condBlock": 217,
 					"joinBlock": 219,
 					"branchBlocks": [218]
 				},
 				{
-					"id": 19,
+					"id": 32,
 					"type": "halfDiamond",
 					"condBlock": 220,
 					"joinBlock": 222,
 					"branchBlocks": [221]
+				},
+				{
+					"id": 33,
+					"type": "sumOfExits",
+					"entry": 210,
+					"exitBlocks": [223]
 				}
 			]
 		}

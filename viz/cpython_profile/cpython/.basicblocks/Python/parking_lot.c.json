@@ -72,11 +72,11 @@
 					"line": 195, "columns": [9]
 				}
 			],
-			"successors": [8, 5],
+			"successors": [5, 7],
 			"ir": [
 				"%ts.i = alloca %struct.timespec, align 8",
-				"%tobool.not = icmp eq i32 %detach, 0, !dbg !6838",
-				"br i1 %tobool.not, label %if.end3, label %if.then, !dbg !6840"
+				"%tobool = icmp ne i32 %detach, 0, !dbg !6811",
+				"br i1 %tobool, label %if.then, label %if.end3, !dbg !6813"
 			]
 		},
 		{
@@ -85,74 +85,57 @@
 			"name": "if.then",
 			"debug": [
 				{
-					"line": 137, "columns": [12]
+					"line": 134, "columns": [12]
 				},
 				{
-					"line": 197, "columns": [13, 20]
+					"line": 197, "columns": [13]
 				}
 			],
-			"successors": [8, 6],
+			"successors": [7, 6],
 			"ir": [
-				"%0 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6841",
-				"%1 = load ptr, ptr %0, align 8, !dbg !6841, !tbaa !6849",
-				"%tobool1.not = icmp eq ptr %1, null, !dbg !6853",
-				"br i1 %tobool1.not, label %if.end3, label %land.lhs.true, !dbg !6855"
+				"%0 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6814",
+				"%1 = load ptr, ptr %0, align 8, !dbg !6814, !tbaa !6822",
+				"%tobool1.not = icmp eq ptr %1, null, !dbg !6826",
+				"br i1 %tobool1.not, label %if.end3, label %if.then2, !dbg !6828"
 			]
 		},
 		{
 			"function": "_PySemaphore_Wait",
 			"id": 6,
-			"name": "land.lhs.true",
+			"name": "if.then2",
 			"debug": [
 				{
-					"line": 197, "columns": [31, 37, 13]
+					"line": 198, "columns": [13]
+				},
+				{
+					"line": 199, "columns": [9]
 				}
 			],
-			"successors": [7, 8],
+			"successors": [7],
 			"ir": [
-				"%state = getelementptr inbounds %struct._ts, ptr %1, i64 0, i32 6, !dbg !6856",
-				"%2 = load i32, ptr %state, align 8, !dbg !6856, !tbaa !6857",
-				"%cmp = icmp eq i32 %2, 1, !dbg !6864",
-				"br i1 %cmp, label %if.then2, label %if.end3, !dbg !6865"
+				"tail call void @PyEval_ReleaseThread(ptr noundef nonnull %1) #10, !dbg !6829",
+				"br label %if.end3, !dbg !6831"
 			]
 		},
 		{
 			"function": "_PySemaphore_Wait",
 			"id": 7,
-			"name": "if.then2",
-			"debug": [
-				{
-					"line": 199, "columns": [13]
-				},
-				{
-					"line": 200, "columns": [9]
-				}
-			],
-			"successors": [8],
-			"ir": [
-				"tail call void @PyEval_ReleaseThread(ptr noundef nonnull %1) #10, !dbg !6866",
-				"br label %if.end3, !dbg !6868"
-			]
-		},
-		{
-			"function": "_PySemaphore_Wait",
-			"id": 8,
 			"name": "if.end3",
 			"debug": [
 				{
 					"line": 119, "columns": [17, 9]
 				}
 			],
-			"successors": [9, 10],
+			"successors": [8, 9],
 			"ir": [
-				"%tstate.0 = phi ptr [ %1, %if.then2 ], [ null, %entry ], [ null, %land.lhs.true ], [ null, %if.then ], !dbg !6837",
-				"%cmp.i = icmp sgt i64 %timeout, -1, !dbg !6890",
-				"br i1 %cmp.i, label %if.then.i, label %if.else.i, !dbg !6891"
+				"%tstate.0 = phi ptr [ %1, %if.then2 ], [ null, %if.then ], [ null, %entry ], !dbg !6810",
+				"%cmp.i = icmp sgt i64 %timeout, -1, !dbg !6853",
+				"br i1 %cmp.i, label %if.then.i, label %if.else.i, !dbg !6854"
 			]
 		},
 		{
 			"function": "_PySemaphore_Wait",
-			"id": 9,
+			"id": 8,
 			"name": "if.then.i",
 			"debug": [
 				{
@@ -171,51 +154,51 @@
 					"line": 135, "columns": [5]
 				}
 			],
-			"successors": [11],
+			"successors": [10],
 			"ir": [
-				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %ts.i) #10, !dbg !6892",
-				"%call.i = tail call i64 @_PyTime_MonotonicUnchecked() #10, !dbg !6894",
-				"%call1.i = tail call i64 @_PyTime_Add(i64 noundef %call.i, i64 noundef %timeout) #10, !dbg !6895",
-				"call void @_PyTime_AsTimespec_clamp(i64 noundef %call1.i, ptr noundef nonnull %ts.i) #10, !dbg !6897",
-				"%call2.i = call i32 @sem_clockwait(ptr noundef %sema, i32 noundef 1, ptr noundef nonnull %ts.i) #10, !dbg !6898",
-				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ts.i) #10, !dbg !6899",
-				"br label %if.end.i, !dbg !6900"
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %ts.i) #10, !dbg !6855",
+				"%call.i = tail call i64 @_PyTime_MonotonicUnchecked() #10, !dbg !6857",
+				"%call1.i = tail call i64 @_PyTime_Add(i64 noundef %call.i, i64 noundef %timeout) #10, !dbg !6858",
+				"call void @_PyTime_AsTimespec_clamp(i64 noundef %call1.i, ptr noundef nonnull %ts.i) #10, !dbg !6860",
+				"%call2.i = call i32 @sem_clockwait(ptr noundef %sema, i32 noundef 1, ptr noundef nonnull %ts.i) #10, !dbg !6861",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ts.i) #10, !dbg !6862",
+				"br label %if.end.i, !dbg !6863"
 			]
 		},
 		{
 			"function": "_PySemaphore_Wait",
-			"id": 10,
+			"id": 9,
 			"name": "if.else.i",
 			"debug": [
 				{
 					"line": 137, "columns": [15]
 				}
 			],
-			"successors": [11],
+			"successors": [10],
 			"ir": [
-				"%call4.i = tail call i32 @sem_wait(ptr noundef %sema) #10, !dbg !6901",
+				"%call4.i = tail call i32 @sem_wait(ptr noundef %sema) #10, !dbg !6864",
 				"br label %if.end.i"
 			]
 		},
 		{
 			"function": "_PySemaphore_Wait",
-			"id": 11,
+			"id": 10,
 			"name": "if.end.i",
 			"debug": [
 				{
 					"line": 139, "columns": [13, 9]
 				}
 			],
-			"successors": [12, 15],
+			"successors": [11, 14],
 			"ir": [
-				"%err.0.i = phi i32 [ %call2.i, %if.then.i ], [ %call4.i, %if.else.i ], !dbg !6903",
-				"%cmp5.i = icmp eq i32 %err.0.i, -1, !dbg !6904",
-				"br i1 %cmp5.i, label %if.then6.i, label %_PySemaphore_PlatformWait.exit, !dbg !6906"
+				"%err.0.i = phi i32 [ %call2.i, %if.then.i ], [ %call4.i, %if.else.i ], !dbg !6866",
+				"%cmp5.i = icmp eq i32 %err.0.i, -1, !dbg !6867",
+				"br i1 %cmp5.i, label %if.then6.i, label %_PySemaphore_PlatformWait.exit, !dbg !6869"
 			]
 		},
 		{
 			"function": "_PySemaphore_Wait",
-			"id": 12,
+			"id": 11,
 			"name": "if.then6.i",
 			"debug": [
 				{
@@ -225,27 +208,27 @@
 					"line": 141, "columns": [13]
 				}
 			],
-			"successors": [14, 15, 13],
+			"successors": [13, 14, 12],
 			"ir": [
-				"%call7.i = tail call ptr @__errno_location() #11, !dbg !6907",
-				"%3 = load i32, ptr %call7.i, align 4, !dbg !6907, !tbaa !6909",
-				"switch i32 %3, label %if.else13.i [\n    i32 4, label %_PySemaphore_PlatformWait.exit\n    i32 110, label %if.then12.i\n  ], !dbg !6910"
+				"%call7.i = tail call ptr @__errno_location() #11, !dbg !6870",
+				"%2 = load i32, ptr %call7.i, align 4, !dbg !6870, !tbaa !6872",
+				"switch i32 %2, label %if.else13.i [\n    i32 4, label %_PySemaphore_PlatformWait.exit\n    i32 110, label %if.then12.i\n  ], !dbg !6874"
 			]
 		},
 		{
 			"function": "_PySemaphore_Wait",
-			"id": 13,
+			"id": 12,
 			"name": "if.then12.i",
 			"debug": [
 			],
-			"successors": [15],
+			"successors": [14],
 			"ir": [
 				"br label %_PySemaphore_PlatformWait.exit"
 			]
 		},
 		{
 			"function": "_PySemaphore_Wait",
-			"id": 14,
+			"id": 13,
 			"name": "if.else13.i",
 			"debug": [
 				{
@@ -254,71 +237,72 @@
 			],
 			"successors": [],
 			"ir": [
-				"call void (ptr, ptr, ...) @_Py_FatalErrorFormat(ptr noundef nonnull @__func__._PySemaphore_PlatformWait, ptr noundef nonnull @.str.2, i32 noundef %3) #12, !dbg !6911",
-				"unreachable, !dbg !6911"
+				"call void (ptr, ptr, ...) @_Py_FatalErrorFormat(ptr noundef nonnull @__func__._PySemaphore_PlatformWait, ptr noundef nonnull @.str.2, i32 noundef %2) #12, !dbg !6875",
+				"unreachable, !dbg !6875"
+			]
+		},
+		{
+			"function": "_PySemaphore_Wait",
+			"id": 14,
+			"name": "_PySemaphore_PlatformWait.exit",
+			"debug": [
+				{
+					"line": 204, "columns": [16]
+				}
+			],
+			"successors": [15, 16],
+			"ir": [
+				"%res.0.i = phi i32 [ -2, %if.then12.i ], [ -3, %if.then6.i ], [ 0, %if.end.i ], !dbg !6879",
+				"%tobool6 = icmp ne ptr %tstate.0, null",
+				"%or.cond = and i1 %tobool, %tobool6, !dbg !6880",
+				"br i1 %or.cond, label %if.then7, label %if.end8, !dbg !6880"
 			]
 		},
 		{
 			"function": "_PySemaphore_Wait",
 			"id": 15,
-			"name": "_PySemaphore_PlatformWait.exit",
+			"name": "if.then7",
 			"debug": [
 				{
-					"line": 206, "columns": [9]
+					"line": 205, "columns": [9]
+				},
+				{
+					"line": 206, "columns": [5]
 				}
 			],
-			"successors": [17, 16],
+			"successors": [16],
 			"ir": [
-				"%res.0.i = phi i32 [ -2, %if.then12.i ], [ -3, %if.then6.i ], [ 0, %if.end.i ], !dbg !6915",
-				"%tobool5.not = icmp eq ptr %tstate.0, null, !dbg !6916",
-				"br i1 %tobool5.not, label %if.end7, label %if.then6, !dbg !6918"
+				"call void @PyEval_AcquireThread(ptr noundef nonnull %tstate.0) #10, !dbg !6882",
+				"br label %if.end8, !dbg !6884"
 			]
 		},
 		{
 			"function": "_PySemaphore_Wait",
 			"id": 16,
-			"name": "if.then6",
+			"name": "if.end8",
 			"debug": [
 				{
-					"line": 207, "columns": [9]
-				},
-				{
-					"line": 208, "columns": [5]
-				}
-			],
-			"successors": [17],
-			"ir": [
-				"call void @PyEval_AcquireThread(ptr noundef nonnull %tstate.0) #10, !dbg !6919",
-				"br label %if.end7, !dbg !6921"
-			]
-		},
-		{
-			"function": "_PySemaphore_Wait",
-			"id": 17,
-			"name": "if.end7",
-			"debug": [
-				{
-					"line": 209, "columns": [5]
+					"line": 207, "columns": [5]
 				}
 			],
 			"successors": [],
 			"ir": [
-				"ret i32 %res.0.i, !dbg !6922"
+				"ret i32 %res.0.i, !dbg !6885"
 			]
 		},
 		{
 			"function": "_PySemaphore_Wakeup",
-			"id": 18,
+			"id": 17,
 			"name": "entry",
 			"debug": [
 				{
-					"line": 220, "columns": [15]
+					"line": 218, "columns": [15]
 				},
 				{
-					"line": 221, "columns": [13, 9]
+					"line": 219, "columns": [13, 9]
 				}
 			],
-			"successors": [20, 19],
+			"successors": [19, 18],
 			"ir": [
 				"%call = tail call i32 @sem_post(ptr noundef %sema) #10, !dbg !254",
 				"%cmp.not = icmp eq i32 %call, 0, !dbg !255",
@@ -327,11 +311,11 @@
 		},
 		{
 			"function": "_PySemaphore_Wakeup",
-			"id": 19,
+			"id": 18,
 			"name": "if.then",
 			"debug": [
 				{
-					"line": 222, "columns": [9]
+					"line": 220, "columns": [9]
 				}
 			],
 			"successors": [],
@@ -342,11 +326,11 @@
 		},
 		{
 			"function": "_PySemaphore_Wakeup",
-			"id": 20,
+			"id": 19,
 			"name": "if.end",
 			"debug": [
 				{
-					"line": 230, "columns": [1]
+					"line": 228, "columns": [1]
 				}
 			],
 			"successors": [],
@@ -356,26 +340,26 @@
 		},
 		{
 			"function": "_PyParkingLot_Park",
-			"id": 21,
+			"id": 20,
 			"name": "entry",
 			"debug": [
 				{
 					"line": 125, "columns": [10]
 				},
 				{
-					"line": 175, "columns": [9]
+					"line": 172, "columns": [9]
 				},
 				{
-					"line": 291, "columns": [5, 23, 30]
+					"line": 289, "columns": [5, 23, 30]
 				},
 				{
-					"line": 293, "columns": [17]
+					"line": 291, "columns": [17]
 				},
 				{
-					"line": 297, "columns": [49, 23]
+					"line": 295, "columns": [49, 23]
 				}
 			],
-			"successors": [23, 22],
+			"successors": [22, 21],
 			"ir": [
 				"%wait = alloca %struct.wait_entry, align 8",
 				"call void @llvm.lifetime.start.p0(i64 72, ptr nonnull %wait) #10, !dbg !269",
@@ -394,17 +378,17 @@
 		},
 		{
 			"function": "_PyParkingLot_Park",
-			"id": 22,
+			"id": 21,
 			"name": "if.end.i",
 			"debug": [
 				{
-					"line": 178, "columns": [5]
+					"line": 175, "columns": [5]
 				},
 				{
-					"line": 179, "columns": [1]
+					"line": 176, "columns": [1]
 				}
 			],
-			"successors": [23],
+			"successors": [22],
 			"ir": [
 				"tail call void @_PyRawMutex_LockSlow(ptr noundef %arrayidx) #10, !dbg !308",
 				"br label %_PyRawMutex_Lock.exit, !dbg !309"
@@ -412,34 +396,34 @@
 		},
 		{
 			"function": "_PyParkingLot_Park",
-			"id": 23,
+			"id": 22,
 			"name": "_PyRawMutex_Lock.exit",
 			"debug": [
 				{
-					"line": 278, "columns": [5]
+					"line": 276, "columns": [5]
 				}
 			],
-			"successors": [27, 28, 24, 25, 26],
+			"successors": [26, 27, 23, 24, 25],
 			"ir": [
 				"switch i64 %size, label %sw.default.i [\n    i64 1, label %atomic_memcmp.exit\n    i64 2, label %sw.bb3.i\n    i64 4, label %sw.bb9.i\n    i64 8, label %sw.bb13.i\n  ], !dbg !320"
 			]
 		},
 		{
 			"function": "_PyParkingLot_Park",
-			"id": 24,
+			"id": 23,
 			"name": "sw.bb3.i",
 			"debug": [
 				{
 					"line": 276, "columns": [10]
 				},
 				{
-					"line": 280, "columns": [52, 49]
+					"line": 278, "columns": [52, 49]
 				},
 				{
-					"line": 300, "columns": [9]
+					"line": 298, "columns": [9]
 				}
 			],
-			"successors": [31, 29],
+			"successors": [30, 28],
 			"ir": [
 				"%4 = load atomic i16, ptr %addr seq_cst, align 2, !dbg !329",
 				"%5 = load i16, ptr %expected, align 2, !dbg !330, !tbaa !331",
@@ -449,20 +433,20 @@
 		},
 		{
 			"function": "_PyParkingLot_Park",
-			"id": 25,
+			"id": 24,
 			"name": "sw.bb9.i",
 			"debug": [
+				{
+					"line": 279, "columns": [52, 49]
+				},
 				{
 					"line": 280, "columns": [10]
 				},
 				{
-					"line": 281, "columns": [52, 49]
-				},
-				{
-					"line": 300, "columns": [9]
+					"line": 298, "columns": [9]
 				}
 			],
-			"successors": [31, 29],
+			"successors": [30, 28],
 			"ir": [
 				"%6 = load atomic i32, ptr %addr seq_cst, align 4, !dbg !342",
 				"%7 = load i32, ptr %expected, align 4, !dbg !343, !tbaa !344",
@@ -472,20 +456,20 @@
 		},
 		{
 			"function": "_PyParkingLot_Park",
-			"id": 26,
+			"id": 25,
 			"name": "sw.bb13.i",
 			"debug": [
 				{
-					"line": 282, "columns": [52, 49]
+					"line": 280, "columns": [52, 49]
 				},
 				{
 					"line": 284, "columns": [10]
 				},
 				{
-					"line": 300, "columns": [9]
+					"line": 298, "columns": [9]
 				}
 			],
-			"successors": [31, 29],
+			"successors": [30, 28],
 			"ir": [
 				"%8 = load atomic i64, ptr %addr seq_cst, align 8, !dbg !354",
 				"%9 = load i64, ptr %expected, align 8, !dbg !355, !tbaa !356",
@@ -495,11 +479,11 @@
 		},
 		{
 			"function": "_PyParkingLot_Park",
-			"id": 27,
+			"id": 26,
 			"name": "sw.default.i",
 			"debug": [
 				{
-					"line": 283, "columns": [14]
+					"line": 281, "columns": [14]
 				}
 			],
 			"successors": [],
@@ -509,20 +493,20 @@
 		},
 		{
 			"function": "_PyParkingLot_Park",
-			"id": 28,
+			"id": 27,
 			"name": "atomic_memcmp.exit",
 			"debug": [
 				{
 					"line": 272, "columns": [10]
 				},
 				{
-					"line": 279, "columns": [51, 48]
+					"line": 277, "columns": [51, 48]
 				},
 				{
-					"line": 300, "columns": [9]
+					"line": 298, "columns": [9]
 				}
 			],
-			"successors": [31, 29],
+			"successors": [30, 28],
 			"ir": [
 				"%10 = load atomic i8, ptr %addr seq_cst, align 1, !dbg !366",
 				"%11 = load i8, ptr %expected, align 1, !dbg !367, !tbaa !368",
@@ -532,17 +516,17 @@
 		},
 		{
 			"function": "_PyParkingLot_Park",
-			"id": 29,
+			"id": 28,
 			"name": "if.then",
 			"debug": [
 				{
 					"line": 125, "columns": [10]
 				},
 				{
-					"line": 185, "columns": [9]
+					"line": 182, "columns": [9]
 				}
 			],
-			"successors": [58, 30],
+			"successors": [56, 29],
 			"ir": [
 				"%12 = cmpxchg ptr %arrayidx, i64 1, i64 0 seq_cst seq_cst, align 8, !dbg !380",
 				"%13 = extractvalue { i64, i1 } %12, 1, !dbg !380",
@@ -551,17 +535,17 @@
 		},
 		{
 			"function": "_PyParkingLot_Park",
-			"id": 30,
+			"id": 29,
 			"name": "if.end.i33",
 			"debug": [
 				{
-					"line": 188, "columns": [5]
+					"line": 185, "columns": [5]
 				},
 				{
-					"line": 189, "columns": [1]
+					"line": 186, "columns": [1]
 				}
 			],
-			"successors": [58],
+			"successors": [56],
 			"ir": [
 				"tail call void @_PyRawMutex_UnlockSlow(ptr noundef %arrayidx) #10, !dbg !382",
 				"br label %cleanup, !dbg !383"
@@ -569,17 +553,17 @@
 		},
 		{
 			"function": "_PyParkingLot_Park",
-			"id": 31,
+			"id": 30,
 			"name": "if.end",
 			"debug": [
 				{
 					"line": 67, "columns": [9, 67]
 				},
 				{
-					"line": 304, "columns": [29]
+					"line": 302, "columns": [29]
 				}
 			],
-			"successors": [32, 33],
+			"successors": [31, 32],
 			"ir": [
 				"%sema = getelementptr inbounds %struct.wait_entry, ptr %wait, i64 0, i32 2, !dbg !384",
 				"%call.i = call i32 @sem_init(ptr noundef nonnull %sema, i32 noundef 0, i32 noundef 0) #10, !dbg !393",
@@ -589,7 +573,7 @@
 		},
 		{
 			"function": "_PyParkingLot_Park",
-			"id": 32,
+			"id": 31,
 			"name": "if.then.i",
 			"debug": [
 				{
@@ -604,7 +588,7 @@
 		},
 		{
 			"function": "_PyParkingLot_Park",
-			"id": 33,
+			"id": 32,
 			"name": "_PySemaphore_Init.exit",
 			"debug": [
 				{
@@ -623,16 +607,16 @@
 					"line": 125, "columns": [10]
 				},
 				{
-					"line": 185, "columns": [9]
+					"line": 182, "columns": [9]
 				},
 				{
-					"line": 235, "columns": [32, 45]
+					"line": 233, "columns": [32, 45]
 				},
 				{
-					"line": 236, "columns": [15, 5]
+					"line": 234, "columns": [15, 5]
 				}
 			],
-			"successors": [35, 34],
+			"successors": [34, 33],
 			"ir": [
 				"%root.i = getelementptr [257 x %struct.Bucket], ptr @buckets, i64 0, i64 %rem, i32 1, !dbg !408",
 				"%node.i = getelementptr inbounds %struct.wait_entry, ptr %wait, i64 0, i32 3, !dbg !409",
@@ -654,17 +638,17 @@
 		},
 		{
 			"function": "_PyParkingLot_Park",
-			"id": 34,
+			"id": 33,
 			"name": "if.end.i36",
 			"debug": [
 				{
-					"line": 188, "columns": [5]
+					"line": 185, "columns": [5]
 				},
 				{
-					"line": 189, "columns": [1]
+					"line": 186, "columns": [1]
 				}
 			],
-			"successors": [35],
+			"successors": [34],
 			"ir": [
 				"call void @_PyRawMutex_UnlockSlow(ptr noundef %arrayidx) #10, !dbg !437",
 				"br label %_PyRawMutex_Unlock.exit37, !dbg !438"
@@ -672,17 +656,17 @@
 		},
 		{
 			"function": "_PyParkingLot_Park",
-			"id": 35,
+			"id": 34,
 			"name": "_PyRawMutex_Unlock.exit37",
 			"debug": [
 				{
-					"line": 308, "columns": [15]
+					"line": 306, "columns": [15]
 				},
 				{
-					"line": 309, "columns": [13, 9]
+					"line": 307, "columns": [13, 9]
 				}
 			],
-			"successors": [57, 36],
+			"successors": [55, 35],
 			"ir": [
 				"%call6 = call i32 @_PySemaphore_Wait(ptr noundef nonnull %sema, i64 noundef %timeout_ns, i32 noundef %detach), !dbg !439, !range !440",
 				"%cmp = icmp eq i32 %call6, 0, !dbg !441",
@@ -691,17 +675,17 @@
 		},
 		{
 			"function": "_PyParkingLot_Park",
-			"id": 36,
+			"id": 35,
 			"name": "if.end8",
 			"debug": [
 				{
 					"line": 125, "columns": [10]
 				},
 				{
-					"line": 175, "columns": [9]
+					"line": 172, "columns": [9]
 				}
 			],
-			"successors": [38, 37],
+			"successors": [37, 36],
 			"ir": [
 				"%18 = cmpxchg ptr %arrayidx, i64 0, i64 1 seq_cst seq_cst, align 8, !dbg !448",
 				"%19 = extractvalue { i64, i1 } %18, 1, !dbg !448",
@@ -710,17 +694,17 @@
 		},
 		{
 			"function": "_PyParkingLot_Park",
-			"id": 37,
+			"id": 36,
 			"name": "if.end.i38",
 			"debug": [
 				{
-					"line": 178, "columns": [5]
+					"line": 175, "columns": [5]
 				},
 				{
-					"line": 179, "columns": [1]
+					"line": 176, "columns": [1]
 				}
 			],
-			"successors": [38],
+			"successors": [37],
 			"ir": [
 				"call void @_PyRawMutex_LockSlow(ptr noundef %arrayidx) #10, !dbg !450",
 				"br label %_PyRawMutex_Lock.exit39, !dbg !451"
@@ -728,14 +712,14 @@
 		},
 		{
 			"function": "_PyParkingLot_Park",
-			"id": 38,
+			"id": 37,
 			"name": "_PyRawMutex_Lock.exit39",
 			"debug": [
 				{
-					"line": 315, "columns": [14, 9]
+					"line": 313, "columns": [14, 9]
 				}
 			],
-			"successors": [55, 39],
+			"successors": [53, 38],
 			"ir": [
 				"%is_unparking = getelementptr inbounds %struct.wait_entry, ptr %wait, i64 0, i32 4, !dbg !452",
 				"%20 = load i8, ptr %is_unparking, align 8, !dbg !452, !tbaa !454, !range !455, !noundef !456",
@@ -745,17 +729,17 @@
 		},
 		{
 			"function": "_PyParkingLot_Park",
-			"id": 39,
+			"id": 38,
 			"name": "if.then11",
 			"debug": [
 				{
 					"line": 125, "columns": [10]
 				},
 				{
-					"line": 185, "columns": [9]
+					"line": 182, "columns": [9]
 				}
 			],
-			"successors": [41, 40],
+			"successors": [40, 39],
 			"ir": [
 				"%21 = cmpxchg ptr %arrayidx, i64 1, i64 0 seq_cst seq_cst, align 8, !dbg !463",
 				"%22 = extractvalue { i64, i1 } %21, 1, !dbg !463",
@@ -764,17 +748,17 @@
 		},
 		{
 			"function": "_PyParkingLot_Park",
-			"id": 40,
+			"id": 39,
 			"name": "if.end.i40",
 			"debug": [
 				{
-					"line": 188, "columns": [5]
+					"line": 185, "columns": [5]
 				},
 				{
-					"line": 189, "columns": [1]
+					"line": 186, "columns": [1]
 				}
 			],
-			"successors": [41],
+			"successors": [40],
 			"ir": [
 				"call void @_PyRawMutex_UnlockSlow(ptr noundef %arrayidx) #10, !dbg !465",
 				"br label %_PyRawMutex_Unlock.exit41, !dbg !466"
@@ -782,24 +766,24 @@
 		},
 		{
 			"function": "_PyParkingLot_Park",
-			"id": 41,
+			"id": 40,
 			"name": "_PyRawMutex_Unlock.exit41",
 			"debug": [
 				{
 					"line": 195, "columns": [9]
 				}
 			],
-			"successors": [42, 46],
+			"successors": [41, 43],
 			"ir": [
-				"%tobool.not.i = icmp eq i32 %detach, 0",
+				"%tobool.i.not = icmp eq i32 %detach, 0",
 				"%23 = call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate)",
-				"br i1 %tobool.not.i, label %do.body.us.preheader, label %do.body, !dbg !467"
+				"br i1 %tobool.i.not, label %do.body.preheader, label %do.body.us, !dbg !467"
 			]
 		},
 		{
 			"function": "_PyParkingLot_Park",
-			"id": 42,
-			"name": "do.body.us.preheader",
+			"id": 41,
+			"name": "do.body.preheader",
 			"debug": [
 				{
 					"line": 137, "columns": [15]
@@ -808,31 +792,87 @@
 					"line": 139, "columns": [13, 9]
 				}
 			],
-			"successors": [43, 57],
+			"successors": [42, 55],
 			"ir": [
-				"%call4.i.i.us56 = call i32 @sem_wait(ptr noundef nonnull %sema) #10, !dbg !7075",
-				"%cmp5.i.i.not.us57 = icmp eq i32 %call4.i.i.us56, -1, !dbg !7077",
-				"br i1 %cmp5.i.i.not.us57, label %if.then6.i.i.us.preheader, label %done, !dbg !7079"
+				"%call4.i.i55 = call i32 @sem_wait(ptr noundef nonnull %sema) #10, !dbg !7048",
+				"%cmp5.i.i.not56 = icmp eq i32 %call4.i.i55, -1, !dbg !7050",
+				"br i1 %cmp5.i.i.not56, label %if.then6.i.i.preheader, label %done, !dbg !7052"
 			]
 		},
 		{
 			"function": "_PyParkingLot_Park",
-			"id": 43,
-			"name": "if.then6.i.i.us.preheader",
+			"id": 42,
+			"name": "if.then6.i.i.preheader",
 			"debug": [
 				{
 					"line": 141, "columns": [13]
 				}
 			],
-			"successors": [44],
+			"successors": [50],
 			"ir": [
-				"%call7.i.i.us = tail call ptr @__errno_location() #12, !dbg !268",
-				"br label %if.then6.i.i.us, !dbg !7080"
+				"%call7.i.i = tail call ptr @__errno_location() #12, !dbg !268",
+				"br label %if.then6.i.i, !dbg !7053"
+			]
+		},
+		{
+			"function": "_PyParkingLot_Park",
+			"id": 43,
+			"name": "do.body.us",
+			"debug": [
+				{
+					"line": 134, "columns": [12]
+				},
+				{
+					"line": 197, "columns": [13]
+				}
+			],
+			"successors": [45, 44],
+			"ir": [
+				"%24 = load ptr, ptr %23, align 8, !dbg !7055, !tbaa !7063",
+				"%tobool1.not.i.us = icmp eq ptr %24, null, !dbg !7064",
+				"br i1 %tobool1.not.i.us, label %if.end3.i.us, label %if.then2.i.us, !dbg !7066"
 			]
 		},
 		{
 			"function": "_PyParkingLot_Park",
 			"id": 44,
+			"name": "if.then2.i.us",
+			"debug": [
+				{
+					"line": 198, "columns": [13]
+				},
+				{
+					"line": 199, "columns": [9]
+				}
+			],
+			"successors": [45],
+			"ir": [
+				"call void @PyEval_ReleaseThread(ptr noundef nonnull %24) #10, !dbg !7067",
+				"br label %if.end3.i.us, !dbg !7069"
+			]
+		},
+		{
+			"function": "_PyParkingLot_Park",
+			"id": 45,
+			"name": "if.end3.i.us",
+			"debug": [
+				{
+					"line": 137, "columns": [15]
+				},
+				{
+					"line": 139, "columns": [13, 9]
+				}
+			],
+			"successors": [46, 47],
+			"ir": [
+				"%call4.i.i.us = call i32 @sem_wait(ptr noundef nonnull %sema) #10, !dbg !7048",
+				"%cmp5.i.i.not.us = icmp eq i32 %call4.i.i.us, -1, !dbg !7050",
+				"br i1 %cmp5.i.i.not.us, label %if.then6.i.i.us, label %_PySemaphore_PlatformWait.exit.i.us, !dbg !7052"
+			]
+		},
+		{
+			"function": "_PyParkingLot_Park",
+			"id": 46,
 			"name": "if.then6.i.i.us",
 			"debug": [
 				{
@@ -842,103 +882,58 @@
 					"line": 141, "columns": [13]
 				}
 			],
-			"successors": [51, 45, 45],
+			"successors": [51, 47, 47],
 			"ir": [
-				"%24 = load i32, ptr %call7.i.i.us, align 4, !dbg !7082, !tbaa !344",
-				"switch i32 %24, label %if.else13.i.i [\n    i32 4, label %_PySemaphore_PlatformWait.exit.i.us\n    i32 110, label %_PySemaphore_PlatformWait.exit.i.us\n  ], !dbg !7080"
-			]
-		},
-		{
-			"function": "_PyParkingLot_Park",
-			"id": 45,
-			"name": "_PySemaphore_PlatformWait.exit.i.us",
-			"debug": [
-				{
-					"line": 137, "columns": [15]
-				},
-				{
-					"line": 139, "columns": [13, 9]
-				}
-			],
-			"successors": [44, 57],
-			"ir": [
-				"%call4.i.i.us = call i32 @sem_wait(ptr noundef nonnull %sema) #10, !dbg !7075",
-				"%cmp5.i.i.not.us = icmp eq i32 %call4.i.i.us, -1, !dbg !7077",
-				"br i1 %cmp5.i.i.not.us, label %if.then6.i.i.us, label %done, !dbg !7079"
-			]
-		},
-		{
-			"function": "_PyParkingLot_Park",
-			"id": 46,
-			"name": "do.body",
-			"debug": [
-				{
-					"line": 137, "columns": [12]
-				},
-				{
-					"line": 197, "columns": [13, 20]
-				}
-			],
-			"successors": [49, 47],
-			"ir": [
-				"%25 = load ptr, ptr %23, align 8, !dbg !7083, !tbaa !7091",
-				"%tobool1.not.i = icmp eq ptr %25, null, !dbg !7092",
-				"br i1 %tobool1.not.i, label %if.end3.i, label %land.lhs.true.i, !dbg !7094"
+				"%call7.i.i.us = tail call ptr @__errno_location() #12, !dbg !7070",
+				"%25 = load i32, ptr %call7.i.i.us, align 4, !dbg !7070, !tbaa !344",
+				"switch i32 %25, label %if.else13.i.i [\n    i32 4, label %_PySemaphore_PlatformWait.exit.i.us\n    i32 110, label %_PySemaphore_PlatformWait.exit.i.us\n  ], !dbg !7053"
 			]
 		},
 		{
 			"function": "_PyParkingLot_Park",
 			"id": 47,
-			"name": "land.lhs.true.i",
+			"name": "_PySemaphore_PlatformWait.exit.i.us",
 			"debug": [
 				{
-					"line": 197, "columns": [31, 37, 13]
+					"line": 204, "columns": [16]
 				}
 			],
-			"successors": [48, 49],
+			"successors": [49, 48],
 			"ir": [
-				"%state.i = getelementptr inbounds %struct._ts, ptr %25, i64 0, i32 6, !dbg !7095",
-				"%26 = load i32, ptr %state.i, align 8, !dbg !7095, !tbaa !7096",
-				"%cmp.i43 = icmp eq i32 %26, 1, !dbg !7101",
-				"br i1 %cmp.i43, label %if.then2.i, label %if.end3.i, !dbg !7102"
+				"%tobool6.i.us.not = icmp eq ptr %24, null",
+				"br i1 %tobool6.i.us.not, label %_PySemaphore_Wait.exit.us, label %if.then7.i.us, !dbg !7071"
 			]
 		},
 		{
 			"function": "_PyParkingLot_Park",
 			"id": 48,
-			"name": "if.then2.i",
+			"name": "if.then7.i.us",
 			"debug": [
 				{
-					"line": 199, "columns": [13]
+					"line": 205, "columns": [9]
 				},
 				{
-					"line": 200, "columns": [9]
+					"line": 206, "columns": [5]
 				}
 			],
 			"successors": [49],
 			"ir": [
-				"call void @PyEval_ReleaseThread(ptr noundef nonnull %25) #10, !dbg !7103",
-				"br label %if.end3.i, !dbg !7105"
+				"call void @PyEval_AcquireThread(ptr noundef nonnull %24) #10, !dbg !7073",
+				"br label %_PySemaphore_Wait.exit.us, !dbg !7075"
 			]
 		},
 		{
 			"function": "_PyParkingLot_Park",
 			"id": 49,
-			"name": "if.end3.i",
+			"name": "_PySemaphore_Wait.exit.us",
 			"debug": [
 				{
-					"line": 137, "columns": [15]
-				},
-				{
-					"line": 139, "columns": [13, 9]
+					"line": 319, "columns": [9]
 				}
 			],
-			"successors": [50, 52],
+			"successors": [43, 55],
 			"ir": [
-				"%tstate.0.i = phi ptr [ %25, %if.then2.i ], [ null, %land.lhs.true.i ], [ null, %do.body ], !dbg !7053",
-				"%call4.i.i = call i32 @sem_wait(ptr noundef nonnull %sema) #10, !dbg !7075",
-				"%cmp5.i.i.not = icmp eq i32 %call4.i.i, -1, !dbg !7077",
-				"br i1 %cmp5.i.i.not, label %if.then6.i.i, label %_PySemaphore_PlatformWait.exit.i, !dbg !7079"
+				"br i1 %cmp5.i.i.not.us, label %do.body.us, label %done, !dbg !7076, !llvm.loop !7077"
 			]
 		},
 		{
@@ -955,9 +950,8 @@
 			],
 			"successors": [51, 52, 52],
 			"ir": [
-				"%call7.i.i = tail call ptr @__errno_location() #12, !dbg !7082",
-				"%27 = load i32, ptr %call7.i.i, align 4, !dbg !7082, !tbaa !344",
-				"switch i32 %27, label %if.else13.i.i [\n    i32 4, label %_PySemaphore_PlatformWait.exit.i\n    i32 110, label %_PySemaphore_PlatformWait.exit.i\n  ], !dbg !7080"
+				"%26 = load i32, ptr %call7.i.i, align 4, !dbg !7070, !tbaa !344",
+				"switch i32 %26, label %if.else13.i.i [\n    i32 4, label %_PySemaphore_PlatformWait.exit.i\n    i32 110, label %_PySemaphore_PlatformWait.exit.i\n  ], !dbg !7053"
 			]
 		},
 		{
@@ -971,9 +965,9 @@
 			],
 			"successors": [],
 			"ir": [
-				"%.us-phi = phi i32 [ %24, %if.then6.i.i.us ], [ %27, %if.then6.i.i ]",
-				"call void (ptr, ptr, ...) @_Py_FatalErrorFormat(ptr noundef nonnull @__func__._PySemaphore_PlatformWait, ptr noundef nonnull @.str.2, i32 noundef %.us-phi) #11, !dbg !7106",
-				"unreachable, !dbg !7106"
+				"%.us-phi = phi i32 [ %26, %if.then6.i.i ], [ %25, %if.then6.i.i.us ]",
+				"call void (ptr, ptr, ...) @_Py_FatalErrorFormat(ptr noundef nonnull @__func__._PySemaphore_PlatformWait, ptr noundef nonnull @.str.2, i32 noundef %.us-phi) #11, !dbg !7081",
+				"unreachable, !dbg !7081"
 			]
 		},
 		{
@@ -982,50 +976,22 @@
 			"name": "_PySemaphore_PlatformWait.exit.i",
 			"debug": [
 				{
-					"line": 206, "columns": [9]
+					"line": 137, "columns": [15]
+				},
+				{
+					"line": 139, "columns": [13, 9]
 				}
 			],
-			"successors": [54, 53],
+			"successors": [50, 55],
 			"ir": [
-				"%tobool5.not.i = icmp eq ptr %tstate.0.i, null, !dbg !7110",
-				"br i1 %tobool5.not.i, label %_PySemaphore_Wait.exit, label %if.then6.i, !dbg !7112"
+				"%call4.i.i = call i32 @sem_wait(ptr noundef nonnull %sema) #10, !dbg !7048",
+				"%cmp5.i.i.not = icmp eq i32 %call4.i.i, -1, !dbg !7050",
+				"br i1 %cmp5.i.i.not, label %if.then6.i.i, label %done, !dbg !7052"
 			]
 		},
 		{
 			"function": "_PyParkingLot_Park",
 			"id": 53,
-			"name": "if.then6.i",
-			"debug": [
-				{
-					"line": 207, "columns": [9]
-				},
-				{
-					"line": 208, "columns": [5]
-				}
-			],
-			"successors": [54],
-			"ir": [
-				"call void @PyEval_AcquireThread(ptr noundef nonnull %tstate.0.i) #10, !dbg !7113",
-				"br label %_PySemaphore_Wait.exit, !dbg !7115"
-			]
-		},
-		{
-			"function": "_PyParkingLot_Park",
-			"id": 54,
-			"name": "_PySemaphore_Wait.exit",
-			"debug": [
-				{
-					"line": 321, "columns": [9]
-				}
-			],
-			"successors": [46, 57],
-			"ir": [
-				"br i1 %cmp5.i.i.not, label %do.body, label %done, !dbg !7116, !llvm.loop !7117"
-			]
-		},
-		{
-			"function": "_PyParkingLot_Park",
-			"id": 55,
 			"name": "if.else",
 			"debug": [
 				{
@@ -1047,97 +1013,97 @@
 					"line": 125, "columns": [10]
 				},
 				{
-					"line": 185, "columns": [9]
+					"line": 182, "columns": [9]
 				},
 				{
-					"line": 326, "columns": [9]
+					"line": 324, "columns": [9]
 				}
 			],
-			"successors": [57, 56],
+			"successors": [55, 54],
 			"ir": [
-				"%28 = load ptr, ptr %prev1.i.i, align 8, !dbg !7131, !tbaa !419",
-				"%29 = load ptr, ptr %node.i, align 8, !dbg !7132, !tbaa !423",
-				"store ptr %29, ptr %28, align 8, !dbg !7133, !tbaa !423",
-				"%prev4.i = getelementptr inbounds %struct.llist_node, ptr %29, i64 0, i32 1, !dbg !7134",
-				"store ptr %28, ptr %prev4.i, align 8, !dbg !7135, !tbaa !419",
-				"call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %node.i, i8 0, i64 16, i1 false), !dbg !7136",
-				"%30 = load i64, ptr %num_waiters.i, align 8, !dbg !7137, !tbaa !428",
-				"%dec = add i64 %30, -1, !dbg !7137",
-				"store i64 %dec, ptr %num_waiters.i, align 8, !dbg !7137, !tbaa !428",
-				"%31 = cmpxchg ptr %arrayidx, i64 1, i64 0 seq_cst seq_cst, align 8, !dbg !7142",
-				"%32 = extractvalue { i64, i1 } %31, 1, !dbg !7142",
-				"br i1 %32, label %done, label %if.end.i44, !dbg !7143"
+				"%27 = load ptr, ptr %prev1.i.i, align 8, !dbg !7095, !tbaa !419",
+				"%28 = load ptr, ptr %node.i, align 8, !dbg !7096, !tbaa !423",
+				"store ptr %28, ptr %27, align 8, !dbg !7097, !tbaa !423",
+				"%prev4.i = getelementptr inbounds %struct.llist_node, ptr %28, i64 0, i32 1, !dbg !7098",
+				"store ptr %27, ptr %prev4.i, align 8, !dbg !7099, !tbaa !419",
+				"call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %node.i, i8 0, i64 16, i1 false), !dbg !7100",
+				"%29 = load i64, ptr %num_waiters.i, align 8, !dbg !7101, !tbaa !428",
+				"%dec = add i64 %29, -1, !dbg !7101",
+				"store i64 %dec, ptr %num_waiters.i, align 8, !dbg !7101, !tbaa !428",
+				"%30 = cmpxchg ptr %arrayidx, i64 1, i64 0 seq_cst seq_cst, align 8, !dbg !7106",
+				"%31 = extractvalue { i64, i1 } %30, 1, !dbg !7106",
+				"br i1 %31, label %done, label %if.end.i43, !dbg !7107"
 			]
 		},
 		{
 			"function": "_PyParkingLot_Park",
-			"id": 56,
-			"name": "if.end.i44",
+			"id": 54,
+			"name": "if.end.i43",
 			"debug": [
 				{
-					"line": 188, "columns": [5]
+					"line": 185, "columns": [5]
 				},
 				{
-					"line": 189, "columns": [1]
+					"line": 186, "columns": [1]
 				}
 			],
-			"successors": [57],
+			"successors": [55],
 			"ir": [
-				"call void @_PyRawMutex_UnlockSlow(ptr noundef %arrayidx) #10, !dbg !7144",
-				"br label %done, !dbg !7145"
+				"call void @_PyRawMutex_UnlockSlow(ptr noundef %arrayidx) #10, !dbg !7108",
+				"br label %done, !dbg !7109"
 			]
 		},
 		{
 			"function": "_PyParkingLot_Park",
-			"id": 57,
+			"id": 55,
 			"name": "done",
 			"debug": [
 				{
 					"line": 87, "columns": [5]
 				},
 				{
-					"line": 330, "columns": [1]
+					"line": 328, "columns": [1]
 				}
 			],
-			"successors": [58],
+			"successors": [56],
 			"ir": [
-				"%res.0 = phi i32 [ 0, %_PyRawMutex_Unlock.exit37 ], [ %call6, %if.else ], [ %call6, %if.end.i44 ], [ 0, %do.body.us.preheader ], [ 0, %_PySemaphore_PlatformWait.exit.i.us ], [ 0, %_PySemaphore_Wait.exit ], !dbg !268",
-				"%call.i46 = call i32 @sem_destroy(ptr noundef nonnull %sema) #10, !dbg !7152",
+				"%res.0 = phi i32 [ 0, %_PyRawMutex_Unlock.exit37 ], [ %call6, %if.else ], [ %call6, %if.end.i43 ], [ 0, %do.body.preheader ], [ 0, %_PySemaphore_PlatformWait.exit.i ], [ 0, %_PySemaphore_Wait.exit.us ], !dbg !268",
+				"%call.i45 = call i32 @sem_destroy(ptr noundef nonnull %sema) #10, !dbg !7116",
 				"br label %cleanup"
 			]
 		},
 		{
 			"function": "_PyParkingLot_Park",
-			"id": 58,
+			"id": 56,
 			"name": "cleanup",
 			"debug": [
 				{
-					"line": 334, "columns": [1]
+					"line": 332, "columns": [1]
 				}
 			],
 			"successors": [],
 			"ir": [
 				"%retval.0 = phi i32 [ %res.0, %done ], [ -1, %if.then ], [ -1, %if.end.i33 ], !dbg !268",
-				"call void @llvm.lifetime.end.p0(i64 72, ptr nonnull %wait) #10, !dbg !7153",
-				"ret i32 %retval.0, !dbg !7153"
+				"call void @llvm.lifetime.end.p0(i64 72, ptr nonnull %wait) #10, !dbg !7117",
+				"ret i32 %retval.0, !dbg !7117"
 			]
 		},
 		{
 			"function": "_PyParkingLot_Unpark",
-			"id": 59,
+			"id": 57,
 			"name": "entry",
 			"debug": [
 				{
 					"line": 125, "columns": [10]
 				},
 				{
-					"line": 175, "columns": [9]
+					"line": 172, "columns": [9]
 				},
 				{
-					"line": 339, "columns": [32, 49, 23]
+					"line": 337, "columns": [32, 49, 23]
 				}
 			],
-			"successors": [61, 60],
+			"successors": [59, 58],
 			"ir": [
 				"%0 = ptrtoint ptr %addr to i64, !dbg !266",
 				"%rem = urem i64 %0, 257, !dbg !267",
@@ -1149,17 +1115,17 @@
 		},
 		{
 			"function": "_PyParkingLot_Unpark",
-			"id": 60,
+			"id": 58,
 			"name": "if.end.i",
 			"debug": [
 				{
-					"line": 178, "columns": [5]
+					"line": 175, "columns": [5]
 				},
 				{
-					"line": 179, "columns": [1]
+					"line": 176, "columns": [1]
 				}
 			],
-			"successors": [61],
+			"successors": [59],
 			"ir": [
 				"tail call void @_PyRawMutex_LockSlow(ptr noundef %arrayidx) #10, !dbg !292",
 				"br label %_PyRawMutex_Lock.exit, !dbg !293"
@@ -1167,17 +1133,17 @@
 		},
 		{
 			"function": "_PyParkingLot_Unpark",
-			"id": 61,
+			"id": 59,
 			"name": "_PyRawMutex_Lock.exit",
 			"debug": [
 				{
-					"line": 243, "columns": [40]
+					"line": 241, "columns": [40]
 				},
 				{
-					"line": 245, "columns": [5]
+					"line": 243, "columns": [5]
 				}
 			],
-			"successors": [62],
+			"successors": [60],
 			"ir": [
 				"%root1.i = getelementptr [257 x %struct.Bucket], ptr @buckets, i64 0, i64 %rem, i32 1, !dbg !308",
 				"br label %for.cond.i, !dbg !309"
@@ -1185,14 +1151,14 @@
 		},
 		{
 			"function": "_PyParkingLot_Unpark",
-			"id": 62,
+			"id": 60,
 			"name": "for.cond.i",
 			"debug": [
 				{
-					"line": 245, "columns": [5]
+					"line": 243, "columns": [5]
 				}
 			],
-			"successors": [66, 63],
+			"successors": [64, 61],
 			"ir": [
 				"%node.0.in.i = phi ptr [ %root1.i, %_PyRawMutex_Lock.exit ], [ %node.0.i, %for.body.i ]",
 				"%node.0.i = load ptr, ptr %node.0.in.i, align 8, !dbg !309, !tbaa !310",
@@ -1202,14 +1168,14 @@
 		},
 		{
 			"function": "_PyParkingLot_Unpark",
-			"id": 63,
+			"id": 61,
 			"name": "for.body.i",
 			"debug": [
 				{
-					"line": 247, "columns": [19, 24, 13]
+					"line": 245, "columns": [19, 24, 13]
 				}
 			],
-			"successors": [64, 62],
+			"successors": [62, 60],
 			"ir": [
 				"%addr.i = getelementptr i8, ptr %node.0.i, i64 -40, !dbg !317",
 				"%3 = load i64, ptr %addr.i, align 8, !dbg !317, !tbaa !319",
@@ -1219,7 +1185,7 @@
 		},
 		{
 			"function": "_PyParkingLot_Unpark",
-			"id": 64,
+			"id": 62,
 			"name": "dequeue.exit",
 			"debug": [
 				{
@@ -1238,19 +1204,19 @@
 					"line": 86, "columns": [16]
 				},
 				{
-					"line": 246, "columns": [35]
+					"line": 244, "columns": [35]
 				},
 				{
-					"line": 249, "columns": [23, 13]
+					"line": 247, "columns": [23, 13]
 				},
 				{
-					"line": 250, "columns": [19, 32]
+					"line": 248, "columns": [19, 32]
 				},
 				{
-					"line": 344, "columns": [9]
+					"line": 342, "columns": [9]
 				}
 			],
-			"successors": [66, 65],
+			"successors": [64, 63],
 			"ir": [
 				"%add.ptr.i = getelementptr i8, ptr %node.0.i, i64 -48, !dbg !326",
 				"%prev1.i.i = getelementptr inbounds %struct.llist_node, ptr %node.0.i, i64 0, i32 1, !dbg !337",
@@ -1272,20 +1238,20 @@
 		},
 		{
 			"function": "_PyParkingLot_Unpark",
-			"id": 65,
+			"id": 63,
 			"name": "if.then",
 			"debug": [
 				{
-					"line": 345, "columns": [53]
+					"line": 343, "columns": [53]
 				},
 				{
-					"line": 346, "columns": [25, 9]
+					"line": 344, "columns": [25, 9]
 				},
 				{
-					"line": 347, "columns": [5]
+					"line": 345, "columns": [5]
 				}
 			],
-			"successors": [67],
+			"successors": [65],
 			"ir": [
 				"%cmp = icmp ne i64 %dec.i, 0, !dbg !354",
 				"%conv = zext i1 %cmp to i32, !dbg !354",
@@ -1296,14 +1262,14 @@
 		},
 		{
 			"function": "_PyParkingLot_Unpark",
-			"id": 66,
+			"id": 64,
 			"name": "if.else",
 			"debug": [
 				{
-					"line": 349, "columns": [9]
+					"line": 347, "columns": [9]
 				}
 			],
-			"successors": [67],
+			"successors": [65],
 			"ir": [
 				"tail call void %fn(ptr noundef %arg, ptr noundef null, i32 noundef 0) #10, !dbg !360",
 				"br label %if.end"
@@ -1311,17 +1277,17 @@
 		},
 		{
 			"function": "_PyParkingLot_Unpark",
-			"id": 67,
+			"id": 65,
 			"name": "if.end",
 			"debug": [
 				{
 					"line": 125, "columns": [10]
 				},
 				{
-					"line": 185, "columns": [9]
+					"line": 182, "columns": [9]
 				}
 			],
-			"successors": [69, 68],
+			"successors": [67, 66],
 			"ir": [
 				"%tobool.not21 = phi i1 [ true, %if.else ], [ false, %if.then ]",
 				"%retval.2.i19 = phi ptr [ null, %if.else ], [ %add.ptr.i, %if.then ]",
@@ -1332,17 +1298,17 @@
 		},
 		{
 			"function": "_PyParkingLot_Unpark",
-			"id": 68,
+			"id": 66,
 			"name": "if.end.i14",
 			"debug": [
 				{
-					"line": 188, "columns": [5]
+					"line": 185, "columns": [5]
 				},
 				{
-					"line": 189, "columns": [1]
+					"line": 186, "columns": [1]
 				}
 			],
-			"successors": [69],
+			"successors": [67],
 			"ir": [
 				"tail call void @_PyRawMutex_UnlockSlow(ptr noundef %arrayidx) #10, !dbg !373",
 				"br label %_PyRawMutex_Unlock.exit, !dbg !374"
@@ -1350,34 +1316,34 @@
 		},
 		{
 			"function": "_PyParkingLot_Unpark",
-			"id": 69,
+			"id": 67,
 			"name": "_PyRawMutex_Unlock.exit",
 			"debug": [
 				{
-					"line": 353, "columns": [9]
+					"line": 351, "columns": [9]
 				}
 			],
-			"successors": [72, 70],
+			"successors": [70, 68],
 			"ir": [
 				"br i1 %tobool.not21, label %if.end4, label %if.then3, !dbg !375"
 			]
 		},
 		{
 			"function": "_PyParkingLot_Unpark",
-			"id": 70,
+			"id": 68,
 			"name": "if.then3",
 			"debug": [
 				{
-					"line": 220, "columns": [15]
+					"line": 218, "columns": [15]
 				},
 				{
-					"line": 221, "columns": [13, 9]
+					"line": 219, "columns": [13, 9]
 				},
 				{
-					"line": 355, "columns": [38]
+					"line": 353, "columns": [38]
 				}
 			],
-			"successors": [72, 71],
+			"successors": [70, 69],
 			"ir": [
 				"%sema = getelementptr inbounds %struct.wait_entry, ptr %retval.2.i19, i64 0, i32 2, !dbg !376",
 				"%call.i = tail call i32 @sem_post(ptr noundef nonnull %sema) #10, !dbg !388",
@@ -1387,11 +1353,11 @@
 		},
 		{
 			"function": "_PyParkingLot_Unpark",
-			"id": 71,
+			"id": 69,
 			"name": "if.then.i",
 			"debug": [
 				{
-					"line": 222, "columns": [9]
+					"line": 220, "columns": [9]
 				}
 			],
 			"successors": [],
@@ -1402,11 +1368,11 @@
 		},
 		{
 			"function": "_PyParkingLot_Unpark",
-			"id": 72,
+			"id": 70,
 			"name": "if.end4",
 			"debug": [
 				{
-					"line": 357, "columns": [1]
+					"line": 355, "columns": [1]
 				}
 			],
 			"successors": [],
@@ -1416,23 +1382,23 @@
 		},
 		{
 			"function": "_PyParkingLot_UnparkAll",
-			"id": 73,
+			"id": 71,
 			"name": "entry",
 			"debug": [
 				{
 					"line": 125, "columns": [10]
 				},
 				{
-					"line": 175, "columns": [9]
+					"line": 172, "columns": [9]
 				},
 				{
-					"line": 362, "columns": [5, 23, 30]
+					"line": 360, "columns": [5, 23, 30]
 				},
 				{
-					"line": 363, "columns": [32, 49, 23]
+					"line": 361, "columns": [32, 49, 23]
 				}
 			],
-			"successors": [75, 74],
+			"successors": [73, 72],
 			"ir": [
 				"%head = alloca %struct.llist_node, align 8",
 				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %head) #10, !dbg !263",
@@ -1449,17 +1415,17 @@
 		},
 		{
 			"function": "_PyParkingLot_UnparkAll",
-			"id": 74,
+			"id": 72,
 			"name": "if.end.i",
 			"debug": [
 				{
-					"line": 178, "columns": [5]
+					"line": 175, "columns": [5]
 				},
 				{
-					"line": 179, "columns": [1]
+					"line": 176, "columns": [1]
 				}
 			],
-			"successors": [75],
+			"successors": [73],
 			"ir": [
 				"call void @_PyRawMutex_LockSlow(ptr noundef %arrayidx) #10, !dbg !298",
 				"br label %_PyRawMutex_Lock.exit, !dbg !299"
@@ -1467,17 +1433,17 @@
 		},
 		{
 			"function": "_PyParkingLot_UnparkAll",
-			"id": 75,
+			"id": 73,
 			"name": "_PyRawMutex_Lock.exit",
 			"debug": [
 				{
-					"line": 261, "columns": [40]
+					"line": 259, "columns": [40]
 				},
 				{
-					"line": 263, "columns": [5]
+					"line": 261, "columns": [5]
 				}
 			],
-			"successors": [80, 76],
+			"successors": [78, 74],
 			"ir": [
 				"%root1.i = getelementptr [257 x %struct.Bucket], ptr @buckets, i64 0, i64 %rem, i32 1, !dbg !316",
 				"%3 = load ptr, ptr %root1.i, align 8, !dbg !317, !tbaa !266",
@@ -1487,14 +1453,14 @@
 		},
 		{
 			"function": "_PyParkingLot_UnparkAll",
-			"id": 76,
+			"id": 74,
 			"name": "for.body.lr.ph.i",
 			"debug": [
 				{
-					"line": 263, "columns": [5]
+					"line": 261, "columns": [5]
 				}
 			],
-			"successors": [77],
+			"successors": [75],
 			"ir": [
 				"%num_waiters.i = getelementptr [257 x %struct.Bucket], ptr @buckets, i64 0, i64 %rem, i32 2",
 				"br label %for.body.i, !dbg !317"
@@ -1502,17 +1468,17 @@
 		},
 		{
 			"function": "_PyParkingLot_UnparkAll",
-			"id": 77,
+			"id": 75,
 			"name": "for.body.i",
 			"debug": [
 				{
-					"line": 263, "columns": [5]
+					"line": 261, "columns": [5]
 				},
 				{
-					"line": 265, "columns": [19, 24, 13]
+					"line": 263, "columns": [19, 24, 13]
 				}
 			],
-			"successors": [78, 79],
+			"successors": [76, 77],
 			"ir": [
 				"%node.016.i = phi ptr [ %3, %for.body.lr.ph.i ], [ %_next.017.i, %if.end.i12 ]",
 				"%_next.017.i = load ptr, ptr %node.016.i, align 8, !dbg !317, !tbaa !266",
@@ -1524,7 +1490,7 @@
 		},
 		{
 			"function": "_PyParkingLot_UnparkAll",
-			"id": 78,
+			"id": 76,
 			"name": "if.then.i",
 			"debug": [
 				{
@@ -1552,16 +1518,16 @@
 					"line": 86, "columns": [16]
 				},
 				{
-					"line": 268, "columns": [13]
+					"line": 266, "columns": [13]
 				},
 				{
-					"line": 269, "columns": [19, 32]
+					"line": 267, "columns": [19, 32]
 				},
 				{
-					"line": 270, "columns": [9]
+					"line": 268, "columns": [9]
 				}
 			],
-			"successors": [79],
+			"successors": [77],
 			"ir": [
 				"%prev1.i.i = getelementptr inbounds %struct.llist_node, ptr %node.016.i, i64 0, i32 1, !dbg !340",
 				"%5 = load ptr, ptr %prev1.i.i, align 8, !dbg !340, !tbaa !271",
@@ -1585,14 +1551,14 @@
 		},
 		{
 			"function": "_PyParkingLot_UnparkAll",
-			"id": 79,
+			"id": 77,
 			"name": "if.end.i12",
 			"debug": [
 				{
-					"line": 263, "columns": [5]
+					"line": 261, "columns": [5]
 				}
 			],
-			"successors": [80, 77],
+			"successors": [78, 75],
 			"ir": [
 				"%cmp.not.i = icmp eq ptr %_next.017.i, %root1.i, !dbg !319",
 				"br i1 %cmp.not.i, label %dequeue_all.exit, label %for.body.i, !dbg !317, !llvm.loop !367"
@@ -1600,17 +1566,17 @@
 		},
 		{
 			"function": "_PyParkingLot_UnparkAll",
-			"id": 80,
+			"id": 78,
 			"name": "dequeue_all.exit",
 			"debug": [
 				{
 					"line": 125, "columns": [10]
 				},
 				{
-					"line": 185, "columns": [9]
+					"line": 182, "columns": [9]
 				}
 			],
-			"successors": [82, 81],
+			"successors": [80, 79],
 			"ir": [
 				"%9 = cmpxchg ptr %arrayidx, i64 1, i64 0 seq_cst seq_cst, align 8, !dbg !379",
 				"%10 = extractvalue { i64, i1 } %9, 1, !dbg !379",
@@ -1619,17 +1585,17 @@
 		},
 		{
 			"function": "_PyParkingLot_UnparkAll",
-			"id": 81,
+			"id": 79,
 			"name": "if.end.i13",
 			"debug": [
 				{
-					"line": 188, "columns": [5]
+					"line": 185, "columns": [5]
 				},
 				{
-					"line": 189, "columns": [1]
+					"line": 186, "columns": [1]
 				}
 			],
-			"successors": [82],
+			"successors": [80],
 			"ir": [
 				"call void @_PyRawMutex_UnlockSlow(ptr noundef %arrayidx) #10, !dbg !381",
 				"br label %_PyRawMutex_Unlock.exit, !dbg !382"
@@ -1637,14 +1603,14 @@
 		},
 		{
 			"function": "_PyParkingLot_UnparkAll",
-			"id": 82,
+			"id": 80,
 			"name": "_PyRawMutex_Unlock.exit",
 			"debug": [
 				{
-					"line": 370, "columns": [5]
+					"line": 368, "columns": [5]
 				}
 			],
-			"successors": [83],
+			"successors": [81],
 			"ir": [
 				"%11 = load ptr, ptr %head, align 8, !dbg !383, !tbaa !266",
 				"br label %for.cond, !dbg !383"
@@ -1652,14 +1618,14 @@
 		},
 		{
 			"function": "_PyParkingLot_UnparkAll",
-			"id": 83,
+			"id": 81,
 			"name": "for.cond",
 			"debug": [
 				{
-					"line": 370, "columns": [5]
+					"line": 368, "columns": [5]
 				}
 			],
-			"successors": [84, 85],
+			"successors": [82, 83],
 			"ir": [
 				"%node.0 = phi ptr [ %11, %_PyRawMutex_Unlock.exit ], [ %_next.0, %for.body ], !dbg !383",
 				"%cmp.not = icmp eq ptr %node.0, %head, !dbg !385",
@@ -1668,11 +1634,11 @@
 		},
 		{
 			"function": "_PyParkingLot_UnparkAll",
-			"id": 84,
+			"id": 82,
 			"name": "for.cond.cleanup",
 			"debug": [
 				{
-					"line": 375, "columns": [1]
+					"line": 373, "columns": [1]
 				}
 			],
 			"successors": [],
@@ -1683,7 +1649,7 @@
 		},
 		{
 			"function": "_PyParkingLot_UnparkAll",
-			"id": 85,
+			"id": 83,
 			"name": "for.body",
 			"debug": [
 				{
@@ -1699,19 +1665,19 @@
 					"line": 86, "columns": [16]
 				},
 				{
-					"line": 220, "columns": [15]
+					"line": 218, "columns": [15]
 				},
 				{
-					"line": 221, "columns": [13, 9]
+					"line": 219, "columns": [13, 9]
 				},
 				{
-					"line": 370, "columns": [5]
+					"line": 368, "columns": [5]
 				},
 				{
-					"line": 373, "columns": [38]
+					"line": 371, "columns": [38]
 				}
 			],
-			"successors": [83, 86],
+			"successors": [81, 84],
 			"ir": [
 				"%_next.0 = load ptr, ptr %node.0, align 8, !dbg !383, !tbaa !266",
 				"%prev1.i = getelementptr inbounds %struct.llist_node, ptr %node.0, i64 0, i32 1, !dbg !390",
@@ -1728,11 +1694,11 @@
 		},
 		{
 			"function": "_PyParkingLot_UnparkAll",
-			"id": 86,
+			"id": 84,
 			"name": "if.then.i15",
 			"debug": [
 				{
-					"line": 222, "columns": [9]
+					"line": 220, "columns": [9]
 				}
 			],
 			"successors": [],
@@ -1743,17 +1709,17 @@
 		},
 		{
 			"function": "_PyParkingLot_AfterFork",
-			"id": 87,
+			"id": 85,
 			"name": "entry",
 			"debug": [
 				{
-					"line": 382, "columns": [5]
+					"line": 380, "columns": [5]
 				},
 				{
-					"line": 383, "columns": [5]
+					"line": 381, "columns": [5]
 				}
 			],
-			"successors": [89],
+			"successors": [87],
 			"ir": [
 				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(8224) @buckets, i8 0, i64 8224, i1 false), !dbg !257",
 				"br label %for.body, !dbg !259"
@@ -1761,11 +1727,11 @@
 		},
 		{
 			"function": "_PyParkingLot_AfterFork",
-			"id": 88,
+			"id": 86,
 			"name": "for.cond.cleanup",
 			"debug": [
 				{
-					"line": 386, "columns": [1]
+					"line": 384, "columns": [1]
 				}
 			],
 			"successors": [],
@@ -1775,7 +1741,7 @@
 		},
 		{
 			"function": "_PyParkingLot_AfterFork",
-			"id": 89,
+			"id": 87,
 			"name": "for.body",
 			"debug": [
 				{
@@ -1785,13 +1751,13 @@
 					"line": 57, "columns": [11, 16]
 				},
 				{
-					"line": 383, "columns": [46, 30, 5]
+					"line": 381, "columns": [46, 30, 5]
 				},
 				{
-					"line": 384, "columns": [32]
+					"line": 382, "columns": [32]
 				}
 			],
-			"successors": [88, 90],
+			"successors": [86, 88],
 			"ir": [
 				"%i.03 = phi i64 [ 0, %entry ], [ %inc.1, %for.body.1 ]",
 				"%root = getelementptr [257 x %struct.Bucket], ptr @buckets, i64 0, i64 %i.03, i32 1, !dbg !261",
@@ -1805,7 +1771,7 @@
 		},
 		{
 			"function": "_PyParkingLot_AfterFork",
-			"id": 90,
+			"id": 88,
 			"name": "for.body.1",
 			"debug": [
 				{
@@ -1815,13 +1781,13 @@
 					"line": 57, "columns": [11, 16]
 				},
 				{
-					"line": 383, "columns": [46]
+					"line": 381, "columns": [46]
 				},
 				{
-					"line": 384, "columns": [32]
+					"line": 382, "columns": [32]
 				}
 			],
-			"successors": [89],
+			"successors": [87],
 			"ir": [
 				"%root.1 = getelementptr [257 x %struct.Bucket], ptr @buckets, i64 0, i64 %inc, i32 1, !dbg !261",
 				"store ptr %root.1, ptr %root.1, align 8, !dbg !271, !tbaa !272",

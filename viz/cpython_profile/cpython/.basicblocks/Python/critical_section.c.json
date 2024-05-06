@@ -24,23 +24,23 @@
 					"line": 19, "columns": [1]
 				},
 				{
-					"line": 137, "columns": [12]
+					"line": 134, "columns": [12]
 				}
 			],
 			"successors": [],
 			"ir": [
-				"%0 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6779",
-				"%1 = load ptr, ptr %0, align 8, !dbg !6779, !tbaa !6786",
-				"%mutex = getelementptr inbounds %struct._PyCriticalSection, ptr %c, i64 0, i32 1, !dbg !6790",
-				"store ptr null, ptr %mutex, align 8, !dbg !6791, !tbaa !6792",
-				"%critical_section = getelementptr inbounds %struct._ts, ptr %1, i64 0, i32 26, !dbg !6795",
-				"%2 = load i64, ptr %critical_section, align 8, !dbg !6795, !tbaa !6796",
-				"store i64 %2, ptr %c, align 8, !dbg !6802, !tbaa !6803",
-				"%3 = ptrtoint ptr %c to i64, !dbg !6804",
-				"store i64 %3, ptr %critical_section, align 8, !dbg !6805, !tbaa !6796",
-				"tail call void @_PyMutex_LockSlow(ptr noundef %m) #5, !dbg !6806",
-				"store ptr %m, ptr %mutex, align 8, !dbg !6807, !tbaa !6792",
-				"ret void, !dbg !6808"
+				"%0 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6752",
+				"%1 = load ptr, ptr %0, align 8, !dbg !6752, !tbaa !6759",
+				"%mutex = getelementptr inbounds %struct._PyCriticalSection, ptr %c, i64 0, i32 1, !dbg !6763",
+				"store ptr null, ptr %mutex, align 8, !dbg !6764, !tbaa !6765",
+				"%critical_section = getelementptr inbounds %struct._ts, ptr %1, i64 0, i32 26, !dbg !6768",
+				"%2 = load i64, ptr %critical_section, align 8, !dbg !6768, !tbaa !6769",
+				"store i64 %2, ptr %c, align 8, !dbg !6775, !tbaa !6776",
+				"%3 = ptrtoint ptr %c to i64, !dbg !6777",
+				"store i64 %3, ptr %critical_section, align 8, !dbg !6778, !tbaa !6769",
+				"tail call void @_PyMutex_LockSlow(ptr noundef %m) #5, !dbg !6779",
+				"store ptr %m, ptr %mutex, align 8, !dbg !6780, !tbaa !6765",
+				"ret void, !dbg !6781"
 			]
 		},
 		{
@@ -64,23 +64,23 @@
 					"line": 31, "columns": [10, 9]
 				},
 				{
-					"line": 137, "columns": [12]
+					"line": 134, "columns": [12]
 				}
 			],
 			"successors": [2, 4],
 			"ir": [
-				"%0 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6781",
-				"%1 = load ptr, ptr %0, align 8, !dbg !6781, !tbaa !6788",
-				"%mutex = getelementptr inbounds %struct._PyCriticalSection, ptr %c, i64 0, i32 1, !dbg !6792",
-				"%critical_section = getelementptr inbounds %struct._ts, ptr %1, i64 0, i32 26, !dbg !6793",
-				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %mutex, i8 0, i64 16, i1 false), !dbg !6794",
-				"%2 = load i64, ptr %critical_section, align 8, !dbg !6793, !tbaa !6795",
-				"store i64 %2, ptr %c, align 8, !dbg !6802, !tbaa !6803",
-				"%3 = ptrtoint ptr %c to i64, !dbg !6806",
-				"%or = or i64 %3, 2, !dbg !6807",
-				"store i64 %or, ptr %critical_section, align 8, !dbg !6808, !tbaa !6795",
-				"%tobool.not = icmp eq i32 %is_m1_locked, 0, !dbg !6809",
-				"br i1 %tobool.not, label %if.then, label %if.end, !dbg !6811"
+				"%0 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !6754",
+				"%1 = load ptr, ptr %0, align 8, !dbg !6754, !tbaa !6761",
+				"%mutex = getelementptr inbounds %struct._PyCriticalSection, ptr %c, i64 0, i32 1, !dbg !6765",
+				"%critical_section = getelementptr inbounds %struct._ts, ptr %1, i64 0, i32 26, !dbg !6766",
+				"tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %mutex, i8 0, i64 16, i1 false), !dbg !6767",
+				"%2 = load i64, ptr %critical_section, align 8, !dbg !6766, !tbaa !6768",
+				"store i64 %2, ptr %c, align 8, !dbg !6775, !tbaa !6776",
+				"%3 = ptrtoint ptr %c to i64, !dbg !6779",
+				"%or = or i64 %3, 2, !dbg !6780",
+				"store i64 %or, ptr %critical_section, align 8, !dbg !6781, !tbaa !6768",
+				"%tobool.not = icmp eq i32 %is_m1_locked, 0, !dbg !6782",
+				"br i1 %tobool.not, label %if.then, label %if.end, !dbg !6784"
 			]
 		},
 		{
@@ -97,9 +97,9 @@
 			],
 			"successors": [4, 3],
 			"ir": [
-				"%4 = cmpxchg ptr %m1, i8 0, i8 1 seq_cst seq_cst, align 1, !dbg !6832",
-				"%5 = extractvalue { i8, i1 } %4, 1, !dbg !6832",
-				"br i1 %5, label %if.end, label %if.then.i, !dbg !6833"
+				"%4 = cmpxchg ptr %m1, i8 0, i8 1 seq_cst seq_cst, align 1, !dbg !6805",
+				"%5 = extractvalue { i8, i1 } %4, 1, !dbg !6805",
+				"br i1 %5, label %if.end, label %if.then.i, !dbg !6806"
 			]
 		},
 		{
@@ -116,8 +116,8 @@
 			],
 			"successors": [4],
 			"ir": [
-				"tail call void @_PyMutex_LockSlow(ptr noundef %m1) #5, !dbg !6834",
-				"br label %if.end, !dbg !6836"
+				"tail call void @_PyMutex_LockSlow(ptr noundef %m1) #5, !dbg !6807",
+				"br label %if.end, !dbg !6809"
 			]
 		},
 		{
@@ -134,9 +134,9 @@
 			],
 			"successors": [6, 5],
 			"ir": [
-				"%6 = cmpxchg ptr %m2, i8 0, i8 1 seq_cst seq_cst, align 1, !dbg !6841",
-				"%7 = extractvalue { i8, i1 } %6, 1, !dbg !6841",
-				"br i1 %7, label %PyMutex_Lock.exit15, label %if.then.i14, !dbg !6842"
+				"%6 = cmpxchg ptr %m2, i8 0, i8 1 seq_cst seq_cst, align 1, !dbg !6814",
+				"%7 = extractvalue { i8, i1 } %6, 1, !dbg !6814",
+				"br i1 %7, label %PyMutex_Lock.exit15, label %if.then.i14, !dbg !6815"
 			]
 		},
 		{
@@ -153,8 +153,8 @@
 			],
 			"successors": [6],
 			"ir": [
-				"tail call void @_PyMutex_LockSlow(ptr noundef %m2) #5, !dbg !6843",
-				"br label %PyMutex_Lock.exit15, !dbg !6844"
+				"tail call void @_PyMutex_LockSlow(ptr noundef %m2) #5, !dbg !6816",
+				"br label %PyMutex_Lock.exit15, !dbg !6817"
 			]
 		},
 		{
@@ -177,10 +177,10 @@
 			],
 			"successors": [],
 			"ir": [
-				"%mutex2 = getelementptr inbounds %struct._PyCriticalSection2, ptr %c, i64 0, i32 1, !dbg !6845",
-				"store ptr %m1, ptr %mutex, align 8, !dbg !6846, !tbaa !6847",
-				"store ptr %m2, ptr %mutex2, align 8, !dbg !6848, !tbaa !6849",
-				"ret void, !dbg !6850"
+				"%mutex2 = getelementptr inbounds %struct._PyCriticalSection2, ptr %c, i64 0, i32 1, !dbg !6818",
+				"store ptr %m1, ptr %mutex, align 8, !dbg !6819, !tbaa !6820",
+				"store ptr %m2, ptr %mutex2, align 8, !dbg !6821, !tbaa !6822",
+				"ret void, !dbg !6823"
 			]
 		},
 		{
@@ -195,18 +195,18 @@
 					"line": 51, "columns": [40, 5]
 				},
 				{
-					"line": 176, "columns": [16, 21]
+					"line": 172, "columns": [16, 21]
 				}
 			],
 			"successors": [16, 8],
 			"ir": [
-				"%critical_section = getelementptr inbounds %struct._ts, ptr %tstate, i64 0, i32 26, !dbg !6786",
-				"%0 = load i64, ptr %critical_section, align 8, !dbg !6787, !tbaa !6788",
-				"%cmp.i22 = icmp eq i64 %0, 0, !dbg !6799",
-				"%and.i23 = and i64 %0, 1, !dbg !6800",
-				"%cmp1.i24 = icmp ne i64 %and.i23, 0, !dbg !6800",
-				"%.not25 = or i1 %cmp.i22, %cmp1.i24, !dbg !6801",
-				"br i1 %.not25, label %while.end, label %while.body, !dbg !6801"
+				"%critical_section = getelementptr inbounds %struct._ts, ptr %tstate, i64 0, i32 26, !dbg !6759",
+				"%0 = load i64, ptr %critical_section, align 8, !dbg !6760, !tbaa !6761",
+				"%cmp.i22 = icmp eq i64 %0, 0, !dbg !6772",
+				"%and.i23 = and i64 %0, 1, !dbg !6773",
+				"%cmp1.i24 = icmp ne i64 %and.i23, 0, !dbg !6773",
+				"%.not25 = or i1 %cmp.i22, %cmp1.i24, !dbg !6774",
+				"br i1 %.not25, label %while.end, label %while.body, !dbg !6774"
 			]
 		},
 		{
@@ -225,12 +225,12 @@
 			"ir": [
 				"%1 = phi i64 [ %11, %if.end10 ], [ %0, %entry ]",
 				"%tagptr.026 = phi ptr [ %2, %if.end10 ], [ %critical_section, %entry ]",
-				"%and.i19 = and i64 %1, -4, !dbg !6809",
-				"%2 = inttoptr i64 %and.i19 to ptr, !dbg !6810",
-				"%mutex = getelementptr inbounds %struct._PyCriticalSection, ptr %2, i64 0, i32 1, !dbg !6812",
-				"%3 = load ptr, ptr %mutex, align 8, !dbg !6812, !tbaa !6813",
-				"%tobool2.not = icmp eq ptr %3, null, !dbg !6816",
-				"br i1 %tobool2.not, label %if.end10, label %if.then, !dbg !6817"
+				"%and.i19 = and i64 %1, -4, !dbg !6782",
+				"%2 = inttoptr i64 %and.i19 to ptr, !dbg !6783",
+				"%mutex = getelementptr inbounds %struct._PyCriticalSection, ptr %2, i64 0, i32 1, !dbg !6785",
+				"%3 = load ptr, ptr %mutex, align 8, !dbg !6785, !tbaa !6786",
+				"%tobool2.not = icmp eq ptr %3, null, !dbg !6789",
+				"br i1 %tobool2.not, label %if.end10, label %if.then, !dbg !6790"
 			]
 		},
 		{
@@ -247,9 +247,9 @@
 			],
 			"successors": [11, 10],
 			"ir": [
-				"%4 = cmpxchg ptr %3, i8 1, i8 0 seq_cst seq_cst, align 1, !dbg !6837",
-				"%5 = extractvalue { i8, i1 } %4, 1, !dbg !6837",
-				"br i1 %5, label %PyMutex_Unlock.exit, label %if.then.i, !dbg !6838"
+				"%4 = cmpxchg ptr %3, i8 1, i8 0 seq_cst seq_cst, align 1, !dbg !6810",
+				"%5 = extractvalue { i8, i1 } %4, 1, !dbg !6810",
+				"br i1 %5, label %PyMutex_Unlock.exit, label %if.then.i, !dbg !6811"
 			]
 		},
 		{
@@ -266,8 +266,8 @@
 			],
 			"successors": [11],
 			"ir": [
-				"tail call void @_PyMutex_UnlockSlow(ptr noundef nonnull %3) #5, !dbg !6839",
-				"br label %PyMutex_Unlock.exit, !dbg !6841"
+				"tail call void @_PyMutex_UnlockSlow(ptr noundef nonnull %3) #5, !dbg !6812",
+				"br label %PyMutex_Unlock.exit, !dbg !6814"
 			]
 		},
 		{
@@ -281,10 +281,10 @@
 			],
 			"successors": [15, 12],
 			"ir": [
-				"%6 = load i64, ptr %tagptr.026, align 8, !dbg !6842, !tbaa !6788",
-				"%and = and i64 %6, 2, !dbg !6843",
-				"%tobool4.not = icmp eq i64 %and, 0, !dbg !6843",
-				"br i1 %tobool4.not, label %if.end10, label %if.then5, !dbg !6844"
+				"%6 = load i64, ptr %tagptr.026, align 8, !dbg !6815, !tbaa !6761",
+				"%and = and i64 %6, 2, !dbg !6816",
+				"%tobool4.not = icmp eq i64 %and, 0, !dbg !6816",
+				"br i1 %tobool4.not, label %if.end10, label %if.then5, !dbg !6817"
 			]
 		},
 		{
@@ -298,10 +298,10 @@
 			],
 			"successors": [15, 13],
 			"ir": [
-				"%mutex2 = getelementptr inbounds %struct._PyCriticalSection2, ptr %2, i64 0, i32 1, !dbg !6846",
-				"%7 = load ptr, ptr %mutex2, align 8, !dbg !6846, !tbaa !6848",
-				"%tobool6.not = icmp eq ptr %7, null, !dbg !6850",
-				"br i1 %tobool6.not, label %if.end10, label %if.then7, !dbg !6851"
+				"%mutex2 = getelementptr inbounds %struct._PyCriticalSection2, ptr %2, i64 0, i32 1, !dbg !6819",
+				"%7 = load ptr, ptr %mutex2, align 8, !dbg !6819, !tbaa !6821",
+				"%tobool6.not = icmp eq ptr %7, null, !dbg !6823",
+				"br i1 %tobool6.not, label %if.end10, label %if.then7, !dbg !6824"
 			]
 		},
 		{
@@ -318,9 +318,9 @@
 			],
 			"successors": [15, 14],
 			"ir": [
-				"%8 = cmpxchg ptr %7, i8 1, i8 0 seq_cst seq_cst, align 1, !dbg !6857",
-				"%9 = extractvalue { i8, i1 } %8, 1, !dbg !6857",
-				"br i1 %9, label %if.end10, label %if.then.i20, !dbg !6858"
+				"%8 = cmpxchg ptr %7, i8 1, i8 0 seq_cst seq_cst, align 1, !dbg !6830",
+				"%9 = extractvalue { i8, i1 } %8, 1, !dbg !6830",
+				"br i1 %9, label %if.end10, label %if.then.i20, !dbg !6831"
 			]
 		},
 		{
@@ -337,8 +337,8 @@
 			],
 			"successors": [15],
 			"ir": [
-				"tail call void @_PyMutex_UnlockSlow(ptr noundef nonnull %7) #5, !dbg !6859",
-				"br label %if.end10, !dbg !6860"
+				"tail call void @_PyMutex_UnlockSlow(ptr noundef nonnull %7) #5, !dbg !6832",
+				"br label %if.end10, !dbg !6833"
 			]
 		},
 		{
@@ -353,20 +353,20 @@
 					"line": 64, "columns": [17]
 				},
 				{
-					"line": 176, "columns": [16, 21]
+					"line": 172, "columns": [16, 21]
 				}
 			],
 			"successors": [16, 8],
 			"ir": [
-				"%10 = load i64, ptr %tagptr.026, align 8, !dbg !6861, !tbaa !6788",
-				"%or = or i64 %10, 1, !dbg !6861",
-				"store i64 %or, ptr %tagptr.026, align 8, !dbg !6861, !tbaa !6788",
-				"%11 = load i64, ptr %2, align 8, !dbg !6787, !tbaa !6788",
-				"%cmp.i = icmp eq i64 %11, 0, !dbg !6799",
-				"%and.i = and i64 %11, 1, !dbg !6800",
-				"%cmp1.i = icmp ne i64 %and.i, 0, !dbg !6800",
-				"%.not = or i1 %cmp.i, %cmp1.i, !dbg !6801",
-				"br i1 %.not, label %while.end, label %while.body, !dbg !6801, !llvm.loop !6862"
+				"%10 = load i64, ptr %tagptr.026, align 8, !dbg !6834, !tbaa !6761",
+				"%or = or i64 %10, 1, !dbg !6834",
+				"store i64 %or, ptr %tagptr.026, align 8, !dbg !6834, !tbaa !6761",
+				"%11 = load i64, ptr %2, align 8, !dbg !6760, !tbaa !6761",
+				"%cmp.i = icmp eq i64 %11, 0, !dbg !6772",
+				"%and.i = and i64 %11, 1, !dbg !6773",
+				"%cmp1.i = icmp ne i64 %and.i, 0, !dbg !6773",
+				"%.not = or i1 %cmp.i, %cmp1.i, !dbg !6774",
+				"br i1 %.not, label %while.end, label %while.body, !dbg !6774, !llvm.loop !6835"
 			]
 		},
 		{
@@ -380,7 +380,7 @@
 			],
 			"successors": [],
 			"ir": [
-				"ret void, !dbg !6865"
+				"ret void, !dbg !6838"
 			]
 		},
 		{
@@ -406,16 +406,16 @@
 			],
 			"successors": [19, 18],
 			"ir": [
-				"%critical_section = getelementptr inbounds %struct._ts, ptr %tstate, i64 0, i32 26, !dbg !6782",
-				"%0 = load i64, ptr %critical_section, align 8, !dbg !6782, !tbaa !6783",
-				"%and.i = and i64 %0, -4, !dbg !6800",
-				"%1 = inttoptr i64 %and.i to ptr, !dbg !6801",
-				"%mutex = getelementptr inbounds %struct._PyCriticalSection, ptr %1, i64 0, i32 1, !dbg !6802",
-				"%2 = load ptr, ptr %mutex, align 8, !dbg !6802, !tbaa !6803",
-				"store ptr null, ptr %mutex, align 8, !dbg !6805, !tbaa !6803",
-				"%and = and i64 %0, 2, !dbg !6806",
-				"%tobool.not = icmp eq i64 %and, 0, !dbg !6806",
-				"br i1 %tobool.not, label %if.end, label %if.then, !dbg !6808"
+				"%critical_section = getelementptr inbounds %struct._ts, ptr %tstate, i64 0, i32 26, !dbg !6755",
+				"%0 = load i64, ptr %critical_section, align 8, !dbg !6755, !tbaa !6756",
+				"%and.i = and i64 %0, -4, !dbg !6773",
+				"%1 = inttoptr i64 %and.i to ptr, !dbg !6774",
+				"%mutex = getelementptr inbounds %struct._PyCriticalSection, ptr %1, i64 0, i32 1, !dbg !6775",
+				"%2 = load ptr, ptr %mutex, align 8, !dbg !6775, !tbaa !6776",
+				"store ptr null, ptr %mutex, align 8, !dbg !6778, !tbaa !6776",
+				"%and = and i64 %0, 2, !dbg !6779",
+				"%tobool.not = icmp eq i64 %and, 0, !dbg !6779",
+				"br i1 %tobool.not, label %if.end, label %if.then, !dbg !6781"
 			]
 		},
 		{
@@ -435,10 +435,10 @@
 			],
 			"successors": [19],
 			"ir": [
-				"%mutex2 = getelementptr inbounds %struct._PyCriticalSection2, ptr %1, i64 0, i32 1, !dbg !6809",
-				"%3 = load ptr, ptr %mutex2, align 8, !dbg !6809, !tbaa !6811",
-				"store ptr null, ptr %mutex2, align 8, !dbg !6813, !tbaa !6811",
-				"br label %if.end, !dbg !6814"
+				"%mutex2 = getelementptr inbounds %struct._PyCriticalSection2, ptr %1, i64 0, i32 1, !dbg !6782",
+				"%3 = load ptr, ptr %mutex2, align 8, !dbg !6782, !tbaa !6784",
+				"store ptr null, ptr %mutex2, align 8, !dbg !6786, !tbaa !6784",
+				"br label %if.end, !dbg !6787"
 			]
 		},
 		{
@@ -452,10 +452,10 @@
 			],
 			"successors": [22, 20],
 			"ir": [
-				"%m2.0 = phi ptr [ %3, %if.then ], [ null, %entry ], !dbg !6781",
-				"%c2.0 = phi ptr [ %1, %if.then ], [ null, %entry ], !dbg !6781",
-				"%tobool3.not = icmp eq ptr %2, null, !dbg !6815",
-				"br i1 %tobool3.not, label %if.end5, label %if.then4, !dbg !6817"
+				"%m2.0 = phi ptr [ %3, %if.then ], [ null, %entry ], !dbg !6754",
+				"%c2.0 = phi ptr [ %1, %if.then ], [ null, %entry ], !dbg !6754",
+				"%tobool3.not = icmp eq ptr %2, null, !dbg !6788",
+				"br i1 %tobool3.not, label %if.end5, label %if.then4, !dbg !6790"
 			]
 		},
 		{
@@ -472,9 +472,9 @@
 			],
 			"successors": [22, 21],
 			"ir": [
-				"%4 = cmpxchg ptr %2, i8 0, i8 1 seq_cst seq_cst, align 1, !dbg !6838",
-				"%5 = extractvalue { i8, i1 } %4, 1, !dbg !6838",
-				"br i1 %5, label %if.end5, label %if.then.i, !dbg !6839"
+				"%4 = cmpxchg ptr %2, i8 0, i8 1 seq_cst seq_cst, align 1, !dbg !6811",
+				"%5 = extractvalue { i8, i1 } %4, 1, !dbg !6811",
+				"br i1 %5, label %if.end5, label %if.then.i, !dbg !6812"
 			]
 		},
 		{
@@ -491,8 +491,8 @@
 			],
 			"successors": [22],
 			"ir": [
-				"tail call void @_PyMutex_LockSlow(ptr noundef nonnull %2) #5, !dbg !6840",
-				"br label %if.end5, !dbg !6842"
+				"tail call void @_PyMutex_LockSlow(ptr noundef nonnull %2) #5, !dbg !6813",
+				"br label %if.end5, !dbg !6815"
 			]
 		},
 		{
@@ -506,8 +506,8 @@
 			],
 			"successors": [26, 23],
 			"ir": [
-				"%tobool6.not = icmp eq ptr %m2.0, null, !dbg !6843",
-				"br i1 %tobool6.not, label %if.end13.critedge, label %if.then7, !dbg !6845"
+				"%tobool6.not = icmp eq ptr %m2.0, null, !dbg !6816",
+				"br i1 %tobool6.not, label %if.end13.critedge, label %if.then7, !dbg !6818"
 			]
 		},
 		{
@@ -524,9 +524,9 @@
 			],
 			"successors": [25, 24],
 			"ir": [
-				"%6 = cmpxchg ptr %m2.0, i8 0, i8 1 seq_cst seq_cst, align 1, !dbg !6851",
-				"%7 = extractvalue { i8, i1 } %6, 1, !dbg !6851",
-				"br i1 %7, label %PyMutex_Lock.exit29, label %if.then.i28, !dbg !6852"
+				"%6 = cmpxchg ptr %m2.0, i8 0, i8 1 seq_cst seq_cst, align 1, !dbg !6824",
+				"%7 = extractvalue { i8, i1 } %6, 1, !dbg !6824",
+				"br i1 %7, label %PyMutex_Lock.exit29, label %if.then.i28, !dbg !6825"
 			]
 		},
 		{
@@ -543,8 +543,8 @@
 			],
 			"successors": [25],
 			"ir": [
-				"tail call void @_PyMutex_LockSlow(ptr noundef nonnull %m2.0) #5, !dbg !6853",
-				"br label %PyMutex_Lock.exit29, !dbg !6854"
+				"tail call void @_PyMutex_LockSlow(ptr noundef nonnull %m2.0) #5, !dbg !6826",
+				"br label %PyMutex_Lock.exit29, !dbg !6827"
 			]
 		},
 		{
@@ -564,10 +564,10 @@
 			],
 			"successors": [27],
 			"ir": [
-				"store ptr %2, ptr %mutex, align 8, !dbg !6855, !tbaa !6803",
-				"%mutex212 = getelementptr inbounds %struct._PyCriticalSection2, ptr %c2.0, i64 0, i32 1, !dbg !6856",
-				"store ptr %m2.0, ptr %mutex212, align 8, !dbg !6859, !tbaa !6811",
-				"br label %if.end13, !dbg !6860"
+				"store ptr %2, ptr %mutex, align 8, !dbg !6828, !tbaa !6776",
+				"%mutex212 = getelementptr inbounds %struct._PyCriticalSection2, ptr %c2.0, i64 0, i32 1, !dbg !6829",
+				"store ptr %m2.0, ptr %mutex212, align 8, !dbg !6832, !tbaa !6784",
+				"br label %if.end13, !dbg !6833"
 			]
 		},
 		{
@@ -584,8 +584,8 @@
 			],
 			"successors": [27],
 			"ir": [
-				"store ptr %2, ptr %mutex, align 8, !dbg !6855, !tbaa !6803",
-				"br label %if.end13, !dbg !6861"
+				"store ptr %2, ptr %mutex, align 8, !dbg !6828, !tbaa !6776",
+				"br label %if.end13, !dbg !6834"
 			]
 		},
 		{
@@ -602,10 +602,10 @@
 			],
 			"successors": [],
 			"ir": [
-				"%8 = load i64, ptr %critical_section, align 8, !dbg !6862, !tbaa !6783",
-				"%and15 = and i64 %8, -2, !dbg !6862",
-				"store i64 %and15, ptr %critical_section, align 8, !dbg !6862, !tbaa !6783",
-				"ret void, !dbg !6863"
+				"%8 = load i64, ptr %critical_section, align 8, !dbg !6835, !tbaa !6756",
+				"%and15 = and i64 %8, -2, !dbg !6835",
+				"store i64 %and15, ptr %critical_section, align 8, !dbg !6835, !tbaa !6756",
+				"ret void, !dbg !6836"
 			]
 		}
 	]

@@ -6,21 +6,50 @@
 			"name": "entry",
 			"debug": [
 				{
-					"line": 40, "columns": [5]
+					"line": 130, "columns": [9]
+				}
+			],
+			"successors": [2, 1],
+			"ir": [
+				"%tobool.not.i = icmp eq ptr %ellipsis, null, !dbg !639",
+				"br i1 %tobool.not.i, label %_Py_SetImmortal.exit, label %if.then.i, !dbg !641"
+			]
+		},
+		{
+			"function": "ellipsis_dealloc",
+			"id": 1,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 136, "columns": [23]
 				},
+				{
+					"line": 138, "columns": [5]
+				}
+			],
+			"successors": [2],
+			"ir": [
+				"store i64 4294967295, ptr %ellipsis, align 8, !dbg !642, !tbaa !644",
+				"br label %_Py_SetImmortal.exit, !dbg !647"
+			]
+		},
+		{
+			"function": "ellipsis_dealloc",
+			"id": 2,
+			"name": "_Py_SetImmortal.exit",
+			"debug": [
 				{
 					"line": 41, "columns": [1]
 				}
 			],
 			"successors": [],
 			"ir": [
-				"tail call void @_Py_SetImmortal(ptr noundef %ellipsis) #6, !dbg !633",
-				"ret void, !dbg !634"
+				"ret void, !dbg !648"
 			]
 		},
 		{
 			"function": "ellipsis_repr",
-			"id": 1,
+			"id": 3,
 			"name": "entry",
 			"debug": [
 				{
@@ -29,20 +58,20 @@
 			],
 			"successors": [],
 			"ir": [
-				"%call = tail call ptr @PyUnicode_FromString(ptr noundef nonnull @.str.3) #6, !dbg !633",
+				"%call = tail call ptr @PyUnicode_FromString(ptr noundef nonnull @.str.3) #7, !dbg !633",
 				"ret ptr %call, !dbg !634"
 			]
 		},
 		{
 			"function": "ellipsis_new",
-			"id": 2,
+			"id": 4,
 			"name": "entry",
 			"debug": [
 				{
 					"line": 26, "columns": [9, 32]
 				}
 			],
-			"successors": [3, 5],
+			"successors": [5, 7],
 			"ir": [
 				"%0 = getelementptr i8, ptr %args, i64 16, !dbg !635",
 				"%args.val = load i64, ptr %0, align 8, !dbg !635, !tbaa !637",
@@ -52,14 +81,14 @@
 		},
 		{
 			"function": "ellipsis_new",
-			"id": 3,
+			"id": 5,
 			"name": "lor.lhs.false",
 			"debug": [
 				{
 					"line": 26, "columns": [36, 43]
 				}
 			],
-			"successors": [6, 4],
+			"successors": [8, 6],
 			"ir": [
 				"%tobool1.not = icmp eq ptr %kwargs, null, !dbg !645",
 				"br i1 %tobool1.not, label %return, label %land.lhs.true, !dbg !646"
@@ -67,14 +96,14 @@
 		},
 		{
 			"function": "ellipsis_new",
-			"id": 4,
+			"id": 6,
 			"name": "land.lhs.true",
 			"debug": [
 				{
 					"line": 26, "columns": [46, 9]
 				}
 			],
-			"successors": [6, 5],
+			"successors": [8, 7],
 			"ir": [
 				"%1 = getelementptr i8, ptr %kwargs, i64 16, !dbg !647",
 				"%kwargs.val = load i64, ptr %1, align 8, !dbg !647, !tbaa !648",
@@ -84,7 +113,7 @@
 		},
 		{
 			"function": "ellipsis_new",
-			"id": 5,
+			"id": 7,
 			"name": "if.then",
 			"debug": [
 				{
@@ -94,16 +123,16 @@
 					"line": 28, "columns": [9]
 				}
 			],
-			"successors": [6],
+			"successors": [8],
 			"ir": [
 				"%2 = load ptr, ptr @PyExc_TypeError, align 8, !dbg !651, !tbaa !653",
-				"tail call void @PyErr_SetString(ptr noundef %2, ptr noundef nonnull @.str.5) #6, !dbg !654",
+				"tail call void @PyErr_SetString(ptr noundef %2, ptr noundef nonnull @.str.5) #7, !dbg !654",
 				"br label %return, !dbg !655"
 			]
 		},
 		{
 			"function": "ellipsis_new",
-			"id": 6,
+			"id": 8,
 			"name": "return",
 			"debug": [
 				{
@@ -118,14 +147,14 @@
 		},
 		{
 			"function": "_PySlice_ClearFreeList",
-			"id": 7,
+			"id": 9,
 			"name": "entry",
 			"debug": [
 				{
 					"line": 108, "columns": [10, 9]
 				}
 			],
-			"successors": [10, 8],
+			"successors": [12, 10],
 			"ir": [
 				"%tobool.not = icmp eq i32 %is_finalization, 0, !dbg !756",
 				"br i1 %tobool.not, label %return, label %if.end, !dbg !758"
@@ -133,7 +162,7 @@
 		},
 		{
 			"function": "_PySlice_ClearFreeList",
-			"id": 8,
+			"id": 10,
 			"name": "if.end",
 			"debug": [
 				{
@@ -143,7 +172,7 @@
 					"line": 113, "columns": [13, 9]
 				}
 			],
-			"successors": [10, 9],
+			"successors": [12, 11],
 			"ir": [
 				"%slices = getelementptr inbounds %struct._Py_object_freelists, ptr %freelists, i64 0, i32 5, !dbg !759",
 				"%0 = load ptr, ptr %slices, align 8, !dbg !760, !tbaa !761",
@@ -153,7 +182,7 @@
 		},
 		{
 			"function": "_PySlice_ClearFreeList",
-			"id": 9,
+			"id": 11,
 			"name": "if.then1",
 			"debug": [
 				{
@@ -166,16 +195,16 @@
 					"line": 116, "columns": [5]
 				}
 			],
-			"successors": [10],
+			"successors": [12],
 			"ir": [
 				"store ptr null, ptr %slices, align 8, !dbg !781, !tbaa !761",
-				"tail call void @PyObject_GC_Del(ptr noundef nonnull %0) #6, !dbg !783",
+				"tail call void @PyObject_GC_Del(ptr noundef nonnull %0) #7, !dbg !783",
 				"br label %return, !dbg !784"
 			]
 		},
 		{
 			"function": "_PySlice_ClearFreeList",
-			"id": 10,
+			"id": 12,
 			"name": "return",
 			"debug": [
 				{
@@ -189,7 +218,7 @@
 		},
 		{
 			"function": "PySlice_New",
-			"id": 11,
+			"id": 13,
 			"name": "entry",
 			"debug": [
 				{
@@ -199,16 +228,16 @@
 					"line": 166, "columns": [14, 9]
 				},
 				{
-					"line": 820, "columns": [30]
+					"line": 812, "columns": [30]
 				},
 				{
-					"line": 821, "columns": [41]
+					"line": 813, "columns": [41]
 				},
 				{
-					"line": 822, "columns": [20, 9]
+					"line": 814, "columns": [20, 9]
 				}
 			],
-			"successors": [13, 12],
+			"successors": [15, 14],
 			"ir": [
 				"%cmp1 = icmp eq ptr %start, null, !dbg !635",
 				"%spec.store.select10 = select i1 %cmp1, ptr @_Py_NoneStruct, ptr %start, !dbg !637",
@@ -222,17 +251,17 @@
 		},
 		{
 			"function": "PySlice_New",
-			"id": 12,
+			"id": 14,
 			"name": "if.end.i.i",
 			"debug": [
 				{
-					"line": 827, "columns": [40]
+					"line": 819, "columns": [40]
 				},
 				{
-					"line": 840, "columns": [1]
+					"line": 832, "columns": [1]
 				}
 			],
-			"successors": [13],
+			"successors": [15],
 			"ir": [
 				"store i32 %add.i.i, ptr %spec.store.select10, align 8, !dbg !661, !tbaa !654",
 				"br label %_Py_NewRef.exit, !dbg !662"
@@ -240,20 +269,20 @@
 		},
 		{
 			"function": "PySlice_New",
-			"id": 13,
+			"id": 15,
 			"name": "_Py_NewRef.exit",
 			"debug": [
 				{
-					"line": 820, "columns": [30]
+					"line": 812, "columns": [30]
 				},
 				{
-					"line": 821, "columns": [41]
+					"line": 813, "columns": [41]
 				},
 				{
-					"line": 822, "columns": [20, 9]
+					"line": 814, "columns": [20, 9]
 				}
 			],
-			"successors": [15, 14],
+			"successors": [17, 16],
 			"ir": [
 				"%1 = load i32, ptr %spec.store.select9, align 8, !dbg !667, !tbaa !654",
 				"%add.i.i14 = add i32 %1, 1, !dbg !668",
@@ -263,17 +292,17 @@
 		},
 		{
 			"function": "PySlice_New",
-			"id": 14,
+			"id": 16,
 			"name": "if.end.i.i16",
 			"debug": [
 				{
-					"line": 827, "columns": [40]
+					"line": 819, "columns": [40]
 				},
 				{
-					"line": 840, "columns": [1]
+					"line": 832, "columns": [1]
 				}
 			],
-			"successors": [15],
+			"successors": [17],
 			"ir": [
 				"store i32 %add.i.i14, ptr %spec.store.select9, align 8, !dbg !671, !tbaa !654",
 				"br label %_Py_NewRef.exit17, !dbg !672"
@@ -281,7 +310,7 @@
 		},
 		{
 			"function": "PySlice_New",
-			"id": 15,
+			"id": 17,
 			"name": "_Py_NewRef.exit17",
 			"debug": [
 				{
@@ -301,34 +330,34 @@
 		},
 		{
 			"function": "_PyBuildSlice_Consume2",
-			"id": 16,
+			"id": 18,
 			"name": "entry",
 			"debug": [
 				{
 					"line": 131, "columns": [20, 27, 39, 9]
 				},
 				{
-					"line": 137, "columns": [12]
+					"line": 134, "columns": [12]
 				},
 				{
-					"line": 285, "columns": [21]
+					"line": 281, "columns": [21]
 				}
 			],
-			"successors": [18, 17],
+			"successors": [20, 19],
 			"ir": [
 				"%0 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !759",
-				"%1 = load ptr, ptr %0, align 8, !dbg !759, !tbaa !6875",
-				"%interp.i = getelementptr inbounds %struct._ts, ptr %1, i64 0, i32 2, !dbg !6880",
-				"%2 = load ptr, ptr %interp.i, align 8, !dbg !6880, !tbaa !6881",
-				"%slices = getelementptr inbounds %struct._is, ptr %2, i64 0, i32 45, i32 0, i32 5, !dbg !6888",
-				"%3 = load ptr, ptr %slices, align 8, !dbg !6890, !tbaa !6891",
-				"%cmp.not = icmp eq ptr %3, null, !dbg !6903",
-				"br i1 %cmp.not, label %if.else, label %if.then, !dbg !6904"
+				"%1 = load ptr, ptr %0, align 8, !dbg !759, !tbaa !6847",
+				"%interp.i = getelementptr inbounds %struct._ts, ptr %1, i64 0, i32 2, !dbg !6852",
+				"%2 = load ptr, ptr %interp.i, align 8, !dbg !6852, !tbaa !6853",
+				"%slices = getelementptr inbounds %struct._is, ptr %2, i64 0, i32 45, i32 0, i32 5, !dbg !6860",
+				"%3 = load ptr, ptr %slices, align 8, !dbg !6862, !tbaa !6863",
+				"%cmp.not = icmp eq ptr %3, null, !dbg !6875",
+				"br i1 %cmp.not, label %if.else, label %if.then, !dbg !6876"
 			]
 		},
 		{
 			"function": "_PyBuildSlice_Consume2",
-			"id": 17,
+			"id": 19,
 			"name": "if.then",
 			"debug": [
 				{
@@ -341,16 +370,16 @@
 					"line": 135, "columns": [5]
 				}
 			],
-			"successors": [19],
+			"successors": [21],
 			"ir": [
-				"store ptr null, ptr %slices, align 8, !dbg !6905, !tbaa !6891",
-				"tail call void @_Py_NewReference(ptr noundef nonnull %3) #6, !dbg !6907",
-				"br label %if.end8, !dbg !6908"
+				"store ptr null, ptr %slices, align 8, !dbg !6877, !tbaa !6863",
+				"tail call void @_Py_NewReference(ptr noundef nonnull %3) #7, !dbg !6879",
+				"br label %if.end8, !dbg !6880"
 			]
 		},
 		{
 			"function": "_PyBuildSlice_Consume2",
-			"id": 18,
+			"id": 20,
 			"name": "if.else",
 			"debug": [
 				{
@@ -360,16 +389,16 @@
 					"line": 140, "columns": [17, 13]
 				}
 			],
-			"successors": [22, 19],
+			"successors": [24, 21],
 			"ir": [
-				"%call5 = tail call ptr @_PyObject_GC_New(ptr noundef nonnull @PySlice_Type) #6, !dbg !6909",
-				"%cmp6 = icmp eq ptr %call5, null, !dbg !6911",
-				"br i1 %cmp6, label %error, label %if.end8, !dbg !6913"
+				"%call5 = tail call ptr @_PyObject_GC_New(ptr noundef nonnull @PySlice_Type) #7, !dbg !6881",
+				"%cmp6 = icmp eq ptr %call5, null, !dbg !6883",
+				"br i1 %cmp6, label %error, label %if.end8, !dbg !6885"
 			]
 		},
 		{
 			"function": "_PyBuildSlice_Consume2",
-			"id": 19,
+			"id": 21,
 			"name": "if.end8",
 			"debug": [
 				{
@@ -379,56 +408,62 @@
 					"line": 146, "columns": [10, 15]
 				},
 				{
-					"line": 820, "columns": [30]
+					"line": 812, "columns": [30]
 				},
 				{
-					"line": 821, "columns": [41]
+					"line": 813, "columns": [41]
 				},
 				{
-					"line": 822, "columns": [20, 9]
+					"line": 814, "columns": [20, 9]
 				}
 			],
-			"successors": [21, 20],
+			"successors": [23, 22],
 			"ir": [
-				"%obj.0 = phi ptr [ %3, %if.then ], [ %call5, %if.else ], !dbg !6914",
-				"%start9 = getelementptr inbounds %struct.PySliceObject, ptr %obj.0, i64 0, i32 1, !dbg !6915",
-				"store ptr %start, ptr %start9, align 8, !dbg !6916, !tbaa !6917",
-				"%stop10 = getelementptr inbounds %struct.PySliceObject, ptr %obj.0, i64 0, i32 2, !dbg !6920",
-				"store ptr %stop, ptr %stop10, align 8, !dbg !6921, !tbaa !6922",
-				"%4 = load i32, ptr %step, align 8, !dbg !6935, !tbaa !6936",
-				"%add.i.i = add i32 %4, 1, !dbg !6937",
-				"%cmp.i.i = icmp eq i32 %add.i.i, 0, !dbg !6938",
-				"br i1 %cmp.i.i, label %_Py_NewRef.exit, label %if.end.i.i, !dbg !6940"
+				"%obj.0 = phi ptr [ %3, %if.then ], [ %call5, %if.else ], !dbg !6886",
+				"%start9 = getelementptr inbounds %struct.PySliceObject, ptr %obj.0, i64 0, i32 1, !dbg !6887",
+				"store ptr %start, ptr %start9, align 8, !dbg !6888, !tbaa !6889",
+				"%stop10 = getelementptr inbounds %struct.PySliceObject, ptr %obj.0, i64 0, i32 2, !dbg !6892",
+				"store ptr %stop, ptr %stop10, align 8, !dbg !6893, !tbaa !6894",
+				"%4 = load i32, ptr %step, align 8, !dbg !6907, !tbaa !6908",
+				"%add.i.i = add i32 %4, 1, !dbg !6909",
+				"%cmp.i.i = icmp eq i32 %add.i.i, 0, !dbg !6910",
+				"br i1 %cmp.i.i, label %_Py_NewRef.exit, label %if.end.i.i, !dbg !6912"
 			]
 		},
 		{
 			"function": "_PyBuildSlice_Consume2",
-			"id": 20,
+			"id": 22,
 			"name": "if.end.i.i",
 			"debug": [
 				{
-					"line": 827, "columns": [40]
+					"line": 819, "columns": [40]
 				},
 				{
-					"line": 840, "columns": [1]
+					"line": 832, "columns": [1]
 				}
 			],
-			"successors": [21],
+			"successors": [23],
 			"ir": [
-				"store i32 %add.i.i, ptr %step, align 8, !dbg !6941, !tbaa !6936",
-				"br label %_Py_NewRef.exit, !dbg !6942"
+				"store i32 %add.i.i, ptr %step, align 8, !dbg !6913, !tbaa !6908",
+				"br label %_Py_NewRef.exit, !dbg !6914"
 			]
 		},
 		{
 			"function": "_PyBuildSlice_Consume2",
-			"id": 21,
+			"id": 23,
 			"name": "_Py_NewRef.exit",
 			"debug": [
 				{
 					"line": 29, "columns": [28]
 				},
 				{
-					"line": 137, "columns": [12]
+					"line": 125, "columns": [20, 18]
+				},
+				{
+					"line": 134, "columns": [12]
+				},
+				{
+					"line": 136, "columns": [26, 35, 55, 18]
 				},
 				{
 					"line": 147, "columns": [10, 15]
@@ -437,178 +472,160 @@
 					"line": 150, "columns": [5]
 				},
 				{
-					"line": 161, "columns": [23]
+					"line": 208, "columns": [20]
 				},
 				{
-					"line": 163, "columns": [25, 34, 54, 18]
+					"line": 328, "columns": [41]
 				},
 				{
-					"line": 175, "columns": [26, 35, 55, 18]
+					"line": 329, "columns": [49, 23]
 				},
 				{
-					"line": 211, "columns": [20]
-				},
-				{
-					"line": 316, "columns": [42]
-				},
-				{
-					"line": 317, "columns": [49, 23]
-				},
-				{
-					"line": 321, "columns": [21, 58, 47, 45, 18]
-				},
-				{
-					"line": 322, "columns": [27]
+					"line": 333, "columns": [27]
 				}
 			],
-			"successors": [28],
+			"successors": [30],
 			"ir": [
-				"%step12 = getelementptr inbounds %struct.PySliceObject, ptr %obj.0, i64 0, i32 3, !dbg !6943",
-				"store ptr %step, ptr %step12, align 8, !dbg !6944, !tbaa !6945",
-				"%add.ptr.i.i = getelementptr i8, ptr %obj.0, i64 -16, !dbg !6964",
-				"%5 = load ptr, ptr %0, align 8, !dbg !6965, !tbaa !6875",
-				"%interp.i.i = getelementptr inbounds %struct._ts, ptr %5, i64 0, i32 2, !dbg !6974",
-				"%6 = load ptr, ptr %interp.i.i, align 8, !dbg !6974, !tbaa !6881",
-				"%young.i = getelementptr inbounds %struct._is, ptr %6, i64 0, i32 13, i32 4, !dbg !6975",
-				"%_gc_prev.i = getelementptr inbounds %struct._is, ptr %6, i64 0, i32 13, i32 4, i32 0, i32 1, !dbg !6976",
-				"%7 = load i64, ptr %_gc_prev.i, align 8, !dbg !6976, !tbaa !6977",
-				"%8 = inttoptr i64 %7 to ptr, !dbg !6979",
-				"%9 = ptrtoint ptr %add.ptr.i.i to i64, !dbg !6989",
-				"%10 = load i64, ptr %8, align 8, !dbg !6990, !tbaa !6991",
-				"%and.i.i = and i64 %10, 3, !dbg !6992",
-				"%or.i.i = or i64 %and.i.i, %9, !dbg !6993",
-				"store i64 %or.i.i, ptr %8, align 8, !dbg !6994, !tbaa !6991",
-				"%_gc_prev.i.i = getelementptr i8, ptr %obj.0, i64 -8, !dbg !7002",
-				"%11 = load i64, ptr %_gc_prev.i.i, align 8, !dbg !7002, !tbaa !6977",
-				"%and.i12.i = and i64 %11, 3, !dbg !7003",
-				"%or.i13.i = or i64 %and.i12.i, %7, !dbg !7004",
-				"store i64 %or.i13.i, ptr %_gc_prev.i.i, align 8, !dbg !7005, !tbaa !6977",
-				"%12 = ptrtoint ptr %young.i to i64, !dbg !7006",
-				"%visited_space.i = getelementptr inbounds %struct._is, ptr %6, i64 0, i32 13, i32 13, !dbg !7007",
-				"%13 = load i32, ptr %visited_space.i, align 8, !dbg !7007, !tbaa !7008",
-				"%conv.i = sext i32 %13 to i64, !dbg !7053",
-				"%or.i = or i64 %conv.i, %12, !dbg !7054",
-				"store i64 %or.i, ptr %add.ptr.i.i, align 8, !dbg !7055, !tbaa !6991",
-				"store i64 %9, ptr %_gc_prev.i, align 8, !dbg !7056, !tbaa !6977",
-				"br label %cleanup, !dbg !7057"
+				"%step12 = getelementptr inbounds %struct.PySliceObject, ptr %obj.0, i64 0, i32 3, !dbg !6915",
+				"store ptr %step, ptr %step12, align 8, !dbg !6916, !tbaa !6917",
+				"%add.ptr.i.i = getelementptr i8, ptr %obj.0, i64 -16, !dbg !6936",
+				"%5 = load ptr, ptr %0, align 8, !dbg !6937, !tbaa !6847",
+				"%interp.i.i = getelementptr inbounds %struct._ts, ptr %5, i64 0, i32 2, !dbg !6946",
+				"%6 = load ptr, ptr %interp.i.i, align 8, !dbg !6946, !tbaa !6853",
+				"%generation03.i = getelementptr inbounds %struct._is, ptr %6, i64 0, i32 13, i32 5, !dbg !6947",
+				"%7 = load ptr, ptr %generation03.i, align 8, !dbg !6947, !tbaa !6948",
+				"%_gc_prev.i = getelementptr inbounds %struct.PyGC_Head, ptr %7, i64 0, i32 1, !dbg !6995",
+				"%8 = load i64, ptr %_gc_prev.i, align 8, !dbg !6995, !tbaa !6996",
+				"%9 = inttoptr i64 %8 to ptr, !dbg !6997",
+				"%10 = ptrtoint ptr %add.ptr.i.i to i64, !dbg !7006",
+				"store i64 %10, ptr %9, align 8, !dbg !7007, !tbaa !7008",
+				"%_gc_prev.i.i = getelementptr i8, ptr %obj.0, i64 -8, !dbg !7016",
+				"%11 = load i64, ptr %_gc_prev.i.i, align 8, !dbg !7016, !tbaa !6996",
+				"%and.i.i = and i64 %11, 3, !dbg !7017",
+				"%or.i.i = or i64 %and.i.i, %8, !dbg !7018",
+				"store i64 %or.i.i, ptr %_gc_prev.i.i, align 8, !dbg !7019, !tbaa !6996",
+				"%12 = ptrtoint ptr %7 to i64, !dbg !7022",
+				"store i64 %12, ptr %add.ptr.i.i, align 8, !dbg !7023, !tbaa !7008",
+				"store i64 %10, ptr %_gc_prev.i, align 8, !dbg !7024, !tbaa !6996",
+				"br label %cleanup, !dbg !7025"
 			]
 		},
 		{
 			"function": "_PyBuildSlice_Consume2",
-			"id": 22,
+			"id": 24,
 			"name": "error",
 			"debug": [
 				{
 					"line": 151, "columns": [1]
 				},
 				{
-					"line": 357, "columns": [49]
+					"line": 358, "columns": [49]
 				},
 				{
-					"line": 940, "columns": [9]
+					"line": 932, "columns": [9]
 				}
 			],
-			"successors": [23, 25],
+			"successors": [25, 27],
 			"ir": [
-				"%op.val.i = load i64, ptr %start, align 8, !dbg !7064, !tbaa !6936",
-				"%14 = and i64 %op.val.i, 2147483648, !dbg !7071",
-				"%cmp.i.not.i = icmp eq i64 %14, 0, !dbg !7071",
-				"br i1 %cmp.i.not.i, label %if.end.i, label %Py_DECREF.exit, !dbg !7072"
-			]
-		},
-		{
-			"function": "_PyBuildSlice_Consume2",
-			"id": 23,
-			"name": "if.end.i",
-			"debug": [
-				{
-					"line": 944, "columns": [9, 25]
-				}
-			],
-			"successors": [24, 25],
-			"ir": [
-				"%dec.i = add i64 %op.val.i, -1, !dbg !7073",
-				"store i64 %dec.i, ptr %start, align 8, !dbg !7073, !tbaa !6936",
-				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !7075",
-				"br i1 %cmp.i, label %if.then1.i, label %Py_DECREF.exit, !dbg !7076"
-			]
-		},
-		{
-			"function": "_PyBuildSlice_Consume2",
-			"id": 24,
-			"name": "if.then1.i",
-			"debug": [
-				{
-					"line": 945, "columns": [9]
-				},
-				{
-					"line": 946, "columns": [5]
-				}
-			],
-			"successors": [25],
-			"ir": [
-				"tail call void @_Py_Dealloc(ptr noundef nonnull %start) #6, !dbg !7077",
-				"br label %Py_DECREF.exit, !dbg !7079"
+				"%op.val.i = load i64, ptr %start, align 8, !dbg !7032, !tbaa !6908",
+				"%13 = and i64 %op.val.i, 2147483648, !dbg !7039",
+				"%cmp.i.not.i = icmp eq i64 %13, 0, !dbg !7039",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %Py_DECREF.exit, !dbg !7040"
 			]
 		},
 		{
 			"function": "_PyBuildSlice_Consume2",
 			"id": 25,
-			"name": "Py_DECREF.exit",
+			"name": "if.end.i",
 			"debug": [
 				{
-					"line": 357, "columns": [49]
-				},
-				{
-					"line": 940, "columns": [9]
+					"line": 936, "columns": [9, 25]
 				}
 			],
-			"successors": [26, 28],
+			"successors": [26, 27],
 			"ir": [
-				"%op.val.i24 = load i64, ptr %stop, align 8, !dbg !7082, !tbaa !6936",
-				"%15 = and i64 %op.val.i24, 2147483648, !dbg !7085",
-				"%cmp.i.not.i25 = icmp eq i64 %15, 0, !dbg !7085",
-				"br i1 %cmp.i.not.i25, label %if.end.i28, label %cleanup, !dbg !7086"
+				"%dec.i = add i64 %op.val.i, -1, !dbg !7041",
+				"store i64 %dec.i, ptr %start, align 8, !dbg !7041, !tbaa !6908",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !7043",
+				"br i1 %cmp.i, label %if.then1.i, label %Py_DECREF.exit, !dbg !7044"
 			]
 		},
 		{
 			"function": "_PyBuildSlice_Consume2",
 			"id": 26,
-			"name": "if.end.i28",
+			"name": "if.then1.i",
 			"debug": [
 				{
-					"line": 944, "columns": [9, 25]
+					"line": 937, "columns": [9]
+				},
+				{
+					"line": 938, "columns": [5]
 				}
 			],
-			"successors": [27, 28],
+			"successors": [27],
 			"ir": [
-				"%dec.i26 = add i64 %op.val.i24, -1, !dbg !7087",
-				"store i64 %dec.i26, ptr %stop, align 8, !dbg !7087, !tbaa !6936",
-				"%cmp.i27 = icmp eq i64 %dec.i26, 0, !dbg !7088",
-				"br i1 %cmp.i27, label %if.then1.i29, label %cleanup, !dbg !7089"
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %start) #7, !dbg !7045",
+				"br label %Py_DECREF.exit, !dbg !7047"
 			]
 		},
 		{
 			"function": "_PyBuildSlice_Consume2",
 			"id": 27,
-			"name": "if.then1.i29",
+			"name": "Py_DECREF.exit",
 			"debug": [
 				{
-					"line": 945, "columns": [9]
+					"line": 358, "columns": [49]
 				},
 				{
-					"line": 946, "columns": [5]
+					"line": 932, "columns": [9]
 				}
 			],
-			"successors": [28],
+			"successors": [28, 30],
 			"ir": [
-				"tail call void @_Py_Dealloc(ptr noundef nonnull %stop) #6, !dbg !7090",
-				"br label %cleanup, !dbg !7091"
+				"%op.val.i24 = load i64, ptr %stop, align 8, !dbg !7050, !tbaa !6908",
+				"%14 = and i64 %op.val.i24, 2147483648, !dbg !7053",
+				"%cmp.i.not.i25 = icmp eq i64 %14, 0, !dbg !7053",
+				"br i1 %cmp.i.not.i25, label %if.end.i28, label %cleanup, !dbg !7054"
 			]
 		},
 		{
 			"function": "_PyBuildSlice_Consume2",
 			"id": 28,
+			"name": "if.end.i28",
+			"debug": [
+				{
+					"line": 936, "columns": [9, 25]
+				}
+			],
+			"successors": [29, 30],
+			"ir": [
+				"%dec.i26 = add i64 %op.val.i24, -1, !dbg !7055",
+				"store i64 %dec.i26, ptr %stop, align 8, !dbg !7055, !tbaa !6908",
+				"%cmp.i27 = icmp eq i64 %dec.i26, 0, !dbg !7056",
+				"br i1 %cmp.i27, label %if.then1.i29, label %cleanup, !dbg !7057"
+			]
+		},
+		{
+			"function": "_PyBuildSlice_Consume2",
+			"id": 29,
+			"name": "if.then1.i29",
+			"debug": [
+				{
+					"line": 937, "columns": [9]
+				},
+				{
+					"line": 938, "columns": [5]
+				}
+			],
+			"successors": [30],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %stop) #7, !dbg !7058",
+				"br label %cleanup, !dbg !7059"
+			]
+		},
+		{
+			"function": "_PyBuildSlice_Consume2",
+			"id": 30,
 			"name": "cleanup",
 			"debug": [
 				{
@@ -618,12 +635,12 @@
 			"successors": [],
 			"ir": [
 				"%retval.0 = phi ptr [ %obj.0, %_Py_NewRef.exit ], [ null, %Py_DECREF.exit ], [ null, %if.end.i28 ], [ null, %if.then1.i29 ], !dbg !758",
-				"ret ptr %retval.0, !dbg !7092"
+				"ret ptr %retval.0, !dbg !7060"
 			]
 		},
 		{
 			"function": "_PyBuildSlice_ConsumeRefs",
-			"id": 29,
+			"id": 31,
 			"name": "entry",
 			"debug": [
 				{
@@ -638,7 +655,7 @@
 		},
 		{
 			"function": "_PySlice_FromIndices",
-			"id": 30,
+			"id": 32,
 			"name": "entry",
 			"debug": [
 				{
@@ -648,16 +665,16 @@
 					"line": 185, "columns": [10, 9]
 				}
 			],
-			"successors": [44, 31],
+			"successors": [46, 33],
 			"ir": [
-				"%call = tail call ptr @PyLong_FromSsize_t(i64 noundef %istart) #6, !dbg !639",
+				"%call = tail call ptr @PyLong_FromSsize_t(i64 noundef %istart) #7, !dbg !639",
 				"%tobool.not = icmp eq ptr %call, null, !dbg !640",
 				"br i1 %tobool.not, label %cleanup, label %if.end, !dbg !642"
 			]
 		},
 		{
 			"function": "_PySlice_FromIndices",
-			"id": 31,
+			"id": 33,
 			"name": "if.end",
 			"debug": [
 				{
@@ -667,26 +684,26 @@
 					"line": 188, "columns": [10, 9]
 				}
 			],
-			"successors": [32, 34],
+			"successors": [34, 36],
 			"ir": [
-				"%call1 = tail call ptr @PyLong_FromSsize_t(i64 noundef %istop) #6, !dbg !643",
+				"%call1 = tail call ptr @PyLong_FromSsize_t(i64 noundef %istop) #7, !dbg !643",
 				"%tobool2.not = icmp eq ptr %call1, null, !dbg !644",
 				"br i1 %tobool2.not, label %if.then3, label %if.end4, !dbg !646"
 			]
 		},
 		{
 			"function": "_PySlice_FromIndices",
-			"id": 32,
+			"id": 34,
 			"name": "if.then3",
 			"debug": [
 				{
-					"line": 357, "columns": [49]
+					"line": 358, "columns": [49]
 				},
 				{
-					"line": 940, "columns": [9]
+					"line": 932, "columns": [9]
 				}
 			],
-			"successors": [33, 44],
+			"successors": [35, 46],
 			"ir": [
 				"%op.val.i = load i64, ptr %call, align 8, !dbg !653, !tbaa !655",
 				"%0 = and i64 %op.val.i, 2147483648, !dbg !663",
@@ -696,14 +713,14 @@
 		},
 		{
 			"function": "_PySlice_FromIndices",
-			"id": 33,
+			"id": 35,
 			"name": "if.end.i",
 			"debug": [
 				{
-					"line": 944, "columns": [9, 25]
+					"line": 936, "columns": [9, 25]
 				}
 			],
-			"successors": [43, 44],
+			"successors": [45, 46],
 			"ir": [
 				"%dec.i = add i64 %op.val.i, -1, !dbg !665",
 				"store i64 %dec.i, ptr %call, align 8, !dbg !665, !tbaa !655",
@@ -713,20 +730,20 @@
 		},
 		{
 			"function": "_PySlice_FromIndices",
-			"id": 34,
+			"id": 36,
 			"name": "if.end4",
 			"debug": [
 				{
-					"line": 820, "columns": [30]
+					"line": 812, "columns": [30]
 				},
 				{
-					"line": 821, "columns": [41]
+					"line": 813, "columns": [41]
 				},
 				{
-					"line": 822, "columns": [20, 9]
+					"line": 814, "columns": [20, 9]
 				}
 			],
-			"successors": [36, 35],
+			"successors": [38, 37],
 			"ir": [
 				"%1 = load i32, ptr %call, align 8, !dbg !688, !tbaa !655",
 				"%add.i.i.i = add i32 %1, 1, !dbg !689",
@@ -736,17 +753,17 @@
 		},
 		{
 			"function": "_PySlice_FromIndices",
-			"id": 35,
+			"id": 37,
 			"name": "if.end.i.i.i",
 			"debug": [
 				{
-					"line": 827, "columns": [40]
+					"line": 819, "columns": [40]
 				},
 				{
-					"line": 840, "columns": [1]
+					"line": 832, "columns": [1]
 				}
 			],
-			"successors": [36],
+			"successors": [38],
 			"ir": [
 				"store i32 %add.i.i.i, ptr %call, align 8, !dbg !693, !tbaa !655",
 				"br label %_Py_NewRef.exit.i, !dbg !694"
@@ -754,20 +771,20 @@
 		},
 		{
 			"function": "_PySlice_FromIndices",
-			"id": 36,
+			"id": 38,
 			"name": "_Py_NewRef.exit.i",
 			"debug": [
 				{
-					"line": 820, "columns": [30]
+					"line": 812, "columns": [30]
 				},
 				{
-					"line": 821, "columns": [41]
+					"line": 813, "columns": [41]
 				},
 				{
-					"line": 822, "columns": [20, 9]
+					"line": 814, "columns": [20, 9]
 				}
 			],
-			"successors": [38, 37],
+			"successors": [40, 39],
 			"ir": [
 				"%2 = load i32, ptr %call1, align 8, !dbg !699, !tbaa !655",
 				"%add.i.i14.i = add i32 %2, 1, !dbg !700",
@@ -777,17 +794,17 @@
 		},
 		{
 			"function": "_PySlice_FromIndices",
-			"id": 37,
+			"id": 39,
 			"name": "if.end.i.i16.i",
 			"debug": [
 				{
-					"line": 827, "columns": [40]
+					"line": 819, "columns": [40]
 				},
 				{
-					"line": 840, "columns": [1]
+					"line": 832, "columns": [1]
 				}
 			],
-			"successors": [38],
+			"successors": [40],
 			"ir": [
 				"store i32 %add.i.i14.i, ptr %call1, align 8, !dbg !703, !tbaa !655",
 				"br label %PySlice_New.exit, !dbg !704"
@@ -795,20 +812,20 @@
 		},
 		{
 			"function": "_PySlice_FromIndices",
-			"id": 38,
+			"id": 40,
 			"name": "PySlice_New.exit",
 			"debug": [
 				{
 					"line": 169, "columns": [24]
 				},
 				{
-					"line": 357, "columns": [49]
+					"line": 358, "columns": [49]
 				},
 				{
-					"line": 940, "columns": [9]
+					"line": 932, "columns": [9]
 				}
 			],
-			"successors": [39, 41],
+			"successors": [41, 43],
 			"ir": [
 				"%call8.i = tail call fastcc ptr @_PyBuildSlice_Consume2(ptr noundef nonnull %call, ptr noundef nonnull %call1, ptr noundef nonnull @_Py_NoneStruct), !dbg !705",
 				"%op.val.i13 = load i64, ptr %call, align 8, !dbg !708, !tbaa !655",
@@ -819,14 +836,14 @@
 		},
 		{
 			"function": "_PySlice_FromIndices",
-			"id": 39,
+			"id": 41,
 			"name": "if.end.i17",
 			"debug": [
 				{
-					"line": 944, "columns": [9, 25]
+					"line": 936, "columns": [9, 25]
 				}
 			],
-			"successors": [40, 41],
+			"successors": [42, 43],
 			"ir": [
 				"%dec.i15 = add i64 %op.val.i13, -1, !dbg !713",
 				"store i64 %dec.i15, ptr %call, align 8, !dbg !713, !tbaa !655",
@@ -836,35 +853,35 @@
 		},
 		{
 			"function": "_PySlice_FromIndices",
-			"id": 40,
+			"id": 42,
 			"name": "if.then1.i18",
 			"debug": [
 				{
-					"line": 945, "columns": [9]
+					"line": 937, "columns": [9]
 				},
 				{
-					"line": 946, "columns": [5]
+					"line": 938, "columns": [5]
 				}
 			],
-			"successors": [41],
+			"successors": [43],
 			"ir": [
-				"tail call void @_Py_Dealloc(ptr noundef nonnull %call) #6, !dbg !716",
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call) #7, !dbg !716",
 				"br label %Py_DECREF.exit19, !dbg !718"
 			]
 		},
 		{
 			"function": "_PySlice_FromIndices",
-			"id": 41,
+			"id": 43,
 			"name": "Py_DECREF.exit19",
 			"debug": [
 				{
-					"line": 357, "columns": [49]
+					"line": 358, "columns": [49]
 				},
 				{
-					"line": 940, "columns": [9]
+					"line": 932, "columns": [9]
 				}
 			],
-			"successors": [42, 44],
+			"successors": [44, 46],
 			"ir": [
 				"%op.val.i20 = load i64, ptr %call1, align 8, !dbg !721, !tbaa !655",
 				"%4 = and i64 %op.val.i20, 2147483648, !dbg !724",
@@ -874,14 +891,14 @@
 		},
 		{
 			"function": "_PySlice_FromIndices",
-			"id": 42,
+			"id": 44,
 			"name": "if.end.i24",
 			"debug": [
 				{
-					"line": 944, "columns": [9, 25]
+					"line": 936, "columns": [9, 25]
 				}
 			],
-			"successors": [43, 44],
+			"successors": [45, 46],
 			"ir": [
 				"%dec.i22 = add i64 %op.val.i20, -1, !dbg !726",
 				"store i64 %dec.i22, ptr %call1, align 8, !dbg !726, !tbaa !655",
@@ -891,27 +908,27 @@
 		},
 		{
 			"function": "_PySlice_FromIndices",
-			"id": 43,
+			"id": 45,
 			"name": "cleanup.sink.split",
 			"debug": [
 				{
 					"line": 197, "columns": [1]
 				},
 				{
-					"line": 945, "columns": [9]
+					"line": 937, "columns": [9]
 				}
 			],
-			"successors": [44],
+			"successors": [46],
 			"ir": [
 				"%call1.sink = phi ptr [ %call, %if.end.i ], [ %call1, %if.end.i24 ]",
 				"%retval.0.ph = phi ptr [ null, %if.end.i ], [ %call8.i, %if.end.i24 ]",
-				"tail call void @_Py_Dealloc(ptr noundef nonnull %call1.sink) #6, !dbg !729",
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call1.sink) #7, !dbg !729",
 				"br label %cleanup, !dbg !730"
 			]
 		},
 		{
 			"function": "_PySlice_FromIndices",
-			"id": 44,
+			"id": 46,
 			"name": "cleanup",
 			"debug": [
 				{
@@ -926,14 +943,14 @@
 		},
 		{
 			"function": "PySlice_GetIndices",
-			"id": 45,
+			"id": 47,
 			"name": "entry",
 			"debug": [
 				{
 					"line": 205, "columns": [12, 17, 9]
 				}
 			],
-			"successors": [48, 46],
+			"successors": [50, 48],
 			"ir": [
 				"%step1 = getelementptr inbounds %struct.PySliceObject, ptr %_r, i64 0, i32 3, !dbg !640",
 				"%0 = load ptr, ptr %step1, align 8, !dbg !640, !tbaa !642",
@@ -943,14 +960,14 @@
 		},
 		{
 			"function": "PySlice_GetIndices",
-			"id": 46,
+			"id": 48,
 			"name": "if.else",
 			"debug": [
 				{
 					"line": 208, "columns": [14, 13]
 				}
 			],
-			"successors": [63, 47],
+			"successors": [65, 49],
 			"ir": [
 				"%1 = getelementptr i8, ptr %0, i64 8, !dbg !650",
 				"%.val84 = load ptr, ptr %1, align 8, !dbg !650, !tbaa !653",
@@ -963,29 +980,29 @@
 		},
 		{
 			"function": "PySlice_GetIndices",
-			"id": 47,
+			"id": 49,
 			"name": "if.end",
 			"debug": [
 				{
 					"line": 209, "columns": [17]
 				}
 			],
-			"successors": [48],
+			"successors": [50],
 			"ir": [
-				"%call6 = tail call i64 @PyLong_AsSsize_t(ptr noundef %0) #6, !dbg !661",
+				"%call6 = tail call i64 @PyLong_AsSsize_t(ptr noundef %0) #7, !dbg !661",
 				"br label %if.end7"
 			]
 		},
 		{
 			"function": "PySlice_GetIndices",
-			"id": 48,
+			"id": 50,
 			"name": "if.end7",
 			"debug": [
 				{
 					"line": 211, "columns": [12, 18, 9]
 				}
 			],
-			"successors": [49, 50],
+			"successors": [51, 52],
 			"ir": [
 				"%storemerge = phi i64 [ %call6, %if.end ], [ 1, %entry ], !dbg !662",
 				"store i64 %storemerge, ptr %step, align 8, !dbg !662, !tbaa !663",
@@ -997,7 +1014,7 @@
 		},
 		{
 			"function": "PySlice_GetIndices",
-			"id": 49,
+			"id": 51,
 			"name": "if.then10",
 			"debug": [
 				{
@@ -1007,7 +1024,7 @@
 					"line": 213, "columns": [5]
 				}
 			],
-			"successors": [53],
+			"successors": [55],
 			"ir": [
 				"%cmp11 = icmp slt i64 %storemerge, 0, !dbg !669",
 				"%sub = add i64 %length, -1, !dbg !671",
@@ -1017,14 +1034,14 @@
 		},
 		{
 			"function": "PySlice_GetIndices",
-			"id": 50,
+			"id": 52,
 			"name": "if.else12",
 			"debug": [
 				{
 					"line": 214, "columns": [14, 13]
 				}
 			],
-			"successors": [63, 51],
+			"successors": [65, 53],
 			"ir": [
 				"%5 = getelementptr i8, ptr %4, i64 8, !dbg !673",
 				"%.val83 = load ptr, ptr %5, align 8, !dbg !673, !tbaa !653",
@@ -1037,7 +1054,7 @@
 		},
 		{
 			"function": "PySlice_GetIndices",
-			"id": 51,
+			"id": 53,
 			"name": "if.end18",
 			"debug": [
 				{
@@ -1047,9 +1064,9 @@
 					"line": 216, "columns": [20, 13]
 				}
 			],
-			"successors": [52, 54],
+			"successors": [54, 56],
 			"ir": [
-				"%call20 = tail call i64 @PyLong_AsSsize_t(ptr noundef %4) #6, !dbg !677",
+				"%call20 = tail call i64 @PyLong_AsSsize_t(ptr noundef %4) #7, !dbg !677",
 				"store i64 %call20, ptr %start, align 8, !dbg !678, !tbaa !663",
 				"%cmp21 = icmp slt i64 %call20, 0, !dbg !679",
 				"br i1 %cmp21, label %if.then22, label %if.end24, !dbg !681"
@@ -1057,14 +1074,14 @@
 		},
 		{
 			"function": "PySlice_GetIndices",
-			"id": 52,
+			"id": 54,
 			"name": "if.then22",
 			"debug": [
 				{
 					"line": 216, "columns": [32, 25]
 				}
 			],
-			"successors": [53],
+			"successors": [55],
 			"ir": [
 				"%add = add i64 %call20, %length, !dbg !682",
 				"br label %if.end24.sink.split, !dbg !683"
@@ -1072,14 +1089,14 @@
 		},
 		{
 			"function": "PySlice_GetIndices",
-			"id": 53,
+			"id": 55,
 			"name": "if.end24.sink.split",
 			"debug": [
 				{
 					"line": 218, "columns": [12]
 				}
 			],
-			"successors": [54],
+			"successors": [56],
 			"ir": [
 				"%add.sink = phi i64 [ %add, %if.then22 ], [ %cond, %if.then10 ]",
 				"store i64 %add.sink, ptr %start, align 8, !dbg !684, !tbaa !663",
@@ -1088,14 +1105,14 @@
 		},
 		{
 			"function": "PySlice_GetIndices",
-			"id": 54,
+			"id": 56,
 			"name": "if.end24",
 			"debug": [
 				{
 					"line": 218, "columns": [12, 17, 9]
 				}
 			],
-			"successors": [55, 56],
+			"successors": [57, 58],
 			"ir": [
 				"%stop25 = getelementptr inbounds %struct.PySliceObject, ptr %_r, i64 0, i32 2, !dbg !685",
 				"%8 = load ptr, ptr %stop25, align 8, !dbg !685, !tbaa !687",
@@ -1105,7 +1122,7 @@
 		},
 		{
 			"function": "PySlice_GetIndices",
-			"id": 55,
+			"id": 57,
 			"name": "if.then27",
 			"debug": [
 				{
@@ -1115,7 +1132,7 @@
 					"line": 220, "columns": [5]
 				}
 			],
-			"successors": [59],
+			"successors": [61],
 			"ir": [
 				"%9 = load i64, ptr %step, align 8, !dbg !690, !tbaa !663",
 				"%cmp28.inv = icmp sgt i64 %9, -1, !dbg !690",
@@ -1125,14 +1142,14 @@
 		},
 		{
 			"function": "PySlice_GetIndices",
-			"id": 56,
+			"id": 58,
 			"name": "if.else33",
 			"debug": [
 				{
 					"line": 221, "columns": [14, 13]
 				}
 			],
-			"successors": [63, 57],
+			"successors": [65, 59],
 			"ir": [
 				"%10 = getelementptr i8, ptr %8, i64 8, !dbg !693",
 				"%.val = load ptr, ptr %10, align 8, !dbg !693, !tbaa !653",
@@ -1145,7 +1162,7 @@
 		},
 		{
 			"function": "PySlice_GetIndices",
-			"id": 57,
+			"id": 59,
 			"name": "if.end39",
 			"debug": [
 				{
@@ -1155,9 +1172,9 @@
 					"line": 223, "columns": [19, 13]
 				}
 			],
-			"successors": [58, 60],
+			"successors": [60, 62],
 			"ir": [
-				"%call41 = tail call i64 @PyLong_AsSsize_t(ptr noundef %8) #6, !dbg !697",
+				"%call41 = tail call i64 @PyLong_AsSsize_t(ptr noundef %8) #7, !dbg !697",
 				"store i64 %call41, ptr %stop, align 8, !dbg !698, !tbaa !663",
 				"%cmp42 = icmp slt i64 %call41, 0, !dbg !699",
 				"br i1 %cmp42, label %if.then43, label %if.end46, !dbg !701"
@@ -1165,14 +1182,14 @@
 		},
 		{
 			"function": "PySlice_GetIndices",
-			"id": 58,
+			"id": 60,
 			"name": "if.then43",
 			"debug": [
 				{
 					"line": 223, "columns": [30, 24]
 				}
 			],
-			"successors": [59],
+			"successors": [61],
 			"ir": [
 				"%add44 = add i64 %call41, %length, !dbg !702",
 				"br label %if.end46.sink.split, !dbg !703"
@@ -1180,14 +1197,14 @@
 		},
 		{
 			"function": "PySlice_GetIndices",
-			"id": 59,
+			"id": 61,
 			"name": "if.end46.sink.split",
 			"debug": [
 				{
 					"line": 225, "columns": [15]
 				}
 			],
-			"successors": [60],
+			"successors": [62],
 			"ir": [
 				"%add44.sink = phi i64 [ %add44, %if.then43 ], [ %cond32, %if.then27 ]",
 				"store i64 %add44.sink, ptr %stop, align 8, !dbg !704, !tbaa !663",
@@ -1196,14 +1213,14 @@
 		},
 		{
 			"function": "PySlice_GetIndices",
-			"id": 60,
+			"id": 62,
 			"name": "if.end46",
 			"debug": [
 				{
 					"line": 225, "columns": [9, 15]
 				}
 			],
-			"successors": [63, 61],
+			"successors": [65, 63],
 			"ir": [
 				"%13 = phi i64 [ %call41, %if.end39 ], [ %add44.sink, %if.end46.sink.split ], !dbg !707",
 				"%cmp47 = icmp sgt i64 %13, %length, !dbg !705",
@@ -1212,14 +1229,14 @@
 		},
 		{
 			"function": "PySlice_GetIndices",
-			"id": 61,
+			"id": 63,
 			"name": "if.end49",
 			"debug": [
 				{
 					"line": 226, "columns": [9, 16]
 				}
 			],
-			"successors": [62, 63],
+			"successors": [64, 65],
 			"ir": [
 				"%14 = load i64, ptr %start, align 8, !dbg !709, !tbaa !663",
 				"%cmp50.not = icmp slt i64 %14, %length, !dbg !711",
@@ -1228,14 +1245,14 @@
 		},
 		{
 			"function": "PySlice_GetIndices",
-			"id": 62,
+			"id": 64,
 			"name": "if.end52",
 			"debug": [
 				{
 					"line": 227, "columns": [9, 15]
 				}
 			],
-			"successors": [63],
+			"successors": [65],
 			"ir": [
 				"%15 = load i64, ptr %step, align 8, !dbg !713, !tbaa !663",
 				"%cmp53 = icmp eq i64 %15, 0, !dbg !715",
@@ -1245,7 +1262,7 @@
 		},
 		{
 			"function": "PySlice_GetIndices",
-			"id": 63,
+			"id": 65,
 			"name": "cleanup",
 			"debug": [
 				{
@@ -1260,14 +1277,14 @@
 		},
 		{
 			"function": "PySlice_Unpack",
-			"id": 64,
+			"id": 66,
 			"name": "entry",
 			"debug": [
 				{
 					"line": 241, "columns": [12, 17, 9]
 				}
 			],
-			"successors": [68, 65],
+			"successors": [70, 67],
 			"ir": [
 				"%step1 = getelementptr inbounds %struct.PySliceObject, ptr %_r, i64 0, i32 3, !dbg !639",
 				"%0 = load ptr, ptr %step1, align 8, !dbg !639, !tbaa !641",
@@ -1277,30 +1294,30 @@
 		},
 		{
 			"function": "PySlice_Unpack",
-			"id": 65,
+			"id": 67,
 			"name": "if.else",
 			"debug": [
 				{
 					"line": 245, "columns": [14, 13]
 				}
 			],
-			"successors": [76, 66],
+			"successors": [78, 68],
 			"ir": [
-				"%call = tail call i32 @_PyEval_SliceIndex(ptr noundef %0, ptr noundef %step) #6, !dbg !649",
+				"%call = tail call i32 @_PyEval_SliceIndex(ptr noundef %0, ptr noundef %step) #7, !dbg !649",
 				"%tobool.not = icmp eq i32 %call, 0, !dbg !649",
 				"br i1 %tobool.not, label %cleanup, label %if.end, !dbg !652"
 			]
 		},
 		{
 			"function": "PySlice_Unpack",
-			"id": 66,
+			"id": 68,
 			"name": "if.end",
 			"debug": [
 				{
 					"line": 246, "columns": [13]
 				}
 			],
-			"successors": [69, 67, 68],
+			"successors": [71, 69, 70],
 			"ir": [
 				"%1 = load i64, ptr %step, align 8, !dbg !653, !tbaa !655",
 				"switch i64 %1, label %if.end10 [\n    i64 0, label %if.then5\n    i64 -9223372036854775808, label %if.end10.sink.split\n  ], !dbg !657"
@@ -1308,7 +1325,7 @@
 		},
 		{
 			"function": "PySlice_Unpack",
-			"id": 67,
+			"id": 69,
 			"name": "if.then5",
 			"debug": [
 				{
@@ -1318,23 +1335,23 @@
 					"line": 249, "columns": [13]
 				}
 			],
-			"successors": [76],
+			"successors": [78],
 			"ir": [
 				"%2 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !658, !tbaa !660",
-				"tail call void @PyErr_SetString(ptr noundef %2, ptr noundef nonnull @.str.1) #6, !dbg !661",
+				"tail call void @PyErr_SetString(ptr noundef %2, ptr noundef nonnull @.str.1) #7, !dbg !661",
 				"br label %cleanup, !dbg !662"
 			]
 		},
 		{
 			"function": "PySlice_Unpack",
-			"id": 68,
+			"id": 70,
 			"name": "if.end10.sink.split",
 			"debug": [
 				{
 					"line": 260, "columns": [12]
 				}
 			],
-			"successors": [69],
+			"successors": [71],
 			"ir": [
 				"%.sink = phi i64 [ 1, %entry ], [ -9223372036854775807, %if.end ]",
 				"store i64 %.sink, ptr %step, align 8, !dbg !663, !tbaa !655",
@@ -1343,14 +1360,14 @@
 		},
 		{
 			"function": "PySlice_Unpack",
-			"id": 69,
+			"id": 71,
 			"name": "if.end10",
 			"debug": [
 				{
 					"line": 260, "columns": [12, 18, 9]
 				}
 			],
-			"successors": [70, 71],
+			"successors": [72, 73],
 			"ir": [
 				"%3 = phi i64 [ %1, %if.end ], [ %.sink, %if.end10.sink.split ]",
 				"%start11 = getelementptr inbounds %struct.PySliceObject, ptr %_r, i64 0, i32 1, !dbg !664",
@@ -1361,7 +1378,7 @@
 		},
 		{
 			"function": "PySlice_Unpack",
-			"id": 70,
+			"id": 72,
 			"name": "if.then13",
 			"debug": [
 				{
@@ -1371,7 +1388,7 @@
 					"line": 262, "columns": [5]
 				}
 			],
-			"successors": [72],
+			"successors": [74],
 			"ir": [
 				"%cmp14 = icmp slt i64 %3, 0, !dbg !669",
 				"%cond = select i1 %cmp14, i64 9223372036854775807, i64 0, !dbg !671",
@@ -1381,30 +1398,30 @@
 		},
 		{
 			"function": "PySlice_Unpack",
-			"id": 71,
+			"id": 73,
 			"name": "if.else15",
 			"debug": [
 				{
 					"line": 264, "columns": [14, 13]
 				}
 			],
-			"successors": [76, 72],
+			"successors": [78, 74],
 			"ir": [
-				"%call17 = tail call i32 @_PyEval_SliceIndex(ptr noundef %4, ptr noundef %start) #6, !dbg !674",
+				"%call17 = tail call i32 @_PyEval_SliceIndex(ptr noundef %4, ptr noundef %start) #7, !dbg !674",
 				"%tobool18.not = icmp eq i32 %call17, 0, !dbg !674",
 				"br i1 %tobool18.not, label %cleanup, label %if.end21, !dbg !677"
 			]
 		},
 		{
 			"function": "PySlice_Unpack",
-			"id": 72,
+			"id": 74,
 			"name": "if.end21",
 			"debug": [
 				{
 					"line": 267, "columns": [12, 17, 9]
 				}
 			],
-			"successors": [73, 74],
+			"successors": [75, 76],
 			"ir": [
 				"%stop22 = getelementptr inbounds %struct.PySliceObject, ptr %_r, i64 0, i32 2, !dbg !678",
 				"%5 = load ptr, ptr %stop22, align 8, !dbg !678, !tbaa !680",
@@ -1414,7 +1431,7 @@
 		},
 		{
 			"function": "PySlice_Unpack",
-			"id": 73,
+			"id": 75,
 			"name": "if.then24",
 			"debug": [
 				{
@@ -1424,7 +1441,7 @@
 					"line": 269, "columns": [5]
 				}
 			],
-			"successors": [75],
+			"successors": [77],
 			"ir": [
 				"%6 = load i64, ptr %step, align 8, !dbg !683, !tbaa !655",
 				"%cmp25 = icmp slt i64 %6, 0, !dbg !685",
@@ -1435,37 +1452,37 @@
 		},
 		{
 			"function": "PySlice_Unpack",
-			"id": 74,
+			"id": 76,
 			"name": "if.else27",
 			"debug": [
 				{
 					"line": 271, "columns": [14, 13]
 				}
 			],
-			"successors": [76, 75],
+			"successors": [78, 77],
 			"ir": [
-				"%call29 = tail call i32 @_PyEval_SliceIndex(ptr noundef %5, ptr noundef %stop) #6, !dbg !688",
+				"%call29 = tail call i32 @_PyEval_SliceIndex(ptr noundef %5, ptr noundef %stop) #7, !dbg !688",
 				"%tobool30.not = icmp eq i32 %call29, 0, !dbg !688",
 				"br i1 %tobool30.not, label %cleanup, label %if.end33, !dbg !691"
 			]
 		},
 		{
 			"function": "PySlice_Unpack",
-			"id": 75,
+			"id": 77,
 			"name": "if.end33",
 			"debug": [
 				{
 					"line": 274, "columns": [5]
 				}
 			],
-			"successors": [76],
+			"successors": [78],
 			"ir": [
 				"br label %cleanup, !dbg !692"
 			]
 		},
 		{
 			"function": "PySlice_Unpack",
-			"id": 76,
+			"id": 78,
 			"name": "cleanup",
 			"debug": [
 				{
@@ -1480,14 +1497,14 @@
 		},
 		{
 			"function": "PySlice_AdjustIndices",
-			"id": 77,
+			"id": 79,
 			"name": "entry",
 			"debug": [
 				{
 					"line": 286, "columns": [9, 16]
 				}
 			],
-			"successors": [78, 80],
+			"successors": [80, 82],
 			"ir": [
 				"%0 = load i64, ptr %start, align 8, !dbg !638, !tbaa !640",
 				"%cmp = icmp slt i64 %0, 0, !dbg !644",
@@ -1496,7 +1513,7 @@
 		},
 		{
 			"function": "PySlice_AdjustIndices",
-			"id": 78,
+			"id": 80,
 			"name": "if.then",
 			"debug": [
 				{
@@ -1506,7 +1523,7 @@
 					"line": 288, "columns": [20, 13]
 				}
 			],
-			"successors": [79, 83],
+			"successors": [81, 85],
 			"ir": [
 				"%add = add i64 %0, %length, !dbg !646",
 				"store i64 %add, ptr %start, align 8, !dbg !646, !tbaa !640",
@@ -1516,7 +1533,7 @@
 		},
 		{
 			"function": "PySlice_AdjustIndices",
-			"id": 79,
+			"id": 81,
 			"name": "if.then2",
 			"debug": [
 				{
@@ -1526,7 +1543,7 @@
 					"line": 290, "columns": [9]
 				}
 			],
-			"successors": [82],
+			"successors": [84],
 			"ir": [
 				"%step.lobit97 = ashr i64 %step, 63, !dbg !651",
 				"br label %if.end11.sink.split, !dbg !653"
@@ -1534,14 +1551,14 @@
 		},
 		{
 			"function": "PySlice_AdjustIndices",
-			"id": 80,
+			"id": 82,
 			"name": "if.else",
 			"debug": [
 				{
 					"line": 292, "columns": [21, 14]
 				}
 			],
-			"successors": [83, 81],
+			"successors": [85, 83],
 			"ir": [
 				"%cmp4.not = icmp slt i64 %0, %length, !dbg !654",
 				"br i1 %cmp4.not, label %if.end11, label %if.then6, !dbg !656"
@@ -1549,7 +1566,7 @@
 		},
 		{
 			"function": "PySlice_AdjustIndices",
-			"id": 81,
+			"id": 83,
 			"name": "if.then6",
 			"debug": [
 				{
@@ -1559,7 +1576,7 @@
 					"line": 294, "columns": [5]
 				}
 			],
-			"successors": [82],
+			"successors": [84],
 			"ir": [
 				"%step.lobit96 = ashr i64 %step, 63, !dbg !657",
 				"%cond9 = add i64 %step.lobit96, %length, !dbg !657",
@@ -1568,14 +1585,14 @@
 		},
 		{
 			"function": "PySlice_AdjustIndices",
-			"id": 82,
+			"id": 84,
 			"name": "if.end11.sink.split",
 			"debug": [
 				{
 					"line": 296, "columns": [9]
 				}
 			],
-			"successors": [83],
+			"successors": [85],
 			"ir": [
 				"%cond9.sink = phi i64 [ %cond9, %if.then6 ], [ %step.lobit97, %if.then2 ]",
 				"store i64 %cond9.sink, ptr %start, align 8, !dbg !660, !tbaa !640",
@@ -1584,14 +1601,14 @@
 		},
 		{
 			"function": "PySlice_AdjustIndices",
-			"id": 83,
+			"id": 85,
 			"name": "if.end11",
 			"debug": [
 				{
 					"line": 296, "columns": [9, 15]
 				}
 			],
-			"successors": [84, 86],
+			"successors": [86, 88],
 			"ir": [
 				"%1 = load i64, ptr %stop, align 8, !dbg !661, !tbaa !640",
 				"%cmp12 = icmp slt i64 %1, 0, !dbg !663",
@@ -1600,7 +1617,7 @@
 		},
 		{
 			"function": "PySlice_AdjustIndices",
-			"id": 84,
+			"id": 86,
 			"name": "if.then14",
 			"debug": [
 				{
@@ -1610,7 +1627,7 @@
 					"line": 298, "columns": [19, 13]
 				}
 			],
-			"successors": [85, 89],
+			"successors": [87, 91],
 			"ir": [
 				"%add15 = add i64 %1, %length, !dbg !665",
 				"store i64 %add15, ptr %stop, align 8, !dbg !665, !tbaa !640",
@@ -1620,7 +1637,7 @@
 		},
 		{
 			"function": "PySlice_AdjustIndices",
-			"id": 85,
+			"id": 87,
 			"name": "if.then18",
 			"debug": [
 				{
@@ -1630,7 +1647,7 @@
 					"line": 300, "columns": [9]
 				}
 			],
-			"successors": [88],
+			"successors": [90],
 			"ir": [
 				"%step.lobit95 = ashr i64 %step, 63, !dbg !670",
 				"br label %if.end36.sink.split, !dbg !672"
@@ -1638,14 +1655,14 @@
 		},
 		{
 			"function": "PySlice_AdjustIndices",
-			"id": 86,
+			"id": 88,
 			"name": "if.else24",
 			"debug": [
 				{
 					"line": 302, "columns": [20, 14]
 				}
 			],
-			"successors": [89, 87],
+			"successors": [91, 89],
 			"ir": [
 				"%cmp25.not = icmp slt i64 %1, %length, !dbg !673",
 				"br i1 %cmp25.not, label %if.end36, label %if.then27, !dbg !675"
@@ -1653,7 +1670,7 @@
 		},
 		{
 			"function": "PySlice_AdjustIndices",
-			"id": 87,
+			"id": 89,
 			"name": "if.then27",
 			"debug": [
 				{
@@ -1663,7 +1680,7 @@
 					"line": 304, "columns": [5]
 				}
 			],
-			"successors": [88],
+			"successors": [90],
 			"ir": [
 				"%step.lobit = ashr i64 %step, 63, !dbg !676",
 				"%cond34 = add i64 %step.lobit, %length, !dbg !676",
@@ -1672,14 +1689,14 @@
 		},
 		{
 			"function": "PySlice_AdjustIndices",
-			"id": 88,
+			"id": 90,
 			"name": "if.end36.sink.split",
 			"debug": [
 				{
 					"line": 306, "columns": [14]
 				}
 			],
-			"successors": [89],
+			"successors": [91],
 			"ir": [
 				"%cond34.sink = phi i64 [ %cond34, %if.then27 ], [ %step.lobit95, %if.then18 ]",
 				"store i64 %cond34.sink, ptr %stop, align 8, !dbg !679, !tbaa !640",
@@ -1688,14 +1705,14 @@
 		},
 		{
 			"function": "PySlice_AdjustIndices",
-			"id": 89,
+			"id": 91,
 			"name": "if.end36",
 			"debug": [
 				{
 					"line": 306, "columns": [14, 9]
 				}
 			],
-			"successors": [90, 92],
+			"successors": [92, 94],
 			"ir": [
 				"%2 = phi i64 [ %1, %if.else24 ], [ %add15, %if.then14 ], [ %cond34.sink, %if.end36.sink.split ]",
 				"%cmp37 = icmp slt i64 %step, 0, !dbg !680",
@@ -1705,14 +1722,14 @@
 		},
 		{
 			"function": "PySlice_AdjustIndices",
-			"id": 90,
+			"id": 92,
 			"name": "if.then39",
 			"debug": [
 				{
 					"line": 307, "columns": [19, 13]
 				}
 			],
-			"successors": [91, 94],
+			"successors": [93, 96],
 			"ir": [
 				"%cmp40 = icmp sgt i64 %3, %2, !dbg !684",
 				"br i1 %cmp40, label %if.then42, label %return, !dbg !687"
@@ -1720,14 +1737,14 @@
 		},
 		{
 			"function": "PySlice_AdjustIndices",
-			"id": 91,
+			"id": 93,
 			"name": "if.then42",
 			"debug": [
 				{
 					"line": 308, "columns": [36, 44, 41, 51, 13]
 				}
 			],
-			"successors": [94],
+			"successors": [96],
 			"ir": [
 				"%4 = xor i64 %2, -1, !dbg !688",
 				"%sub44 = add i64 %3, %4, !dbg !688",
@@ -1739,14 +1756,14 @@
 		},
 		{
 			"function": "PySlice_AdjustIndices",
-			"id": 92,
+			"id": 94,
 			"name": "if.else48",
 			"debug": [
 				{
 					"line": 312, "columns": [20, 13]
 				}
 			],
-			"successors": [93, 94],
+			"successors": [95, 96],
 			"ir": [
 				"%cmp49 = icmp sgt i64 %2, %3, !dbg !694",
 				"br i1 %cmp49, label %if.then51, label %return, !dbg !697"
@@ -1754,14 +1771,14 @@
 		},
 		{
 			"function": "PySlice_AdjustIndices",
-			"id": 93,
+			"id": 95,
 			"name": "if.then51",
 			"debug": [
 				{
 					"line": 313, "columns": [36, 41, 48, 13]
 				}
 			],
-			"successors": [94],
+			"successors": [96],
 			"ir": [
 				"%5 = xor i64 %3, -1, !dbg !698",
 				"%sub53 = add i64 %2, %5, !dbg !698",
@@ -1772,7 +1789,7 @@
 		},
 		{
 			"function": "PySlice_AdjustIndices",
-			"id": 94,
+			"id": 96,
 			"name": "return",
 			"debug": [
 				{
@@ -1787,14 +1804,14 @@
 		},
 		{
 			"function": "PySlice_GetIndicesEx",
-			"id": 95,
+			"id": 97,
 			"name": "entry",
 			"debug": [
 				{
 					"line": 326, "columns": [9, 47]
 				}
 			],
-			"successors": [114, 96],
+			"successors": [116, 98],
 			"ir": [
 				"%call = tail call i32 @PySlice_Unpack(ptr noundef %_r, ptr noundef %start, ptr noundef %stop, ptr noundef %step), !dbg !640, !range !642",
 				"%cmp = icmp slt i32 %call, 0, !dbg !643",
@@ -1803,7 +1820,7 @@
 		},
 		{
 			"function": "PySlice_GetIndicesEx",
-			"id": 96,
+			"id": 98,
 			"name": "if.end",
 			"debug": [
 				{
@@ -1813,7 +1830,7 @@
 					"line": 328, "columns": [63]
 				}
 			],
-			"successors": [97, 99],
+			"successors": [99, 101],
 			"ir": [
 				"%0 = load i64, ptr %step, align 8, !dbg !645, !tbaa !646",
 				"%1 = load i64, ptr %start, align 8, !dbg !660, !tbaa !646",
@@ -1823,7 +1840,7 @@
 		},
 		{
 			"function": "PySlice_GetIndicesEx",
-			"id": 97,
+			"id": 99,
 			"name": "if.then.i",
 			"debug": [
 				{
@@ -1833,7 +1850,7 @@
 					"line": 288, "columns": [20, 13]
 				}
 			],
-			"successors": [98, 102],
+			"successors": [100, 104],
 			"ir": [
 				"%add.i = add i64 %1, %length, !dbg !664",
 				"store i64 %add.i, ptr %start, align 8, !dbg !664, !tbaa !646",
@@ -1843,7 +1860,7 @@
 		},
 		{
 			"function": "PySlice_GetIndicesEx",
-			"id": 98,
+			"id": 100,
 			"name": "if.then2.i",
 			"debug": [
 				{
@@ -1853,7 +1870,7 @@
 					"line": 290, "columns": [9]
 				}
 			],
-			"successors": [101],
+			"successors": [103],
 			"ir": [
 				"%step.lobit97.i = ashr i64 %0, 63, !dbg !669",
 				"br label %if.end11.sink.split.i, !dbg !671"
@@ -1861,14 +1878,14 @@
 		},
 		{
 			"function": "PySlice_GetIndicesEx",
-			"id": 99,
+			"id": 101,
 			"name": "if.else.i",
 			"debug": [
 				{
 					"line": 292, "columns": [21, 14]
 				}
 			],
-			"successors": [102, 100],
+			"successors": [104, 102],
 			"ir": [
 				"%cmp4.not.i = icmp slt i64 %1, %length, !dbg !672",
 				"br i1 %cmp4.not.i, label %if.end11.i, label %if.then6.i, !dbg !674"
@@ -1876,7 +1893,7 @@
 		},
 		{
 			"function": "PySlice_GetIndicesEx",
-			"id": 100,
+			"id": 102,
 			"name": "if.then6.i",
 			"debug": [
 				{
@@ -1886,7 +1903,7 @@
 					"line": 294, "columns": [5]
 				}
 			],
-			"successors": [101],
+			"successors": [103],
 			"ir": [
 				"%step.lobit96.i = ashr i64 %0, 63, !dbg !675",
 				"%cond9.i = add i64 %step.lobit96.i, %length, !dbg !675",
@@ -1895,14 +1912,14 @@
 		},
 		{
 			"function": "PySlice_GetIndicesEx",
-			"id": 101,
+			"id": 103,
 			"name": "if.end11.sink.split.i",
 			"debug": [
 				{
 					"line": 296, "columns": [9]
 				}
 			],
-			"successors": [102],
+			"successors": [104],
 			"ir": [
 				"%cond9.sink.i = phi i64 [ %cond9.i, %if.then6.i ], [ %step.lobit97.i, %if.then2.i ]",
 				"store i64 %cond9.sink.i, ptr %start, align 8, !dbg !678, !tbaa !646",
@@ -1911,14 +1928,14 @@
 		},
 		{
 			"function": "PySlice_GetIndicesEx",
-			"id": 102,
+			"id": 104,
 			"name": "if.end11.i",
 			"debug": [
 				{
 					"line": 296, "columns": [9, 15]
 				}
 			],
-			"successors": [103, 105],
+			"successors": [105, 107],
 			"ir": [
 				"%2 = load i64, ptr %stop, align 8, !dbg !679, !tbaa !646",
 				"%cmp12.i = icmp slt i64 %2, 0, !dbg !681",
@@ -1927,7 +1944,7 @@
 		},
 		{
 			"function": "PySlice_GetIndicesEx",
-			"id": 103,
+			"id": 105,
 			"name": "if.then14.i",
 			"debug": [
 				{
@@ -1937,7 +1954,7 @@
 					"line": 298, "columns": [19, 13]
 				}
 			],
-			"successors": [104, 108],
+			"successors": [106, 110],
 			"ir": [
 				"%add15.i = add i64 %2, %length, !dbg !683",
 				"store i64 %add15.i, ptr %stop, align 8, !dbg !683, !tbaa !646",
@@ -1947,7 +1964,7 @@
 		},
 		{
 			"function": "PySlice_GetIndicesEx",
-			"id": 104,
+			"id": 106,
 			"name": "if.then18.i",
 			"debug": [
 				{
@@ -1957,7 +1974,7 @@
 					"line": 300, "columns": [9]
 				}
 			],
-			"successors": [107],
+			"successors": [109],
 			"ir": [
 				"%step.lobit95.i = ashr i64 %0, 63, !dbg !688",
 				"br label %if.end36.sink.split.i, !dbg !690"
@@ -1965,14 +1982,14 @@
 		},
 		{
 			"function": "PySlice_GetIndicesEx",
-			"id": 105,
+			"id": 107,
 			"name": "if.else24.i",
 			"debug": [
 				{
 					"line": 302, "columns": [20, 14]
 				}
 			],
-			"successors": [108, 106],
+			"successors": [110, 108],
 			"ir": [
 				"%cmp25.not.i = icmp slt i64 %2, %length, !dbg !691",
 				"br i1 %cmp25.not.i, label %if.end36.i, label %if.then27.i, !dbg !693"
@@ -1980,7 +1997,7 @@
 		},
 		{
 			"function": "PySlice_GetIndicesEx",
-			"id": 106,
+			"id": 108,
 			"name": "if.then27.i",
 			"debug": [
 				{
@@ -1990,7 +2007,7 @@
 					"line": 304, "columns": [5]
 				}
 			],
-			"successors": [107],
+			"successors": [109],
 			"ir": [
 				"%step.lobit.i = ashr i64 %0, 63, !dbg !694",
 				"%cond34.i = add i64 %step.lobit.i, %length, !dbg !694",
@@ -1999,14 +2016,14 @@
 		},
 		{
 			"function": "PySlice_GetIndicesEx",
-			"id": 107,
+			"id": 109,
 			"name": "if.end36.sink.split.i",
 			"debug": [
 				{
 					"line": 306, "columns": [14]
 				}
 			],
-			"successors": [108],
+			"successors": [110],
 			"ir": [
 				"%cond34.sink.i = phi i64 [ %cond34.i, %if.then27.i ], [ %step.lobit95.i, %if.then18.i ]",
 				"store i64 %cond34.sink.i, ptr %stop, align 8, !dbg !697, !tbaa !646",
@@ -2015,14 +2032,14 @@
 		},
 		{
 			"function": "PySlice_GetIndicesEx",
-			"id": 108,
+			"id": 110,
 			"name": "if.end36.i",
 			"debug": [
 				{
 					"line": 306, "columns": [14, 9]
 				}
 			],
-			"successors": [109, 111],
+			"successors": [111, 113],
 			"ir": [
 				"%3 = phi i64 [ %2, %if.else24.i ], [ %add15.i, %if.then14.i ], [ %cond34.sink.i, %if.end36.sink.split.i ]",
 				"%cmp37.i = icmp slt i64 %0, 0, !dbg !698",
@@ -2032,14 +2049,14 @@
 		},
 		{
 			"function": "PySlice_GetIndicesEx",
-			"id": 109,
+			"id": 111,
 			"name": "if.then39.i",
 			"debug": [
 				{
 					"line": 307, "columns": [19, 13]
 				}
 			],
-			"successors": [110, 113],
+			"successors": [112, 115],
 			"ir": [
 				"%cmp40.i = icmp sgt i64 %4, %3, !dbg !702",
 				"br i1 %cmp40.i, label %if.then42.i, label %PySlice_AdjustIndices.exit, !dbg !705"
@@ -2047,14 +2064,14 @@
 		},
 		{
 			"function": "PySlice_GetIndicesEx",
-			"id": 110,
+			"id": 112,
 			"name": "if.then42.i",
 			"debug": [
 				{
 					"line": 308, "columns": [36, 44, 41, 51, 13]
 				}
 			],
-			"successors": [113],
+			"successors": [115],
 			"ir": [
 				"%5 = xor i64 %3, -1, !dbg !706",
 				"%sub44.i = add i64 %4, %5, !dbg !706",
@@ -2066,14 +2083,14 @@
 		},
 		{
 			"function": "PySlice_GetIndicesEx",
-			"id": 111,
+			"id": 113,
 			"name": "if.else48.i",
 			"debug": [
 				{
 					"line": 312, "columns": [20, 13]
 				}
 			],
-			"successors": [112, 113],
+			"successors": [114, 115],
 			"ir": [
 				"%cmp49.i = icmp sgt i64 %3, %4, !dbg !712",
 				"br i1 %cmp49.i, label %if.then51.i, label %PySlice_AdjustIndices.exit, !dbg !715"
@@ -2081,14 +2098,14 @@
 		},
 		{
 			"function": "PySlice_GetIndicesEx",
-			"id": 112,
+			"id": 114,
 			"name": "if.then51.i",
 			"debug": [
 				{
 					"line": 313, "columns": [36, 41, 48, 13]
 				}
 			],
-			"successors": [113],
+			"successors": [115],
 			"ir": [
 				"%6 = xor i64 %4, -1, !dbg !716",
 				"%sub53.i = add i64 %3, %6, !dbg !716",
@@ -2099,7 +2116,7 @@
 		},
 		{
 			"function": "PySlice_GetIndicesEx",
-			"id": 113,
+			"id": 115,
 			"name": "PySlice_AdjustIndices.exit",
 			"debug": [
 				{
@@ -2109,7 +2126,7 @@
 					"line": 329, "columns": [5]
 				}
 			],
-			"successors": [114],
+			"successors": [116],
 			"ir": [
 				"%retval.0.i = phi i64 [ %add46.i, %if.then42.i ], [ %add55.i, %if.then51.i ], [ 0, %if.else48.i ], [ 0, %if.then39.i ], !dbg !658",
 				"store i64 %retval.0.i, ptr %slicelength, align 8, !dbg !721, !tbaa !646",
@@ -2118,7 +2135,7 @@
 		},
 		{
 			"function": "PySlice_GetIndicesEx",
-			"id": 114,
+			"id": 116,
 			"name": "return",
 			"debug": [
 				{
@@ -2133,14 +2150,14 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 115,
+			"id": 117,
 			"name": "entry",
 			"debug": [
 				{
 					"line": 423, "columns": [15, 20, 9]
 				}
 			],
-			"successors": [123, 116],
+			"successors": [125, 118],
 			"ir": [
 				"%step1 = getelementptr inbounds %struct.PySliceObject, ptr %self, i64 0, i32 3, !dbg !688",
 				"%0 = load ptr, ptr %step1, align 8, !dbg !688, !tbaa !689",
@@ -2150,7 +2167,7 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 116,
+			"id": 118,
 			"name": "if.else",
 			"debug": [
 				{
@@ -2160,7 +2177,7 @@
 					"line": 398, "columns": [9]
 				}
 			],
-			"successors": [181, 117],
+			"successors": [183, 119],
 			"ir": [
 				"%1 = getelementptr i8, ptr %0, i64 8, !dbg !702",
 				"%v.val.i = load ptr, ptr %1, align 8, !dbg !702, !tbaa !704",
@@ -2172,7 +2189,7 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 117,
+			"id": 119,
 			"name": "_PyIndex_Check.exit.i",
 			"debug": [
 				{
@@ -2182,7 +2199,7 @@
 					"line": 398, "columns": [9]
 				}
 			],
-			"successors": [181, 118],
+			"successors": [183, 120],
 			"ir": [
 				"%nb_index.i.i = getelementptr inbounds %struct.PyNumberMethods, ptr %v.val.val.i, i64 0, i32 33, !dbg !720",
 				"%3 = load ptr, ptr %nb_index.i.i, align 8, !dbg !720, !tbaa !721",
@@ -2192,7 +2209,7 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 118,
+			"id": 120,
 			"name": "evaluate_slice_index.exit",
 			"debug": [
 				{
@@ -2202,16 +2219,16 @@
 					"line": 430, "columns": [18, 13]
 				}
 			],
-			"successors": [182, 119],
+			"successors": [184, 121],
 			"ir": [
-				"%call1.i = tail call ptr @PyNumber_Index(ptr noundef nonnull %0) #6, !dbg !725",
+				"%call1.i = tail call ptr @PyNumber_Index(ptr noundef nonnull %0) #7, !dbg !725",
 				"%cmp4 = icmp eq ptr %call1.i, null, !dbg !727",
 				"br i1 %cmp4, label %Py_XDECREF.exit.thread, label %if.end, !dbg !729"
 			]
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 119,
+			"id": 121,
 			"name": "if.end",
 			"debug": [
 				{
@@ -2221,23 +2238,23 @@
 					"line": 433, "columns": [23, 13]
 				}
 			],
-			"successors": [181, 120],
+			"successors": [183, 122],
 			"ir": [
-				"%call6 = tail call i32 @_PyLong_Sign(ptr noundef nonnull %call1.i) #6, !dbg !730",
+				"%call6 = tail call i32 @_PyLong_Sign(ptr noundef nonnull %call1.i) #7, !dbg !730",
 				"%cmp7 = icmp eq i32 %call6, 0, !dbg !732",
 				"br i1 %cmp7, label %Py_XDECREF.exit.thread.sink.split, label %if.end11, !dbg !734"
 			]
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 120,
+			"id": 122,
 			"name": "if.end11",
 			"debug": [
 				{
 					"line": 442, "columns": [9]
 				}
 			],
-			"successors": [123, 121],
+			"successors": [125, 123],
 			"ir": [
 				"%tobool.not = icmp sgt i32 %call6, -1, !dbg !735",
 				"br i1 %tobool.not, label %if.else23, label %if.then12, !dbg !737"
@@ -2245,7 +2262,7 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 121,
+			"id": 123,
 			"name": "if.then12",
 			"debug": [
 				{
@@ -2255,16 +2272,16 @@
 					"line": 444, "columns": [19, 13]
 				}
 			],
-			"successors": [182, 122],
+			"successors": [184, 124],
 			"ir": [
-				"%call13 = tail call ptr @PyLong_FromLong(i64 noundef -1) #6, !dbg !738",
+				"%call13 = tail call ptr @PyLong_FromLong(i64 noundef -1) #7, !dbg !738",
 				"%cmp14 = icmp eq ptr %call13, null, !dbg !740",
 				"br i1 %cmp14, label %Py_XDECREF.exit.thread, label %if.end17, !dbg !742"
 			]
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 122,
+			"id": 124,
 			"name": "if.end17",
 			"debug": [
 				{
@@ -2274,29 +2291,29 @@
 					"line": 448, "columns": [19, 13]
 				}
 			],
-			"successors": [182, 125],
+			"successors": [184, 127],
 			"ir": [
-				"%call18 = tail call ptr @PyNumber_Add(ptr noundef %length, ptr noundef nonnull %call13) #6, !dbg !743",
+				"%call18 = tail call ptr @PyNumber_Add(ptr noundef %length, ptr noundef nonnull %call13) #7, !dbg !743",
 				"%cmp19 = icmp eq ptr %call18, null, !dbg !744",
 				"br i1 %cmp19, label %Py_XDECREF.exit.thread, label %if.end26, !dbg !746"
 			]
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 123,
+			"id": 125,
 			"name": "if.else23",
 			"debug": [
 				{
-					"line": 820, "columns": [30]
+					"line": 812, "columns": [30]
 				},
 				{
-					"line": 821, "columns": [41]
+					"line": 813, "columns": [41]
 				},
 				{
-					"line": 822, "columns": [20, 9]
+					"line": 814, "columns": [20, 9]
 				}
 			],
-			"successors": [125, 124],
+			"successors": [127, 126],
 			"ir": [
 				"%step.0381 = phi ptr [ %call1.i, %if.end11 ], [ getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 40, i32 0, i32 0, i64 6), %entry ]",
 				"%4 = load i32, ptr %length, align 8, !dbg !761, !tbaa !762",
@@ -2307,17 +2324,17 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 124,
+			"id": 126,
 			"name": "if.end.i.i",
 			"debug": [
 				{
-					"line": 827, "columns": [40]
+					"line": 819, "columns": [40]
 				},
 				{
-					"line": 840, "columns": [1]
+					"line": 832, "columns": [1]
 				}
 			],
-			"successors": [125],
+			"successors": [127],
 			"ir": [
 				"store i32 %add.i.i, ptr %length, align 8, !dbg !767, !tbaa !762",
 				"br label %if.end26, !dbg !768"
@@ -2325,14 +2342,14 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 125,
+			"id": 127,
 			"name": "if.end26",
 			"debug": [
 				{
 					"line": 457, "columns": [15, 21, 9]
 				}
 			],
-			"successors": [126, 128],
+			"successors": [128, 130],
 			"ir": [
 				"%step.0380 = phi ptr [ %call1.i, %if.end17 ], [ %step.0381, %if.else23 ], [ %step.0381, %if.end.i.i ]",
 				"%cond = phi ptr [ %call18, %if.end17 ], [ getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 40, i32 0, i32 0, i64 5), %if.else23 ], [ getelementptr inbounds (%struct.pyruntimestate, ptr @_PyRuntime, i64 0, i32 40, i32 0, i32 0, i64 5), %if.end.i.i ], !dbg !769",
@@ -2347,20 +2364,20 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 126,
+			"id": 128,
 			"name": "if.then30",
 			"debug": [
 				{
-					"line": 820, "columns": [30]
+					"line": 812, "columns": [30]
 				},
 				{
-					"line": 821, "columns": [41]
+					"line": 813, "columns": [41]
 				},
 				{
-					"line": 822, "columns": [20, 9]
+					"line": 814, "columns": [20, 9]
 				}
 			],
-			"successors": [150, 127],
+			"successors": [152, 129],
 			"ir": [
 				"%6 = load i32, ptr %cond, align 8, !dbg !779, !tbaa !762",
 				"%add.i.i277 = add i32 %6, 1, !dbg !780",
@@ -2370,17 +2387,17 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 127,
+			"id": 129,
 			"name": "if.end.i.i279",
 			"debug": [
 				{
-					"line": 827, "columns": [40]
+					"line": 819, "columns": [40]
 				},
 				{
-					"line": 840, "columns": [1]
+					"line": 832, "columns": [1]
 				}
 			],
-			"successors": [150],
+			"successors": [152],
 			"ir": [
 				"store i32 %add.i.i277, ptr %cond, align 8, !dbg !783, !tbaa !762",
 				"br label %if.end80, !dbg !784"
@@ -2388,7 +2405,7 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 128,
+			"id": 130,
 			"name": "if.else33",
 			"debug": [
 				{
@@ -2398,7 +2415,7 @@
 					"line": 398, "columns": [9]
 				}
 			],
-			"successors": [181, 129],
+			"successors": [183, 131],
 			"ir": [
 				"%7 = getelementptr i8, ptr %5, i64 8, !dbg !787",
 				"%v.val.i281 = load ptr, ptr %7, align 8, !dbg !787, !tbaa !704",
@@ -2410,7 +2427,7 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 129,
+			"id": 131,
 			"name": "_PyIndex_Check.exit.i286",
 			"debug": [
 				{
@@ -2420,7 +2437,7 @@
 					"line": 398, "columns": [9]
 				}
 			],
-			"successors": [181, 130],
+			"successors": [183, 132],
 			"ir": [
 				"%nb_index.i.i284 = getelementptr inbounds %struct.PyNumberMethods, ptr %v.val.val.i282, i64 0, i32 33, !dbg !792",
 				"%9 = load ptr, ptr %nb_index.i.i284, align 8, !dbg !792, !tbaa !721",
@@ -2430,7 +2447,7 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 130,
+			"id": 132,
 			"name": "evaluate_slice_index.exit291",
 			"debug": [
 				{
@@ -2440,16 +2457,16 @@
 					"line": 462, "columns": [19, 13]
 				}
 			],
-			"successors": [182, 131],
+			"successors": [184, 133],
 			"ir": [
-				"%call1.i287 = tail call ptr @PyNumber_Index(ptr noundef nonnull %5) #6, !dbg !795",
+				"%call1.i287 = tail call ptr @PyNumber_Index(ptr noundef nonnull %5) #7, !dbg !795",
 				"%cmp36 = icmp eq ptr %call1.i287, null, !dbg !796",
 				"br i1 %cmp36, label %Py_XDECREF.exit.thread, label %if.end39, !dbg !798"
 			]
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 131,
+			"id": 133,
 			"name": "if.end39",
 			"debug": [
 				{
@@ -2459,7 +2476,7 @@
 					"line": 465, "columns": [13]
 				}
 			],
-			"successors": [132, 143],
+			"successors": [134, 145],
 			"ir": [
 				"%10 = getelementptr i8, ptr %call1.i287, i64 16, !dbg !799",
 				"%call35.val = load i64, ptr %10, align 8, !dbg !799, !tbaa !800",
@@ -2470,22 +2487,22 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 132,
+			"id": 134,
 			"name": "if.then41",
 			"debug": [
 				{
-					"line": 357, "columns": [49]
+					"line": 358, "columns": [49]
 				},
 				{
 					"line": 467, "columns": [29]
 				},
 				{
-					"line": 940, "columns": [9]
+					"line": 932, "columns": [9]
 				}
 			],
-			"successors": [133, 135],
+			"successors": [135, 137],
 			"ir": [
-				"%call42 = tail call ptr @PyNumber_Add(ptr noundef nonnull %call1.i287, ptr noundef %length) #6, !dbg !817",
+				"%call42 = tail call ptr @PyNumber_Add(ptr noundef nonnull %call1.i287, ptr noundef %length) #7, !dbg !817",
 				"%op.val.i = load i64, ptr %call1.i287, align 8, !dbg !825, !tbaa !762",
 				"%11 = and i64 %op.val.i, 2147483648, !dbg !832",
 				"%cmp.i.not.i = icmp eq i64 %11, 0, !dbg !832",
@@ -2494,14 +2511,14 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 133,
+			"id": 135,
 			"name": "if.end.i",
 			"debug": [
 				{
-					"line": 944, "columns": [9, 25]
+					"line": 936, "columns": [9, 25]
 				}
 			],
-			"successors": [134, 135],
+			"successors": [136, 137],
 			"ir": [
 				"%dec.i = add i64 %op.val.i, -1, !dbg !834",
 				"store i64 %dec.i, ptr %call1.i287, align 8, !dbg !834, !tbaa !762",
@@ -2511,32 +2528,32 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 134,
+			"id": 136,
 			"name": "if.then1.i",
 			"debug": [
 				{
-					"line": 945, "columns": [9]
+					"line": 937, "columns": [9]
 				},
 				{
-					"line": 946, "columns": [5]
+					"line": 938, "columns": [5]
 				}
 			],
-			"successors": [135],
+			"successors": [137],
 			"ir": [
-				"tail call void @_Py_Dealloc(ptr noundef nonnull %call1.i287) #6, !dbg !838",
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call1.i287) #7, !dbg !838",
 				"br label %Py_DECREF.exit, !dbg !840"
 			]
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 135,
+			"id": 137,
 			"name": "Py_DECREF.exit",
 			"debug": [
 				{
 					"line": 469, "columns": [23, 17]
 				}
 			],
-			"successors": [182, 136],
+			"successors": [184, 138],
 			"ir": [
 				"%cmp43 = icmp eq ptr %call42, null, !dbg !841",
 				"br i1 %cmp43, label %Py_XDECREF.exit.thread, label %if.end46, !dbg !843"
@@ -2544,7 +2561,7 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 136,
+			"id": 138,
 			"name": "if.end46",
 			"debug": [
 				{
@@ -2554,23 +2571,23 @@
 					"line": 473, "columns": [28, 17]
 				}
 			],
-			"successors": [183, 137],
+			"successors": [185, 139],
 			"ir": [
-				"%call47 = tail call i32 @PyObject_RichCompareBool(ptr noundef nonnull %call42, ptr noundef nonnull %lower.0, i32 noundef 0) #6, !dbg !844",
+				"%call47 = tail call i32 @PyObject_RichCompareBool(ptr noundef nonnull %call42, ptr noundef nonnull %lower.0, i32 noundef 0) #7, !dbg !844",
 				"%cmp48 = icmp slt i32 %call47, 0, !dbg !845",
 				"br i1 %cmp48, label %if.then.i326, label %if.end51, !dbg !847"
 			]
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 137,
+			"id": 139,
 			"name": "if.end51",
 			"debug": [
 				{
 					"line": 475, "columns": [17]
 				}
 			],
-			"successors": [150, 138],
+			"successors": [152, 140],
 			"ir": [
 				"%tobool52.not = icmp eq i32 %call47, 0, !dbg !848",
 				"br i1 %tobool52.not, label %if.end80, label %do.body54, !dbg !849"
@@ -2578,20 +2595,20 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 138,
+			"id": 140,
 			"name": "do.body54",
 			"debug": [
 				{
-					"line": 820, "columns": [30]
+					"line": 812, "columns": [30]
 				},
 				{
-					"line": 821, "columns": [41]
+					"line": 813, "columns": [41]
 				},
 				{
-					"line": 822, "columns": [20, 9]
+					"line": 814, "columns": [20, 9]
 				}
 			],
-			"successors": [140, 139],
+			"successors": [142, 141],
 			"ir": [
 				"%12 = load i32, ptr %lower.0, align 8, !dbg !855, !tbaa !762",
 				"%add.i.i293 = add i32 %12, 1, !dbg !856",
@@ -2601,17 +2618,17 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 139,
+			"id": 141,
 			"name": "if.end.i.i295",
 			"debug": [
 				{
-					"line": 827, "columns": [40]
+					"line": 819, "columns": [40]
 				},
 				{
-					"line": 840, "columns": [1]
+					"line": 832, "columns": [1]
 				}
 			],
-			"successors": [140],
+			"successors": [142],
 			"ir": [
 				"store i32 %add.i.i293, ptr %lower.0, align 8, !dbg !859, !tbaa !762",
 				"br label %_Py_NewRef.exit296, !dbg !860"
@@ -2619,17 +2636,17 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 140,
+			"id": 142,
 			"name": "_Py_NewRef.exit296",
 			"debug": [
 				{
-					"line": 357, "columns": [49]
+					"line": 358, "columns": [49]
 				},
 				{
-					"line": 940, "columns": [9]
+					"line": 932, "columns": [9]
 				}
 			],
-			"successors": [141, 150],
+			"successors": [143, 152],
 			"ir": [
 				"%op.val.i228 = load i64, ptr %call42, align 8, !dbg !863, !tbaa !762",
 				"%13 = and i64 %op.val.i228, 2147483648, !dbg !866",
@@ -2639,14 +2656,14 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 141,
+			"id": 143,
 			"name": "if.end.i232",
 			"debug": [
 				{
-					"line": 944, "columns": [9, 25]
+					"line": 936, "columns": [9, 25]
 				}
 			],
-			"successors": [142, 150],
+			"successors": [144, 152],
 			"ir": [
 				"%dec.i230 = add i64 %op.val.i228, -1, !dbg !868",
 				"store i64 %dec.i230, ptr %call42, align 8, !dbg !868, !tbaa !762",
@@ -2656,25 +2673,25 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 142,
+			"id": 144,
 			"name": "if.then1.i233",
 			"debug": [
 				{
-					"line": 945, "columns": [9]
+					"line": 937, "columns": [9]
 				},
 				{
-					"line": 946, "columns": [5]
+					"line": 938, "columns": [5]
 				}
 			],
-			"successors": [150],
+			"successors": [152],
 			"ir": [
-				"tail call void @_Py_Dealloc(ptr noundef nonnull %call42) #6, !dbg !871",
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call42) #7, !dbg !871",
 				"br label %if.end80, !dbg !872"
 			]
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 143,
+			"id": 145,
 			"name": "if.else64",
 			"debug": [
 				{
@@ -2684,23 +2701,23 @@
 					"line": 481, "columns": [28, 17]
 				}
 			],
-			"successors": [183, 144],
+			"successors": [185, 146],
 			"ir": [
-				"%call65 = tail call i32 @PyObject_RichCompareBool(ptr noundef nonnull %call1.i287, ptr noundef nonnull %upper.0, i32 noundef 4) #6, !dbg !873",
+				"%call65 = tail call i32 @PyObject_RichCompareBool(ptr noundef nonnull %call1.i287, ptr noundef nonnull %upper.0, i32 noundef 4) #7, !dbg !873",
 				"%cmp66 = icmp slt i32 %call65, 0, !dbg !874",
 				"br i1 %cmp66, label %if.then.i326, label %if.end69, !dbg !876"
 			]
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 144,
+			"id": 146,
 			"name": "if.end69",
 			"debug": [
 				{
 					"line": 483, "columns": [17]
 				}
 			],
-			"successors": [150, 145],
+			"successors": [152, 147],
 			"ir": [
 				"%tobool70.not = icmp eq i32 %call65, 0, !dbg !877",
 				"br i1 %tobool70.not, label %if.end80, label %do.body72, !dbg !878"
@@ -2708,20 +2725,20 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 145,
+			"id": 147,
 			"name": "do.body72",
 			"debug": [
 				{
-					"line": 820, "columns": [30]
+					"line": 812, "columns": [30]
 				},
 				{
-					"line": 821, "columns": [41]
+					"line": 813, "columns": [41]
 				},
 				{
-					"line": 822, "columns": [20, 9]
+					"line": 814, "columns": [20, 9]
 				}
 			],
-			"successors": [147, 146],
+			"successors": [149, 148],
 			"ir": [
 				"%14 = load i32, ptr %upper.0, align 8, !dbg !884, !tbaa !762",
 				"%add.i.i297 = add i32 %14, 1, !dbg !885",
@@ -2731,17 +2748,17 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 146,
+			"id": 148,
 			"name": "if.end.i.i299",
 			"debug": [
 				{
-					"line": 827, "columns": [40]
+					"line": 819, "columns": [40]
 				},
 				{
-					"line": 840, "columns": [1]
+					"line": 832, "columns": [1]
 				}
 			],
-			"successors": [147],
+			"successors": [149],
 			"ir": [
 				"store i32 %add.i.i297, ptr %upper.0, align 8, !dbg !888, !tbaa !762",
 				"br label %_Py_NewRef.exit300, !dbg !889"
@@ -2749,17 +2766,17 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 147,
+			"id": 149,
 			"name": "_Py_NewRef.exit300",
 			"debug": [
 				{
-					"line": 357, "columns": [49]
+					"line": 358, "columns": [49]
 				},
 				{
-					"line": 940, "columns": [9]
+					"line": 932, "columns": [9]
 				}
 			],
-			"successors": [148, 150],
+			"successors": [150, 152],
 			"ir": [
 				"%op.val.i235 = load i64, ptr %call1.i287, align 8, !dbg !892, !tbaa !762",
 				"%15 = and i64 %op.val.i235, 2147483648, !dbg !895",
@@ -2769,14 +2786,14 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 148,
+			"id": 150,
 			"name": "if.end.i239",
 			"debug": [
 				{
-					"line": 944, "columns": [9, 25]
+					"line": 936, "columns": [9, 25]
 				}
 			],
-			"successors": [149, 150],
+			"successors": [151, 152],
 			"ir": [
 				"%dec.i237 = add i64 %op.val.i235, -1, !dbg !897",
 				"store i64 %dec.i237, ptr %call1.i287, align 8, !dbg !897, !tbaa !762",
@@ -2786,32 +2803,32 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 149,
+			"id": 151,
 			"name": "if.then1.i240",
 			"debug": [
 				{
-					"line": 945, "columns": [9]
+					"line": 937, "columns": [9]
 				},
 				{
-					"line": 946, "columns": [5]
+					"line": 938, "columns": [5]
 				}
 			],
-			"successors": [150],
+			"successors": [152],
 			"ir": [
-				"tail call void @_Py_Dealloc(ptr noundef nonnull %call1.i287) #6, !dbg !900",
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call1.i287) #7, !dbg !900",
 				"br label %if.end80, !dbg !901"
 			]
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 150,
+			"id": 152,
 			"name": "if.end80",
 			"debug": [
 				{
 					"line": 490, "columns": [15, 20, 9]
 				}
 			],
-			"successors": [151, 153],
+			"successors": [153, 155],
 			"ir": [
 				"%start.2 = phi ptr [ %call1.i287, %if.end69 ], [ %cond, %if.then30 ], [ %cond, %if.end.i.i279 ], [ %upper.0, %_Py_NewRef.exit300 ], [ %upper.0, %if.end.i239 ], [ %upper.0, %if.then1.i240 ], [ %lower.0, %if.then1.i233 ], [ %lower.0, %if.end.i232 ], [ %lower.0, %_Py_NewRef.exit296 ], [ %call42, %if.end51 ], !dbg !902",
 				"%stop81 = getelementptr inbounds %struct.PySliceObject, ptr %self, i64 0, i32 2, !dbg !903",
@@ -2822,20 +2839,20 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 151,
+			"id": 153,
 			"name": "if.then84",
 			"debug": [
 				{
-					"line": 820, "columns": [30]
+					"line": 812, "columns": [30]
 				},
 				{
-					"line": 821, "columns": [41]
+					"line": 813, "columns": [41]
 				},
 				{
-					"line": 822, "columns": [20, 9]
+					"line": 814, "columns": [20, 9]
 				}
 			],
-			"successors": [176, 152],
+			"successors": [178, 154],
 			"ir": [
 				"%17 = load i32, ptr %cond89, align 8, !dbg !912, !tbaa !762",
 				"%add.i.i301 = add i32 %17, 1, !dbg !913",
@@ -2845,17 +2862,17 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 152,
+			"id": 154,
 			"name": "if.end.i.i303",
 			"debug": [
 				{
-					"line": 827, "columns": [40]
+					"line": 819, "columns": [40]
 				},
 				{
-					"line": 840, "columns": [1]
+					"line": 832, "columns": [1]
 				}
 			],
-			"successors": [176],
+			"successors": [178],
 			"ir": [
 				"store i32 %add.i.i301, ptr %cond89, align 8, !dbg !916, !tbaa !762",
 				"br label %if.end144, !dbg !917"
@@ -2863,7 +2880,7 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 153,
+			"id": 155,
 			"name": "if.else91",
 			"debug": [
 				{
@@ -2873,7 +2890,7 @@
 					"line": 398, "columns": [9]
 				}
 			],
-			"successors": [155, 154],
+			"successors": [157, 156],
 			"ir": [
 				"%18 = getelementptr i8, ptr %16, i64 8, !dbg !920",
 				"%v.val.i305 = load ptr, ptr %18, align 8, !dbg !920, !tbaa !704",
@@ -2885,7 +2902,7 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 154,
+			"id": 156,
 			"name": "_PyIndex_Check.exit.i310",
 			"debug": [
 				{
@@ -2895,7 +2912,7 @@
 					"line": 398, "columns": [9]
 				}
 			],
-			"successors": [155, 156],
+			"successors": [157, 158],
 			"ir": [
 				"%nb_index.i.i308 = getelementptr inbounds %struct.PyNumberMethods, ptr %v.val.val.i306, i64 0, i32 33, !dbg !925",
 				"%20 = load ptr, ptr %nb_index.i.i308, align 8, !dbg !925, !tbaa !721",
@@ -2905,7 +2922,7 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 155,
+			"id": 157,
 			"name": "evaluate_slice_index.exit315.thread",
 			"debug": [
 				{
@@ -2915,16 +2932,16 @@
 					"line": 495, "columns": [13]
 				}
 			],
-			"successors": [183],
+			"successors": [185],
 			"ir": [
 				"%21 = load ptr, ptr @PyExc_TypeError, align 8, !dbg !928, !tbaa !930",
-				"tail call void @PyErr_SetString(ptr noundef %21, ptr noundef nonnull @.str.6) #6, !dbg !931",
+				"tail call void @PyErr_SetString(ptr noundef %21, ptr noundef nonnull @.str.6) #7, !dbg !931",
 				"br label %if.then.i326, !dbg !932"
 			]
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 156,
+			"id": 158,
 			"name": "evaluate_slice_index.exit315",
 			"debug": [
 				{
@@ -2934,16 +2951,16 @@
 					"line": 495, "columns": [18, 13]
 				}
 			],
-			"successors": [183, 157],
+			"successors": [185, 159],
 			"ir": [
-				"%call1.i311 = tail call ptr @PyNumber_Index(ptr noundef nonnull %16) #6, !dbg !933",
+				"%call1.i311 = tail call ptr @PyNumber_Index(ptr noundef nonnull %16) #7, !dbg !933",
 				"%cmp94 = icmp eq ptr %call1.i311, null, !dbg !934",
 				"br i1 %cmp94, label %if.then.i326, label %if.end97, !dbg !932"
 			]
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 157,
+			"id": 159,
 			"name": "if.end97",
 			"debug": [
 				{
@@ -2953,7 +2970,7 @@
 					"line": 498, "columns": [13]
 				}
 			],
-			"successors": [158, 169],
+			"successors": [160, 171],
 			"ir": [
 				"%22 = getelementptr i8, ptr %call1.i311, i64 16, !dbg !936",
 				"%call93.val = load i64, ptr %22, align 8, !dbg !936, !tbaa !800",
@@ -2964,22 +2981,22 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 158,
+			"id": 160,
 			"name": "if.then99",
 			"debug": [
 				{
-					"line": 357, "columns": [49]
+					"line": 358, "columns": [49]
 				},
 				{
 					"line": 500, "columns": [29]
 				},
 				{
-					"line": 940, "columns": [9]
+					"line": 932, "columns": [9]
 				}
 			],
-			"successors": [159, 161],
+			"successors": [161, 163],
 			"ir": [
-				"%call101 = tail call ptr @PyNumber_Add(ptr noundef nonnull %call1.i311, ptr noundef %length) #6, !dbg !942",
+				"%call101 = tail call ptr @PyNumber_Add(ptr noundef nonnull %call1.i311, ptr noundef %length) #7, !dbg !942",
 				"%op.val.i242 = load i64, ptr %call1.i311, align 8, !dbg !947, !tbaa !762",
 				"%23 = and i64 %op.val.i242, 2147483648, !dbg !950",
 				"%cmp.i.not.i243 = icmp eq i64 %23, 0, !dbg !950",
@@ -2988,14 +3005,14 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 159,
+			"id": 161,
 			"name": "if.end.i246",
 			"debug": [
 				{
-					"line": 944, "columns": [9, 25]
+					"line": 936, "columns": [9, 25]
 				}
 			],
-			"successors": [160, 161],
+			"successors": [162, 163],
 			"ir": [
 				"%dec.i244 = add i64 %op.val.i242, -1, !dbg !952",
 				"store i64 %dec.i244, ptr %call1.i311, align 8, !dbg !952, !tbaa !762",
@@ -3005,32 +3022,32 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 160,
+			"id": 162,
 			"name": "if.then1.i247",
 			"debug": [
 				{
-					"line": 945, "columns": [9]
+					"line": 937, "columns": [9]
 				},
 				{
-					"line": 946, "columns": [5]
+					"line": 938, "columns": [5]
 				}
 			],
-			"successors": [161],
+			"successors": [163],
 			"ir": [
-				"tail call void @_Py_Dealloc(ptr noundef nonnull %call1.i311) #6, !dbg !955",
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call1.i311) #7, !dbg !955",
 				"br label %Py_DECREF.exit248, !dbg !956"
 			]
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 161,
+			"id": 163,
 			"name": "Py_DECREF.exit248",
 			"debug": [
 				{
 					"line": 502, "columns": [22, 17]
 				}
 			],
-			"successors": [183, 162],
+			"successors": [185, 164],
 			"ir": [
 				"%cmp107 = icmp eq ptr %call101, null, !dbg !957",
 				"br i1 %cmp107, label %if.then.i326, label %if.end110, !dbg !959"
@@ -3038,7 +3055,7 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 162,
+			"id": 164,
 			"name": "if.end110",
 			"debug": [
 				{
@@ -3048,23 +3065,23 @@
 					"line": 506, "columns": [28, 17]
 				}
 			],
-			"successors": [183, 163],
+			"successors": [185, 165],
 			"ir": [
-				"%call111 = tail call i32 @PyObject_RichCompareBool(ptr noundef nonnull %call101, ptr noundef nonnull %lower.0, i32 noundef 0) #6, !dbg !960",
+				"%call111 = tail call i32 @PyObject_RichCompareBool(ptr noundef nonnull %call101, ptr noundef nonnull %lower.0, i32 noundef 0) #7, !dbg !960",
 				"%cmp112 = icmp slt i32 %call111, 0, !dbg !961",
 				"br i1 %cmp112, label %if.then.i326, label %if.end115, !dbg !963"
 			]
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 163,
+			"id": 165,
 			"name": "if.end115",
 			"debug": [
 				{
 					"line": 508, "columns": [17]
 				}
 			],
-			"successors": [176, 164],
+			"successors": [178, 166],
 			"ir": [
 				"%tobool116.not = icmp eq i32 %call111, 0, !dbg !964",
 				"br i1 %tobool116.not, label %if.end144, label %do.body118, !dbg !965"
@@ -3072,20 +3089,20 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 164,
+			"id": 166,
 			"name": "do.body118",
 			"debug": [
 				{
-					"line": 820, "columns": [30]
+					"line": 812, "columns": [30]
 				},
 				{
-					"line": 821, "columns": [41]
+					"line": 813, "columns": [41]
 				},
 				{
-					"line": 822, "columns": [20, 9]
+					"line": 814, "columns": [20, 9]
 				}
 			],
-			"successors": [166, 165],
+			"successors": [168, 167],
 			"ir": [
 				"%24 = load i32, ptr %lower.0, align 8, !dbg !971, !tbaa !762",
 				"%add.i.i318 = add i32 %24, 1, !dbg !972",
@@ -3095,17 +3112,17 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 165,
+			"id": 167,
 			"name": "if.end.i.i320",
 			"debug": [
 				{
-					"line": 827, "columns": [40]
+					"line": 819, "columns": [40]
 				},
 				{
-					"line": 840, "columns": [1]
+					"line": 832, "columns": [1]
 				}
 			],
-			"successors": [166],
+			"successors": [168],
 			"ir": [
 				"store i32 %add.i.i318, ptr %lower.0, align 8, !dbg !975, !tbaa !762",
 				"br label %_Py_NewRef.exit321, !dbg !976"
@@ -3113,17 +3130,17 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 166,
+			"id": 168,
 			"name": "_Py_NewRef.exit321",
 			"debug": [
 				{
-					"line": 357, "columns": [49]
+					"line": 358, "columns": [49]
 				},
 				{
-					"line": 940, "columns": [9]
+					"line": 932, "columns": [9]
 				}
 			],
-			"successors": [167, 176],
+			"successors": [169, 178],
 			"ir": [
 				"%op.val.i249 = load i64, ptr %call101, align 8, !dbg !979, !tbaa !762",
 				"%25 = and i64 %op.val.i249, 2147483648, !dbg !982",
@@ -3133,14 +3150,14 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 167,
+			"id": 169,
 			"name": "if.end.i253",
 			"debug": [
 				{
-					"line": 944, "columns": [9, 25]
+					"line": 936, "columns": [9, 25]
 				}
 			],
-			"successors": [168, 176],
+			"successors": [170, 178],
 			"ir": [
 				"%dec.i251 = add i64 %op.val.i249, -1, !dbg !984",
 				"store i64 %dec.i251, ptr %call101, align 8, !dbg !984, !tbaa !762",
@@ -3150,25 +3167,25 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 168,
+			"id": 170,
 			"name": "if.then1.i254",
 			"debug": [
 				{
-					"line": 945, "columns": [9]
+					"line": 937, "columns": [9]
 				},
 				{
-					"line": 946, "columns": [5]
+					"line": 938, "columns": [5]
 				}
 			],
-			"successors": [176],
+			"successors": [178],
 			"ir": [
-				"tail call void @_Py_Dealloc(ptr noundef nonnull %call101) #6, !dbg !987",
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call101) #7, !dbg !987",
 				"br label %if.end144, !dbg !988"
 			]
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 169,
+			"id": 171,
 			"name": "if.else128",
 			"debug": [
 				{
@@ -3178,23 +3195,23 @@
 					"line": 514, "columns": [28, 17]
 				}
 			],
-			"successors": [183, 170],
+			"successors": [185, 172],
 			"ir": [
-				"%call129 = tail call i32 @PyObject_RichCompareBool(ptr noundef nonnull %call1.i311, ptr noundef nonnull %upper.0, i32 noundef 4) #6, !dbg !989",
+				"%call129 = tail call i32 @PyObject_RichCompareBool(ptr noundef nonnull %call1.i311, ptr noundef nonnull %upper.0, i32 noundef 4) #7, !dbg !989",
 				"%cmp130 = icmp slt i32 %call129, 0, !dbg !990",
 				"br i1 %cmp130, label %if.then.i326, label %if.end133, !dbg !992"
 			]
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 170,
+			"id": 172,
 			"name": "if.end133",
 			"debug": [
 				{
 					"line": 516, "columns": [17]
 				}
 			],
-			"successors": [176, 171],
+			"successors": [178, 173],
 			"ir": [
 				"%tobool134.not = icmp eq i32 %call129, 0, !dbg !993",
 				"br i1 %tobool134.not, label %if.end144, label %do.body136, !dbg !994"
@@ -3202,20 +3219,20 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 171,
+			"id": 173,
 			"name": "do.body136",
 			"debug": [
 				{
-					"line": 820, "columns": [30]
+					"line": 812, "columns": [30]
 				},
 				{
-					"line": 821, "columns": [41]
+					"line": 813, "columns": [41]
 				},
 				{
-					"line": 822, "columns": [20, 9]
+					"line": 814, "columns": [20, 9]
 				}
 			],
-			"successors": [173, 172],
+			"successors": [175, 174],
 			"ir": [
 				"%26 = load i32, ptr %upper.0, align 8, !dbg !1000, !tbaa !762",
 				"%add.i.i322 = add i32 %26, 1, !dbg !1001",
@@ -3225,17 +3242,17 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 172,
+			"id": 174,
 			"name": "if.end.i.i324",
 			"debug": [
 				{
-					"line": 827, "columns": [40]
+					"line": 819, "columns": [40]
 				},
 				{
-					"line": 840, "columns": [1]
+					"line": 832, "columns": [1]
 				}
 			],
-			"successors": [173],
+			"successors": [175],
 			"ir": [
 				"store i32 %add.i.i322, ptr %upper.0, align 8, !dbg !1004, !tbaa !762",
 				"br label %_Py_NewRef.exit325, !dbg !1005"
@@ -3243,17 +3260,17 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 173,
+			"id": 175,
 			"name": "_Py_NewRef.exit325",
 			"debug": [
 				{
-					"line": 357, "columns": [49]
+					"line": 358, "columns": [49]
 				},
 				{
-					"line": 940, "columns": [9]
+					"line": 932, "columns": [9]
 				}
 			],
-			"successors": [174, 176],
+			"successors": [176, 178],
 			"ir": [
 				"%op.val.i256 = load i64, ptr %call1.i311, align 8, !dbg !1008, !tbaa !762",
 				"%27 = and i64 %op.val.i256, 2147483648, !dbg !1011",
@@ -3263,14 +3280,14 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 174,
+			"id": 176,
 			"name": "if.end.i260",
 			"debug": [
 				{
-					"line": 944, "columns": [9, 25]
+					"line": 936, "columns": [9, 25]
 				}
 			],
-			"successors": [175, 176],
+			"successors": [177, 178],
 			"ir": [
 				"%dec.i258 = add i64 %op.val.i256, -1, !dbg !1013",
 				"store i64 %dec.i258, ptr %call1.i311, align 8, !dbg !1013, !tbaa !762",
@@ -3280,29 +3297,29 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 175,
+			"id": 177,
 			"name": "if.then1.i261",
 			"debug": [
 				{
-					"line": 945, "columns": [9]
+					"line": 937, "columns": [9]
 				},
 				{
-					"line": 946, "columns": [5]
+					"line": 938, "columns": [5]
 				}
 			],
-			"successors": [176],
+			"successors": [178],
 			"ir": [
-				"tail call void @_Py_Dealloc(ptr noundef nonnull %call1.i311) #6, !dbg !1016",
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call1.i311) #7, !dbg !1016",
 				"br label %if.end144, !dbg !1017"
 			]
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 176,
+			"id": 178,
 			"name": "if.end144",
 			"debug": [
 				{
-					"line": 357, "columns": [49]
+					"line": 358, "columns": [49]
 				},
 				{
 					"line": 522, "columns": [16]
@@ -3314,10 +3331,10 @@
 					"line": 524, "columns": [15]
 				},
 				{
-					"line": 940, "columns": [9]
+					"line": 932, "columns": [9]
 				}
 			],
-			"successors": [177, 179],
+			"successors": [179, 181],
 			"ir": [
 				"%stop.2 = phi ptr [ %call1.i311, %if.end133 ], [ %cond89, %if.then84 ], [ %cond89, %if.end.i.i303 ], [ %upper.0, %_Py_NewRef.exit325 ], [ %upper.0, %if.end.i260 ], [ %upper.0, %if.then1.i261 ], [ %lower.0, %if.then1.i254 ], [ %lower.0, %if.end.i253 ], [ %lower.0, %_Py_NewRef.exit321 ], [ %call101, %if.end115 ], !dbg !1018",
 				"store ptr %start.2, ptr %start_ptr, align 8, !dbg !1019, !tbaa !930",
@@ -3331,14 +3348,14 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 177,
+			"id": 179,
 			"name": "if.end.i267",
 			"debug": [
 				{
-					"line": 944, "columns": [9, 25]
+					"line": 936, "columns": [9, 25]
 				}
 			],
-			"successors": [178, 179],
+			"successors": [180, 181],
 			"ir": [
 				"%dec.i265 = add i64 %op.val.i263, -1, !dbg !1029",
 				"store i64 %dec.i265, ptr %upper.0, align 8, !dbg !1029, !tbaa !762",
@@ -3348,35 +3365,35 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 178,
+			"id": 180,
 			"name": "if.then1.i268",
 			"debug": [
 				{
-					"line": 945, "columns": [9]
+					"line": 937, "columns": [9]
 				},
 				{
-					"line": 946, "columns": [5]
+					"line": 938, "columns": [5]
 				}
 			],
-			"successors": [179],
+			"successors": [181],
 			"ir": [
-				"tail call void @_Py_Dealloc(ptr noundef nonnull %upper.0) #6, !dbg !1032",
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %upper.0) #7, !dbg !1032",
 				"br label %Py_DECREF.exit269, !dbg !1033"
 			]
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 179,
+			"id": 181,
 			"name": "Py_DECREF.exit269",
 			"debug": [
 				{
-					"line": 357, "columns": [49]
+					"line": 358, "columns": [49]
 				},
 				{
-					"line": 940, "columns": [9]
+					"line": 932, "columns": [9]
 				}
 			],
-			"successors": [180, 202],
+			"successors": [182, 204],
 			"ir": [
 				"%op.val.i270 = load i64, ptr %lower.0, align 8, !dbg !1036, !tbaa !762",
 				"%29 = and i64 %op.val.i270, 2147483648, !dbg !1039",
@@ -3386,14 +3403,14 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 180,
+			"id": 182,
 			"name": "if.end.i274",
 			"debug": [
 				{
-					"line": 944, "columns": [9, 25]
+					"line": 936, "columns": [9, 25]
 				}
 			],
-			"successors": [201, 202],
+			"successors": [203, 204],
 			"ir": [
 				"%dec.i272 = add i64 %op.val.i270, -1, !dbg !1041",
 				"store i64 %dec.i272, ptr %lower.0, align 8, !dbg !1041, !tbaa !762",
@@ -3403,14 +3420,14 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 181,
+			"id": 183,
 			"name": "Py_XDECREF.exit.thread.sink.split",
 			"debug": [
 				{
 					"line": 530, "columns": [40]
 				}
 			],
-			"successors": [182],
+			"successors": [184],
 			"ir": [
 				"%PyExc_TypeError.sink = phi ptr [ @PyExc_TypeError, %if.else ], [ @PyExc_TypeError, %_PyIndex_Check.exit.i ], [ @PyExc_ValueError, %if.end ], [ @PyExc_TypeError, %if.else33 ], [ @PyExc_TypeError, %_PyIndex_Check.exit.i286 ]",
 				"%.str.6.sink = phi ptr [ @.str.6, %if.else ], [ @.str.6, %_PyIndex_Check.exit.i ], [ @.str.1, %if.end ], [ @.str.6, %if.else33 ], [ @.str.6, %_PyIndex_Check.exit.i286 ]",
@@ -3418,13 +3435,13 @@
 				"%upper.1.ph = phi ptr [ null, %if.else ], [ null, %_PyIndex_Check.exit.i ], [ null, %if.end ], [ %upper.0, %if.else33 ], [ %upper.0, %_PyIndex_Check.exit.i286 ]",
 				"%step.1.ph = phi ptr [ null, %if.else ], [ null, %_PyIndex_Check.exit.i ], [ %call1.i, %if.end ], [ %step.0380, %if.else33 ], [ %step.0380, %_PyIndex_Check.exit.i286 ]",
 				"%30 = load ptr, ptr %PyExc_TypeError.sink, align 8, !dbg !687, !tbaa !930",
-				"tail call void @PyErr_SetString(ptr noundef %30, ptr noundef nonnull %.str.6.sink) #6, !dbg !687",
+				"tail call void @PyErr_SetString(ptr noundef %30, ptr noundef nonnull %.str.6.sink) #7, !dbg !687",
 				"br label %Py_XDECREF.exit.thread, !dbg !1044"
 			]
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 182,
+			"id": 184,
 			"name": "Py_XDECREF.exit.thread",
 			"debug": [
 				{
@@ -3434,10 +3451,10 @@
 					"line": 530, "columns": [40, 28, 16]
 				},
 				{
-					"line": 1037, "columns": [9]
+					"line": 1029, "columns": [9]
 				}
 			],
-			"successors": [190],
+			"successors": [192],
 			"ir": [
 				"%lower.1 = phi ptr [ null, %if.then12 ], [ %call13, %if.end17 ], [ %lower.0, %evaluate_slice_index.exit291 ], [ %lower.0, %Py_DECREF.exit ], [ null, %evaluate_slice_index.exit ], [ %lower.1.ph, %Py_XDECREF.exit.thread.sink.split ], !dbg !687",
 				"%upper.1 = phi ptr [ null, %if.then12 ], [ null, %if.end17 ], [ %upper.0, %evaluate_slice_index.exit291 ], [ %upper.0, %Py_DECREF.exit ], [ null, %evaluate_slice_index.exit ], [ %upper.1.ph, %Py_XDECREF.exit.thread.sink.split ], !dbg !687",
@@ -3450,11 +3467,11 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 183,
+			"id": 185,
 			"name": "if.then.i326",
 			"debug": [
 				{
-					"line": 357, "columns": [49]
+					"line": 358, "columns": [49]
 				},
 				{
 					"line": 529, "columns": [3]
@@ -3463,10 +3480,10 @@
 					"line": 530, "columns": [40, 28, 16]
 				},
 				{
-					"line": 940, "columns": [9]
+					"line": 932, "columns": [9]
 				}
 			],
-			"successors": [184, 186],
+			"successors": [186, 188],
 			"ir": [
 				"%stop.3.ph = phi ptr [ %call101, %if.end110 ], [ null, %Py_DECREF.exit248 ], [ null, %evaluate_slice_index.exit315.thread ], [ null, %if.end46 ], [ null, %if.else64 ], [ %call1.i311, %if.else128 ], [ null, %evaluate_slice_index.exit315 ]",
 				"%start.3.ph = phi ptr [ %start.2, %if.end110 ], [ %start.2, %Py_DECREF.exit248 ], [ %start.2, %evaluate_slice_index.exit315.thread ], [ %call42, %if.end46 ], [ %call1.i287, %if.else64 ], [ %start.2, %if.else128 ], [ %start.2, %evaluate_slice_index.exit315 ]",
@@ -3481,14 +3498,14 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 184,
+			"id": 186,
 			"name": "if.end.i.i328",
 			"debug": [
 				{
-					"line": 944, "columns": [9, 25]
+					"line": 936, "columns": [9, 25]
 				}
 			],
-			"successors": [185, 186],
+			"successors": [187, 188],
 			"ir": [
 				"%dec.i.i = add i64 %op.val.i.i, -1, !dbg !1066",
 				"store i64 %dec.i.i, ptr %start.3.ph, align 8, !dbg !1066, !tbaa !762",
@@ -3498,32 +3515,32 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 185,
+			"id": 187,
 			"name": "if.then1.i.i",
 			"debug": [
 				{
-					"line": 945, "columns": [9]
+					"line": 937, "columns": [9]
 				},
 				{
-					"line": 946, "columns": [5]
+					"line": 938, "columns": [5]
 				}
 			],
-			"successors": [186],
+			"successors": [188],
 			"ir": [
-				"tail call void @_Py_Dealloc(ptr noundef nonnull %start.3.ph) #6, !dbg !1069",
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %start.3.ph) #7, !dbg !1069",
 				"br label %Py_XDECREF.exit, !dbg !1070"
 			]
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 186,
+			"id": 188,
 			"name": "Py_XDECREF.exit",
 			"debug": [
 				{
-					"line": 1037, "columns": [12, 9]
+					"line": 1029, "columns": [12, 9]
 				}
 			],
-			"successors": [190, 187],
+			"successors": [192, 189],
 			"ir": [
 				"%cmp.not.i330 = icmp eq ptr %stop.3.ph, null, !dbg !1071",
 				"br i1 %cmp.not.i330, label %Py_XDECREF.exit339, label %if.then.i333, !dbg !1056"
@@ -3531,17 +3548,17 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 187,
+			"id": 189,
 			"name": "if.then.i333",
 			"debug": [
 				{
-					"line": 357, "columns": [49]
+					"line": 358, "columns": [49]
 				},
 				{
-					"line": 940, "columns": [9]
+					"line": 932, "columns": [9]
 				}
 			],
-			"successors": [188, 190],
+			"successors": [190, 192],
 			"ir": [
 				"%op.val.i.i331 = load i64, ptr %stop.3.ph, align 8, !dbg !1074, !tbaa !762",
 				"%32 = and i64 %op.val.i.i331, 2147483648, !dbg !1077",
@@ -3551,14 +3568,14 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 188,
+			"id": 190,
 			"name": "if.end.i.i336",
 			"debug": [
 				{
-					"line": 944, "columns": [9, 25]
+					"line": 936, "columns": [9, 25]
 				}
 			],
-			"successors": [189, 190],
+			"successors": [191, 192],
 			"ir": [
 				"%dec.i.i334 = add i64 %op.val.i.i331, -1, !dbg !1079",
 				"store i64 %dec.i.i334, ptr %stop.3.ph, align 8, !dbg !1079, !tbaa !762",
@@ -3568,32 +3585,32 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 189,
+			"id": 191,
 			"name": "if.then1.i.i337",
 			"debug": [
 				{
-					"line": 945, "columns": [9]
+					"line": 937, "columns": [9]
 				},
 				{
-					"line": 946, "columns": [5]
+					"line": 938, "columns": [5]
 				}
 			],
-			"successors": [190],
+			"successors": [192],
 			"ir": [
-				"tail call void @_Py_Dealloc(ptr noundef nonnull %stop.3.ph) #6, !dbg !1082",
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %stop.3.ph) #7, !dbg !1082",
 				"br label %Py_XDECREF.exit339, !dbg !1083"
 			]
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 190,
+			"id": 192,
 			"name": "Py_XDECREF.exit339",
 			"debug": [
 				{
-					"line": 1037, "columns": [12, 9]
+					"line": 1029, "columns": [12, 9]
 				}
 			],
-			"successors": [194, 191],
+			"successors": [196, 193],
 			"ir": [
 				"%lower.1402414 = phi ptr [ %lower.1, %Py_XDECREF.exit.thread ], [ %lower.0, %Py_XDECREF.exit ], [ %lower.0, %if.then.i333 ], [ %lower.0, %if.end.i.i336 ], [ %lower.0, %if.then1.i.i337 ]",
 				"%upper.1404413 = phi ptr [ %upper.1, %Py_XDECREF.exit.thread ], [ %upper.0, %Py_XDECREF.exit ], [ %upper.0, %if.then.i333 ], [ %upper.0, %if.end.i.i336 ], [ %upper.0, %if.then1.i.i337 ]",
@@ -3604,17 +3621,17 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 191,
+			"id": 193,
 			"name": "if.then.i343",
 			"debug": [
 				{
-					"line": 357, "columns": [49]
+					"line": 358, "columns": [49]
 				},
 				{
-					"line": 940, "columns": [9]
+					"line": 932, "columns": [9]
 				}
 			],
-			"successors": [192, 194],
+			"successors": [194, 196],
 			"ir": [
 				"%op.val.i.i341 = load i64, ptr %step.1406412, align 8, !dbg !1090, !tbaa !762",
 				"%33 = and i64 %op.val.i.i341, 2147483648, !dbg !1093",
@@ -3624,14 +3641,14 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 192,
+			"id": 194,
 			"name": "if.end.i.i346",
 			"debug": [
 				{
-					"line": 944, "columns": [9, 25]
+					"line": 936, "columns": [9, 25]
 				}
 			],
-			"successors": [193, 194],
+			"successors": [195, 196],
 			"ir": [
 				"%dec.i.i344 = add i64 %op.val.i.i341, -1, !dbg !1095",
 				"store i64 %dec.i.i344, ptr %step.1406412, align 8, !dbg !1095, !tbaa !762",
@@ -3641,32 +3658,32 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 193,
+			"id": 195,
 			"name": "if.then1.i.i347",
 			"debug": [
 				{
-					"line": 945, "columns": [9]
+					"line": 937, "columns": [9]
 				},
 				{
-					"line": 946, "columns": [5]
+					"line": 938, "columns": [5]
 				}
 			],
-			"successors": [194],
+			"successors": [196],
 			"ir": [
-				"tail call void @_Py_Dealloc(ptr noundef nonnull %step.1406412) #6, !dbg !1098",
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %step.1406412) #7, !dbg !1098",
 				"br label %Py_XDECREF.exit349, !dbg !1099"
 			]
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 194,
+			"id": 196,
 			"name": "Py_XDECREF.exit349",
 			"debug": [
 				{
-					"line": 1037, "columns": [12, 9]
+					"line": 1029, "columns": [12, 9]
 				}
 			],
-			"successors": [198, 195],
+			"successors": [200, 197],
 			"ir": [
 				"%cmp.not.i350 = icmp eq ptr %upper.1404413, null, !dbg !1102",
 				"br i1 %cmp.not.i350, label %Py_XDECREF.exit359, label %if.then.i353, !dbg !1103"
@@ -3674,17 +3691,17 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 195,
+			"id": 197,
 			"name": "if.then.i353",
 			"debug": [
 				{
-					"line": 357, "columns": [49]
+					"line": 358, "columns": [49]
 				},
 				{
-					"line": 940, "columns": [9]
+					"line": 932, "columns": [9]
 				}
 			],
-			"successors": [196, 198],
+			"successors": [198, 200],
 			"ir": [
 				"%op.val.i.i351 = load i64, ptr %upper.1404413, align 8, !dbg !1106, !tbaa !762",
 				"%34 = and i64 %op.val.i.i351, 2147483648, !dbg !1109",
@@ -3694,14 +3711,14 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 196,
+			"id": 198,
 			"name": "if.end.i.i356",
 			"debug": [
 				{
-					"line": 944, "columns": [9, 25]
+					"line": 936, "columns": [9, 25]
 				}
 			],
-			"successors": [197, 198],
+			"successors": [199, 200],
 			"ir": [
 				"%dec.i.i354 = add i64 %op.val.i.i351, -1, !dbg !1111",
 				"store i64 %dec.i.i354, ptr %upper.1404413, align 8, !dbg !1111, !tbaa !762",
@@ -3711,32 +3728,32 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 197,
+			"id": 199,
 			"name": "if.then1.i.i357",
 			"debug": [
 				{
-					"line": 945, "columns": [9]
+					"line": 937, "columns": [9]
 				},
 				{
-					"line": 946, "columns": [5]
+					"line": 938, "columns": [5]
 				}
 			],
-			"successors": [198],
+			"successors": [200],
 			"ir": [
-				"tail call void @_Py_Dealloc(ptr noundef nonnull %upper.1404413) #6, !dbg !1114",
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %upper.1404413) #7, !dbg !1114",
 				"br label %Py_XDECREF.exit359, !dbg !1115"
 			]
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 198,
+			"id": 200,
 			"name": "Py_XDECREF.exit359",
 			"debug": [
 				{
-					"line": 1037, "columns": [12, 9]
+					"line": 1029, "columns": [12, 9]
 				}
 			],
-			"successors": [202, 199],
+			"successors": [204, 201],
 			"ir": [
 				"%cmp.not.i360 = icmp eq ptr %lower.1402414, null, !dbg !1118",
 				"br i1 %cmp.not.i360, label %cleanup145, label %if.then.i363, !dbg !1119"
@@ -3744,17 +3761,17 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 199,
+			"id": 201,
 			"name": "if.then.i363",
 			"debug": [
 				{
-					"line": 357, "columns": [49]
+					"line": 358, "columns": [49]
 				},
 				{
-					"line": 940, "columns": [9]
+					"line": 932, "columns": [9]
 				}
 			],
-			"successors": [200, 202],
+			"successors": [202, 204],
 			"ir": [
 				"%op.val.i.i361 = load i64, ptr %lower.1402414, align 8, !dbg !1122, !tbaa !762",
 				"%35 = and i64 %op.val.i.i361, 2147483648, !dbg !1125",
@@ -3764,14 +3781,14 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 200,
+			"id": 202,
 			"name": "if.end.i.i366",
 			"debug": [
 				{
-					"line": 944, "columns": [9, 25]
+					"line": 936, "columns": [9, 25]
 				}
 			],
-			"successors": [201, 202],
+			"successors": [203, 204],
 			"ir": [
 				"%dec.i.i364 = add i64 %op.val.i.i361, -1, !dbg !1127",
 				"store i64 %dec.i.i364, ptr %lower.1402414, align 8, !dbg !1127, !tbaa !762",
@@ -3781,24 +3798,24 @@
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 201,
+			"id": 203,
 			"name": "cleanup145.sink.split",
 			"debug": [
 				{
 					"line": 537, "columns": [1]
 				}
 			],
-			"successors": [202],
+			"successors": [204],
 			"ir": [
 				"%lower.1402414.sink = phi ptr [ %lower.0, %if.end.i274 ], [ %lower.1402414, %if.end.i.i366 ]",
 				"%retval.0.ph = phi i32 [ 0, %if.end.i274 ], [ -1, %if.end.i.i366 ]",
-				"tail call void @_Py_Dealloc(ptr noundef nonnull %lower.1402414.sink) #6, !dbg !687",
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %lower.1402414.sink) #7, !dbg !687",
 				"br label %cleanup145, !dbg !1130"
 			]
 		},
 		{
 			"function": "_PySlice_GetLongIndices",
-			"id": 202,
+			"id": 204,
 			"name": "cleanup145",
 			"debug": [
 				{
@@ -3813,53 +3830,50 @@
 		},
 		{
 			"function": "slice_dealloc",
-			"id": 203,
+			"id": 205,
 			"name": "entry",
 			"debug": [
 				{
 					"line": 29, "columns": [28]
 				},
 				{
-					"line": 157, "columns": [35]
+					"line": 122, "columns": [12]
 				},
 				{
-					"line": 158, "columns": [12]
+					"line": 125, "columns": [18]
 				},
 				{
-					"line": 163, "columns": [25, 34, 54, 18]
+					"line": 130, "columns": [36]
 				},
 				{
-					"line": 168, "columns": [36]
+					"line": 131, "columns": [12]
 				},
 				{
-					"line": 169, "columns": [12]
+					"line": 136, "columns": [26, 35, 55, 18]
 				},
 				{
-					"line": 175, "columns": [26, 35, 55, 18]
+					"line": 358, "columns": [49]
 				},
 				{
-					"line": 351, "columns": [23]
+					"line": 362, "columns": [23]
 				},
 				{
-					"line": 352, "columns": [23]
-				},
-				{
-					"line": 355, "columns": [18]
-				},
-				{
-					"line": 356, "columns": [18]
-				},
-				{
-					"line": 357, "columns": [49]
+					"line": 363, "columns": [23]
 				},
 				{
 					"line": 364, "columns": [5]
 				},
 				{
-					"line": 940, "columns": [9]
+					"line": 366, "columns": [18]
+				},
+				{
+					"line": 367, "columns": [18]
+				},
+				{
+					"line": 932, "columns": [9]
 				}
 			],
-			"successors": [204, 206],
+			"successors": [206, 208],
 			"ir": [
 				"%add.ptr.i.i = getelementptr i8, ptr %r, i64 -16, !dbg !772",
 				"%0 = getelementptr i8, ptr %r, i64 -8, !dbg !773",
@@ -3867,214 +3881,210 @@
 				"%and.i.i = and i64 %call.val.i, -4, !dbg !787",
 				"%1 = inttoptr i64 %and.i.i to ptr, !dbg !788",
 				"%call.val8.i = load i64, ptr %add.ptr.i.i, align 8, !dbg !789, !tbaa !790",
-				"%and.i9.i = and i64 %call.val8.i, -4, !dbg !797",
-				"%2 = inttoptr i64 %and.i9.i to ptr, !dbg !798",
-				"%3 = load i64, ptr %1, align 8, !dbg !808, !tbaa !790",
-				"%and.i10.i = and i64 %3, 3, !dbg !809",
-				"%or.i.i = or i64 %and.i10.i, %and.i9.i, !dbg !810",
-				"store i64 %or.i.i, ptr %1, align 8, !dbg !811, !tbaa !790",
-				"%_gc_prev.i.i = getelementptr inbounds %struct.PyGC_Head, ptr %2, i64 0, i32 1, !dbg !819",
-				"%4 = load i64, ptr %_gc_prev.i.i, align 8, !dbg !819, !tbaa !774",
-				"%and.i11.i = and i64 %4, 3, !dbg !820",
-				"%or.i12.i = or i64 %and.i11.i, %and.i.i, !dbg !821",
-				"store i64 %or.i12.i, ptr %_gc_prev.i.i, align 8, !dbg !822, !tbaa !774",
-				"store i64 0, ptr %add.ptr.i.i, align 8, !dbg !823, !tbaa !790",
-				"%5 = load i64, ptr %0, align 8, !dbg !824, !tbaa !774",
-				"%and.i = and i64 %5, 1, !dbg !824",
-				"store i64 %and.i, ptr %0, align 8, !dbg !824, !tbaa !774",
-				"%step = getelementptr inbounds %struct.PySliceObject, ptr %r, i64 0, i32 3, !dbg !825",
-				"%6 = load ptr, ptr %step, align 8, !dbg !825, !tbaa !826",
-				"%op.val.i = load i64, ptr %6, align 8, !dbg !835, !tbaa !837",
-				"%7 = and i64 %op.val.i, 2147483648, !dbg !843",
-				"%cmp.i.not.i = icmp eq i64 %7, 0, !dbg !843",
-				"br i1 %cmp.i.not.i, label %if.end.i, label %Py_DECREF.exit, !dbg !844"
-			]
-		},
-		{
-			"function": "slice_dealloc",
-			"id": 204,
-			"name": "if.end.i",
-			"debug": [
-				{
-					"line": 944, "columns": [9, 25]
-				}
-			],
-			"successors": [205, 206],
-			"ir": [
-				"%dec.i = add i64 %op.val.i, -1, !dbg !845",
-				"store i64 %dec.i, ptr %6, align 8, !dbg !845, !tbaa !837",
-				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !847",
-				"br i1 %cmp.i, label %if.then1.i, label %Py_DECREF.exit, !dbg !848"
-			]
-		},
-		{
-			"function": "slice_dealloc",
-			"id": 205,
-			"name": "if.then1.i",
-			"debug": [
-				{
-					"line": 945, "columns": [9]
-				},
-				{
-					"line": 946, "columns": [5]
-				}
-			],
-			"successors": [206],
-			"ir": [
-				"tail call void @_Py_Dealloc(ptr noundef nonnull %6) #6, !dbg !849",
-				"br label %Py_DECREF.exit, !dbg !851"
+				"%2 = inttoptr i64 %call.val8.i to ptr, !dbg !797",
+				"store i64 %call.val8.i, ptr %1, align 8, !dbg !806, !tbaa !790",
+				"%_gc_prev.i.i = getelementptr inbounds %struct.PyGC_Head, ptr %2, i64 0, i32 1, !dbg !814",
+				"%3 = load i64, ptr %_gc_prev.i.i, align 8, !dbg !814, !tbaa !774",
+				"%and.i9.i = and i64 %3, 3, !dbg !815",
+				"%or.i.i = or i64 %and.i9.i, %and.i.i, !dbg !816",
+				"store i64 %or.i.i, ptr %_gc_prev.i.i, align 8, !dbg !817, !tbaa !774",
+				"store i64 0, ptr %add.ptr.i.i, align 8, !dbg !818, !tbaa !790",
+				"%4 = load i64, ptr %0, align 8, !dbg !819, !tbaa !774",
+				"%and.i = and i64 %4, 1, !dbg !819",
+				"store i64 %and.i, ptr %0, align 8, !dbg !819, !tbaa !774",
+				"%step = getelementptr inbounds %struct.PySliceObject, ptr %r, i64 0, i32 3, !dbg !820",
+				"%5 = load ptr, ptr %step, align 8, !dbg !820, !tbaa !821",
+				"%op.val.i = load i64, ptr %5, align 8, !dbg !830, !tbaa !832",
+				"%6 = and i64 %op.val.i, 2147483648, !dbg !838",
+				"%cmp.i.not.i = icmp eq i64 %6, 0, !dbg !838",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %Py_DECREF.exit, !dbg !839"
 			]
 		},
 		{
 			"function": "slice_dealloc",
 			"id": 206,
-			"name": "Py_DECREF.exit",
+			"name": "if.end.i",
 			"debug": [
 				{
-					"line": 357, "columns": [49]
-				},
-				{
-					"line": 365, "columns": [5]
-				},
-				{
-					"line": 940, "columns": [9]
+					"line": 936, "columns": [9, 25]
 				}
 			],
-			"successors": [207, 209],
+			"successors": [207, 208],
 			"ir": [
-				"%start = getelementptr inbounds %struct.PySliceObject, ptr %r, i64 0, i32 1, !dbg !852",
-				"%8 = load ptr, ptr %start, align 8, !dbg !852, !tbaa !853",
-				"%op.val.i9 = load i64, ptr %8, align 8, !dbg !856, !tbaa !837",
-				"%9 = and i64 %op.val.i9, 2147483648, !dbg !859",
-				"%cmp.i.not.i10 = icmp eq i64 %9, 0, !dbg !859",
-				"br i1 %cmp.i.not.i10, label %if.end.i13, label %Py_DECREF.exit15, !dbg !860"
+				"%dec.i = add i64 %op.val.i, -1, !dbg !840",
+				"store i64 %dec.i, ptr %5, align 8, !dbg !840, !tbaa !832",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !842",
+				"br i1 %cmp.i, label %if.then1.i, label %Py_DECREF.exit, !dbg !843"
 			]
 		},
 		{
 			"function": "slice_dealloc",
 			"id": 207,
-			"name": "if.end.i13",
+			"name": "if.then1.i",
 			"debug": [
 				{
-					"line": 944, "columns": [9, 25]
+					"line": 937, "columns": [9]
+				},
+				{
+					"line": 938, "columns": [5]
 				}
 			],
-			"successors": [208, 209],
+			"successors": [208],
 			"ir": [
-				"%dec.i11 = add i64 %op.val.i9, -1, !dbg !861",
-				"store i64 %dec.i11, ptr %8, align 8, !dbg !861, !tbaa !837",
-				"%cmp.i12 = icmp eq i64 %dec.i11, 0, !dbg !862",
-				"br i1 %cmp.i12, label %if.then1.i14, label %Py_DECREF.exit15, !dbg !863"
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %5) #7, !dbg !844",
+				"br label %Py_DECREF.exit, !dbg !846"
 			]
 		},
 		{
 			"function": "slice_dealloc",
 			"id": 208,
-			"name": "if.then1.i14",
+			"name": "Py_DECREF.exit",
 			"debug": [
 				{
-					"line": 945, "columns": [9]
+					"line": 358, "columns": [49]
 				},
 				{
-					"line": 946, "columns": [5]
+					"line": 365, "columns": [5]
+				},
+				{
+					"line": 932, "columns": [9]
 				}
 			],
-			"successors": [209],
+			"successors": [209, 211],
 			"ir": [
-				"tail call void @_Py_Dealloc(ptr noundef nonnull %8) #6, !dbg !864",
-				"br label %Py_DECREF.exit15, !dbg !865"
+				"%start = getelementptr inbounds %struct.PySliceObject, ptr %r, i64 0, i32 1, !dbg !847",
+				"%7 = load ptr, ptr %start, align 8, !dbg !847, !tbaa !848",
+				"%op.val.i9 = load i64, ptr %7, align 8, !dbg !851, !tbaa !832",
+				"%8 = and i64 %op.val.i9, 2147483648, !dbg !854",
+				"%cmp.i.not.i10 = icmp eq i64 %8, 0, !dbg !854",
+				"br i1 %cmp.i.not.i10, label %if.end.i13, label %Py_DECREF.exit15, !dbg !855"
 			]
 		},
 		{
 			"function": "slice_dealloc",
 			"id": 209,
-			"name": "Py_DECREF.exit15",
+			"name": "if.end.i13",
 			"debug": [
 				{
-					"line": 357, "columns": [49]
-				},
-				{
-					"line": 366, "columns": [5]
-				},
-				{
-					"line": 940, "columns": [9]
+					"line": 936, "columns": [9, 25]
 				}
 			],
-			"successors": [210, 212],
+			"successors": [210, 211],
 			"ir": [
-				"%stop = getelementptr inbounds %struct.PySliceObject, ptr %r, i64 0, i32 2, !dbg !866",
-				"%10 = load ptr, ptr %stop, align 8, !dbg !866, !tbaa !867",
-				"%op.val.i16 = load i64, ptr %10, align 8, !dbg !870, !tbaa !837",
-				"%11 = and i64 %op.val.i16, 2147483648, !dbg !873",
-				"%cmp.i.not.i17 = icmp eq i64 %11, 0, !dbg !873",
-				"br i1 %cmp.i.not.i17, label %if.end.i20, label %Py_DECREF.exit22, !dbg !874"
+				"%dec.i11 = add i64 %op.val.i9, -1, !dbg !856",
+				"store i64 %dec.i11, ptr %7, align 8, !dbg !856, !tbaa !832",
+				"%cmp.i12 = icmp eq i64 %dec.i11, 0, !dbg !857",
+				"br i1 %cmp.i12, label %if.then1.i14, label %Py_DECREF.exit15, !dbg !858"
 			]
 		},
 		{
 			"function": "slice_dealloc",
 			"id": 210,
-			"name": "if.end.i20",
+			"name": "if.then1.i14",
 			"debug": [
 				{
-					"line": 944, "columns": [9, 25]
+					"line": 937, "columns": [9]
+				},
+				{
+					"line": 938, "columns": [5]
 				}
 			],
-			"successors": [211, 212],
+			"successors": [211],
 			"ir": [
-				"%dec.i18 = add i64 %op.val.i16, -1, !dbg !875",
-				"store i64 %dec.i18, ptr %10, align 8, !dbg !875, !tbaa !837",
-				"%cmp.i19 = icmp eq i64 %dec.i18, 0, !dbg !876",
-				"br i1 %cmp.i19, label %if.then1.i21, label %Py_DECREF.exit22, !dbg !877"
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %7) #7, !dbg !859",
+				"br label %Py_DECREF.exit15, !dbg !860"
 			]
 		},
 		{
 			"function": "slice_dealloc",
 			"id": 211,
-			"name": "if.then1.i21",
+			"name": "Py_DECREF.exit15",
 			"debug": [
 				{
-					"line": 945, "columns": [9]
+					"line": 358, "columns": [49]
 				},
 				{
-					"line": 946, "columns": [5]
+					"line": 366, "columns": [5]
+				},
+				{
+					"line": 932, "columns": [9]
 				}
 			],
-			"successors": [212],
+			"successors": [212, 214],
 			"ir": [
-				"tail call void @_Py_Dealloc(ptr noundef nonnull %10) #6, !dbg !878",
-				"br label %Py_DECREF.exit22, !dbg !879"
+				"%stop = getelementptr inbounds %struct.PySliceObject, ptr %r, i64 0, i32 2, !dbg !861",
+				"%9 = load ptr, ptr %stop, align 8, !dbg !861, !tbaa !862",
+				"%op.val.i16 = load i64, ptr %9, align 8, !dbg !865, !tbaa !832",
+				"%10 = and i64 %op.val.i16, 2147483648, !dbg !868",
+				"%cmp.i.not.i17 = icmp eq i64 %10, 0, !dbg !868",
+				"br i1 %cmp.i.not.i17, label %if.end.i20, label %Py_DECREF.exit22, !dbg !869"
 			]
 		},
 		{
 			"function": "slice_dealloc",
 			"id": 212,
-			"name": "Py_DECREF.exit22",
+			"name": "if.end.i20",
 			"debug": [
 				{
-					"line": 137, "columns": [12]
-				},
-				{
-					"line": 285, "columns": [21]
-				},
-				{
-					"line": 369, "columns": [20, 27, 39, 9]
+					"line": 936, "columns": [9, 25]
 				}
 			],
 			"successors": [213, 214],
 			"ir": [
-				"%12 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !880",
-				"%13 = load ptr, ptr %12, align 8, !dbg !880, !tbaa !6996",
-				"%interp.i = getelementptr inbounds %struct._ts, ptr %13, i64 0, i32 2, !dbg !6998",
-				"%14 = load ptr, ptr %interp.i, align 8, !dbg !6998, !tbaa !6999",
-				"%slices = getelementptr inbounds %struct._is, ptr %14, i64 0, i32 45, i32 0, i32 5, !dbg !7005",
-				"%15 = load ptr, ptr %slices, align 8, !dbg !7007, !tbaa !7008",
-				"%cmp = icmp eq ptr %15, null, !dbg !7020",
-				"br i1 %cmp, label %if.then, label %if.else, !dbg !7021"
+				"%dec.i18 = add i64 %op.val.i16, -1, !dbg !870",
+				"store i64 %dec.i18, ptr %9, align 8, !dbg !870, !tbaa !832",
+				"%cmp.i19 = icmp eq i64 %dec.i18, 0, !dbg !871",
+				"br i1 %cmp.i19, label %if.then1.i21, label %Py_DECREF.exit22, !dbg !872"
 			]
 		},
 		{
 			"function": "slice_dealloc",
 			"id": 213,
+			"name": "if.then1.i21",
+			"debug": [
+				{
+					"line": 937, "columns": [9]
+				},
+				{
+					"line": 938, "columns": [5]
+				}
+			],
+			"successors": [214],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %9) #7, !dbg !873",
+				"br label %Py_DECREF.exit22, !dbg !874"
+			]
+		},
+		{
+			"function": "slice_dealloc",
+			"id": 214,
+			"name": "Py_DECREF.exit22",
+			"debug": [
+				{
+					"line": 134, "columns": [12]
+				},
+				{
+					"line": 281, "columns": [21]
+				},
+				{
+					"line": 369, "columns": [20, 27, 39, 9]
+				}
+			],
+			"successors": [215, 216],
+			"ir": [
+				"%11 = tail call align 8 ptr @llvm.threadlocal.address.p0(ptr align 8 @_Py_tss_tstate), !dbg !875",
+				"%12 = load ptr, ptr %11, align 8, !dbg !875, !tbaa !6963",
+				"%interp.i = getelementptr inbounds %struct._ts, ptr %12, i64 0, i32 2, !dbg !6965",
+				"%13 = load ptr, ptr %interp.i, align 8, !dbg !6965, !tbaa !6966",
+				"%slices = getelementptr inbounds %struct._is, ptr %13, i64 0, i32 45, i32 0, i32 5, !dbg !6972",
+				"%14 = load ptr, ptr %slices, align 8, !dbg !6974, !tbaa !6975",
+				"%cmp = icmp eq ptr %14, null, !dbg !6987",
+				"br i1 %cmp, label %if.then, label %if.else, !dbg !6988"
+			]
+		},
+		{
+			"function": "slice_dealloc",
+			"id": 215,
 			"name": "if.then",
 			"debug": [
 				{
@@ -4084,30 +4094,30 @@
 					"line": 371, "columns": [5]
 				}
 			],
-			"successors": [215],
+			"successors": [217],
 			"ir": [
-				"store ptr %r, ptr %slices, align 8, !dbg !7022, !tbaa !7008",
-				"br label %if.end, !dbg !7024"
+				"store ptr %r, ptr %slices, align 8, !dbg !6989, !tbaa !6975",
+				"br label %if.end, !dbg !6991"
 			]
 		},
 		{
 			"function": "slice_dealloc",
-			"id": 214,
+			"id": 216,
 			"name": "if.else",
 			"debug": [
 				{
 					"line": 375, "columns": [9]
 				}
 			],
-			"successors": [215],
+			"successors": [217],
 			"ir": [
-				"tail call void @PyObject_GC_Del(ptr noundef nonnull %r) #6, !dbg !7025",
+				"tail call void @PyObject_GC_Del(ptr noundef nonnull %r) #7, !dbg !6992",
 				"br label %if.end"
 			]
 		},
 		{
 			"function": "slice_dealloc",
-			"id": 215,
+			"id": 217,
 			"name": "if.end",
 			"debug": [
 				{
@@ -4116,12 +4126,12 @@
 			],
 			"successors": [],
 			"ir": [
-				"ret void, !dbg !7027"
+				"ret void, !dbg !6994"
 			]
 		},
 		{
 			"function": "slice_repr",
-			"id": 216,
+			"id": 218,
 			"name": "entry",
 			"debug": [
 				{
@@ -4136,67 +4146,67 @@
 				"%1 = load ptr, ptr %stop, align 8, !dbg !642, !tbaa !643",
 				"%step = getelementptr inbounds %struct.PySliceObject, ptr %r, i64 0, i32 3, !dbg !644",
 				"%2 = load ptr, ptr %step, align 8, !dbg !644, !tbaa !645",
-				"%call = tail call ptr (ptr, ...) @PyUnicode_FromFormat(ptr noundef nonnull @.str.7, ptr noundef %0, ptr noundef %1, ptr noundef %2) #6, !dbg !646",
+				"%call = tail call ptr (ptr, ...) @PyUnicode_FromFormat(ptr noundef nonnull @.str.7, ptr noundef %0, ptr noundef %1, ptr noundef %2) #7, !dbg !646",
 				"ret ptr %call, !dbg !647"
 			]
 		},
 		{
 			"function": "slicehash",
-			"id": 217,
+			"id": 219,
 			"name": "entry",
 			"debug": [
 				{
 					"line": 674, "columns": [5]
 				}
 			],
-			"successors": [221, 218],
+			"successors": [223, 220],
 			"ir": [
 				"%start = getelementptr inbounds %struct.PySliceObject, ptr %v, i64 0, i32 1, !dbg !642",
 				"%0 = load ptr, ptr %start, align 8, !dbg !642, !tbaa !643",
-				"%call = tail call i64 @PyObject_Hash(ptr noundef %0) #6, !dbg !642",
+				"%call = tail call i64 @PyObject_Hash(ptr noundef %0) #7, !dbg !642",
 				"%cmp.not = icmp eq i64 %call, -1, !dbg !650",
 				"br i1 %cmp.not, label %cleanup33, label %cleanup.cont, !dbg !642"
 			]
 		},
 		{
 			"function": "slicehash",
-			"id": 218,
+			"id": 220,
 			"name": "cleanup.cont",
 			"debug": [
 				{
 					"line": 675, "columns": [5]
 				}
 			],
-			"successors": [221, 219],
+			"successors": [223, 221],
 			"ir": [
 				"%stop = getelementptr inbounds %struct.PySliceObject, ptr %v, i64 0, i32 2, !dbg !652",
 				"%1 = load ptr, ptr %stop, align 8, !dbg !652, !tbaa !653",
-				"%call3 = tail call i64 @PyObject_Hash(ptr noundef %1) #6, !dbg !652",
+				"%call3 = tail call i64 @PyObject_Hash(ptr noundef %1) #7, !dbg !652",
 				"%cmp4.not = icmp eq i64 %call3, -1, !dbg !655",
 				"br i1 %cmp4.not, label %cleanup33, label %cleanup.cont15, !dbg !652"
 			]
 		},
 		{
 			"function": "slicehash",
-			"id": 219,
+			"id": 221,
 			"name": "cleanup.cont15",
 			"debug": [
 				{
 					"line": 676, "columns": [5]
 				}
 			],
-			"successors": [221, 220],
+			"successors": [223, 222],
 			"ir": [
 				"%step = getelementptr inbounds %struct.PySliceObject, ptr %v, i64 0, i32 3, !dbg !657",
 				"%2 = load ptr, ptr %step, align 8, !dbg !657, !tbaa !658",
-				"%call17 = tail call i64 @PyObject_Hash(ptr noundef %2) #6, !dbg !657",
+				"%call17 = tail call i64 @PyObject_Hash(ptr noundef %2) #7, !dbg !657",
 				"%cmp18.not = icmp eq i64 %call17, -1, !dbg !660",
 				"br i1 %cmp18.not, label %cleanup33, label %cleanup.cont29, !dbg !657"
 			]
 		},
 		{
 			"function": "slicehash",
-			"id": 220,
+			"id": 222,
 			"name": "cleanup.cont29",
 			"debug": [
 				{
@@ -4212,7 +4222,7 @@
 					"line": 678, "columns": [12]
 				}
 			],
-			"successors": [221],
+			"successors": [223],
 			"ir": [
 				"%mul = mul i64 %call, -4417276706812531889, !dbg !642",
 				"%add = add i64 %mul, 2870177450012600261, !dbg !642",
@@ -4233,7 +4243,7 @@
 		},
 		{
 			"function": "slicehash",
-			"id": 221,
+			"id": 223,
 			"name": "cleanup33",
 			"debug": [
 				{
@@ -4248,14 +4258,14 @@
 		},
 		{
 			"function": "slice_traverse",
-			"id": 222,
+			"id": 224,
 			"name": "entry",
 			"debug": [
 				{
 					"line": 642, "columns": [5]
 				}
 			],
-			"successors": [224, 223],
+			"successors": [226, 225],
 			"ir": [
 				"%start = getelementptr inbounds %struct.PySliceObject, ptr %v, i64 0, i32 1, !dbg !649",
 				"%0 = load ptr, ptr %start, align 8, !dbg !649, !tbaa !650",
@@ -4265,30 +4275,30 @@
 		},
 		{
 			"function": "slice_traverse",
-			"id": 223,
+			"id": 225,
 			"name": "if.then",
 			"debug": [
 				{
 					"line": 642, "columns": [5]
 				}
 			],
-			"successors": [224, 229],
+			"successors": [226, 231],
 			"ir": [
-				"%call = tail call i32 %visit(ptr noundef nonnull %0, ptr noundef %arg) #6, !dbg !657",
+				"%call = tail call i32 %visit(ptr noundef nonnull %0, ptr noundef %arg) #7, !dbg !657",
 				"%tobool2.not.not = icmp eq i32 %call, 0, !dbg !659",
 				"br i1 %tobool2.not.not, label %do.body5, label %return"
 			]
 		},
 		{
 			"function": "slice_traverse",
-			"id": 224,
+			"id": 226,
 			"name": "do.body5",
 			"debug": [
 				{
 					"line": 643, "columns": [5]
 				}
 			],
-			"successors": [226, 225],
+			"successors": [228, 227],
 			"ir": [
 				"%stop = getelementptr inbounds %struct.PySliceObject, ptr %v, i64 0, i32 2, !dbg !661",
 				"%1 = load ptr, ptr %stop, align 8, !dbg !661, !tbaa !662",
@@ -4298,30 +4308,30 @@
 		},
 		{
 			"function": "slice_traverse",
-			"id": 225,
+			"id": 227,
 			"name": "if.then7",
 			"debug": [
 				{
 					"line": 643, "columns": [5]
 				}
 			],
-			"successors": [226, 229],
+			"successors": [228, 231],
 			"ir": [
-				"%call10 = tail call i32 %visit(ptr noundef nonnull %1, ptr noundef %arg) #6, !dbg !664",
+				"%call10 = tail call i32 %visit(ptr noundef nonnull %1, ptr noundef %arg) #7, !dbg !664",
 				"%tobool11.not.not = icmp eq i32 %call10, 0, !dbg !666",
 				"br i1 %tobool11.not.not, label %do.body19, label %return"
 			]
 		},
 		{
 			"function": "slice_traverse",
-			"id": 226,
+			"id": 228,
 			"name": "do.body19",
 			"debug": [
 				{
 					"line": 644, "columns": [5]
 				}
 			],
-			"successors": [228, 227],
+			"successors": [230, 229],
 			"ir": [
 				"%step = getelementptr inbounds %struct.PySliceObject, ptr %v, i64 0, i32 3, !dbg !668",
 				"%2 = load ptr, ptr %step, align 8, !dbg !668, !tbaa !669",
@@ -4331,37 +4341,37 @@
 		},
 		{
 			"function": "slice_traverse",
-			"id": 227,
+			"id": 229,
 			"name": "if.then21",
 			"debug": [
 				{
 					"line": 644, "columns": [5]
 				}
 			],
-			"successors": [228, 229],
+			"successors": [230, 231],
 			"ir": [
-				"%call24 = tail call i32 %visit(ptr noundef nonnull %2, ptr noundef %arg) #6, !dbg !671",
+				"%call24 = tail call i32 %visit(ptr noundef nonnull %2, ptr noundef %arg) #7, !dbg !671",
 				"%tobool25.not.not = icmp eq i32 %call24, 0, !dbg !673",
 				"br i1 %tobool25.not.not, label %do.end32, label %return"
 			]
 		},
 		{
 			"function": "slice_traverse",
-			"id": 228,
+			"id": 230,
 			"name": "do.end32",
 			"debug": [
 				{
 					"line": 645, "columns": [5]
 				}
 			],
-			"successors": [229],
+			"successors": [231],
 			"ir": [
 				"br label %return, !dbg !675"
 			]
 		},
 		{
 			"function": "slice_traverse",
-			"id": 229,
+			"id": 231,
 			"name": "return",
 			"debug": [
 				{
@@ -4376,17 +4386,17 @@
 		},
 		{
 			"function": "slice_richcompare",
-			"id": 230,
+			"id": 232,
 			"name": "entry",
 			"debug": [
 				{
-					"line": 365, "columns": [24]
+					"line": 366, "columns": [24]
 				},
 				{
 					"line": 595, "columns": [10, 27]
 				}
 			],
-			"successors": [231, 249],
+			"successors": [233, 251],
 			"ir": [
 				"%0 = getelementptr i8, ptr %v, i64 8, !dbg !641",
 				"%v.val = load ptr, ptr %0, align 8, !dbg !641, !tbaa !643",
@@ -4396,17 +4406,17 @@
 		},
 		{
 			"function": "slice_richcompare",
-			"id": 231,
+			"id": 233,
 			"name": "lor.lhs.false",
 			"debug": [
 				{
-					"line": 365, "columns": [24]
+					"line": 366, "columns": [24]
 				},
 				{
 					"line": 595, "columns": [31, 9]
 				}
 			],
-			"successors": [232, 249],
+			"successors": [234, 251],
 			"ir": [
 				"%1 = getelementptr i8, ptr %w, i64 8, !dbg !658",
 				"%w.val = load ptr, ptr %1, align 8, !dbg !658, !tbaa !643",
@@ -4416,14 +4426,14 @@
 		},
 		{
 			"function": "slice_richcompare",
-			"id": 232,
+			"id": 234,
 			"name": "if.end",
 			"debug": [
 				{
 					"line": 598, "columns": [11, 9]
 				}
 			],
-			"successors": [233, 238],
+			"successors": [235, 240],
 			"ir": [
 				"%cmp = icmp eq ptr %v, %w, !dbg !663",
 				"br i1 %cmp, label %if.then3, label %if.end5, !dbg !664"
@@ -4431,34 +4441,34 @@
 		},
 		{
 			"function": "slice_richcompare",
-			"id": 233,
+			"id": 235,
 			"name": "if.then3",
 			"debug": [
 				{
 					"line": 602, "columns": [9]
 				}
 			],
-			"successors": [236, 234, 234, 234],
+			"successors": [238, 236, 236, 236],
 			"ir": [
 				"switch i32 %op, label %sw.default.split [\n    i32 2, label %sw.bb.split\n    i32 1, label %sw.bb.split\n    i32 5, label %sw.bb.split\n  ], !dbg !665"
 			]
 		},
 		{
 			"function": "slice_richcompare",
-			"id": 234,
+			"id": 236,
 			"name": "sw.bb.split",
 			"debug": [
 				{
-					"line": 820, "columns": [30]
+					"line": 812, "columns": [30]
 				},
 				{
-					"line": 821, "columns": [41]
+					"line": 813, "columns": [41]
 				},
 				{
-					"line": 822, "columns": [20, 9]
+					"line": 814, "columns": [20, 9]
 				}
 			],
-			"successors": [249, 235],
+			"successors": [251, 237],
 			"ir": [
 				"%2 = load i32, ptr @_Py_TrueStruct, align 8, !dbg !679, !tbaa !680",
 				"%add.i.i = add i32 %2, 1, !dbg !681",
@@ -4468,17 +4478,17 @@
 		},
 		{
 			"function": "slice_richcompare",
-			"id": 235,
+			"id": 237,
 			"name": "if.end.i.i",
 			"debug": [
 				{
-					"line": 827, "columns": [40]
+					"line": 819, "columns": [40]
 				},
 				{
-					"line": 840, "columns": [1]
+					"line": 832, "columns": [1]
 				}
 			],
-			"successors": [249],
+			"successors": [251],
 			"ir": [
 				"store i32 %add.i.i, ptr @_Py_TrueStruct, align 8, !dbg !685, !tbaa !680",
 				"br label %return, !dbg !686"
@@ -4486,20 +4496,20 @@
 		},
 		{
 			"function": "slice_richcompare",
-			"id": 236,
+			"id": 238,
 			"name": "sw.default.split",
 			"debug": [
 				{
-					"line": 820, "columns": [30]
+					"line": 812, "columns": [30]
 				},
 				{
-					"line": 821, "columns": [41]
+					"line": 813, "columns": [41]
 				},
 				{
-					"line": 822, "columns": [20, 9]
+					"line": 814, "columns": [20, 9]
 				}
 			],
-			"successors": [249, 237],
+			"successors": [251, 239],
 			"ir": [
 				"%3 = load i32, ptr @_Py_FalseStruct, align 8, !dbg !691, !tbaa !680",
 				"%add.i.i53 = add i32 %3, 1, !dbg !692",
@@ -4509,17 +4519,17 @@
 		},
 		{
 			"function": "slice_richcompare",
-			"id": 237,
+			"id": 239,
 			"name": "if.end.i.i55",
 			"debug": [
 				{
-					"line": 827, "columns": [40]
+					"line": 819, "columns": [40]
 				},
 				{
-					"line": 840, "columns": [1]
+					"line": 832, "columns": [1]
 				}
 			],
-			"successors": [249],
+			"successors": [251],
 			"ir": [
 				"store i32 %add.i.i53, ptr @_Py_FalseStruct, align 8, !dbg !695, !tbaa !680",
 				"br label %return, !dbg !696"
@@ -4527,7 +4537,7 @@
 		},
 		{
 			"function": "slice_richcompare",
-			"id": 238,
+			"id": 240,
 			"name": "if.end5",
 			"debug": [
 				{
@@ -4546,7 +4556,7 @@
 					"line": 620, "columns": [12, 9]
 				}
 			],
-			"successors": [249, 239],
+			"successors": [251, 241],
 			"ir": [
 				"%start = getelementptr inbounds %struct.PySliceObject, ptr %v, i64 0, i32 1, !dbg !697",
 				"%4 = load ptr, ptr %start, align 8, !dbg !697, !tbaa !698",
@@ -4554,14 +4564,14 @@
 				"%5 = load ptr, ptr %stop, align 8, !dbg !700, !tbaa !701",
 				"%step = getelementptr inbounds %struct.PySliceObject, ptr %v, i64 0, i32 3, !dbg !702",
 				"%6 = load ptr, ptr %step, align 8, !dbg !702, !tbaa !703",
-				"%call6 = tail call ptr (i64, ...) @PyTuple_Pack(i64 noundef 3, ptr noundef %4, ptr noundef %5, ptr noundef %6) #6, !dbg !704",
+				"%call6 = tail call ptr (i64, ...) @PyTuple_Pack(i64 noundef 3, ptr noundef %4, ptr noundef %5, ptr noundef %6) #7, !dbg !704",
 				"%cmp7 = icmp eq ptr %call6, null, !dbg !705",
 				"br i1 %cmp7, label %return, label %if.end9, !dbg !707"
 			]
 		},
 		{
 			"function": "slice_richcompare",
-			"id": 239,
+			"id": 241,
 			"name": "if.end9",
 			"debug": [
 				{
@@ -4580,7 +4590,7 @@
 					"line": 628, "columns": [12, 9]
 				}
 			],
-			"successors": [240, 243],
+			"successors": [242, 245],
 			"ir": [
 				"%start10 = getelementptr inbounds %struct.PySliceObject, ptr %w, i64 0, i32 1, !dbg !708",
 				"%7 = load ptr, ptr %start10, align 8, !dbg !708, !tbaa !698",
@@ -4588,24 +4598,24 @@
 				"%8 = load ptr, ptr %stop11, align 8, !dbg !709, !tbaa !701",
 				"%step12 = getelementptr inbounds %struct.PySliceObject, ptr %w, i64 0, i32 3, !dbg !710",
 				"%9 = load ptr, ptr %step12, align 8, !dbg !710, !tbaa !703",
-				"%call13 = tail call ptr (i64, ...) @PyTuple_Pack(i64 noundef 3, ptr noundef %7, ptr noundef %8, ptr noundef %9) #6, !dbg !711",
+				"%call13 = tail call ptr (i64, ...) @PyTuple_Pack(i64 noundef 3, ptr noundef %7, ptr noundef %8, ptr noundef %9) #7, !dbg !711",
 				"%cmp14 = icmp eq ptr %call13, null, !dbg !712",
 				"br i1 %cmp14, label %if.then15, label %if.end16, !dbg !714"
 			]
 		},
 		{
 			"function": "slice_richcompare",
-			"id": 240,
+			"id": 242,
 			"name": "if.then15",
 			"debug": [
 				{
-					"line": 357, "columns": [49]
+					"line": 358, "columns": [49]
 				},
 				{
-					"line": 940, "columns": [9]
+					"line": 932, "columns": [9]
 				}
 			],
-			"successors": [241, 249],
+			"successors": [243, 251],
 			"ir": [
 				"%op.val.i = load i64, ptr %call6, align 8, !dbg !721, !tbaa !680",
 				"%10 = and i64 %op.val.i, 2147483648, !dbg !728",
@@ -4615,14 +4625,14 @@
 		},
 		{
 			"function": "slice_richcompare",
-			"id": 241,
+			"id": 243,
 			"name": "if.end.i",
 			"debug": [
 				{
-					"line": 944, "columns": [9, 25]
+					"line": 936, "columns": [9, 25]
 				}
 			],
-			"successors": [242, 249],
+			"successors": [244, 251],
 			"ir": [
 				"%dec.i = add i64 %op.val.i, -1, !dbg !730",
 				"store i64 %dec.i, ptr %call6, align 8, !dbg !730, !tbaa !680",
@@ -4632,40 +4642,40 @@
 		},
 		{
 			"function": "slice_richcompare",
-			"id": 242,
+			"id": 244,
 			"name": "if.then1.i",
 			"debug": [
 				{
-					"line": 945, "columns": [9]
+					"line": 937, "columns": [9]
 				},
 				{
-					"line": 946, "columns": [5]
+					"line": 938, "columns": [5]
 				}
 			],
-			"successors": [249],
+			"successors": [251],
 			"ir": [
-				"tail call void @_Py_Dealloc(ptr noundef nonnull %call6) #6, !dbg !734",
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call6) #7, !dbg !734",
 				"br label %return, !dbg !736"
 			]
 		},
 		{
 			"function": "slice_richcompare",
-			"id": 243,
+			"id": 245,
 			"name": "if.end16",
 			"debug": [
 				{
-					"line": 357, "columns": [49]
+					"line": 358, "columns": [49]
 				},
 				{
 					"line": 633, "columns": [21]
 				},
 				{
-					"line": 940, "columns": [9]
+					"line": 932, "columns": [9]
 				}
 			],
-			"successors": [244, 246],
+			"successors": [246, 248],
 			"ir": [
-				"%call18 = tail call ptr @PyObject_RichCompare(ptr noundef nonnull %call6, ptr noundef nonnull %call13, i32 noundef %op) #6, !dbg !737",
+				"%call18 = tail call ptr @PyObject_RichCompare(ptr noundef nonnull %call6, ptr noundef nonnull %call13, i32 noundef %op) #7, !dbg !737",
 				"%op.val.i36 = load i64, ptr %call6, align 8, !dbg !740, !tbaa !680",
 				"%11 = and i64 %op.val.i36, 2147483648, !dbg !743",
 				"%cmp.i.not.i37 = icmp eq i64 %11, 0, !dbg !743",
@@ -4674,14 +4684,14 @@
 		},
 		{
 			"function": "slice_richcompare",
-			"id": 244,
+			"id": 246,
 			"name": "if.end.i40",
 			"debug": [
 				{
-					"line": 944, "columns": [9, 25]
+					"line": 936, "columns": [9, 25]
 				}
 			],
-			"successors": [245, 246],
+			"successors": [247, 248],
 			"ir": [
 				"%dec.i38 = add i64 %op.val.i36, -1, !dbg !745",
 				"store i64 %dec.i38, ptr %call6, align 8, !dbg !745, !tbaa !680",
@@ -4691,35 +4701,35 @@
 		},
 		{
 			"function": "slice_richcompare",
-			"id": 245,
+			"id": 247,
 			"name": "if.then1.i41",
 			"debug": [
 				{
-					"line": 945, "columns": [9]
+					"line": 937, "columns": [9]
 				},
 				{
-					"line": 946, "columns": [5]
+					"line": 938, "columns": [5]
 				}
 			],
-			"successors": [246],
+			"successors": [248],
 			"ir": [
-				"tail call void @_Py_Dealloc(ptr noundef nonnull %call6) #6, !dbg !748",
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call6) #7, !dbg !748",
 				"br label %Py_DECREF.exit42, !dbg !749"
 			]
 		},
 		{
 			"function": "slice_richcompare",
-			"id": 246,
+			"id": 248,
 			"name": "Py_DECREF.exit42",
 			"debug": [
 				{
-					"line": 357, "columns": [49]
+					"line": 358, "columns": [49]
 				},
 				{
-					"line": 940, "columns": [9]
+					"line": 932, "columns": [9]
 				}
 			],
-			"successors": [247, 249],
+			"successors": [249, 251],
 			"ir": [
 				"%op.val.i43 = load i64, ptr %call13, align 8, !dbg !752, !tbaa !680",
 				"%12 = and i64 %op.val.i43, 2147483648, !dbg !755",
@@ -4729,14 +4739,14 @@
 		},
 		{
 			"function": "slice_richcompare",
-			"id": 247,
+			"id": 249,
 			"name": "if.end.i47",
 			"debug": [
 				{
-					"line": 944, "columns": [9, 25]
+					"line": 936, "columns": [9, 25]
 				}
 			],
-			"successors": [248, 249],
+			"successors": [250, 251],
 			"ir": [
 				"%dec.i45 = add i64 %op.val.i43, -1, !dbg !757",
 				"store i64 %dec.i45, ptr %call13, align 8, !dbg !757, !tbaa !680",
@@ -4746,25 +4756,25 @@
 		},
 		{
 			"function": "slice_richcompare",
-			"id": 248,
+			"id": 250,
 			"name": "if.then1.i48",
 			"debug": [
 				{
-					"line": 945, "columns": [9]
+					"line": 937, "columns": [9]
 				},
 				{
-					"line": 946, "columns": [5]
+					"line": 938, "columns": [5]
 				}
 			],
-			"successors": [249],
+			"successors": [251],
 			"ir": [
-				"tail call void @_Py_Dealloc(ptr noundef nonnull %call13) #6, !dbg !760",
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call13) #7, !dbg !760",
 				"br label %return, !dbg !761"
 			]
 		},
 		{
 			"function": "slice_richcompare",
-			"id": 249,
+			"id": 251,
 			"name": "return",
 			"debug": [
 				{
@@ -4779,7 +4789,7 @@
 		},
 		{
 			"function": "slice_new",
-			"id": 250,
+			"id": 252,
 			"name": "entry",
 			"debug": [
 				{
@@ -4792,14 +4802,14 @@
 					"line": 339, "columns": [10]
 				}
 			],
-			"successors": [252, 251],
+			"successors": [254, 253],
 			"ir": [
 				"%start = alloca ptr, align 8",
 				"%stop = alloca ptr, align 8",
 				"%step = alloca ptr, align 8",
-				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %start) #6, !dbg !638",
-				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %stop) #6, !dbg !638",
-				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %step) #6, !dbg !638",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %start) #7, !dbg !638",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %stop) #7, !dbg !638",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %step) #7, !dbg !638",
 				"store ptr null, ptr %step, align 8, !dbg !639, !tbaa !640",
 				"store ptr null, ptr %stop, align 8, !dbg !644, !tbaa !640",
 				"store ptr null, ptr %start, align 8, !dbg !645, !tbaa !640",
@@ -4809,46 +4819,46 @@
 		},
 		{
 			"function": "slice_new",
-			"id": 251,
+			"id": 253,
 			"name": "lor.lhs.false",
 			"debug": [
 				{
 					"line": 339, "columns": [10, 9]
 				}
 			],
-			"successors": [260, 252],
+			"successors": [262, 254],
 			"ir": [
-				"%call = tail call i32 @_PyArg_NoKeywords(ptr noundef nonnull @.str.2, ptr noundef nonnull %kw) #6, !dbg !646",
+				"%call = tail call i32 @_PyArg_NoKeywords(ptr noundef nonnull @.str.2, ptr noundef nonnull %kw) #7, !dbg !646",
 				"%tobool.not = icmp eq i32 %call, 0, !dbg !646",
 				"br i1 %tobool.not, label %cleanup, label %if.end, !dbg !648"
 			]
 		},
 		{
 			"function": "slice_new",
-			"id": 252,
+			"id": 254,
 			"name": "if.end",
 			"debug": [
 				{
 					"line": 342, "columns": [10, 9]
 				}
 			],
-			"successors": [260, 253],
+			"successors": [262, 255],
 			"ir": [
-				"%call1 = call i32 (ptr, ptr, i64, i64, ...) @PyArg_UnpackTuple(ptr noundef %args, ptr noundef nonnull @.str.2, i64 noundef 1, i64 noundef 3, ptr noundef nonnull %start, ptr noundef nonnull %stop, ptr noundef nonnull %step) #6, !dbg !649",
+				"%call1 = call i32 (ptr, ptr, i64, i64, ...) @PyArg_UnpackTuple(ptr noundef %args, ptr noundef nonnull @.str.2, i64 noundef 1, i64 noundef 3, ptr noundef nonnull %start, ptr noundef nonnull %stop, ptr noundef nonnull %step) #7, !dbg !649",
 				"%tobool2.not = icmp eq i32 %call1, 0, !dbg !649",
 				"br i1 %tobool2.not, label %cleanup, label %if.end4, !dbg !651"
 			]
 		},
 		{
 			"function": "slice_new",
-			"id": 253,
+			"id": 255,
 			"name": "if.end4",
 			"debug": [
 				{
 					"line": 347, "columns": [9, 14]
 				}
 			],
-			"successors": [254, 255],
+			"successors": [256, 257],
 			"ir": [
 				"%0 = load ptr, ptr %stop, align 8, !dbg !652, !tbaa !640",
 				"%cmp5 = icmp eq ptr %0, null, !dbg !654",
@@ -4858,7 +4868,7 @@
 		},
 		{
 			"function": "slice_new",
-			"id": 254,
+			"id": 256,
 			"name": "if.then6",
 			"debug": [
 				{
@@ -4871,7 +4881,7 @@
 					"line": 350, "columns": [5]
 				}
 			],
-			"successors": [255],
+			"successors": [257],
 			"ir": [
 				"store ptr %1, ptr %stop, align 8, !dbg !656, !tbaa !640",
 				"store ptr null, ptr %start, align 8, !dbg !658, !tbaa !640",
@@ -4880,7 +4890,7 @@
 		},
 		{
 			"function": "slice_new",
-			"id": 255,
+			"id": 257,
 			"name": "if.end7",
 			"debug": [
 				{
@@ -4893,16 +4903,16 @@
 					"line": 351, "columns": [31, 24, 37]
 				},
 				{
-					"line": 820, "columns": [30]
+					"line": 812, "columns": [30]
 				},
 				{
-					"line": 821, "columns": [41]
+					"line": 813, "columns": [41]
 				},
 				{
-					"line": 822, "columns": [20, 9]
+					"line": 814, "columns": [20, 9]
 				}
 			],
-			"successors": [257, 256],
+			"successors": [259, 258],
 			"ir": [
 				"%2 = phi ptr [ %1, %if.then6 ], [ %0, %if.end4 ], !dbg !660",
 				"%3 = phi ptr [ null, %if.then6 ], [ %1, %if.end4 ], !dbg !661",
@@ -4919,17 +4929,17 @@
 		},
 		{
 			"function": "slice_new",
-			"id": 256,
+			"id": 258,
 			"name": "if.end.i.i.i",
 			"debug": [
 				{
-					"line": 827, "columns": [40]
+					"line": 819, "columns": [40]
 				},
 				{
-					"line": 840, "columns": [1]
+					"line": 832, "columns": [1]
 				}
 			],
-			"successors": [257],
+			"successors": [259],
 			"ir": [
 				"store i32 %add.i.i.i, ptr %spec.store.select10.i, align 8, !dbg !694, !tbaa !689",
 				"br label %_Py_NewRef.exit.i, !dbg !695"
@@ -4937,20 +4947,20 @@
 		},
 		{
 			"function": "slice_new",
-			"id": 257,
+			"id": 259,
 			"name": "_Py_NewRef.exit.i",
 			"debug": [
 				{
-					"line": 820, "columns": [30]
+					"line": 812, "columns": [30]
 				},
 				{
-					"line": 821, "columns": [41]
+					"line": 813, "columns": [41]
 				},
 				{
-					"line": 822, "columns": [20, 9]
+					"line": 814, "columns": [20, 9]
 				}
 			],
-			"successors": [259, 258],
+			"successors": [261, 260],
 			"ir": [
 				"%6 = load i32, ptr %spec.store.select9.i, align 8, !dbg !700, !tbaa !689",
 				"%add.i.i14.i = add i32 %6, 1, !dbg !701",
@@ -4960,17 +4970,17 @@
 		},
 		{
 			"function": "slice_new",
-			"id": 258,
+			"id": 260,
 			"name": "if.end.i.i16.i",
 			"debug": [
 				{
-					"line": 827, "columns": [40]
+					"line": 819, "columns": [40]
 				},
 				{
-					"line": 840, "columns": [1]
+					"line": 832, "columns": [1]
 				}
 			],
-			"successors": [259],
+			"successors": [261],
 			"ir": [
 				"store i32 %add.i.i14.i, ptr %spec.store.select9.i, align 8, !dbg !704, !tbaa !689",
 				"br label %PySlice_New.exit, !dbg !705"
@@ -4978,7 +4988,7 @@
 		},
 		{
 			"function": "slice_new",
-			"id": 259,
+			"id": 261,
 			"name": "PySlice_New.exit",
 			"debug": [
 				{
@@ -4991,7 +5001,7 @@
 					"line": 351, "columns": [5]
 				}
 			],
-			"successors": [260],
+			"successors": [262],
 			"ir": [
 				"%cmp.i = icmp eq ptr %4, null, !dbg !706",
 				"%spec.store.select.i = select i1 %cmp.i, ptr @_Py_NoneStruct, ptr %4, !dbg !708",
@@ -5001,7 +5011,7 @@
 		},
 		{
 			"function": "slice_new",
-			"id": 260,
+			"id": 262,
 			"name": "cleanup",
 			"debug": [
 				{
@@ -5011,15 +5021,15 @@
 			"successors": [],
 			"ir": [
 				"%retval.0 = phi ptr [ %call8.i, %PySlice_New.exit ], [ null, %lor.lhs.false ], [ null, %if.end ], !dbg !637",
-				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %step) #6, !dbg !711",
-				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %stop) #6, !dbg !711",
-				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %start) #6, !dbg !711",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %step) #7, !dbg !711",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %stop) #7, !dbg !711",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %start) #7, !dbg !711",
 				"ret ptr %retval.0, !dbg !711"
 			]
 		},
 		{
 			"function": "ellipsis_reduce",
-			"id": 261,
+			"id": 263,
 			"name": "entry",
 			"debug": [
 				{
@@ -5028,13 +5038,13 @@
 			],
 			"successors": [],
 			"ir": [
-				"%call = tail call ptr @PyUnicode_FromString(ptr noundef nonnull @.str.3) #6, !dbg !634",
+				"%call = tail call ptr @PyUnicode_FromString(ptr noundef nonnull @.str.3) #7, !dbg !634",
 				"ret ptr %call, !dbg !635"
 			]
 		},
 		{
 			"function": "slice_indices",
-			"id": 262,
+			"id": 264,
 			"name": "entry",
 			"debug": [
 				{
@@ -5047,22 +5057,22 @@
 					"line": 550, "columns": [16, 9]
 				}
 			],
-			"successors": [272, 263],
+			"successors": [274, 265],
 			"ir": [
 				"%start = alloca ptr, align 8",
 				"%stop = alloca ptr, align 8",
 				"%step = alloca ptr, align 8",
-				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %start) #6, !dbg !641",
-				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %stop) #6, !dbg !641",
-				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %step) #6, !dbg !641",
-				"%call = tail call ptr @PyNumber_Index(ptr noundef %len) #6, !dbg !642",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %start) #7, !dbg !641",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %stop) #7, !dbg !641",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %step) #7, !dbg !641",
+				"%call = tail call ptr @PyNumber_Index(ptr noundef %len) #7, !dbg !642",
 				"%cmp = icmp eq ptr %call, null, !dbg !643",
 				"br i1 %cmp, label %cleanup, label %if.end, !dbg !645"
 			]
 		},
 		{
 			"function": "slice_indices",
-			"id": 263,
+			"id": 265,
 			"name": "if.end",
 			"debug": [
 				{
@@ -5072,7 +5082,7 @@
 					"line": 553, "columns": [9]
 				}
 			],
-			"successors": [264, 267],
+			"successors": [266, 269],
 			"ir": [
 				"%0 = getelementptr i8, ptr %call, i64 16, !dbg !646",
 				"%call.val = load i64, ptr %0, align 8, !dbg !646, !tbaa !648",
@@ -5083,23 +5093,23 @@
 		},
 		{
 			"function": "slice_indices",
-			"id": 264,
+			"id": 266,
 			"name": "if.then2",
 			"debug": [
 				{
-					"line": 357, "columns": [49]
+					"line": 358, "columns": [49]
 				},
 				{
 					"line": 554, "columns": [25, 9]
 				},
 				{
-					"line": 940, "columns": [9]
+					"line": 932, "columns": [9]
 				}
 			],
-			"successors": [265, 272],
+			"successors": [267, 274],
 			"ir": [
 				"%1 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !670, !tbaa !672",
-				"tail call void @PyErr_SetString(ptr noundef %1, ptr noundef nonnull @.str.9) #6, !dbg !673",
+				"tail call void @PyErr_SetString(ptr noundef %1, ptr noundef nonnull @.str.9) #7, !dbg !673",
 				"%op.val.i = load i64, ptr %call, align 8, !dbg !679, !tbaa !681",
 				"%2 = and i64 %op.val.i, 2147483648, !dbg !687",
 				"%cmp.i.not.i = icmp eq i64 %2, 0, !dbg !687",
@@ -5108,14 +5118,14 @@
 		},
 		{
 			"function": "slice_indices",
-			"id": 265,
+			"id": 267,
 			"name": "if.end.i",
 			"debug": [
 				{
-					"line": 944, "columns": [9, 25]
+					"line": 936, "columns": [9, 25]
 				}
 			],
-			"successors": [266, 272],
+			"successors": [268, 274],
 			"ir": [
 				"%dec.i = add i64 %op.val.i, -1, !dbg !689",
 				"store i64 %dec.i, ptr %call, align 8, !dbg !689, !tbaa !681",
@@ -5125,38 +5135,38 @@
 		},
 		{
 			"function": "slice_indices",
-			"id": 266,
+			"id": 268,
 			"name": "if.then1.i",
 			"debug": [
 				{
-					"line": 945, "columns": [9]
+					"line": 937, "columns": [9]
 				},
 				{
-					"line": 946, "columns": [5]
+					"line": 938, "columns": [5]
 				}
 			],
-			"successors": [272],
+			"successors": [274],
 			"ir": [
-				"tail call void @_Py_Dealloc(ptr noundef nonnull %call) #6, !dbg !693",
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call) #7, !dbg !693",
 				"br label %cleanup, !dbg !695"
 			]
 		},
 		{
 			"function": "slice_indices",
-			"id": 267,
+			"id": 269,
 			"name": "if.end3",
 			"debug": [
 				{
-					"line": 357, "columns": [49]
+					"line": 358, "columns": [49]
 				},
 				{
 					"line": 560, "columns": [13]
 				},
 				{
-					"line": 940, "columns": [9]
+					"line": 932, "columns": [9]
 				}
 			],
-			"successors": [268, 270],
+			"successors": [270, 272],
 			"ir": [
 				"%call4 = call i32 @_PySlice_GetLongIndices(ptr noundef %self, ptr noundef nonnull %call, ptr noundef nonnull %start, ptr noundef nonnull %stop, ptr noundef nonnull %step), !dbg !696",
 				"%op.val.i16 = load i64, ptr %call, align 8, !dbg !699, !tbaa !681",
@@ -5167,14 +5177,14 @@
 		},
 		{
 			"function": "slice_indices",
-			"id": 268,
+			"id": 270,
 			"name": "if.end.i20",
 			"debug": [
 				{
-					"line": 944, "columns": [9, 25]
+					"line": 936, "columns": [9, 25]
 				}
 			],
-			"successors": [269, 270],
+			"successors": [271, 272],
 			"ir": [
 				"%dec.i18 = add i64 %op.val.i16, -1, !dbg !704",
 				"store i64 %dec.i18, ptr %call, align 8, !dbg !704, !tbaa !681",
@@ -5184,32 +5194,32 @@
 		},
 		{
 			"function": "slice_indices",
-			"id": 269,
+			"id": 271,
 			"name": "if.then1.i21",
 			"debug": [
 				{
-					"line": 945, "columns": [9]
+					"line": 937, "columns": [9]
 				},
 				{
-					"line": 946, "columns": [5]
+					"line": 938, "columns": [5]
 				}
 			],
-			"successors": [270],
+			"successors": [272],
 			"ir": [
-				"tail call void @_Py_Dealloc(ptr noundef nonnull %call) #6, !dbg !707",
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call) #7, !dbg !707",
 				"br label %Py_DECREF.exit22, !dbg !708"
 			]
 		},
 		{
 			"function": "slice_indices",
-			"id": 270,
+			"id": 272,
 			"name": "Py_DECREF.exit22",
 			"debug": [
 				{
 					"line": 562, "columns": [15, 9]
 				}
 			],
-			"successors": [272, 271],
+			"successors": [274, 273],
 			"ir": [
 				"%cmp5 = icmp eq i32 %call4, -1, !dbg !709",
 				"br i1 %cmp5, label %cleanup, label %if.else, !dbg !711"
@@ -5217,25 +5227,25 @@
 		},
 		{
 			"function": "slice_indices",
-			"id": 271,
+			"id": 273,
 			"name": "if.else",
 			"debug": [
 				{
 					"line": 565, "columns": [39, 46, 52, 16, 9]
 				}
 			],
-			"successors": [272],
+			"successors": [274],
 			"ir": [
 				"%4 = load ptr, ptr %start, align 8, !dbg !712, !tbaa !672",
 				"%5 = load ptr, ptr %stop, align 8, !dbg !713, !tbaa !672",
 				"%6 = load ptr, ptr %step, align 8, !dbg !714, !tbaa !672",
-				"%call7 = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.10, ptr noundef %4, ptr noundef %5, ptr noundef %6) #6, !dbg !715",
+				"%call7 = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.10, ptr noundef %4, ptr noundef %5, ptr noundef %6) #7, !dbg !715",
 				"br label %cleanup, !dbg !716"
 			]
 		},
 		{
 			"function": "slice_indices",
-			"id": 272,
+			"id": 274,
 			"name": "cleanup",
 			"debug": [
 				{
@@ -5245,15 +5255,15 @@
 			"successors": [],
 			"ir": [
 				"%retval.0 = phi ptr [ %call7, %if.else ], [ null, %entry ], [ null, %Py_DECREF.exit22 ], [ null, %if.then2 ], [ null, %if.end.i ], [ null, %if.then1.i ], !dbg !640",
-				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %step) #6, !dbg !717",
-				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %stop) #6, !dbg !717",
-				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %start) #6, !dbg !717",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %step) #7, !dbg !717",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %stop) #7, !dbg !717",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %start) #7, !dbg !717",
 				"ret ptr %retval.0, !dbg !717"
 			]
 		},
 		{
 			"function": "slice_reduce",
-			"id": 273,
+			"id": 275,
 			"name": "entry",
 			"debug": [
 				{
@@ -5270,7 +5280,7 @@
 				"%2 = load ptr, ptr %stop, align 8, !dbg !645, !tbaa !646",
 				"%step = getelementptr inbounds %struct.PySliceObject, ptr %self, i64 0, i32 3, !dbg !647",
 				"%3 = load ptr, ptr %step, align 8, !dbg !647, !tbaa !648",
-				"%call1 = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.11, ptr noundef %self.val, ptr noundef %1, ptr noundef %2, ptr noundef %3) #6, !dbg !649",
+				"%call1 = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.11, ptr noundef %self.val, ptr noundef %1, ptr noundef %2, ptr noundef %3) #7, !dbg !649",
 				"ret ptr %call1, !dbg !650"
 			]
 		}

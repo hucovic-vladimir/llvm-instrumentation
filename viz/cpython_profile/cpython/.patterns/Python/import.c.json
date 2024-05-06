@@ -1,14 +1,64 @@
 {
 	"functions": [
 		{
-			"functionName": "_PyImport_ReInitLock",
+			"functionName": "_PyImport_AcquireLock",
 			"patterns": [
 				{
 					"id": 0,
+					"type": "sumOfExits",
+					"entry": 0,
+					"exitBlocks": [9]
+				}
+			]
+		},
+		{
+			"functionName": "_PyImport_ReleaseLock",
+			"patterns": [
+				{
+					"id": 1,
+					"type": "sumOfExits",
+					"entry": 10,
+					"exitBlocks": [15]
+				}
+			]
+		},
+		{
+			"functionName": "_PyImport_ReInitLock",
+			"patterns": [
+				{
+					"id": 2,
 					"type": "halfDiamond",
 					"condBlock": 19,
 					"joinBlock": 21,
 					"branchBlocks": [20]
+				},
+				{
+					"id": 3,
+					"type": "sumOfExits",
+					"entry": 16,
+					"exitBlocks": [22]
+				}
+			]
+		},
+		{
+			"functionName": "_PyImport_ClearModules",
+			"patterns": [
+				{
+					"id": 4,
+					"type": "sumOfExits",
+					"entry": 25,
+					"exitBlocks": [28]
+				}
+			]
+		},
+		{
+			"functionName": "PyImport_GetModuleDict",
+			"patterns": [
+				{
+					"id": 5,
+					"type": "sumOfExits",
+					"entry": 29,
+					"exitBlocks": [30, 31]
 				}
 			]
 		},
@@ -16,11 +66,17 @@
 			"functionName": "PyImport_GetModule",
 			"patterns": [
 				{
-					"id": 1,
+					"id": 6,
 					"type": "halfDiamond",
 					"condBlock": 36,
 					"joinBlock": 38,
 					"branchBlocks": [37]
+				},
+				{
+					"id": 7,
+					"type": "sumOfExits",
+					"entry": 34,
+					"exitBlocks": [47]
 				}
 			]
 		},
@@ -28,11 +84,105 @@
 			"functionName": "import_get_module",
 			"patterns": [
 				{
-					"id": 2,
+					"id": 8,
 					"type": "halfDiamond",
 					"condBlock": 50,
 					"joinBlock": 52,
 					"branchBlocks": [51]
+				},
+				{
+					"id": 9,
+					"type": "sumOfExits",
+					"entry": 48,
+					"exitBlocks": [56]
+				}
+			]
+		},
+		{
+			"functionName": "import_ensure_initialized",
+			"patterns": [
+				{
+					"id": 10,
+					"type": "sumOfExits",
+					"entry": 57,
+					"exitBlocks": [66]
+				}
+			]
+		},
+		{
+			"functionName": "remove_importlib_frames",
+			"patterns": [
+				{
+					"id": 11,
+					"type": "sumOfExits",
+					"entry": 67,
+					"exitBlocks": [92]
+				}
+			]
+		},
+		{
+			"functionName": "PyImport_AddModuleRef",
+			"patterns": [
+				{
+					"id": 12,
+					"type": "sumOfExits",
+					"entry": 93,
+					"exitBlocks": [97]
+				}
+			]
+		},
+		{
+			"functionName": "import_add_module",
+			"patterns": [
+				{
+					"id": 13,
+					"type": "sumOfExits",
+					"entry": 98,
+					"exitBlocks": [114]
+				}
+			]
+		},
+		{
+			"functionName": "PyImport_AddModuleObject",
+			"patterns": [
+				{
+					"id": 14,
+					"type": "sumOfExits",
+					"entry": 115,
+					"exitBlocks": [133]
+				}
+			]
+		},
+		{
+			"functionName": "Py_XDECREF",
+			"patterns": [
+				{
+					"id": 15,
+					"type": "sumOfExits",
+					"entry": 134,
+					"exitBlocks": [138]
+				}
+			]
+		},
+		{
+			"functionName": "PyImport_AddModule",
+			"patterns": [
+				{
+					"id": 16,
+					"type": "sumOfExits",
+					"entry": 139,
+					"exitBlocks": [143]
+				}
+			]
+		},
+		{
+			"functionName": "PyState_FindModule",
+			"patterns": [
+				{
+					"id": 17,
+					"type": "sumOfExits",
+					"entry": 145,
+					"exitBlocks": [150]
 				}
 			]
 		},
@@ -40,11 +190,17 @@
 			"functionName": "_PyState_AddModule",
 			"patterns": [
 				{
-					"id": 3,
+					"id": 18,
 					"type": "halfDiamond",
 					"condBlock": 159,
 					"joinBlock": 161,
 					"branchBlocks": [160]
+				},
+				{
+					"id": 19,
+					"type": "sumOfExits",
+					"entry": 151,
+					"exitBlocks": [162]
 				}
 			]
 		},
@@ -52,11 +208,17 @@
 			"functionName": "PyState_AddModule",
 			"patterns": [
 				{
-					"id": 4,
+					"id": 20,
 					"type": "halfDiamond",
 					"condBlock": 176,
 					"joinBlock": 178,
 					"branchBlocks": [177]
+				},
+				{
+					"id": 21,
+					"type": "sumOfExits",
+					"entry": 163,
+					"exitBlocks": [164, 170, 179]
 				}
 			]
 		},
@@ -64,11 +226,39 @@
 			"functionName": "PyState_RemoveModule",
 			"patterns": [
 				{
-					"id": 5,
+					"id": 22,
 					"type": "halfDiamond",
 					"condBlock": 186,
 					"joinBlock": 188,
 					"branchBlocks": [187]
+				},
+				{
+					"id": 23,
+					"type": "sumOfExits",
+					"entry": 180,
+					"exitBlocks": [185, 189]
+				}
+			]
+		},
+		{
+			"functionName": "_PyImport_ClearModulesByIndex",
+			"patterns": [
+				{
+					"id": 24,
+					"type": "sumOfExits",
+					"entry": 190,
+					"exitBlocks": [202]
+				}
+			]
+		},
+		{
+			"functionName": "_PyImport_ResolveNameWithPackageContext",
+			"patterns": [
+				{
+					"id": 25,
+					"type": "sumOfExits",
+					"entry": 203,
+					"exitBlocks": [207]
 				}
 			]
 		},
@@ -76,35 +266,35 @@
 			"functionName": "_PyImport_ClearExtension",
 			"patterns": [
 				{
-					"id": 6,
+					"id": 26,
 					"type": "halfDiamond",
 					"condBlock": 211,
 					"joinBlock": 213,
 					"branchBlocks": [212]
 				},
 				{
-					"id": 7,
+					"id": 27,
 					"type": "halfDiamond",
 					"condBlock": 217,
 					"joinBlock": 219,
 					"branchBlocks": [218]
 				},
 				{
-					"id": 8,
+					"id": 28,
 					"type": "halfDiamond",
 					"condBlock": 232,
 					"joinBlock": 234,
 					"branchBlocks": [233]
 				},
 				{
-					"id": 9,
+					"id": 29,
 					"type": "halfDiamond",
 					"condBlock": 239,
 					"joinBlock": 241,
 					"branchBlocks": [240]
 				},
 				{
-					"id": 10,
+					"id": 30,
 					"type": "halfDiamond",
 					"condBlock": 229,
 					"joinBlock": 231,
@@ -113,28 +303,67 @@
 			]
 		},
 		{
+			"functionName": "_PyImport_CheckSubinterpIncompatibleExtensionAllowed",
+			"patterns": [
+				{
+					"id": 31,
+					"type": "sumOfExits",
+					"entry": 246,
+					"exitBlocks": [250]
+				}
+			]
+		},
+		{
+			"functionName": "_PyImport_FixupExtensionObject",
+			"patterns": [
+				{
+					"id": 32,
+					"type": "sumOfExits",
+					"entry": 251,
+					"exitBlocks": [254]
+				}
+			]
+		},
+		{
 			"functionName": "fix_up_extension",
 			"patterns": [
 				{
-					"id": 11,
+					"id": 33,
 					"type": "halfDiamond",
 					"condBlock": 266,
 					"joinBlock": 268,
 					"branchBlocks": [267]
 				},
 				{
-					"id": 12,
+					"id": 34,
 					"type": "halfDiamond",
 					"condBlock": 281,
 					"joinBlock": 283,
 					"branchBlocks": [282]
 				},
 				{
-					"id": 13,
+					"id": 35,
 					"type": "halfDiamond",
 					"condBlock": 295,
 					"joinBlock": 297,
 					"branchBlocks": [296]
+				},
+				{
+					"id": 36,
+					"type": "sumOfExits",
+					"entry": 255,
+					"exitBlocks": [299]
+				}
+			]
+		},
+		{
+			"functionName": "_PyImport_FixupBuiltin",
+			"patterns": [
+				{
+					"id": 37,
+					"type": "sumOfExits",
+					"entry": 300,
+					"exitBlocks": [307]
 				}
 			]
 		},
@@ -142,11 +371,72 @@
 			"functionName": "PyImport_ExtendInittab",
 			"patterns": [
 				{
-					"id": 14,
+					"id": 38,
 					"type": "halfDiamond",
 					"condBlock": 316,
 					"joinBlock": 318,
 					"branchBlocks": [317]
+				},
+				{
+					"id": 39,
+					"type": "sumOfExits",
+					"entry": 308,
+					"exitBlocks": [309, 320]
+				}
+			]
+		},
+		{
+			"functionName": "PyImport_AppendInittab",
+			"patterns": [
+				{
+					"id": 40,
+					"type": "sumOfExits",
+					"entry": 321,
+					"exitBlocks": [322, 323]
+				}
+			]
+		},
+		{
+			"functionName": "_PyImport_GetBuiltinModuleNames",
+			"patterns": [
+				{
+					"id": 41,
+					"type": "sumOfExits",
+					"entry": 324,
+					"exitBlocks": [340]
+				}
+			]
+		},
+		{
+			"functionName": "PyImport_GetMagicNumber",
+			"patterns": [
+				{
+					"id": 42,
+					"type": "sumOfExits",
+					"entry": 341,
+					"exitBlocks": [349]
+				}
+			]
+		},
+		{
+			"functionName": "PyImport_ExecCodeModule",
+			"patterns": [
+				{
+					"id": 43,
+					"type": "sumOfExits",
+					"entry": 351,
+					"exitBlocks": [355]
+				}
+			]
+		},
+		{
+			"functionName": "PyImport_ExecCodeModuleWithPathnames",
+			"patterns": [
+				{
+					"id": 44,
+					"type": "sumOfExits",
+					"entry": 356,
+					"exitBlocks": [363, 382]
 				}
 			]
 		},
@@ -154,11 +444,17 @@
 			"functionName": "PyImport_ExecCodeModuleObject",
 			"patterns": [
 				{
-					"id": 15,
+					"id": 45,
 					"type": "halfDiamond",
 					"condBlock": 385,
 					"joinBlock": 387,
 					"branchBlocks": [386]
+				},
+				{
+					"id": 46,
+					"type": "sumOfExits",
+					"entry": 384,
+					"exitBlocks": [401]
 				}
 			]
 		},
@@ -166,18 +462,24 @@
 			"functionName": "module_dict_for_exec",
 			"patterns": [
 				{
-					"id": 16,
+					"id": 47,
 					"type": "halfDiamond",
 					"condBlock": 403,
 					"joinBlock": 405,
 					"branchBlocks": [404]
 				},
 				{
-					"id": 17,
+					"id": 48,
 					"type": "halfDiamond",
 					"condBlock": 413,
 					"joinBlock": 415,
 					"branchBlocks": [414]
+				},
+				{
+					"id": 49,
+					"type": "sumOfExits",
+					"entry": 402,
+					"exitBlocks": [418]
 				}
 			]
 		},
@@ -185,11 +487,28 @@
 			"functionName": "exec_code_in_module",
 			"patterns": [
 				{
-					"id": 18,
+					"id": 50,
 					"type": "halfDiamond",
 					"condBlock": 431,
 					"joinBlock": 433,
 					"branchBlocks": [432]
+				},
+				{
+					"id": 51,
+					"type": "sumOfExits",
+					"entry": 419,
+					"exitBlocks": [440]
+				}
+			]
+		},
+		{
+			"functionName": "PyImport_ImportFrozenModuleObject",
+			"patterns": [
+				{
+					"id": 52,
+					"type": "sumOfExits",
+					"entry": 441,
+					"exitBlocks": [446, 492]
 				}
 			]
 		},
@@ -197,14 +516,14 @@
 			"functionName": "find_frozen",
 			"patterns": [
 				{
-					"id": 19,
+					"id": 53,
 					"type": "halfDiamond",
 					"condBlock": 493,
 					"joinBlock": 495,
 					"branchBlocks": [494]
 				},
 				{
-					"id": 20,
+					"id": 54,
 					"type": "halfDiamond",
 					"condBlock": 515,
 					"joinBlock": 517,
@@ -213,21 +532,71 @@
 			]
 		},
 		{
+			"functionName": "unmarshal_frozen_code",
+			"patterns": [
+				{
+					"id": 55,
+					"type": "sumOfExits",
+					"entry": 526,
+					"exitBlocks": [536]
+				}
+			]
+		},
+		{
+			"functionName": "PyImport_ImportFrozenModule",
+			"patterns": [
+				{
+					"id": 56,
+					"type": "sumOfExits",
+					"entry": 537,
+					"exitBlocks": [541]
+				}
+			]
+		},
+		{
+			"functionName": "_PyImport_GetImportlibExternalLoader",
+			"patterns": [
+				{
+					"id": 57,
+					"type": "sumOfExits",
+					"entry": 543,
+					"exitBlocks": [547]
+				}
+			]
+		},
+		{
+			"functionName": "_PyImport_BlessMyLoader",
+			"patterns": [
+				{
+					"id": 58,
+					"type": "sumOfExits",
+					"entry": 548,
+					"exitBlocks": [552]
+				}
+			]
+		},
+		{
 			"functionName": "PyImport_GetImporter",
 			"patterns": [
 				{
-					"id": 21,
+					"id": 59,
 					"type": "halfDiamond",
 					"condBlock": 556,
 					"joinBlock": 558,
 					"branchBlocks": [557]
 				},
 				{
-					"id": 22,
+					"id": 60,
 					"type": "halfDiamond",
 					"condBlock": 562,
 					"joinBlock": 564,
 					"branchBlocks": [563]
+				},
+				{
+					"id": 61,
+					"type": "sumOfExits",
+					"entry": 554,
+					"exitBlocks": [588]
 				}
 			]
 		},
@@ -235,7 +604,7 @@
 			"functionName": "_PyImport_InitDefaultImportFunc",
 			"patterns": [
 				{
-					"id": 23,
+					"id": 62,
 					"type": "halfDiamond",
 					"condBlock": 589,
 					"joinBlock": 591,
@@ -244,21 +613,49 @@
 			]
 		},
 		{
+			"functionName": "PyImport_ImportModule",
+			"patterns": [
+				{
+					"id": 63,
+					"type": "sumOfExits",
+					"entry": 593,
+					"exitBlocks": [597]
+				}
+			]
+		},
+		{
 			"functionName": "PyImport_Import",
 			"patterns": [
 				{
-					"id": 24,
+					"id": 64,
 					"type": "halfDiamond",
 					"condBlock": 600,
 					"joinBlock": 602,
 					"branchBlocks": [601]
 				},
 				{
-					"id": 25,
+					"id": 65,
 					"type": "halfDiamond",
 					"condBlock": 619,
 					"joinBlock": 621,
 					"branchBlocks": [620]
+				},
+				{
+					"id": 66,
+					"type": "sumOfExits",
+					"entry": 598,
+					"exitBlocks": [642]
+				}
+			]
+		},
+		{
+			"functionName": "PyImport_ImportModuleNoBlock",
+			"patterns": [
+				{
+					"id": 67,
+					"type": "sumOfExits",
+					"entry": 643,
+					"exitBlocks": [648]
 				}
 			]
 		},
@@ -266,18 +663,46 @@
 			"functionName": "PyImport_ImportModuleLevelObject",
 			"patterns": [
 				{
-					"id": 26,
+					"id": 68,
 					"type": "halfDiamond",
 					"condBlock": 725,
 					"joinBlock": 727,
 					"branchBlocks": [726]
 				},
 				{
-					"id": 27,
+					"id": 69,
 					"type": "halfDiamond",
 					"condBlock": 741,
 					"joinBlock": 743,
 					"branchBlocks": [742]
+				},
+				{
+					"id": 70,
+					"type": "sumOfExits",
+					"entry": 649,
+					"exitBlocks": [781]
+				}
+			]
+		},
+		{
+			"functionName": "PyImport_ImportModuleLevel",
+			"patterns": [
+				{
+					"id": 71,
+					"type": "sumOfExits",
+					"entry": 782,
+					"exitBlocks": [786]
+				}
+			]
+		},
+		{
+			"functionName": "PyImport_ReloadModule",
+			"patterns": [
+				{
+					"id": 72,
+					"type": "sumOfExits",
+					"entry": 787,
+					"exitBlocks": [797]
 				}
 			]
 		},
@@ -285,11 +710,17 @@
 			"functionName": "_PyImport_Init",
 			"patterns": [
 				{
-					"id": 28,
+					"id": 73,
 					"type": "diamond",
 					"condBlock": 802,
 					"joinBlock": 805,
 					"branchBlocks": [804, 803]
+				},
+				{
+					"id": 74,
+					"type": "sumOfExits",
+					"entry": 798,
+					"exitBlocks": [806]
 				}
 			]
 		},
@@ -297,18 +728,35 @@
 			"functionName": "_PyImport_InitCore",
 			"patterns": [
 				{
-					"id": 29,
+					"id": 75,
 					"type": "halfDiamond",
 					"condBlock": 810,
 					"joinBlock": 812,
 					"branchBlocks": [811]
 				},
 				{
-					"id": 30,
+					"id": 76,
 					"type": "halfDiamond",
 					"condBlock": 822,
 					"joinBlock": 824,
 					"branchBlocks": [823]
+				},
+				{
+					"id": 77,
+					"type": "sumOfExits",
+					"entry": 809,
+					"exitBlocks": [859]
+				}
+			]
+		},
+		{
+			"functionName": "_PyImport_ClearCore",
+			"patterns": [
+				{
+					"id": 78,
+					"type": "sumOfExits",
+					"entry": 861,
+					"exitBlocks": [877]
 				}
 			]
 		},
@@ -316,14 +764,14 @@
 			"functionName": "_PyImport_FiniCore",
 			"patterns": [
 				{
-					"id": 31,
+					"id": 79,
 					"type": "halfDiamond",
 					"condBlock": 878,
 					"joinBlock": 880,
 					"branchBlocks": [879]
 				},
 				{
-					"id": 32,
+					"id": 80,
 					"type": "halfDiamond",
 					"condBlock": 882,
 					"joinBlock": 884,
@@ -335,11 +783,17 @@
 			"functionName": "_PyImport_InitExternal",
 			"patterns": [
 				{
-					"id": 33,
+					"id": 81,
 					"type": "halfDiamond",
 					"condBlock": 892,
 					"joinBlock": 894,
 					"branchBlocks": [893]
+				},
+				{
+					"id": 82,
+					"type": "sumOfExits",
+					"entry": 885,
+					"exitBlocks": [904]
 				}
 			]
 		},
@@ -347,7 +801,7 @@
 			"functionName": "_PyImport_FiniExternal",
 			"patterns": [
 				{
-					"id": 34,
+					"id": 83,
 					"type": "halfDiamond",
 					"condBlock": 905,
 					"joinBlock": 907,
@@ -356,24 +810,68 @@
 			]
 		},
 		{
+			"functionName": "_PyImport_GetModuleAttr",
+			"patterns": [
+				{
+					"id": 84,
+					"type": "sumOfExits",
+					"entry": 910,
+					"exitBlocks": [914]
+				}
+			]
+		},
+		{
+			"functionName": "_PyImport_GetModuleAttrString",
+			"patterns": [
+				{
+					"id": 85,
+					"type": "sumOfExits",
+					"entry": 915,
+					"exitBlocks": [929]
+				}
+			]
+		},
+		{
+			"functionName": "hashtable_key_from_2_strings",
+			"patterns": [
+				{
+					"id": 86,
+					"type": "sumOfExits",
+					"entry": 934,
+					"exitBlocks": [938]
+				}
+			]
+		},
+		{
+			"functionName": "create_builtin",
+			"patterns": [
+				{
+					"id": 87,
+					"type": "sumOfExits",
+					"entry": 939,
+					"exitBlocks": [953]
+				}
+			]
+		},
+		{
 			"functionName": "import_find_extension",
 			"patterns": [
 				{
-					"id": 35,
+					"id": 88,
 					"type": "halfDiamond",
 					"condBlock": 954,
 					"joinBlock": 956,
 					"branchBlocks": [955]
 				},
 				{
-					"id": 36,
+					"id": 89,
 					"type": "halfDiamond",
 					"condBlock": 960,
 					"joinBlock": 962,
 					"branchBlocks": [961]
 				},
 				{
-					"id": 37,
+					"id": 90,
 					"type": "halfDiamond",
 					"condBlock": 997,
 					"joinBlock": 999,
@@ -382,14 +880,97 @@
 			]
 		},
 		{
+			"functionName": "_imp_extension_suffixes",
+			"patterns": [
+				{
+					"id": 91,
+					"type": "sumOfExits",
+					"entry": 1006,
+					"exitBlocks": [1022]
+				}
+			]
+		},
+		{
+			"functionName": "_imp_release_lock",
+			"patterns": [
+				{
+					"id": 92,
+					"type": "sumOfExits",
+					"entry": 1025,
+					"exitBlocks": [1031]
+				}
+			]
+		},
+		{
+			"functionName": "_imp_find_frozen",
+			"patterns": [
+				{
+					"id": 93,
+					"type": "sumOfExits",
+					"entry": 1032,
+					"exitBlocks": [1046, 1069]
+				}
+			]
+		},
+		{
 			"functionName": "_imp_get_frozen_object",
 			"patterns": [
 				{
-					"id": 38,
+					"id": 94,
 					"type": "halfDiamond",
 					"condBlock": 1074,
 					"joinBlock": 1076,
 					"branchBlocks": [1075]
+				},
+				{
+					"id": 95,
+					"type": "sumOfExits",
+					"entry": 1070,
+					"exitBlocks": [1085, 1102]
+				}
+			]
+		},
+		{
+			"functionName": "_imp_is_frozen_package",
+			"patterns": [
+				{
+					"id": 96,
+					"type": "sumOfExits",
+					"entry": 1103,
+					"exitBlocks": [1113]
+				}
+			]
+		},
+		{
+			"functionName": "_imp_create_builtin",
+			"patterns": [
+				{
+					"id": 97,
+					"type": "sumOfExits",
+					"entry": 1114,
+					"exitBlocks": [1121]
+				}
+			]
+		},
+		{
+			"functionName": "_imp_init_frozen",
+			"patterns": [
+				{
+					"id": 98,
+					"type": "sumOfExits",
+					"entry": 1122,
+					"exitBlocks": [1127]
+				}
+			]
+		},
+		{
+			"functionName": "_imp_is_builtin",
+			"patterns": [
+				{
+					"id": 99,
+					"type": "sumOfExits",
+					"entry": 1128,
+					"exitBlocks": [1135]
 				}
 			]
 		},
@@ -397,7 +978,7 @@
 			"functionName": "_imp_is_frozen",
 			"patterns": [
 				{
-					"id": 39,
+					"id": 100,
 					"type": "diamond",
 					"condBlock": 1136,
 					"joinBlock": 1139,
@@ -406,14 +987,75 @@
 			]
 		},
 		{
+			"functionName": "_imp__frozen_module_names",
+			"patterns": [
+				{
+					"id": 101,
+					"type": "sumOfExits",
+					"entry": 1140,
+					"exitBlocks": [1188]
+				}
+			]
+		},
+		{
+			"functionName": "_imp__override_frozen_modules_for_tests",
+			"patterns": [
+				{
+					"id": 102,
+					"type": "sumOfExits",
+					"entry": 1189,
+					"exitBlocks": [1192]
+				}
+			]
+		},
+		{
+			"functionName": "_imp__override_multi_interp_extensions_check",
+			"patterns": [
+				{
+					"id": 103,
+					"type": "sumOfExits",
+					"entry": 1193,
+					"exitBlocks": [1201]
+				}
+			]
+		},
+		{
 			"functionName": "_imp_create_dynamic",
 			"patterns": [
 				{
-					"id": 40,
+					"id": 104,
 					"type": "halfDiamond",
 					"condBlock": 1204,
 					"joinBlock": 1206,
 					"branchBlocks": [1205]
+				},
+				{
+					"id": 105,
+					"type": "sumOfExits",
+					"entry": 1202,
+					"exitBlocks": [1223]
+				}
+			]
+		},
+		{
+			"functionName": "_imp_exec_dynamic",
+			"patterns": [
+				{
+					"id": 106,
+					"type": "sumOfExits",
+					"entry": 1224,
+					"exitBlocks": [1231]
+				}
+			]
+		},
+		{
+			"functionName": "_imp_exec_builtin",
+			"patterns": [
+				{
+					"id": 107,
+					"type": "sumOfExits",
+					"entry": 1232,
+					"exitBlocks": [1239]
 				}
 			]
 		},
@@ -421,11 +1063,17 @@
 			"functionName": "_imp__fix_co_filename",
 			"patterns": [
 				{
-					"id": 41,
+					"id": 108,
 					"type": "halfDiamond",
 					"condBlock": 1249,
 					"joinBlock": 1251,
 					"branchBlocks": [1250]
+				},
+				{
+					"id": 109,
+					"type": "sumOfExits",
+					"entry": 1240,
+					"exitBlocks": [1254]
 				}
 			]
 		},
@@ -433,11 +1081,17 @@
 			"functionName": "_imp_source_hash",
 			"patterns": [
 				{
-					"id": 42,
+					"id": 110,
 					"type": "halfDiamond",
 					"condBlock": 1261,
 					"joinBlock": 1263,
 					"branchBlocks": [1262]
+				},
+				{
+					"id": 111,
+					"type": "sumOfExits",
+					"entry": 1255,
+					"exitBlocks": [1263]
 				}
 			]
 		},
@@ -445,18 +1099,24 @@
 			"functionName": "update_code_filenames",
 			"patterns": [
 				{
-					"id": 43,
+					"id": 112,
 					"type": "halfDiamond",
 					"condBlock": 1265,
 					"joinBlock": 1267,
 					"branchBlocks": [1266]
 				},
 				{
-					"id": 44,
+					"id": 113,
 					"type": "halfDiamond",
 					"condBlock": 1272,
 					"joinBlock": 1274,
 					"branchBlocks": [1273]
+				},
+				{
+					"id": 114,
+					"type": "sumOfExits",
+					"entry": 1264,
+					"exitBlocks": [1275]
 				}
 			]
 		}

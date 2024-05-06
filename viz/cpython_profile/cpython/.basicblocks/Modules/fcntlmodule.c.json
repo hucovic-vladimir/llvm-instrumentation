@@ -6,13 +6,13 @@
 			"name": "entry",
 			"debug": [
 				{
-					"line": 763, "columns": [12, 5]
+					"line": 760, "columns": [12, 5]
 				}
 			],
 			"successors": [],
 			"ir": [
-				"%call = tail call ptr @PyModuleDef_Init(ptr noundef nonnull @fcntlmodule) #9, !dbg !417",
-				"ret ptr %call, !dbg !418"
+				"%call = tail call ptr @PyModuleDef_Init(ptr noundef nonnull @fcntlmodule) #9, !dbg !667",
+				"ret ptr %call, !dbg !668"
 			]
 		},
 		{
@@ -21,36 +21,39 @@
 			"name": "entry",
 			"debug": [
 				{
-					"line": 35, "columns": [15, 9]
+					"line": 34, "columns": [5]
+				},
+				{
+					"line": 38, "columns": [10]
 				}
 			],
-			"successors": [2, 3],
+			"successors": [3, 2],
 			"ir": [
 				"%int_arg.i = alloca i32, align 4",
 				"%str.i = alloca ptr, align 8",
 				"%len.i = alloca i64, align 8",
 				"%buf.i = alloca [1024 x i8], align 16",
-				"%cmp = icmp slt i64 %nargs, 2, !dbg !431",
-				"br i1 %cmp, label %if.then, label %if.end, !dbg !433"
+				"%fd = alloca i32, align 4",
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %fd) #9, !dbg !679",
+				"%0 = and i64 %nargs, -2, !dbg !680",
+				"%or.cond = icmp eq i64 %0, 2, !dbg !680",
+				"br i1 %or.cond, label %if.end, label %lor.lhs.false, !dbg !680"
 			]
 		},
 		{
 			"function": "fcntl_fcntl",
 			"id": 2,
-			"name": "if.then",
+			"name": "lor.lhs.false",
 			"debug": [
 				{
-					"line": 36, "columns": [22, 9]
-				},
-				{
-					"line": 37, "columns": [9]
+					"line": 38, "columns": [10, 9]
 				}
 			],
-			"successors": [32],
+			"successors": [29, 3],
 			"ir": [
-				"%0 = load ptr, ptr @PyExc_TypeError, align 8, !dbg !434, !tbaa !436",
-				"%call = tail call ptr (ptr, ptr, ...) @PyErr_Format(ptr noundef %0, ptr noundef nonnull @.str.4, i64 noundef %nargs) #9, !dbg !440",
-				"br label %exit, !dbg !441"
+				"%call = tail call i32 @_PyArg_CheckPositional(ptr noundef nonnull @.str, i64 noundef %nargs, i64 noundef 2, i64 noundef 3) #9, !dbg !680",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !680",
+				"br i1 %tobool.not, label %exit, label %if.end, !dbg !682"
 			]
 		},
 		{
@@ -59,3561 +62,3303 @@
 			"name": "if.end",
 			"debug": [
 				{
-					"line": 39, "columns": [15, 9]
+					"line": 41, "columns": [43, 10, 9]
 				}
 			],
-			"successors": [4, 5],
+			"successors": [29, 4],
 			"ir": [
-				"%cmp1 = icmp ugt i64 %nargs, 3, !dbg !442",
-				"br i1 %cmp1, label %if.then2, label %if.end4, !dbg !444"
+				"%1 = load ptr, ptr %args, align 8, !dbg !683, !tbaa !685",
+				"%call2 = call i32 @_PyLong_FileDescriptor_Converter(ptr noundef %1, ptr noundef nonnull %fd) #9, !dbg !689",
+				"%tobool3.not = icmp eq i32 %call2, 0, !dbg !689",
+				"br i1 %tobool3.not, label %exit, label %if.end5, !dbg !690"
 			]
 		},
 		{
 			"function": "fcntl_fcntl",
 			"id": 4,
-			"name": "if.then2",
+			"name": "if.end5",
 			"debug": [
 				{
-					"line": 40, "columns": [22, 9]
+					"line": 44, "columns": [25, 12]
 				},
 				{
-					"line": 41, "columns": [9]
+					"line": 45, "columns": [14, 20]
 				}
 			],
-			"successors": [32],
+			"successors": [5, 6],
 			"ir": [
-				"%1 = load ptr, ptr @PyExc_TypeError, align 8, !dbg !445, !tbaa !436",
-				"%call3 = tail call ptr (ptr, ptr, ...) @PyErr_Format(ptr noundef %1, ptr noundef nonnull @.str.5, i64 noundef %nargs) #9, !dbg !447",
-				"br label %exit, !dbg !448"
+				"%arrayidx6 = getelementptr ptr, ptr %args, i64 1, !dbg !691",
+				"%2 = load ptr, ptr %arrayidx6, align 8, !dbg !691, !tbaa !685",
+				"%call7 = call i32 @PyLong_AsInt(ptr noundef %2) #9, !dbg !692",
+				"%cmp8 = icmp eq i32 %call7, -1, !dbg !693",
+				"br i1 %cmp8, label %land.lhs.true9, label %if.end13, !dbg !695"
 			]
 		},
 		{
 			"function": "fcntl_fcntl",
 			"id": 5,
-			"name": "if.end4",
+			"name": "land.lhs.true9",
 			"debug": [
 				{
-					"line": 43, "columns": [36, 10]
-				},
-				{
-					"line": 44, "columns": [12, 9]
+					"line": 45, "columns": [23, 9]
 				}
 			],
-			"successors": [32, 6],
+			"successors": [6, 29],
 			"ir": [
-				"%2 = load ptr, ptr %args, align 8, !dbg !449, !tbaa !436",
-				"%call5 = tail call i32 @PyObject_AsFileDescriptor(ptr noundef %2) #9, !dbg !450",
-				"%cmp6 = icmp slt i32 %call5, 0, !dbg !451",
-				"br i1 %cmp6, label %exit, label %if.end8, !dbg !453"
+				"%call10 = call ptr @PyErr_Occurred() #9, !dbg !696",
+				"%tobool11.not = icmp eq ptr %call10, null, !dbg !696",
+				"br i1 %tobool11.not, label %if.end13, label %exit, !dbg !697"
 			]
 		},
 		{
 			"function": "fcntl_fcntl",
 			"id": 6,
-			"name": "if.end8",
+			"name": "if.end13",
 			"debug": [
 				{
-					"line": 47, "columns": [25, 12]
-				},
-				{
-					"line": 48, "columns": [14, 20]
+					"line": 48, "columns": [15, 9]
 				}
 			],
-			"successors": [7, 8],
+			"successors": [8, 7],
 			"ir": [
-				"%arrayidx9 = getelementptr ptr, ptr %args, i64 1, !dbg !454",
-				"%3 = load ptr, ptr %arrayidx9, align 8, !dbg !454, !tbaa !436",
-				"%call10 = tail call i32 @PyLong_AsInt(ptr noundef %3) #9, !dbg !455",
-				"%cmp11 = icmp eq i32 %call10, -1, !dbg !456",
-				"br i1 %cmp11, label %land.lhs.true, label %if.end14, !dbg !458"
+				"%cmp14 = icmp slt i64 %nargs, 3, !dbg !698",
+				"br i1 %cmp14, label %skip_optional, label %if.end16, !dbg !700"
 			]
 		},
 		{
 			"function": "fcntl_fcntl",
 			"id": 7,
-			"name": "land.lhs.true",
+			"name": "if.end16",
 			"debug": [
 				{
-					"line": 48, "columns": [23, 9]
+					"line": 51, "columns": [11, 5]
 				}
 			],
-			"successors": [8, 32],
+			"successors": [8],
 			"ir": [
-				"%call12 = tail call ptr @PyErr_Occurred() #9, !dbg !459",
-				"%tobool.not = icmp eq ptr %call12, null, !dbg !459",
-				"br i1 %tobool.not, label %if.end14, label %exit, !dbg !460"
+				"%arrayidx17 = getelementptr ptr, ptr %args, i64 2, !dbg !701",
+				"%3 = load ptr, ptr %arrayidx17, align 8, !dbg !701, !tbaa !685",
+				"br label %skip_optional, !dbg !702"
 			]
 		},
 		{
 			"function": "fcntl_fcntl",
 			"id": 8,
-			"name": "if.end14",
+			"name": "skip_optional",
 			"debug": [
 				{
-					"line": 51, "columns": [15, 9]
+					"line": 52, "columns": [1]
+				},
+				{
+					"line": 53, "columns": [45]
+				},
+				{
+					"line": 54, "columns": [5, 18]
+				},
+				{
+					"line": 56, "columns": [5]
+				},
+				{
+					"line": 57, "columns": [5]
+				},
+				{
+					"line": 58, "columns": [5, 10]
+				},
+				{
+					"line": 61, "columns": [53, 9, 74]
 				}
 			],
-			"successors": [9, 10],
+			"successors": [28, 9],
 			"ir": [
-				"%cmp15 = icmp ult i64 %nargs, 3, !dbg !461",
-				"br i1 %cmp15, label %skip_optional.thread, label %skip_optional, !dbg !463"
+				"%arg.0 = phi ptr [ null, %if.end13 ], [ %3, %if.end16 ], !dbg !678",
+				"%4 = load i32, ptr %fd, align 4, !dbg !704, !tbaa !705",
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %int_arg.i) #9, !dbg !832",
+				"store i32 0, ptr %int_arg.i, align 4, !dbg !833, !tbaa !705",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %str.i) #9, !dbg !834",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %len.i) #9, !dbg !835",
+				"call void @llvm.lifetime.start.p0(i64 1024, ptr nonnull %buf.i) #9, !dbg !836",
+				"%tobool.not.i = icmp eq ptr %arg.0, null, !dbg !838",
+				"%cond.i = select i1 %tobool.not.i, ptr @_Py_NoneStruct, ptr %arg.0, !dbg !838",
+				"%call.i = call i32 (ptr, ptr, ...) @PySys_Audit(ptr noundef nonnull @.str.4, ptr noundef nonnull @.str.5, i32 noundef %4, i32 noundef %call7, ptr noundef nonnull %cond.i) #9, !dbg !840",
+				"%cmp.i = icmp slt i32 %call.i, 0, !dbg !841",
+				"br i1 %cmp.i, label %fcntl_fcntl_impl.exit, label %if.end.i, !dbg !842"
 			]
 		},
 		{
 			"function": "fcntl_fcntl",
 			"id": 9,
-			"name": "skip_optional.thread",
+			"name": "if.end.i",
 			"debug": [
 				{
-					"line": 55, "columns": [1]
-				},
-				{
-					"line": 57, "columns": [5, 18]
-				},
-				{
-					"line": 59, "columns": [5]
-				},
-				{
-					"line": 60, "columns": [5]
-				},
-				{
-					"line": 61, "columns": [5, 10]
-				},
-				{
-					"line": 64, "columns": [53]
+					"line": 65, "columns": [9]
 				}
 			],
-			"successors": [11],
+			"successors": [21, 10],
 			"ir": [
-				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %int_arg.i) #9, !dbg !499",
-				"store i32 0, ptr %int_arg.i, align 4, !dbg !500, !tbaa !501",
-				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %str.i) #9, !dbg !503",
-				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %len.i) #9, !dbg !504",
-				"call void @llvm.lifetime.start.p0(i64 1024, ptr nonnull %buf.i) #9, !dbg !505",
-				"br label %cond.end.i, !dbg !507"
+				"br i1 %tobool.not.i, label %do.body34.i.preheader, label %if.then2.i, !dbg !843"
 			]
 		},
 		{
 			"function": "fcntl_fcntl",
 			"id": 10,
-			"name": "skip_optional",
+			"name": "if.then2.i",
 			"debug": [
 				{
-					"line": 54, "columns": [11]
-				},
-				{
-					"line": 55, "columns": [1]
-				},
-				{
-					"line": 57, "columns": [5, 18]
-				},
-				{
-					"line": 59, "columns": [5]
-				},
-				{
-					"line": 60, "columns": [5]
-				},
-				{
-					"line": 61, "columns": [5, 10]
-				},
-				{
-					"line": 64, "columns": [53]
+					"line": 68, "columns": [13]
 				}
 			],
-			"successors": [11, 12],
+			"successors": [20, 11],
 			"ir": [
-				"%arrayidx18 = getelementptr ptr, ptr %args, i64 2, !dbg !509",
-				"%4 = load ptr, ptr %arrayidx18, align 8, !dbg !509, !tbaa !436",
-				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %int_arg.i) #9, !dbg !499",
-				"store i32 0, ptr %int_arg.i, align 4, !dbg !500, !tbaa !501",
-				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %str.i) #9, !dbg !503",
-				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %len.i) #9, !dbg !504",
-				"call void @llvm.lifetime.start.p0(i64 1024, ptr nonnull %buf.i) #9, !dbg !505",
-				"%tobool.not.i = icmp eq ptr %4, null, !dbg !507",
-				"br i1 %tobool.not.i, label %cond.end.i, label %cond.end.thread.i, !dbg !507"
+				"%call3.i = call i32 (ptr, ptr, ...) @PyArg_Parse(ptr noundef nonnull %arg.0, ptr noundef nonnull @.str.6, ptr noundef nonnull %str.i, ptr noundef nonnull %len.i) #9, !dbg !844",
+				"%tobool4.not.i = icmp eq i32 %call3.i, 0, !dbg !844",
+				"br i1 %tobool4.not.i, label %cleanup.i, label %if.then5.i, !dbg !845"
 			]
 		},
 		{
 			"function": "fcntl_fcntl",
 			"id": 11,
-			"name": "cond.end.i",
+			"name": "if.then5.i",
 			"debug": [
 				{
-					"line": 64, "columns": [65, 9, 74]
+					"line": 69, "columns": [25, 29, 17]
 				}
 			],
-			"successors": [31, 24],
+			"successors": [12, 13],
 			"ir": [
-				"%call.i = tail call ptr @Py_GetConstantBorrowed(i32 noundef 0) #9, !dbg !510",
-				"%call1.i = tail call i32 (ptr, ptr, ...) @PySys_Audit(ptr noundef nonnull @.str.6, ptr noundef nonnull @.str.7, i32 noundef %call5, i32 noundef %call10, ptr noundef %call.i) #9, !dbg !511",
-				"%cmp.i = icmp slt i32 %call1.i, 0, !dbg !512",
-				"br i1 %cmp.i, label %fcntl_fcntl_impl.exit, label %do.body35.i.preheader, !dbg !513"
+				"%5 = load i64, ptr %len.i, align 8, !dbg !846, !tbaa !848",
+				"%cmp6.i = icmp ugt i64 %5, 1024, !dbg !850",
+				"br i1 %cmp6.i, label %if.then7.i, label %if.end8.i, !dbg !851"
 			]
 		},
 		{
 			"function": "fcntl_fcntl",
 			"id": 12,
-			"name": "cond.end.thread.i",
+			"name": "if.then7.i",
 			"debug": [
 				{
-					"line": 64, "columns": [9, 74]
+					"line": 70, "columns": [33, 17]
+				},
+				{
+					"line": 72, "columns": [17]
 				}
 			],
-			"successors": [31, 13],
+			"successors": [28],
 			"ir": [
-				"%call13.i = tail call i32 (ptr, ptr, ...) @PySys_Audit(ptr noundef nonnull @.str.6, ptr noundef nonnull @.str.7, i32 noundef %call5, i32 noundef %call10, ptr noundef nonnull %4) #9, !dbg !511",
-				"%cmp4.i = icmp slt i32 %call13.i, 0, !dbg !512",
-				"br i1 %cmp4.i, label %fcntl_fcntl_impl.exit, label %if.then3.i, !dbg !513"
+				"%6 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !852, !tbaa !685",
+				"call void @PyErr_SetString(ptr noundef %6, ptr noundef nonnull @.str.7) #9, !dbg !854",
+				"br label %fcntl_fcntl_impl.exit, !dbg !855"
 			]
 		},
 		{
 			"function": "fcntl_fcntl",
 			"id": 13,
-			"name": "if.then3.i",
+			"name": "if.end8.i",
 			"debug": [
 				{
-					"line": 71, "columns": [13]
+					"line": 74, "columns": [25, 13]
+				},
+				{
+					"line": 75, "columns": [13]
 				}
 			],
-			"successors": [23, 14],
+			"successors": [14],
 			"ir": [
-				"%call4.i = call i32 (ptr, ptr, ...) @PyArg_Parse(ptr noundef nonnull %4, ptr noundef nonnull @.str.8, ptr noundef nonnull %str.i, ptr noundef nonnull %len.i) #9, !dbg !514",
-				"%tobool5.not.i = icmp eq i32 %call4.i, 0, !dbg !514",
-				"br i1 %tobool5.not.i, label %cleanup.i, label %if.then6.i, !dbg !515"
+				"%7 = load ptr, ptr %str.i, align 8, !dbg !856, !tbaa !685",
+				"call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 16 %buf.i, ptr align 1 %7, i64 %5, i1 false), !dbg !857",
+				"br label %do.body.i, !dbg !858"
 			]
 		},
 		{
 			"function": "fcntl_fcntl",
 			"id": 14,
-			"name": "if.then6.i",
+			"name": "do.body.i",
 			"debug": [
 				{
-					"line": 72, "columns": [25, 29, 17]
+					"line": 76, "columns": [17]
+				},
+				{
+					"line": 77, "columns": [23]
+				},
+				{
+					"line": 78, "columns": [17]
+				},
+				{
+					"line": 79, "columns": [26, 32]
 				}
 			],
-			"successors": [15, 16],
+			"successors": [15, 17],
 			"ir": [
-				"%5 = load i64, ptr %len.i, align 8, !dbg !516, !tbaa !518",
-				"%cmp7.i = icmp ugt i64 %5, 1024, !dbg !520",
-				"br i1 %cmp7.i, label %if.then8.i, label %if.end9.i, !dbg !521"
+				"%call9.i = call ptr @PyEval_SaveThread() #9, !dbg !859",
+				"%call11.i = call i32 (i32, i32, ...) @fcntl64(i32 noundef %4, i32 noundef %call7, ptr noundef nonnull %buf.i) #9, !dbg !861",
+				"call void @PyEval_RestoreThread(ptr noundef %call9.i) #9, !dbg !862",
+				"%cmp12.i = icmp eq i32 %call11.i, -1, !dbg !863",
+				"br i1 %cmp12.i, label %land.lhs.true.i, label %do.end.i, !dbg !864"
 			]
 		},
 		{
 			"function": "fcntl_fcntl",
 			"id": 15,
-			"name": "if.then8.i",
+			"name": "land.lhs.true.i",
 			"debug": [
 				{
-					"line": 73, "columns": [33, 17]
-				},
-				{
-					"line": 75, "columns": [17]
+					"line": 79, "columns": [35, 41, 50]
 				}
 			],
-			"successors": [31],
+			"successors": [16, 18],
 			"ir": [
-				"%6 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !522, !tbaa !436",
-				"call void @PyErr_SetString(ptr noundef %6, ptr noundef nonnull @.str.9) #9, !dbg !524",
-				"br label %fcntl_fcntl_impl.exit, !dbg !525"
+				"%call13.i = tail call ptr @__errno_location() #10, !dbg !865",
+				"%8 = load i32, ptr %call13.i, align 4, !dbg !865, !tbaa !705",
+				"%cmp14.i = icmp eq i32 %8, 4, !dbg !866",
+				"br i1 %cmp14.i, label %land.rhs.i, label %cond.true20.i, !dbg !867"
 			]
 		},
 		{
 			"function": "fcntl_fcntl",
 			"id": 16,
-			"name": "if.end9.i",
+			"name": "land.rhs.i",
 			"debug": [
 				{
-					"line": 77, "columns": [25, 13]
-				},
-				{
-					"line": 78, "columns": [13]
+					"line": 79, "columns": [67, 53, 13]
 				}
 			],
-			"successors": [17],
+			"successors": [14, 28],
 			"ir": [
-				"%7 = load ptr, ptr %str.i, align 8, !dbg !526, !tbaa !436",
-				"call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 16 %buf.i, ptr align 1 %7, i64 %5, i1 false), !dbg !527",
-				"br label %do.body.i, !dbg !528"
+				"%call15.i = call i32 @PyErr_CheckSignals() #9, !dbg !868",
+				"%tobool16.not.i = icmp eq i32 %call15.i, 0, !dbg !869",
+				"br i1 %tobool16.not.i, label %do.body.i, label %fcntl_fcntl_impl.exit, !dbg !870, !llvm.loop !871"
 			]
 		},
 		{
 			"function": "fcntl_fcntl",
 			"id": 17,
-			"name": "do.body.i",
+			"name": "do.end.i",
 			"debug": [
 				{
-					"line": 79, "columns": [17]
-				},
-				{
-					"line": 80, "columns": [23]
-				},
-				{
-					"line": 81, "columns": [17]
-				},
-				{
-					"line": 82, "columns": [26, 32]
+					"line": 80, "columns": [21, 17]
 				}
 			],
-			"successors": [18, 20],
+			"successors": [18, 19],
 			"ir": [
-				"%call10.i = call ptr @PyEval_SaveThread() #9, !dbg !529",
-				"%call12.i = call i32 (i32, i32, ...) @fcntl64(i32 noundef %call5, i32 noundef %call10, ptr noundef nonnull %buf.i) #9, !dbg !531",
-				"call void @PyEval_RestoreThread(ptr noundef %call10.i) #9, !dbg !532",
-				"%cmp13.i = icmp eq i32 %call12.i, -1, !dbg !533",
-				"br i1 %cmp13.i, label %land.lhs.true.i, label %do.end.i, !dbg !534"
+				"%cmp17.i = icmp slt i32 %call11.i, 0, !dbg !874",
+				"br i1 %cmp17.i, label %cond.true20.i, label %if.end25.i, !dbg !876"
 			]
 		},
 		{
 			"function": "fcntl_fcntl",
 			"id": 18,
-			"name": "land.lhs.true.i",
+			"name": "cond.true20.i",
 			"debug": [
 				{
-					"line": 82, "columns": [35, 41, 50]
+					"line": 81, "columns": [56, 37, 24]
 				}
 			],
-			"successors": [19, 21],
+			"successors": [28],
 			"ir": [
-				"%call14.i = tail call ptr @__errno_location() #10, !dbg !535",
-				"%8 = load i32, ptr %call14.i, align 4, !dbg !535, !tbaa !501",
-				"%cmp15.i = icmp eq i32 %8, 4, !dbg !536",
-				"br i1 %cmp15.i, label %land.rhs.i, label %cond.true21.i, !dbg !537"
+				"%9 = load ptr, ptr @PyExc_OSError, align 8, !dbg !877, !tbaa !685",
+				"%call21.i = call ptr @PyErr_SetFromErrno(ptr noundef %9) #9, !dbg !879",
+				"br label %fcntl_fcntl_impl.exit, !dbg !880"
 			]
 		},
 		{
 			"function": "fcntl_fcntl",
 			"id": 19,
-			"name": "land.rhs.i",
+			"name": "if.end25.i",
 			"debug": [
 				{
-					"line": 82, "columns": [67, 53, 13]
+					"line": 83, "columns": [51, 20, 13]
 				}
 			],
-			"successors": [17, 31],
+			"successors": [28],
 			"ir": [
-				"%call16.i = call i32 @PyErr_CheckSignals() #9, !dbg !538",
-				"%tobool17.not.i = icmp eq i32 %call16.i, 0, !dbg !539",
-				"br i1 %tobool17.not.i, label %do.body.i, label %fcntl_fcntl_impl.exit, !dbg !540, !llvm.loop !541"
+				"%10 = load i64, ptr %len.i, align 8, !dbg !881, !tbaa !848",
+				"%call27.i = call ptr @PyBytes_FromStringAndSize(ptr noundef nonnull %buf.i, i64 noundef %10) #9, !dbg !882",
+				"br label %fcntl_fcntl_impl.exit, !dbg !883"
 			]
 		},
 		{
 			"function": "fcntl_fcntl",
 			"id": 20,
-			"name": "do.end.i",
+			"name": "cleanup.i",
 			"debug": [
 				{
-					"line": 83, "columns": [21, 17]
+					"line": 86, "columns": [9]
+				},
+				{
+					"line": 87, "columns": [24]
+				},
+				{
+					"line": 91, "columns": [14]
 				}
 			],
-			"successors": [21, 22],
+			"successors": [28, 21],
 			"ir": [
-				"%cmp18.i = icmp slt i32 %call12.i, 0, !dbg !544",
-				"br i1 %cmp18.i, label %cond.true21.i, label %if.end26.i, !dbg !546"
+				"call void @PyErr_Clear() #9, !dbg !884",
+				"%call29.i = call i32 (ptr, ptr, ...) @PyArg_Parse(ptr noundef nonnull %arg.0, ptr noundef nonnull @.str.8, ptr noundef nonnull %int_arg.i) #9, !dbg !885",
+				"%tobool30.not.not.i = icmp eq i32 %call29.i, 0, !dbg !887",
+				"br i1 %tobool30.not.not.i, label %fcntl_fcntl_impl.exit, label %do.body34.i.preheader"
 			]
 		},
 		{
 			"function": "fcntl_fcntl",
 			"id": 21,
-			"name": "cond.true21.i",
+			"name": "do.body34.i.preheader",
 			"debug": [
 				{
-					"line": 84, "columns": [56, 37, 24]
+					"line": 96, "columns": [5]
 				}
 			],
-			"successors": [31],
+			"successors": [22],
 			"ir": [
-				"%9 = load ptr, ptr @PyExc_OSError, align 8, !dbg !547, !tbaa !436",
-				"%call22.i = call ptr @PyErr_SetFromErrno(ptr noundef %9) #9, !dbg !549",
-				"br label %fcntl_fcntl_impl.exit, !dbg !550"
+				"br label %do.body34.i, !dbg !889"
 			]
 		},
 		{
 			"function": "fcntl_fcntl",
 			"id": 22,
-			"name": "if.end26.i",
+			"name": "do.body34.i",
 			"debug": [
 				{
-					"line": 86, "columns": [51, 20, 13]
+					"line": 97, "columns": [9]
+				},
+				{
+					"line": 98, "columns": [36, 15]
+				},
+				{
+					"line": 99, "columns": [9]
+				},
+				{
+					"line": 100, "columns": [18, 24]
 				}
 			],
-			"successors": [31],
+			"successors": [23, 25],
 			"ir": [
-				"%10 = load i64, ptr %len.i, align 8, !dbg !551, !tbaa !518",
-				"%call28.i = call ptr @PyBytes_FromStringAndSize(ptr noundef nonnull %buf.i, i64 noundef %10) #9, !dbg !552",
-				"br label %fcntl_fcntl_impl.exit, !dbg !553"
+				"%call36.i = call ptr @PyEval_SaveThread() #9, !dbg !890",
+				"%11 = load i32, ptr %int_arg.i, align 4, !dbg !892, !tbaa !705",
+				"%call37.i = call i32 (i32, i32, ...) @fcntl64(i32 noundef %4, i32 noundef %call7, i32 noundef %11) #9, !dbg !893",
+				"call void @PyEval_RestoreThread(ptr noundef %call36.i) #9, !dbg !894",
+				"%cmp39.i = icmp eq i32 %call37.i, -1, !dbg !895",
+				"br i1 %cmp39.i, label %land.lhs.true40.i, label %do.end48.i, !dbg !896"
 			]
 		},
 		{
 			"function": "fcntl_fcntl",
 			"id": 23,
-			"name": "cleanup.i",
+			"name": "land.lhs.true40.i",
 			"debug": [
 				{
-					"line": 89, "columns": [9]
-				},
-				{
-					"line": 90, "columns": [24]
-				},
-				{
-					"line": 94, "columns": [14]
+					"line": 100, "columns": [27, 33, 42]
 				}
 			],
-			"successors": [31, 24],
+			"successors": [24, 26],
 			"ir": [
-				"call void @PyErr_Clear() #9, !dbg !554",
-				"%call30.i = call i32 (ptr, ptr, ...) @PyArg_Parse(ptr noundef nonnull %4, ptr noundef nonnull @.str.10, ptr noundef nonnull %int_arg.i) #9, !dbg !555",
-				"%tobool31.not.not.i = icmp eq i32 %call30.i, 0, !dbg !557",
-				"br i1 %tobool31.not.not.i, label %fcntl_fcntl_impl.exit, label %do.body35.i.preheader"
+				"%call41.i = tail call ptr @__errno_location() #10, !dbg !897",
+				"%12 = load i32, ptr %call41.i, align 4, !dbg !897, !tbaa !705",
+				"%cmp42.i = icmp eq i32 %12, 4, !dbg !898",
+				"br i1 %cmp42.i, label %land.rhs43.i, label %cond.true52.i, !dbg !899"
 			]
 		},
 		{
 			"function": "fcntl_fcntl",
 			"id": 24,
-			"name": "do.body35.i.preheader",
+			"name": "land.rhs43.i",
 			"debug": [
 				{
-					"line": 99, "columns": [5]
+					"line": 100, "columns": [59, 45, 5]
 				}
 			],
-			"successors": [25],
+			"successors": [22, 28],
 			"ir": [
-				"br label %do.body35.i, !dbg !559"
+				"%call44.i = call i32 @PyErr_CheckSignals() #9, !dbg !900",
+				"%tobool45.not.i = icmp eq i32 %call44.i, 0, !dbg !901",
+				"br i1 %tobool45.not.i, label %do.body34.i, label %fcntl_fcntl_impl.exit, !dbg !902, !llvm.loop !903"
 			]
 		},
 		{
 			"function": "fcntl_fcntl",
 			"id": 25,
-			"name": "do.body35.i",
+			"name": "do.end48.i",
 			"debug": [
 				{
-					"line": 100, "columns": [9]
-				},
-				{
-					"line": 101, "columns": [36, 15]
-				},
-				{
-					"line": 102, "columns": [9]
-				},
-				{
-					"line": 103, "columns": [18, 24]
+					"line": 101, "columns": [13, 9]
 				}
 			],
-			"successors": [26, 28],
+			"successors": [26, 27],
 			"ir": [
-				"%call37.i = call ptr @PyEval_SaveThread() #9, !dbg !560",
-				"%11 = load i32, ptr %int_arg.i, align 4, !dbg !562, !tbaa !501",
-				"%call38.i = call i32 (i32, i32, ...) @fcntl64(i32 noundef %call5, i32 noundef %call10, i32 noundef %11) #9, !dbg !563",
-				"call void @PyEval_RestoreThread(ptr noundef %call37.i) #9, !dbg !564",
-				"%cmp40.i = icmp eq i32 %call38.i, -1, !dbg !565",
-				"br i1 %cmp40.i, label %land.lhs.true41.i, label %do.end49.i, !dbg !566"
+				"%cmp49.i = icmp slt i32 %call37.i, 0, !dbg !905",
+				"br i1 %cmp49.i, label %cond.true52.i, label %if.end57.i, !dbg !907"
 			]
 		},
 		{
 			"function": "fcntl_fcntl",
 			"id": 26,
-			"name": "land.lhs.true41.i",
+			"name": "cond.true52.i",
 			"debug": [
 				{
-					"line": 103, "columns": [27, 33, 42]
+					"line": 102, "columns": [48, 29, 16]
 				}
 			],
-			"successors": [27, 29],
+			"successors": [28],
 			"ir": [
-				"%call42.i = tail call ptr @__errno_location() #10, !dbg !567",
-				"%12 = load i32, ptr %call42.i, align 4, !dbg !567, !tbaa !501",
-				"%cmp43.i = icmp eq i32 %12, 4, !dbg !568",
-				"br i1 %cmp43.i, label %land.rhs44.i, label %cond.true53.i, !dbg !569"
+				"%13 = load ptr, ptr @PyExc_OSError, align 8, !dbg !908, !tbaa !685",
+				"%call53.i = call ptr @PyErr_SetFromErrno(ptr noundef %13) #9, !dbg !910",
+				"br label %fcntl_fcntl_impl.exit, !dbg !911"
 			]
 		},
 		{
 			"function": "fcntl_fcntl",
 			"id": 27,
-			"name": "land.rhs44.i",
+			"name": "if.end57.i",
 			"debug": [
 				{
-					"line": 103, "columns": [59, 45, 5]
+					"line": 104, "columns": [12, 5]
 				}
 			],
-			"successors": [25, 31],
+			"successors": [28],
 			"ir": [
-				"%call45.i = call i32 @PyErr_CheckSignals() #9, !dbg !570",
-				"%tobool46.not.i = icmp eq i32 %call45.i, 0, !dbg !571",
-				"br i1 %tobool46.not.i, label %do.body35.i, label %fcntl_fcntl_impl.exit, !dbg !572, !llvm.loop !573"
+				"%conv.i = zext i32 %call37.i to i64",
+				"%call58.i = call ptr @PyLong_FromLong(i64 noundef %conv.i) #9, !dbg !912",
+				"br label %fcntl_fcntl_impl.exit, !dbg !913"
 			]
 		},
 		{
 			"function": "fcntl_fcntl",
 			"id": 28,
-			"name": "do.end49.i",
+			"name": "fcntl_fcntl_impl.exit",
 			"debug": [
 				{
-					"line": 104, "columns": [13, 9]
+					"line": 53, "columns": [5]
+				},
+				{
+					"line": 105, "columns": [1]
 				}
 			],
-			"successors": [29, 30],
+			"successors": [29],
 			"ir": [
-				"%cmp50.i = icmp slt i32 %call38.i, 0, !dbg !575",
-				"br i1 %cmp50.i, label %cond.true53.i, label %if.end58.i, !dbg !577"
+				"%retval.1.i = phi ptr [ %call58.i, %if.end57.i ], [ null, %cleanup.i ], [ null, %skip_optional ], [ %call53.i, %cond.true52.i ], [ %call21.i, %cond.true20.i ], [ null, %if.then7.i ], [ %call27.i, %if.end25.i ], [ null, %land.rhs43.i ], [ null, %land.rhs.i ], !dbg !830",
+				"call void @llvm.lifetime.end.p0(i64 1024, ptr nonnull %buf.i) #9, !dbg !914",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %len.i) #9, !dbg !914",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %str.i) #9, !dbg !914",
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %int_arg.i) #9, !dbg !914",
+				"br label %exit, !dbg !915"
 			]
 		},
 		{
 			"function": "fcntl_fcntl",
 			"id": 29,
-			"name": "cond.true53.i",
+			"name": "exit",
 			"debug": [
 				{
-					"line": 105, "columns": [48, 29, 16]
-				}
-			],
-			"successors": [31],
-			"ir": [
-				"%13 = load ptr, ptr @PyExc_OSError, align 8, !dbg !578, !tbaa !436",
-				"%call54.i = call ptr @PyErr_SetFromErrno(ptr noundef %13) #9, !dbg !580",
-				"br label %fcntl_fcntl_impl.exit, !dbg !581"
-			]
-		},
-		{
-			"function": "fcntl_fcntl",
-			"id": 30,
-			"name": "if.end58.i",
-			"debug": [
-				{
-					"line": 107, "columns": [12, 5]
-				}
-			],
-			"successors": [31],
-			"ir": [
-				"%conv.i = zext i32 %call38.i to i64",
-				"%call59.i = call ptr @PyLong_FromLong(i64 noundef %conv.i) #9, !dbg !582",
-				"br label %fcntl_fcntl_impl.exit, !dbg !583"
-			]
-		},
-		{
-			"function": "fcntl_fcntl",
-			"id": 31,
-			"name": "fcntl_fcntl_impl.exit",
-			"debug": [
+					"line": 55, "columns": [1]
+				},
 				{
 					"line": 56, "columns": [5]
 				},
 				{
-					"line": 108, "columns": [1]
-				}
-			],
-			"successors": [32],
-			"ir": [
-				"%retval.1.i = phi ptr [ %call59.i, %if.end58.i ], [ null, %cleanup.i ], [ null, %cond.end.i ], [ %call54.i, %cond.true53.i ], [ null, %cond.end.thread.i ], [ %call22.i, %cond.true21.i ], [ null, %if.then8.i ], [ %call28.i, %if.end26.i ], [ null, %land.rhs44.i ], [ null, %land.rhs.i ], !dbg !497",
-				"call void @llvm.lifetime.end.p0(i64 1024, ptr nonnull %buf.i) #9, !dbg !584",
-				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %len.i) #9, !dbg !584",
-				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %str.i) #9, !dbg !584",
-				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %int_arg.i) #9, !dbg !584",
-				"br label %exit, !dbg !585"
-			]
-		},
-		{
-			"function": "fcntl_fcntl",
-			"id": 32,
-			"name": "exit",
-			"debug": [
-				{
-					"line": 58, "columns": [1]
-				},
-				{
-					"line": 59, "columns": [5]
+					"line": 57, "columns": [1]
 				}
 			],
 			"successors": [],
 			"ir": [
-				"%return_value.0 = phi ptr [ null, %if.then ], [ null, %if.then2 ], [ null, %if.end4 ], [ null, %land.lhs.true ], [ %retval.1.i, %fcntl_fcntl_impl.exit ], !dbg !430",
-				"ret ptr %return_value.0, !dbg !587"
+				"%return_value.0 = phi ptr [ null, %land.lhs.true9 ], [ %retval.1.i, %fcntl_fcntl_impl.exit ], [ null, %if.end ], [ null, %lor.lhs.false ], !dbg !678",
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %fd) #9, !dbg !917",
+				"ret ptr %return_value.0, !dbg !918"
+			]
+		},
+		{
+			"function": "fcntl_ioctl",
+			"id": 30,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 103, "columns": [5]
+				},
+				{
+					"line": 108, "columns": [10]
+				}
+			],
+			"successors": [32, 31],
+			"ir": [
+				"%arg.i = alloca i32, align 4",
+				"%pstr.i = alloca %struct.Py_buffer, align 8",
+				"%buf.i = alloca [1025 x i8], align 16",
+				"%fd = alloca i32, align 4",
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %fd) #9, !dbg !680",
+				"%0 = add i64 %nargs, -2, !dbg !681",
+				"%or.cond = icmp ult i64 %0, 3, !dbg !681",
+				"br i1 %or.cond, label %if.end, label %lor.lhs.false, !dbg !681"
+			]
+		},
+		{
+			"function": "fcntl_ioctl",
+			"id": 31,
+			"name": "lor.lhs.false",
+			"debug": [
+				{
+					"line": 108, "columns": [10, 9]
+				}
+			],
+			"successors": [67, 32],
+			"ir": [
+				"%call = tail call i32 @_PyArg_CheckPositional(ptr noundef nonnull @.str.1, i64 noundef %nargs, i64 noundef 2, i64 noundef 4) #9, !dbg !681",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !681",
+				"br i1 %tobool.not, label %exit, label %if.end, !dbg !683"
+			]
+		},
+		{
+			"function": "fcntl_ioctl",
+			"id": 32,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 111, "columns": [43, 10, 9]
+				}
+			],
+			"successors": [67, 33],
+			"ir": [
+				"%1 = load ptr, ptr %args, align 8, !dbg !684, !tbaa !686",
+				"%call2 = call i32 @_PyLong_FileDescriptor_Converter(ptr noundef %1, ptr noundef nonnull %fd) #9, !dbg !690",
+				"%tobool3.not = icmp eq i32 %call2, 0, !dbg !690",
+				"br i1 %tobool3.not, label %exit, label %if.end5, !dbg !691"
 			]
 		},
 		{
 			"function": "fcntl_ioctl",
 			"id": 33,
-			"name": "entry",
+			"name": "if.end5",
 			"debug": [
 				{
-					"line": 111, "columns": [15, 9]
+					"line": 114, "columns": [52, 26, 12]
+				},
+				{
+					"line": 115, "columns": [14, 34]
 				}
 			],
 			"successors": [34, 35],
 			"ir": [
-				"%arg.i = alloca i32, align 4",
-				"%pstr.i = alloca %struct.Py_buffer, align 8",
-				"%buf.i = alloca [1025 x i8], align 16",
-				"%cmp = icmp slt i64 %nargs, 2, !dbg !432",
-				"br i1 %cmp, label %if.then, label %if.end, !dbg !434"
+				"%arrayidx6 = getelementptr ptr, ptr %args, i64 1, !dbg !692",
+				"%2 = load ptr, ptr %arrayidx6, align 8, !dbg !692, !tbaa !686",
+				"%call7 = call i64 @PyLong_AsUnsignedLongMask(ptr noundef %2) #9, !dbg !693",
+				"%conv = trunc i64 %call7 to i32, !dbg !694",
+				"%cmp8 = icmp eq i32 %conv, -1, !dbg !695",
+				"br i1 %cmp8, label %land.lhs.true10, label %if.end14, !dbg !697"
 			]
 		},
 		{
 			"function": "fcntl_ioctl",
 			"id": 34,
-			"name": "if.then",
+			"name": "land.lhs.true10",
 			"debug": [
 				{
-					"line": 112, "columns": [22, 9]
-				},
-				{
-					"line": 113, "columns": [9]
+					"line": 115, "columns": [37, 9]
 				}
 			],
-			"successors": [74],
+			"successors": [35, 67],
 			"ir": [
-				"%0 = load ptr, ptr @PyExc_TypeError, align 8, !dbg !435, !tbaa !437",
-				"%call = tail call ptr (ptr, ptr, ...) @PyErr_Format(ptr noundef %0, ptr noundef nonnull @.str.11, i64 noundef %nargs) #9, !dbg !441",
-				"br label %exit, !dbg !442"
+				"%call11 = call ptr @PyErr_Occurred() #9, !dbg !698",
+				"%tobool12.not = icmp eq ptr %call11, null, !dbg !698",
+				"br i1 %tobool12.not, label %if.end14, label %exit, !dbg !699"
 			]
 		},
 		{
 			"function": "fcntl_ioctl",
 			"id": 35,
-			"name": "if.end",
+			"name": "if.end14",
 			"debug": [
 				{
-					"line": 115, "columns": [15, 9]
+					"line": 118, "columns": [15, 9]
 				}
 			],
-			"successors": [36, 37],
+			"successors": [38, 36],
 			"ir": [
-				"%cmp1 = icmp ugt i64 %nargs, 4, !dbg !443",
-				"br i1 %cmp1, label %if.then2, label %if.end4, !dbg !445"
+				"%cmp15 = icmp slt i64 %nargs, 3, !dbg !700",
+				"br i1 %cmp15, label %skip_optional, label %if.end18, !dbg !702"
 			]
 		},
 		{
 			"function": "fcntl_ioctl",
 			"id": 36,
-			"name": "if.then2",
+			"name": "if.end18",
 			"debug": [
 				{
-					"line": 116, "columns": [22, 9]
+					"line": 121, "columns": [14]
 				},
 				{
-					"line": 117, "columns": [9]
+					"line": 122, "columns": [15, 9]
 				}
 			],
-			"successors": [74],
+			"successors": [38, 37],
 			"ir": [
-				"%1 = load ptr, ptr @PyExc_TypeError, align 8, !dbg !446, !tbaa !437",
-				"%call3 = tail call ptr (ptr, ptr, ...) @PyErr_Format(ptr noundef %1, ptr noundef nonnull @.str.12, i64 noundef %nargs) #9, !dbg !448",
-				"br label %exit, !dbg !449"
+				"%arrayidx19 = getelementptr ptr, ptr %args, i64 2, !dbg !703",
+				"%3 = load ptr, ptr %arrayidx19, align 8, !dbg !703, !tbaa !686",
+				"%cmp20 = icmp eq i64 %nargs, 3, !dbg !704",
+				"br i1 %cmp20, label %skip_optional, label %if.end23, !dbg !706"
 			]
 		},
 		{
 			"function": "fcntl_ioctl",
 			"id": 37,
-			"name": "if.end4",
+			"name": "if.end23",
 			"debug": [
 				{
-					"line": 119, "columns": [36, 10]
+					"line": 125, "columns": [34, 18]
 				},
 				{
-					"line": 120, "columns": [12, 9]
+					"line": 126, "columns": [20, 9]
 				}
 			],
-			"successors": [74, 38],
+			"successors": [67, 38],
 			"ir": [
-				"%2 = load ptr, ptr %args, align 8, !dbg !450, !tbaa !437",
-				"%call5 = tail call i32 @PyObject_AsFileDescriptor(ptr noundef %2) #9, !dbg !451",
-				"%cmp6 = icmp slt i32 %call5, 0, !dbg !452",
-				"br i1 %cmp6, label %exit, label %if.end8, !dbg !454"
+				"%arrayidx24 = getelementptr ptr, ptr %args, i64 3, !dbg !707",
+				"%4 = load ptr, ptr %arrayidx24, align 8, !dbg !707, !tbaa !686",
+				"%call25 = call i32 @PyObject_IsTrue(ptr noundef %4) #9, !dbg !708",
+				"%cmp26 = icmp slt i32 %call25, 0, !dbg !709",
+				"br i1 %cmp26, label %exit, label %skip_optional, !dbg !711"
 			]
 		},
 		{
 			"function": "fcntl_ioctl",
 			"id": 38,
-			"name": "if.end8",
+			"name": "skip_optional",
 			"debug": [
 				{
-					"line": 123, "columns": [52, 26, 12]
+					"line": 129, "columns": [1]
 				},
 				{
-					"line": 124, "columns": [14, 34]
+					"line": 130, "columns": [45]
+				},
+				{
+					"line": 163, "columns": [5, 9]
+				},
+				{
+					"line": 165, "columns": [5, 15]
+				},
+				{
+					"line": 168, "columns": [5, 10]
+				},
+				{
+					"line": 170, "columns": [9]
+				},
+				{
+					"line": 171, "columns": [21, 48]
 				}
 			],
-			"successors": [39, 40],
+			"successors": [66, 39],
 			"ir": [
-				"%arrayidx9 = getelementptr ptr, ptr %args, i64 1, !dbg !455",
-				"%3 = load ptr, ptr %arrayidx9, align 8, !dbg !455, !tbaa !437",
-				"%call10 = tail call i64 @PyLong_AsUnsignedLongMask(ptr noundef %3) #9, !dbg !456",
-				"%conv = trunc i64 %call10 to i32, !dbg !457",
-				"%cmp11 = icmp eq i32 %conv, -1, !dbg !458",
-				"br i1 %cmp11, label %land.lhs.true, label %if.end15, !dbg !460"
+				"%ob_arg.0 = phi ptr [ null, %if.end14 ], [ %3, %if.end18 ], [ %3, %if.end23 ], !dbg !679",
+				"%mutate_arg.0 = phi i32 [ 1, %if.end14 ], [ 1, %if.end18 ], [ %call25, %if.end23 ], !dbg !679",
+				"%5 = load i32, ptr %fd, align 4, !dbg !713, !tbaa !714",
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %arg.i) #9, !dbg !844",
+				"store i32 0, ptr %arg.i, align 4, !dbg !845, !tbaa !714",
+				"call void @llvm.lifetime.start.p0(i64 80, ptr nonnull %pstr.i) #9, !dbg !846",
+				"call void @llvm.lifetime.start.p0(i64 1025, ptr nonnull %buf.i) #9, !dbg !848",
+				"%tobool.not.i = icmp eq ptr %ob_arg.0, null, !dbg !850",
+				"%cond.i = select i1 %tobool.not.i, ptr @_Py_NoneStruct, ptr %ob_arg.0, !dbg !850",
+				"%call.i = call i32 (ptr, ptr, ...) @PySys_Audit(ptr noundef nonnull @.str.9, ptr noundef nonnull @.str.10, i32 noundef %5, i32 noundef %conv, ptr noundef nonnull %cond.i) #9, !dbg !852",
+				"%cmp.i = icmp slt i32 %call.i, 0, !dbg !853",
+				"br i1 %cmp.i, label %fcntl_ioctl_impl.exit, label %if.end.i, !dbg !854"
 			]
 		},
 		{
 			"function": "fcntl_ioctl",
 			"id": 39,
-			"name": "land.lhs.true",
+			"name": "if.end.i",
 			"debug": [
 				{
-					"line": 124, "columns": [37, 9]
+					"line": 175, "columns": [9]
 				}
 			],
-			"successors": [40, 74],
+			"successors": [63, 40],
 			"ir": [
-				"%call13 = tail call ptr @PyErr_Occurred() #9, !dbg !461",
-				"%tobool.not = icmp eq ptr %call13, null, !dbg !461",
-				"br i1 %tobool.not, label %if.end15, label %exit, !dbg !462"
+				"br i1 %tobool.not.i, label %if.end80.i, label %if.then2.i, !dbg !855"
 			]
 		},
 		{
 			"function": "fcntl_ioctl",
 			"id": 40,
-			"name": "if.end15",
+			"name": "if.then2.i",
 			"debug": [
 				{
-					"line": 127, "columns": [15, 9]
+					"line": 176, "columns": [13]
 				}
 			],
-			"successors": [41, 42],
+			"successors": [56, 41],
 			"ir": [
-				"%cmp16 = icmp ult i64 %nargs, 3, !dbg !463",
-				"br i1 %cmp16, label %skip_optional.thread, label %if.end19, !dbg !465"
+				"%call3.i = call i32 (ptr, ptr, ...) @PyArg_Parse(ptr noundef nonnull %ob_arg.0, ptr noundef nonnull @.str.11, ptr noundef nonnull %pstr.i) #9, !dbg !856",
+				"%tobool4.not.i = icmp eq i32 %call3.i, 0, !dbg !856",
+				"br i1 %tobool4.not.i, label %if.end51.i, label %if.then5.i, !dbg !857"
 			]
 		},
 		{
 			"function": "fcntl_ioctl",
 			"id": 41,
-			"name": "skip_optional.thread",
+			"name": "if.then5.i",
 			"debug": [
 				{
-					"line": 138, "columns": [1]
+					"line": 178, "columns": [24]
 				},
 				{
-					"line": 166, "columns": [5, 9]
+					"line": 179, "columns": [24]
 				},
 				{
-					"line": 168, "columns": [5, 15]
-				},
-				{
-					"line": 171, "columns": [5, 10]
-				},
-				{
-					"line": 174, "columns": [21]
+					"line": 181, "columns": [17]
 				}
 			],
-			"successors": [45],
+			"successors": [42, 43],
 			"ir": [
-				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %arg.i) #9, !dbg !520",
-				"store i32 0, ptr %arg.i, align 4, !dbg !521, !tbaa !522",
-				"call void @llvm.lifetime.start.p0(i64 80, ptr nonnull %pstr.i) #9, !dbg !524",
-				"call void @llvm.lifetime.start.p0(i64 1025, ptr nonnull %buf.i) #9, !dbg !526",
-				"br label %cond.end.i, !dbg !528"
+				"%6 = load ptr, ptr %pstr.i, align 8, !dbg !858, !tbaa !859",
+				"%len8.i = getelementptr inbounds %struct.Py_buffer, ptr %pstr.i, i64 0, i32 2, !dbg !862",
+				"%7 = load i64, ptr %len8.i, align 8, !dbg !862, !tbaa !863",
+				"%tobool9.i = icmp ne i32 %mutate_arg.0, 0, !dbg !864",
+				"br i1 %tobool9.i, label %if.then10.i, label %if.else15.i, !dbg !866"
 			]
 		},
 		{
 			"function": "fcntl_ioctl",
 			"id": 42,
-			"name": "if.end19",
+			"name": "if.then10.i",
 			"debug": [
 				{
-					"line": 130, "columns": [14]
-				},
-				{
-					"line": 131, "columns": [15, 9]
+					"line": 182, "columns": [25, 21]
 				}
 			],
-			"successors": [44, 43],
+			"successors": [46, 45],
 			"ir": [
-				"%arrayidx20 = getelementptr ptr, ptr %args, i64 2, !dbg !530",
-				"%4 = load ptr, ptr %arrayidx20, align 8, !dbg !530, !tbaa !437",
-				"%cmp21 = icmp eq i64 %nargs, 3, !dbg !531",
-				"br i1 %cmp21, label %skip_optional, label %if.end24, !dbg !533"
+				"%cmp11.i = icmp slt i64 %7, 1025, !dbg !867",
+				"br i1 %cmp11.i, label %if.end32.sink.split.i, label %if.end23.i, !dbg !870"
 			]
 		},
 		{
 			"function": "fcntl_ioctl",
 			"id": 43,
-			"name": "if.end24",
+			"name": "if.else15.i",
 			"debug": [
 				{
-					"line": 134, "columns": [34, 18]
-				},
-				{
-					"line": 135, "columns": [20, 9]
+					"line": 192, "columns": [25, 21]
 				}
 			],
-			"successors": [74, 44],
+			"successors": [44, 46],
 			"ir": [
-				"%arrayidx25 = getelementptr ptr, ptr %args, i64 3, !dbg !534",
-				"%5 = load ptr, ptr %arrayidx25, align 8, !dbg !534, !tbaa !437",
-				"%call26 = tail call i32 @PyObject_IsTrue(ptr noundef %5) #9, !dbg !535",
-				"%cmp27 = icmp slt i32 %call26, 0, !dbg !536",
-				"br i1 %cmp27, label %exit, label %skip_optional, !dbg !538"
+				"%cmp16.i = icmp sgt i64 %7, 1024, !dbg !871",
+				"br i1 %cmp16.i, label %if.then17.i, label %if.end32.sink.split.i, !dbg !874"
 			]
 		},
 		{
 			"function": "fcntl_ioctl",
 			"id": 44,
-			"name": "skip_optional",
+			"name": "if.then17.i",
 			"debug": [
 				{
-					"line": 138, "columns": [1]
+					"line": 193, "columns": [21]
 				},
 				{
-					"line": 166, "columns": [5, 9]
+					"line": 194, "columns": [37, 21]
 				},
 				{
-					"line": 168, "columns": [5, 15]
-				},
-				{
-					"line": 171, "columns": [5, 10]
-				},
-				{
-					"line": 174, "columns": [21]
+					"line": 196, "columns": [21]
 				}
 			],
-			"successors": [45, 46],
+			"successors": [66],
 			"ir": [
-				"%mutate_arg.0 = phi i32 [ 1, %if.end19 ], [ %call26, %if.end24 ], !dbg !431",
-				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %arg.i) #9, !dbg !520",
-				"store i32 0, ptr %arg.i, align 4, !dbg !521, !tbaa !522",
-				"call void @llvm.lifetime.start.p0(i64 80, ptr nonnull %pstr.i) #9, !dbg !524",
-				"call void @llvm.lifetime.start.p0(i64 1025, ptr nonnull %buf.i) #9, !dbg !526",
-				"%tobool.not.i = icmp eq ptr %4, null, !dbg !528",
-				"br i1 %tobool.not.i, label %cond.end.i, label %cond.end.thread.i, !dbg !528"
+				"call void @PyBuffer_Release(ptr noundef nonnull %pstr.i) #9, !dbg !875",
+				"%8 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !877, !tbaa !686",
+				"call void @PyErr_SetString(ptr noundef %8, ptr noundef nonnull @.str.12) #9, !dbg !878",
+				"br label %fcntl_ioctl_impl.exit, !dbg !879"
 			]
 		},
 		{
 			"function": "fcntl_ioctl",
 			"id": 45,
-			"name": "cond.end.i",
+			"name": "if.end23.i",
 			"debug": [
 				{
-					"line": 173, "columns": [9]
-				},
-				{
-					"line": 174, "columns": [39, 48]
+					"line": 204, "columns": [21, 17]
 				}
 			],
-			"successors": [73, 70],
+			"successors": [47, 50],
 			"ir": [
-				"%call.i = tail call ptr @Py_GetConstantBorrowed(i32 noundef 0) #9, !dbg !539",
-				"%call1.i = tail call i32 (ptr, ptr, ...) @PySys_Audit(ptr noundef nonnull @.str.13, ptr noundef nonnull @.str.14, i32 noundef %call5, i32 noundef %conv, ptr noundef %call.i) #9, !dbg !540",
-				"%cmp.i = icmp slt i32 %call1.i, 0, !dbg !541",
-				"br i1 %cmp.i, label %fcntl_ioctl_impl.exit, label %if.end81.i, !dbg !542"
+				"%cmp25.i = icmp eq ptr %buf.i, %6, !dbg !881",
+				"br i1 %cmp25.i, label %if.end32.i, label %if.end38.thread.i, !dbg !882"
 			]
 		},
 		{
 			"function": "fcntl_ioctl",
 			"id": 46,
-			"name": "cond.end.thread.i",
+			"name": "if.end32.sink.split.i",
 			"debug": [
 				{
-					"line": 173, "columns": [9]
-				},
-				{
-					"line": 174, "columns": [48]
+					"line": 205, "columns": [17]
 				}
 			],
-			"successors": [73, 47],
+			"successors": [47],
 			"ir": [
-				"%call12.i = tail call i32 (ptr, ptr, ...) @PySys_Audit(ptr noundef nonnull @.str.13, ptr noundef nonnull @.str.14, i32 noundef %call5, i32 noundef %conv, ptr noundef nonnull %4) #9, !dbg !540",
-				"%cmp3.i = icmp slt i32 %call12.i, 0, !dbg !541",
-				"br i1 %cmp3.i, label %fcntl_ioctl_impl.exit, label %if.then3.i, !dbg !542"
+				"call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 16 %buf.i, ptr align 1 %6, i64 %7, i1 false), !dbg !883",
+				"%arrayidx20.i = getelementptr [1025 x i8], ptr %buf.i, i64 0, i64 %7, !dbg !883",
+				"store i8 0, ptr %arrayidx20.i, align 1, !dbg !883, !tbaa !884",
+				"br label %if.end32.i, !dbg !885"
 			]
 		},
 		{
 			"function": "fcntl_ioctl",
 			"id": 47,
-			"name": "if.then3.i",
+			"name": "if.end32.i",
 			"debug": [
 				{
-					"line": 179, "columns": [13]
+					"line": 205, "columns": [17]
+				},
+				{
+					"line": 206, "columns": [33, 23]
+				},
+				{
+					"line": 207, "columns": [17]
+				},
+				{
+					"line": 212, "columns": [28]
 				}
 			],
-			"successors": [63, 48],
+			"successors": [48, 49],
 			"ir": [
-				"%call4.i = call i32 (ptr, ptr, ...) @PyArg_Parse(ptr noundef nonnull %4, ptr noundef nonnull @.str.15, ptr noundef nonnull %pstr.i) #9, !dbg !543",
-				"%tobool5.not.i = icmp eq i32 %call4.i, 0, !dbg !543",
-				"br i1 %tobool5.not.i, label %if.end52.i, label %if.then6.i, !dbg !544"
+				"%call27.i = call ptr @PyEval_SaveThread() #9, !dbg !885",
+				"%conv.i = and i64 %call7, 4294967295, !dbg !887",
+				"%call28.i = call i32 (i32, i64, ...) @ioctl(i32 noundef %5, i64 noundef %conv.i, ptr noundef nonnull %buf.i) #9, !dbg !888",
+				"call void @PyEval_RestoreThread(ptr noundef %call27.i) #9, !dbg !889",
+				"%cmp34.i = icmp slt i64 %7, 1025",
+				"%or.cond.i = select i1 %tobool9.i, i1 %cmp34.i, i1 false, !dbg !890",
+				"br i1 %or.cond.i, label %if.then36.i, label %if.end38.i, !dbg !890"
 			]
 		},
 		{
 			"function": "fcntl_ioctl",
 			"id": 48,
-			"name": "if.then6.i",
+			"name": "if.then36.i",
 			"debug": [
 				{
-					"line": 181, "columns": [24]
+					"line": 213, "columns": [17]
 				},
 				{
-					"line": 182, "columns": [24]
-				},
-				{
-					"line": 184, "columns": [17]
+					"line": 214, "columns": [13]
 				}
 			],
-			"successors": [49, 50],
+			"successors": [49],
 			"ir": [
-				"%6 = load ptr, ptr %pstr.i, align 8, !dbg !545, !tbaa !546",
-				"%len9.i = getelementptr inbounds %struct.Py_buffer, ptr %pstr.i, i64 0, i32 2, !dbg !549",
-				"%7 = load i64, ptr %len9.i, align 8, !dbg !549, !tbaa !550",
-				"%tobool10.i = icmp ne i32 %mutate_arg.0, 0, !dbg !551",
-				"br i1 %tobool10.i, label %if.then11.i, label %if.else16.i, !dbg !553"
+				"call void @llvm.memcpy.p0.p0.i64(ptr align 1 %6, ptr nonnull align 16 %buf.i, i64 %7, i1 false), !dbg !892",
+				"br label %if.end38.i, !dbg !894"
 			]
 		},
 		{
 			"function": "fcntl_ioctl",
 			"id": 49,
-			"name": "if.then11.i",
+			"name": "if.end38.i",
 			"debug": [
 				{
-					"line": 185, "columns": [25, 21]
+					"line": 215, "columns": [21, 17]
 				}
 			],
-			"successors": [53, 52],
+			"successors": [52, 53],
 			"ir": [
-				"%cmp12.i = icmp slt i64 %7, 1025, !dbg !554",
-				"br i1 %cmp12.i, label %if.end33.sink.split.i, label %if.end24.i, !dbg !557"
+				"%cmp39.i = icmp slt i32 %call28.i, 0, !dbg !895",
+				"br i1 %cmp39.i, label %if.then41.i, label %if.end43.i, !dbg !897"
 			]
 		},
 		{
 			"function": "fcntl_ioctl",
 			"id": 50,
-			"name": "if.else16.i",
+			"name": "if.end38.thread.i",
 			"debug": [
 				{
-					"line": 195, "columns": [25, 21]
+					"line": 210, "columns": [33, 23]
+				},
+				{
+					"line": 215, "columns": [21, 17]
 				}
 			],
-			"successors": [51, 53],
+			"successors": [52, 51],
 			"ir": [
-				"%cmp17.i = icmp sgt i64 %7, 1024, !dbg !558",
-				"br i1 %cmp17.i, label %if.then18.i, label %if.end33.sink.split.i, !dbg !561"
+				"%conv30.i = and i64 %call7, 4294967295, !dbg !898",
+				"%call31.i = call i32 (i32, i64, ...) @ioctl(i32 noundef %5, i64 noundef %conv30.i, ptr noundef %6) #9, !dbg !900",
+				"%cmp399.i = icmp slt i32 %call31.i, 0, !dbg !895",
+				"br i1 %cmp399.i, label %if.then41.i, label %if.end43.thread.i, !dbg !897"
 			]
 		},
 		{
 			"function": "fcntl_ioctl",
 			"id": 51,
-			"name": "if.then18.i",
+			"name": "if.end43.thread.i",
 			"debug": [
 				{
-					"line": 196, "columns": [21]
-				},
-				{
-					"line": 197, "columns": [37, 21]
-				},
-				{
-					"line": 199, "columns": [21]
-				}
-			],
-			"successors": [73],
-			"ir": [
-				"call void @PyBuffer_Release(ptr noundef nonnull %pstr.i) #9, !dbg !562",
-				"%8 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !564, !tbaa !437",
-				"call void @PyErr_SetString(ptr noundef %8, ptr noundef nonnull @.str.16) #9, !dbg !565",
-				"br label %fcntl_ioctl_impl.exit, !dbg !566"
-			]
-		},
-		{
-			"function": "fcntl_ioctl",
-			"id": 52,
-			"name": "if.end24.i",
-			"debug": [
-				{
-					"line": 207, "columns": [21, 17]
-				}
-			],
-			"successors": [54, 57],
-			"ir": [
-				"%cmp26.i = icmp eq ptr %buf.i, %6, !dbg !568",
-				"br i1 %cmp26.i, label %if.end33.i, label %if.end39.thread.i, !dbg !569"
-			]
-		},
-		{
-			"function": "fcntl_ioctl",
-			"id": 53,
-			"name": "if.end33.sink.split.i",
-			"debug": [
-				{
-					"line": 208, "columns": [17]
-				}
-			],
-			"successors": [54],
-			"ir": [
-				"call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 16 %buf.i, ptr align 1 %6, i64 %7, i1 false), !dbg !570",
-				"%arrayidx21.i = getelementptr [1025 x i8], ptr %buf.i, i64 0, i64 %7, !dbg !570",
-				"store i8 0, ptr %arrayidx21.i, align 1, !dbg !570, !tbaa !571",
-				"br label %if.end33.i, !dbg !572"
-			]
-		},
-		{
-			"function": "fcntl_ioctl",
-			"id": 54,
-			"name": "if.end33.i",
-			"debug": [
-				{
-					"line": 208, "columns": [17]
-				},
-				{
-					"line": 209, "columns": [33, 23]
-				},
-				{
-					"line": 210, "columns": [17]
-				},
-				{
-					"line": 215, "columns": [28]
-				}
-			],
-			"successors": [55, 56],
-			"ir": [
-				"%call28.i = call ptr @PyEval_SaveThread() #9, !dbg !572",
-				"%conv.i = and i64 %call10, 4294967295, !dbg !574",
-				"%call29.i = call i32 (i32, i64, ...) @ioctl(i32 noundef %call5, i64 noundef %conv.i, ptr noundef nonnull %buf.i) #9, !dbg !575",
-				"call void @PyEval_RestoreThread(ptr noundef %call28.i) #9, !dbg !576",
-				"%cmp35.i = icmp slt i64 %7, 1025",
-				"%or.cond.i = select i1 %tobool10.i, i1 %cmp35.i, i1 false, !dbg !577",
-				"br i1 %or.cond.i, label %if.then37.i, label %if.end39.i, !dbg !577"
-			]
-		},
-		{
-			"function": "fcntl_ioctl",
-			"id": 55,
-			"name": "if.then37.i",
-			"debug": [
-				{
-					"line": 216, "columns": [17]
-				},
-				{
-					"line": 217, "columns": [13]
-				}
-			],
-			"successors": [56],
-			"ir": [
-				"call void @llvm.memcpy.p0.p0.i64(ptr align 1 %6, ptr nonnull align 16 %buf.i, i64 %7, i1 false), !dbg !579",
-				"br label %if.end39.i, !dbg !581"
-			]
-		},
-		{
-			"function": "fcntl_ioctl",
-			"id": 56,
-			"name": "if.end39.i",
-			"debug": [
-				{
-					"line": 218, "columns": [21, 17]
-				}
-			],
-			"successors": [59, 60],
-			"ir": [
-				"%cmp40.i = icmp slt i32 %call29.i, 0, !dbg !582",
-				"br i1 %cmp40.i, label %if.then42.i, label %if.end44.i, !dbg !584"
-			]
-		},
-		{
-			"function": "fcntl_ioctl",
-			"id": 57,
-			"name": "if.end39.thread.i",
-			"debug": [
-				{
-					"line": 213, "columns": [33, 23]
-				},
-				{
-					"line": 218, "columns": [21, 17]
-				}
-			],
-			"successors": [59, 58],
-			"ir": [
-				"%conv31.i = and i64 %call10, 4294967295, !dbg !585",
-				"%call32.i = call i32 (i32, i64, ...) @ioctl(i32 noundef %call5, i64 noundef %conv31.i, ptr noundef %6) #9, !dbg !587",
-				"%cmp4012.i = icmp slt i32 %call32.i, 0, !dbg !582",
-				"br i1 %cmp4012.i, label %if.then42.i, label %if.end44.thread.i, !dbg !584"
-			]
-		},
-		{
-			"function": "fcntl_ioctl",
-			"id": 58,
-			"name": "if.end44.thread.i",
-			"debug": [
-				{
-					"line": 223, "columns": [13]
-				},
-				{
-					"line": 224, "columns": [17]
-				}
-			],
-			"successors": [61],
-			"ir": [
-				"call void @PyBuffer_Release(ptr noundef nonnull %pstr.i) #9, !dbg !588",
-				"br label %if.then46.i, !dbg !589"
-			]
-		},
-		{
-			"function": "fcntl_ioctl",
-			"id": 59,
-			"name": "if.then42.i",
-			"debug": [
-				{
-					"line": 219, "columns": [36, 17]
-				},
-				{
-					"line": 220, "columns": [17]
+					"line": 220, "columns": [13]
 				},
 				{
 					"line": 221, "columns": [17]
 				}
 			],
-			"successors": [73],
+			"successors": [54],
 			"ir": [
-				"%9 = load ptr, ptr @PyExc_OSError, align 8, !dbg !590, !tbaa !437",
-				"%call43.i = call ptr @PyErr_SetFromErrno(ptr noundef %9) #9, !dbg !592",
-				"call void @PyBuffer_Release(ptr noundef nonnull %pstr.i) #9, !dbg !593",
-				"br label %fcntl_ioctl_impl.exit, !dbg !594"
+				"call void @PyBuffer_Release(ptr noundef nonnull %pstr.i) #9, !dbg !901",
+				"br label %if.then45.i, !dbg !902"
 			]
 		},
 		{
 			"function": "fcntl_ioctl",
-			"id": 60,
-			"name": "if.end44.i",
+			"id": 52,
+			"name": "if.then41.i",
 			"debug": [
 				{
-					"line": 223, "columns": [13]
+					"line": 216, "columns": [36, 17]
 				},
 				{
-					"line": 224, "columns": [17]
+					"line": 217, "columns": [17]
+				},
+				{
+					"line": 218, "columns": [17]
 				}
 			],
-			"successors": [61, 62],
+			"successors": [66],
 			"ir": [
-				"call void @PyBuffer_Release(ptr noundef nonnull %pstr.i) #9, !dbg !588",
-				"br i1 %tobool10.i, label %if.then46.i, label %if.else49.i, !dbg !589"
+				"%9 = load ptr, ptr @PyExc_OSError, align 8, !dbg !903, !tbaa !686",
+				"%call42.i = call ptr @PyErr_SetFromErrno(ptr noundef %9) #9, !dbg !905",
+				"call void @PyBuffer_Release(ptr noundef nonnull %pstr.i) #9, !dbg !906",
+				"br label %fcntl_ioctl_impl.exit, !dbg !907"
 			]
 		},
 		{
 			"function": "fcntl_ioctl",
-			"id": 61,
-			"name": "if.then46.i",
+			"id": 53,
+			"name": "if.end43.i",
+			"debug": [
+				{
+					"line": 220, "columns": [13]
+				},
+				{
+					"line": 221, "columns": [17]
+				}
+			],
+			"successors": [54, 55],
+			"ir": [
+				"call void @PyBuffer_Release(ptr noundef nonnull %pstr.i) #9, !dbg !901",
+				"br i1 %tobool9.i, label %if.then45.i, label %if.else48.i, !dbg !902"
+			]
+		},
+		{
+			"function": "fcntl_ioctl",
+			"id": 54,
+			"name": "if.then45.i",
+			"debug": [
+				{
+					"line": 222, "columns": [24, 17]
+				}
+			],
+			"successors": [66],
+			"ir": [
+				"%ret.071012.i = phi i32 [ %call31.i, %if.end43.thread.i ], [ %call28.i, %if.end43.i ]",
+				"%conv46.i = zext i32 %ret.071012.i to i64",
+				"%call47.i = call ptr @PyLong_FromLong(i64 noundef %conv46.i) #9, !dbg !908",
+				"br label %fcntl_ioctl_impl.exit, !dbg !911"
+			]
+		},
+		{
+			"function": "fcntl_ioctl",
+			"id": 55,
+			"name": "if.else48.i",
 			"debug": [
 				{
 					"line": 225, "columns": [24, 17]
 				}
 			],
-			"successors": [73],
+			"successors": [66],
 			"ir": [
-				"%ret.0101315.i = phi i32 [ %call32.i, %if.end44.thread.i ], [ %call29.i, %if.end44.i ]",
-				"%conv47.i = zext i32 %ret.0101315.i to i64",
-				"%call48.i = call ptr @PyLong_FromLong(i64 noundef %conv47.i) #9, !dbg !595",
-				"br label %fcntl_ioctl_impl.exit, !dbg !598"
+				"%call50.i = call ptr @PyBytes_FromStringAndSize(ptr noundef nonnull %buf.i, i64 noundef %7) #9, !dbg !912",
+				"br label %fcntl_ioctl_impl.exit, !dbg !914"
+			]
+		},
+		{
+			"function": "fcntl_ioctl",
+			"id": 56,
+			"name": "if.end51.i",
+			"debug": [
+				{
+					"line": 229, "columns": [9]
+				},
+				{
+					"line": 230, "columns": [13]
+				}
+			],
+			"successors": [62, 57],
+			"ir": [
+				"call void @PyErr_Clear() #9, !dbg !915",
+				"%call52.i = call i32 (ptr, ptr, ...) @PyArg_Parse(ptr noundef nonnull %ob_arg.0, ptr noundef nonnull @.str.13, ptr noundef nonnull %pstr.i) #9, !dbg !916",
+				"%tobool53.not.i = icmp eq i32 %call52.i, 0, !dbg !916",
+				"br i1 %tobool53.not.i, label %if.end75.i, label %if.then54.i, !dbg !917"
+			]
+		},
+		{
+			"function": "fcntl_ioctl",
+			"id": 57,
+			"name": "if.then54.i",
+			"debug": [
+				{
+					"line": 232, "columns": [24]
+				},
+				{
+					"line": 233, "columns": [21, 17]
+				}
+			],
+			"successors": [58, 59],
+			"ir": [
+				"%len56.i = getelementptr inbounds %struct.Py_buffer, ptr %pstr.i, i64 0, i32 2, !dbg !918",
+				"%10 = load i64, ptr %len56.i, align 8, !dbg !918, !tbaa !863",
+				"%cmp57.i = icmp sgt i64 %10, 1024, !dbg !919",
+				"br i1 %cmp57.i, label %if.then59.i, label %if.end60.i, !dbg !921"
+			]
+		},
+		{
+			"function": "fcntl_ioctl",
+			"id": 58,
+			"name": "if.then59.i",
+			"debug": [
+				{
+					"line": 234, "columns": [17]
+				},
+				{
+					"line": 235, "columns": [33, 17]
+				},
+				{
+					"line": 237, "columns": [17]
+				}
+			],
+			"successors": [66],
+			"ir": [
+				"call void @PyBuffer_Release(ptr noundef nonnull %pstr.i) #9, !dbg !922",
+				"%11 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !924, !tbaa !686",
+				"call void @PyErr_SetString(ptr noundef %11, ptr noundef nonnull @.str.12) #9, !dbg !925",
+				"br label %fcntl_ioctl_impl.exit, !dbg !926"
+			]
+		},
+		{
+			"function": "fcntl_ioctl",
+			"id": 59,
+			"name": "if.end60.i",
+			"debug": [
+				{
+					"line": 231, "columns": [24]
+				},
+				{
+					"line": 239, "columns": [13]
+				},
+				{
+					"line": 240, "columns": [13, 22]
+				},
+				{
+					"line": 241, "columns": [13]
+				},
+				{
+					"line": 242, "columns": [29, 19]
+				},
+				{
+					"line": 243, "columns": [13]
+				},
+				{
+					"line": 244, "columns": [21, 17]
+				}
+			],
+			"successors": [60, 61],
+			"ir": [
+				"%12 = load ptr, ptr %pstr.i, align 8, !dbg !927, !tbaa !859",
+				"call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 16 %buf.i, ptr align 1 %12, i64 %10, i1 false), !dbg !928",
+				"%arrayidx62.i = getelementptr [1025 x i8], ptr %buf.i, i64 0, i64 %10, !dbg !929",
+				"store i8 0, ptr %arrayidx62.i, align 1, !dbg !930, !tbaa !884",
+				"%call64.i = call ptr @PyEval_SaveThread() #9, !dbg !931",
+				"%conv65.i = and i64 %call7, 4294967295, !dbg !933",
+				"%call67.i = call i32 (i32, i64, ...) @ioctl(i32 noundef %5, i64 noundef %conv65.i, ptr noundef nonnull %buf.i) #9, !dbg !934",
+				"call void @PyEval_RestoreThread(ptr noundef %call64.i) #9, !dbg !935",
+				"%cmp68.i = icmp slt i32 %call67.i, 0, !dbg !936",
+				"br i1 %cmp68.i, label %if.then70.i, label %if.end72.i, !dbg !938"
+			]
+		},
+		{
+			"function": "fcntl_ioctl",
+			"id": 60,
+			"name": "if.then70.i",
+			"debug": [
+				{
+					"line": 245, "columns": [36, 17]
+				},
+				{
+					"line": 246, "columns": [17]
+				},
+				{
+					"line": 247, "columns": [17]
+				}
+			],
+			"successors": [66],
+			"ir": [
+				"%13 = load ptr, ptr @PyExc_OSError, align 8, !dbg !939, !tbaa !686",
+				"%call71.i = call ptr @PyErr_SetFromErrno(ptr noundef %13) #9, !dbg !941",
+				"call void @PyBuffer_Release(ptr noundef nonnull %pstr.i) #9, !dbg !942",
+				"br label %fcntl_ioctl_impl.exit, !dbg !943"
+			]
+		},
+		{
+			"function": "fcntl_ioctl",
+			"id": 61,
+			"name": "if.end72.i",
+			"debug": [
+				{
+					"line": 249, "columns": [13]
+				},
+				{
+					"line": 250, "columns": [20, 13]
+				}
+			],
+			"successors": [66],
+			"ir": [
+				"call void @PyBuffer_Release(ptr noundef nonnull %pstr.i) #9, !dbg !944",
+				"%call74.i = call ptr @PyBytes_FromStringAndSize(ptr noundef nonnull %buf.i, i64 noundef %10) #9, !dbg !945",
+				"br label %fcntl_ioctl_impl.exit, !dbg !946"
 			]
 		},
 		{
 			"function": "fcntl_ioctl",
 			"id": 62,
-			"name": "if.else49.i",
+			"name": "if.end75.i",
 			"debug": [
 				{
-					"line": 228, "columns": [24, 17]
+					"line": 253, "columns": [9]
+				},
+				{
+					"line": 254, "columns": [14, 13]
 				}
 			],
-			"successors": [73],
+			"successors": [66, 63],
 			"ir": [
-				"%call51.i = call ptr @PyBytes_FromStringAndSize(ptr noundef nonnull %buf.i, i64 noundef %7) #9, !dbg !599",
-				"br label %fcntl_ioctl_impl.exit, !dbg !601"
+				"call void @PyErr_Clear() #9, !dbg !947",
+				"%call76.i = call i32 (ptr, ptr, ...) @PyArg_Parse(ptr noundef nonnull %ob_arg.0, ptr noundef nonnull @.str.14, ptr noundef nonnull %arg.i) #9, !dbg !948",
+				"%tobool77.not.i = icmp eq i32 %call76.i, 0, !dbg !948",
+				"br i1 %tobool77.not.i, label %fcntl_ioctl_impl.exit, label %if.end80.i, !dbg !950"
 			]
 		},
 		{
 			"function": "fcntl_ioctl",
 			"id": 63,
-			"name": "if.end52.i",
+			"name": "if.end80.i",
 			"debug": [
 				{
-					"line": 232, "columns": [9]
+					"line": 262, "columns": [5]
 				},
 				{
-					"line": 233, "columns": [13]
+					"line": 263, "columns": [21, 27, 11]
+				},
+				{
+					"line": 264, "columns": [5]
+				},
+				{
+					"line": 265, "columns": [13, 9]
 				}
 			],
-			"successors": [69, 64],
+			"successors": [64, 65],
 			"ir": [
-				"call void @PyErr_Clear() #9, !dbg !602",
-				"%call53.i = call i32 (ptr, ptr, ...) @PyArg_Parse(ptr noundef nonnull %4, ptr noundef nonnull @.str.17, ptr noundef nonnull %pstr.i) #9, !dbg !603",
-				"%tobool54.not.i = icmp eq i32 %call53.i, 0, !dbg !603",
-				"br i1 %tobool54.not.i, label %if.end76.i, label %if.then55.i, !dbg !604"
+				"%call82.i = call ptr @PyEval_SaveThread() #9, !dbg !951",
+				"%conv83.i = and i64 %call7, 4294967295, !dbg !953",
+				"%14 = load i32, ptr %arg.i, align 4, !dbg !954, !tbaa !714",
+				"%call84.i = call i32 (i32, i64, ...) @ioctl(i32 noundef %5, i64 noundef %conv83.i, i32 noundef %14) #9, !dbg !955",
+				"call void @PyEval_RestoreThread(ptr noundef %call82.i) #9, !dbg !956",
+				"%cmp85.i = icmp slt i32 %call84.i, 0, !dbg !957",
+				"br i1 %cmp85.i, label %if.then87.i, label %if.end89.i, !dbg !959"
 			]
 		},
 		{
 			"function": "fcntl_ioctl",
 			"id": 64,
-			"name": "if.then55.i",
+			"name": "if.then87.i",
 			"debug": [
 				{
-					"line": 235, "columns": [24]
+					"line": 266, "columns": [28, 9]
 				},
 				{
-					"line": 236, "columns": [21, 17]
+					"line": 267, "columns": [9]
 				}
 			],
-			"successors": [65, 66],
+			"successors": [66],
 			"ir": [
-				"%len57.i = getelementptr inbounds %struct.Py_buffer, ptr %pstr.i, i64 0, i32 2, !dbg !605",
-				"%10 = load i64, ptr %len57.i, align 8, !dbg !605, !tbaa !550",
-				"%cmp58.i = icmp sgt i64 %10, 1024, !dbg !606",
-				"br i1 %cmp58.i, label %if.then60.i, label %if.end61.i, !dbg !608"
+				"%15 = load ptr, ptr @PyExc_OSError, align 8, !dbg !960, !tbaa !686",
+				"%call88.i = call ptr @PyErr_SetFromErrno(ptr noundef %15) #9, !dbg !962",
+				"br label %fcntl_ioctl_impl.exit, !dbg !963"
 			]
 		},
 		{
 			"function": "fcntl_ioctl",
 			"id": 65,
-			"name": "if.then60.i",
+			"name": "if.end89.i",
 			"debug": [
 				{
-					"line": 237, "columns": [17]
-				},
-				{
-					"line": 238, "columns": [33, 17]
-				},
-				{
-					"line": 240, "columns": [17]
+					"line": 269, "columns": [12, 5]
 				}
 			],
-			"successors": [73],
+			"successors": [66],
 			"ir": [
-				"call void @PyBuffer_Release(ptr noundef nonnull %pstr.i) #9, !dbg !609",
-				"%11 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !611, !tbaa !437",
-				"call void @PyErr_SetString(ptr noundef %11, ptr noundef nonnull @.str.16) #9, !dbg !612",
-				"br label %fcntl_ioctl_impl.exit, !dbg !613"
+				"%conv90.i = zext i32 %call84.i to i64",
+				"%call91.i = call ptr @PyLong_FromLong(i64 noundef %conv90.i) #9, !dbg !964",
+				"br label %fcntl_ioctl_impl.exit, !dbg !965"
 			]
 		},
 		{
 			"function": "fcntl_ioctl",
 			"id": 66,
-			"name": "if.end61.i",
+			"name": "fcntl_ioctl_impl.exit",
 			"debug": [
 				{
-					"line": 234, "columns": [24]
+					"line": 130, "columns": [5]
 				},
 				{
-					"line": 242, "columns": [13]
-				},
-				{
-					"line": 243, "columns": [13, 22]
-				},
-				{
-					"line": 244, "columns": [13]
-				},
-				{
-					"line": 245, "columns": [29, 19]
-				},
-				{
-					"line": 246, "columns": [13]
-				},
-				{
-					"line": 247, "columns": [21, 17]
+					"line": 271, "columns": [1]
 				}
 			],
-			"successors": [67, 68],
+			"successors": [67],
 			"ir": [
-				"%12 = load ptr, ptr %pstr.i, align 8, !dbg !614, !tbaa !546",
-				"call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 16 %buf.i, ptr align 1 %12, i64 %10, i1 false), !dbg !615",
-				"%arrayidx63.i = getelementptr [1025 x i8], ptr %buf.i, i64 0, i64 %10, !dbg !616",
-				"store i8 0, ptr %arrayidx63.i, align 1, !dbg !617, !tbaa !571",
-				"%call65.i = call ptr @PyEval_SaveThread() #9, !dbg !618",
-				"%conv66.i = and i64 %call10, 4294967295, !dbg !620",
-				"%call68.i = call i32 (i32, i64, ...) @ioctl(i32 noundef %call5, i64 noundef %conv66.i, ptr noundef nonnull %buf.i) #9, !dbg !621",
-				"call void @PyEval_RestoreThread(ptr noundef %call65.i) #9, !dbg !622",
-				"%cmp69.i = icmp slt i32 %call68.i, 0, !dbg !623",
-				"br i1 %cmp69.i, label %if.then71.i, label %if.end73.i, !dbg !625"
+				"%retval.1.i = phi ptr [ null, %if.then59.i ], [ null, %if.then70.i ], [ %call74.i, %if.end72.i ], [ null, %if.then87.i ], [ %call91.i, %if.end89.i ], [ null, %skip_optional ], [ null, %if.then41.i ], [ %call47.i, %if.then45.i ], [ %call50.i, %if.else48.i ], [ null, %if.then17.i ], [ null, %if.end75.i ], !dbg !842",
+				"call void @llvm.lifetime.end.p0(i64 1025, ptr nonnull %buf.i) #9, !dbg !966",
+				"call void @llvm.lifetime.end.p0(i64 80, ptr nonnull %pstr.i) #9, !dbg !966",
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %arg.i) #9, !dbg !966",
+				"br label %exit, !dbg !967"
 			]
 		},
 		{
 			"function": "fcntl_ioctl",
 			"id": 67,
-			"name": "if.then71.i",
-			"debug": [
-				{
-					"line": 248, "columns": [36, 17]
-				},
-				{
-					"line": 249, "columns": [17]
-				},
-				{
-					"line": 250, "columns": [17]
-				}
-			],
-			"successors": [73],
-			"ir": [
-				"%13 = load ptr, ptr @PyExc_OSError, align 8, !dbg !626, !tbaa !437",
-				"%call72.i = call ptr @PyErr_SetFromErrno(ptr noundef %13) #9, !dbg !628",
-				"call void @PyBuffer_Release(ptr noundef nonnull %pstr.i) #9, !dbg !629",
-				"br label %fcntl_ioctl_impl.exit, !dbg !630"
-			]
-		},
-		{
-			"function": "fcntl_ioctl",
-			"id": 68,
-			"name": "if.end73.i",
-			"debug": [
-				{
-					"line": 252, "columns": [13]
-				},
-				{
-					"line": 253, "columns": [20, 13]
-				}
-			],
-			"successors": [73],
-			"ir": [
-				"call void @PyBuffer_Release(ptr noundef nonnull %pstr.i) #9, !dbg !631",
-				"%call75.i = call ptr @PyBytes_FromStringAndSize(ptr noundef nonnull %buf.i, i64 noundef %10) #9, !dbg !632",
-				"br label %fcntl_ioctl_impl.exit, !dbg !633"
-			]
-		},
-		{
-			"function": "fcntl_ioctl",
-			"id": 69,
-			"name": "if.end76.i",
-			"debug": [
-				{
-					"line": 256, "columns": [9]
-				},
-				{
-					"line": 257, "columns": [14, 13]
-				}
-			],
-			"successors": [73, 70],
-			"ir": [
-				"call void @PyErr_Clear() #9, !dbg !634",
-				"%call77.i = call i32 (ptr, ptr, ...) @PyArg_Parse(ptr noundef nonnull %4, ptr noundef nonnull @.str.18, ptr noundef nonnull %arg.i) #9, !dbg !635",
-				"%tobool78.not.i = icmp eq i32 %call77.i, 0, !dbg !635",
-				"br i1 %tobool78.not.i, label %fcntl_ioctl_impl.exit, label %if.end81.i, !dbg !637"
-			]
-		},
-		{
-			"function": "fcntl_ioctl",
-			"id": 70,
-			"name": "if.end81.i",
-			"debug": [
-				{
-					"line": 265, "columns": [5]
-				},
-				{
-					"line": 266, "columns": [21, 27, 11]
-				},
-				{
-					"line": 267, "columns": [5]
-				},
-				{
-					"line": 268, "columns": [13, 9]
-				}
-			],
-			"successors": [71, 72],
-			"ir": [
-				"%call83.i = call ptr @PyEval_SaveThread() #9, !dbg !638",
-				"%conv84.i = and i64 %call10, 4294967295, !dbg !640",
-				"%14 = load i32, ptr %arg.i, align 4, !dbg !641, !tbaa !522",
-				"%call85.i = call i32 (i32, i64, ...) @ioctl(i32 noundef %call5, i64 noundef %conv84.i, i32 noundef %14) #9, !dbg !642",
-				"call void @PyEval_RestoreThread(ptr noundef %call83.i) #9, !dbg !643",
-				"%cmp86.i = icmp slt i32 %call85.i, 0, !dbg !644",
-				"br i1 %cmp86.i, label %if.then88.i, label %if.end90.i, !dbg !646"
-			]
-		},
-		{
-			"function": "fcntl_ioctl",
-			"id": 71,
-			"name": "if.then88.i",
-			"debug": [
-				{
-					"line": 269, "columns": [28, 9]
-				},
-				{
-					"line": 270, "columns": [9]
-				}
-			],
-			"successors": [73],
-			"ir": [
-				"%15 = load ptr, ptr @PyExc_OSError, align 8, !dbg !647, !tbaa !437",
-				"%call89.i = call ptr @PyErr_SetFromErrno(ptr noundef %15) #9, !dbg !649",
-				"br label %fcntl_ioctl_impl.exit, !dbg !650"
-			]
-		},
-		{
-			"function": "fcntl_ioctl",
-			"id": 72,
-			"name": "if.end90.i",
-			"debug": [
-				{
-					"line": 272, "columns": [12, 5]
-				}
-			],
-			"successors": [73],
-			"ir": [
-				"%conv91.i = zext i32 %call85.i to i64",
-				"%call92.i = call ptr @PyLong_FromLong(i64 noundef %conv91.i) #9, !dbg !651",
-				"br label %fcntl_ioctl_impl.exit, !dbg !652"
-			]
-		},
-		{
-			"function": "fcntl_ioctl",
-			"id": 73,
-			"name": "fcntl_ioctl_impl.exit",
-			"debug": [
-				{
-					"line": 139, "columns": [5]
-				},
-				{
-					"line": 274, "columns": [1]
-				}
-			],
-			"successors": [74],
-			"ir": [
-				"%retval.1.i = phi ptr [ null, %if.then60.i ], [ null, %if.then71.i ], [ %call75.i, %if.end73.i ], [ null, %if.then88.i ], [ %call92.i, %if.end90.i ], [ null, %cond.end.i ], [ null, %if.then42.i ], [ %call48.i, %if.then46.i ], [ %call51.i, %if.else49.i ], [ null, %if.then18.i ], [ null, %if.end76.i ], [ null, %cond.end.thread.i ], !dbg !518",
-				"call void @llvm.lifetime.end.p0(i64 1025, ptr nonnull %buf.i) #9, !dbg !653",
-				"call void @llvm.lifetime.end.p0(i64 80, ptr nonnull %pstr.i) #9, !dbg !653",
-				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %arg.i) #9, !dbg !653",
-				"br label %exit, !dbg !654"
-			]
-		},
-		{
-			"function": "fcntl_ioctl",
-			"id": 74,
 			"name": "exit",
 			"debug": [
 				{
-					"line": 141, "columns": [1]
+					"line": 132, "columns": [1]
 				},
 				{
-					"line": 142, "columns": [5]
+					"line": 133, "columns": [5]
+				},
+				{
+					"line": 134, "columns": [1]
 				}
 			],
 			"successors": [],
 			"ir": [
-				"%return_value.0 = phi ptr [ null, %if.then ], [ null, %if.then2 ], [ null, %if.end4 ], [ null, %land.lhs.true ], [ %retval.1.i, %fcntl_ioctl_impl.exit ], [ null, %if.end24 ], !dbg !431",
-				"ret ptr %return_value.0, !dbg !656"
+				"%return_value.0 = phi ptr [ null, %land.lhs.true10 ], [ %retval.1.i, %fcntl_ioctl_impl.exit ], [ null, %if.end23 ], [ null, %if.end ], [ null, %lor.lhs.false ], !dbg !679",
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %fd) #9, !dbg !969",
+				"ret ptr %return_value.0, !dbg !970"
+			]
+		},
+		{
+			"function": "fcntl_flock",
+			"id": 68,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 155, "columns": [5]
+				},
+				{
+					"line": 158, "columns": [10]
+				}
+			],
+			"successors": [70, 69],
+			"ir": [
+				"%fd = alloca i32, align 4",
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %fd) #9, !dbg !677",
+				"%or.cond = icmp eq i64 %nargs, 2, !dbg !678",
+				"br i1 %or.cond, label %if.end, label %lor.lhs.false, !dbg !678"
+			]
+		},
+		{
+			"function": "fcntl_flock",
+			"id": 69,
+			"name": "lor.lhs.false",
+			"debug": [
+				{
+					"line": 158, "columns": [10, 9]
+				}
+			],
+			"successors": [75, 70],
+			"ir": [
+				"%call = tail call i32 @_PyArg_CheckPositional(ptr noundef nonnull @.str.2, i64 noundef %nargs, i64 noundef 2, i64 noundef 2) #9, !dbg !678",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !678",
+				"br i1 %tobool.not, label %exit, label %if.end, !dbg !680"
+			]
+		},
+		{
+			"function": "fcntl_flock",
+			"id": 70,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 161, "columns": [43, 10, 9]
+				}
+			],
+			"successors": [75, 71],
+			"ir": [
+				"%0 = load ptr, ptr %args, align 8, !dbg !681, !tbaa !683",
+				"%call2 = call i32 @_PyLong_FileDescriptor_Converter(ptr noundef %0, ptr noundef nonnull %fd) #9, !dbg !687",
+				"%tobool3.not = icmp eq i32 %call2, 0, !dbg !687",
+				"br i1 %tobool3.not, label %exit, label %if.end5, !dbg !688"
+			]
+		},
+		{
+			"function": "fcntl_flock",
+			"id": 71,
+			"name": "if.end5",
+			"debug": [
+				{
+					"line": 164, "columns": [25, 12]
+				},
+				{
+					"line": 165, "columns": [14, 20]
+				}
+			],
+			"successors": [73, 72],
+			"ir": [
+				"%arrayidx6 = getelementptr ptr, ptr %args, i64 1, !dbg !689",
+				"%1 = load ptr, ptr %arrayidx6, align 8, !dbg !689, !tbaa !683",
+				"%call7 = call i32 @PyLong_AsInt(ptr noundef %1) #9, !dbg !690",
+				"%cmp8 = icmp eq i32 %call7, -1, !dbg !691",
+				"br i1 %cmp8, label %land.lhs.true9, label %if.end5.split, !dbg !693"
+			]
+		},
+		{
+			"function": "fcntl_flock",
+			"id": 72,
+			"name": "if.end5.split",
+			"debug": [
+				{
+					"line": 165, "columns": [20]
+				},
+				{
+					"line": 168, "columns": [45, 20]
+				}
+			],
+			"successors": [75],
+			"ir": [
+				"%2 = load i32, ptr %fd, align 4, !dbg !694, !tbaa !695",
+				"%call1419 = call fastcc ptr @fcntl_flock_impl(i32 noundef %2, i32 noundef %call7), !dbg !697",
+				"br label %exit, !dbg !693"
+			]
+		},
+		{
+			"function": "fcntl_flock",
+			"id": 73,
+			"name": "land.lhs.true9",
+			"debug": [
+				{
+					"line": 165, "columns": [23, 9]
+				}
+			],
+			"successors": [74, 75],
+			"ir": [
+				"%call10 = call ptr @PyErr_Occurred() #9, !dbg !698",
+				"%tobool11.not = icmp eq ptr %call10, null, !dbg !698",
+				"br i1 %tobool11.not, label %land.lhs.true9.split, label %exit, !dbg !699"
+			]
+		},
+		{
+			"function": "fcntl_flock",
+			"id": 74,
+			"name": "land.lhs.true9.split",
+			"debug": [
+				{
+					"line": 165, "columns": [9]
+				},
+				{
+					"line": 168, "columns": [45, 20]
+				}
+			],
+			"successors": [75],
+			"ir": [
+				"%3 = load i32, ptr %fd, align 4, !dbg !694, !tbaa !695",
+				"%call1420 = call fastcc ptr @fcntl_flock_impl(i32 noundef %3, i32 noundef -1), !dbg !697",
+				"br label %exit, !dbg !699"
 			]
 		},
 		{
 			"function": "fcntl_flock",
 			"id": 75,
-			"name": "entry",
-			"debug": [
-				{
-					"line": 167, "columns": [15, 9]
-				}
-			],
-			"successors": [77, 76],
-			"ir": [
-				"%cmp.not = icmp eq i64 %nargs, 2, !dbg !429",
-				"br i1 %cmp.not, label %if.end, label %if.then, !dbg !431"
-			]
-		},
-		{
-			"function": "fcntl_flock",
-			"id": 76,
-			"name": "if.then",
-			"debug": [
-				{
-					"line": 168, "columns": [22, 9]
-				},
-				{
-					"line": 169, "columns": [9]
-				}
-			],
-			"successors": [82],
-			"ir": [
-				"%0 = load ptr, ptr @PyExc_TypeError, align 8, !dbg !432, !tbaa !434",
-				"%call = tail call ptr (ptr, ptr, ...) @PyErr_Format(ptr noundef %0, ptr noundef nonnull @.str.19, i64 noundef %nargs) #9, !dbg !438",
-				"br label %exit, !dbg !439"
-			]
-		},
-		{
-			"function": "fcntl_flock",
-			"id": 77,
-			"name": "if.end",
-			"debug": [
-				{
-					"line": 171, "columns": [36, 10]
-				},
-				{
-					"line": 172, "columns": [12, 9]
-				}
-			],
-			"successors": [82, 78],
-			"ir": [
-				"%1 = load ptr, ptr %args, align 8, !dbg !440, !tbaa !434",
-				"%call1 = tail call i32 @PyObject_AsFileDescriptor(ptr noundef %1) #9, !dbg !441",
-				"%cmp2 = icmp slt i32 %call1, 0, !dbg !442",
-				"br i1 %cmp2, label %exit, label %if.end4, !dbg !444"
-			]
-		},
-		{
-			"function": "fcntl_flock",
-			"id": 78,
-			"name": "if.end4",
-			"debug": [
-				{
-					"line": 175, "columns": [25, 12]
-				},
-				{
-					"line": 176, "columns": [14, 20]
-				}
-			],
-			"successors": [80, 79],
-			"ir": [
-				"%arrayidx5 = getelementptr ptr, ptr %args, i64 1, !dbg !445",
-				"%2 = load ptr, ptr %arrayidx5, align 8, !dbg !445, !tbaa !434",
-				"%call6 = tail call i32 @PyLong_AsInt(ptr noundef %2) #9, !dbg !446",
-				"%cmp7 = icmp eq i32 %call6, -1, !dbg !447",
-				"br i1 %cmp7, label %land.lhs.true, label %if.end4.split, !dbg !449"
-			]
-		},
-		{
-			"function": "fcntl_flock",
-			"id": 79,
-			"name": "if.end4.split",
-			"debug": [
-				{
-					"line": 176, "columns": [20]
-				},
-				{
-					"line": 179, "columns": [20]
-				}
-			],
-			"successors": [82],
-			"ir": [
-				"%call1116 = tail call fastcc ptr @fcntl_flock_impl(i32 noundef %call1, i32 noundef %call6), !dbg !450",
-				"br label %exit, !dbg !449"
-			]
-		},
-		{
-			"function": "fcntl_flock",
-			"id": 80,
-			"name": "land.lhs.true",
-			"debug": [
-				{
-					"line": 176, "columns": [23, 9]
-				}
-			],
-			"successors": [81, 82],
-			"ir": [
-				"%call8 = tail call ptr @PyErr_Occurred() #9, !dbg !451",
-				"%tobool.not = icmp eq ptr %call8, null, !dbg !451",
-				"br i1 %tobool.not, label %land.lhs.true.split, label %exit, !dbg !452"
-			]
-		},
-		{
-			"function": "fcntl_flock",
-			"id": 81,
-			"name": "land.lhs.true.split",
-			"debug": [
-				{
-					"line": 176, "columns": [9]
-				},
-				{
-					"line": 179, "columns": [20]
-				}
-			],
-			"successors": [82],
-			"ir": [
-				"%call1117 = tail call fastcc ptr @fcntl_flock_impl(i32 noundef %call1, i32 noundef -1), !dbg !450",
-				"br label %exit, !dbg !452"
-			]
-		},
-		{
-			"function": "fcntl_flock",
-			"id": 82,
 			"name": "exit",
 			"debug": [
 				{
-					"line": 181, "columns": [1]
+					"line": 170, "columns": [1]
 				},
 				{
-					"line": 182, "columns": [5]
+					"line": 171, "columns": [5]
+				},
+				{
+					"line": 172, "columns": [1]
 				}
 			],
 			"successors": [],
 			"ir": [
-				"%return_value.0 = phi ptr [ null, %if.then ], [ null, %if.end ], [ null, %land.lhs.true ], [ %call1116, %if.end4.split ], [ %call1117, %land.lhs.true.split ], !dbg !428",
-				"ret ptr %return_value.0, !dbg !454"
+				"%return_value.0 = phi ptr [ null, %land.lhs.true9 ], [ null, %if.end ], [ null, %lor.lhs.false ], [ %call1419, %if.end5.split ], [ %call1420, %land.lhs.true9.split ], !dbg !676",
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %fd) #9, !dbg !701",
+				"ret ptr %return_value.0, !dbg !702"
+			]
+		},
+		{
+			"function": "fcntl_lockf",
+			"id": 76,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 212, "columns": [5]
+				},
+				{
+					"line": 218, "columns": [10]
+				}
+			],
+			"successors": [78, 77],
+			"ir": [
+				"%l.i = alloca %struct.flock, align 8",
+				"%fd = alloca i32, align 4",
+				"call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %fd) #9, !dbg !681",
+				"%0 = add i64 %nargs, -2, !dbg !682",
+				"%or.cond = icmp ult i64 %0, 4, !dbg !682",
+				"br i1 %or.cond, label %if.end, label %lor.lhs.false, !dbg !682"
+			]
+		},
+		{
+			"function": "fcntl_lockf",
+			"id": 77,
+			"name": "lor.lhs.false",
+			"debug": [
+				{
+					"line": 218, "columns": [10, 9]
+				}
+			],
+			"successors": [107, 78],
+			"ir": [
+				"%call = tail call i32 @_PyArg_CheckPositional(ptr noundef nonnull @.str.3, i64 noundef %nargs, i64 noundef 2, i64 noundef 5) #9, !dbg !682",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !682",
+				"br i1 %tobool.not, label %exit, label %if.end, !dbg !684"
+			]
+		},
+		{
+			"function": "fcntl_lockf",
+			"id": 78,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 221, "columns": [43, 10, 9]
+				}
+			],
+			"successors": [107, 79],
+			"ir": [
+				"%1 = load ptr, ptr %args, align 8, !dbg !685, !tbaa !687",
+				"%call2 = call i32 @_PyLong_FileDescriptor_Converter(ptr noundef %1, ptr noundef nonnull %fd) #9, !dbg !691",
+				"%tobool3.not = icmp eq i32 %call2, 0, !dbg !691",
+				"br i1 %tobool3.not, label %exit, label %if.end5, !dbg !692"
+			]
+		},
+		{
+			"function": "fcntl_lockf",
+			"id": 79,
+			"name": "if.end5",
+			"debug": [
+				{
+					"line": 224, "columns": [25, 12]
+				},
+				{
+					"line": 225, "columns": [14, 20]
+				}
+			],
+			"successors": [80, 81],
+			"ir": [
+				"%arrayidx6 = getelementptr ptr, ptr %args, i64 1, !dbg !693",
+				"%2 = load ptr, ptr %arrayidx6, align 8, !dbg !693, !tbaa !687",
+				"%call7 = call i32 @PyLong_AsInt(ptr noundef %2) #9, !dbg !694",
+				"%cmp8 = icmp eq i32 %call7, -1, !dbg !695",
+				"br i1 %cmp8, label %land.lhs.true9, label %if.end13, !dbg !697"
+			]
+		},
+		{
+			"function": "fcntl_lockf",
+			"id": 80,
+			"name": "land.lhs.true9",
+			"debug": [
+				{
+					"line": 225, "columns": [23, 9]
+				}
+			],
+			"successors": [81, 107],
+			"ir": [
+				"%call10 = call ptr @PyErr_Occurred() #9, !dbg !698",
+				"%tobool11.not = icmp eq ptr %call10, null, !dbg !698",
+				"br i1 %tobool11.not, label %if.end13, label %exit, !dbg !699"
+			]
+		},
+		{
+			"function": "fcntl_lockf",
+			"id": 81,
+			"name": "if.end13",
+			"debug": [
+				{
+					"line": 228, "columns": [15, 9]
+				}
+			],
+			"successors": [86, 82],
+			"ir": [
+				"%cmp14 = icmp slt i64 %nargs, 3, !dbg !700",
+				"br i1 %cmp14, label %skip_optional, label %if.end16, !dbg !702"
+			]
+		},
+		{
+			"function": "fcntl_lockf",
+			"id": 82,
+			"name": "if.end16",
+			"debug": [
+				{
+					"line": 231, "columns": [14]
+				},
+				{
+					"line": 232, "columns": [15, 9]
+				}
+			],
+			"successors": [86, 83],
+			"ir": [
+				"%arrayidx17 = getelementptr ptr, ptr %args, i64 2, !dbg !703",
+				"%3 = load ptr, ptr %arrayidx17, align 8, !dbg !703, !tbaa !687",
+				"%cmp18 = icmp eq i64 %nargs, 3, !dbg !704",
+				"br i1 %cmp18, label %skip_optional, label %if.end20, !dbg !706"
 			]
 		},
 		{
 			"function": "fcntl_lockf",
 			"id": 83,
-			"name": "entry",
+			"name": "if.end20",
 			"debug": [
 				{
-					"line": 229, "columns": [15, 9]
+					"line": 235, "columns": [16]
+				},
+				{
+					"line": 236, "columns": [15, 9]
 				}
 			],
-			"successors": [84, 85],
+			"successors": [86, 84],
 			"ir": [
-				"%l.i = alloca %struct.flock, align 8",
-				"%cmp = icmp slt i64 %nargs, 2, !dbg !433",
-				"br i1 %cmp, label %if.then, label %if.end, !dbg !435"
+				"%arrayidx21 = getelementptr ptr, ptr %args, i64 3, !dbg !707",
+				"%4 = load ptr, ptr %arrayidx21, align 8, !dbg !707, !tbaa !687",
+				"%cmp22 = icmp ult i64 %nargs, 5, !dbg !708",
+				"br i1 %cmp22, label %skip_optional, label %if.end24, !dbg !710"
 			]
 		},
 		{
 			"function": "fcntl_lockf",
 			"id": 84,
-			"name": "if.then",
+			"name": "if.end24",
 			"debug": [
 				{
-					"line": 230, "columns": [22, 9]
+					"line": 239, "columns": [27, 14]
 				},
 				{
-					"line": 231, "columns": [9]
+					"line": 240, "columns": [16, 22]
 				}
 			],
-			"successors": [121],
+			"successors": [85, 86],
 			"ir": [
-				"%0 = load ptr, ptr @PyExc_TypeError, align 8, !dbg !436, !tbaa !438",
-				"%call = tail call ptr (ptr, ptr, ...) @PyErr_Format(ptr noundef %0, ptr noundef nonnull @.str.22, i64 noundef %nargs) #9, !dbg !442",
-				"br label %exit, !dbg !443"
+				"%arrayidx25 = getelementptr ptr, ptr %args, i64 4, !dbg !711",
+				"%5 = load ptr, ptr %arrayidx25, align 8, !dbg !711, !tbaa !687",
+				"%call26 = call i32 @PyLong_AsInt(ptr noundef %5) #9, !dbg !712",
+				"%cmp27 = icmp eq i32 %call26, -1, !dbg !713",
+				"br i1 %cmp27, label %land.lhs.true28, label %skip_optional, !dbg !715"
 			]
 		},
 		{
 			"function": "fcntl_lockf",
 			"id": 85,
-			"name": "if.end",
+			"name": "land.lhs.true28",
 			"debug": [
 				{
-					"line": 233, "columns": [15, 9]
+					"line": 240, "columns": [25, 9]
 				}
 			],
-			"successors": [86, 87],
+			"successors": [86, 107],
 			"ir": [
-				"%cmp1 = icmp ugt i64 %nargs, 5, !dbg !444",
-				"br i1 %cmp1, label %if.then2, label %if.end4, !dbg !446"
+				"%call29 = call ptr @PyErr_Occurred() #9, !dbg !716",
+				"%tobool30.not = icmp eq ptr %call29, null, !dbg !716",
+				"br i1 %tobool30.not, label %skip_optional, label %exit, !dbg !717"
 			]
 		},
 		{
 			"function": "fcntl_lockf",
 			"id": 86,
-			"name": "if.then2",
+			"name": "skip_optional",
 			"debug": [
 				{
-					"line": 234, "columns": [22, 9]
+					"line": 243, "columns": [1]
 				},
 				{
-					"line": 235, "columns": [9]
+					"line": 244, "columns": [45]
+				},
+				{
+					"line": 381, "columns": [55, 9]
+				},
+				{
+					"line": 382, "columns": [21, 60]
 				}
 			],
-			"successors": [121],
+			"successors": [107, 87],
 			"ir": [
-				"%1 = load ptr, ptr @PyExc_TypeError, align 8, !dbg !447, !tbaa !438",
-				"%call3 = tail call ptr (ptr, ptr, ...) @PyErr_Format(ptr noundef %1, ptr noundef nonnull @.str.23, i64 noundef %nargs) #9, !dbg !449",
-				"br label %exit, !dbg !450"
+				"%lenobj.0 = phi ptr [ null, %if.end13 ], [ %3, %if.end16 ], [ %3, %if.end20 ], [ %3, %land.lhs.true28 ], [ %3, %if.end24 ], !dbg !680",
+				"%startobj.0 = phi ptr [ null, %if.end13 ], [ null, %if.end16 ], [ %4, %if.end20 ], [ %4, %land.lhs.true28 ], [ %4, %if.end24 ], !dbg !680",
+				"%whence.0 = phi i32 [ 0, %if.end13 ], [ 0, %if.end16 ], [ 0, %if.end20 ], [ -1, %land.lhs.true28 ], [ %call26, %if.end24 ], !dbg !680",
+				"%6 = load i32, ptr %fd, align 4, !dbg !719, !tbaa !720",
+				"%tobool.not.i = icmp eq ptr %lenobj.0, null, !dbg !847",
+				"%cond.i = select i1 %tobool.not.i, ptr @_Py_NoneStruct, ptr %lenobj.0, !dbg !847",
+				"%tobool1.not.i = icmp eq ptr %startobj.0, null, !dbg !849",
+				"%cond5.i = select i1 %tobool1.not.i, ptr @_Py_NoneStruct, ptr %startobj.0, !dbg !849",
+				"%call.i = call i32 (ptr, ptr, ...) @PySys_Audit(ptr noundef nonnull @.str.17, ptr noundef nonnull @.str.18, i32 noundef %6, i32 noundef %call7, ptr noundef nonnull %cond.i, ptr noundef nonnull %cond5.i, i32 noundef %whence.0) #9, !dbg !850",
+				"%cmp.i = icmp slt i32 %call.i, 0, !dbg !851",
+				"br i1 %cmp.i, label %exit, label %if.end.i, !dbg !852"
 			]
 		},
 		{
 			"function": "fcntl_lockf",
 			"id": 87,
-			"name": "if.end4",
+			"name": "if.end.i",
 			"debug": [
 				{
-					"line": 237, "columns": [36, 10]
+					"line": 393, "columns": [9, 22]
 				},
 				{
-					"line": 238, "columns": [12, 9]
+					"line": 394, "columns": [18, 13]
 				}
 			],
-			"successors": [121, 88],
+			"successors": [88, 89],
 			"ir": [
-				"%2 = load ptr, ptr %args, align 8, !dbg !451, !tbaa !438",
-				"%call5 = tail call i32 @PyObject_AsFileDescriptor(ptr noundef %2) #9, !dbg !452",
-				"%cmp6 = icmp slt i32 %call5, 0, !dbg !453",
-				"br i1 %cmp6, label %exit, label %if.end8, !dbg !455"
+				"call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %l.i) #9, !dbg !853",
+				"%cmp6.i = icmp eq i32 %call7, 8, !dbg !855",
+				"br i1 %cmp6.i, label %if.then7.i, label %if.else.i, !dbg !857"
 			]
 		},
 		{
 			"function": "fcntl_lockf",
 			"id": 88,
-			"name": "if.end8",
+			"name": "if.then7.i",
 			"debug": [
 				{
-					"line": 241, "columns": [25, 12]
-				},
-				{
-					"line": 242, "columns": [14, 20]
+					"line": 395, "columns": [22, 13]
 				}
 			],
-			"successors": [89, 90],
+			"successors": [94],
 			"ir": [
-				"%arrayidx9 = getelementptr ptr, ptr %args, i64 1, !dbg !456",
-				"%3 = load ptr, ptr %arrayidx9, align 8, !dbg !456, !tbaa !438",
-				"%call10 = tail call i32 @PyLong_AsInt(ptr noundef %3) #9, !dbg !457",
-				"%cmp11 = icmp eq i32 %call10, -1, !dbg !458",
-				"br i1 %cmp11, label %land.lhs.true, label %if.end14, !dbg !460"
+				"store i16 2, ptr %l.i, align 8, !dbg !858, !tbaa !859",
+				"br label %if.end19.i, !dbg !863"
 			]
 		},
 		{
 			"function": "fcntl_lockf",
 			"id": 89,
-			"name": "land.lhs.true",
+			"name": "if.else.i",
 			"debug": [
 				{
-					"line": 242, "columns": [23, 9]
+					"line": 396, "columns": [23, 18]
 				}
 			],
-			"successors": [90, 121],
+			"successors": [91, 90],
 			"ir": [
-				"%call12 = tail call ptr @PyErr_Occurred() #9, !dbg !461",
-				"%tobool.not = icmp eq ptr %call12, null, !dbg !461",
-				"br i1 %tobool.not, label %if.end14, label %exit, !dbg !462"
+				"%and.i = and i32 %call7, 1, !dbg !864",
+				"%tobool8.not.i = icmp eq i32 %and.i, 0, !dbg !864",
+				"br i1 %tobool8.not.i, label %if.else11.i, label %if.then9.i, !dbg !866"
 			]
 		},
 		{
 			"function": "fcntl_lockf",
 			"id": 90,
-			"name": "if.end14",
+			"name": "if.then9.i",
 			"debug": [
 				{
-					"line": 245, "columns": [15, 9]
+					"line": 397, "columns": [22, 13]
 				}
 			],
-			"successors": [96, 91],
+			"successors": [94],
 			"ir": [
-				"%cmp15 = icmp ult i64 %nargs, 3, !dbg !463",
-				"br i1 %cmp15, label %cond.false.i, label %if.end17, !dbg !465"
+				"store i16 0, ptr %l.i, align 8, !dbg !867, !tbaa !859",
+				"br label %if.end19.i, !dbg !868"
 			]
 		},
 		{
 			"function": "fcntl_lockf",
 			"id": 91,
-			"name": "if.end17",
+			"name": "if.else11.i",
 			"debug": [
 				{
-					"line": 248, "columns": [14]
-				},
-				{
-					"line": 249, "columns": [15, 9]
+					"line": 398, "columns": [23, 18]
 				}
 			],
-			"successors": [95, 92],
+			"successors": [93, 92],
 			"ir": [
-				"%arrayidx18 = getelementptr ptr, ptr %args, i64 2, !dbg !466",
-				"%4 = load ptr, ptr %arrayidx18, align 8, !dbg !466, !tbaa !438",
-				"%cmp19 = icmp eq i64 %nargs, 3, !dbg !467",
-				"br i1 %cmp19, label %skip_optional, label %if.end21, !dbg !469"
+				"%and12.i = and i32 %call7, 2, !dbg !869",
+				"%tobool13.not.i = icmp eq i32 %and12.i, 0, !dbg !869",
+				"br i1 %tobool13.not.i, label %if.else16.i, label %if.then14.i, !dbg !871"
 			]
 		},
 		{
 			"function": "fcntl_lockf",
 			"id": 92,
-			"name": "if.end21",
+			"name": "if.then14.i",
 			"debug": [
 				{
-					"line": 252, "columns": [16]
-				},
-				{
-					"line": 253, "columns": [15, 9]
+					"line": 399, "columns": [22]
 				}
 			],
-			"successors": [95, 93],
+			"successors": [94],
 			"ir": [
-				"%arrayidx22 = getelementptr ptr, ptr %args, i64 3, !dbg !470",
-				"%5 = load ptr, ptr %arrayidx22, align 8, !dbg !470, !tbaa !438",
-				"%cmp23 = icmp ult i64 %nargs, 5, !dbg !471",
-				"br i1 %cmp23, label %skip_optional, label %if.end25, !dbg !473"
+				"store i16 1, ptr %l.i, align 8, !dbg !872, !tbaa !859",
+				"br label %if.end19.i"
 			]
 		},
 		{
 			"function": "fcntl_lockf",
 			"id": 93,
-			"name": "if.end25",
+			"name": "if.else16.i",
 			"debug": [
 				{
-					"line": 256, "columns": [27, 14]
+					"line": 401, "columns": [29, 13]
 				},
 				{
-					"line": 257, "columns": [16, 22]
+					"line": 403, "columns": [13]
 				}
 			],
-			"successors": [94, 95],
+			"successors": [103],
 			"ir": [
-				"%arrayidx26 = getelementptr ptr, ptr %args, i64 4, !dbg !474",
-				"%6 = load ptr, ptr %arrayidx26, align 8, !dbg !474, !tbaa !438",
-				"%call27 = tail call i32 @PyLong_AsInt(ptr noundef %6) #9, !dbg !475",
-				"%cmp28 = icmp eq i32 %call27, -1, !dbg !476",
-				"br i1 %cmp28, label %land.lhs.true29, label %skip_optional, !dbg !478"
+				"%7 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !873, !tbaa !687",
+				"call void @PyErr_SetString(ptr noundef %7, ptr noundef nonnull @.str.19) #9, !dbg !875",
+				"br label %cleanup.i, !dbg !876"
 			]
 		},
 		{
 			"function": "fcntl_lockf",
 			"id": 94,
-			"name": "land.lhs.true29",
+			"name": "if.end19.i",
 			"debug": [
 				{
-					"line": 257, "columns": [25, 9]
-				}
-			],
-			"successors": [95, 121],
-			"ir": [
-				"%call30 = tail call ptr @PyErr_Occurred() #9, !dbg !479",
-				"%tobool31.not = icmp eq ptr %call30, null, !dbg !479",
-				"br i1 %tobool31.not, label %skip_optional, label %exit, !dbg !480"
-			]
-		},
-		{
-			"function": "fcntl_lockf",
-			"id": 95,
-			"name": "skip_optional",
-			"debug": [
-				{
-					"line": 260, "columns": [1]
-				},
-				{
-					"line": 384, "columns": [55]
-				}
-			],
-			"successors": [96, 97],
-			"ir": [
-				"%startobj.0 = phi ptr [ null, %if.end17 ], [ %5, %if.end21 ], [ %5, %land.lhs.true29 ], [ %5, %if.end25 ], !dbg !432",
-				"%whence.0 = phi i32 [ 0, %if.end17 ], [ 0, %if.end21 ], [ -1, %land.lhs.true29 ], [ %call27, %if.end25 ], !dbg !432",
-				"%tobool.not.i = icmp eq ptr %4, null, !dbg !515",
-				"br i1 %tobool.not.i, label %cond.false.i, label %cond.end.i, !dbg !515"
-			]
-		},
-		{
-			"function": "fcntl_lockf",
-			"id": 96,
-			"name": "cond.false.i",
-			"debug": [
-				{
-					"line": 384, "columns": [73, 55]
-				}
-			],
-			"successors": [97],
-			"ir": [
-				"%whence.057 = phi i32 [ %whence.0, %skip_optional ], [ 0, %if.end14 ]",
-				"%startobj.055 = phi ptr [ %startobj.0, %skip_optional ], [ null, %if.end14 ]",
-				"%call.i = tail call ptr @Py_GetConstantBorrowed(i32 noundef 0) #9, !dbg !517",
-				"br label %cond.end.i, !dbg !515"
-			]
-		},
-		{
-			"function": "fcntl_lockf",
-			"id": 97,
-			"name": "cond.end.i",
-			"debug": [
-				{
-					"line": 384, "columns": [55]
-				},
-				{
-					"line": 385, "columns": [21]
-				}
-			],
-			"successors": [98, 99],
-			"ir": [
-				"%tobool.not.i58 = phi i1 [ true, %cond.false.i ], [ false, %skip_optional ]",
-				"%whence.056 = phi i32 [ %whence.057, %cond.false.i ], [ %whence.0, %skip_optional ]",
-				"%startobj.054 = phi ptr [ %startobj.055, %cond.false.i ], [ %startobj.0, %skip_optional ]",
-				"%lenobj.052 = phi ptr [ null, %cond.false.i ], [ %4, %skip_optional ]",
-				"%cond.i = phi ptr [ %call.i, %cond.false.i ], [ %4, %skip_optional ], !dbg !515",
-				"%tobool1.not.i = icmp eq ptr %startobj.054, null, !dbg !518",
-				"br i1 %tobool1.not.i, label %cond.false3.i, label %cond.end5.i, !dbg !518"
-			]
-		},
-		{
-			"function": "fcntl_lockf",
-			"id": 98,
-			"name": "cond.false3.i",
-			"debug": [
-				{
-					"line": 385, "columns": [43, 21]
-				}
-			],
-			"successors": [99],
-			"ir": [
-				"%call4.i = tail call ptr @Py_GetConstantBorrowed(i32 noundef 0) #9, !dbg !519",
-				"br label %cond.end5.i, !dbg !518"
-			]
-		},
-		{
-			"function": "fcntl_lockf",
-			"id": 99,
-			"name": "cond.end5.i",
-			"debug": [
-				{
-					"line": 384, "columns": [9]
-				},
-				{
-					"line": 385, "columns": [21, 60]
-				}
-			],
-			"successors": [121, 100],
-			"ir": [
-				"%cond6.i = phi ptr [ %call4.i, %cond.false3.i ], [ %startobj.054, %cond.end.i ], !dbg !518",
-				"%call7.i = tail call i32 (ptr, ptr, ...) @PySys_Audit(ptr noundef nonnull @.str.24, ptr noundef nonnull @.str.25, i32 noundef %call5, i32 noundef %call10, ptr noundef %cond.i, ptr noundef %cond6.i, i32 noundef %whence.056) #9, !dbg !520",
-				"%cmp.i = icmp slt i32 %call7.i, 0, !dbg !521",
-				"br i1 %cmp.i, label %exit, label %if.end.i, !dbg !522"
-			]
-		},
-		{
-			"function": "fcntl_lockf",
-			"id": 100,
-			"name": "if.end.i",
-			"debug": [
-				{
-					"line": 396, "columns": [9, 22]
-				},
-				{
-					"line": 397, "columns": [18, 13]
-				}
-			],
-			"successors": [101, 102],
-			"ir": [
-				"call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %l.i) #9, !dbg !523",
-				"%cmp8.i = icmp eq i32 %call10, 8, !dbg !525",
-				"br i1 %cmp8.i, label %if.then9.i, label %if.else.i, !dbg !527"
-			]
-		},
-		{
-			"function": "fcntl_lockf",
-			"id": 101,
-			"name": "if.then9.i",
-			"debug": [
-				{
-					"line": 398, "columns": [22, 13]
-				}
-			],
-			"successors": [107],
-			"ir": [
-				"store i16 2, ptr %l.i, align 8, !dbg !528, !tbaa !529",
-				"br label %if.end21.i, !dbg !534"
-			]
-		},
-		{
-			"function": "fcntl_lockf",
-			"id": 102,
-			"name": "if.else.i",
-			"debug": [
-				{
-					"line": 399, "columns": [23, 18]
-				}
-			],
-			"successors": [104, 103],
-			"ir": [
-				"%and.i = and i32 %call10, 1, !dbg !535",
-				"%tobool10.not.i = icmp eq i32 %and.i, 0, !dbg !535",
-				"br i1 %tobool10.not.i, label %if.else13.i, label %if.then11.i, !dbg !537"
-			]
-		},
-		{
-			"function": "fcntl_lockf",
-			"id": 103,
-			"name": "if.then11.i",
-			"debug": [
-				{
-					"line": 400, "columns": [22, 13]
-				}
-			],
-			"successors": [107],
-			"ir": [
-				"store i16 0, ptr %l.i, align 8, !dbg !538, !tbaa !529",
-				"br label %if.end21.i, !dbg !539"
-			]
-		},
-		{
-			"function": "fcntl_lockf",
-			"id": 104,
-			"name": "if.else13.i",
-			"debug": [
-				{
-					"line": 401, "columns": [23, 18]
-				}
-			],
-			"successors": [106, 105],
-			"ir": [
-				"%and14.i = and i32 %call10, 2, !dbg !540",
-				"%tobool15.not.i = icmp eq i32 %and14.i, 0, !dbg !540",
-				"br i1 %tobool15.not.i, label %if.else18.i, label %if.then16.i, !dbg !542"
-			]
-		},
-		{
-			"function": "fcntl_lockf",
-			"id": 105,
-			"name": "if.then16.i",
-			"debug": [
-				{
-					"line": 402, "columns": [22]
-				}
-			],
-			"successors": [107],
-			"ir": [
-				"store i16 1, ptr %l.i, align 8, !dbg !543, !tbaa !529",
-				"br label %if.end21.i"
-			]
-		},
-		{
-			"function": "fcntl_lockf",
-			"id": 106,
-			"name": "if.else18.i",
-			"debug": [
-				{
-					"line": 404, "columns": [29, 13]
+					"line": 405, "columns": [23, 11, 19]
 				},
 				{
 					"line": 406, "columns": [13]
 				}
 			],
-			"successors": [116],
+			"successors": [96, 95],
 			"ir": [
-				"%7 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !544, !tbaa !438",
-				"tail call void @PyErr_SetString(ptr noundef %7, ptr noundef nonnull @.str.26) #9, !dbg !546",
-				"br label %cleanup.i, !dbg !547"
+				"%l_len.i = getelementptr inbounds %struct.flock, ptr %l.i, i64 0, i32 3, !dbg !877",
+				"%l_start.i = getelementptr inbounds %struct.flock, ptr %l.i, i64 0, i32 2, !dbg !878",
+				"call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %l_start.i, i8 0, i64 16, i1 false), !dbg !879",
+				"br i1 %tobool1.not.i, label %if.end28.i, label %if.then21.i, !dbg !880"
 			]
 		},
 		{
 			"function": "fcntl_lockf",
-			"id": 107,
-			"name": "if.end21.i",
+			"id": 95,
+			"name": "if.then21.i",
 			"debug": [
 				{
-					"line": 408, "columns": [23, 11, 19]
+					"line": 408, "columns": [25, 23]
 				},
 				{
-					"line": 409, "columns": [13]
+					"line": 414, "columns": [17]
 				}
 			],
-			"successors": [109, 108],
+			"successors": [96, 103],
 			"ir": [
-				"%l_len.i = getelementptr inbounds %struct.flock, ptr %l.i, i64 0, i32 3, !dbg !548",
-				"%l_start.i = getelementptr inbounds %struct.flock, ptr %l.i, i64 0, i32 2, !dbg !549",
-				"call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %l_start.i, i8 0, i64 16, i1 false), !dbg !550",
-				"br i1 %tobool1.not.i, label %if.end30.i, label %if.then23.i, !dbg !551"
+				"%call22.i = call i64 @PyLong_AsLong(ptr noundef nonnull %startobj.0) #9, !dbg !881",
+				"store i64 %call22.i, ptr %l_start.i, align 8, !dbg !884, !tbaa !885",
+				"%call24.i = call ptr @PyErr_Occurred() #9, !dbg !886",
+				"%tobool25.not.i = icmp eq ptr %call24.i, null, !dbg !886",
+				"br i1 %tobool25.not.i, label %if.end28.i, label %cleanup.i, !dbg !888"
 			]
 		},
 		{
 			"function": "fcntl_lockf",
-			"id": 108,
-			"name": "if.then23.i",
+			"id": 96,
+			"name": "if.end28.i",
 			"debug": [
 				{
-					"line": 411, "columns": [25, 23]
+					"line": 417, "columns": [13]
+				}
+			],
+			"successors": [98, 97],
+			"ir": [
+				"br i1 %tobool.not.i, label %if.end37.i, label %if.then30.i, !dbg !889"
+			]
+		},
+		{
+			"function": "fcntl_lockf",
+			"id": 97,
+			"name": "if.then30.i",
+			"debug": [
+				{
+					"line": 419, "columns": [23, 21]
 				},
 				{
-					"line": 417, "columns": [17]
+					"line": 425, "columns": [17]
 				}
 			],
-			"successors": [109, 116],
+			"successors": [98, 103],
 			"ir": [
-				"%call24.i = tail call i64 @PyLong_AsLong(ptr noundef nonnull %startobj.054) #9, !dbg !552",
-				"store i64 %call24.i, ptr %l_start.i, align 8, !dbg !555, !tbaa !556",
-				"%call26.i = tail call ptr @PyErr_Occurred() #9, !dbg !557",
-				"%tobool27.not.i = icmp eq ptr %call26.i, null, !dbg !557",
-				"br i1 %tobool27.not.i, label %if.end30.i, label %cleanup.i, !dbg !559"
+				"%call31.i = call i64 @PyLong_AsLong(ptr noundef nonnull %lenobj.0) #9, !dbg !890",
+				"store i64 %call31.i, ptr %l_len.i, align 8, !dbg !893, !tbaa !894",
+				"%call33.i = call ptr @PyErr_Occurred() #9, !dbg !895",
+				"%tobool34.not.i = icmp eq ptr %call33.i, null, !dbg !895",
+				"br i1 %tobool34.not.i, label %if.end37.i, label %cleanup.i, !dbg !897"
 			]
 		},
 		{
 			"function": "fcntl_lockf",
-			"id": 109,
-			"name": "if.end30.i",
+			"id": 98,
+			"name": "if.end37.i",
 			"debug": [
 				{
-					"line": 420, "columns": [13]
-				}
-			],
-			"successors": [111, 110],
-			"ir": [
-				"br i1 %tobool.not.i58, label %if.end39.i, label %if.then32.i, !dbg !560"
-			]
-		},
-		{
-			"function": "fcntl_lockf",
-			"id": 110,
-			"name": "if.then32.i",
-			"debug": [
-				{
-					"line": 422, "columns": [23, 21]
+					"line": 428, "columns": [22, 11, 20]
 				},
 				{
-					"line": 428, "columns": [17]
+					"line": 429, "columns": [9]
 				}
 			],
-			"successors": [111, 116],
+			"successors": [99],
 			"ir": [
-				"%call33.i = tail call i64 @PyLong_AsLong(ptr noundef nonnull %lenobj.052) #9, !dbg !561",
-				"store i64 %call33.i, ptr %l_len.i, align 8, !dbg !564, !tbaa !565",
-				"%call35.i = tail call ptr @PyErr_Occurred() #9, !dbg !566",
-				"%tobool36.not.i = icmp eq ptr %call35.i, null, !dbg !566",
-				"br i1 %tobool36.not.i, label %if.end39.i, label %cleanup.i, !dbg !568"
+				"%conv.i = trunc i32 %whence.0 to i16, !dbg !898",
+				"%l_whence.i = getelementptr inbounds %struct.flock, ptr %l.i, i64 0, i32 1, !dbg !899",
+				"store i16 %conv.i, ptr %l_whence.i, align 2, !dbg !900, !tbaa !901",
+				"%and39.i = and i32 %call7, 4",
+				"%tobool40.not.i = icmp eq i32 %and39.i, 0",
+				"%cond41.i = select i1 %tobool40.not.i, i32 7, i32 6",
+				"br label %do.body.i, !dbg !902"
 			]
 		},
 		{
 			"function": "fcntl_lockf",
-			"id": 111,
-			"name": "if.end39.i",
-			"debug": [
-				{
-					"line": 431, "columns": [22, 11, 20]
-				},
-				{
-					"line": 432, "columns": [9]
-				}
-			],
-			"successors": [112],
-			"ir": [
-				"%conv.i = trunc i32 %whence.056 to i16, !dbg !569",
-				"%l_whence.i = getelementptr inbounds %struct.flock, ptr %l.i, i64 0, i32 1, !dbg !570",
-				"store i16 %conv.i, ptr %l_whence.i, align 2, !dbg !571, !tbaa !572",
-				"%and41.i = and i32 %call10, 4",
-				"%tobool42.not.i = icmp eq i32 %and41.i, 0",
-				"%cond43.i = select i1 %tobool42.not.i, i32 7, i32 6",
-				"br label %do.body.i, !dbg !573"
-			]
-		},
-		{
-			"function": "fcntl_lockf",
-			"id": 112,
+			"id": 99,
 			"name": "do.body.i",
 			"debug": [
 				{
-					"line": 433, "columns": [13]
+					"line": 430, "columns": [13]
 				},
 				{
-					"line": 434, "columns": [19]
+					"line": 431, "columns": [19]
 				},
 				{
-					"line": 435, "columns": [13]
+					"line": 432, "columns": [13]
 				},
 				{
-					"line": 436, "columns": [22, 28]
+					"line": 433, "columns": [22, 28]
 				}
 			],
-			"successors": [113, 117],
+			"successors": [100, 104],
 			"ir": [
-				"%call40.i = call ptr @PyEval_SaveThread() #9, !dbg !574",
-				"%call44.i = call i32 (i32, i32, ...) @fcntl64(i32 noundef %call5, i32 noundef %cond43.i, ptr noundef nonnull %l.i) #9, !dbg !576",
-				"call void @PyEval_RestoreThread(ptr noundef %call40.i) #9, !dbg !577",
-				"%cmp45.i = icmp eq i32 %call44.i, -1, !dbg !578",
-				"br i1 %cmp45.i, label %land.lhs.true.i, label %cleanup.cont.i, !dbg !579"
+				"%call38.i = call ptr @PyEval_SaveThread() #9, !dbg !903",
+				"%call42.i = call i32 (i32, i32, ...) @fcntl64(i32 noundef %6, i32 noundef %cond41.i, ptr noundef nonnull %l.i) #9, !dbg !905",
+				"call void @PyEval_RestoreThread(ptr noundef %call38.i) #9, !dbg !906",
+				"%cmp43.i = icmp eq i32 %call42.i, -1, !dbg !907",
+				"br i1 %cmp43.i, label %land.lhs.true.i, label %cleanup.cont.i, !dbg !908"
 			]
 		},
 		{
 			"function": "fcntl_lockf",
-			"id": 113,
+			"id": 100,
 			"name": "land.lhs.true.i",
 			"debug": [
 				{
-					"line": 436, "columns": [31, 37, 46]
+					"line": 433, "columns": [31, 37, 46]
 				}
 			],
-			"successors": [115, 114],
+			"successors": [102, 101],
 			"ir": [
-				"%call47.i = tail call ptr @__errno_location() #10, !dbg !580",
-				"%8 = load i32, ptr %call47.i, align 4, !dbg !580, !tbaa !581",
-				"%cmp48.i = icmp eq i32 %8, 4, !dbg !582",
-				"br i1 %cmp48.i, label %land.rhs.i, label %if.then54.thread11.i, !dbg !583"
+				"%call45.i = tail call ptr @__errno_location() #10, !dbg !909",
+				"%8 = load i32, ptr %call45.i, align 4, !dbg !909, !tbaa !720",
+				"%cmp46.i = icmp eq i32 %8, 4, !dbg !910",
+				"br i1 %cmp46.i, label %land.rhs.i, label %if.then52.thread11.i, !dbg !911"
 			]
 		},
 		{
 			"function": "fcntl_lockf",
-			"id": 114,
-			"name": "if.then54.thread11.i",
+			"id": 101,
+			"name": "if.then52.thread11.i",
 			"debug": [
 				{
-					"line": 437, "columns": [5]
+					"line": 434, "columns": [5]
 				},
 				{
-					"line": 439, "columns": [16]
+					"line": 436, "columns": [16]
 				}
 			],
-			"successors": [119],
+			"successors": [106],
 			"ir": [
-				"call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %l.i) #9, !dbg !584",
-				"br label %cond.true56.i, !dbg !585"
+				"call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %l.i) #9, !dbg !912",
+				"br label %cond.true54.i, !dbg !913"
 			]
 		},
 		{
 			"function": "fcntl_lockf",
-			"id": 115,
+			"id": 102,
 			"name": "land.rhs.i",
 			"debug": [
 				{
-					"line": 436, "columns": [63, 49, 9]
+					"line": 433, "columns": [63, 49, 9]
 				}
 			],
-			"successors": [112, 118],
+			"successors": [99, 105],
 			"ir": [
-				"%call50.i = call i32 @PyErr_CheckSignals() #9, !dbg !588",
-				"%tobool51.not.i = icmp eq i32 %call50.i, 0, !dbg !589",
-				"br i1 %tobool51.not.i, label %do.body.i, label %if.then54.i, !dbg !590, !llvm.loop !591"
+				"%call48.i = call i32 @PyErr_CheckSignals() #9, !dbg !916",
+				"%tobool49.not.i = icmp eq i32 %call48.i, 0, !dbg !917",
+				"br i1 %tobool49.not.i, label %do.body.i, label %if.then52.i, !dbg !918, !llvm.loop !919"
 			]
 		},
 		{
 			"function": "fcntl_lockf",
-			"id": 116,
+			"id": 103,
 			"name": "cleanup.i",
 			"debug": [
 				{
-					"line": 437, "columns": [5]
+					"line": 434, "columns": [5]
 				}
 			],
-			"successors": [121],
+			"successors": [107],
 			"ir": [
-				"call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %l.i) #9, !dbg !584",
+				"call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %l.i) #9, !dbg !912",
 				"br label %exit"
 			]
 		},
 		{
 			"function": "fcntl_lockf",
-			"id": 117,
+			"id": 104,
 			"name": "cleanup.cont.i",
 			"debug": [
 				{
-					"line": 437, "columns": [5]
+					"line": 434, "columns": [5]
 				},
 				{
-					"line": 438, "columns": [13, 9]
+					"line": 435, "columns": [13, 9]
 				}
 			],
-			"successors": [119, 120],
+			"successors": [106, 107],
 			"ir": [
-				"call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %l.i) #9, !dbg !584",
-				"%cmp52.i = icmp slt i32 %call44.i, 0, !dbg !594",
-				"br i1 %cmp52.i, label %cond.true56.i, label %if.end61.i, !dbg !595"
+				"call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %l.i) #9, !dbg !912",
+				"%cmp50.i = icmp slt i32 %call42.i, 0, !dbg !922",
+				"br i1 %cmp50.i, label %cond.true54.i, label %exit, !dbg !923"
 			]
 		},
 		{
 			"function": "fcntl_lockf",
-			"id": 118,
-			"name": "if.then54.i",
+			"id": 105,
+			"name": "if.then52.i",
 			"debug": [
 				{
-					"line": 437, "columns": [5]
+					"line": 434, "columns": [5]
 				},
 				{
-					"line": 439, "columns": [16]
+					"line": 436, "columns": [16]
 				}
 			],
-			"successors": [121],
+			"successors": [107],
 			"ir": [
-				"call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %l.i) #9, !dbg !584",
-				"br label %exit, !dbg !585"
+				"call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %l.i) #9, !dbg !912",
+				"br label %exit, !dbg !913"
 			]
 		},
 		{
 			"function": "fcntl_lockf",
-			"id": 119,
-			"name": "cond.true56.i",
+			"id": 106,
+			"name": "cond.true54.i",
 			"debug": [
 				{
-					"line": 439, "columns": [48, 29, 16]
+					"line": 436, "columns": [48, 29, 16]
 				}
 			],
-			"successors": [121],
+			"successors": [107],
 			"ir": [
-				"%9 = load ptr, ptr @PyExc_OSError, align 8, !dbg !596, !tbaa !438",
-				"%call57.i = call ptr @PyErr_SetFromErrno(ptr noundef %9) #9, !dbg !597",
-				"br label %exit, !dbg !585"
+				"%9 = load ptr, ptr @PyExc_OSError, align 8, !dbg !924, !tbaa !687",
+				"%call55.i = call ptr @PyErr_SetFromErrno(ptr noundef %9) #9, !dbg !925",
+				"br label %exit, !dbg !913"
 			]
 		},
 		{
 			"function": "fcntl_lockf",
-			"id": 120,
-			"name": "if.end61.i",
-			"debug": [
-				{
-					"line": 441, "columns": [5]
-				}
-			],
-			"successors": [121],
-			"ir": [
-				"%call62.i = call ptr @Py_GetConstantBorrowed(i32 noundef 0) #9, !dbg !598",
-				"br label %exit, !dbg !598"
-			]
-		},
-		{
-			"function": "fcntl_lockf",
-			"id": 121,
+			"id": 107,
 			"name": "exit",
 			"debug": [
 				{
-					"line": 263, "columns": [1]
+					"line": 246, "columns": [1]
 				},
 				{
-					"line": 264, "columns": [5]
+					"line": 247, "columns": [5]
+				},
+				{
+					"line": 248, "columns": [1]
 				}
 			],
 			"successors": [],
 			"ir": [
-				"%return_value.0 = phi ptr [ null, %if.then ], [ null, %if.then2 ], [ null, %if.end4 ], [ null, %land.lhs.true ], [ null, %land.lhs.true29 ], [ %call62.i, %if.end61.i ], [ null, %cleanup.i ], [ null, %cond.end5.i ], [ %call57.i, %cond.true56.i ], [ null, %if.then54.i ], !dbg !432",
-				"ret ptr %return_value.0, !dbg !600"
+				"%return_value.0 = phi ptr [ null, %land.lhs.true9 ], [ null, %land.lhs.true28 ], [ null, %if.end ], [ null, %lor.lhs.false ], [ null, %cleanup.i ], [ null, %skip_optional ], [ %call55.i, %cond.true54.i ], [ null, %if.then52.i ], [ @_Py_NoneStruct, %cleanup.cont.i ], !dbg !680",
+				"call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %fd) #9, !dbg !927",
+				"ret ptr %return_value.0, !dbg !928"
 			]
 		},
 		{
 			"function": "fcntl_flock_impl",
-			"id": 122,
+			"id": 108,
 			"name": "entry",
 			"debug": [
 				{
-					"line": 296, "columns": [9, 52]
+					"line": 293, "columns": [9, 52]
 				}
 			],
-			"successors": [129, 123],
+			"successors": [114, 109],
 			"ir": [
-				"%call = tail call i32 (ptr, ptr, ...) @PySys_Audit(ptr noundef nonnull @.str.20, ptr noundef nonnull @.str.21, i32 noundef %fd, i32 noundef %code) #9, !dbg !431",
-				"%cmp = icmp slt i32 %call, 0, !dbg !433",
-				"br i1 %cmp, label %cleanup, label %do.body, !dbg !434"
+				"%call = tail call i32 (ptr, ptr, ...) @PySys_Audit(ptr noundef nonnull @.str.15, ptr noundef nonnull @.str.16, i32 noundef %fd, i32 noundef %code) #9, !dbg !773",
+				"%cmp = icmp slt i32 %call, 0, !dbg !775",
+				"br i1 %cmp, label %cleanup, label %do.body, !dbg !776"
 			]
 		},
 		{
 			"function": "fcntl_flock_impl",
-			"id": 123,
+			"id": 109,
 			"name": "do.body",
 			"debug": [
 				{
-					"line": 302, "columns": [9]
+					"line": 299, "columns": [9]
 				},
 				{
-					"line": 303, "columns": [15]
+					"line": 300, "columns": [15]
 				},
 				{
-					"line": 304, "columns": [9]
+					"line": 301, "columns": [9]
 				},
 				{
-					"line": 305, "columns": [18, 24]
+					"line": 302, "columns": [18, 24]
 				}
 			],
-			"successors": [124, 126],
+			"successors": [110, 112],
 			"ir": [
-				"%call1 = tail call ptr @PyEval_SaveThread() #9, !dbg !435",
-				"%call2 = tail call i32 @flock(i32 noundef %fd, i32 noundef %code) #9, !dbg !437",
-				"tail call void @PyEval_RestoreThread(ptr noundef %call1) #9, !dbg !438",
-				"%cmp3 = icmp eq i32 %call2, -1, !dbg !439",
-				"br i1 %cmp3, label %land.lhs.true, label %do.end, !dbg !440"
+				"%call1 = tail call ptr @PyEval_SaveThread() #9, !dbg !777",
+				"%call2 = tail call i32 @flock(i32 noundef %fd, i32 noundef %code) #9, !dbg !779",
+				"tail call void @PyEval_RestoreThread(ptr noundef %call1) #9, !dbg !780",
+				"%cmp3 = icmp eq i32 %call2, -1, !dbg !781",
+				"br i1 %cmp3, label %land.lhs.true, label %do.end, !dbg !782"
 			]
 		},
 		{
 			"function": "fcntl_flock_impl",
-			"id": 124,
+			"id": 110,
 			"name": "land.lhs.true",
 			"debug": [
 				{
-					"line": 305, "columns": [27, 33, 42]
+					"line": 302, "columns": [27, 33, 42]
 				}
 			],
-			"successors": [125, 127],
+			"successors": [111, 113],
 			"ir": [
-				"%call4 = tail call ptr @__errno_location() #10, !dbg !441",
-				"%0 = load i32, ptr %call4, align 4, !dbg !441, !tbaa !442",
-				"%cmp5 = icmp eq i32 %0, 4, !dbg !446",
-				"br i1 %cmp5, label %land.rhs, label %cond.true, !dbg !447"
+				"%call4 = tail call ptr @__errno_location() #10, !dbg !783",
+				"%0 = load i32, ptr %call4, align 4, !dbg !783, !tbaa !784",
+				"%cmp5 = icmp eq i32 %0, 4, !dbg !788",
+				"br i1 %cmp5, label %land.rhs, label %cond.true, !dbg !789"
 			]
 		},
 		{
 			"function": "fcntl_flock_impl",
-			"id": 125,
+			"id": 111,
 			"name": "land.rhs",
 			"debug": [
 				{
-					"line": 305, "columns": [59, 45, 5]
+					"line": 302, "columns": [59, 45, 5]
 				}
 			],
-			"successors": [123, 129],
+			"successors": [109, 114],
 			"ir": [
-				"%call6 = tail call i32 @PyErr_CheckSignals() #9, !dbg !448",
-				"%tobool.not = icmp eq i32 %call6, 0, !dbg !449",
-				"br i1 %tobool.not, label %do.body, label %cleanup, !dbg !450, !llvm.loop !451"
+				"%call6 = tail call i32 @PyErr_CheckSignals() #9, !dbg !790",
+				"%tobool.not = icmp eq i32 %call6, 0, !dbg !791",
+				"br i1 %tobool.not, label %do.body, label %cleanup, !dbg !792, !llvm.loop !793"
 			]
 		},
 		{
 			"function": "fcntl_flock_impl",
-			"id": 126,
+			"id": 112,
 			"name": "do.end",
 			"debug": [
 				{
-					"line": 335, "columns": [13, 9]
+					"line": 332, "columns": [13, 9]
 				}
 			],
-			"successors": [127, 128],
+			"successors": [113, 114],
 			"ir": [
-				"%cmp7 = icmp slt i32 %call2, 0, !dbg !455",
-				"br i1 %cmp7, label %cond.true, label %if.end11, !dbg !457"
+				"%cmp7 = icmp slt i32 %call2, 0, !dbg !797",
+				"br i1 %cmp7, label %cond.true, label %cleanup, !dbg !799"
 			]
 		},
 		{
 			"function": "fcntl_flock_impl",
-			"id": 127,
+			"id": 113,
 			"name": "cond.true",
 			"debug": [
 				{
-					"line": 336, "columns": [48, 29, 16]
+					"line": 333, "columns": [48, 29, 16]
 				}
 			],
-			"successors": [129],
+			"successors": [114],
 			"ir": [
-				"%1 = load ptr, ptr @PyExc_OSError, align 8, !dbg !458, !tbaa !460",
-				"%call10 = tail call ptr @PyErr_SetFromErrno(ptr noundef %1) #9, !dbg !462",
-				"br label %cleanup, !dbg !463"
+				"%1 = load ptr, ptr @PyExc_OSError, align 8, !dbg !800, !tbaa !802",
+				"%call10 = tail call ptr @PyErr_SetFromErrno(ptr noundef %1) #9, !dbg !804",
+				"br label %cleanup, !dbg !805"
 			]
 		},
 		{
 			"function": "fcntl_flock_impl",
-			"id": 128,
-			"name": "if.end11",
-			"debug": [
-				{
-					"line": 338, "columns": [5]
-				}
-			],
-			"successors": [129],
-			"ir": [
-				"%call12 = tail call ptr @Py_GetConstantBorrowed(i32 noundef 0) #9, !dbg !464",
-				"br label %cleanup, !dbg !464"
-			]
-		},
-		{
-			"function": "fcntl_flock_impl",
-			"id": 129,
+			"id": 114,
 			"name": "cleanup",
 			"debug": [
 				{
-					"line": 339, "columns": [1]
+					"line": 336, "columns": [1]
 				}
 			],
 			"successors": [],
 			"ir": [
-				"%retval.0 = phi ptr [ %call12, %if.end11 ], [ null, %entry ], [ %call10, %cond.true ], [ null, %land.rhs ], !dbg !430",
-				"ret ptr %retval.0, !dbg !465"
+				"%retval.0 = phi ptr [ null, %entry ], [ %call10, %cond.true ], [ @_Py_NoneStruct, %do.end ], [ null, %land.rhs ], !dbg !772",
+				"ret ptr %retval.0, !dbg !806"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 130,
+			"id": 115,
 			"name": "entry",
+			"debug": [
+				{
+					"line": 464, "columns": [9]
+				}
+			],
+			"successors": [116, 185],
+			"ir": [
+				"%call.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.20, i64 noundef 1) #9, !dbg !675",
+				"%tobool.not.i = icmp eq i32 %call.i, 0, !dbg !675",
+				"br i1 %tobool.not.i, label %if.end.i, label %all_ins.exit.thread, !dbg !677"
+			]
+		},
+		{
+			"function": "fcntl_exec",
+			"id": 116,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 465, "columns": [9]
+				}
+			],
+			"successors": [117, 185],
+			"ir": [
+				"%call1.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.21, i64 noundef 2) #9, !dbg !678",
+				"%tobool2.not.i = icmp eq i32 %call1.i, 0, !dbg !678",
+				"br i1 %tobool2.not.i, label %if.end4.i, label %all_ins.exit.thread, !dbg !680"
+			]
+		},
+		{
+			"function": "fcntl_exec",
+			"id": 117,
+			"name": "if.end4.i",
+			"debug": [
+				{
+					"line": 466, "columns": [9]
+				}
+			],
+			"successors": [118, 185],
+			"ir": [
+				"%call5.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.22, i64 noundef 4) #9, !dbg !681",
+				"%tobool6.not.i = icmp eq i32 %call5.i, 0, !dbg !681",
+				"br i1 %tobool6.not.i, label %if.end8.i, label %all_ins.exit.thread, !dbg !683"
+			]
+		},
+		{
+			"function": "fcntl_exec",
+			"id": 118,
+			"name": "if.end8.i",
 			"debug": [
 				{
 					"line": 467, "columns": [9]
 				}
 			],
-			"successors": [131, 200],
+			"successors": [119, 185],
 			"ir": [
-				"%call.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.27, i64 noundef 1) #9, !dbg !425",
-				"%tobool.not.i = icmp eq i32 %call.i, 0, !dbg !425",
-				"br i1 %tobool.not.i, label %if.end.i, label %all_ins.exit.thread, !dbg !427"
+				"%call9.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.23, i64 noundef 8) #9, !dbg !684",
+				"%tobool10.not.i = icmp eq i32 %call9.i, 0, !dbg !684",
+				"br i1 %tobool10.not.i, label %if.end12.i, label %all_ins.exit.thread, !dbg !686"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 131,
-			"name": "if.end.i",
-			"debug": [
-				{
-					"line": 468, "columns": [9]
-				}
-			],
-			"successors": [132, 200],
-			"ir": [
-				"%call1.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.28, i64 noundef 2) #9, !dbg !428",
-				"%tobool2.not.i = icmp eq i32 %call1.i, 0, !dbg !428",
-				"br i1 %tobool2.not.i, label %if.end4.i, label %all_ins.exit.thread, !dbg !430"
-			]
-		},
-		{
-			"function": "fcntl_exec",
-			"id": 132,
-			"name": "if.end4.i",
-			"debug": [
-				{
-					"line": 469, "columns": [9]
-				}
-			],
-			"successors": [133, 200],
-			"ir": [
-				"%call5.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.29, i64 noundef 4) #9, !dbg !431",
-				"%tobool6.not.i = icmp eq i32 %call5.i, 0, !dbg !431",
-				"br i1 %tobool6.not.i, label %if.end8.i, label %all_ins.exit.thread, !dbg !433"
-			]
-		},
-		{
-			"function": "fcntl_exec",
-			"id": 133,
-			"name": "if.end8.i",
+			"id": 119,
+			"name": "if.end12.i",
 			"debug": [
 				{
 					"line": 470, "columns": [9]
 				}
 			],
-			"successors": [134, 200],
+			"successors": [120, 185],
 			"ir": [
-				"%call9.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.30, i64 noundef 8) #9, !dbg !434",
-				"%tobool10.not.i = icmp eq i32 %call9.i, 0, !dbg !434",
-				"br i1 %tobool10.not.i, label %if.end12.i, label %all_ins.exit.thread, !dbg !436"
+				"%call13.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.24, i64 noundef 32) #9, !dbg !687",
+				"%tobool14.not.i = icmp eq i32 %call13.i, 0, !dbg !687",
+				"br i1 %tobool14.not.i, label %if.end16.i, label %all_ins.exit.thread, !dbg !689"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 134,
-			"name": "if.end12.i",
+			"id": 120,
+			"name": "if.end16.i",
 			"debug": [
 				{
 					"line": 473, "columns": [9]
 				}
 			],
-			"successors": [135, 200],
+			"successors": [121, 185],
 			"ir": [
-				"%call13.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.31, i64 noundef 32) #9, !dbg !437",
-				"%tobool14.not.i = icmp eq i32 %call13.i, 0, !dbg !437",
-				"br i1 %tobool14.not.i, label %if.end16.i, label %all_ins.exit.thread, !dbg !439"
+				"%call17.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.25, i64 noundef 64) #9, !dbg !690",
+				"%tobool18.not.i = icmp eq i32 %call17.i, 0, !dbg !690",
+				"br i1 %tobool18.not.i, label %if.end20.i, label %all_ins.exit.thread, !dbg !692"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 135,
-			"name": "if.end16.i",
+			"id": 121,
+			"name": "if.end20.i",
 			"debug": [
 				{
 					"line": 476, "columns": [9]
 				}
 			],
-			"successors": [136, 200],
+			"successors": [122, 185],
 			"ir": [
-				"%call17.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.32, i64 noundef 64) #9, !dbg !440",
-				"%tobool18.not.i = icmp eq i32 %call17.i, 0, !dbg !440",
-				"br i1 %tobool18.not.i, label %if.end20.i, label %all_ins.exit.thread, !dbg !442"
+				"%call21.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.26, i64 noundef 128) #9, !dbg !693",
+				"%tobool22.not.i = icmp eq i32 %call21.i, 0, !dbg !693",
+				"br i1 %tobool22.not.i, label %if.end24.i, label %all_ins.exit.thread, !dbg !695"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 136,
-			"name": "if.end20.i",
+			"id": 122,
+			"name": "if.end24.i",
 			"debug": [
 				{
 					"line": 479, "columns": [9]
 				}
 			],
-			"successors": [137, 200],
+			"successors": [123, 185],
 			"ir": [
-				"%call21.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.33, i64 noundef 128) #9, !dbg !443",
-				"%tobool22.not.i = icmp eq i32 %call21.i, 0, !dbg !443",
-				"br i1 %tobool22.not.i, label %if.end24.i, label %all_ins.exit.thread, !dbg !445"
+				"%call25.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.27, i64 noundef 192) #9, !dbg !696",
+				"%tobool26.not.i = icmp eq i32 %call25.i, 0, !dbg !696",
+				"br i1 %tobool26.not.i, label %if.end28.i, label %all_ins.exit.thread, !dbg !698"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 137,
-			"name": "if.end24.i",
+			"id": 123,
+			"name": "if.end28.i",
 			"debug": [
 				{
-					"line": 482, "columns": [9]
+					"line": 483, "columns": [9]
 				}
 			],
-			"successors": [138, 200],
+			"successors": [124, 185],
 			"ir": [
-				"%call25.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.34, i64 noundef 192) #9, !dbg !446",
-				"%tobool26.not.i = icmp eq i32 %call25.i, 0, !dbg !446",
-				"br i1 %tobool26.not.i, label %if.end28.i, label %all_ins.exit.thread, !dbg !448"
+				"%call29.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.28, i64 noundef 0) #9, !dbg !699",
+				"%tobool30.not.i = icmp eq i32 %call29.i, 0, !dbg !699",
+				"br i1 %tobool30.not.i, label %if.end32.i, label %all_ins.exit.thread, !dbg !701"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 138,
-			"name": "if.end28.i",
+			"id": 124,
+			"name": "if.end32.i",
 			"debug": [
 				{
 					"line": 486, "columns": [9]
 				}
 			],
-			"successors": [139, 200],
+			"successors": [125, 185],
 			"ir": [
-				"%call29.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.35, i64 noundef 0) #9, !dbg !449",
-				"%tobool30.not.i = icmp eq i32 %call29.i, 0, !dbg !449",
-				"br i1 %tobool30.not.i, label %if.end32.i, label %all_ins.exit.thread, !dbg !451"
+				"%call33.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.29, i64 noundef 1030) #9, !dbg !702",
+				"%tobool34.not.i = icmp eq i32 %call33.i, 0, !dbg !702",
+				"br i1 %tobool34.not.i, label %if.end36.i, label %all_ins.exit.thread, !dbg !704"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 139,
-			"name": "if.end32.i",
+			"id": 125,
+			"name": "if.end36.i",
 			"debug": [
 				{
 					"line": 489, "columns": [9]
 				}
 			],
-			"successors": [140, 200],
+			"successors": [126, 185],
 			"ir": [
-				"%call33.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.36, i64 noundef 1030) #9, !dbg !452",
-				"%tobool34.not.i = icmp eq i32 %call33.i, 0, !dbg !452",
-				"br i1 %tobool34.not.i, label %if.end36.i, label %all_ins.exit.thread, !dbg !454"
+				"%call37.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.30, i64 noundef 1) #9, !dbg !705",
+				"%tobool38.not.i = icmp eq i32 %call37.i, 0, !dbg !705",
+				"br i1 %tobool38.not.i, label %if.end40.i, label %all_ins.exit.thread, !dbg !707"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 140,
-			"name": "if.end36.i",
+			"id": 126,
+			"name": "if.end40.i",
 			"debug": [
 				{
 					"line": 492, "columns": [9]
 				}
 			],
-			"successors": [141, 200],
+			"successors": [127, 185],
 			"ir": [
-				"%call37.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.37, i64 noundef 1) #9, !dbg !455",
-				"%tobool38.not.i = icmp eq i32 %call37.i, 0, !dbg !455",
-				"br i1 %tobool38.not.i, label %if.end40.i, label %all_ins.exit.thread, !dbg !457"
+				"%call41.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.31, i64 noundef 2) #9, !dbg !708",
+				"%tobool42.not.i = icmp eq i32 %call41.i, 0, !dbg !708",
+				"br i1 %tobool42.not.i, label %if.end44.i, label %all_ins.exit.thread, !dbg !710"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 141,
-			"name": "if.end40.i",
+			"id": 127,
+			"name": "if.end44.i",
 			"debug": [
 				{
 					"line": 495, "columns": [9]
 				}
 			],
-			"successors": [142, 200],
+			"successors": [128, 185],
 			"ir": [
-				"%call41.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.38, i64 noundef 2) #9, !dbg !458",
-				"%tobool42.not.i = icmp eq i32 %call41.i, 0, !dbg !458",
-				"br i1 %tobool42.not.i, label %if.end44.i, label %all_ins.exit.thread, !dbg !460"
+				"%call45.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.32, i64 noundef 3) #9, !dbg !711",
+				"%tobool46.not.i = icmp eq i32 %call45.i, 0, !dbg !711",
+				"br i1 %tobool46.not.i, label %if.end48.i, label %all_ins.exit.thread, !dbg !713"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 142,
-			"name": "if.end44.i",
+			"id": 128,
+			"name": "if.end48.i",
 			"debug": [
 				{
 					"line": 498, "columns": [9]
 				}
 			],
-			"successors": [143, 200],
+			"successors": [129, 185],
 			"ir": [
-				"%call45.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.39, i64 noundef 3) #9, !dbg !461",
-				"%tobool46.not.i = icmp eq i32 %call45.i, 0, !dbg !461",
-				"br i1 %tobool46.not.i, label %if.end48.i, label %all_ins.exit.thread, !dbg !463"
+				"%call49.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.33, i64 noundef 4) #9, !dbg !714",
+				"%tobool50.not.i = icmp eq i32 %call49.i, 0, !dbg !714",
+				"br i1 %tobool50.not.i, label %if.end52.i, label %all_ins.exit.thread, !dbg !716"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 143,
-			"name": "if.end48.i",
+			"id": 129,
+			"name": "if.end52.i",
 			"debug": [
 				{
 					"line": 501, "columns": [9]
 				}
 			],
-			"successors": [144, 200],
+			"successors": [130, 185],
 			"ir": [
-				"%call49.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.40, i64 noundef 4) #9, !dbg !464",
-				"%tobool50.not.i = icmp eq i32 %call49.i, 0, !dbg !464",
-				"br i1 %tobool50.not.i, label %if.end52.i, label %all_ins.exit.thread, !dbg !466"
+				"%call53.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.34, i64 noundef 5) #9, !dbg !717",
+				"%tobool54.not.i = icmp eq i32 %call53.i, 0, !dbg !717",
+				"br i1 %tobool54.not.i, label %if.end56.i, label %all_ins.exit.thread, !dbg !719"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 144,
-			"name": "if.end52.i",
+			"id": 130,
+			"name": "if.end56.i",
 			"debug": [
 				{
 					"line": 504, "columns": [9]
 				}
 			],
-			"successors": [145, 200],
+			"successors": [131, 185],
 			"ir": [
-				"%call53.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.41, i64 noundef 5) #9, !dbg !467",
-				"%tobool54.not.i = icmp eq i32 %call53.i, 0, !dbg !467",
-				"br i1 %tobool54.not.i, label %if.end56.i, label %all_ins.exit.thread, !dbg !469"
+				"%call57.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.35, i64 noundef 6) #9, !dbg !720",
+				"%tobool58.not.i = icmp eq i32 %call57.i, 0, !dbg !720",
+				"br i1 %tobool58.not.i, label %if.end60.i, label %all_ins.exit.thread, !dbg !722"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 145,
-			"name": "if.end56.i",
+			"id": 131,
+			"name": "if.end60.i",
 			"debug": [
 				{
 					"line": 507, "columns": [9]
 				}
 			],
-			"successors": [146, 200],
+			"successors": [132, 185],
 			"ir": [
-				"%call57.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.42, i64 noundef 6) #9, !dbg !470",
-				"%tobool58.not.i = icmp eq i32 %call57.i, 0, !dbg !470",
-				"br i1 %tobool58.not.i, label %if.end60.i, label %all_ins.exit.thread, !dbg !472"
+				"%call61.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.36, i64 noundef 7) #9, !dbg !723",
+				"%tobool62.not.i = icmp eq i32 %call61.i, 0, !dbg !723",
+				"br i1 %tobool62.not.i, label %if.end64.i, label %all_ins.exit.thread, !dbg !725"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 146,
-			"name": "if.end60.i",
+			"id": 132,
+			"name": "if.end64.i",
 			"debug": [
 				{
 					"line": 510, "columns": [9]
 				}
 			],
-			"successors": [147, 200],
+			"successors": [133, 185],
 			"ir": [
-				"%call61.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.43, i64 noundef 7) #9, !dbg !473",
-				"%tobool62.not.i = icmp eq i32 %call61.i, 0, !dbg !473",
-				"br i1 %tobool62.not.i, label %if.end64.i, label %all_ins.exit.thread, !dbg !475"
+				"%call65.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.37, i64 noundef 36) #9, !dbg !726",
+				"%tobool66.not.i = icmp eq i32 %call65.i, 0, !dbg !726",
+				"br i1 %tobool66.not.i, label %if.end68.i, label %all_ins.exit.thread, !dbg !728"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 147,
-			"name": "if.end64.i",
+			"id": 133,
+			"name": "if.end68.i",
 			"debug": [
 				{
 					"line": 513, "columns": [9]
 				}
 			],
-			"successors": [148, 200],
+			"successors": [134, 185],
 			"ir": [
-				"%call65.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.44, i64 noundef 36) #9, !dbg !476",
-				"%tobool66.not.i = icmp eq i32 %call65.i, 0, !dbg !476",
-				"br i1 %tobool66.not.i, label %if.end68.i, label %all_ins.exit.thread, !dbg !478"
+				"%call69.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.38, i64 noundef 37) #9, !dbg !729",
+				"%tobool70.not.i = icmp eq i32 %call69.i, 0, !dbg !729",
+				"br i1 %tobool70.not.i, label %if.end72.i, label %all_ins.exit.thread, !dbg !731"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 148,
-			"name": "if.end68.i",
+			"id": 134,
+			"name": "if.end72.i",
 			"debug": [
 				{
 					"line": 516, "columns": [9]
 				}
 			],
-			"successors": [149, 200],
+			"successors": [135, 185],
 			"ir": [
-				"%call69.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.45, i64 noundef 37) #9, !dbg !479",
-				"%tobool70.not.i = icmp eq i32 %call69.i, 0, !dbg !479",
-				"br i1 %tobool70.not.i, label %if.end72.i, label %all_ins.exit.thread, !dbg !481"
+				"%call73.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.39, i64 noundef 38) #9, !dbg !732",
+				"%tobool74.not.i = icmp eq i32 %call73.i, 0, !dbg !732",
+				"br i1 %tobool74.not.i, label %if.end76.i, label %all_ins.exit.thread, !dbg !734"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 149,
-			"name": "if.end72.i",
+			"id": 135,
+			"name": "if.end76.i",
 			"debug": [
 				{
 					"line": 519, "columns": [9]
 				}
 			],
-			"successors": [150, 200],
+			"successors": [136, 185],
 			"ir": [
-				"%call73.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.46, i64 noundef 38) #9, !dbg !482",
-				"%tobool74.not.i = icmp eq i32 %call73.i, 0, !dbg !482",
-				"br i1 %tobool74.not.i, label %if.end76.i, label %all_ins.exit.thread, !dbg !484"
+				"%call77.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.40, i64 noundef 9) #9, !dbg !735",
+				"%tobool78.not.i = icmp eq i32 %call77.i, 0, !dbg !735",
+				"br i1 %tobool78.not.i, label %if.end80.i, label %all_ins.exit.thread, !dbg !737"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 150,
-			"name": "if.end76.i",
+			"id": 136,
+			"name": "if.end80.i",
 			"debug": [
 				{
 					"line": 522, "columns": [9]
 				}
 			],
-			"successors": [151, 200],
+			"successors": [137, 185],
 			"ir": [
-				"%call77.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.47, i64 noundef 9) #9, !dbg !485",
-				"%tobool78.not.i = icmp eq i32 %call77.i, 0, !dbg !485",
-				"br i1 %tobool78.not.i, label %if.end80.i, label %all_ins.exit.thread, !dbg !487"
+				"%call81.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.41, i64 noundef 8) #9, !dbg !738",
+				"%tobool82.not.i = icmp eq i32 %call81.i, 0, !dbg !738",
+				"br i1 %tobool82.not.i, label %if.end84.i, label %all_ins.exit.thread, !dbg !740"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 151,
-			"name": "if.end80.i",
+			"id": 137,
+			"name": "if.end84.i",
 			"debug": [
 				{
-					"line": 525, "columns": [9]
+					"line": 528, "columns": [9]
 				}
 			],
-			"successors": [152, 200],
+			"successors": [138, 185],
 			"ir": [
-				"%call81.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.48, i64 noundef 8) #9, !dbg !488",
-				"%tobool82.not.i = icmp eq i32 %call81.i, 0, !dbg !488",
-				"br i1 %tobool82.not.i, label %if.end84.i, label %all_ins.exit.thread, !dbg !490"
+				"%call85.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.42, i64 noundef 11) #9, !dbg !741",
+				"%tobool86.not.i = icmp eq i32 %call85.i, 0, !dbg !741",
+				"br i1 %tobool86.not.i, label %if.end88.i, label %all_ins.exit.thread, !dbg !743"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 152,
-			"name": "if.end84.i",
+			"id": 138,
+			"name": "if.end88.i",
 			"debug": [
 				{
 					"line": 531, "columns": [9]
 				}
 			],
-			"successors": [153, 200],
+			"successors": [139, 185],
 			"ir": [
-				"%call85.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.49, i64 noundef 11) #9, !dbg !491",
-				"%tobool86.not.i = icmp eq i32 %call85.i, 0, !dbg !491",
-				"br i1 %tobool86.not.i, label %if.end88.i, label %all_ins.exit.thread, !dbg !493"
+				"%call89.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.43, i64 noundef 10) #9, !dbg !744",
+				"%tobool90.not.i = icmp eq i32 %call89.i, 0, !dbg !744",
+				"br i1 %tobool90.not.i, label %if.end92.i, label %all_ins.exit.thread, !dbg !746"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 153,
-			"name": "if.end88.i",
+			"id": 139,
+			"name": "if.end92.i",
 			"debug": [
 				{
 					"line": 534, "columns": [9]
 				}
 			],
-			"successors": [154, 200],
+			"successors": [140, 185],
 			"ir": [
-				"%call89.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.50, i64 noundef 10) #9, !dbg !494",
-				"%tobool90.not.i = icmp eq i32 %call89.i, 0, !dbg !494",
-				"br i1 %tobool90.not.i, label %if.end92.i, label %all_ins.exit.thread, !dbg !496"
+				"%call93.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.44, i64 noundef 0) #9, !dbg !747",
+				"%tobool94.not.i = icmp eq i32 %call93.i, 0, !dbg !747",
+				"br i1 %tobool94.not.i, label %if.end96.i, label %all_ins.exit.thread, !dbg !749"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 154,
-			"name": "if.end92.i",
+			"id": 140,
+			"name": "if.end96.i",
 			"debug": [
 				{
 					"line": 537, "columns": [9]
 				}
 			],
-			"successors": [155, 200],
+			"successors": [141, 185],
 			"ir": [
-				"%call93.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.51, i64 noundef 0) #9, !dbg !497",
-				"%tobool94.not.i = icmp eq i32 %call93.i, 0, !dbg !497",
-				"br i1 %tobool94.not.i, label %if.end96.i, label %all_ins.exit.thread, !dbg !499"
+				"%call97.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.45, i64 noundef 1) #9, !dbg !750",
+				"%tobool98.not.i = icmp eq i32 %call97.i, 0, !dbg !750",
+				"br i1 %tobool98.not.i, label %if.end100.i, label %all_ins.exit.thread, !dbg !752"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 155,
-			"name": "if.end96.i",
+			"id": 141,
+			"name": "if.end100.i",
 			"debug": [
 				{
 					"line": 540, "columns": [9]
 				}
 			],
-			"successors": [156, 200],
+			"successors": [142, 185],
 			"ir": [
-				"%call97.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.52, i64 noundef 1) #9, !dbg !500",
-				"%tobool98.not.i = icmp eq i32 %call97.i, 0, !dbg !500",
-				"br i1 %tobool98.not.i, label %if.end100.i, label %all_ins.exit.thread, !dbg !502"
+				"%call101.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.46, i64 noundef 2) #9, !dbg !753",
+				"%tobool102.not.i = icmp eq i32 %call101.i, 0, !dbg !753",
+				"br i1 %tobool102.not.i, label %if.end104.i, label %all_ins.exit.thread, !dbg !755"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 156,
-			"name": "if.end100.i",
+			"id": 142,
+			"name": "if.end104.i",
 			"debug": [
 				{
-					"line": 543, "columns": [9]
+					"line": 544, "columns": [9]
 				}
 			],
-			"successors": [157, 200],
+			"successors": [143, 185],
 			"ir": [
-				"%call101.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.53, i64 noundef 2) #9, !dbg !503",
-				"%tobool102.not.i = icmp eq i32 %call101.i, 0, !dbg !503",
-				"br i1 %tobool102.not.i, label %if.end104.i, label %all_ins.exit.thread, !dbg !505"
+				"%call105.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.47, i64 noundef 5) #9, !dbg !756",
+				"%tobool106.not.i = icmp eq i32 %call105.i, 0, !dbg !756",
+				"br i1 %tobool106.not.i, label %if.end108.i, label %all_ins.exit.thread, !dbg !758"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 157,
-			"name": "if.end104.i",
+			"id": 143,
+			"name": "if.end108.i",
 			"debug": [
 				{
 					"line": 547, "columns": [9]
 				}
 			],
-			"successors": [158, 200],
+			"successors": [144, 185],
 			"ir": [
-				"%call105.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.54, i64 noundef 5) #9, !dbg !506",
-				"%tobool106.not.i = icmp eq i32 %call105.i, 0, !dbg !506",
-				"br i1 %tobool106.not.i, label %if.end108.i, label %all_ins.exit.thread, !dbg !508"
+				"%call109.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.48, i64 noundef 6) #9, !dbg !759",
+				"%tobool110.not.i = icmp eq i32 %call109.i, 0, !dbg !759",
+				"br i1 %tobool110.not.i, label %if.end112.i, label %all_ins.exit.thread, !dbg !761"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 158,
-			"name": "if.end108.i",
+			"id": 144,
+			"name": "if.end112.i",
 			"debug": [
 				{
 					"line": 550, "columns": [9]
 				}
 			],
-			"successors": [159, 200],
+			"successors": [145, 185],
 			"ir": [
-				"%call109.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.55, i64 noundef 6) #9, !dbg !509",
-				"%tobool110.not.i = icmp eq i32 %call109.i, 0, !dbg !509",
-				"br i1 %tobool110.not.i, label %if.end112.i, label %all_ins.exit.thread, !dbg !511"
+				"%call113.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.49, i64 noundef 7) #9, !dbg !762",
+				"%tobool114.not.i = icmp eq i32 %call113.i, 0, !dbg !762",
+				"br i1 %tobool114.not.i, label %if.end116.i, label %all_ins.exit.thread, !dbg !764"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 159,
-			"name": "if.end112.i",
+			"id": 145,
+			"name": "if.end116.i",
 			"debug": [
 				{
-					"line": 553, "columns": [9]
+					"line": 554, "columns": [9]
 				}
 			],
-			"successors": [160, 200],
+			"successors": [146, 185],
 			"ir": [
-				"%call113.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.56, i64 noundef 7) #9, !dbg !512",
-				"%tobool114.not.i = icmp eq i32 %call113.i, 0, !dbg !512",
-				"br i1 %tobool114.not.i, label %if.end116.i, label %all_ins.exit.thread, !dbg !514"
+				"%call117.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.50, i64 noundef 8192) #9, !dbg !765",
+				"%tobool118.not.i = icmp eq i32 %call117.i, 0, !dbg !765",
+				"br i1 %tobool118.not.i, label %if.end120.i, label %all_ins.exit.thread, !dbg !767"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 160,
-			"name": "if.end116.i",
+			"id": 146,
+			"name": "if.end120.i",
 			"debug": [
 				{
 					"line": 557, "columns": [9]
 				}
 			],
-			"successors": [161, 200],
+			"successors": [147, 185],
 			"ir": [
-				"%call117.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.57, i64 noundef 8192) #9, !dbg !515",
-				"%tobool118.not.i = icmp eq i32 %call117.i, 0, !dbg !515",
-				"br i1 %tobool118.not.i, label %if.end120.i, label %all_ins.exit.thread, !dbg !517"
+				"%call121.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.51, i64 noundef 1024) #9, !dbg !768",
+				"%tobool122.not.i = icmp eq i32 %call121.i, 0, !dbg !768",
+				"br i1 %tobool122.not.i, label %if.end124.i, label %all_ins.exit.thread, !dbg !770"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 161,
-			"name": "if.end120.i",
+			"id": 147,
+			"name": "if.end124.i",
 			"debug": [
 				{
 					"line": 560, "columns": [9]
 				}
 			],
-			"successors": [162, 200],
+			"successors": [148, 185],
 			"ir": [
-				"%call121.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.58, i64 noundef 1024) #9, !dbg !518",
-				"%tobool122.not.i = icmp eq i32 %call121.i, 0, !dbg !518",
-				"br i1 %tobool122.not.i, label %if.end124.i, label %all_ins.exit.thread, !dbg !520"
+				"%call125.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.52, i64 noundef 1025) #9, !dbg !771",
+				"%tobool126.not.i = icmp eq i32 %call125.i, 0, !dbg !771",
+				"br i1 %tobool126.not.i, label %if.end128.i, label %all_ins.exit.thread, !dbg !773"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 162,
-			"name": "if.end124.i",
+			"id": 148,
+			"name": "if.end128.i",
 			"debug": [
 				{
 					"line": 563, "columns": [9]
 				}
 			],
-			"successors": [163, 200],
+			"successors": [149, 185],
 			"ir": [
-				"%call125.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.59, i64 noundef 1025) #9, !dbg !521",
-				"%tobool126.not.i = icmp eq i32 %call125.i, 0, !dbg !521",
-				"br i1 %tobool126.not.i, label %if.end128.i, label %all_ins.exit.thread, !dbg !523"
+				"%call129.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.53, i64 noundef 1026) #9, !dbg !774",
+				"%tobool130.not.i = icmp eq i32 %call129.i, 0, !dbg !774",
+				"br i1 %tobool130.not.i, label %if.end132.i, label %all_ins.exit.thread, !dbg !776"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 163,
-			"name": "if.end128.i",
+			"id": 149,
+			"name": "if.end132.i",
 			"debug": [
 				{
-					"line": 566, "columns": [9]
+					"line": 567, "columns": [9]
 				}
 			],
-			"successors": [164, 200],
+			"successors": [150, 185],
 			"ir": [
-				"%call129.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.60, i64 noundef 1026) #9, !dbg !524",
-				"%tobool130.not.i = icmp eq i32 %call129.i, 0, !dbg !524",
-				"br i1 %tobool130.not.i, label %if.end132.i, label %all_ins.exit.thread, !dbg !526"
+				"%call133.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.54, i64 noundef 4) #9, !dbg !777",
+				"%tobool134.not.i = icmp eq i32 %call133.i, 0, !dbg !777",
+				"br i1 %tobool134.not.i, label %if.end136.i, label %all_ins.exit.thread, !dbg !779"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 164,
-			"name": "if.end132.i",
+			"id": 150,
+			"name": "if.end136.i",
 			"debug": [
 				{
 					"line": 570, "columns": [9]
 				}
 			],
-			"successors": [165, 200],
+			"successors": [151, 185],
 			"ir": [
-				"%call133.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.61, i64 noundef 4) #9, !dbg !527",
-				"%tobool134.not.i = icmp eq i32 %call133.i, 0, !dbg !527",
-				"br i1 %tobool134.not.i, label %if.end136.i, label %all_ins.exit.thread, !dbg !529"
+				"%call137.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.55, i64 noundef 8) #9, !dbg !780",
+				"%tobool138.not.i = icmp eq i32 %call137.i, 0, !dbg !780",
+				"br i1 %tobool138.not.i, label %if.end140.i, label %all_ins.exit.thread, !dbg !782"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 165,
-			"name": "if.end136.i",
+			"id": 151,
+			"name": "if.end140.i",
 			"debug": [
 				{
-					"line": 573, "columns": [9]
+					"line": 575, "columns": [9]
 				}
 			],
-			"successors": [166, 200],
+			"successors": [152, 185],
 			"ir": [
-				"%call137.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.62, i64 noundef 8) #9, !dbg !530",
-				"%tobool138.not.i = icmp eq i32 %call137.i, 0, !dbg !530",
-				"br i1 %tobool138.not.i, label %if.end140.i, label %all_ins.exit.thread, !dbg !532"
+				"%call141.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.56, i64 noundef 1031) #9, !dbg !783",
+				"%tobool142.not.i = icmp eq i32 %call141.i, 0, !dbg !783",
+				"br i1 %tobool142.not.i, label %if.end144.i, label %all_ins.exit.thread, !dbg !785"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 166,
-			"name": "if.end140.i",
+			"id": 152,
+			"name": "if.end144.i",
 			"debug": [
 				{
 					"line": 578, "columns": [9]
 				}
 			],
-			"successors": [167, 200],
+			"successors": [153, 185],
 			"ir": [
-				"%call141.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.63, i64 noundef 1031) #9, !dbg !533",
-				"%tobool142.not.i = icmp eq i32 %call141.i, 0, !dbg !533",
-				"br i1 %tobool142.not.i, label %if.end144.i, label %all_ins.exit.thread, !dbg !535"
+				"%call145.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.57, i64 noundef 1032) #9, !dbg !786",
+				"%tobool146.not.i = icmp eq i32 %call145.i, 0, !dbg !786",
+				"br i1 %tobool146.not.i, label %if.end148.i, label %all_ins.exit.thread, !dbg !788"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 167,
-			"name": "if.end144.i",
+			"id": 153,
+			"name": "if.end148.i",
 			"debug": [
 				{
 					"line": 581, "columns": [9]
 				}
 			],
-			"successors": [168, 200],
+			"successors": [154, 185],
 			"ir": [
-				"%call145.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.64, i64 noundef 1032) #9, !dbg !536",
-				"%tobool146.not.i = icmp eq i32 %call145.i, 0, !dbg !536",
-				"br i1 %tobool146.not.i, label %if.end148.i, label %all_ins.exit.thread, !dbg !538"
+				"%call149.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.58, i64 noundef 1074041865) #9, !dbg !789",
+				"%tobool150.not.i = icmp eq i32 %call149.i, 0, !dbg !789",
+				"br i1 %tobool150.not.i, label %if.end152.i, label %all_ins.exit.thread, !dbg !791"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 168,
-			"name": "if.end148.i",
+			"id": 154,
+			"name": "if.end152.i",
 			"debug": [
 				{
 					"line": 584, "columns": [9]
 				}
 			],
-			"successors": [169, 200],
+			"successors": [155, 185],
 			"ir": [
-				"%call149.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.65, i64 noundef 1074041865) #9, !dbg !539",
-				"%tobool150.not.i = icmp eq i32 %call149.i, 0, !dbg !539",
-				"br i1 %tobool150.not.i, label %if.end152.i, label %all_ins.exit.thread, !dbg !541"
+				"%call153.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.59, i64 noundef 1075876877) #9, !dbg !792",
+				"%tobool154.not.i = icmp eq i32 %call153.i, 0, !dbg !792",
+				"br i1 %tobool154.not.i, label %if.end156.i, label %all_ins.exit.thread, !dbg !794"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 169,
-			"name": "if.end152.i",
+			"id": 155,
+			"name": "if.end156.i",
 			"debug": [
 				{
-					"line": 587, "columns": [9]
+					"line": 588, "columns": [9]
 				}
 			],
-			"successors": [170, 200],
+			"successors": [156, 185],
 			"ir": [
-				"%call153.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.66, i64 noundef 1075876877) #9, !dbg !542",
-				"%tobool154.not.i = icmp eq i32 %call153.i, 0, !dbg !542",
-				"br i1 %tobool154.not.i, label %if.end156.i, label %all_ins.exit.thread, !dbg !544"
+				"%call157.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.60, i64 noundef 16) #9, !dbg !795",
+				"%tobool158.not.i = icmp eq i32 %call157.i, 0, !dbg !795",
+				"br i1 %tobool158.not.i, label %if.end160.i, label %all_ins.exit.thread, !dbg !797"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 170,
-			"name": "if.end156.i",
+			"id": 156,
+			"name": "if.end160.i",
+			"debug": [
+				{
+					"line": 589, "columns": [9]
+				}
+			],
+			"successors": [157, 185],
+			"ir": [
+				"%call161.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.61, i64 noundef 15) #9, !dbg !798",
+				"%tobool162.not.i = icmp eq i32 %call161.i, 0, !dbg !798",
+				"br i1 %tobool162.not.i, label %if.end164.i, label %all_ins.exit.thread, !dbg !800"
+			]
+		},
+		{
+			"function": "fcntl_exec",
+			"id": 157,
+			"name": "if.end164.i",
+			"debug": [
+				{
+					"line": 590, "columns": [9]
+				}
+			],
+			"successors": [158, 185],
+			"ir": [
+				"%call165.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.62, i64 noundef 0) #9, !dbg !801",
+				"%tobool166.not.i = icmp eq i32 %call165.i, 0, !dbg !801",
+				"br i1 %tobool166.not.i, label %if.end168.i, label %all_ins.exit.thread, !dbg !803"
+			]
+		},
+		{
+			"function": "fcntl_exec",
+			"id": 158,
+			"name": "if.end168.i",
 			"debug": [
 				{
 					"line": 591, "columns": [9]
 				}
 			],
-			"successors": [171, 200],
+			"successors": [159, 185],
 			"ir": [
-				"%call157.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.67, i64 noundef 16) #9, !dbg !545",
-				"%tobool158.not.i = icmp eq i32 %call157.i, 0, !dbg !545",
-				"br i1 %tobool158.not.i, label %if.end160.i, label %all_ins.exit.thread, !dbg !547"
+				"%call169.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.63, i64 noundef 1) #9, !dbg !804",
+				"%tobool170.not.i = icmp eq i32 %call169.i, 0, !dbg !804",
+				"br i1 %tobool170.not.i, label %if.end172.i, label %all_ins.exit.thread, !dbg !806"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 171,
-			"name": "if.end160.i",
+			"id": 159,
+			"name": "if.end172.i",
 			"debug": [
 				{
 					"line": 592, "columns": [9]
 				}
 			],
-			"successors": [172, 200],
+			"successors": [160, 185],
 			"ir": [
-				"%call161.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.68, i64 noundef 15) #9, !dbg !548",
-				"%tobool162.not.i = icmp eq i32 %call161.i, 0, !dbg !548",
-				"br i1 %tobool162.not.i, label %if.end164.i, label %all_ins.exit.thread, !dbg !550"
+				"%call173.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.64, i64 noundef 2) #9, !dbg !807",
+				"%tobool174.not.i = icmp eq i32 %call173.i, 0, !dbg !807",
+				"br i1 %tobool174.not.i, label %if.end176.i, label %all_ins.exit.thread, !dbg !809"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 172,
-			"name": "if.end164.i",
-			"debug": [
-				{
-					"line": 593, "columns": [9]
-				}
-			],
-			"successors": [173, 200],
-			"ir": [
-				"%call165.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.69, i64 noundef 0) #9, !dbg !551",
-				"%tobool166.not.i = icmp eq i32 %call165.i, 0, !dbg !551",
-				"br i1 %tobool166.not.i, label %if.end168.i, label %all_ins.exit.thread, !dbg !553"
-			]
-		},
-		{
-			"function": "fcntl_exec",
-			"id": 173,
-			"name": "if.end168.i",
-			"debug": [
-				{
-					"line": 594, "columns": [9]
-				}
-			],
-			"successors": [174, 200],
-			"ir": [
-				"%call169.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.70, i64 noundef 1) #9, !dbg !554",
-				"%tobool170.not.i = icmp eq i32 %call169.i, 0, !dbg !554",
-				"br i1 %tobool170.not.i, label %if.end172.i, label %all_ins.exit.thread, !dbg !556"
-			]
-		},
-		{
-			"function": "fcntl_exec",
-			"id": 174,
-			"name": "if.end172.i",
-			"debug": [
-				{
-					"line": 595, "columns": [9]
-				}
-			],
-			"successors": [175, 200],
-			"ir": [
-				"%call173.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.71, i64 noundef 2) #9, !dbg !557",
-				"%tobool174.not.i = icmp eq i32 %call173.i, 0, !dbg !557",
-				"br i1 %tobool174.not.i, label %if.end176.i, label %all_ins.exit.thread, !dbg !559"
-			]
-		},
-		{
-			"function": "fcntl_exec",
-			"id": 175,
+			"id": 160,
 			"name": "if.end176.i",
+			"debug": [
+				{
+					"line": 596, "columns": [9]
+				}
+			],
+			"successors": [161, 185],
+			"ir": [
+				"%call177.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.65, i64 noundef 1035) #9, !dbg !810",
+				"%tobool178.not.i = icmp eq i32 %call177.i, 0, !dbg !810",
+				"br i1 %tobool178.not.i, label %if.end180.i, label %all_ins.exit.thread, !dbg !812"
+			]
+		},
+		{
+			"function": "fcntl_exec",
+			"id": 161,
+			"name": "if.end180.i",
+			"debug": [
+				{
+					"line": 597, "columns": [9]
+				}
+			],
+			"successors": [162, 185],
+			"ir": [
+				"%call181.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.66, i64 noundef 1036) #9, !dbg !813",
+				"%tobool182.not.i = icmp eq i32 %call181.i, 0, !dbg !813",
+				"br i1 %tobool182.not.i, label %if.end184.i, label %all_ins.exit.thread, !dbg !815"
+			]
+		},
+		{
+			"function": "fcntl_exec",
+			"id": 162,
+			"name": "if.end184.i",
+			"debug": [
+				{
+					"line": 598, "columns": [9]
+				}
+			],
+			"successors": [163, 185],
+			"ir": [
+				"%call185.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.67, i64 noundef 1037) #9, !dbg !816",
+				"%tobool186.not.i = icmp eq i32 %call185.i, 0, !dbg !816",
+				"br i1 %tobool186.not.i, label %if.end188.i, label %all_ins.exit.thread, !dbg !818"
+			]
+		},
+		{
+			"function": "fcntl_exec",
+			"id": 163,
+			"name": "if.end188.i",
 			"debug": [
 				{
 					"line": 599, "columns": [9]
 				}
 			],
-			"successors": [176, 200],
+			"successors": [164, 185],
 			"ir": [
-				"%call177.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.72, i64 noundef 1035) #9, !dbg !560",
-				"%tobool178.not.i = icmp eq i32 %call177.i, 0, !dbg !560",
-				"br i1 %tobool178.not.i, label %if.end180.i, label %all_ins.exit.thread, !dbg !562"
+				"%call189.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.68, i64 noundef 1038) #9, !dbg !819",
+				"%tobool190.not.i = icmp eq i32 %call189.i, 0, !dbg !819",
+				"br i1 %tobool190.not.i, label %if.end192.i, label %all_ins.exit.thread, !dbg !821"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 176,
-			"name": "if.end180.i",
-			"debug": [
-				{
-					"line": 600, "columns": [9]
-				}
-			],
-			"successors": [177, 200],
-			"ir": [
-				"%call181.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.73, i64 noundef 1036) #9, !dbg !563",
-				"%tobool182.not.i = icmp eq i32 %call181.i, 0, !dbg !563",
-				"br i1 %tobool182.not.i, label %if.end184.i, label %all_ins.exit.thread, !dbg !565"
-			]
-		},
-		{
-			"function": "fcntl_exec",
-			"id": 177,
-			"name": "if.end184.i",
-			"debug": [
-				{
-					"line": 601, "columns": [9]
-				}
-			],
-			"successors": [178, 200],
-			"ir": [
-				"%call185.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.74, i64 noundef 1037) #9, !dbg !566",
-				"%tobool186.not.i = icmp eq i32 %call185.i, 0, !dbg !566",
-				"br i1 %tobool186.not.i, label %if.end188.i, label %all_ins.exit.thread, !dbg !568"
-			]
-		},
-		{
-			"function": "fcntl_exec",
-			"id": 178,
-			"name": "if.end188.i",
-			"debug": [
-				{
-					"line": 602, "columns": [9]
-				}
-			],
-			"successors": [179, 200],
-			"ir": [
-				"%call189.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.75, i64 noundef 1038) #9, !dbg !569",
-				"%tobool190.not.i = icmp eq i32 %call189.i, 0, !dbg !569",
-				"br i1 %tobool190.not.i, label %if.end192.i, label %all_ins.exit.thread, !dbg !571"
-			]
-		},
-		{
-			"function": "fcntl_exec",
-			"id": 179,
+			"id": 164,
 			"name": "if.end192.i",
+			"debug": [
+				{
+					"line": 603, "columns": [9]
+				}
+			],
+			"successors": [165, 185],
+			"ir": [
+				"%call193.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.69, i64 noundef 0) #9, !dbg !822",
+				"%tobool194.not.i = icmp eq i32 %call193.i, 0, !dbg !822",
+				"br i1 %tobool194.not.i, label %if.end196.i, label %all_ins.exit.thread, !dbg !824"
+			]
+		},
+		{
+			"function": "fcntl_exec",
+			"id": 165,
+			"name": "if.end196.i",
+			"debug": [
+				{
+					"line": 604, "columns": [9]
+				}
+			],
+			"successors": [166, 185],
+			"ir": [
+				"%call197.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.70, i64 noundef 1) #9, !dbg !825",
+				"%tobool198.not.i = icmp eq i32 %call197.i, 0, !dbg !825",
+				"br i1 %tobool198.not.i, label %if.end200.i, label %all_ins.exit.thread, !dbg !827"
+			]
+		},
+		{
+			"function": "fcntl_exec",
+			"id": 166,
+			"name": "if.end200.i",
+			"debug": [
+				{
+					"line": 605, "columns": [9]
+				}
+			],
+			"successors": [167, 185],
+			"ir": [
+				"%call201.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.71, i64 noundef 2) #9, !dbg !828",
+				"%tobool202.not.i = icmp eq i32 %call201.i, 0, !dbg !828",
+				"br i1 %tobool202.not.i, label %if.end204.i, label %all_ins.exit.thread, !dbg !830"
+			]
+		},
+		{
+			"function": "fcntl_exec",
+			"id": 167,
+			"name": "if.end204.i",
 			"debug": [
 				{
 					"line": 606, "columns": [9]
 				}
 			],
-			"successors": [180, 200],
+			"successors": [168, 185],
 			"ir": [
-				"%call193.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.76, i64 noundef 0) #9, !dbg !572",
-				"%tobool194.not.i = icmp eq i32 %call193.i, 0, !dbg !572",
-				"br i1 %tobool194.not.i, label %if.end196.i, label %all_ins.exit.thread, !dbg !574"
+				"%call205.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.72, i64 noundef 3) #9, !dbg !831",
+				"%tobool206.not.i = icmp eq i32 %call205.i, 0, !dbg !831",
+				"br i1 %tobool206.not.i, label %if.end208.i, label %all_ins.exit.thread, !dbg !833"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 180,
-			"name": "if.end196.i",
+			"id": 168,
+			"name": "if.end208.i",
 			"debug": [
 				{
 					"line": 607, "columns": [9]
 				}
 			],
-			"successors": [181, 200],
+			"successors": [169, 185],
 			"ir": [
-				"%call197.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.77, i64 noundef 1) #9, !dbg !575",
-				"%tobool198.not.i = icmp eq i32 %call197.i, 0, !dbg !575",
-				"br i1 %tobool198.not.i, label %if.end200.i, label %all_ins.exit.thread, !dbg !577"
+				"%call209.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.73, i64 noundef 4) #9, !dbg !834",
+				"%tobool210.not.i = icmp eq i32 %call209.i, 0, !dbg !834",
+				"br i1 %tobool210.not.i, label %if.end212.i, label %all_ins.exit.thread, !dbg !836"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 181,
-			"name": "if.end200.i",
+			"id": 169,
+			"name": "if.end212.i",
 			"debug": [
 				{
 					"line": 608, "columns": [9]
 				}
 			],
-			"successors": [182, 200],
+			"successors": [170, 185],
 			"ir": [
-				"%call201.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.78, i64 noundef 2) #9, !dbg !578",
-				"%tobool202.not.i = icmp eq i32 %call201.i, 0, !dbg !578",
-				"br i1 %tobool202.not.i, label %if.end204.i, label %all_ins.exit.thread, !dbg !580"
+				"%call213.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.74, i64 noundef 5) #9, !dbg !837",
+				"%tobool214.not.i = icmp eq i32 %call213.i, 0, !dbg !837",
+				"br i1 %tobool214.not.i, label %if.end216.i, label %all_ins.exit.thread, !dbg !839"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 182,
-			"name": "if.end204.i",
-			"debug": [
-				{
-					"line": 609, "columns": [9]
-				}
-			],
-			"successors": [183, 200],
-			"ir": [
-				"%call205.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.79, i64 noundef 3) #9, !dbg !581",
-				"%tobool206.not.i = icmp eq i32 %call205.i, 0, !dbg !581",
-				"br i1 %tobool206.not.i, label %if.end208.i, label %all_ins.exit.thread, !dbg !583"
-			]
-		},
-		{
-			"function": "fcntl_exec",
-			"id": 183,
-			"name": "if.end208.i",
-			"debug": [
-				{
-					"line": 610, "columns": [9]
-				}
-			],
-			"successors": [184, 200],
-			"ir": [
-				"%call209.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.80, i64 noundef 4) #9, !dbg !584",
-				"%tobool210.not.i = icmp eq i32 %call209.i, 0, !dbg !584",
-				"br i1 %tobool210.not.i, label %if.end212.i, label %all_ins.exit.thread, !dbg !586"
-			]
-		},
-		{
-			"function": "fcntl_exec",
-			"id": 184,
-			"name": "if.end212.i",
-			"debug": [
-				{
-					"line": 611, "columns": [9]
-				}
-			],
-			"successors": [185, 200],
-			"ir": [
-				"%call213.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.81, i64 noundef 5) #9, !dbg !587",
-				"%tobool214.not.i = icmp eq i32 %call213.i, 0, !dbg !587",
-				"br i1 %tobool214.not.i, label %if.end216.i, label %all_ins.exit.thread, !dbg !589"
-			]
-		},
-		{
-			"function": "fcntl_exec",
-			"id": 185,
+			"id": 170,
 			"name": "if.end216.i",
 			"debug": [
 				{
-					"line": 658, "columns": [9]
+					"line": 655, "columns": [9]
 				}
 			],
-			"successors": [186, 200],
+			"successors": [171, 185],
 			"ir": [
-				"%call217.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.82, i64 noundef 1) #9, !dbg !590",
-				"%tobool218.not.i = icmp eq i32 %call217.i, 0, !dbg !590",
-				"br i1 %tobool218.not.i, label %if.end220.i, label %all_ins.exit.thread, !dbg !592"
+				"%call217.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.75, i64 noundef 1) #9, !dbg !840",
+				"%tobool218.not.i = icmp eq i32 %call217.i, 0, !dbg !840",
+				"br i1 %tobool218.not.i, label %if.end220.i, label %all_ins.exit.thread, !dbg !842"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 186,
+			"id": 171,
 			"name": "if.end220.i",
+			"debug": [
+				{
+					"line": 660, "columns": [9]
+				}
+			],
+			"successors": [172, 185],
+			"ir": [
+				"%call221.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.76, i64 noundef 1) #9, !dbg !843",
+				"%tobool222.not.i = icmp eq i32 %call221.i, 0, !dbg !843",
+				"br i1 %tobool222.not.i, label %if.end224.i, label %all_ins.exit.thread, !dbg !845"
+			]
+		},
+		{
+			"function": "fcntl_exec",
+			"id": 172,
+			"name": "if.end224.i",
 			"debug": [
 				{
 					"line": 663, "columns": [9]
 				}
 			],
-			"successors": [187, 200],
+			"successors": [173, 185],
 			"ir": [
-				"%call221.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.83, i64 noundef 1) #9, !dbg !593",
-				"%tobool222.not.i = icmp eq i32 %call221.i, 0, !dbg !593",
-				"br i1 %tobool222.not.i, label %if.end224.i, label %all_ins.exit.thread, !dbg !595"
+				"%call225.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.77, i64 noundef 2) #9, !dbg !846",
+				"%tobool226.not.i = icmp eq i32 %call225.i, 0, !dbg !846",
+				"br i1 %tobool226.not.i, label %if.end228.i, label %all_ins.exit.thread, !dbg !848"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 187,
-			"name": "if.end224.i",
+			"id": 173,
+			"name": "if.end228.i",
 			"debug": [
 				{
 					"line": 666, "columns": [9]
 				}
 			],
-			"successors": [188, 200],
+			"successors": [174, 185],
 			"ir": [
-				"%call225.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.84, i64 noundef 2) #9, !dbg !596",
-				"%tobool226.not.i = icmp eq i32 %call225.i, 0, !dbg !596",
-				"br i1 %tobool226.not.i, label %if.end228.i, label %all_ins.exit.thread, !dbg !598"
+				"%call229.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.78, i64 noundef 4) #9, !dbg !849",
+				"%tobool230.not.i = icmp eq i32 %call229.i, 0, !dbg !849",
+				"br i1 %tobool230.not.i, label %if.end232.i, label %all_ins.exit.thread, !dbg !851"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 188,
-			"name": "if.end228.i",
+			"id": 174,
+			"name": "if.end232.i",
 			"debug": [
 				{
 					"line": 669, "columns": [9]
 				}
 			],
-			"successors": [189, 200],
+			"successors": [175, 185],
 			"ir": [
-				"%call229.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.85, i64 noundef 4) #9, !dbg !599",
-				"%tobool230.not.i = icmp eq i32 %call229.i, 0, !dbg !599",
-				"br i1 %tobool230.not.i, label %if.end232.i, label %all_ins.exit.thread, !dbg !601"
+				"%call233.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.79, i64 noundef 8) #9, !dbg !852",
+				"%tobool234.not.i = icmp eq i32 %call233.i, 0, !dbg !852",
+				"br i1 %tobool234.not.i, label %if.end236.i, label %all_ins.exit.thread, !dbg !854"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 189,
-			"name": "if.end232.i",
+			"id": 175,
+			"name": "if.end236.i",
 			"debug": [
 				{
 					"line": 672, "columns": [9]
 				}
 			],
-			"successors": [190, 200],
+			"successors": [176, 185],
 			"ir": [
-				"%call233.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.86, i64 noundef 8) #9, !dbg !602",
-				"%tobool234.not.i = icmp eq i32 %call233.i, 0, !dbg !602",
-				"br i1 %tobool234.not.i, label %if.end236.i, label %all_ins.exit.thread, !dbg !604"
+				"%call237.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.80, i64 noundef 16) #9, !dbg !855",
+				"%tobool238.not.i = icmp eq i32 %call237.i, 0, !dbg !855",
+				"br i1 %tobool238.not.i, label %if.end240.i, label %all_ins.exit.thread, !dbg !857"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 190,
-			"name": "if.end236.i",
+			"id": 176,
+			"name": "if.end240.i",
 			"debug": [
 				{
 					"line": 675, "columns": [9]
 				}
 			],
-			"successors": [191, 200],
+			"successors": [177, 185],
 			"ir": [
-				"%call237.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.87, i64 noundef 16) #9, !dbg !605",
-				"%tobool238.not.i = icmp eq i32 %call237.i, 0, !dbg !605",
-				"br i1 %tobool238.not.i, label %if.end240.i, label %all_ins.exit.thread, !dbg !607"
+				"%call241.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.81, i64 noundef 32) #9, !dbg !858",
+				"%tobool242.not.i = icmp eq i32 %call241.i, 0, !dbg !858",
+				"br i1 %tobool242.not.i, label %if.end244.i, label %all_ins.exit.thread, !dbg !860"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 191,
-			"name": "if.end240.i",
+			"id": 177,
+			"name": "if.end244.i",
 			"debug": [
 				{
 					"line": 678, "columns": [9]
 				}
 			],
-			"successors": [192, 200],
+			"successors": [178, 185],
 			"ir": [
-				"%call241.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.88, i64 noundef 32) #9, !dbg !608",
-				"%tobool242.not.i = icmp eq i32 %call241.i, 0, !dbg !608",
-				"br i1 %tobool242.not.i, label %if.end244.i, label %all_ins.exit.thread, !dbg !610"
+				"%call245.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.82, i64 noundef 2147483648) #9, !dbg !861",
+				"%tobool246.not.i = icmp eq i32 %call245.i, 0, !dbg !861",
+				"br i1 %tobool246.not.i, label %if.end248.i, label %all_ins.exit.thread, !dbg !863"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 192,
-			"name": "if.end244.i",
+			"id": 178,
+			"name": "if.end248.i",
 			"debug": [
 				{
-					"line": 681, "columns": [9]
+					"line": 720, "columns": [9]
 				}
 			],
-			"successors": [193, 200],
+			"successors": [179, 185],
 			"ir": [
-				"%call245.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.89, i64 noundef 2147483648) #9, !dbg !611",
-				"%tobool246.not.i = icmp eq i32 %call245.i, 0, !dbg !611",
-				"br i1 %tobool246.not.i, label %if.end248.i, label %all_ins.exit.thread, !dbg !613"
+				"%call249.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.83, i64 noundef 1033) #9, !dbg !864",
+				"%tobool250.not.i = icmp eq i32 %call249.i, 0, !dbg !864",
+				"br i1 %tobool250.not.i, label %if.end252.i, label %all_ins.exit.thread, !dbg !866"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 193,
-			"name": "if.end248.i",
+			"id": 179,
+			"name": "if.end252.i",
+			"debug": [
+				{
+					"line": 721, "columns": [9]
+				}
+			],
+			"successors": [180, 185],
+			"ir": [
+				"%call253.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.84, i64 noundef 1034) #9, !dbg !867",
+				"%tobool254.not.i = icmp eq i32 %call253.i, 0, !dbg !867",
+				"br i1 %tobool254.not.i, label %if.end256.i, label %all_ins.exit.thread, !dbg !869"
+			]
+		},
+		{
+			"function": "fcntl_exec",
+			"id": 180,
+			"name": "if.end256.i",
+			"debug": [
+				{
+					"line": 722, "columns": [9]
+				}
+			],
+			"successors": [181, 185],
+			"ir": [
+				"%call257.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.85, i64 noundef 1) #9, !dbg !870",
+				"%tobool258.not.i = icmp eq i32 %call257.i, 0, !dbg !870",
+				"br i1 %tobool258.not.i, label %if.end260.i, label %all_ins.exit.thread, !dbg !872"
+			]
+		},
+		{
+			"function": "fcntl_exec",
+			"id": 181,
+			"name": "if.end260.i",
 			"debug": [
 				{
 					"line": 723, "columns": [9]
 				}
 			],
-			"successors": [194, 200],
+			"successors": [182, 185],
 			"ir": [
-				"%call249.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.90, i64 noundef 1033) #9, !dbg !614",
-				"%tobool250.not.i = icmp eq i32 %call249.i, 0, !dbg !614",
-				"br i1 %tobool250.not.i, label %if.end252.i, label %all_ins.exit.thread, !dbg !616"
+				"%call261.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.86, i64 noundef 2) #9, !dbg !873",
+				"%tobool262.not.i = icmp eq i32 %call261.i, 0, !dbg !873",
+				"br i1 %tobool262.not.i, label %if.end264.i, label %all_ins.exit.thread, !dbg !875"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 194,
-			"name": "if.end252.i",
+			"id": 182,
+			"name": "if.end264.i",
 			"debug": [
 				{
 					"line": 724, "columns": [9]
 				}
 			],
-			"successors": [195, 200],
+			"successors": [183, 185],
 			"ir": [
-				"%call253.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.91, i64 noundef 1034) #9, !dbg !617",
-				"%tobool254.not.i = icmp eq i32 %call253.i, 0, !dbg !617",
-				"br i1 %tobool254.not.i, label %if.end256.i, label %all_ins.exit.thread, !dbg !619"
+				"%call265.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.87, i64 noundef 4) #9, !dbg !876",
+				"%tobool266.not.i = icmp eq i32 %call265.i, 0, !dbg !876",
+				"br i1 %tobool266.not.i, label %if.end268.i, label %all_ins.exit.thread, !dbg !878"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 195,
-			"name": "if.end256.i",
+			"id": 183,
+			"name": "if.end268.i",
 			"debug": [
 				{
 					"line": 725, "columns": [9]
 				}
 			],
-			"successors": [196, 200],
+			"successors": [184, 185],
 			"ir": [
-				"%call257.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.92, i64 noundef 1) #9, !dbg !620",
-				"%tobool258.not.i = icmp eq i32 %call257.i, 0, !dbg !620",
-				"br i1 %tobool258.not.i, label %if.end260.i, label %all_ins.exit.thread, !dbg !622"
+				"%call269.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.88, i64 noundef 8) #9, !dbg !879",
+				"%tobool270.not.i = icmp eq i32 %call269.i, 0, !dbg !879",
+				"br i1 %tobool270.not.i, label %all_ins.exit, label %all_ins.exit.thread, !dbg !881"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 196,
-			"name": "if.end260.i",
-			"debug": [
-				{
-					"line": 726, "columns": [9]
-				}
-			],
-			"successors": [197, 200],
-			"ir": [
-				"%call261.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.93, i64 noundef 2) #9, !dbg !623",
-				"%tobool262.not.i = icmp eq i32 %call261.i, 0, !dbg !623",
-				"br i1 %tobool262.not.i, label %if.end264.i, label %all_ins.exit.thread, !dbg !625"
-			]
-		},
-		{
-			"function": "fcntl_exec",
-			"id": 197,
-			"name": "if.end264.i",
+			"id": 184,
+			"name": "all_ins.exit",
 			"debug": [
 				{
 					"line": 727, "columns": [9]
 				}
 			],
-			"successors": [198, 200],
+			"successors": [186, 185],
 			"ir": [
-				"%call265.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.94, i64 noundef 4) #9, !dbg !626",
-				"%tobool266.not.i = icmp eq i32 %call265.i, 0, !dbg !626",
-				"br i1 %tobool266.not.i, label %if.end268.i, label %all_ins.exit.thread, !dbg !628"
+				"%call273.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.89, i64 noundef 16) #9, !dbg !882",
+				"%call273.i.fr = freeze i32 %call273.i, !dbg !882",
+				"%tobool274.not.i.not = icmp eq i32 %call273.i.fr, 0, !dbg !882",
+				"br i1 %tobool274.not.i.not, label %0, label %all_ins.exit.thread, !dbg !668"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 198,
-			"name": "if.end268.i",
-			"debug": [
-				{
-					"line": 728, "columns": [9]
-				}
-			],
-			"successors": [199, 200],
-			"ir": [
-				"%call269.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.95, i64 noundef 8) #9, !dbg !629",
-				"%tobool270.not.i = icmp eq i32 %call269.i, 0, !dbg !629",
-				"br i1 %tobool270.not.i, label %all_ins.exit, label %all_ins.exit.thread, !dbg !631"
-			]
-		},
-		{
-			"function": "fcntl_exec",
-			"id": 199,
-			"name": "all_ins.exit",
-			"debug": [
-				{
-					"line": 730, "columns": [9]
-				}
-			],
-			"successors": [201, 200],
-			"ir": [
-				"%call273.i = tail call i32 @PyModule_AddIntConstant(ptr noundef %module, ptr noundef nonnull @.str.96, i64 noundef 16) #9, !dbg !632",
-				"%call273.i.fr = freeze i32 %call273.i, !dbg !632",
-				"%tobool274.not.i.not = icmp eq i32 %call273.i.fr, 0, !dbg !632",
-				"br i1 %tobool274.not.i.not, label %0, label %all_ins.exit.thread, !dbg !418"
-			]
-		},
-		{
-			"function": "fcntl_exec",
-			"id": 200,
+			"id": 185,
 			"name": "all_ins.exit.thread",
 			"debug": [
 			],
-			"successors": [201],
+			"successors": [186],
 			"ir": [
-				"br label %0, !dbg !418"
+				"br label %0, !dbg !668"
 			]
 		},
 		{
 			"function": "fcntl_exec",
-			"id": 201,
+			"id": 186,
 			"name": "",
 			"debug": [
 				{
-					"line": 743, "columns": [1]
+					"line": 740, "columns": [1]
 				}
 			],
 			"successors": [],
 			"ir": [
 				"%1 = phi i32 [ -1, %all_ins.exit.thread ], [ 0, %all_ins.exit ]",
-				"ret i32 %1, !dbg !634"
+				"ret i32 %1, !dbg !884"
 			]
 		}
 	]

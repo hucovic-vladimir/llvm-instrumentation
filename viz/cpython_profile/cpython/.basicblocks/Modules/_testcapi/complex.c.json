@@ -6,646 +6,931 @@
 			"name": "entry",
 			"debug": [
 				{
-					"line": 101, "columns": [9]
+					"line": 162, "columns": [9]
 				},
 				{
-					"line": 106, "columns": [1]
+					"line": 167, "columns": [1]
 				}
 			],
 			"successors": [],
 			"ir": [
-				"%call = tail call i32 @PyModule_AddFunctions(ptr noundef %mod, ptr noundef nonnull @test_methods) #6, !dbg !399",
-				"%call.lobit = ashr i32 %call, 31, !dbg !398",
-				"ret i32 %call.lobit, !dbg !401"
+				"%call = tail call i32 @PyModule_AddFunctions(ptr noundef %mod, ptr noundef nonnull @test_methods) #6, !dbg !420",
+				"%call.lobit = ashr i32 %call, 31, !dbg !419",
+				"ret i32 %call.lobit, !dbg !422"
 			]
 		},
 		{
-			"function": "complex_fromccomplex",
+			"function": "complex_check",
 			"id": 1,
 			"name": "entry",
 			"debug": [
 				{
-					"line": 8, "columns": [5, 16]
+					"line": 8, "columns": [5]
 				},
 				{
-					"line": 10, "columns": [10, 9]
+					"line": 9, "columns": [28]
+				},
+				{
+					"line": 366, "columns": [24]
+				},
+				{
+					"line": 535, "columns": [33]
 				}
 			],
 			"successors": [3, 2],
 			"ir": [
-				"%complex = alloca %struct.Py_complex, align 8",
-				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %complex) #6, !dbg !408",
-				"%call = call i32 (ptr, ptr, ...) @PyArg_Parse(ptr noundef %obj, ptr noundef nonnull @.str.9, ptr noundef nonnull %complex) #6, !dbg !410",
-				"%tobool.not = icmp eq i32 %call, 0, !dbg !410",
-				"br i1 %tobool.not, label %cleanup, label %if.end, !dbg !412"
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !421",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !424",
+				"%0 = getelementptr i8, ptr %spec.store.select, i64 8, !dbg !425",
+				"%spec.store.select.val = load ptr, ptr %0, align 8, !dbg !425, !tbaa !426",
+				"%cmp.i.not.i = icmp eq ptr %spec.store.select.val, @PyComplex_Type, !dbg !445",
+				"br i1 %cmp.i.not.i, label %PyObject_TypeCheck.exit, label %lor.rhs.i, !dbg !446"
 			]
 		},
 		{
-			"function": "complex_fromccomplex",
+			"function": "complex_check",
 			"id": 2,
-			"name": "if.end",
+			"name": "lor.rhs.i",
 			"debug": [
 				{
-					"line": 14, "columns": [12, 5]
+					"line": 535, "columns": [36, 33]
 				}
 			],
 			"successors": [3],
 			"ir": [
-				"%0 = load double, ptr %complex, align 8, !dbg !413",
-				"%1 = getelementptr inbounds { double, double }, ptr %complex, i64 0, i32 1, !dbg !413",
-				"%2 = load double, ptr %1, align 8, !dbg !413",
-				"%call1 = call ptr @PyComplex_FromCComplex(double %0, double %2) #6, !dbg !413",
-				"br label %cleanup, !dbg !414"
+				"%call2.i = tail call i32 @PyType_IsSubtype(ptr noundef %spec.store.select.val, ptr noundef nonnull @PyComplex_Type) #6, !dbg !447",
+				"%tobool3.i = icmp ne i32 %call2.i, 0, !dbg !446",
+				"%1 = zext i1 %tobool3.i to i64",
+				"br label %PyObject_TypeCheck.exit, !dbg !446"
 			]
 		},
 		{
-			"function": "complex_fromccomplex",
+			"function": "complex_check",
 			"id": 3,
-			"name": "cleanup",
+			"name": "PyObject_TypeCheck.exit",
 			"debug": [
 				{
-					"line": 15, "columns": [1]
+					"line": 9, "columns": [12, 5]
 				}
 			],
 			"successors": [],
 			"ir": [
-				"%retval.0 = phi ptr [ %call1, %if.end ], [ null, %entry ], !dbg !407",
-				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %complex) #6, !dbg !415",
-				"ret ptr %retval.0, !dbg !415"
+				"%lor.ext.i = phi i64 [ 1, %entry ], [ %1, %lor.rhs.i ]",
+				"%call1 = tail call ptr @PyLong_FromLong(i64 noundef %lor.ext.i) #6, !dbg !448",
+				"ret ptr %call1, !dbg !449"
 			]
 		},
 		{
-			"function": "complex_asccomplex",
+			"function": "complex_checkexact",
 			"id": 4,
 			"name": "entry",
 			"debug": [
 				{
-					"line": 22, "columns": [5]
+					"line": 15, "columns": [5]
 				},
 				{
-					"line": 23, "columns": [15]
+					"line": 16, "columns": [28, 12, 5]
 				},
 				{
-					"line": 25, "columns": [22, 29]
+					"line": 366, "columns": [24]
 				}
 			],
-			"successors": [5, 6],
+			"successors": [],
 			"ir": [
-				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !408",
-				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !411",
-				"%call = tail call { double, double } @PyComplex_AsCComplex(ptr noundef %spec.store.select) #6, !dbg !412",
-				"%0 = extractvalue { double, double } %call, 0, !dbg !412",
-				"%1 = extractvalue { double, double } %call, 1, !dbg !412",
-				"%cmp1 = fcmp oeq double %0, -1.000000e+00, !dbg !413",
-				"br i1 %cmp1, label %land.lhs.true, label %if.end4, !dbg !415"
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !421",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !424",
+				"%0 = getelementptr i8, ptr %spec.store.select, i64 8, !dbg !425",
+				"%spec.store.select.val = load ptr, ptr %0, align 8, !dbg !425, !tbaa !426",
+				"%cmp.i = icmp eq ptr %spec.store.select.val, @PyComplex_Type, !dbg !439",
+				"%conv = zext i1 %cmp.i to i64",
+				"%call1 = tail call ptr @PyLong_FromLong(i64 noundef %conv) #6, !dbg !440",
+				"ret ptr %call1, !dbg !441"
 			]
 		},
 		{
-			"function": "complex_asccomplex",
+			"function": "complex_fromccomplex",
 			"id": 5,
-			"name": "land.lhs.true",
+			"name": "entry",
 			"debug": [
 				{
-					"line": 25, "columns": [32, 9]
+					"line": 22, "columns": [5, 16]
+				},
+				{
+					"line": 24, "columns": [10, 9]
 				}
 			],
-			"successors": [6, 7],
+			"successors": [7, 6],
 			"ir": [
-				"%call2 = tail call ptr @PyErr_Occurred() #6, !dbg !416",
-				"%tobool.not = icmp eq ptr %call2, null, !dbg !416",
-				"br i1 %tobool.not, label %if.end4, label %cleanup, !dbg !417"
+				"%complex = alloca %struct.Py_complex, align 8",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %complex) #6, !dbg !429",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_Parse(ptr noundef %obj, ptr noundef nonnull @.str.14, ptr noundef nonnull %complex) #6, !dbg !431",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !431",
+				"br i1 %tobool.not, label %cleanup, label %if.end, !dbg !433"
 			]
 		},
 		{
-			"function": "complex_asccomplex",
+			"function": "complex_fromccomplex",
 			"id": 6,
-			"name": "if.end4",
+			"name": "if.end",
 			"debug": [
 				{
-					"line": 29, "columns": [12, 5]
+					"line": 28, "columns": [12, 5]
 				}
 			],
 			"successors": [7],
 			"ir": [
-				"%call5 = tail call ptr @PyComplex_FromCComplex(double %0, double %1) #6, !dbg !418",
-				"br label %cleanup, !dbg !419"
+				"%0 = load double, ptr %complex, align 8, !dbg !434",
+				"%1 = getelementptr inbounds { double, double }, ptr %complex, i64 0, i32 1, !dbg !434",
+				"%2 = load double, ptr %1, align 8, !dbg !434",
+				"%call1 = call ptr @PyComplex_FromCComplex(double %0, double %2) #6, !dbg !434",
+				"br label %cleanup, !dbg !435"
 			]
 		},
 		{
-			"function": "complex_asccomplex",
+			"function": "complex_fromccomplex",
 			"id": 7,
 			"name": "cleanup",
 			"debug": [
 				{
-					"line": 30, "columns": [1]
+					"line": 29, "columns": [1]
 				}
 			],
 			"successors": [],
 			"ir": [
-				"%retval.0 = phi ptr [ %call5, %if.end4 ], [ null, %land.lhs.true ], !dbg !407",
-				"ret ptr %retval.0, !dbg !420"
+				"%retval.0 = phi ptr [ %call1, %if.end ], [ null, %entry ], !dbg !428",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %complex) #6, !dbg !436",
+				"ret ptr %retval.0, !dbg !436"
 			]
 		},
 		{
-			"function": "_py_c_sum",
+			"function": "complex_fromdoubles",
 			"id": 8,
 			"name": "entry",
 			"debug": [
 				{
-					"line": 60, "columns": [1]
+					"line": 34, "columns": [5]
+				},
+				{
+					"line": 36, "columns": [10, 9]
 				}
 			],
 			"successors": [10, 9],
 			"ir": [
-				"%num = alloca %struct.Py_complex, align 8",
-				"%exp = alloca %struct.Py_complex, align 8",
-				"%res = alloca %struct.Py_complex, align 8",
-				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %num) #6, !dbg !410",
-				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %exp) #6, !dbg !410",
-				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %res) #6, !dbg !410",
-				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.10, ptr noundef nonnull %num, ptr noundef nonnull %exp) #6, !dbg !411",
-				"%tobool.not = icmp eq i32 %call, 0, !dbg !411",
-				"br i1 %tobool.not, label %cleanup, label %if.end, !dbg !410"
+				"%real = alloca double, align 8",
+				"%imag = alloca double, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %real) #6, !dbg !424",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %imag) #6, !dbg !424",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.15, ptr noundef nonnull %real, ptr noundef nonnull %imag) #6, !dbg !425",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !425",
+				"br i1 %tobool.not, label %cleanup, label %if.end, !dbg !427"
 			]
 		},
 		{
-			"function": "_py_c_sum",
+			"function": "complex_fromdoubles",
 			"id": 9,
 			"name": "if.end",
 			"debug": [
 				{
-					"line": 60, "columns": [1]
+					"line": 40, "columns": [34, 40, 12, 5]
 				}
 			],
 			"successors": [10],
 			"ir": [
-				"%call1 = tail call ptr @__errno_location() #7, !dbg !410",
-				"store i32 0, ptr %call1, align 4, !dbg !410, !tbaa !413",
-				"%0 = load double, ptr %num, align 8, !dbg !410",
-				"%1 = getelementptr inbounds { double, double }, ptr %num, i64 0, i32 1, !dbg !410",
-				"%2 = load double, ptr %1, align 8, !dbg !410",
-				"%3 = load double, ptr %exp, align 8, !dbg !410",
-				"%4 = getelementptr inbounds { double, double }, ptr %exp, i64 0, i32 1, !dbg !410",
-				"%5 = load double, ptr %4, align 8, !dbg !410",
-				"%call2 = call { double, double } @_Py_c_sum(double %0, double %2, double %3, double %5) #6, !dbg !410",
-				"%6 = extractvalue { double, double } %call2, 0, !dbg !410",
-				"%7 = extractvalue { double, double } %call2, 1, !dbg !410",
-				"store double %6, ptr %res, align 8, !dbg !410, !tbaa.struct !417",
-				"%tmp.sroa.4.0.res.sroa_idx = getelementptr inbounds i8, ptr %res, i64 8, !dbg !410",
-				"store double %7, ptr %tmp.sroa.4.0.res.sroa_idx, align 8, !dbg !410, !tbaa.struct !420",
-				"%8 = load i32, ptr %call1, align 4, !dbg !410, !tbaa !413",
-				"%call4 = call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.11, ptr noundef nonnull %res, i32 noundef %8) #6, !dbg !410",
-				"br label %cleanup, !dbg !410"
+				"%0 = load double, ptr %real, align 8, !dbg !428, !tbaa !429",
+				"%1 = load double, ptr %imag, align 8, !dbg !433, !tbaa !429",
+				"%call1 = call ptr @PyComplex_FromDoubles(double noundef %0, double noundef %1) #6, !dbg !434",
+				"br label %cleanup, !dbg !435"
 			]
 		},
 		{
-			"function": "_py_c_sum",
+			"function": "complex_fromdoubles",
 			"id": 10,
 			"name": "cleanup",
 			"debug": [
 				{
-					"line": 60, "columns": [1]
+					"line": 41, "columns": [1]
 				}
 			],
 			"successors": [],
 			"ir": [
-				"%retval.0 = phi ptr [ %call4, %if.end ], [ null, %entry ], !dbg !410",
-				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %res) #6, !dbg !410",
-				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %exp) #6, !dbg !410",
-				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %num) #6, !dbg !410",
-				"ret ptr %retval.0, !dbg !410"
+				"%retval.0 = phi ptr [ %call1, %if.end ], [ null, %entry ], !dbg !423",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %imag) #6, !dbg !436",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %real) #6, !dbg !436",
+				"ret ptr %retval.0, !dbg !436"
 			]
 		},
 		{
-			"function": "_py_c_diff",
+			"function": "complex_realasdouble",
 			"id": 11,
 			"name": "entry",
 			"debug": [
 				{
-					"line": 61, "columns": [1]
+					"line": 48, "columns": [5]
+				},
+				{
+					"line": 49, "columns": [12]
+				},
+				{
+					"line": 51, "columns": [14, 21]
 				}
 			],
-			"successors": [13, 12],
+			"successors": [12, 13],
 			"ir": [
-				"%num = alloca %struct.Py_complex, align 8",
-				"%exp = alloca %struct.Py_complex, align 8",
-				"%res = alloca %struct.Py_complex, align 8",
-				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %num) #6, !dbg !410",
-				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %exp) #6, !dbg !410",
-				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %res) #6, !dbg !410",
-				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.10, ptr noundef nonnull %num, ptr noundef nonnull %exp) #6, !dbg !411",
-				"%tobool.not = icmp eq i32 %call, 0, !dbg !411",
-				"br i1 %tobool.not, label %cleanup, label %if.end, !dbg !410"
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !423",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !426",
+				"%call = tail call double @PyComplex_RealAsDouble(ptr noundef %spec.store.select) #6, !dbg !427",
+				"%cmp1 = fcmp oeq double %call, -1.000000e+00, !dbg !428",
+				"br i1 %cmp1, label %land.lhs.true, label %if.end4, !dbg !430"
 			]
 		},
 		{
-			"function": "_py_c_diff",
+			"function": "complex_realasdouble",
 			"id": 12,
-			"name": "if.end",
+			"name": "land.lhs.true",
 			"debug": [
 				{
-					"line": 61, "columns": [1]
+					"line": 51, "columns": [24, 9]
 				}
 			],
-			"successors": [13],
+			"successors": [13, 14],
 			"ir": [
-				"%call1 = tail call ptr @__errno_location() #7, !dbg !410",
-				"store i32 0, ptr %call1, align 4, !dbg !410, !tbaa !413",
-				"%0 = load double, ptr %num, align 8, !dbg !410",
-				"%1 = getelementptr inbounds { double, double }, ptr %num, i64 0, i32 1, !dbg !410",
-				"%2 = load double, ptr %1, align 8, !dbg !410",
-				"%3 = load double, ptr %exp, align 8, !dbg !410",
-				"%4 = getelementptr inbounds { double, double }, ptr %exp, i64 0, i32 1, !dbg !410",
-				"%5 = load double, ptr %4, align 8, !dbg !410",
-				"%call2 = call { double, double } @_Py_c_diff(double %0, double %2, double %3, double %5) #6, !dbg !410",
-				"%6 = extractvalue { double, double } %call2, 0, !dbg !410",
-				"%7 = extractvalue { double, double } %call2, 1, !dbg !410",
-				"store double %6, ptr %res, align 8, !dbg !410, !tbaa.struct !417",
-				"%tmp.sroa.4.0.res.sroa_idx = getelementptr inbounds i8, ptr %res, i64 8, !dbg !410",
-				"store double %7, ptr %tmp.sroa.4.0.res.sroa_idx, align 8, !dbg !410, !tbaa.struct !420",
-				"%8 = load i32, ptr %call1, align 4, !dbg !410, !tbaa !413",
-				"%call4 = call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.11, ptr noundef nonnull %res, i32 noundef %8) #6, !dbg !410",
-				"br label %cleanup, !dbg !410"
+				"%call2 = tail call ptr @PyErr_Occurred() #6, !dbg !431",
+				"%tobool.not = icmp eq ptr %call2, null, !dbg !431",
+				"br i1 %tobool.not, label %if.end4, label %cleanup, !dbg !432"
 			]
 		},
 		{
-			"function": "_py_c_diff",
+			"function": "complex_realasdouble",
 			"id": 13,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 55, "columns": [12, 5]
+				}
+			],
+			"successors": [14],
+			"ir": [
+				"%call5 = tail call ptr @PyFloat_FromDouble(double noundef %call) #6, !dbg !433",
+				"br label %cleanup, !dbg !434"
+			]
+		},
+		{
+			"function": "complex_realasdouble",
+			"id": 14,
 			"name": "cleanup",
 			"debug": [
 				{
-					"line": 61, "columns": [1]
+					"line": 56, "columns": [1]
 				}
 			],
 			"successors": [],
 			"ir": [
-				"%retval.0 = phi ptr [ %call4, %if.end ], [ null, %entry ], !dbg !410",
-				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %res) #6, !dbg !410",
-				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %exp) #6, !dbg !410",
-				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %num) #6, !dbg !410",
-				"ret ptr %retval.0, !dbg !410"
+				"%retval.0 = phi ptr [ %call5, %if.end4 ], [ null, %land.lhs.true ], !dbg !422",
+				"ret ptr %retval.0, !dbg !435"
 			]
 		},
 		{
-			"function": "_py_c_neg",
-			"id": 14,
+			"function": "complex_imagasdouble",
+			"id": 15,
 			"name": "entry",
 			"debug": [
 				{
-					"line": 37, "columns": [15]
+					"line": 63, "columns": [5]
 				},
 				{
-					"line": 38, "columns": [22, 29]
-				}
-			],
-			"successors": [15, 16],
-			"ir": [
-				"%call = tail call { double, double } @PyComplex_AsCComplex(ptr noundef %num) #6, !dbg !408",
-				"%0 = extractvalue { double, double } %call, 0, !dbg !408",
-				"%1 = extractvalue { double, double } %call, 1, !dbg !408",
-				"%cmp = fcmp oeq double %0, -1.000000e+00, !dbg !409",
-				"br i1 %cmp, label %land.lhs.true, label %if.end, !dbg !411"
-			]
-		},
-		{
-			"function": "_py_c_neg",
-			"id": 15,
-			"name": "land.lhs.true",
-			"debug": [
+					"line": 64, "columns": [12]
+				},
 				{
-					"line": 38, "columns": [32, 9]
+					"line": 66, "columns": [14, 21]
 				}
 			],
 			"successors": [16, 17],
 			"ir": [
-				"%call1 = tail call ptr @PyErr_Occurred() #6, !dbg !412",
-				"%tobool.not = icmp eq ptr %call1, null, !dbg !412",
-				"br i1 %tobool.not, label %if.end, label %cleanup, !dbg !413"
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !423",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !426",
+				"%call = tail call double @PyComplex_ImagAsDouble(ptr noundef %spec.store.select) #6, !dbg !427",
+				"%cmp1 = fcmp oeq double %call, -1.000000e+00, !dbg !428",
+				"br i1 %cmp1, label %land.lhs.true, label %if.end4, !dbg !430"
 			]
 		},
 		{
-			"function": "_py_c_neg",
+			"function": "complex_imagasdouble",
 			"id": 16,
-			"name": "if.end",
-			"debug": [
-				{
-					"line": 42, "columns": [35, 12, 5]
-				}
-			],
-			"successors": [17],
-			"ir": [
-				"%call2 = tail call { double, double } @_Py_c_neg(double %0, double %1) #6, !dbg !414",
-				"%2 = extractvalue { double, double } %call2, 0, !dbg !414",
-				"%3 = extractvalue { double, double } %call2, 1, !dbg !414",
-				"%call3 = tail call ptr @PyComplex_FromCComplex(double %2, double %3) #6, !dbg !415",
-				"br label %cleanup, !dbg !416"
-			]
-		},
-		{
-			"function": "_py_c_neg",
-			"id": 17,
-			"name": "cleanup",
-			"debug": [
-				{
-					"line": 43, "columns": [1]
-				}
-			],
-			"successors": [],
-			"ir": [
-				"%retval.0 = phi ptr [ %call3, %if.end ], [ null, %land.lhs.true ], !dbg !407",
-				"ret ptr %retval.0, !dbg !417"
-			]
-		},
-		{
-			"function": "_py_c_prod",
-			"id": 18,
-			"name": "entry",
-			"debug": [
-				{
-					"line": 62, "columns": [1]
-				}
-			],
-			"successors": [20, 19],
-			"ir": [
-				"%num = alloca %struct.Py_complex, align 8",
-				"%exp = alloca %struct.Py_complex, align 8",
-				"%res = alloca %struct.Py_complex, align 8",
-				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %num) #6, !dbg !410",
-				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %exp) #6, !dbg !410",
-				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %res) #6, !dbg !410",
-				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.10, ptr noundef nonnull %num, ptr noundef nonnull %exp) #6, !dbg !411",
-				"%tobool.not = icmp eq i32 %call, 0, !dbg !411",
-				"br i1 %tobool.not, label %cleanup, label %if.end, !dbg !410"
-			]
-		},
-		{
-			"function": "_py_c_prod",
-			"id": 19,
-			"name": "if.end",
-			"debug": [
-				{
-					"line": 62, "columns": [1]
-				}
-			],
-			"successors": [20],
-			"ir": [
-				"%call1 = tail call ptr @__errno_location() #7, !dbg !410",
-				"store i32 0, ptr %call1, align 4, !dbg !410, !tbaa !413",
-				"%0 = load double, ptr %num, align 8, !dbg !410",
-				"%1 = getelementptr inbounds { double, double }, ptr %num, i64 0, i32 1, !dbg !410",
-				"%2 = load double, ptr %1, align 8, !dbg !410",
-				"%3 = load double, ptr %exp, align 8, !dbg !410",
-				"%4 = getelementptr inbounds { double, double }, ptr %exp, i64 0, i32 1, !dbg !410",
-				"%5 = load double, ptr %4, align 8, !dbg !410",
-				"%call2 = call { double, double } @_Py_c_prod(double %0, double %2, double %3, double %5) #6, !dbg !410",
-				"%6 = extractvalue { double, double } %call2, 0, !dbg !410",
-				"%7 = extractvalue { double, double } %call2, 1, !dbg !410",
-				"store double %6, ptr %res, align 8, !dbg !410, !tbaa.struct !417",
-				"%tmp.sroa.4.0.res.sroa_idx = getelementptr inbounds i8, ptr %res, i64 8, !dbg !410",
-				"store double %7, ptr %tmp.sroa.4.0.res.sroa_idx, align 8, !dbg !410, !tbaa.struct !420",
-				"%8 = load i32, ptr %call1, align 4, !dbg !410, !tbaa !413",
-				"%call4 = call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.11, ptr noundef nonnull %res, i32 noundef %8) #6, !dbg !410",
-				"br label %cleanup, !dbg !410"
-			]
-		},
-		{
-			"function": "_py_c_prod",
-			"id": 20,
-			"name": "cleanup",
-			"debug": [
-				{
-					"line": 62, "columns": [1]
-				}
-			],
-			"successors": [],
-			"ir": [
-				"%retval.0 = phi ptr [ %call4, %if.end ], [ null, %entry ], !dbg !410",
-				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %res) #6, !dbg !410",
-				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %exp) #6, !dbg !410",
-				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %num) #6, !dbg !410",
-				"ret ptr %retval.0, !dbg !410"
-			]
-		},
-		{
-			"function": "_py_c_quot",
-			"id": 21,
-			"name": "entry",
-			"debug": [
-				{
-					"line": 63, "columns": [1]
-				}
-			],
-			"successors": [23, 22],
-			"ir": [
-				"%num = alloca %struct.Py_complex, align 8",
-				"%exp = alloca %struct.Py_complex, align 8",
-				"%res = alloca %struct.Py_complex, align 8",
-				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %num) #6, !dbg !410",
-				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %exp) #6, !dbg !410",
-				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %res) #6, !dbg !410",
-				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.10, ptr noundef nonnull %num, ptr noundef nonnull %exp) #6, !dbg !411",
-				"%tobool.not = icmp eq i32 %call, 0, !dbg !411",
-				"br i1 %tobool.not, label %cleanup, label %if.end, !dbg !410"
-			]
-		},
-		{
-			"function": "_py_c_quot",
-			"id": 22,
-			"name": "if.end",
-			"debug": [
-				{
-					"line": 63, "columns": [1]
-				}
-			],
-			"successors": [23],
-			"ir": [
-				"%call1 = tail call ptr @__errno_location() #7, !dbg !410",
-				"store i32 0, ptr %call1, align 4, !dbg !410, !tbaa !413",
-				"%0 = load double, ptr %num, align 8, !dbg !410",
-				"%1 = getelementptr inbounds { double, double }, ptr %num, i64 0, i32 1, !dbg !410",
-				"%2 = load double, ptr %1, align 8, !dbg !410",
-				"%3 = load double, ptr %exp, align 8, !dbg !410",
-				"%4 = getelementptr inbounds { double, double }, ptr %exp, i64 0, i32 1, !dbg !410",
-				"%5 = load double, ptr %4, align 8, !dbg !410",
-				"%call2 = call { double, double } @_Py_c_quot(double %0, double %2, double %3, double %5) #6, !dbg !410",
-				"%6 = extractvalue { double, double } %call2, 0, !dbg !410",
-				"%7 = extractvalue { double, double } %call2, 1, !dbg !410",
-				"store double %6, ptr %res, align 8, !dbg !410, !tbaa.struct !417",
-				"%tmp.sroa.4.0.res.sroa_idx = getelementptr inbounds i8, ptr %res, i64 8, !dbg !410",
-				"store double %7, ptr %tmp.sroa.4.0.res.sroa_idx, align 8, !dbg !410, !tbaa.struct !420",
-				"%8 = load i32, ptr %call1, align 4, !dbg !410, !tbaa !413",
-				"%call4 = call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.11, ptr noundef nonnull %res, i32 noundef %8) #6, !dbg !410",
-				"br label %cleanup, !dbg !410"
-			]
-		},
-		{
-			"function": "_py_c_quot",
-			"id": 23,
-			"name": "cleanup",
-			"debug": [
-				{
-					"line": 63, "columns": [1]
-				}
-			],
-			"successors": [],
-			"ir": [
-				"%retval.0 = phi ptr [ %call4, %if.end ], [ null, %entry ], !dbg !410",
-				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %res) #6, !dbg !410",
-				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %exp) #6, !dbg !410",
-				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %num) #6, !dbg !410",
-				"ret ptr %retval.0, !dbg !410"
-			]
-		},
-		{
-			"function": "_py_c_pow",
-			"id": 24,
-			"name": "entry",
-			"debug": [
-				{
-					"line": 64, "columns": [1]
-				}
-			],
-			"successors": [26, 25],
-			"ir": [
-				"%num = alloca %struct.Py_complex, align 8",
-				"%exp = alloca %struct.Py_complex, align 8",
-				"%res = alloca %struct.Py_complex, align 8",
-				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %num) #6, !dbg !410",
-				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %exp) #6, !dbg !410",
-				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %res) #6, !dbg !410",
-				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.10, ptr noundef nonnull %num, ptr noundef nonnull %exp) #6, !dbg !411",
-				"%tobool.not = icmp eq i32 %call, 0, !dbg !411",
-				"br i1 %tobool.not, label %cleanup, label %if.end, !dbg !410"
-			]
-		},
-		{
-			"function": "_py_c_pow",
-			"id": 25,
-			"name": "if.end",
-			"debug": [
-				{
-					"line": 64, "columns": [1]
-				}
-			],
-			"successors": [26],
-			"ir": [
-				"%call1 = tail call ptr @__errno_location() #7, !dbg !410",
-				"store i32 0, ptr %call1, align 4, !dbg !410, !tbaa !413",
-				"%0 = load double, ptr %num, align 8, !dbg !410",
-				"%1 = getelementptr inbounds { double, double }, ptr %num, i64 0, i32 1, !dbg !410",
-				"%2 = load double, ptr %1, align 8, !dbg !410",
-				"%3 = load double, ptr %exp, align 8, !dbg !410",
-				"%4 = getelementptr inbounds { double, double }, ptr %exp, i64 0, i32 1, !dbg !410",
-				"%5 = load double, ptr %4, align 8, !dbg !410",
-				"%call2 = call { double, double } @_Py_c_pow(double %0, double %2, double %3, double %5) #6, !dbg !410",
-				"%6 = extractvalue { double, double } %call2, 0, !dbg !410",
-				"%7 = extractvalue { double, double } %call2, 1, !dbg !410",
-				"store double %6, ptr %res, align 8, !dbg !410, !tbaa.struct !417",
-				"%tmp.sroa.4.0.res.sroa_idx = getelementptr inbounds i8, ptr %res, i64 8, !dbg !410",
-				"store double %7, ptr %tmp.sroa.4.0.res.sroa_idx, align 8, !dbg !410, !tbaa.struct !420",
-				"%8 = load i32, ptr %call1, align 4, !dbg !410, !tbaa !413",
-				"%call4 = call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.11, ptr noundef nonnull %res, i32 noundef %8) #6, !dbg !410",
-				"br label %cleanup, !dbg !410"
-			]
-		},
-		{
-			"function": "_py_c_pow",
-			"id": 26,
-			"name": "cleanup",
-			"debug": [
-				{
-					"line": 64, "columns": [1]
-				}
-			],
-			"successors": [],
-			"ir": [
-				"%retval.0 = phi ptr [ %call4, %if.end ], [ null, %entry ], !dbg !410",
-				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %res) #6, !dbg !410",
-				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %exp) #6, !dbg !410",
-				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %num) #6, !dbg !410",
-				"ret ptr %retval.0, !dbg !410"
-			]
-		},
-		{
-			"function": "_py_c_abs",
-			"id": 27,
-			"name": "entry",
-			"debug": [
-				{
-					"line": 72, "columns": [5]
-				},
-				{
-					"line": 73, "columns": [15]
-				},
-				{
-					"line": 75, "columns": [22, 29]
-				}
-			],
-			"successors": [28, 29],
-			"ir": [
-				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !409",
-				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !412",
-				"%call = tail call { double, double } @PyComplex_AsCComplex(ptr noundef %spec.store.select) #6, !dbg !413",
-				"%0 = extractvalue { double, double } %call, 0, !dbg !413",
-				"%1 = extractvalue { double, double } %call, 1, !dbg !413",
-				"%cmp1 = fcmp oeq double %0, -1.000000e+00, !dbg !414",
-				"br i1 %cmp1, label %land.lhs.true, label %if.end4, !dbg !416"
-			]
-		},
-		{
-			"function": "_py_c_abs",
-			"id": 28,
 			"name": "land.lhs.true",
 			"debug": [
 				{
-					"line": 75, "columns": [32, 9]
+					"line": 66, "columns": [24, 9]
 				}
 			],
-			"successors": [29, 30],
+			"successors": [17, 18],
 			"ir": [
-				"%call2 = tail call ptr @PyErr_Occurred() #6, !dbg !417",
-				"%tobool.not = icmp eq ptr %call2, null, !dbg !417",
-				"br i1 %tobool.not, label %if.end4, label %cleanup, !dbg !418"
+				"%call2 = tail call ptr @PyErr_Occurred() #6, !dbg !431",
+				"%tobool.not = icmp eq ptr %call2, null, !dbg !431",
+				"br i1 %tobool.not, label %if.end4, label %cleanup, !dbg !432"
 			]
 		},
 		{
-			"function": "_py_c_abs",
-			"id": 29,
+			"function": "complex_imagasdouble",
+			"id": 17,
 			"name": "if.end4",
 			"debug": [
 				{
-					"line": 79, "columns": [5, 11]
-				},
-				{
-					"line": 80, "columns": [11]
-				},
-				{
-					"line": 81, "columns": [37, 12, 5]
+					"line": 70, "columns": [12, 5]
 				}
 			],
-			"successors": [30],
+			"successors": [18],
 			"ir": [
-				"%call5 = tail call ptr @__errno_location() #7, !dbg !419",
-				"store i32 0, ptr %call5, align 4, !dbg !420, !tbaa !421",
-				"%call6 = tail call double @_Py_c_abs(double %0, double %1) #6, !dbg !425",
-				"%2 = load i32, ptr %call5, align 4, !dbg !426, !tbaa !421",
-				"%call8 = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.12, double noundef %call6, i32 noundef %2) #6, !dbg !427",
-				"br label %cleanup, !dbg !428"
+				"%call5 = tail call ptr @PyFloat_FromDouble(double noundef %call) #6, !dbg !433",
+				"br label %cleanup, !dbg !434"
 			]
 		},
 		{
-			"function": "_py_c_abs",
-			"id": 30,
+			"function": "complex_imagasdouble",
+			"id": 18,
 			"name": "cleanup",
 			"debug": [
 				{
-					"line": 82, "columns": [1]
+					"line": 71, "columns": [1]
 				}
 			],
 			"successors": [],
 			"ir": [
-				"%retval.0 = phi ptr [ %call8, %if.end4 ], [ null, %land.lhs.true ], !dbg !408",
-				"ret ptr %retval.0, !dbg !429"
+				"%retval.0 = phi ptr [ %call5, %if.end4 ], [ null, %land.lhs.true ], !dbg !422",
+				"ret ptr %retval.0, !dbg !435"
+			]
+		},
+		{
+			"function": "complex_asccomplex",
+			"id": 19,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 78, "columns": [5]
+				},
+				{
+					"line": 79, "columns": [15]
+				},
+				{
+					"line": 81, "columns": [22, 29]
+				}
+			],
+			"successors": [20, 21],
+			"ir": [
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !429",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !432",
+				"%call = tail call { double, double } @PyComplex_AsCComplex(ptr noundef %spec.store.select) #6, !dbg !433",
+				"%0 = extractvalue { double, double } %call, 0, !dbg !433",
+				"%1 = extractvalue { double, double } %call, 1, !dbg !433",
+				"%cmp1 = fcmp oeq double %0, -1.000000e+00, !dbg !434",
+				"br i1 %cmp1, label %land.lhs.true, label %if.end4, !dbg !436"
+			]
+		},
+		{
+			"function": "complex_asccomplex",
+			"id": 20,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 81, "columns": [32, 9]
+				}
+			],
+			"successors": [21, 22],
+			"ir": [
+				"%call2 = tail call ptr @PyErr_Occurred() #6, !dbg !437",
+				"%tobool.not = icmp eq ptr %call2, null, !dbg !437",
+				"br i1 %tobool.not, label %if.end4, label %cleanup, !dbg !438"
+			]
+		},
+		{
+			"function": "complex_asccomplex",
+			"id": 21,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 85, "columns": [12, 5]
+				}
+			],
+			"successors": [22],
+			"ir": [
+				"%call5 = tail call ptr @PyComplex_FromCComplex(double %0, double %1) #6, !dbg !439",
+				"br label %cleanup, !dbg !440"
+			]
+		},
+		{
+			"function": "complex_asccomplex",
+			"id": 22,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 86, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call5, %if.end4 ], [ null, %land.lhs.true ], !dbg !428",
+				"ret ptr %retval.0, !dbg !441"
+			]
+		},
+		{
+			"function": "_py_c_sum",
+			"id": 23,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 116, "columns": [1]
+				}
+			],
+			"successors": [25, 24],
+			"ir": [
+				"%num = alloca %struct.Py_complex, align 8",
+				"%exp = alloca %struct.Py_complex, align 8",
+				"%res = alloca %struct.Py_complex, align 8",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %num) #6, !dbg !431",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %exp) #6, !dbg !431",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %res) #6, !dbg !431",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.16, ptr noundef nonnull %num, ptr noundef nonnull %exp) #6, !dbg !432",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !432",
+				"br i1 %tobool.not, label %cleanup, label %if.end, !dbg !431"
+			]
+		},
+		{
+			"function": "_py_c_sum",
+			"id": 24,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 116, "columns": [1]
+				}
+			],
+			"successors": [25],
+			"ir": [
+				"%call1 = tail call ptr @__errno_location() #7, !dbg !431",
+				"store i32 0, ptr %call1, align 4, !dbg !431, !tbaa !434",
+				"%0 = load double, ptr %num, align 8, !dbg !431",
+				"%1 = getelementptr inbounds { double, double }, ptr %num, i64 0, i32 1, !dbg !431",
+				"%2 = load double, ptr %1, align 8, !dbg !431",
+				"%3 = load double, ptr %exp, align 8, !dbg !431",
+				"%4 = getelementptr inbounds { double, double }, ptr %exp, i64 0, i32 1, !dbg !431",
+				"%5 = load double, ptr %4, align 8, !dbg !431",
+				"%call2 = call { double, double } @_Py_c_sum(double %0, double %2, double %3, double %5) #6, !dbg !431",
+				"%6 = extractvalue { double, double } %call2, 0, !dbg !431",
+				"%7 = extractvalue { double, double } %call2, 1, !dbg !431",
+				"store double %6, ptr %res, align 8, !dbg !431, !tbaa.struct !438",
+				"%tmp.sroa.4.0.res.sroa_idx = getelementptr inbounds i8, ptr %res, i64 8, !dbg !431",
+				"store double %7, ptr %tmp.sroa.4.0.res.sroa_idx, align 8, !dbg !431, !tbaa.struct !441",
+				"%8 = load i32, ptr %call1, align 4, !dbg !431, !tbaa !434",
+				"%call4 = call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.17, ptr noundef nonnull %res, i32 noundef %8) #6, !dbg !431",
+				"br label %cleanup, !dbg !431"
+			]
+		},
+		{
+			"function": "_py_c_sum",
+			"id": 25,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 116, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call4, %if.end ], [ null, %entry ], !dbg !431",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %res) #6, !dbg !431",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %exp) #6, !dbg !431",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %num) #6, !dbg !431",
+				"ret ptr %retval.0, !dbg !431"
+			]
+		},
+		{
+			"function": "_py_c_diff",
+			"id": 26,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 117, "columns": [1]
+				}
+			],
+			"successors": [28, 27],
+			"ir": [
+				"%num = alloca %struct.Py_complex, align 8",
+				"%exp = alloca %struct.Py_complex, align 8",
+				"%res = alloca %struct.Py_complex, align 8",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %num) #6, !dbg !431",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %exp) #6, !dbg !431",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %res) #6, !dbg !431",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.16, ptr noundef nonnull %num, ptr noundef nonnull %exp) #6, !dbg !432",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !432",
+				"br i1 %tobool.not, label %cleanup, label %if.end, !dbg !431"
+			]
+		},
+		{
+			"function": "_py_c_diff",
+			"id": 27,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 117, "columns": [1]
+				}
+			],
+			"successors": [28],
+			"ir": [
+				"%call1 = tail call ptr @__errno_location() #7, !dbg !431",
+				"store i32 0, ptr %call1, align 4, !dbg !431, !tbaa !434",
+				"%0 = load double, ptr %num, align 8, !dbg !431",
+				"%1 = getelementptr inbounds { double, double }, ptr %num, i64 0, i32 1, !dbg !431",
+				"%2 = load double, ptr %1, align 8, !dbg !431",
+				"%3 = load double, ptr %exp, align 8, !dbg !431",
+				"%4 = getelementptr inbounds { double, double }, ptr %exp, i64 0, i32 1, !dbg !431",
+				"%5 = load double, ptr %4, align 8, !dbg !431",
+				"%call2 = call { double, double } @_Py_c_diff(double %0, double %2, double %3, double %5) #6, !dbg !431",
+				"%6 = extractvalue { double, double } %call2, 0, !dbg !431",
+				"%7 = extractvalue { double, double } %call2, 1, !dbg !431",
+				"store double %6, ptr %res, align 8, !dbg !431, !tbaa.struct !438",
+				"%tmp.sroa.4.0.res.sroa_idx = getelementptr inbounds i8, ptr %res, i64 8, !dbg !431",
+				"store double %7, ptr %tmp.sroa.4.0.res.sroa_idx, align 8, !dbg !431, !tbaa.struct !441",
+				"%8 = load i32, ptr %call1, align 4, !dbg !431, !tbaa !434",
+				"%call4 = call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.17, ptr noundef nonnull %res, i32 noundef %8) #6, !dbg !431",
+				"br label %cleanup, !dbg !431"
+			]
+		},
+		{
+			"function": "_py_c_diff",
+			"id": 28,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 117, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call4, %if.end ], [ null, %entry ], !dbg !431",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %res) #6, !dbg !431",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %exp) #6, !dbg !431",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %num) #6, !dbg !431",
+				"ret ptr %retval.0, !dbg !431"
+			]
+		},
+		{
+			"function": "_py_c_neg",
+			"id": 29,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 93, "columns": [15]
+				},
+				{
+					"line": 94, "columns": [22, 29]
+				}
+			],
+			"successors": [30, 31],
+			"ir": [
+				"%call = tail call { double, double } @PyComplex_AsCComplex(ptr noundef %num) #6, !dbg !429",
+				"%0 = extractvalue { double, double } %call, 0, !dbg !429",
+				"%1 = extractvalue { double, double } %call, 1, !dbg !429",
+				"%cmp = fcmp oeq double %0, -1.000000e+00, !dbg !430",
+				"br i1 %cmp, label %land.lhs.true, label %if.end, !dbg !432"
+			]
+		},
+		{
+			"function": "_py_c_neg",
+			"id": 30,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 94, "columns": [32, 9]
+				}
+			],
+			"successors": [31, 32],
+			"ir": [
+				"%call1 = tail call ptr @PyErr_Occurred() #6, !dbg !433",
+				"%tobool.not = icmp eq ptr %call1, null, !dbg !433",
+				"br i1 %tobool.not, label %if.end, label %cleanup, !dbg !434"
+			]
+		},
+		{
+			"function": "_py_c_neg",
+			"id": 31,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 98, "columns": [35, 12, 5]
+				}
+			],
+			"successors": [32],
+			"ir": [
+				"%call2 = tail call { double, double } @_Py_c_neg(double %0, double %1) #6, !dbg !435",
+				"%2 = extractvalue { double, double } %call2, 0, !dbg !435",
+				"%3 = extractvalue { double, double } %call2, 1, !dbg !435",
+				"%call3 = tail call ptr @PyComplex_FromCComplex(double %2, double %3) #6, !dbg !436",
+				"br label %cleanup, !dbg !437"
+			]
+		},
+		{
+			"function": "_py_c_neg",
+			"id": 32,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 99, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call3, %if.end ], [ null, %land.lhs.true ], !dbg !428",
+				"ret ptr %retval.0, !dbg !438"
+			]
+		},
+		{
+			"function": "_py_c_prod",
+			"id": 33,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 118, "columns": [1]
+				}
+			],
+			"successors": [35, 34],
+			"ir": [
+				"%num = alloca %struct.Py_complex, align 8",
+				"%exp = alloca %struct.Py_complex, align 8",
+				"%res = alloca %struct.Py_complex, align 8",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %num) #6, !dbg !431",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %exp) #6, !dbg !431",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %res) #6, !dbg !431",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.16, ptr noundef nonnull %num, ptr noundef nonnull %exp) #6, !dbg !432",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !432",
+				"br i1 %tobool.not, label %cleanup, label %if.end, !dbg !431"
+			]
+		},
+		{
+			"function": "_py_c_prod",
+			"id": 34,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 118, "columns": [1]
+				}
+			],
+			"successors": [35],
+			"ir": [
+				"%call1 = tail call ptr @__errno_location() #7, !dbg !431",
+				"store i32 0, ptr %call1, align 4, !dbg !431, !tbaa !434",
+				"%0 = load double, ptr %num, align 8, !dbg !431",
+				"%1 = getelementptr inbounds { double, double }, ptr %num, i64 0, i32 1, !dbg !431",
+				"%2 = load double, ptr %1, align 8, !dbg !431",
+				"%3 = load double, ptr %exp, align 8, !dbg !431",
+				"%4 = getelementptr inbounds { double, double }, ptr %exp, i64 0, i32 1, !dbg !431",
+				"%5 = load double, ptr %4, align 8, !dbg !431",
+				"%call2 = call { double, double } @_Py_c_prod(double %0, double %2, double %3, double %5) #6, !dbg !431",
+				"%6 = extractvalue { double, double } %call2, 0, !dbg !431",
+				"%7 = extractvalue { double, double } %call2, 1, !dbg !431",
+				"store double %6, ptr %res, align 8, !dbg !431, !tbaa.struct !438",
+				"%tmp.sroa.4.0.res.sroa_idx = getelementptr inbounds i8, ptr %res, i64 8, !dbg !431",
+				"store double %7, ptr %tmp.sroa.4.0.res.sroa_idx, align 8, !dbg !431, !tbaa.struct !441",
+				"%8 = load i32, ptr %call1, align 4, !dbg !431, !tbaa !434",
+				"%call4 = call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.17, ptr noundef nonnull %res, i32 noundef %8) #6, !dbg !431",
+				"br label %cleanup, !dbg !431"
+			]
+		},
+		{
+			"function": "_py_c_prod",
+			"id": 35,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 118, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call4, %if.end ], [ null, %entry ], !dbg !431",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %res) #6, !dbg !431",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %exp) #6, !dbg !431",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %num) #6, !dbg !431",
+				"ret ptr %retval.0, !dbg !431"
+			]
+		},
+		{
+			"function": "_py_c_quot",
+			"id": 36,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 119, "columns": [1]
+				}
+			],
+			"successors": [38, 37],
+			"ir": [
+				"%num = alloca %struct.Py_complex, align 8",
+				"%exp = alloca %struct.Py_complex, align 8",
+				"%res = alloca %struct.Py_complex, align 8",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %num) #6, !dbg !431",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %exp) #6, !dbg !431",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %res) #6, !dbg !431",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.16, ptr noundef nonnull %num, ptr noundef nonnull %exp) #6, !dbg !432",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !432",
+				"br i1 %tobool.not, label %cleanup, label %if.end, !dbg !431"
+			]
+		},
+		{
+			"function": "_py_c_quot",
+			"id": 37,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 119, "columns": [1]
+				}
+			],
+			"successors": [38],
+			"ir": [
+				"%call1 = tail call ptr @__errno_location() #7, !dbg !431",
+				"store i32 0, ptr %call1, align 4, !dbg !431, !tbaa !434",
+				"%0 = load double, ptr %num, align 8, !dbg !431",
+				"%1 = getelementptr inbounds { double, double }, ptr %num, i64 0, i32 1, !dbg !431",
+				"%2 = load double, ptr %1, align 8, !dbg !431",
+				"%3 = load double, ptr %exp, align 8, !dbg !431",
+				"%4 = getelementptr inbounds { double, double }, ptr %exp, i64 0, i32 1, !dbg !431",
+				"%5 = load double, ptr %4, align 8, !dbg !431",
+				"%call2 = call { double, double } @_Py_c_quot(double %0, double %2, double %3, double %5) #6, !dbg !431",
+				"%6 = extractvalue { double, double } %call2, 0, !dbg !431",
+				"%7 = extractvalue { double, double } %call2, 1, !dbg !431",
+				"store double %6, ptr %res, align 8, !dbg !431, !tbaa.struct !438",
+				"%tmp.sroa.4.0.res.sroa_idx = getelementptr inbounds i8, ptr %res, i64 8, !dbg !431",
+				"store double %7, ptr %tmp.sroa.4.0.res.sroa_idx, align 8, !dbg !431, !tbaa.struct !441",
+				"%8 = load i32, ptr %call1, align 4, !dbg !431, !tbaa !434",
+				"%call4 = call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.17, ptr noundef nonnull %res, i32 noundef %8) #6, !dbg !431",
+				"br label %cleanup, !dbg !431"
+			]
+		},
+		{
+			"function": "_py_c_quot",
+			"id": 38,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 119, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call4, %if.end ], [ null, %entry ], !dbg !431",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %res) #6, !dbg !431",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %exp) #6, !dbg !431",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %num) #6, !dbg !431",
+				"ret ptr %retval.0, !dbg !431"
+			]
+		},
+		{
+			"function": "_py_c_pow",
+			"id": 39,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 120, "columns": [1]
+				}
+			],
+			"successors": [41, 40],
+			"ir": [
+				"%num = alloca %struct.Py_complex, align 8",
+				"%exp = alloca %struct.Py_complex, align 8",
+				"%res = alloca %struct.Py_complex, align 8",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %num) #6, !dbg !431",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %exp) #6, !dbg !431",
+				"call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %res) #6, !dbg !431",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.16, ptr noundef nonnull %num, ptr noundef nonnull %exp) #6, !dbg !432",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !432",
+				"br i1 %tobool.not, label %cleanup, label %if.end, !dbg !431"
+			]
+		},
+		{
+			"function": "_py_c_pow",
+			"id": 40,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 120, "columns": [1]
+				}
+			],
+			"successors": [41],
+			"ir": [
+				"%call1 = tail call ptr @__errno_location() #7, !dbg !431",
+				"store i32 0, ptr %call1, align 4, !dbg !431, !tbaa !434",
+				"%0 = load double, ptr %num, align 8, !dbg !431",
+				"%1 = getelementptr inbounds { double, double }, ptr %num, i64 0, i32 1, !dbg !431",
+				"%2 = load double, ptr %1, align 8, !dbg !431",
+				"%3 = load double, ptr %exp, align 8, !dbg !431",
+				"%4 = getelementptr inbounds { double, double }, ptr %exp, i64 0, i32 1, !dbg !431",
+				"%5 = load double, ptr %4, align 8, !dbg !431",
+				"%call2 = call { double, double } @_Py_c_pow(double %0, double %2, double %3, double %5) #6, !dbg !431",
+				"%6 = extractvalue { double, double } %call2, 0, !dbg !431",
+				"%7 = extractvalue { double, double } %call2, 1, !dbg !431",
+				"store double %6, ptr %res, align 8, !dbg !431, !tbaa.struct !438",
+				"%tmp.sroa.4.0.res.sroa_idx = getelementptr inbounds i8, ptr %res, i64 8, !dbg !431",
+				"store double %7, ptr %tmp.sroa.4.0.res.sroa_idx, align 8, !dbg !431, !tbaa.struct !441",
+				"%8 = load i32, ptr %call1, align 4, !dbg !431, !tbaa !434",
+				"%call4 = call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.17, ptr noundef nonnull %res, i32 noundef %8) #6, !dbg !431",
+				"br label %cleanup, !dbg !431"
+			]
+		},
+		{
+			"function": "_py_c_pow",
+			"id": 41,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 120, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call4, %if.end ], [ null, %entry ], !dbg !431",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %res) #6, !dbg !431",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %exp) #6, !dbg !431",
+				"call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %num) #6, !dbg !431",
+				"ret ptr %retval.0, !dbg !431"
+			]
+		},
+		{
+			"function": "_py_c_abs",
+			"id": 42,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 128, "columns": [5]
+				},
+				{
+					"line": 129, "columns": [15]
+				},
+				{
+					"line": 131, "columns": [22, 29]
+				}
+			],
+			"successors": [43, 44],
+			"ir": [
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !430",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !433",
+				"%call = tail call { double, double } @PyComplex_AsCComplex(ptr noundef %spec.store.select) #6, !dbg !434",
+				"%0 = extractvalue { double, double } %call, 0, !dbg !434",
+				"%1 = extractvalue { double, double } %call, 1, !dbg !434",
+				"%cmp1 = fcmp oeq double %0, -1.000000e+00, !dbg !435",
+				"br i1 %cmp1, label %land.lhs.true, label %if.end4, !dbg !437"
+			]
+		},
+		{
+			"function": "_py_c_abs",
+			"id": 43,
+			"name": "land.lhs.true",
+			"debug": [
+				{
+					"line": 131, "columns": [32, 9]
+				}
+			],
+			"successors": [44, 45],
+			"ir": [
+				"%call2 = tail call ptr @PyErr_Occurred() #6, !dbg !438",
+				"%tobool.not = icmp eq ptr %call2, null, !dbg !438",
+				"br i1 %tobool.not, label %if.end4, label %cleanup, !dbg !439"
+			]
+		},
+		{
+			"function": "_py_c_abs",
+			"id": 44,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 135, "columns": [5, 11]
+				},
+				{
+					"line": 136, "columns": [11]
+				},
+				{
+					"line": 137, "columns": [37, 12, 5]
+				}
+			],
+			"successors": [45],
+			"ir": [
+				"%call5 = tail call ptr @__errno_location() #7, !dbg !440",
+				"store i32 0, ptr %call5, align 4, !dbg !441, !tbaa !442",
+				"%call6 = tail call double @_Py_c_abs(double %0, double %1) #6, !dbg !446",
+				"%2 = load i32, ptr %call5, align 4, !dbg !447, !tbaa !442",
+				"%call8 = tail call ptr (ptr, ...) @Py_BuildValue(ptr noundef nonnull @.str.18, double noundef %call6, i32 noundef %2) #6, !dbg !448",
+				"br label %cleanup, !dbg !449"
+			]
+		},
+		{
+			"function": "_py_c_abs",
+			"id": 45,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 138, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call8, %if.end4 ], [ null, %land.lhs.true ], !dbg !429",
+				"ret ptr %retval.0, !dbg !450"
 			]
 		}
 	]

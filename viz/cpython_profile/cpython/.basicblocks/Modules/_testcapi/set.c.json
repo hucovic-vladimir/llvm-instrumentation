@@ -6,21 +6,21 @@
 			"name": "entry",
 			"debug": [
 				{
-					"line": 20, "columns": [9]
+					"line": 192, "columns": [9]
 				},
 				{
-					"line": 25, "columns": [1]
+					"line": 197, "columns": [1]
 				}
 			],
 			"successors": [],
 			"ir": [
-				"%call = tail call i32 @PyModule_AddFunctions(ptr noundef %m, ptr noundef nonnull @test_methods) #4, !dbg !421",
-				"%call.lobit = ashr i32 %call, 31, !dbg !420",
-				"ret i32 %call.lobit, !dbg !423"
+				"%call = tail call i32 @PyModule_AddFunctions(ptr noundef %m, ptr noundef nonnull @test_methods) #6, !dbg !537",
+				"%call.lobit = ashr i32 %call, 31, !dbg !536",
+				"ret i32 %call.lobit, !dbg !539"
 			]
 		},
 		{
-			"function": "set_get_size",
+			"function": "set_check",
 			"id": 1,
 			"name": "entry",
 			"debug": [
@@ -28,171 +28,75 @@
 					"line": 7, "columns": [5]
 				},
 				{
-					"line": 65, "columns": [12]
+					"line": 8, "columns": [5]
 				},
 				{
-					"line": 365, "columns": [24]
+					"line": 366, "columns": [24]
 				}
 			],
-			"successors": [5, 2],
+			"successors": [3, 2],
 			"ir": [
-				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !424",
-				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !427",
-				"%0 = getelementptr i8, ptr %spec.store.select, i64 8, !dbg !433",
-				"%so.val17.i = load ptr, ptr %0, align 8, !dbg !433, !tbaa !434",
-				"%cmp.i.not.i = icmp eq ptr %so.val17.i, @PySet_Type, !dbg !447",
-				"%cmp.i18.not.i = icmp eq ptr %so.val17.i, @PyFrozenSet_Type",
-				"%or.cond.i = or i1 %cmp.i.not.i, %cmp.i18.not.i, !dbg !433",
-				"br i1 %or.cond.i, label %PySet_GET_SIZE.exit, label %lor.lhs.false3.i, !dbg !433"
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !540",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !543",
+				"%0 = getelementptr i8, ptr %spec.store.select, i64 8, !dbg !544",
+				"%spec.store.select.val20 = load ptr, ptr %0, align 8, !dbg !544, !tbaa !545",
+				"%cmp.i.not = icmp eq ptr %spec.store.select.val20, @PySet_Type, !dbg !558",
+				"br i1 %cmp.i.not, label %if.end9, label %lor.rhs, !dbg !544"
 			]
 		},
 		{
-			"function": "set_get_size",
+			"function": "set_check",
 			"id": 2,
-			"name": "lor.lhs.false3.i",
+			"name": "lor.rhs",
 			"debug": [
 				{
-					"line": 65, "columns": [12]
+					"line": 8, "columns": [5]
 				}
 			],
-			"successors": [3, 5],
+			"successors": [3],
 			"ir": [
-				"%call5.i = tail call i32 @PyType_IsSubtype(ptr noundef %so.val17.i, ptr noundef nonnull @PySet_Type) #4, !dbg !433",
-				"%tobool6.not.i = icmp eq i32 %call5.i, 0, !dbg !433",
-				"br i1 %tobool6.not.i, label %lor.lhs.false7.i, label %PySet_GET_SIZE.exit, !dbg !433"
+				"%call3 = tail call i32 @PyType_IsSubtype(ptr noundef %spec.store.select.val20, ptr noundef nonnull @PySet_Type) #6, !dbg !544",
+				"%tobool4 = icmp ne i32 %call3, 0, !dbg !544",
+				"%1 = zext i1 %tobool4 to i64",
+				"br label %if.end9, !dbg !544"
 			]
 		},
 		{
-			"function": "set_get_size",
+			"function": "set_check",
 			"id": 3,
-			"name": "lor.lhs.false7.i",
+			"name": "if.end9",
 			"debug": [
 				{
-					"line": 65, "columns": [12]
+					"line": 8, "columns": [5]
 				}
 			],
-			"successors": [4, 5],
+			"successors": [5, 4],
 			"ir": [
-				"%so.val.i = load ptr, ptr %0, align 8, !dbg !433, !tbaa !434",
-				"%call9.i = tail call i32 @PyType_IsSubtype(ptr noundef %so.val.i, ptr noundef nonnull @PyFrozenSet_Type) #4, !dbg !433",
-				"%tobool10.not.i = icmp eq i32 %call9.i, 0, !dbg !433",
-				"br i1 %tobool10.not.i, label %cond.false.i, label %PySet_GET_SIZE.exit, !dbg !433"
+				"%lor.ext = phi i64 [ 1, %entry ], [ %1, %lor.rhs ]",
+				"%call10 = tail call ptr @PyErr_Occurred() #6, !dbg !544",
+				"%tobool11.not = icmp eq ptr %call10, null, !dbg !544",
+				"br i1 %tobool11.not, label %cond.end14, label %cond.false13, !dbg !544"
 			]
 		},
 		{
-			"function": "set_get_size",
+			"function": "set_check",
 			"id": 4,
-			"name": "cond.false.i",
+			"name": "cond.false13",
 			"debug": [
 				{
-					"line": 65, "columns": [12]
+					"line": 8, "columns": [5]
 				}
 			],
 			"successors": [],
 			"ir": [
-				"tail call void @__assert_fail(ptr noundef nonnull @.str.4, ptr noundef nonnull @.str.5, i32 noundef 65, ptr noundef nonnull @__PRETTY_FUNCTION__.PySet_GET_SIZE) #5, !dbg !433",
-				"unreachable, !dbg !433"
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.18, ptr noundef nonnull @.str.17, i32 noundef 8, ptr noundef nonnull @__PRETTY_FUNCTION__.set_check) #7, !dbg !544",
+				"unreachable, !dbg !544"
 			]
 		},
 		{
-			"function": "set_get_size",
+			"function": "set_check",
 			"id": 5,
-			"name": "PySet_GET_SIZE.exit",
-			"debug": [
-				{
-					"line": 8, "columns": [5]
-				},
-				{
-					"line": 65, "columns": [29]
-				}
-			],
-			"successors": [6, 8],
-			"ir": [
-				"%used.i = getelementptr inbounds %struct.PySetObject, ptr %spec.store.select, i64 0, i32 2, !dbg !450",
-				"%1 = load i64, ptr %used.i, align 8, !dbg !450, !tbaa !451",
-				"%cmp2 = icmp eq i64 %1, -1, !dbg !455",
-				"%call4 = tail call ptr @PyErr_Occurred() #4, !dbg !457",
-				"%tobool.not = icmp eq ptr %call4, null, !dbg !457",
-				"br i1 %cmp2, label %if.then3, label %if.end5, !dbg !457"
-			]
-		},
-		{
-			"function": "set_get_size",
-			"id": 6,
-			"name": "if.then3",
-			"debug": [
-				{
-					"line": 8, "columns": [5]
-				}
-			],
-			"successors": [7, 11],
-			"ir": [
-				"br i1 %tobool.not, label %cond.false, label %cleanup, !dbg !458"
-			]
-		},
-		{
-			"function": "set_get_size",
-			"id": 7,
-			"name": "cond.false",
-			"debug": [
-				{
-					"line": 8, "columns": [5]
-				}
-			],
-			"successors": [],
-			"ir": [
-				"tail call void @__assert_fail(ptr noundef nonnull @.str.1, ptr noundef nonnull @.str.2, i32 noundef 8, ptr noundef nonnull @__PRETTY_FUNCTION__.set_get_size) #5, !dbg !458",
-				"unreachable, !dbg !458"
-			]
-		},
-		{
-			"function": "set_get_size",
-			"id": 8,
-			"name": "if.end5",
-			"debug": [
-				{
-					"line": 8, "columns": [5]
-				}
-			],
-			"successors": [10, 9],
-			"ir": [
-				"br i1 %tobool.not, label %cond.end10, label %cond.false9, !dbg !457"
-			]
-		},
-		{
-			"function": "set_get_size",
-			"id": 9,
-			"name": "cond.false9",
-			"debug": [
-				{
-					"line": 8, "columns": [5]
-				}
-			],
-			"successors": [],
-			"ir": [
-				"tail call void @__assert_fail(ptr noundef nonnull @.str.3, ptr noundef nonnull @.str.2, i32 noundef 8, ptr noundef nonnull @__PRETTY_FUNCTION__.set_get_size) #5, !dbg !457",
-				"unreachable, !dbg !457"
-			]
-		},
-		{
-			"function": "set_get_size",
-			"id": 10,
-			"name": "cond.end10",
-			"debug": [
-				{
-					"line": 8, "columns": [5]
-				}
-			],
-			"successors": [11],
-			"ir": [
-				"%call11 = tail call ptr @PyLong_FromSsize_t(i64 noundef %1) #4, !dbg !457",
-				"br label %cleanup, !dbg !457"
-			]
-		},
-		{
-			"function": "set_get_size",
-			"id": 11,
-			"name": "cleanup",
+			"name": "cond.end14",
 			"debug": [
 				{
 					"line": 8, "columns": [5]
@@ -203,8 +107,1868 @@
 			],
 			"successors": [],
 			"ir": [
-				"%retval.0 = phi ptr [ %call11, %cond.end10 ], [ null, %if.then3 ], !dbg !457",
-				"ret ptr %retval.0, !dbg !460"
+				"%call15 = tail call ptr @PyLong_FromLong(i64 noundef %lor.ext) #6, !dbg !544",
+				"ret ptr %call15, !dbg !560"
+			]
+		},
+		{
+			"function": "set_checkexact",
+			"id": 6,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 14, "columns": [5]
+				},
+				{
+					"line": 15, "columns": [5]
+				}
+			],
+			"successors": [8, 7],
+			"ir": [
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !540",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !543",
+				"%0 = getelementptr i8, ptr %spec.store.select, i64 8, !dbg !544",
+				"%spec.store.select.val = load ptr, ptr %0, align 8, !dbg !544, !tbaa !545",
+				"%call6 = tail call ptr @PyErr_Occurred() #6, !dbg !544",
+				"%tobool7.not = icmp eq ptr %call6, null, !dbg !544",
+				"br i1 %tobool7.not, label %cond.end10, label %cond.false9, !dbg !544"
+			]
+		},
+		{
+			"function": "set_checkexact",
+			"id": 7,
+			"name": "cond.false9",
+			"debug": [
+				{
+					"line": 15, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.18, ptr noundef nonnull @.str.17, i32 noundef 15, ptr noundef nonnull @__PRETTY_FUNCTION__.set_checkexact) #7, !dbg !544",
+				"unreachable, !dbg !544"
+			]
+		},
+		{
+			"function": "set_checkexact",
+			"id": 8,
+			"name": "cond.end10",
+			"debug": [
+				{
+					"line": 15, "columns": [5]
+				},
+				{
+					"line": 16, "columns": [1]
+				},
+				{
+					"line": 366, "columns": [24]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%cmp.i = icmp eq ptr %spec.store.select.val, @PySet_Type, !dbg !559",
+				"%conv = zext i1 %cmp.i to i64",
+				"%call11 = tail call ptr @PyLong_FromLong(i64 noundef %conv) #6, !dbg !544",
+				"ret ptr %call11, !dbg !560"
+			]
+		},
+		{
+			"function": "frozenset_check",
+			"id": 9,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 21, "columns": [5]
+				},
+				{
+					"line": 22, "columns": [5]
+				},
+				{
+					"line": 366, "columns": [24]
+				}
+			],
+			"successors": [11, 10],
+			"ir": [
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !540",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !543",
+				"%0 = getelementptr i8, ptr %spec.store.select, i64 8, !dbg !544",
+				"%spec.store.select.val20 = load ptr, ptr %0, align 8, !dbg !544, !tbaa !545",
+				"%cmp.i.not = icmp eq ptr %spec.store.select.val20, @PyFrozenSet_Type, !dbg !558",
+				"br i1 %cmp.i.not, label %if.end9, label %lor.rhs, !dbg !544"
+			]
+		},
+		{
+			"function": "frozenset_check",
+			"id": 10,
+			"name": "lor.rhs",
+			"debug": [
+				{
+					"line": 22, "columns": [5]
+				}
+			],
+			"successors": [11],
+			"ir": [
+				"%call3 = tail call i32 @PyType_IsSubtype(ptr noundef %spec.store.select.val20, ptr noundef nonnull @PyFrozenSet_Type) #6, !dbg !544",
+				"%tobool4 = icmp ne i32 %call3, 0, !dbg !544",
+				"%1 = zext i1 %tobool4 to i64",
+				"br label %if.end9, !dbg !544"
+			]
+		},
+		{
+			"function": "frozenset_check",
+			"id": 11,
+			"name": "if.end9",
+			"debug": [
+				{
+					"line": 22, "columns": [5]
+				}
+			],
+			"successors": [13, 12],
+			"ir": [
+				"%lor.ext = phi i64 [ 1, %entry ], [ %1, %lor.rhs ]",
+				"%call10 = tail call ptr @PyErr_Occurred() #6, !dbg !544",
+				"%tobool11.not = icmp eq ptr %call10, null, !dbg !544",
+				"br i1 %tobool11.not, label %cond.end14, label %cond.false13, !dbg !544"
+			]
+		},
+		{
+			"function": "frozenset_check",
+			"id": 12,
+			"name": "cond.false13",
+			"debug": [
+				{
+					"line": 22, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.18, ptr noundef nonnull @.str.17, i32 noundef 22, ptr noundef nonnull @__PRETTY_FUNCTION__.frozenset_check) #7, !dbg !544",
+				"unreachable, !dbg !544"
+			]
+		},
+		{
+			"function": "frozenset_check",
+			"id": 13,
+			"name": "cond.end14",
+			"debug": [
+				{
+					"line": 22, "columns": [5]
+				},
+				{
+					"line": 23, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call15 = tail call ptr @PyLong_FromLong(i64 noundef %lor.ext) #6, !dbg !544",
+				"ret ptr %call15, !dbg !560"
+			]
+		},
+		{
+			"function": "frozenset_checkexact",
+			"id": 14,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 28, "columns": [5]
+				},
+				{
+					"line": 29, "columns": [5]
+				}
+			],
+			"successors": [16, 15],
+			"ir": [
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !540",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !543",
+				"%0 = getelementptr i8, ptr %spec.store.select, i64 8, !dbg !544",
+				"%spec.store.select.val = load ptr, ptr %0, align 8, !dbg !544, !tbaa !545",
+				"%call6 = tail call ptr @PyErr_Occurred() #6, !dbg !544",
+				"%tobool7.not = icmp eq ptr %call6, null, !dbg !544",
+				"br i1 %tobool7.not, label %cond.end10, label %cond.false9, !dbg !544"
+			]
+		},
+		{
+			"function": "frozenset_checkexact",
+			"id": 15,
+			"name": "cond.false9",
+			"debug": [
+				{
+					"line": 29, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.18, ptr noundef nonnull @.str.17, i32 noundef 29, ptr noundef nonnull @__PRETTY_FUNCTION__.frozenset_checkexact) #7, !dbg !544",
+				"unreachable, !dbg !544"
+			]
+		},
+		{
+			"function": "frozenset_checkexact",
+			"id": 16,
+			"name": "cond.end10",
+			"debug": [
+				{
+					"line": 29, "columns": [5]
+				},
+				{
+					"line": 30, "columns": [1]
+				},
+				{
+					"line": 366, "columns": [24]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%cmp.i = icmp eq ptr %spec.store.select.val, @PyFrozenSet_Type, !dbg !559",
+				"%conv = zext i1 %cmp.i to i64",
+				"%call11 = tail call ptr @PyLong_FromLong(i64 noundef %conv) #6, !dbg !544",
+				"ret ptr %call11, !dbg !560"
+			]
+		},
+		{
+			"function": "anyset_check",
+			"id": 17,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 35, "columns": [5]
+				},
+				{
+					"line": 36, "columns": [5]
+				},
+				{
+					"line": 366, "columns": [24]
+				}
+			],
+			"successors": [20, 18],
+			"ir": [
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !540",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !543",
+				"%0 = getelementptr i8, ptr %spec.store.select, i64 8, !dbg !544",
+				"%spec.store.select.val30 = load ptr, ptr %0, align 8, !dbg !544, !tbaa !545",
+				"%cmp.i.not = icmp eq ptr %spec.store.select.val30, @PySet_Type, !dbg !558",
+				"%cmp.i31.not = icmp eq ptr %spec.store.select.val30, @PyFrozenSet_Type",
+				"%or.cond = or i1 %cmp.i.not, %cmp.i31.not, !dbg !544",
+				"br i1 %or.cond, label %if.end15, label %lor.lhs.false4, !dbg !544"
+			]
+		},
+		{
+			"function": "anyset_check",
+			"id": 18,
+			"name": "lor.lhs.false4",
+			"debug": [
+				{
+					"line": 36, "columns": [5]
+				}
+			],
+			"successors": [19, 20],
+			"ir": [
+				"%call6 = tail call i32 @PyType_IsSubtype(ptr noundef %spec.store.select.val30, ptr noundef nonnull @PySet_Type) #6, !dbg !544",
+				"%tobool7.not = icmp eq i32 %call6, 0, !dbg !544",
+				"br i1 %tobool7.not, label %lor.rhs, label %if.end15, !dbg !544"
+			]
+		},
+		{
+			"function": "anyset_check",
+			"id": 19,
+			"name": "lor.rhs",
+			"debug": [
+				{
+					"line": 36, "columns": [5]
+				}
+			],
+			"successors": [20],
+			"ir": [
+				"%spec.store.select.val = load ptr, ptr %0, align 8, !dbg !544, !tbaa !545",
+				"%call9 = tail call i32 @PyType_IsSubtype(ptr noundef %spec.store.select.val, ptr noundef nonnull @PyFrozenSet_Type) #6, !dbg !544",
+				"%tobool10 = icmp ne i32 %call9, 0, !dbg !544",
+				"%1 = zext i1 %tobool10 to i64",
+				"br label %if.end15, !dbg !544"
+			]
+		},
+		{
+			"function": "anyset_check",
+			"id": 20,
+			"name": "if.end15",
+			"debug": [
+				{
+					"line": 36, "columns": [5]
+				}
+			],
+			"successors": [22, 21],
+			"ir": [
+				"%lor.ext = phi i64 [ 1, %lor.lhs.false4 ], [ 1, %entry ], [ %1, %lor.rhs ]",
+				"%call16 = tail call ptr @PyErr_Occurred() #6, !dbg !544",
+				"%tobool17.not = icmp eq ptr %call16, null, !dbg !544",
+				"br i1 %tobool17.not, label %cond.end20, label %cond.false19, !dbg !544"
+			]
+		},
+		{
+			"function": "anyset_check",
+			"id": 21,
+			"name": "cond.false19",
+			"debug": [
+				{
+					"line": 36, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.18, ptr noundef nonnull @.str.17, i32 noundef 36, ptr noundef nonnull @__PRETTY_FUNCTION__.anyset_check) #7, !dbg !544",
+				"unreachable, !dbg !544"
+			]
+		},
+		{
+			"function": "anyset_check",
+			"id": 22,
+			"name": "cond.end20",
+			"debug": [
+				{
+					"line": 36, "columns": [5]
+				},
+				{
+					"line": 37, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%call21 = tail call ptr @PyLong_FromLong(i64 noundef %lor.ext) #6, !dbg !544",
+				"ret ptr %call21, !dbg !562"
+			]
+		},
+		{
+			"function": "anyset_checkexact",
+			"id": 23,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 42, "columns": [5]
+				},
+				{
+					"line": 43, "columns": [5]
+				}
+			],
+			"successors": [25, 24],
+			"ir": [
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !540",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !543",
+				"%0 = getelementptr i8, ptr %spec.store.select, i64 8, !dbg !544",
+				"%spec.store.select.val19 = load ptr, ptr %0, align 8, !dbg !544, !tbaa !545",
+				"%call9 = tail call ptr @PyErr_Occurred() #6, !dbg !544",
+				"%tobool10.not = icmp eq ptr %call9, null, !dbg !544",
+				"br i1 %tobool10.not, label %cond.end13, label %cond.false12, !dbg !544"
+			]
+		},
+		{
+			"function": "anyset_checkexact",
+			"id": 24,
+			"name": "cond.false12",
+			"debug": [
+				{
+					"line": 43, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.18, ptr noundef nonnull @.str.17, i32 noundef 43, ptr noundef nonnull @__PRETTY_FUNCTION__.anyset_checkexact) #7, !dbg !544",
+				"unreachable, !dbg !544"
+			]
+		},
+		{
+			"function": "anyset_checkexact",
+			"id": 25,
+			"name": "cond.end13",
+			"debug": [
+				{
+					"line": 43, "columns": [5]
+				},
+				{
+					"line": 44, "columns": [1]
+				},
+				{
+					"line": 366, "columns": [24]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%cmp.i.not = icmp eq ptr %spec.store.select.val19, @PySet_Type, !dbg !559",
+				"%cmp.i20 = icmp eq ptr %spec.store.select.val19, @PyFrozenSet_Type, !dbg !544",
+				"%narrow = or i1 %cmp.i.not, %cmp.i20, !dbg !544",
+				"%lor.ext = zext i1 %narrow to i64, !dbg !544",
+				"%call14 = tail call ptr @PyLong_FromLong(i64 noundef %lor.ext) #6, !dbg !544",
+				"ret ptr %call14, !dbg !560"
+			]
+		},
+		{
+			"function": "set_new",
+			"id": 26,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 49, "columns": [5, 15]
+				},
+				{
+					"line": 50, "columns": [10, 9]
+				}
+			],
+			"successors": [28, 27],
+			"ir": [
+				"%iterable = alloca ptr, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %iterable) #6, !dbg !539",
+				"store ptr null, ptr %iterable, align 8, !dbg !540, !tbaa !541",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.19, ptr noundef nonnull %iterable) #6, !dbg !545",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !545",
+				"br i1 %tobool.not, label %cleanup, label %if.end, !dbg !547"
+			]
+		},
+		{
+			"function": "set_new",
+			"id": 27,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 53, "columns": [22, 12, 5]
+				}
+			],
+			"successors": [28],
+			"ir": [
+				"%0 = load ptr, ptr %iterable, align 8, !dbg !548, !tbaa !541",
+				"%call1 = call ptr @PySet_New(ptr noundef %0) #6, !dbg !549",
+				"br label %cleanup, !dbg !550"
+			]
+		},
+		{
+			"function": "set_new",
+			"id": 28,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 54, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call1, %if.end ], [ null, %entry ], !dbg !538",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %iterable) #6, !dbg !551",
+				"ret ptr %retval.0, !dbg !551"
+			]
+		},
+		{
+			"function": "frozenset_new",
+			"id": 29,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 59, "columns": [5, 15]
+				},
+				{
+					"line": 60, "columns": [10, 9]
+				}
+			],
+			"successors": [31, 30],
+			"ir": [
+				"%iterable = alloca ptr, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %iterable) #6, !dbg !539",
+				"store ptr null, ptr %iterable, align 8, !dbg !540, !tbaa !541",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.19, ptr noundef nonnull %iterable) #6, !dbg !545",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !545",
+				"br i1 %tobool.not, label %cleanup, label %if.end, !dbg !547"
+			]
+		},
+		{
+			"function": "frozenset_new",
+			"id": 30,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 63, "columns": [28, 12, 5]
+				}
+			],
+			"successors": [31],
+			"ir": [
+				"%0 = load ptr, ptr %iterable, align 8, !dbg !548, !tbaa !541",
+				"%call1 = call ptr @PyFrozenSet_New(ptr noundef %0) #6, !dbg !549",
+				"br label %cleanup, !dbg !550"
+			]
+		},
+		{
+			"function": "frozenset_new",
+			"id": 31,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 64, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call1, %if.end ], [ null, %entry ], !dbg !538",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %iterable) #6, !dbg !551",
+				"ret ptr %retval.0, !dbg !551"
+			]
+		},
+		{
+			"function": "set_size",
+			"id": 32,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 69, "columns": [5]
+				},
+				{
+					"line": 70, "columns": [5]
+				}
+			],
+			"successors": [33, 35],
+			"ir": [
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !540",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !543",
+				"%call = tail call i64 @PySet_Size(ptr noundef %spec.store.select) #6, !dbg !544",
+				"%cmp2 = icmp eq i64 %call, -1, !dbg !546",
+				"%call4 = tail call ptr @PyErr_Occurred() #6, !dbg !544",
+				"%tobool.not = icmp eq ptr %call4, null, !dbg !544",
+				"br i1 %cmp2, label %if.then3, label %if.end5, !dbg !544"
+			]
+		},
+		{
+			"function": "set_size",
+			"id": 33,
+			"name": "if.then3",
+			"debug": [
+				{
+					"line": 70, "columns": [5]
+				}
+			],
+			"successors": [34, 38],
+			"ir": [
+				"br i1 %tobool.not, label %cond.false, label %cleanup, !dbg !548"
+			]
+		},
+		{
+			"function": "set_size",
+			"id": 34,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 70, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.16, ptr noundef nonnull @.str.17, i32 noundef 70, ptr noundef nonnull @__PRETTY_FUNCTION__.set_size) #7, !dbg !548",
+				"unreachable, !dbg !548"
+			]
+		},
+		{
+			"function": "set_size",
+			"id": 35,
+			"name": "if.end5",
+			"debug": [
+				{
+					"line": 70, "columns": [5]
+				}
+			],
+			"successors": [37, 36],
+			"ir": [
+				"br i1 %tobool.not, label %cond.end10, label %cond.false9, !dbg !544"
+			]
+		},
+		{
+			"function": "set_size",
+			"id": 36,
+			"name": "cond.false9",
+			"debug": [
+				{
+					"line": 70, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.18, ptr noundef nonnull @.str.17, i32 noundef 70, ptr noundef nonnull @__PRETTY_FUNCTION__.set_size) #7, !dbg !544",
+				"unreachable, !dbg !544"
+			]
+		},
+		{
+			"function": "set_size",
+			"id": 37,
+			"name": "cond.end10",
+			"debug": [
+				{
+					"line": 70, "columns": [5]
+				}
+			],
+			"successors": [38],
+			"ir": [
+				"%call11 = tail call ptr @PyLong_FromSsize_t(i64 noundef %call) #6, !dbg !544",
+				"br label %cleanup, !dbg !544"
+			]
+		},
+		{
+			"function": "set_size",
+			"id": 38,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 70, "columns": [5]
+				},
+				{
+					"line": 71, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call11, %cond.end10 ], [ null, %if.then3 ], !dbg !544",
+				"ret ptr %retval.0, !dbg !550"
+			]
+		},
+		{
+			"function": "set_get_size",
+			"id": 39,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 65, "columns": [12]
+				},
+				{
+					"line": 76, "columns": [5]
+				},
+				{
+					"line": 366, "columns": [24]
+				}
+			],
+			"successors": [43, 40],
+			"ir": [
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !540",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !543",
+				"%0 = getelementptr i8, ptr %spec.store.select, i64 8, !dbg !549",
+				"%so.val17.i = load ptr, ptr %0, align 8, !dbg !549, !tbaa !550",
+				"%cmp.i.not.i = icmp eq ptr %so.val17.i, @PySet_Type, !dbg !563",
+				"%cmp.i18.not.i = icmp eq ptr %so.val17.i, @PyFrozenSet_Type",
+				"%or.cond.i = or i1 %cmp.i.not.i, %cmp.i18.not.i, !dbg !549",
+				"br i1 %or.cond.i, label %PySet_GET_SIZE.exit, label %lor.lhs.false3.i, !dbg !549"
+			]
+		},
+		{
+			"function": "set_get_size",
+			"id": 40,
+			"name": "lor.lhs.false3.i",
+			"debug": [
+				{
+					"line": 65, "columns": [12]
+				}
+			],
+			"successors": [41, 43],
+			"ir": [
+				"%call5.i = tail call i32 @PyType_IsSubtype(ptr noundef %so.val17.i, ptr noundef nonnull @PySet_Type) #6, !dbg !549",
+				"%tobool6.not.i = icmp eq i32 %call5.i, 0, !dbg !549",
+				"br i1 %tobool6.not.i, label %lor.lhs.false7.i, label %PySet_GET_SIZE.exit, !dbg !549"
+			]
+		},
+		{
+			"function": "set_get_size",
+			"id": 41,
+			"name": "lor.lhs.false7.i",
+			"debug": [
+				{
+					"line": 65, "columns": [12]
+				}
+			],
+			"successors": [42, 43],
+			"ir": [
+				"%so.val.i = load ptr, ptr %0, align 8, !dbg !549, !tbaa !550",
+				"%call9.i = tail call i32 @PyType_IsSubtype(ptr noundef %so.val.i, ptr noundef nonnull @PyFrozenSet_Type) #6, !dbg !549",
+				"%tobool10.not.i = icmp eq i32 %call9.i, 0, !dbg !549",
+				"br i1 %tobool10.not.i, label %cond.false.i, label %PySet_GET_SIZE.exit, !dbg !549"
+			]
+		},
+		{
+			"function": "set_get_size",
+			"id": 42,
+			"name": "cond.false.i",
+			"debug": [
+				{
+					"line": 65, "columns": [12]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.20, ptr noundef nonnull @.str.21, i32 noundef 65, ptr noundef nonnull @__PRETTY_FUNCTION__.PySet_GET_SIZE) #7, !dbg !549",
+				"unreachable, !dbg !549"
+			]
+		},
+		{
+			"function": "set_get_size",
+			"id": 43,
+			"name": "PySet_GET_SIZE.exit",
+			"debug": [
+				{
+					"line": 65, "columns": [29]
+				},
+				{
+					"line": 77, "columns": [5]
+				}
+			],
+			"successors": [44, 46],
+			"ir": [
+				"%used.i = getelementptr inbounds %struct.PySetObject, ptr %spec.store.select, i64 0, i32 2, !dbg !566",
+				"%1 = load i64, ptr %used.i, align 8, !dbg !566, !tbaa !567",
+				"%cmp2 = icmp eq i64 %1, -1, !dbg !571",
+				"%call4 = tail call ptr @PyErr_Occurred() #6, !dbg !573",
+				"%tobool.not = icmp eq ptr %call4, null, !dbg !573",
+				"br i1 %cmp2, label %if.then3, label %if.end5, !dbg !573"
+			]
+		},
+		{
+			"function": "set_get_size",
+			"id": 44,
+			"name": "if.then3",
+			"debug": [
+				{
+					"line": 77, "columns": [5]
+				}
+			],
+			"successors": [45, 49],
+			"ir": [
+				"br i1 %tobool.not, label %cond.false, label %cleanup, !dbg !574"
+			]
+		},
+		{
+			"function": "set_get_size",
+			"id": 45,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 77, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.16, ptr noundef nonnull @.str.17, i32 noundef 77, ptr noundef nonnull @__PRETTY_FUNCTION__.set_get_size) #7, !dbg !574",
+				"unreachable, !dbg !574"
+			]
+		},
+		{
+			"function": "set_get_size",
+			"id": 46,
+			"name": "if.end5",
+			"debug": [
+				{
+					"line": 77, "columns": [5]
+				}
+			],
+			"successors": [48, 47],
+			"ir": [
+				"br i1 %tobool.not, label %cond.end10, label %cond.false9, !dbg !573"
+			]
+		},
+		{
+			"function": "set_get_size",
+			"id": 47,
+			"name": "cond.false9",
+			"debug": [
+				{
+					"line": 77, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.18, ptr noundef nonnull @.str.17, i32 noundef 77, ptr noundef nonnull @__PRETTY_FUNCTION__.set_get_size) #7, !dbg !573",
+				"unreachable, !dbg !573"
+			]
+		},
+		{
+			"function": "set_get_size",
+			"id": 48,
+			"name": "cond.end10",
+			"debug": [
+				{
+					"line": 77, "columns": [5]
+				}
+			],
+			"successors": [49],
+			"ir": [
+				"%call11 = tail call ptr @PyLong_FromSsize_t(i64 noundef %1) #6, !dbg !573",
+				"br label %cleanup, !dbg !573"
+			]
+		},
+		{
+			"function": "set_get_size",
+			"id": 49,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 77, "columns": [5]
+				},
+				{
+					"line": 78, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call11, %cond.end10 ], [ null, %if.then3 ], !dbg !573",
+				"ret ptr %retval.0, !dbg !576"
+			]
+		},
+		{
+			"function": "set_contains",
+			"id": 50,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 83, "columns": [5]
+				},
+				{
+					"line": 84, "columns": [10, 9]
+				}
+			],
+			"successors": [61, 51],
+			"ir": [
+				"%obj = alloca ptr, align 8",
+				"%item = alloca ptr, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %obj) #6, !dbg !542",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %item) #6, !dbg !542",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.22, ptr noundef nonnull %obj, ptr noundef nonnull %item) #6, !dbg !543",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !543",
+				"br i1 %tobool.not, label %cleanup24, label %do.body, !dbg !545"
+			]
+		},
+		{
+			"function": "set_contains",
+			"id": 51,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 87, "columns": [5]
+				}
+			],
+			"successors": [52, 53],
+			"ir": [
+				"%0 = load ptr, ptr %obj, align 8, !dbg !546, !tbaa !549",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !546",
+				"br i1 %cmp, label %if.then1, label %do.body3, !dbg !553"
+			]
+		},
+		{
+			"function": "set_contains",
+			"id": 52,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 87, "columns": [5]
+				}
+			],
+			"successors": [53],
+			"ir": [
+				"store ptr null, ptr %obj, align 8, !dbg !554, !tbaa !549",
+				"br label %do.body3, !dbg !554"
+			]
+		},
+		{
+			"function": "set_contains",
+			"id": 53,
+			"name": "do.body3",
+			"debug": [
+				{
+					"line": 88, "columns": [5]
+				}
+			],
+			"successors": [54, 55],
+			"ir": [
+				"%1 = phi ptr [ %0, %do.body ], [ null, %if.then1 ]",
+				"%2 = load ptr, ptr %item, align 8, !dbg !556, !tbaa !549",
+				"%cmp4 = icmp eq ptr %2, @_Py_NoneStruct, !dbg !556",
+				"br i1 %cmp4, label %if.then5, label %do.body9, !dbg !559"
+			]
+		},
+		{
+			"function": "set_contains",
+			"id": 54,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 88, "columns": [5]
+				}
+			],
+			"successors": [55],
+			"ir": [
+				"store ptr null, ptr %item, align 8, !dbg !560, !tbaa !549",
+				"br label %do.body9, !dbg !560"
+			]
+		},
+		{
+			"function": "set_contains",
+			"id": 55,
+			"name": "do.body9",
+			"debug": [
+				{
+					"line": 89, "columns": [5]
+				}
+			],
+			"successors": [56, 58],
+			"ir": [
+				"%3 = phi ptr [ %2, %do.body3 ], [ null, %if.then5 ], !dbg !562",
+				"%call10 = call i32 @PySet_Contains(ptr noundef %1, ptr noundef %3) #6, !dbg !562",
+				"%cmp11 = icmp eq i32 %call10, -1, !dbg !564",
+				"%call13 = call ptr @PyErr_Occurred() #6, !dbg !562",
+				"%tobool14.not = icmp eq ptr %call13, null, !dbg !562",
+				"br i1 %cmp11, label %if.then12, label %if.end15, !dbg !562"
+			]
+		},
+		{
+			"function": "set_contains",
+			"id": 56,
+			"name": "if.then12",
+			"debug": [
+				{
+					"line": 89, "columns": [5]
+				}
+			],
+			"successors": [57, 61],
+			"ir": [
+				"br i1 %tobool14.not, label %cond.false, label %cleanup24, !dbg !566"
+			]
+		},
+		{
+			"function": "set_contains",
+			"id": 57,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 89, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.16, ptr noundef nonnull @.str.17, i32 noundef 89, ptr noundef nonnull @__PRETTY_FUNCTION__.set_contains) #7, !dbg !566",
+				"unreachable, !dbg !566"
+			]
+		},
+		{
+			"function": "set_contains",
+			"id": 58,
+			"name": "if.end15",
+			"debug": [
+				{
+					"line": 89, "columns": [5]
+				}
+			],
+			"successors": [60, 59],
+			"ir": [
+				"br i1 %tobool14.not, label %cond.end20, label %cond.false19, !dbg !562"
+			]
+		},
+		{
+			"function": "set_contains",
+			"id": 59,
+			"name": "cond.false19",
+			"debug": [
+				{
+					"line": 89, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.18, ptr noundef nonnull @.str.17, i32 noundef 89, ptr noundef nonnull @__PRETTY_FUNCTION__.set_contains) #7, !dbg !562",
+				"unreachable, !dbg !562"
+			]
+		},
+		{
+			"function": "set_contains",
+			"id": 60,
+			"name": "cond.end20",
+			"debug": [
+				{
+					"line": 89, "columns": [5]
+				}
+			],
+			"successors": [61],
+			"ir": [
+				"%conv = sext i32 %call10 to i64, !dbg !562",
+				"%call21 = call ptr @PyLong_FromLong(i64 noundef %conv) #6, !dbg !562",
+				"br label %cleanup24, !dbg !562"
+			]
+		},
+		{
+			"function": "set_contains",
+			"id": 61,
+			"name": "cleanup24",
+			"debug": [
+				{
+					"line": 90, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %entry ], [ %call21, %cond.end20 ], [ null, %if.then12 ], !dbg !541",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %item) #6, !dbg !568",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %obj) #6, !dbg !568",
+				"ret ptr %retval.1, !dbg !568"
+			]
+		},
+		{
+			"function": "set_add",
+			"id": 62,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 95, "columns": [5]
+				},
+				{
+					"line": 96, "columns": [10, 9]
+				}
+			],
+			"successors": [73, 63],
+			"ir": [
+				"%obj = alloca ptr, align 8",
+				"%item = alloca ptr, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %obj) #6, !dbg !542",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %item) #6, !dbg !542",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.22, ptr noundef nonnull %obj, ptr noundef nonnull %item) #6, !dbg !543",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !543",
+				"br i1 %tobool.not, label %cleanup24, label %do.body, !dbg !545"
+			]
+		},
+		{
+			"function": "set_add",
+			"id": 63,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 99, "columns": [5]
+				}
+			],
+			"successors": [64, 65],
+			"ir": [
+				"%0 = load ptr, ptr %obj, align 8, !dbg !546, !tbaa !549",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !546",
+				"br i1 %cmp, label %if.then1, label %do.body3, !dbg !553"
+			]
+		},
+		{
+			"function": "set_add",
+			"id": 64,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 99, "columns": [5]
+				}
+			],
+			"successors": [65],
+			"ir": [
+				"store ptr null, ptr %obj, align 8, !dbg !554, !tbaa !549",
+				"br label %do.body3, !dbg !554"
+			]
+		},
+		{
+			"function": "set_add",
+			"id": 65,
+			"name": "do.body3",
+			"debug": [
+				{
+					"line": 100, "columns": [5]
+				}
+			],
+			"successors": [66, 67],
+			"ir": [
+				"%1 = phi ptr [ %0, %do.body ], [ null, %if.then1 ]",
+				"%2 = load ptr, ptr %item, align 8, !dbg !556, !tbaa !549",
+				"%cmp4 = icmp eq ptr %2, @_Py_NoneStruct, !dbg !556",
+				"br i1 %cmp4, label %if.then5, label %do.body9, !dbg !559"
+			]
+		},
+		{
+			"function": "set_add",
+			"id": 66,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 100, "columns": [5]
+				}
+			],
+			"successors": [67],
+			"ir": [
+				"store ptr null, ptr %item, align 8, !dbg !560, !tbaa !549",
+				"br label %do.body9, !dbg !560"
+			]
+		},
+		{
+			"function": "set_add",
+			"id": 67,
+			"name": "do.body9",
+			"debug": [
+				{
+					"line": 101, "columns": [5]
+				}
+			],
+			"successors": [68, 70],
+			"ir": [
+				"%3 = phi ptr [ %2, %do.body3 ], [ null, %if.then5 ], !dbg !562",
+				"%call10 = call i32 @PySet_Add(ptr noundef %1, ptr noundef %3) #6, !dbg !562",
+				"%cmp11 = icmp eq i32 %call10, -1, !dbg !564",
+				"%call13 = call ptr @PyErr_Occurred() #6, !dbg !562",
+				"%tobool14.not = icmp eq ptr %call13, null, !dbg !562",
+				"br i1 %cmp11, label %if.then12, label %if.end15, !dbg !562"
+			]
+		},
+		{
+			"function": "set_add",
+			"id": 68,
+			"name": "if.then12",
+			"debug": [
+				{
+					"line": 101, "columns": [5]
+				}
+			],
+			"successors": [69, 73],
+			"ir": [
+				"br i1 %tobool14.not, label %cond.false, label %cleanup24, !dbg !566"
+			]
+		},
+		{
+			"function": "set_add",
+			"id": 69,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 101, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.16, ptr noundef nonnull @.str.17, i32 noundef 101, ptr noundef nonnull @__PRETTY_FUNCTION__.set_add) #7, !dbg !566",
+				"unreachable, !dbg !566"
+			]
+		},
+		{
+			"function": "set_add",
+			"id": 70,
+			"name": "if.end15",
+			"debug": [
+				{
+					"line": 101, "columns": [5]
+				}
+			],
+			"successors": [72, 71],
+			"ir": [
+				"br i1 %tobool14.not, label %cond.end20, label %cond.false19, !dbg !562"
+			]
+		},
+		{
+			"function": "set_add",
+			"id": 71,
+			"name": "cond.false19",
+			"debug": [
+				{
+					"line": 101, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.18, ptr noundef nonnull @.str.17, i32 noundef 101, ptr noundef nonnull @__PRETTY_FUNCTION__.set_add) #7, !dbg !562",
+				"unreachable, !dbg !562"
+			]
+		},
+		{
+			"function": "set_add",
+			"id": 72,
+			"name": "cond.end20",
+			"debug": [
+				{
+					"line": 101, "columns": [5]
+				}
+			],
+			"successors": [73],
+			"ir": [
+				"%conv = sext i32 %call10 to i64, !dbg !562",
+				"%call21 = call ptr @PyLong_FromLong(i64 noundef %conv) #6, !dbg !562",
+				"br label %cleanup24, !dbg !562"
+			]
+		},
+		{
+			"function": "set_add",
+			"id": 73,
+			"name": "cleanup24",
+			"debug": [
+				{
+					"line": 102, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %entry ], [ %call21, %cond.end20 ], [ null, %if.then12 ], !dbg !541",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %item) #6, !dbg !568",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %obj) #6, !dbg !568",
+				"ret ptr %retval.1, !dbg !568"
+			]
+		},
+		{
+			"function": "set_discard",
+			"id": 74,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 107, "columns": [5]
+				},
+				{
+					"line": 108, "columns": [10, 9]
+				}
+			],
+			"successors": [85, 75],
+			"ir": [
+				"%obj = alloca ptr, align 8",
+				"%item = alloca ptr, align 8",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %obj) #6, !dbg !542",
+				"call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %item) #6, !dbg !542",
+				"%call = call i32 (ptr, ptr, ...) @PyArg_ParseTuple(ptr noundef %args, ptr noundef nonnull @.str.22, ptr noundef nonnull %obj, ptr noundef nonnull %item) #6, !dbg !543",
+				"%tobool.not = icmp eq i32 %call, 0, !dbg !543",
+				"br i1 %tobool.not, label %cleanup24, label %do.body, !dbg !545"
+			]
+		},
+		{
+			"function": "set_discard",
+			"id": 75,
+			"name": "do.body",
+			"debug": [
+				{
+					"line": 111, "columns": [5]
+				}
+			],
+			"successors": [76, 77],
+			"ir": [
+				"%0 = load ptr, ptr %obj, align 8, !dbg !546, !tbaa !549",
+				"%cmp = icmp eq ptr %0, @_Py_NoneStruct, !dbg !546",
+				"br i1 %cmp, label %if.then1, label %do.body3, !dbg !553"
+			]
+		},
+		{
+			"function": "set_discard",
+			"id": 76,
+			"name": "if.then1",
+			"debug": [
+				{
+					"line": 111, "columns": [5]
+				}
+			],
+			"successors": [77],
+			"ir": [
+				"store ptr null, ptr %obj, align 8, !dbg !554, !tbaa !549",
+				"br label %do.body3, !dbg !554"
+			]
+		},
+		{
+			"function": "set_discard",
+			"id": 77,
+			"name": "do.body3",
+			"debug": [
+				{
+					"line": 112, "columns": [5]
+				}
+			],
+			"successors": [78, 79],
+			"ir": [
+				"%1 = phi ptr [ %0, %do.body ], [ null, %if.then1 ]",
+				"%2 = load ptr, ptr %item, align 8, !dbg !556, !tbaa !549",
+				"%cmp4 = icmp eq ptr %2, @_Py_NoneStruct, !dbg !556",
+				"br i1 %cmp4, label %if.then5, label %do.body9, !dbg !559"
+			]
+		},
+		{
+			"function": "set_discard",
+			"id": 78,
+			"name": "if.then5",
+			"debug": [
+				{
+					"line": 112, "columns": [5]
+				}
+			],
+			"successors": [79],
+			"ir": [
+				"store ptr null, ptr %item, align 8, !dbg !560, !tbaa !549",
+				"br label %do.body9, !dbg !560"
+			]
+		},
+		{
+			"function": "set_discard",
+			"id": 79,
+			"name": "do.body9",
+			"debug": [
+				{
+					"line": 113, "columns": [5]
+				}
+			],
+			"successors": [80, 82],
+			"ir": [
+				"%3 = phi ptr [ %2, %do.body3 ], [ null, %if.then5 ], !dbg !562",
+				"%call10 = call i32 @PySet_Discard(ptr noundef %1, ptr noundef %3) #6, !dbg !562",
+				"%cmp11 = icmp eq i32 %call10, -1, !dbg !564",
+				"%call13 = call ptr @PyErr_Occurred() #6, !dbg !562",
+				"%tobool14.not = icmp eq ptr %call13, null, !dbg !562",
+				"br i1 %cmp11, label %if.then12, label %if.end15, !dbg !562"
+			]
+		},
+		{
+			"function": "set_discard",
+			"id": 80,
+			"name": "if.then12",
+			"debug": [
+				{
+					"line": 113, "columns": [5]
+				}
+			],
+			"successors": [81, 85],
+			"ir": [
+				"br i1 %tobool14.not, label %cond.false, label %cleanup24, !dbg !566"
+			]
+		},
+		{
+			"function": "set_discard",
+			"id": 81,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 113, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.16, ptr noundef nonnull @.str.17, i32 noundef 113, ptr noundef nonnull @__PRETTY_FUNCTION__.set_discard) #7, !dbg !566",
+				"unreachable, !dbg !566"
+			]
+		},
+		{
+			"function": "set_discard",
+			"id": 82,
+			"name": "if.end15",
+			"debug": [
+				{
+					"line": 113, "columns": [5]
+				}
+			],
+			"successors": [84, 83],
+			"ir": [
+				"br i1 %tobool14.not, label %cond.end20, label %cond.false19, !dbg !562"
+			]
+		},
+		{
+			"function": "set_discard",
+			"id": 83,
+			"name": "cond.false19",
+			"debug": [
+				{
+					"line": 113, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"call void @__assert_fail(ptr noundef nonnull @.str.18, ptr noundef nonnull @.str.17, i32 noundef 113, ptr noundef nonnull @__PRETTY_FUNCTION__.set_discard) #7, !dbg !562",
+				"unreachable, !dbg !562"
+			]
+		},
+		{
+			"function": "set_discard",
+			"id": 84,
+			"name": "cond.end20",
+			"debug": [
+				{
+					"line": 113, "columns": [5]
+				}
+			],
+			"successors": [85],
+			"ir": [
+				"%conv = sext i32 %call10 to i64, !dbg !562",
+				"%call21 = call ptr @PyLong_FromLong(i64 noundef %conv) #6, !dbg !562",
+				"br label %cleanup24, !dbg !562"
+			]
+		},
+		{
+			"function": "set_discard",
+			"id": 85,
+			"name": "cleanup24",
+			"debug": [
+				{
+					"line": 114, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %entry ], [ %call21, %cond.end20 ], [ null, %if.then12 ], !dbg !541",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %item) #6, !dbg !568",
+				"call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %obj) #6, !dbg !568",
+				"ret ptr %retval.1, !dbg !568"
+			]
+		},
+		{
+			"function": "set_pop",
+			"id": 86,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 119, "columns": [5]
+				},
+				{
+					"line": 120, "columns": [12, 5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !538",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !541",
+				"%call = tail call ptr @PySet_Pop(ptr noundef %spec.store.select) #6, !dbg !542",
+				"ret ptr %call, !dbg !543"
+			]
+		},
+		{
+			"function": "set_clear",
+			"id": 87,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 126, "columns": [5]
+				},
+				{
+					"line": 127, "columns": [5]
+				}
+			],
+			"successors": [88, 90],
+			"ir": [
+				"%cmp = icmp eq ptr %obj, @_Py_NoneStruct, !dbg !540",
+				"%spec.store.select = select i1 %cmp, ptr null, ptr %obj, !dbg !543",
+				"%call = tail call i32 @PySet_Clear(ptr noundef %spec.store.select) #6, !dbg !544",
+				"%cmp2 = icmp eq i32 %call, -1, !dbg !546",
+				"%call4 = tail call ptr @PyErr_Occurred() #6, !dbg !544",
+				"%tobool.not = icmp eq ptr %call4, null, !dbg !544",
+				"br i1 %cmp2, label %if.then3, label %if.end5, !dbg !544"
+			]
+		},
+		{
+			"function": "set_clear",
+			"id": 88,
+			"name": "if.then3",
+			"debug": [
+				{
+					"line": 127, "columns": [5]
+				}
+			],
+			"successors": [89, 93],
+			"ir": [
+				"br i1 %tobool.not, label %cond.false, label %cleanup, !dbg !548"
+			]
+		},
+		{
+			"function": "set_clear",
+			"id": 89,
+			"name": "cond.false",
+			"debug": [
+				{
+					"line": 127, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.16, ptr noundef nonnull @.str.17, i32 noundef 127, ptr noundef nonnull @__PRETTY_FUNCTION__.set_clear) #7, !dbg !548",
+				"unreachable, !dbg !548"
+			]
+		},
+		{
+			"function": "set_clear",
+			"id": 90,
+			"name": "if.end5",
+			"debug": [
+				{
+					"line": 127, "columns": [5]
+				}
+			],
+			"successors": [92, 91],
+			"ir": [
+				"br i1 %tobool.not, label %cond.end10, label %cond.false9, !dbg !544"
+			]
+		},
+		{
+			"function": "set_clear",
+			"id": 91,
+			"name": "cond.false9",
+			"debug": [
+				{
+					"line": 127, "columns": [5]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"tail call void @__assert_fail(ptr noundef nonnull @.str.18, ptr noundef nonnull @.str.17, i32 noundef 127, ptr noundef nonnull @__PRETTY_FUNCTION__.set_clear) #7, !dbg !544",
+				"unreachable, !dbg !544"
+			]
+		},
+		{
+			"function": "set_clear",
+			"id": 92,
+			"name": "cond.end10",
+			"debug": [
+				{
+					"line": 127, "columns": [5]
+				}
+			],
+			"successors": [93],
+			"ir": [
+				"%conv = sext i32 %call to i64, !dbg !544",
+				"%call11 = tail call ptr @PyLong_FromLong(i64 noundef %conv) #6, !dbg !544",
+				"br label %cleanup, !dbg !544"
+			]
+		},
+		{
+			"function": "set_clear",
+			"id": 93,
+			"name": "cleanup",
+			"debug": [
+				{
+					"line": 127, "columns": [5]
+				},
+				{
+					"line": 128, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.0 = phi ptr [ %call11, %cond.end10 ], [ null, %if.then3 ], !dbg !544",
+				"ret ptr %retval.0, !dbg !550"
+			]
+		},
+		{
+			"function": "test_frozenset_add_in_capi",
+			"id": 94,
+			"name": "entry",
+			"debug": [
+				{
+					"line": 135, "columns": [20]
+				},
+				{
+					"line": 136, "columns": [12, 9]
+				}
+			],
+			"successors": [112, 95],
+			"ir": [
+				"%call = tail call ptr @PyFrozenSet_New(ptr noundef null) #6, !dbg !543",
+				"%cmp = icmp eq ptr %call, null, !dbg !544",
+				"br i1 %cmp, label %cleanup16, label %if.end, !dbg !546"
+			]
+		},
+		{
+			"function": "test_frozenset_add_in_capi",
+			"id": 95,
+			"name": "if.end",
+			"debug": [
+				{
+					"line": 139, "columns": [21]
+				},
+				{
+					"line": 140, "columns": [13, 9]
+				}
+			],
+			"successors": [105, 96],
+			"ir": [
+				"%call1 = tail call ptr @PyLong_FromLong(i64 noundef 1) #6, !dbg !547",
+				"%cmp2 = icmp eq ptr %call1, null, !dbg !548",
+				"br i1 %cmp2, label %error, label %if.end4, !dbg !550"
+			]
+		},
+		{
+			"function": "test_frozenset_add_in_capi",
+			"id": 96,
+			"name": "if.end4",
+			"debug": [
+				{
+					"line": 143, "columns": [9, 28]
+				}
+			],
+			"successors": [105, 97],
+			"ir": [
+				"%call5 = tail call i32 @PySet_Add(ptr noundef nonnull %call, ptr noundef nonnull %call1) #6, !dbg !551",
+				"%cmp6 = icmp slt i32 %call5, 0, !dbg !553",
+				"br i1 %cmp6, label %error, label %if.end8, !dbg !554"
+			]
+		},
+		{
+			"function": "test_frozenset_add_in_capi",
+			"id": 97,
+			"name": "if.end8",
+			"debug": [
+				{
+					"line": 146, "columns": [20]
+				},
+				{
+					"line": 147, "columns": [18, 9]
+				}
+			],
+			"successors": [105, 98],
+			"ir": [
+				"%call9 = tail call i32 @PySet_Contains(ptr noundef nonnull %call, ptr noundef nonnull %call1) #6, !dbg !555",
+				"%cmp10 = icmp slt i32 %call9, 0, !dbg !556",
+				"br i1 %cmp10, label %error, label %if.else, !dbg !558"
+			]
+		},
+		{
+			"function": "test_frozenset_add_in_capi",
+			"id": 98,
+			"name": "if.else",
+			"debug": [
+				{
+					"line": 150, "columns": [23, 14]
+				}
+			],
+			"successors": [104, 99],
+			"ir": [
+				"%cmp12 = icmp eq i32 %call9, 0, !dbg !559",
+				"br i1 %cmp12, label %unexpected, label %if.end15, !dbg !561"
+			]
+		},
+		{
+			"function": "test_frozenset_add_in_capi",
+			"id": 99,
+			"name": "if.end15",
+			"debug": [
+				{
+					"line": 358, "columns": [49]
+				},
+				{
+					"line": 932, "columns": [9]
+				}
+			],
+			"successors": [100, 102],
+			"ir": [
+				"%op.val.i = load i64, ptr %call, align 8, !dbg !567, !tbaa !569",
+				"%0 = and i64 %op.val.i, 2147483648, !dbg !577",
+				"%cmp.i.not.i = icmp eq i64 %0, 0, !dbg !577",
+				"br i1 %cmp.i.not.i, label %if.end.i, label %Py_DECREF.exit, !dbg !578"
+			]
+		},
+		{
+			"function": "test_frozenset_add_in_capi",
+			"id": 100,
+			"name": "if.end.i",
+			"debug": [
+				{
+					"line": 936, "columns": [9, 25]
+				}
+			],
+			"successors": [101, 102],
+			"ir": [
+				"%dec.i = add i64 %op.val.i, -1, !dbg !579",
+				"store i64 %dec.i, ptr %call, align 8, !dbg !579, !tbaa !569",
+				"%cmp.i = icmp eq i64 %dec.i, 0, !dbg !581",
+				"br i1 %cmp.i, label %if.then1.i, label %Py_DECREF.exit, !dbg !582"
+			]
+		},
+		{
+			"function": "test_frozenset_add_in_capi",
+			"id": 101,
+			"name": "if.then1.i",
+			"debug": [
+				{
+					"line": 937, "columns": [9]
+				},
+				{
+					"line": 938, "columns": [5]
+				}
+			],
+			"successors": [102],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call) #6, !dbg !583",
+				"br label %Py_DECREF.exit, !dbg !585"
+			]
+		},
+		{
+			"function": "test_frozenset_add_in_capi",
+			"id": 102,
+			"name": "Py_DECREF.exit",
+			"debug": [
+				{
+					"line": 358, "columns": [49]
+				},
+				{
+					"line": 932, "columns": [9]
+				}
+			],
+			"successors": [103, 112],
+			"ir": [
+				"%op.val.i26 = load i64, ptr %call1, align 8, !dbg !588, !tbaa !569",
+				"%1 = and i64 %op.val.i26, 2147483648, !dbg !591",
+				"%cmp.i.not.i27 = icmp eq i64 %1, 0, !dbg !591",
+				"br i1 %cmp.i.not.i27, label %if.end.i30, label %cleanup16, !dbg !592"
+			]
+		},
+		{
+			"function": "test_frozenset_add_in_capi",
+			"id": 103,
+			"name": "if.end.i30",
+			"debug": [
+				{
+					"line": 936, "columns": [9, 25]
+				}
+			],
+			"successors": [111, 112],
+			"ir": [
+				"%dec.i28 = add i64 %op.val.i26, -1, !dbg !593",
+				"store i64 %dec.i28, ptr %call1, align 8, !dbg !593, !tbaa !569",
+				"%cmp.i29 = icmp eq i64 %dec.i28, 0, !dbg !594",
+				"br i1 %cmp.i29, label %cleanup16.sink.split, label %cleanup16, !dbg !595"
+			]
+		},
+		{
+			"function": "test_frozenset_add_in_capi",
+			"id": 104,
+			"name": "unexpected",
+			"debug": [
+				{
+					"line": 157, "columns": [1]
+				},
+				{
+					"line": 158, "columns": [21, 5]
+				}
+			],
+			"successors": [105],
+			"ir": [
+				"%2 = load ptr, ptr @PyExc_ValueError, align 8, !dbg !597, !tbaa !598",
+				"tail call void @PyErr_SetString(ptr noundef %2, ptr noundef nonnull @.str.23) #6, !dbg !600",
+				"br label %error, !dbg !600"
+			]
+		},
+		{
+			"function": "test_frozenset_add_in_capi",
+			"id": 105,
+			"name": "error",
+			"debug": [
+				{
+					"line": 159, "columns": [1]
+				},
+				{
+					"line": 358, "columns": [49]
+				},
+				{
+					"line": 932, "columns": [9]
+				}
+			],
+			"successors": [106, 108],
+			"ir": [
+				"%op.val.i33 = load i64, ptr %call, align 8, !dbg !604, !tbaa !569",
+				"%3 = and i64 %op.val.i33, 2147483648, !dbg !607",
+				"%cmp.i.not.i34 = icmp eq i64 %3, 0, !dbg !607",
+				"br i1 %cmp.i.not.i34, label %if.end.i37, label %Py_DECREF.exit39, !dbg !608"
+			]
+		},
+		{
+			"function": "test_frozenset_add_in_capi",
+			"id": 106,
+			"name": "if.end.i37",
+			"debug": [
+				{
+					"line": 936, "columns": [9, 25]
+				}
+			],
+			"successors": [107, 108],
+			"ir": [
+				"%dec.i35 = add i64 %op.val.i33, -1, !dbg !609",
+				"store i64 %dec.i35, ptr %call, align 8, !dbg !609, !tbaa !569",
+				"%cmp.i36 = icmp eq i64 %dec.i35, 0, !dbg !610",
+				"br i1 %cmp.i36, label %if.then1.i38, label %Py_DECREF.exit39, !dbg !611"
+			]
+		},
+		{
+			"function": "test_frozenset_add_in_capi",
+			"id": 107,
+			"name": "if.then1.i38",
+			"debug": [
+				{
+					"line": 937, "columns": [9]
+				},
+				{
+					"line": 938, "columns": [5]
+				}
+			],
+			"successors": [108],
+			"ir": [
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call) #6, !dbg !612",
+				"br label %Py_DECREF.exit39, !dbg !613"
+			]
+		},
+		{
+			"function": "test_frozenset_add_in_capi",
+			"id": 108,
+			"name": "Py_DECREF.exit39",
+			"debug": [
+				{
+					"line": 1029, "columns": [9]
+				}
+			],
+			"successors": [112, 109],
+			"ir": [
+				"br i1 %cmp2, label %cleanup16, label %if.then.i, !dbg !619"
+			]
+		},
+		{
+			"function": "test_frozenset_add_in_capi",
+			"id": 109,
+			"name": "if.then.i",
+			"debug": [
+				{
+					"line": 358, "columns": [49]
+				},
+				{
+					"line": 932, "columns": [9]
+				}
+			],
+			"successors": [110, 112],
+			"ir": [
+				"%op.val.i.i = load i64, ptr %call1, align 8, !dbg !624, !tbaa !569",
+				"%4 = and i64 %op.val.i.i, 2147483648, !dbg !627",
+				"%cmp.i.not.i.i = icmp eq i64 %4, 0, !dbg !627",
+				"br i1 %cmp.i.not.i.i, label %if.end.i.i, label %cleanup16, !dbg !628"
+			]
+		},
+		{
+			"function": "test_frozenset_add_in_capi",
+			"id": 110,
+			"name": "if.end.i.i",
+			"debug": [
+				{
+					"line": 936, "columns": [9, 25]
+				}
+			],
+			"successors": [111, 112],
+			"ir": [
+				"%dec.i.i = add i64 %op.val.i.i, -1, !dbg !629",
+				"store i64 %dec.i.i, ptr %call1, align 8, !dbg !629, !tbaa !569",
+				"%cmp.i.i = icmp eq i64 %dec.i.i, 0, !dbg !630",
+				"br i1 %cmp.i.i, label %cleanup16.sink.split, label %cleanup16, !dbg !631"
+			]
+		},
+		{
+			"function": "test_frozenset_add_in_capi",
+			"id": 111,
+			"name": "cleanup16.sink.split",
+			"debug": [
+				{
+					"line": 163, "columns": [1]
+				}
+			],
+			"successors": [112],
+			"ir": [
+				"%retval.1.ph = phi ptr [ @_Py_NoneStruct, %if.end.i30 ], [ null, %if.end.i.i ]",
+				"tail call void @_Py_Dealloc(ptr noundef nonnull %call1) #6, !dbg !542",
+				"br label %cleanup16, !dbg !632"
+			]
+		},
+		{
+			"function": "test_frozenset_add_in_capi",
+			"id": 112,
+			"name": "cleanup16",
+			"debug": [
+				{
+					"line": 163, "columns": [1]
+				}
+			],
+			"successors": [],
+			"ir": [
+				"%retval.1 = phi ptr [ null, %entry ], [ @_Py_NoneStruct, %Py_DECREF.exit ], [ @_Py_NoneStruct, %if.end.i30 ], [ null, %Py_DECREF.exit39 ], [ null, %if.then.i ], [ null, %if.end.i.i ], [ %retval.1.ph, %cleanup16.sink.split ], !dbg !542",
+				"ret ptr %retval.1, !dbg !632"
 			]
 		}
 	]
