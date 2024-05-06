@@ -18,6 +18,7 @@ def process_arguments():
     parser.add_argument('--basicblocks', type=str, required=True, help='Directory path for basic blocks')
     parser.add_argument('--patterns', type=str, required=True, help='Directory path for patterns')
     parser.add_argument('--outdir', type=str, required=True, help='Output directory path')
+    parser.add_argument('--project-root', type=str, required=False, default=str(pathlib.Path.cwd()), help='Project root directory path')
 
     args = parser.parse_args()
 
@@ -35,6 +36,9 @@ def process_arguments():
         print(f"Created output directory at: {args.outdir}")
     else:
         print(f"Output directory already exists at: {args.outdir}")
+
+    if args.project_root and not os.path.isdir(args.project_root):
+        raise ValueError(f"The specified project root directory does not exist: {args.project_root}")
 
     return args
 
@@ -167,22 +171,55 @@ def count_dirs_in_path(path):
     dirs = len(p.parts) - (1 if p.is_file() else 0)
     return dirs
 
+def get_relative_path(base_path, target_path):
+    print("PATHS", base_path, target_path)
+    # Convert both paths to absolute Path objects
+    base_path = pathlib.Path(base_path).resolve()
+    target_path = pathlib.Path(target_path).resolve()
+
+    # If base_path is a directory and target_path is inside this directory
+    try:
+        return target_path.relative_to(base_path).as_posix()
+    except ValueError:
+        # If not, we need to calculate how to step back to the common ancestor
+        relative_path = pathlib.Path('.')
+        # Move up until a common ancestor is found
+        while base_path != target_path:
+            base_path = base_path.parent
+            relative_path /= '..'
+            if base_path == target_path:
+                return (relative_path / target_path.relative_to(base_path)).as_posix()
+
+        # This handles edge cases like reaching the filesystem root without finding common ancestors
+        return target_path.as_posix()
+    return target_path.relative_to(base_path).as_posix()
+
 
 def process_func(args):
     blocks_html_template, orig_file_name, func_name, blocks, total_instructions, out_dir = args
     return render_and_save_graph(blocks_html_template, orig_file_name, func_name, blocks, total_instructions, out_dir)
 
 def replace_script_and_style_links_in_template(template, module_path, out_dir):
+    module_path = pathlib.Path(module_path).resolve()
+    if module_path.is_file():
+        print(f"Module path {module_path} is a file")
+        base_path = module_path.parent
+    else:
+        base_path = module_path
+        print(f"Module path {module_path} is a directory")
+
+    relative_path = get_relative_path(out_dir, base_path)
     resolved_paths = {
-        "index.table.js": ("vizlib/index_table.js"),
-        "prism.js.script": (out_dir / pathlib.Path("vizlib/prism.js")).relative_to(pathlib.Path(module_path).resolve().parent) if module_path else "vizlib/prism.js",
-        "prism.css.link": (out_dir / pathlib.Path("vizlib/prism.css")).relative_to(pathlib.Path(module_path).resolve().parent) if module_path else "vizlib/prism.css",
-        "code.view.script": (out_dir / pathlib.Path("vizlib/code_view_script.js")).relative_to(pathlib.Path(module_path).resolve().parent) if module_path else "vizlib/code_view_script.js",
-        "cfg.script": (out_dir / pathlib.Path("vizlib/cfg_script.js")).relative_to(pathlib.Path(module_path).resolve().parent) if module_path else "vizlib/cfg_script.js",
+        "index.table.js": "vizlib/index_table.js",
+        "prism.js.script": relative_path / pathlib.Path("vizlib/prism.js"),
+        "prism.css.link":  relative_path / pathlib.Path("vizlib/prism.css"),
+        "code.view.script": relative_path / pathlib.Path("vizlib/code_view_script.js"),
+        "cfg.script": relative_path / pathlib.Path("vizlib/cfg_script.js")
     }
 
-    for string, resolved_path in resolved_paths.items():
-        template = template.replace(string, str(resolved_path))
+    for placeholder, resolved_path in resolved_paths.items():
+        template = template.replace(placeholder, str(resolved_path))
+    
     return template
 
 if __name__ == "__main__":
@@ -193,6 +230,8 @@ if __name__ == "__main__":
     blocks_dir = pathlib.Path(args.basicblocks)
     lib_dir = script_dir / pathlib.Path("vizlib/")
     out_dir = pathlib.Path(args.outdir).resolve()
+    project_root = args.project_root
+
     pathlib.Path(out_dir / "vizlib/").mkdir(parents=True, exist_ok=True)
 
     shutil.copytree(lib_dir, out_dir / "vizlib/", dirs_exist_ok=True)
@@ -229,6 +268,8 @@ if __name__ == "__main__":
 
         code_html_path = pathlib.Path(out_dir / pathlib.Path(module.replace(".c", ".c.html")))
         code_html_path.parent.mkdir(parents=True, exist_ok=True)
+        with open(code_html_path, "w", encoding="utf-8") as code_html_file:
+            pass
         print(module)
         source_code_soup = BeautifulSoup(replace_script_and_style_links_in_template(code_html_template, code_html_path, out_dir), "html.parser")
         with open(profile_file_path.parent / module, "r", encoding="utf-8") as code_file:
