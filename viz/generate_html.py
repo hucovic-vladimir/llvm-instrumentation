@@ -7,10 +7,36 @@ import pathlib
 from concurrent.futures import ProcessPoolExecutor
 import sys
 import shutil
+import argparse
 
-out_dir = pathlib.Path(".profile_viz/")
-script_dir = pathlib.Path(__file__).resolve().parent
+script_dir = pathlib.Path(__file__).parent
 
+def process_arguments():
+    parser = argparse.ArgumentParser(description="Process command line options for file and directory paths")
+
+    parser.add_argument('--profile', type=str, required=True, help='File path for the profile')
+    parser.add_argument('--basicblocks', type=str, required=True, help='Directory path for basic blocks')
+    parser.add_argument('--patterns', type=str, required=True, help='Directory path for patterns')
+    parser.add_argument('--outdir', type=str, required=True, help='Output directory path')
+
+    args = parser.parse_args()
+
+    if not os.path.isfile(args.profile):
+        raise ValueError(f"The specified profile file does not exist: {args.profile}")
+    
+    if not os.path.isdir(args.basicblocks):
+        raise ValueError(f"The specified directory for basic blocks does not exist: {args.basicblocks}")
+    
+    if not os.path.isdir(args.patterns):
+        raise ValueError(f"The specified directory for patterns does not exist: {args.patterns}")
+    
+    if not os.path.isdir(args.outdir):
+        os.makedirs(args.outdir) 
+        print(f"Created output directory at: {args.outdir}")
+    else:
+        print(f"Output directory already exists at: {args.outdir}")
+
+    return args
 
 def format_instruction_count(num):
     if num < 1000:
@@ -24,16 +50,11 @@ def format_instruction_count(num):
 
 def process_json_files(blocks_dir):
     grouped_by_modules = {}
-    print(blocks_dir)
-    # Walk through all directories and files in blocks_dir
     for dirpath, dirnames, filenames in os.walk(blocks_dir):
         for filename in filenames:
-            print(dirpath + filename)
-            # Check if the file is a JSON file
             if filename.endswith(".json"):
                 full_path = os.path.join(dirpath, filename)
                 
-                # Open and process each JSON file
                 with open(full_path, 'r') as file:
                     data = js.load(file)
                     blocks = data["blocks"]
@@ -46,7 +67,6 @@ def process_json_files(blocks_dir):
                         del block["function"]
                         grouped_by_function[function_name].append(block)
                     
-                    # Use the file path relative to the blocks_dir as the module key
                     module_name = os.path.relpath(full_path, blocks_dir).replace(".json", "")
                     grouped_by_modules[module_name] = grouped_by_function
 
@@ -84,16 +104,16 @@ def process_patterns(patterns, module_blocks):
                         module_blocks[exit] = 0
 
 
-def render_and_save_graph(blocks_html_template, module_name, func_name, blocks, total_instructions, idx):
-    graph_soup = BeautifulSoup(replace_script_and_style_links_in_template(blocks_html_template.replace(".function_name.", func_name), module_name), "html.parser")
-    insert_cfg(graph_soup, blocks, total_instructions, func_name, module_name)
+def render_and_save_graph(blocks_html_template, module_name, func_name, blocks, total_instructions, out_dir):
     graph_file_name = pathlib.Path(out_dir / pathlib.Path(f"{module_name}_{func_name}.html"))
+    graph_soup = BeautifulSoup(replace_script_and_style_links_in_template(blocks_html_template.replace(".function_name.", func_name), graph_file_name, out_dir), "html.parser")
+    print(graph_file_name)
+    insert_cfg(graph_soup, blocks, total_instructions, func_name, module_name)
     with open(graph_file_name, "w") as graph_html_file:
         graph_html_file.write(str(graph_soup))
     return f"Processed {graph_file_name}"
 
 def insert_cfg(soup: BeautifulSoup, function_blocks, function_total_instructions, func_name, module_name) -> None:
-    print("inserting cfg of " + func_name + " in module " + module_name)
     dot = gv.Digraph(comment='Basic Blocks')
     blocks = function_blocks
 
@@ -140,54 +160,42 @@ def insert_cfg(soup: BeautifulSoup, function_blocks, function_total_instructions
     body = soup.find("body")
     body.append(soup_svg_graph)
     body.append(soup.new_tag("div", attrs={"functionTotalInstructions": function_total_instructions, "id": "func_total"}))
-    print("finished inserting cfg of " + func_name)
     return
 
 def count_dirs_in_path(path):
     p  = pathlib.Path(path)
     dirs = len(p.parts) - (1 if p.is_file() else 0)
-    print("PATH: ", path, "DIRS: ", dirs)
     return dirs
 
 
 def process_func(args):
-    blocks_html_template, orig_file_name, func_name, blocks, total_instructions, idx = args
-    return render_and_save_graph(blocks_html_template, orig_file_name, func_name, blocks, total_instructions, idx)
+    blocks_html_template, orig_file_name, func_name, blocks, total_instructions, out_dir = args
+    return render_and_save_graph(blocks_html_template, orig_file_name, func_name, blocks, total_instructions, out_dir)
 
-def replace_script_and_style_links_in_template(template, module_path):
+def replace_script_and_style_links_in_template(template, module_path, out_dir):
     resolved_paths = {
-        "index.table.js": script_dir / (count_dirs_in_path(module_path) * "../" + "vizlib/index_table.js"),
-        "prism.js.script": script_dir / (count_dirs_in_path(module_path) * "../" + "vizlib/prism.js"),
-        "prism.css.link": script_dir / (count_dirs_in_path(module_path) * "../" + "vizlib/prism.css"),
-        "code.view.script": script_dir / (count_dirs_in_path(module_path) * "../" + "vizlib/code_view_script.js"),
-        "cfg.script": script_dir / (count_dirs_in_path(module_path) * "../" + "vizlib/cfg_script.js")
+        "index.table.js": ("vizlib/index_table.js"),
+        "prism.js.script": (out_dir / pathlib.Path("vizlib/prism.js")).relative_to(pathlib.Path(module_path).resolve().parent) if module_path else "vizlib/prism.js",
+        "prism.css.link": (out_dir / pathlib.Path("vizlib/prism.css")).relative_to(pathlib.Path(module_path).resolve().parent) if module_path else "vizlib/prism.css",
+        "code.view.script": (out_dir / pathlib.Path("vizlib/code_view_script.js")).relative_to(pathlib.Path(module_path).resolve().parent) if module_path else "vizlib/code_view_script.js",
+        "cfg.script": (out_dir / pathlib.Path("vizlib/cfg_script.js")).relative_to(pathlib.Path(module_path).resolve().parent) if module_path else "vizlib/cfg_script.js",
     }
+
     for string, resolved_path in resolved_paths.items():
         template = template.replace(string, str(resolved_path))
     return template
 
 if __name__ == "__main__":
-    if(len(sys.argv) == 2):
-        profile_file = sys.argv[1]
-    else:
-        print("Error: no profile specified for visualization.")
-        exit()
+    args = process_arguments()
 
-    profile_file_path = pathlib.Path(profile_file).resolve()
-    patterns_dir = profile_file_path.parent / pathlib.Path(".patterns/")
-    blocks_dir = profile_file_path.parent / pathlib.Path(".basicblocks/")
+    profile_file_path = pathlib.Path(args.profile).resolve()
+    patterns_dir = pathlib.Path(args.patterns)
+    blocks_dir = pathlib.Path(args.basicblocks)
     lib_dir = script_dir / pathlib.Path("vizlib/")
+    out_dir = pathlib.Path(args.outdir).resolve()
     pathlib.Path(out_dir / "vizlib/").mkdir(parents=True, exist_ok=True)
 
     shutil.copytree(lib_dir, out_dir / "vizlib/", dirs_exist_ok=True)
-
-    absolute_paths = {
-        "index.table.js": pathlib.Path("./index_table.js").resolve(),
-        "prism.js.script": pathlib.Path(lib_dir / "prism.js").resolve(),
-        "prism.css.link": pathlib.Path(lib_dir / "prism.css").resolve(),
-        "code.view.script": pathlib.Path("./code_view_script").resolve(),
-        "cfg.script": pathlib.Path("./cfg_script.js").resolve()
-    }
 
     index_html_template = open(script_dir / "index_template.html").read()
 
@@ -197,7 +205,7 @@ if __name__ == "__main__":
 
     code_html_template = open(script_dir / "source_code_template.html").read()
 
-    index_soup = BeautifulSoup(replace_script_and_style_links_in_template(index_html_template, "./"), "html.parser")
+    index_soup = BeautifulSoup(replace_script_and_style_links_in_template(index_html_template, "", out_dir), "html.parser")
 
     body = index_soup.find("body")
 
@@ -221,7 +229,8 @@ if __name__ == "__main__":
 
         code_html_path = pathlib.Path(out_dir / pathlib.Path(module.replace(".c", ".c.html")))
         code_html_path.parent.mkdir(parents=True, exist_ok=True)
-        source_code_soup = BeautifulSoup(replace_script_and_style_links_in_template(code_html_template, module), "html.parser")
+        print(module)
+        source_code_soup = BeautifulSoup(replace_script_and_style_links_in_template(code_html_template, code_html_path, out_dir), "html.parser")
         with open(profile_file_path.parent / module, "r", encoding="utf-8") as code_file:
             code = code_file.read()
             html_code_element = source_code_soup.find(id="modulecode")
@@ -277,7 +286,7 @@ if __name__ == "__main__":
 
         for func_name, blocks in grouped_by_modules[orig_file_name].items():
             total_instructions = total_instructions_for_modules[orig_file_name][func_name]
-            task_data.append((blocks_html_template, orig_file_name, func_name, blocks, total_instructions, i))
+            task_data.append((blocks_html_template, orig_file_name, func_name, blocks, total_instructions, out_dir))
 
     with ProcessPoolExecutor() as executor:
         results = executor.map(process_func, task_data)
