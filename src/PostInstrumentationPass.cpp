@@ -62,11 +62,9 @@ PostInstrumentationPass::exportFunctions PostInstrumentationPass::getExportFunct
 }
 
 void PostInstrumentationPass::insertArrayExportCalls(Module &M, std::vector<ModuleInfo> modules) {
-	std::cerr << "Inserting array export calls" << std::endl;
 	auto [exportFunction, exportArrayFunction, exportModulesFunction] = getExportFunctions(M);
 	/// insert calls to __export_array into __prof_export function
 	Instruction* insertionPoint = exportModulesFunction->getEntryBlock().getTerminator();
-	errs() << "Insertion point: " << *insertionPoint << "\n";
 	IRBuilder<> builder(insertionPoint);
 	unsigned long modulesSize = modules.size();
 	unsigned long i = 0;
