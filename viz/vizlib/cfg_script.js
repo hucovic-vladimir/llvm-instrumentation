@@ -8,14 +8,11 @@ const formatSourceCodeLocationInfo = (moduleName, lines) => {
 }
 
 const formatIrInstructions = (ir) => {
-    // Correctly split the string by actual new lines
     let instructions = ir.split("\\n");
-    console.log(instructions); // Good for debugging
 
-    // Fix the missing quote for the class attribute
     return `<pre class="language-llvm"><code>${instructions.map((inst) => {
         return `${inst}`;
-    }).join('\n')}</code></pre>`; // Join the instructions back with a newline
+    }).join('\n')}</code></pre>`;
 }
 
 

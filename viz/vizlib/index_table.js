@@ -68,12 +68,10 @@ $(document).ready(function() {
         link = tr.find("a")
 
         if (row.child.isShown()) {
-            // This row is already open - close it
             row.child.hide();
             tr.removeClass('shown');
             $(this).html("<i class='fa-solid fa-caret-right fa'></i>");
         } else {
-            // Open this row
             row.child(formatChildTable({names: funcNames, instructions: funcInstructions, ratios: funcRatios}, rowId, link.html())).show();
             tr.addClass('shown');
             $(this).html("<i class='fa-solid fa-caret-down fa'></i>");
