@@ -33,20 +33,17 @@
 namespace fs = std::filesystem;
 
 using blockWrapperMap = std::unordered_map<BasicBlock*, BasicBlockWrapper*>;
-
 using blockCovers = std::map<BasicBlock*, std::set<BasicBlock*>>;
-
-const std::string getFileName(const std::string& path);
 
 blockWrapperMap wrappers;
 
-const std::string getLocalArrayName(Module &M) {
-	std::string arrayName = "__basicblocks_arr_" + getFileName(M.getSourceFileName());
+const std::string InstructionCount::getLocalArrayName(Module &M) {
+	std::string arrayName = "__basicblocks_arr_" + PassUtilities::getFileName(M.getSourceFileName());
 	arrayName.erase(std::remove(arrayName.begin(), arrayName.end(), '.'), arrayName.end());
 	return arrayName;
 }
 
-GlobalVariable* getOrCreateCounter(Module &M) {
+GlobalVariable* InstructionCount::getOrCreateCounter(Module &M) {
 	std::string arrayName = getLocalArrayName(M); 
 	GlobalVariable* counter = M.getGlobalVariable(arrayName);
 	if(counter) return counter;
@@ -57,8 +54,7 @@ GlobalVariable* getOrCreateCounter(Module &M) {
 	return counter;
 }
 
-/// @todo move elsewhere
-void incrementCounter(Module &M, Instruction* insertionPoint, unsigned long bbIndex) {
+void InstructionCount::incrementCounter(Module &M, Instruction* insertionPoint, unsigned long bbIndex) {
 	LLVMContext& CTX = M.getContext();
 	GlobalVariable* counter =	getOrCreateCounter(M);
 	IRBuilder<> builder(insertionPoint);
@@ -69,64 +65,7 @@ void incrementCounter(Module &M, Instruction* insertionPoint, unsigned long bbIn
 	builder.CreateStore(newCounterValue, addr);
 }
 
-
-/// @todo Move elsewhere
-/// @brief Get the file name from a path
-/// @param path The path to get the file name from
-/// @return The file name
-const std::string getFileName(const std::string& path) {
-	return fs::path(path).filename().string();
-}
-
-/// @todo Move elsewhere
-/// @brief Get all return instructions from a function
-/// @param F The function to get the return instructions from
-/// @return A vector of all return instructions in the function
-const std::vector<ReturnInst*> getReturnInstructionsFromFunction(Function &F){
-	std::vector<ReturnInst*> returnInstructions;
-	for(auto &BB : F){
-		for(auto &I : BB){
-			if(auto* ret = dyn_cast<ReturnInst>(&I)){
-				returnInstructions.push_back(ret);
-			}
-		}
-	}
-	return returnInstructions;
-}
-
-
-/// @todo Move elsewhere
-/// @brief Return the demangled named of a function which is a parent of the basic block BB
-/// If the parent is not found, return "NO_PARENT_FUNCTION_FOUND"
-/// @param BB The basic block to get the parent function name from
-/// @return The demangled name of the parent function
-const std::string getBasicBlockDemangledFunctionName(BasicBlock& BB){
-	Function* parent = BB.getParent();
-	if(!parent) {
-		return "NO_PARENT_FUNCTION_FOUND";
-	}
-	return demangle(parent->getName().str());
-}
-
-/// @todo Move elsewhere
-/// @brief Return the module name (original source code name) of a basic block
-/// If the parent module/function is not found, return "NO_PARENT_MODULE_FOUND" or "NO_PARENT FUNCTION_FOUND"
-/// @param BB The basic block to get the module name from
-/// @return The module name of the basic block
-const std::string getBasicBlockModuleName(BasicBlock& BB) {
-	Function* parent = BB.getParent();
-	if(!parent) {
-		return "NO_PARENT_FUNCTION_FOUND";
-	}
-	Module* module = parent->getParent();
-	if(!module) {
-		return "NO_PARENT_MODULE_FOUND";
-	}
-	return module->getSourceFileName();
-}
-
-
-std::vector<OptimizationPattern*> getOptimizationPatterns(Function &F) {
+std::vector<OptimizationPattern*> InstructionCount::getOptimizationPatterns(Function &F) {
 	std::vector<OptimizationPattern*> patterns;
 	// return if the function has only 1 block
 	if(F.size() == 1) {
@@ -216,7 +155,7 @@ PreservedAnalyses InstructionCount::run(Module &M, ModuleAnalysisManager &MAM){
 	fs::create_directory(".patterns");
 
 	std::error_code EC;
-	std::string sourceFileName = getFileName(M.getSourceFileName());
+	std::string sourceFileName = PassUtilities::getFileName(M.getSourceFileName());
 	std::string directories = fs::path(M.getSourceFileName()).parent_path().string();
 	if(directories.size())
 		fs::create_directories(".basicblocks/" + directories);
@@ -290,7 +229,7 @@ PreservedAnalyses InstructionCount::run(Module &M, ModuleAnalysisManager &MAM){
 		if(F.getName().str() == "main") {
 			Instruction* insertionPoint = &*F.getEntryBlock().getFirstInsertionPt();
 			IF.insertProfInitCall(M, insertionPoint);
-			std::vector<ReturnInst*> returnInstructions = getReturnInstructionsFromFunction(F);
+			std::vector<ReturnInst*> returnInstructions = PassUtilities::getReturnInstructionsFromFunction(F);
 			for(Instruction* I : returnInstructions){
 				IF.insertProfExportCall(M, I);
 			}
@@ -309,7 +248,7 @@ PreservedAnalyses InstructionCount::run(Module &M, ModuleAnalysisManager &MAM){
 
 	/// export patterns
 	if(patterns.size() > 0){
-		std::string sourceFileName = getFileName(M.getSourceFileName());
+		std::string sourceFileName = PassUtilities::getFileName(M.getSourceFileName());
 		std::string directories = fs::path(M.getSourceFileName()).parent_path().string();
 		if(directories.size())
 			fs::create_directories(".patterns/" + directories);
@@ -328,6 +267,7 @@ PreservedAnalyses InstructionCount::run(Module &M, ModuleAnalysisManager &MAM){
 
 	return PreservedAnalyses::none();
 }
+
 /// @brief Static entry point
 PassPluginLibraryInfo getInstructionCountPluginInfo(){
 	const auto callback = [](PassBuilder &PB) {
@@ -339,8 +279,6 @@ PassPluginLibraryInfo getInstructionCountPluginInfo(){
 	};
 	return {LLVM_PLUGIN_API_VERSION, "InstructionCount", "v0.1", callback};
 }
-
-
 
 /// @brief Dynamic entry point
 extern "C" LLVM_ATTRIBUTE_WEAK ::llvm::PassPluginLibraryInfo

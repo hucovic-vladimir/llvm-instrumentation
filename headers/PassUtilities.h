@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <llvm/IR/Module.h>
 #include <llvm/IR/BasicBlock.h>
+#include <llvm/IR/Instructions.h>
 
 using namespace llvm;
 
@@ -11,12 +12,23 @@ using namespace llvm;
 /// @todo rework this clas
 class PassUtilities {
     public:
-				/// @brief Get the start and end line numbers of a basic block
-				/// @param bb The basic block to get the start and end lines from
-				/// @return A pair of the start and end line numbers of the basic block
-				/// @todo try to think of a better solution to mapping basic blocks to source code 
-        static std::pair<unsigned long, unsigned long> getBasicBlockStartEndLines(BasicBlock& bb);
-				/// @brief Insert a call to setStartTime at the given instruction
+			/// @todo Move elsewhere
+			/// @brief Get the file name from a path
+			/// @param path The path to get the file name from
+			/// @return The file name
+			static const std::string getFileName(const std::string& path);
+
+			/// @brief Get all return instructions from a function
+			/// @param F The function to get the return instructions from
+			/// @return A vector of all return instructions in the function
+			static const std::vector<ReturnInst*> getReturnInstructionsFromFunction(Function &F);
+
+			/// @brief Get the start and end line numbers of a basic block
+			/// @param bb The basic block to get the start and end lines from
+			/// @return A pair of the start and end line numbers of the basic block
+			/// @todo try to think of a better solution to mapping basic blocks to source code 
+			static std::pair<unsigned long, unsigned long> getBasicBlockStartEndLines(BasicBlock& bb);
+			/// @brief Insert a call to setStartTime at the given instruction
 				/// @param i The instruction to insert the call to setStartTime at
         static void insertSetStartTime(Instruction &i);
 				/// @brief Insert the module name as a global string

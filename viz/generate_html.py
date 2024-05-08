@@ -35,7 +35,7 @@ def process_arguments():
         os.makedirs(args.outdir) 
         print(f"Created output directory at: {args.outdir}")
     else:
-        print(f"Output directory already exists at: {args.outdir}")
+        print(f"Overwriting existing output directory at: {args.outdir}")
 
     if args.project_root and not os.path.isdir(args.project_root):
         raise ValueError(f"The specified project root directory does not exist: {args.project_root}")
@@ -111,11 +111,10 @@ def process_patterns(patterns, module_blocks):
 def render_and_save_graph(blocks_html_template, module_name, func_name, blocks, total_instructions, out_dir):
     graph_file_name = pathlib.Path(out_dir / pathlib.Path(f"{module_name}_{func_name}.html"))
     graph_soup = BeautifulSoup(replace_script_and_style_links_in_template(blocks_html_template.replace(".function_name.", func_name), graph_file_name, out_dir), "html.parser")
-    print(graph_file_name)
     insert_cfg(graph_soup, blocks, total_instructions, func_name, module_name)
     with open(graph_file_name, "w") as graph_html_file:
         graph_html_file.write(str(graph_soup))
-    return f"Processed {graph_file_name}"
+    return f"Created {graph_file_name}"
 
 def insert_cfg(soup: BeautifulSoup, function_blocks, function_total_instructions, func_name, module_name) -> None:
     dot = gv.Digraph(comment='Basic Blocks')
@@ -171,29 +170,25 @@ def count_dirs_in_path(path):
     dirs = len(p.parts) - (1 if p.is_file() else 0)
     return dirs
 
-def get_relative_path(base_path, target_path):
-    print("PATHS", base_path, target_path)
-    # Convert both paths to absolute Path objects
+def get_relative_path(target_path, base_path):
     base_path = pathlib.Path(base_path).resolve()
     target_path = pathlib.Path(target_path).resolve()
 
-    # If base_path is a directory and target_path is inside this directory
     try:
-        return target_path.relative_to(base_path).as_posix()
+        relative_path = target_path.relative_to(base_path)
+        return_value = "./" if relative_path == pathlib.Path('.') else relative_path.as_posix()
+        return return_value 
     except ValueError:
-        # If not, we need to calculate how to step back to the common ancestor
-        relative_path = pathlib.Path('.')
-        # Move up until a common ancestor is found
-        while base_path != target_path:
-            base_path = base_path.parent
-            relative_path /= '..'
-            if base_path == target_path:
-                return (relative_path / target_path.relative_to(base_path)).as_posix()
+        ancestor = base_path
+        up_levels = []
 
-        # This handles edge cases like reaching the filesystem root without finding common ancestors
-        return target_path.as_posix()
-    return target_path.relative_to(base_path).as_posix()
-
+        while ancestor not in target_path.parents:
+            ancestor = ancestor.parent
+            up_levels.append('../')
+        
+        relative_down_path = target_path.relative_to(ancestor).parts
+        return_value = "".join(up_levels + list(relative_down_path))
+        return return_value 
 
 def process_func(args):
     blocks_html_template, orig_file_name, func_name, blocks, total_instructions, out_dir = args
@@ -201,12 +196,10 @@ def process_func(args):
 
 def replace_script_and_style_links_in_template(template, module_path, out_dir):
     module_path = pathlib.Path(module_path).resolve()
-    if module_path.is_file():
-        print(f"Module path {module_path} is a file")
+    if module_path.is_file() or module_path.parts[-1].endswith(".html"):
         base_path = module_path.parent
     else:
         base_path = module_path
-        print(f"Module path {module_path} is a directory")
 
     relative_path = get_relative_path(out_dir, base_path)
     resolved_paths = {
@@ -248,8 +241,10 @@ if __name__ == "__main__":
 
     body = index_soup.find("body")
 
+    print("Processing Basic Block files...")
     grouped_by_modules = process_json_files(str(blocks_dir))
 
+    print("Loading profile...")
     profile = js.load(open(profile_file_path, "r"))["modules"]
 
     profile_grouped_by_module = {}
@@ -259,18 +254,18 @@ if __name__ == "__main__":
 
     module_block_execution_counts = {}
 
+    print("Processing patterns...")
     for module, info in profile_grouped_by_module.items():
         patterns_json = None
-        json_file = module.replace(".c", ".c.json")
-        if(json_file in os.listdir(patterns_dir)):
-            patterns_file = open(f"{patterns_dir}/{json_file}")
+        json_file = patterns_dir / pathlib.Path(module.replace(".c", ".c.json"))
+        if(json_file.exists()):
+            patterns_file = open(json_file)
             patterns_json = js.load(patterns_file)
 
         code_html_path = pathlib.Path(out_dir / pathlib.Path(module.replace(".c", ".c.html")))
         code_html_path.parent.mkdir(parents=True, exist_ok=True)
         with open(code_html_path, "w", encoding="utf-8") as code_html_file:
             pass
-        print(module)
         source_code_soup = BeautifulSoup(replace_script_and_style_links_in_template(code_html_template, code_html_path, out_dir), "html.parser")
         with open(profile_file_path.parent / module, "r", encoding="utf-8") as code_file:
             code = code_file.read()
@@ -319,6 +314,8 @@ if __name__ == "__main__":
             total_instructions_for_modules[file][function] = total_instructions_for_functions[function]
         total_instructions_program += total_instructions_for_modules[file]["total"]
 
+
+    print("Generating control flow graphs...")
     task_data = []
     for i, file in enumerate(grouped_by_modules.keys()):
         file = file.replace(".json", "")
@@ -334,6 +331,8 @@ if __name__ == "__main__":
         for result in results:
             print(result)
         
+
+    print("Generating index.html ...")
     for i, file in enumerate(grouped_by_modules.keys()):
         tr = index_soup.new_tag("tr")
         td_module_name = index_soup.new_tag("td")
