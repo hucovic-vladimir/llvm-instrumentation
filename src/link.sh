@@ -5,13 +5,13 @@
 
 LINKER=ld.lld
 INSTCODE_SRC_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)"
-INSTCODE_OBJ_FILE="./instrumentationCode.o"
+INSTCODE_OBJ_FILE=${INSTCODE_SRC_PATH}"/instrumentationCode.o"
 
 echo "Instrumentation code path: $INSTCODE_SRC_PATH"
 
 cp ./modules.tmp $INSTCODE_SRC_PATH/modules.tmp
-clang -Wall -Wextra -Werror -O3 -march=native -S -emit-llvm -g3 -flto -fembed-bitcode ${INSTCODE_SRC_PATH}/instrumentationCode_new.c -o\
+clang -Wall -Wextra -Werror -O3 -S -emit-llvm -g3 ${INSTCODE_SRC_PATH}/instrumentationCode_new.c -o\
 	${INSTCODE_SRC_PATH}/instrumentationCode_new.ll -std=c2x -fPIC -fpass-plugin=${INSTCODE_SRC_PATH}/../build/src/libPostInstrumentationPass.so
-clang -c -o $INSTCODE_SRC_PATH/$INSTCODE_OBJ_FILE $INSTCODE_SRC_PATH/instrumentationCode_new.ll -O3
+clang -c -o $INSTCODE_OBJ_FILE $INSTCODE_SRC_PATH/instrumentationCode_new.ll -O3
 
-$LINKER "$@" $INSTCODE_SRC_PATH/$INSTCODE_OBJ_FILE 
+$LINKER "$@" $INSTCODE_OBJ_FILE 
