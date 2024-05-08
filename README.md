@@ -1,7 +1,7 @@
 # Prerequisites
 
 ## Profiler
-- LLVM 17.0.0 or higher
+- LLVM 17.0.0 or later
 - CMake
 - C++20 compiler
 
@@ -18,12 +18,13 @@ you built LLVM.
 ```bash
 mkdir build
 cd build
-cmake ..
+cmake .. -DLLVM_CMAKE_PATH=path/to/llvm/cmake
 make
 ```
 
 The `libInstructionCount.so` library will be built in the build/src directory.
 
+For visualizations, use `python3 -m pip install -r viz/requirementx.txt` to install pip dependencies.
 
 # How to use
 
