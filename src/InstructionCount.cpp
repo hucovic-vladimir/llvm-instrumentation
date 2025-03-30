@@ -9,7 +9,6 @@
 #include "../headers/FunctionPatterns.h"
 #include "../headers/SumOfExitsPattern.h"
 #include <algorithm>
-#include <bits/node_handle.h>
 #include <llvm/ADT/ilist_node_options.h>
 #include <llvm/IR/CFG.h>
 #include <llvm/IR/DerivedTypes.h>

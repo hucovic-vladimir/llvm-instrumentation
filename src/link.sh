@@ -1,16 +1,37 @@
 #!/bin/bash
-# A linker wrapper script which compiles the instrumentation code before 
-# linking starts and then links the compiled instrumentation code with the program
+# A linker wrapper script which links the pre-compiled instrumentation code with the program
 # This script should be passed to clang as a linker script.
 
-LINKER=ld.lld
-INSTCODE_SRC_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)"
-INSTCODE_OBJ_FILE=${INSTCODE_SRC_PATH}"/instrumentationCode.o"
+LINKER=ld64.lld 
+SCRIPT_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)"
+INSTCODE_OBJ_FILE=${SCRIPT_PATH}"/instrumentationCode.o"
 
-cp ./modules.tmp $INSTCODE_SRC_PATH/modules.tmp
-clang -Wall -Wextra -Werror -O3 -S -emit-llvm -g3 ${INSTCODE_SRC_PATH}/instrumentationCode_new.c -o\
-	${INSTCODE_SRC_PATH}/instrumentationCode_new.ll -std=c2x -fPIC -fpass-plugin=${INSTCODE_SRC_PATH}/../build/src/libPostInstrumentationPass.so
-clang -c -o $INSTCODE_OBJ_FILE $INSTCODE_SRC_PATH/instrumentationCode_new.ll -O3
+# Save modules.tmp if it exists
+if [ -f ./modules.tmp ]; then
+    cp ./modules.tmp $SCRIPT_PATH/modules.tmp
+fi
 
-$LINKER "$@" $INSTCODE_OBJ_FILE 
+make -C ${SCRIPT_PATH}
 
+# Check if the instrumentation object file exists
+if [ ! -f "$INSTCODE_OBJ_FILE" ]; then
+    echo "Error: Instrumentation object file not found at $INSTCODE_OBJ_FILE"
+    echo "Compiling of instrumentation code probably failed."
+    exit 1
+fi
+
+# On macOS, get the SDK path for linking
+if [ "$(uname)" == "Darwin" ]; then
+    SDK_LIB="$(xcrun --show-sdk-path)/usr/lib"
+    SDK_ARGS="-L$SDK_LIB"
+else
+    SDK_ARGS=""
+fi
+
+# Run the actual linker
+$LINKER "$@" $SDK_ARGS $INSTCODE_OBJ_FILE
+
+# Cleanup
+if [ -f "$SCRIPT_PATH/modules.tmp" ]; then
+    rm "$SCRIPT_PATH/modules.tmp"
+fi
