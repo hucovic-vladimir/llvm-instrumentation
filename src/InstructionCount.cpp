@@ -131,11 +131,12 @@ std::vector<OptimizationPattern*> InstructionCount::getOptimizationPatterns(Func
 /// @param MAM The module analysis manager
 /// @return The preserved analyses (IR is modified, so none to be safe)
 PreservedAnalyses InstructionCount::run(Module &M, ModuleAnalysisManager &MAM){
-
+	/* errs() << "Running on module " << M.getName() << "\n"; */
 	unsigned long bbCount = 0;
 	LLVMContext& CTX = M.getContext();
 
 	InstrumentationFunctions IF = InstrumentationFunctions(CTX);
+	/* errs() << "Instrumentation functions initialized" << "\n"; */
 
 	std::vector<FunctionPatterns*> patterns;
 
@@ -147,22 +148,33 @@ PreservedAnalyses InstructionCount::run(Module &M, ModuleAnalysisManager &MAM){
 			wrappers[&BB] = wrapper;
 		}
 	}
+	
+	/* errs() << "Wrappers initialized" << "\n"; */
 
 	fs::create_directory(".basicblocks");
 	// could be removed later
 	/* fs::create_directory(".llfiles"); */
 	fs::create_directory(".patterns");
 
+	/* errs() << "Necessary directories created" << "\n"; */
+
 	std::error_code EC;
 	std::string sourceFileName = PassUtilities::getFileName(M.getSourceFileName());
 	std::string directories = fs::path(M.getSourceFileName()).parent_path().string();
+
+	/* errs() << "directories: " << directories << "\n"; */
+	/* errs() << "src file name: " << sourceFileName << "\n"; */
+
 	if(directories.size())
 		fs::create_directories(".basicblocks/" + directories);
 	raw_fd_ostream bbFile(".basicblocks/" + M.getSourceFileName() + ".json", EC);
 	bbFile << "{\n";
 	bbFile << PassUtilities::getTabs(1) << "\"blocks\": [\n";
 	for(auto& wrapper : wrappersVec) {
+		/* errs() << "wrapper of block id: " << wrapper->getId() << "\n"; */
 		wrapper->getSuccessors(wrappers);
+		/* errs() << "got successors of wrapper" << "\n"; */
+		/* errs() << wrapper->toJson(2) << "\n"; */
 		bbFile << wrapper->toJson(2);
 		if(!(wrapper == wrappersVec.back())) {
 			bbFile << ",\n";
@@ -173,6 +185,8 @@ PreservedAnalyses InstructionCount::run(Module &M, ModuleAnalysisManager &MAM){
 	}
 	bbFile << PassUtilities::getTabs(1) << "]\n";
 	bbFile << "}\n";
+
+	errs() << "Basic blocks exported" << "\n";
 
 	for(auto &F : M){
 		if(F.isDeclaration()) continue;

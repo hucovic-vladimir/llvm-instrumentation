@@ -6,11 +6,14 @@ LINKER=ld64.lld
 SCRIPT_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)"
 INSTCODE_OBJ_FILE=${SCRIPT_PATH}"/instrumentationCode.o"
 
+echo $INSTCODE_OBJ_FILE
+
 # Save modules.tmp if it exists
 if [ -f ./modules.tmp ]; then
     cp ./modules.tmp $SCRIPT_PATH/modules.tmp
 fi
 
+make clean -C ${SCRIPT_PATH}
 make -C ${SCRIPT_PATH}
 
 # Check if the instrumentation object file exists

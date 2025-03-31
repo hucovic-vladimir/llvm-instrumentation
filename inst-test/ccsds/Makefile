@@ -2,8 +2,7 @@ CC=/Users/vladimirhucovic/school/pp1/llvm-project/build-dylib2/bin/clang
 EXTRA_CFLAGS= -g -c -fpass-plugin=/Users/vladimirhucovic/school/pp1/llvm-instrumentation/build/src/libInstructionCount.dylib 
 EXTRA_LDFLAGS= -fuse-ld="/Users/vladimirhucovic/school/pp1/llvm-instrumentation/src/link.sh" 
 
-
-CFLAGS=-std=c89 -pedantic -Wall -Wextra -Wconversion -ftrapv -Wfloat-equal -g -march=native -O3 -DNDEBUG $(EXTRA_CFLAGS)
+CFLAGS=-std=c89 -pedantic -Wall -Wextra -Wconversion -ftrapv -Wfloat-equal -g -march=native -O1 -DNDEBUG $(EXTRA_CFLAGS)
 LDFLAGS=-g -rdynamic $(EXTRA_LDFLAGS)
 LDLIBS=$(EXTRA_LDLIBS)
 TARGETS=compress perftest
@@ -12,7 +11,7 @@ TARGETS=compress perftest
 
 .PHONY: all clean distclean
 
-all: $(TARGETS)
+all: compress
 
 compress: compress.o frame.o dwt.o dwtfloat.o dwtint.o common.o bio.o bpe.o
 
@@ -49,7 +48,7 @@ aquas: aquas.o common.o frame.o dwt.o dwtfloat.o dwtint.o bio.o bpe.o
 aquas.o: aquas.c config.h common.h frame.h dwt.h bio.h bpe.h Lenna256.h
 
 clean:
-	$(RM) -- *.o $(TARGETS) .basicblocks .patterns modules.tmp profile_data_pid_*.json
+	$(RM) -rf *.o $(TARGETS) .basicblocks .patterns modules.tmp profile_data_pid_*.json
 
 distclean: clean
 	$(RM) -- *.gcda

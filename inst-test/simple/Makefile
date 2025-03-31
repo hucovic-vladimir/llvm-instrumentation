@@ -1,5 +1,6 @@
 UNAME_S := $(shell uname -s)
 
+
 CC=/Users/vladimirhucovic/school/pp1/llvm-project/build-dylib2/bin/clang
 CFLAGS= -g -c -fpass-plugin=/Users/vladimirhucovic/school/pp1/llvm-instrumentation/build/src/libInstructionCount.dylib 
 LDFLAGS= -fuse-ld="/Users/vladimirhucovic/school/pp1/llvm-instrumentation/src/link.sh" 
@@ -16,4 +17,3 @@ all:
 
 clean:
 	rm -rf *.o test .basicblocks .patterns modules.tmp profile_data_pid_*.json
-
