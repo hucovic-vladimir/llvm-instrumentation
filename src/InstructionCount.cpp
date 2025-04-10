@@ -19,7 +19,6 @@
 #include <llvm/Passes/PassBuilder.h>
 #include <fstream>
 #include <iostream>
-#include <sstream>
 #include <string>
 #include <llvm/IRReader/IRReader.h>
 #include <llvm/Demangle/Demangle.h>
@@ -33,8 +32,14 @@ namespace fs = std::filesystem;
 
 using blockWrapperMap = std::unordered_map<BasicBlock*, BasicBlockWrapper*>;
 using blockCovers = std::map<BasicBlock*, std::set<BasicBlock*>>;
-
 blockWrapperMap wrappers;
+
+void pushBlockSuccessors(BasicBlock* patternExitBlock, std::vector<BasicBlock*> &blockQueue, std::vector<BasicBlock*> &processed) {
+	for(BasicBlock* succ : successors(patternExitBlock)) {
+		if(std::find(processed.begin(), processed.end(), succ) == processed.end() && std::find(blockQueue.begin(), blockQueue.end(), succ) == blockQueue.end())
+			blockQueue.push_back(succ);
+	}
+}
 
 const std::string InstructionCount::getLocalArrayName(Module &M) {
 	std::string arrayName = "__basicblocks_arr_" + PassUtilities::getFileName(M.getSourceFileName());
@@ -88,10 +93,7 @@ std::vector<OptimizationPattern*> InstructionCount::getOptimizationPatterns(Func
 		if(diamond) {
 			patterns.push_back(diamond);
 			BasicBlock* patternExitBlock = diamond->getPatternExitBlock();
-			for(BasicBlock* succ : successors(patternExitBlock)) {
-				if(std::find(processed.begin(), processed.end(), succ) == processed.end() && std::find(blockQueue.begin(), blockQueue.end(), succ) == blockQueue.end())
-					blockQueue.push_back(succ);
-			}
+			pushBlockSuccessors(patternExitBlock, blockQueue, processed);
 			continue;
 		}
 
@@ -100,10 +102,7 @@ std::vector<OptimizationPattern*> InstructionCount::getOptimizationPatterns(Func
 		if(halfDiamond) {
 			patterns.push_back(halfDiamond);
 			BasicBlock* patternExitBlock = halfDiamond->getPatternExitBlock();
-			for(BasicBlock* succ : successors(patternExitBlock)) {
-				if(std::find(processed.begin(), processed.end(), succ) == processed.end() && std::find(blockQueue.begin(), blockQueue.end(), succ) == blockQueue.end())
-					blockQueue.push_back(succ);
-			}
+			pushBlockSuccessors(patternExitBlock, blockQueue, processed);
 			continue;
 		}
 
@@ -112,16 +111,11 @@ std::vector<OptimizationPattern*> InstructionCount::getOptimizationPatterns(Func
 		if(unconditionalJump) {
 			patterns.push_back(unconditionalJump);
 			BasicBlock* patternExitBlock = unconditionalJump->getPatternExitBlock();
-			for(BasicBlock* succ : successors(patternExitBlock)) {
-				if(std::find(processed.begin(), processed.end(), succ) == processed.end() && std::find(blockQueue.begin(), blockQueue.end(), succ) == blockQueue.end())
-					blockQueue.push_back(succ);
-			}
+			pushBlockSuccessors(patternExitBlock, blockQueue, processed);
 			continue;
 		}
-		for(BasicBlock* succ : successors(bb)) {
-			if(std::find(processed.begin(), processed.end(), succ) == processed.end() && std::find(blockQueue.begin(), blockQueue.end(), succ) == blockQueue.end())
-				blockQueue.push_back(succ);
-		}
+
+		pushBlockSuccessors(bb, blockQueue, processed);
 	}
 	return patterns;
 }
