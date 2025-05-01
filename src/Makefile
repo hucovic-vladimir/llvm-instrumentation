@@ -2,7 +2,7 @@ UNAME_S := $(shell uname -s)
 SCRIPT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
 override CC=clang
-override CFLAGS=-Wall -Wextra -Werror -O3 -march=native -S -emit-llvm -g3 -flto -fembed-bitcode -std=c2x -fPIC
+override CFLAGS=-Wall -Wextra -Werror -O1 -march=native -S -emit-llvm -g3 -flto -fembed-bitcode -std=c2x -fPIC
 
 ifeq ($(UNAME_S),Darwin)
     SDK_PATH := $(shell xcrun --show-sdk-path)
@@ -31,4 +31,4 @@ $(INST_CODE_OBJ): $(INST_CODE_LL)
 	$(CC) -c -o $@ $< -O3
 
 clean:
-	rm -f $(INST_CODE_LL) $(INST_CODE_OBJ)
+	rm -f $(INST_CODE_LL) $(INST_CODE_OBJ) *.tmp

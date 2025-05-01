@@ -24,6 +24,8 @@ class InstrumentationFunctions {
 		/// @brief The function type for the function that performs the basic block execution count increment
 		llvm::FunctionType* bbEnterFuncType;
 
+		llvm::FunctionType* printfFuncType;
+
 		/// @brief Function Callee for profiling initialization function 
 		llvm::FunctionCallee profInitFunc;
 
@@ -33,6 +35,8 @@ class InstrumentationFunctions {
 
 		/// @brief Function Callee for basic block enter function
 		llvm::FunctionCallee bbEnterFunc;
+		
+		llvm::FunctionCallee printfFunc;
 
 	public:
 		/// @brief constructs this class from the provided global LLVM context
@@ -46,6 +50,7 @@ class InstrumentationFunctions {
 		llvm::FunctionCallee* getExportFunctionCallee(llvm::Module& module);
 		llvm::FunctionCallee* getExportFunctionCallee2(llvm::Module& module);
 		llvm::FunctionCallee* getBBEnterFunctionCallee(llvm::Module& module);
+		llvm::FunctionCallee* getPrintfFunctionCallee(llvm::Module& module);
 
 		/// @brief inserts the __prof_init() function into the provided Module and
 		/// inserts a call to it before the provided Instruction
@@ -58,4 +63,5 @@ class InstrumentationFunctions {
 		/// @todo maybe this function should also handle creating the Value* and therefore
 		/// an integer type should be passed here
 		void insertBBEnterCall(llvm::Module &module, llvm::Instruction* insertBefore, llvm::Value* basicBlockId);
+		void insertPrintfCall(llvm::Module &module, llvm::Instruction* insertBefore, const std::string formatStr, std::vector<llvm::Value*> values);
 };

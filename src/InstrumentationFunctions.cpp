@@ -10,6 +10,7 @@ InstrumentationFunctions::InstrumentationFunctions(LLVMContext &context) {
 	profExportFuncType = FunctionType::get(Type::getVoidTy(context), false);
 	profExportFuncType2 = FunctionType::get(Type::getVoidTy(context), false);
 	bbEnterFuncType = FunctionType::get(Type::getVoidTy(context), {Type::getInt64Ty(context)}, false);
+	printfFuncType = FunctionType::get(Type::getInt32Ty(context), {Type::getInt8PtrTy(context)}, true);
 }
 
 
@@ -51,4 +52,23 @@ void InstrumentationFunctions::insertBBEnterCall(Module &module, Instruction* in
 	IRBuilder<> builder(insertBefore);
 	FunctionCallee* bbEnterFunc = getBBEnterFunctionCallee(module);
 	builder.CreateCall(*bbEnterFunc, basicBlockId);
+}
+
+FunctionCallee* InstrumentationFunctions::getPrintfFunctionCallee(Module& module) {
+	printfFunc = module.getOrInsertFunction("printf", printfFuncType);
+	return &printfFunc;
+}
+
+void InstrumentationFunctions::insertPrintfCall(Module &module, Instruction* insertBefore, const std::string formatStr, std::vector<Value*> values) {
+	IRBuilder<> builder(insertBefore);
+	FunctionCallee* printfFunc = getPrintfFunctionCallee(module);
+	
+	// Create the format string
+	Value* formatStrValue = builder.CreateGlobalString(formatStr);
+	
+	// Create the call to printf
+	std::vector<Value*> args;
+	args.push_back(formatStrValue);
+	args.insert(args.end(), values.begin(), values.end());
+	builder.CreateCall(*printfFunc, args);
 }

@@ -2,21 +2,30 @@
 #include "llvm/IR/Instructions.h"
 #include "llvm/IR/IRBuilder.h"
 #include "CFGTransformer.h"
+#include "CFGAnalysis.h"
+#include "../../headers/InstrumentationFunctions.h"
 
 using namespace llvm;
 
+void insertPrintOfCounter(Function &F, BasicBlock& exit, AllocaInst* counter) {
+	InstrumentationFunctions IF(F.getContext());
+	Module &M = *F.getParent();
+
+	Instruction* terminator = exit.getTerminator(); 
+	IRBuilder<> builder(terminator);
+  IF.insertPrintfCall(M, terminator, "Counter: \%d\n", {counter});
+}
+
 void CFGTransformer::transformToSingleExit(Function &F) {
 	if(F.size() == 1) {
-		/* errs() << "Function has 1 block, skipping" << "\n"; */
 		return;
 	}	
 	std::vector<ReturnInst*> returnInstructions;
 	getReturnInstructions(F, returnInstructions);
 	if(returnInstructions.size() == 1) {
-		/* errs() << "Function has 1 return instruction, skipping" << "\n"; */
 		return;
 	}
-
+	
 	BasicBlock* newExitBlock = BasicBlock::Create(F.getContext(), "unified_exit", &F);
 	IRBuilder<> builder(newExitBlock);
 	Type* returnType = F.getReturnType();
@@ -65,4 +74,72 @@ void CFGTransformer::createNewReturnInstruction(BasicBlock* newExitBlock, bool f
 		builder.CreateRetVoid();
 	else
 		builder.CreateRet(phiInstruction);
+}
+
+
+void insertPathCounterIncrement(BasicBlock& edge, int edgeValue, AllocaInst* pathCounterVar) {
+	IRBuilder<> builder(&edge);
+	LLVMContext& context = edge.getContext();
+	Value* currentValue = builder.CreateLoad(builder.getInt32Ty(), pathCounterVar, "current_value");
+	Value* newValue = builder.CreateAdd(currentValue, builder.getInt32(edgeValue), "new_value");
+	builder.CreateStore(newValue, pathCounterVar);
+}
+
+void CFGTransformer::addInstrumentedEdges(BasicBlock& start, DAG& dag, AllocaInst* pathCounterVar) {
+	if(CFGAnalysis::getSingleExit(*dag.getFunction()) == &start) {
+		insertPrintOfCounter(*dag.getFunction(), start, pathCounterVar);
+	}
+
+	// Make a copy of successors
+	std::vector<BasicBlock*> successorBlocks;
+	for (BasicBlock* succ : successors(&start)) {
+		successorBlocks.push_back(succ);
+	}
+
+	for (BasicBlock* succ : successorBlocks) {
+		if (&start == succ) continue;
+
+		// Get the edge value
+		int edgeValue = dag.findEdge(&start, succ).getValue();
+		errs() << "Edge Value: " << edgeValue << "\n";
+
+		if (edgeValue != 0) {
+			// Create the new block
+			BasicBlock* instrumentedBasicBlock = BasicBlock::Create(
+					start.getContext(), 
+					/* start.getName() + ".to." + succ->getName(), */ 
+					"EDGE +" + std::to_string(edgeValue) + "_" +start.getName(),
+					start.getParent(), 
+					succ
+					);
+
+			insertPathCounterIncrement(*instrumentedBasicBlock, edgeValue, pathCounterVar);
+
+			// TODO: Handle other possible terminator instructions
+
+			IRBuilder<> builderNewBlock(instrumentedBasicBlock);
+			builderNewBlock.CreateBr(succ);
+
+			updatePHINodes(start, succ, instrumentedBasicBlock);
+			redirectTerminatorOperands(start, succ, instrumentedBasicBlock);
+		}
+	}
+}
+
+void CFGTransformer::addInstrumentedEdges(DAG& dag, AllocaInst* pathCounterVar) {
+    Function* F = dag.getFunction();
+    if (F->empty() || F->size() == 1) {
+        return;
+    }
+    
+    std::vector<BasicBlock*> blocks;
+    for (BasicBlock& BB : *F) {
+        blocks.push_back(&BB);
+    }
+    
+    for (BasicBlock* BB : blocks) {
+        if (!succ_empty(BB)) {
+            addInstrumentedEdges(*BB, dag, pathCounterVar);
+        }
+    }
 }

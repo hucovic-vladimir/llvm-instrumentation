@@ -50,3 +50,4 @@ const std::vector<ReturnInst*> PassUtilities::getReturnInstructionsFromFunction(
 const std::string PassUtilities::getFileName(const std::string& path) {
 	return fs::path(path).filename().string();
 }
+
