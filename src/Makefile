@@ -31,4 +31,4 @@ $(INST_CODE_OBJ): $(INST_CODE_LL)
 	$(CC) -c -o $@ $< -O3
 
 clean:
-	rm -f $(INST_CODE_LL) $(INST_CODE_OBJ) *.tmp
+	rm -f $(INST_CODE_LL) $(INST_CODE_OBJ)

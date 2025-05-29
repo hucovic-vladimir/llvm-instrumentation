@@ -12,6 +12,8 @@
 #include "lib/DAG.h"
 #include "llvm/Support/GraphWriter.h"
 #include "llvm/IR/Verifier.h"
+#include "../headers/InstrumentationFunctions.h"
+#include <filesystem>
 
 AllocaInst* insertPathCounter(Function &F) {
 	BasicBlock& entry = F.getEntryBlock();
@@ -23,6 +25,16 @@ AllocaInst* insertPathCounter(Function &F) {
 	return pathCounterVar;
 }
 
+
+void insertPrintOfCounter(Function &F, BasicBlock& exit, AllocaInst* counter) {
+	InstrumentationFunctions IF(F.getContext());
+	Module &M = *F.getParent();
+
+	Instruction* terminator = exit.getTerminator(); 
+	IRBuilder<> builder(terminator);
+	Value* loadedCounter = builder.CreateLoad(builder.getInt32Ty(), counter, "loaded_counter"); 
+  IF.insertPrintfCall(M, terminator, "Counter: \%d\n", {loadedCounter});
+}
 
 void dumpModuleIR(llvm::Module &M, const std::string &Filename) {
   std::error_code EC;
@@ -37,6 +49,23 @@ void dumpModuleIR(llvm::Module &M, const std::string &Filename) {
   M.print(OS, nullptr);
 }
 
+void createOutputDirectories(Module &M) {
+	std::error_code EC;
+	string moduleSource = std::filesystem::path(M.getSourceFileName()).parent_path();
+	if(moduleSource.size()) {
+		sys::fs::create_directories("/tmp/graphs/" + moduleSource);
+		sys::fs::create_directories("/tmp/llfiles/" + moduleSource);
+	}
+	else {
+		sys::fs::create_directories("/tmp/graphs/");
+		sys::fs::create_directories("/tmp/llfiles/");
+	}
+
+
+	if(EC) {
+		errs() << "Error creating directory: " << EC.message() << "\n";
+	}
+}
 
 using namespace llvm;
 using namespace std;
@@ -53,12 +82,27 @@ struct DOTGraphTraits<Function*> : public DefaultDOTGraphTraits {
 	}
 };
 
+void dumpNodesToJson(DAG* dag, Module& M) {
+	error_code EC;
+	string moduleSourceFilename = filesystem::path(M.getSourceFileName()).filename().string();
+	string moduleSourceDirname = filesystem::path(M.getSourceFileName()).parent_path().string();
+	sys::fs::create_directories(".nodes/" + moduleSourceDirname);
+	if(EC) {
+		errs() << "Error creating directory: " << EC.message() << "\n";
+	}
+	string jsonFilename = ".nodes/" + moduleSourceDirname + "/" + moduleSourceFilename + ".json";
+	dag->exportNodesToJson(jsonFilename);
+}
+
 PreservedAnalyses PathInstrumentation::run(Module &M, ModuleAnalysisManager &MAM) {
+	createOutputDirectories(M);
+	string moduleSourceFilename = filesystem::path(M.getSourceFileName()).filename().string();
 	FunctionAnalysisManager &FAM = 
 		MAM.getResult<FunctionAnalysisManagerModuleProxy>(M)
 		.getManager();
 		std::string IRFilename = "/tmp/llfiles/" + M.getName().str() + ".ll";
 		std::string IRFilename2 = "/tmp/llfiles/" + M.getName().str() + "post_transformation" + ".ll";
+		long lastAssignedId = 0;
 	for(Function &F : M) {
 		if(F.isDeclaration() || F.isIntrinsic()) continue;
 
@@ -68,18 +112,19 @@ PreservedAnalyses PathInstrumentation::run(Module &M, ModuleAnalysisManager &MAM
 		std::error_code EC;
 		raw_fd_ostream File(Filename, EC, sys::fs::OF_Text);
 
-		bool isSimple = false;  // Set to false to include more details
-		/* WriteGraph(File, &F, isSimple); */
 
 		const auto dag = DAG::createFromFunction(F, FAM);
 		if(dag) {
 			dag->assignEdgeValues();
-			dag->printEdgeValues();
+			/* dag->printEdgeValues(); */
 			AllocaInst* counter = insertPathCounter(F);
-			errs() << "Path counter inserted in function " + F.getName() + "\n";
 			CFGTransformer::addInstrumentedEdges(*dag, counter);
+			BasicBlock* exitBlock = dag->getExit()->getBlock();
+			insertPrintOfCounter(F, *exitBlock, counter);
+			dag->assignNodeIds(lastAssignedId);
+			dumpNodesToJson(dag, M);
 		}
-		WriteGraph(File, &F, isSimple);
+		WriteGraph(File, &F, false);
 	}
 	dumpModuleIR(M, IRFilename);
 

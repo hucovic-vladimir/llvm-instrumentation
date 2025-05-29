@@ -7,14 +7,6 @@
 
 using namespace llvm;
 
-void insertPrintOfCounter(Function &F, BasicBlock& exit, AllocaInst* counter) {
-	InstrumentationFunctions IF(F.getContext());
-	Module &M = *F.getParent();
-
-	Instruction* terminator = exit.getTerminator(); 
-	IRBuilder<> builder(terminator);
-  IF.insertPrintfCall(M, terminator, "Counter: \%d\n", {counter});
-}
 
 void CFGTransformer::transformToSingleExit(Function &F) {
 	if(F.size() == 1) {
@@ -79,17 +71,12 @@ void CFGTransformer::createNewReturnInstruction(BasicBlock* newExitBlock, bool f
 
 void insertPathCounterIncrement(BasicBlock& edge, int edgeValue, AllocaInst* pathCounterVar) {
 	IRBuilder<> builder(&edge);
-	LLVMContext& context = edge.getContext();
 	Value* currentValue = builder.CreateLoad(builder.getInt32Ty(), pathCounterVar, "current_value");
 	Value* newValue = builder.CreateAdd(currentValue, builder.getInt32(edgeValue), "new_value");
 	builder.CreateStore(newValue, pathCounterVar);
 }
 
 void CFGTransformer::addInstrumentedEdges(BasicBlock& start, DAG& dag, AllocaInst* pathCounterVar) {
-	if(CFGAnalysis::getSingleExit(*dag.getFunction()) == &start) {
-		insertPrintOfCounter(*dag.getFunction(), start, pathCounterVar);
-	}
-
 	// Make a copy of successors
 	std::vector<BasicBlock*> successorBlocks;
 	for (BasicBlock* succ : successors(&start)) {
