@@ -31,7 +31,6 @@
 namespace fs = std::filesystem;
 
 using blockWrapperMap = std::unordered_map<BasicBlock*, BasicBlockWrapper*>;
-using blockCovers = std::map<BasicBlock*, std::set<BasicBlock*>>;
 blockWrapperMap wrappers;
 
 void pushBlockSuccessors(BasicBlock* patternExitBlock, std::vector<BasicBlock*> &blockQueue, std::vector<BasicBlock*> &processed) {

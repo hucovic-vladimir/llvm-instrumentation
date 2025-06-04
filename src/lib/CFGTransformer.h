@@ -9,6 +9,9 @@ class CFGTransformer {
 		static void transformToSingleExit(Function &F);
 		static void addInstrumentedEdges(DAG& dag, AllocaInst* pathCounterVar);
 		static void addInstrumentedEdges(BasicBlock& start, DAG& dag, AllocaInst* pathCounterVar);
+		static void insertPathCounterIncrement(BasicBlock& edge, int edgeValue, AllocaInst* pathCounterVar);
+		static void resetCounterAlongBackedge(AllocaInst* counter, BasicBlock* backEdge);
+		static void insertPrintOfCounter(Function &F, BasicBlock& exit, AllocaInst* counter);
 	private:
 		static void getReturnInstructions(Function &F, std::vector<ReturnInst*> &returnInstructions);
 		static void redirectReturns(std::vector<ReturnInst*> &returnInstructions, PHINode* phiInstruction, bool funcReturnsVoid, BasicBlock* newExitBlock); 

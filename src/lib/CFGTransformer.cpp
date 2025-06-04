@@ -25,8 +25,6 @@ void CFGTransformer::transformToSingleExit(Function &F) {
 
 	PHINode* retValuePhi = returnsVoid ?
 		nullptr : builder.CreatePHI(returnType, 0, "unified_exit.return.val");
-
-	errs() << "Redirection happened in function " + F.getName() + "\n";
 	redirectReturns(returnInstructions, retValuePhi, returnsVoid, newExitBlock);
 	createNewReturnInstruction(newExitBlock, returnsVoid, retValuePhi);
 }
@@ -69,11 +67,28 @@ void CFGTransformer::createNewReturnInstruction(BasicBlock* newExitBlock, bool f
 }
 
 
-void insertPathCounterIncrement(BasicBlock& edge, int edgeValue, AllocaInst* pathCounterVar) {
+void CFGTransformer::insertPathCounterIncrement(BasicBlock& edge, int edgeValue, AllocaInst* pathCounterVar) {
 	IRBuilder<> builder(&edge);
 	Value* currentValue = builder.CreateLoad(builder.getInt32Ty(), pathCounterVar, "current_value");
 	Value* newValue = builder.CreateAdd(currentValue, builder.getInt32(edgeValue), "new_value");
 	builder.CreateStore(newValue, pathCounterVar);
+}
+
+void CFGTransformer::resetCounterAlongBackedge(AllocaInst* counter, BasicBlock* backEdge) {
+	IRBuilder<> builder(backEdge);
+	builder.SetInsertPoint(backEdge->getTerminator());
+	builder.CreateStore(builder.getInt32(0), counter);
+} 
+
+void CFGTransformer::insertPrintOfCounter(Function &F, BasicBlock& exit, AllocaInst* counter) {
+    InstrumentationFunctions IF(F.getContext());
+    Module &M = *F.getParent();
+    
+    Instruction* term = exit.getTerminator(); 
+    IRBuilder<> builder(term);
+    
+    Value* loadedCounter = builder.CreateLoad(builder.getInt32Ty(), counter, "loaded_counter"); 
+    IF.insertPrintfCall(M, term, "Counter: \%d\n", {loadedCounter});
 }
 
 void CFGTransformer::addInstrumentedEdges(BasicBlock& start, DAG& dag, AllocaInst* pathCounterVar) {
@@ -87,20 +102,24 @@ void CFGTransformer::addInstrumentedEdges(BasicBlock& start, DAG& dag, AllocaIns
 		if (&start == succ) continue;
 
 		// Get the edge value
-		int edgeValue = dag.findEdge(&start, succ).getValue();
-		errs() << "Edge Value: " << edgeValue << "\n";
-
-		if (edgeValue != 0) {
+		GraphEdge* edge = dag.findEdge(&start, succ);
+		if(edge == nullptr) {
+			edge = dag.findBackedge(&start, succ);
+			assert(edge != nullptr && "Back edge not found");
+		}
+		int edgeValue = edge->getValue();
+		if (edgeValue != 0 || edge->isBackedge) {
 			// Create the new block
 			BasicBlock* instrumentedBasicBlock = BasicBlock::Create(
 					start.getContext(), 
-					/* start.getName() + ".to." + succ->getName(), */ 
 					"EDGE +" + std::to_string(edgeValue) + "_" +start.getName(),
 					start.getParent(), 
 					succ
 					);
 
-			insertPathCounterIncrement(*instrumentedBasicBlock, edgeValue, pathCounterVar);
+			if(edgeValue != 0) {
+				insertPathCounterIncrement(*instrumentedBasicBlock, edgeValue, pathCounterVar);
+			}
 
 			// TODO: Handle other possible terminator instructions
 
@@ -109,6 +128,12 @@ void CFGTransformer::addInstrumentedEdges(BasicBlock& start, DAG& dag, AllocaIns
 
 			updatePHINodes(start, succ, instrumentedBasicBlock);
 			redirectTerminatorOperands(start, succ, instrumentedBasicBlock);
+
+			if(edge->isBackedge) {
+				insertPrintOfCounter(*start.getParent(), *instrumentedBasicBlock, pathCounterVar);
+				// errs() << "Instr. block: \n";
+				// instrumentedBasicBlock->print(errs());
+			}
 		}
 	}
 }

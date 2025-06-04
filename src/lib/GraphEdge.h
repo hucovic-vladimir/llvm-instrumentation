@@ -15,9 +15,10 @@ class GraphEdge {
 		void assignValue(int value) { this->value = value; }
 		int getValue() const { return value; }
 		friend raw_ostream& operator<<(raw_ostream& OS, GraphEdge& edge) {
-			OS << "GraphEdge: " << edge.getSrc()->getName() << " -> " << edge.getDst()->getName();
+			OS << "GraphEdge: " << edge.getSrc()->getName() << " -> " << edge.getDst()->getName() << ", value: " << edge.value;
 			return OS;
 		}
+		bool isBackedge = false;
 
 	private:
 		GraphNode* src;

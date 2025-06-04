@@ -4,15 +4,17 @@
 
 using namespace std;
 
+int GraphNode::lastNodeId = 0;
+
 void GraphNode::assignSuccessors(DAG* graph)  {
-	for(auto& edge : graph->getEdges()) {
-		if(*edge.getSrc() == *this) {
-			successors.push_back(edge.getDst());
+	for(auto edge : graph->getEdges()) {
+		if(edge->getSrc()->id == this->id) {
+			successors.push_back(edge->getDst());
 		}
 	}
 }
 
-std::string GraphNode::toJson(unsigned depth) const {
+std::string GraphNode::toJson(DAG* dag, unsigned depth) const {
 	auto tabs = PassUtilities::getTabs; 
 	std::stringstream ss;
 	ss << tabs(depth) << "{\n";
@@ -21,9 +23,10 @@ std::string GraphNode::toJson(unsigned depth) const {
 	ss << tabs(depth+1) << "\"name\": \"" << block->getName().str() << "\",\n";
 	ss << tabs(depth+1) << "\"successors\": [";
 	for (size_t i = 0; i < successors.size(); ++i) {
+		GraphEdge* edge = dag->findEdge(*this, *successors[i]);
 		ss << "{ "; 
 		ss << "\"id\": " << successors[i]->getId() << ", ";
-		ss << "\"edgeValue\": \"" << successors[i]->getId() << "\"";
+		ss << "\"edgeValue\": \"" << edge->getValue() << "\"";
 		ss << " }";
 		if (i < successors.size() - 1) ss << ", ";
 	}

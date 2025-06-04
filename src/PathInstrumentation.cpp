@@ -9,11 +9,16 @@
 #include "../headers/PathInstrumentation.h"
 #include "lib/CFGTransformer.h"
 #include "llvm/Analysis/CycleAnalysis.h"
+#include "llvm/IR/Dominators.h"
 #include "lib/DAG.h"
+#include "lib/SpanningTree.h"
 #include "llvm/Support/GraphWriter.h"
 #include "llvm/IR/Verifier.h"
 #include "../headers/InstrumentationFunctions.h"
 #include <filesystem>
+
+using namespace llvm;
+using namespace std;
 
 AllocaInst* insertPathCounter(Function &F) {
 	BasicBlock& entry = F.getEntryBlock();
@@ -23,17 +28,6 @@ AllocaInst* insertPathCounter(Function &F) {
 	AllocaInst* pathCounterVar = builder.CreateAlloca(Type::getInt32Ty(context), nullptr, "__path_counter");
 	builder.CreateStore(builder.getInt32(0), pathCounterVar);
 	return pathCounterVar;
-}
-
-
-void insertPrintOfCounter(Function &F, BasicBlock& exit, AllocaInst* counter) {
-	InstrumentationFunctions IF(F.getContext());
-	Module &M = *F.getParent();
-
-	Instruction* terminator = exit.getTerminator(); 
-	IRBuilder<> builder(terminator);
-	Value* loadedCounter = builder.CreateLoad(builder.getInt32Ty(), counter, "loaded_counter"); 
-  IF.insertPrintfCall(M, terminator, "Counter: \%d\n", {loadedCounter});
 }
 
 void dumpModuleIR(llvm::Module &M, const std::string &Filename) {
@@ -67,9 +61,6 @@ void createOutputDirectories(Module &M) {
 	}
 }
 
-using namespace llvm;
-using namespace std;
-
 template<>
 struct DOTGraphTraits<Function*> : public DefaultDOTGraphTraits {
 	DOTGraphTraits(bool isSimple = false) : DefaultDOTGraphTraits(isSimple) {}
@@ -102,7 +93,6 @@ PreservedAnalyses PathInstrumentation::run(Module &M, ModuleAnalysisManager &MAM
 		.getManager();
 		std::string IRFilename = "/tmp/llfiles/" + M.getName().str() + ".ll";
 		std::string IRFilename2 = "/tmp/llfiles/" + M.getName().str() + "post_transformation" + ".ll";
-		long lastAssignedId = 0;
 	for(Function &F : M) {
 		if(F.isDeclaration() || F.isIntrinsic()) continue;
 
@@ -111,18 +101,32 @@ PreservedAnalyses PathInstrumentation::run(Module &M, ModuleAnalysisManager &MAM
 		std::string Filename = "/tmp/graphs/" + F.getName().str() + ".dot";
 		std::error_code EC;
 		raw_fd_ostream File(Filename, EC, sys::fs::OF_Text);
+		GraphNode::resetLastId();
 
 
 		const auto dag = DAG::createFromFunction(F, FAM);
 		if(dag) {
 			dag->assignEdgeValues();
+			// dag->determineInstrumentedChords();
 			/* dag->printEdgeValues(); */
 			AllocaInst* counter = insertPathCounter(F);
 			CFGTransformer::addInstrumentedEdges(*dag, counter);
 			BasicBlock* exitBlock = dag->getExit()->getBlock();
-			insertPrintOfCounter(F, *exitBlock, counter);
-			dag->assignNodeIds(lastAssignedId);
+			CFGTransformer::insertPrintOfCounter(F, *exitBlock, counter);
 			dumpNodesToJson(dag, M);
+			errs() << dag->toStr();
+			errs() << "Getting MCST of " << dag->getFunction()->getName() << "\n";
+			vector<GraphEdge*> mcst = SpanningTree::kruskalMaxSpanningTree(dag);
+			errs() << "MCST: \n";
+			for(auto e: mcst) {
+				errs() << *e << "\n";
+			}
+			errs() << "Chords:" << "\n";
+			for(auto e: dag->getEdges()) {
+				if(std::find(mcst.begin(), mcst.end(), e) == mcst.end()) {
+					errs() << *e << "\n";
+				}
+			}
 		}
 		WriteGraph(File, &F, false);
 	}
@@ -152,6 +156,10 @@ PassPluginLibraryInfo getPathInstrumentationPluginInfo() {
 		PB.registerAnalysisRegistrationCallback(
 				[](FunctionAnalysisManager &FAM) {
 					FAM.registerPass([&] { return CycleAnalysis(); });
+				});
+		PB.registerAnalysisRegistrationCallback(
+				[](FunctionAnalysisManager &FAM) {
+					FAM.registerPass([&] { return DominatorTreeAnalysis(); });
 				});
 	};
 	return {LLVM_PLUGIN_API_VERSION, "path-instrumentation", "v0.1", callback};
