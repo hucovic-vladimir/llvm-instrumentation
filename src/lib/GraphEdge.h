@@ -6,6 +6,14 @@
 
 using namespace std; using namespace llvm;
 
+enum class EdgeType {
+	Normal,
+	Backedge,
+	DummyEdgeToExit,
+	DummyEdgeFromEntry,
+	DummyEdgeExitToEntry,
+};
+
 class GraphEdge {
 	public:
 		GraphEdge(BasicBlock* src, BasicBlock* dst) : src(new GraphNode(src)), dst(new GraphNode(dst)) {}
@@ -18,12 +26,23 @@ class GraphEdge {
 			OS << "GraphEdge: " << edge.getSrc()->getName() << " -> " << edge.getDst()->getName() << ", value: " << edge.value;
 			return OS;
 		}
-		bool isBackedge = false;
+		int getIncrementValue() const { return incrementValue; };
+		void setIncrementValue(int value) { incrementValue = value; }
+		bool isBackedge() const { return edgeType == EdgeType::Backedge; }
+		bool isDummyEdgeToExit() const { return edgeType == EdgeType::DummyEdgeToExit; }
+		bool isDummyEdgeFromEntry() const { return edgeType == EdgeType::DummyEdgeFromEntry; }
+		bool isDummyEdgeExitToEntry() const { return edgeType == EdgeType::DummyEdgeExitToEntry; }
+		bool isNormal() const { return edgeType == EdgeType::Normal; }
+		void setEdgeType(EdgeType type) { edgeType = type; }
+		bool isChord() const { return chord; }
 
 	private:
 		GraphNode* src;
 		GraphNode* dst;
 		int value = 0;
+		int incrementValue = 0;
+		EdgeType edgeType = EdgeType::Normal;
+		bool chord = false;
 };
 
 namespace std {

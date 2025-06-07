@@ -1,5 +1,6 @@
 #include "DAG.h"
 #include "CFGAnalysis.h"
+#include "SpanningTree.h"
 #include "llvm/IR/CFG.h"
 #include "llvm/Support/JSON.h"
 #include "llvm/Support/MemoryBuffer.h"
@@ -57,20 +58,29 @@ DAG::DAG(Function &F, FunctionAnalysisManager &FAM) : entry(nullptr), exit(nullp
 			}
 
 			// Create the edge
+			GraphEdge* backedge = nullptr;
+			GraphEdge* dummyEdge = nullptr;
 			if(backEdges.find(&BB) != backEdges.end() && backEdges[&BB] == succ) {
+				// Record a backedge
+				backedge = new GraphEdge(srcNode, dstNode);
+				backedge->setEdgeType(EdgeType::Backedge);
+				this->backEdges.push_back(backedge);
 				// If this is a back edge, add the dummy edge entry -> target of backEdge
 				if(!hasDummyEdgeFromEntry[succ]) {
-					edges.push_back(new GraphEdge(entry, dstNode));
+					dummyEdge = new GraphEdge(entry, dstNode);
+					edges.push_back(dummyEdge);
 					hasDummyEdgeFromEntry[succ] = true;
+					dummyEdgeToBackedgeMap[dummyEdge] = backedge;
+					dummyEdge->setEdgeType(EdgeType::DummyEdgeFromEntry);
 				}
 				// And the dummy edge source -> exit
 				if(!hasDummyEdgeToExit[&BB]) {
-					edges.push_back(new GraphEdge(srcNode, exit));
+					dummyEdge = new GraphEdge(srcNode, exit);
+					edges.push_back(dummyEdge);
 					hasDummyEdgeToExit[&BB] = true;
+					dummyEdgeToBackedgeMap[dummyEdge] = backedge;
+					dummyEdge->setEdgeType(EdgeType::DummyEdgeToExit);
 				}
-				GraphEdge* backedge = new GraphEdge(srcNode, dstNode);
-				backedge->isBackedge = true;
-				this->backEdges.push_back(backedge);
 				continue;
 			}
 			edges.push_back(new GraphEdge(srcNode, dstNode));
@@ -80,8 +90,12 @@ DAG::DAG(Function &F, FunctionAnalysisManager &FAM) : entry(nullptr), exit(nullp
 	for (auto& node : nodes) {
 		node->assignSuccessors(this);
 	}
-	if(exitBlock != entryBlock)
+	if(exitBlock != entryBlock) {
 		nodes.push_back(exit);
+		GraphEdge* dummyEdge = new GraphEdge(exit, entry);
+		dummyEdge->setEdgeType(EdgeType::DummyEdgeExitToEntry);
+		edges.push_back(dummyEdge);
+	}
 }
 
 bool DAG::hasUnreachable(BasicBlock& BB) {
@@ -95,25 +109,38 @@ bool DAG::hasUnreachable(BasicBlock& BB) {
 
 string DAG::toStr() {
 	stringstream ss;
-	unordered_map<GraphNode*, vector<GraphNode*>> edgeMap;
-	for (auto edge : edges) {
-		edgeMap[edge->getSrc()].push_back(edge->getDst());
-	}
 	ss << "Function: " << function->getName().str() << "\n";
 	ss << "Entry: " << entry->getName() << "\n";
 	ss << "Exit: "  << exit->getName() << "\n";
 	ss << "Edges :\n";
-	for(auto node : nodes) {
-		if (edgeMap.find(node) != edgeMap.end()) {
-			for (auto& succ : edgeMap[node]) {
-				ss << "\t" << node->getName() << " -> ";
-				ss << succ->getName() << ", val: " << findEdge(*node, *succ)->getValue() << "\n";
-			}
-		}
-		else {
-			ss << "\t" << node->getName() <<  " -> END\n";
-		}
+
+	vector<GraphNode*> revTopoOrder = getReverseTopologicalOrder();
+	vector<GraphNode*> topoOrder(revTopoOrder.rbegin(), revTopoOrder.rend());
+
+	// Create a map from node to its topological position
+	unordered_map<GraphNode*, int> topoPosition;
+	for(int i = 0; i < topoOrder.size(); i++) {
+		topoPosition[topoOrder[i]] = i;
 	}
+
+	// Sort edges by topological order of source node, then by destination node
+	vector<GraphEdge*> sortedEdges = edges;
+	std::sort(sortedEdges.begin(), sortedEdges.end(), [&](GraphEdge* a, GraphEdge* b) {
+			int srcPosA = topoPosition[a->getSrc()];
+			int srcPosB = topoPosition[b->getSrc()];
+			if(srcPosA != srcPosB) {
+			return srcPosA < srcPosB; // Earlier in topo order comes first
+			}
+			// If same source, sort by destination
+			return topoPosition[a->getDst()] < topoPosition[b->getDst()];
+			});
+
+	// Print sorted edges
+	for(auto edge : sortedEdges) {
+		ss << "\t" << edge->getSrc()->getName() << " -> ";
+		ss << edge->getDst()->getName() << ", val: " << edge->getValue() << "\n";
+	}
+
 	for(auto node : nodes) {
 		ss << node->toStr();
 	}
@@ -145,8 +172,11 @@ void DAG::dfsTopologicalSort(GraphNode* node, unordered_set<GraphNode*>& visited
 }
 
 void DAG::assignEdgeValues() {
-	edges.push_back(new GraphEdge(exit, entry)); 
 	vector<GraphNode*> reverseTopoOrder = getReverseTopologicalOrder();
+	errs() << "Reverse Topological Order:\n";
+	for (auto node : reverseTopoOrder) {
+		errs() << "\t" << node->getName() << "\n";
+	}
 	map<GraphNode*, int> numPaths;
 	for(auto* node : reverseTopoOrder) {
 		if(node == exit) {
@@ -155,10 +185,18 @@ void DAG::assignEdgeValues() {
 		else {
 			numPaths[node] = 0;
 			for(auto edge : edges) {
+				if(edge->isDummyEdgeExitToEntry()) {
+					continue;
+				}
 				GraphNode* src = edge->getSrc();
 				if(src == node) {
+				errs() << "Processing edge: " << edge->getSrc()->getName() << " -> " << edge->getDst()->getName() << "\n";
+					errs() << "Num paths from " << src->getName() << " to exit: " << numPaths[exit] << "\n";
+					errs() << "Assigning value " << numPaths[src] << " to edge: " << edge->getSrc()->getName() << " -> " << edge->getDst()->getName() << "\n";
+					errs() << "Edge address: " << edge << "\n";
 					edge->assignValue(numPaths[src]);
 					numPaths[edge->getSrc()] += numPaths[edge->getDst()];
+					errs() << "Updated num paths for " << edge->getSrc()->getName() << ": " << numPaths[edge->getSrc()] << "\n";
 				}
 			}
 		}
@@ -226,7 +264,7 @@ void DAG::eachEdge(
 
 void DAG::eachNode(
 		std::function<void(GraphNode*)> func) {
-	for (auto& node : nodes) {
+	for (auto node : nodes) {
 		func(node);
 	}
 }
@@ -249,8 +287,61 @@ GraphEdge* DAG::findBackedge(BasicBlock* src, BasicBlock* dst) {
 	return nullptr;
 }
 
-void DAG::determineInstrumentedChords() {
-
+GraphEdge* DAG::findChord(BasicBlock* src, BasicBlock* dst) {
+	for(auto edge : chords) {
+		if(edge->getSrc()->getBlock() == src && edge->getDst()->getBlock() == dst) {
+			return edge;
+		}
+	}
+	return nullptr;
 }
 
+int dir(GraphEdge* e, GraphEdge* f) {
+	if(e == nullptr)
+		return 1;
+	bool cond = (e->getSrc() == f->getSrc() || e->getSrc() == f->getDst() || e->getDst() == f->getSrc() || e->getDst() == f->getDst());
+	assert(cond && "Edges are not connected, cannot determine direction");
+	if(e->getSrc() == f->getDst() || e->getDst() == f->getSrc())
+		return 1;
+	 return -1;
+}
+
+void DAG::eventCountingDFS() {
+	getChordsAndSpanningTree();
+	for(GraphEdge* e : chords) {
+		e->setIncrementValue(0);
+	}
+	eventCountingDFS(0, this->entry, nullptr);
+	for(GraphEdge* e : chords) {
+		e->setIncrementValue(e->getIncrementValue() + e->getValue());
+	}
+}
+
+void DAG::eventCountingDFS(int events, GraphNode* node, GraphEdge* edge) {
+	for(GraphEdge* f : spanningTree) {
+		if(f->getDst() == node && edge != f) {
+			eventCountingDFS(dir(edge, f) * events + f->getValue(), f->getSrc(), f);
+		}
+		else if(f->getSrc() == node && edge != f) {
+			eventCountingDFS(dir(edge, f) * events + f->getValue(), f->getDst(), f);
+		}
+	}
+	for(GraphEdge* c : chords) {
+		if(c->getSrc() == node || c->getDst() == node) {
+			c->setIncrementValue(c->getIncrementValue() + dir(edge, c) * events);
+		}
+	}
+}
+
+void DAG::getChordsAndSpanningTree() {
+	vector<GraphEdge*> spanningTree = SpanningTree::kruskalMaxSpanningTree(this);
+	vector<GraphEdge*> chords;
+	for(GraphEdge* e : this->edges) {
+		if(std::find(spanningTree.begin(), spanningTree.end(), e) == spanningTree.end()) {
+			chords.push_back(e);
+		}
+	}
+	this->spanningTree = spanningTree;
+	this->chords = chords;
+}
 

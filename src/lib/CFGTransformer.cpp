@@ -17,7 +17,7 @@ void CFGTransformer::transformToSingleExit(Function &F) {
 	if(returnInstructions.size() == 1) {
 		return;
 	}
-	
+
 	BasicBlock* newExitBlock = BasicBlock::Create(F.getContext(), "unified_exit", &F);
 	IRBuilder<> builder(newExitBlock);
 	Type* returnType = F.getReturnType();
@@ -81,77 +81,199 @@ void CFGTransformer::resetCounterAlongBackedge(AllocaInst* counter, BasicBlock* 
 } 
 
 void CFGTransformer::insertPrintOfCounter(Function &F, BasicBlock& exit, AllocaInst* counter) {
-    InstrumentationFunctions IF(F.getContext());
-    Module &M = *F.getParent();
-    
-    Instruction* term = exit.getTerminator(); 
-    IRBuilder<> builder(term);
-    
-    Value* loadedCounter = builder.CreateLoad(builder.getInt32Ty(), counter, "loaded_counter"); 
-    IF.insertPrintfCall(M, term, "Counter: \%d\n", {loadedCounter});
+	InstrumentationFunctions IF(F.getContext());
+	Module &M = *F.getParent();
+
+	Instruction* term = exit.getTerminator(); 
+	IRBuilder<> builder(term);
+
+	Value* loadedCounter = builder.CreateLoad(builder.getInt32Ty(), counter, "loaded_counter"); 
+	IF.insertPrintfCall(M, term, "Counter: \%d\n", {loadedCounter});
 }
 
-void CFGTransformer::addInstrumentedEdges(BasicBlock& start, DAG& dag, AllocaInst* pathCounterVar) {
-	// Make a copy of successors
-	std::vector<BasicBlock*> successorBlocks;
-	for (BasicBlock* succ : successors(&start)) {
-		successorBlocks.push_back(succ);
+void CFGTransformer::instrumentChords(DAG* dag, AllocaInst* pathCounterVar) {
+	Function* F = dag->getFunction();
+	if (F->empty() || F->size() == 1) {
+		return;
 	}
 
-	for (BasicBlock* succ : successorBlocks) {
-		if (&start == succ) continue;
+	vector<GraphEdge*> chords = dag->getChords();
+	for(auto chord : chords) {
+		BasicBlock* src = chord->getSrc()->getBlock();
+		BasicBlock* dst = chord->getDst()->getBlock();
 
-		// Get the edge value
-		GraphEdge* edge = dag.findEdge(&start, succ);
-		if(edge == nullptr) {
-			edge = dag.findBackedge(&start, succ);
-			assert(edge != nullptr && "Back edge not found");
-		}
-		int edgeValue = edge->getValue();
-		if (edgeValue != 0 || edge->isBackedge) {
-			// Create the new block
-			BasicBlock* instrumentedBasicBlock = BasicBlock::Create(
-					start.getContext(), 
-					"EDGE +" + std::to_string(edgeValue) + "_" +start.getName(),
-					start.getParent(), 
-					succ
-					);
-
-			if(edgeValue != 0) {
-				insertPathCounterIncrement(*instrumentedBasicBlock, edgeValue, pathCounterVar);
-			}
-
-			// TODO: Handle other possible terminator instructions
-
-			IRBuilder<> builderNewBlock(instrumentedBasicBlock);
-			builderNewBlock.CreateBr(succ);
-
-			updatePHINodes(start, succ, instrumentedBasicBlock);
-			redirectTerminatorOperands(start, succ, instrumentedBasicBlock);
-
-			if(edge->isBackedge) {
-				insertPrintOfCounter(*start.getParent(), *instrumentedBasicBlock, pathCounterVar);
-				// errs() << "Instr. block: \n";
-				// instrumentedBasicBlock->print(errs());
+		bool dummy = true;
+		for(auto succ : successors(src)) {
+			if(dst == succ) {
+				BasicBlock* edgeBlock = insertEdgeBlockBetween(src, dst);
+				instrumentEdge(edgeBlock, pathCounterVar, chord->getIncrementValue());
+				dummy = false;
 			}
 		}
+		if(dummy && dst != dag->getEntry()->getBlock() && src != dag->getExit()->getBlock()) {
+			// No actual edge like that found in the original CFG
+			// It means that it is either a dummy edge from entry to target of backedge
+			// or it is ad ummy edge from source of backedge to exit
+			// New edge will be created just before the target of the backEdge and instrumented
+			// with the dummy edge's (entry -> dest) increment
+			GraphEdge* actualBackedge = dag->getBackedgeFromDummyEdge(chord);
+			if(actualBackedge) {
+				if(chord->isDummyEdgeToExit()) {
+					// Should increment in the same block or in an edge after it
+					instrumentEdge(chord->getSrc()->getBlock(), pathCounterVar, chord->getIncrementValue());
+				}
+				else if(chord->isDummyEdgeFromEntry()) {
+					// Should determine the starting value of the counter when resetting along backedge
+					BasicBlock* edgeBlock = insertEdgeBlockBetween(actualBackedge->getSrc()->getBlock(), actualBackedge->getDst()->getBlock());
+					instrumentEdge(edgeBlock, pathCounterVar, chord->getIncrementValue());
+				}
+				else {
+					assert(false && "Dummy chord should be either a dummy edge to exit or a dummy edge from entry\n");
+				}
+			}
+			else {
+				assert(chord->isDummyEdgeToExit() && "Dummy chord should be a dummy edge from exit to entry\n");
+				instrumentEdge(chord->getSrc()->getBlock(), pathCounterVar, chord->getIncrementValue());
+			}
+		}
+
+		if (src == dst) continue; // Skip self-loops
 	}
 }
 
-void CFGTransformer::addInstrumentedEdges(DAG& dag, AllocaInst* pathCounterVar) {
-    Function* F = dag.getFunction();
-    if (F->empty() || F->size() == 1) {
-        return;
-    }
-    
-    std::vector<BasicBlock*> blocks;
-    for (BasicBlock& BB : *F) {
-        blocks.push_back(&BB);
-    }
-    
-    for (BasicBlock* BB : blocks) {
-        if (!succ_empty(BB)) {
-            addInstrumentedEdges(*BB, dag, pathCounterVar);
-        }
-    }
+BasicBlock* CFGTransformer::insertEdgeBlockBetween(BasicBlock* src, BasicBlock* dst) {
+	// Get the function context
+	Function* function = src->getParent();
+	LLVMContext& context = function->getContext();
+
+	// Create a new basic block
+	BasicBlock* newBlock = BasicBlock::Create(context, "EDGE " + src->getName() + " -> " + dst->getName() , function);
+
+	// Get the terminator instruction of the source block
+	Instruction* srcTerminator = src->getTerminator();
+
+	// Handle different types of terminators
+	if (BranchInst* branchInst = dyn_cast<BranchInst>(srcTerminator)) {
+		if (branchInst->isUnconditional()) {
+			// Unconditional branch: src -> dst becomes src -> newBlock -> dst
+			assert(branchInst->getSuccessor(0) == dst && "Unconditional branch target mismatch");
+
+			// Update the branch to point to newBlock
+			branchInst->setSuccessor(0, newBlock);
+		} else {
+			// Conditional branch: update the appropriate successor
+			for (unsigned i = 0; i < branchInst->getNumSuccessors(); ++i) {
+				if (branchInst->getSuccessor(i) == dst) {
+					branchInst->setSuccessor(i, newBlock);
+					break;
+				}
+			}
+		}
+	} else if (SwitchInst* switchInst = dyn_cast<SwitchInst>(srcTerminator)) {
+		// Handle switch instruction
+		// Update default case if it points to dst
+		if (switchInst->getDefaultDest() == dst) {
+			switchInst->setDefaultDest(newBlock);
+		}
+
+		// Update any case that points to dst
+		for (auto& switchCase : switchInst->cases()) {
+			if (switchCase.getCaseSuccessor() == dst) {
+				switchCase.setSuccessor(newBlock);
+			}
+		}
+	} else if (InvokeInst* invokeInst = dyn_cast<InvokeInst>(srcTerminator)) {
+		// Handle invoke instruction (has normal and unwind destinations)
+		if (invokeInst->getNormalDest() == dst) {
+			invokeInst->setNormalDest(newBlock);
+		} else if (invokeInst->getUnwindDest() == dst) {
+			invokeInst->setUnwindDest(newBlock);
+		}
+	}
+
+	// Update PHI nodes in dst to reference newBlock instead of src
+	for (Instruction& inst : *dst) {
+		if (PHINode* phi = dyn_cast<PHINode>(&inst)) {
+			// Find incoming values from src and update them to come from newBlock
+			for (unsigned i = 0; i < phi->getNumIncomingValues(); ++i) {
+				if (phi->getIncomingBlock(i) == src) {
+					phi->setIncomingBlock(i, newBlock);
+				}
+			}
+		} else {
+			// PHI nodes are always at the beginning of a block
+			break;
+		}
+	}
+
+	// Create an unconditional branch from newBlock to dst
+	BranchInst::Create(dst, newBlock);
+
+	return newBlock;
+}
+
+void CFGTransformer::instrumentEdge(BasicBlock* edge, AllocaInst* counter, int edgeIncrement) {
+	// Create an IR builder for the edge block
+	IRBuilder<> builder(edge->getTerminator());
+
+	// Load the current value of the counter
+	Value* currentValue = builder.CreateLoad(builder.getInt32Ty(), counter, "current_value");
+
+	// Increment the counter by the edge increment value
+	Value* newValue = builder.CreateAdd(currentValue, builder.getInt32(edgeIncrement), "new_value");
+
+	// Store the new value back to the counter
+	builder.CreateStore(newValue, counter);
+	StringRef oldName = edge->getName();
+	Twine newName = oldName + "\n" + (edgeIncrement >= 0 ? ("[ r = r +" + std::to_string(edgeIncrement) + " ]") : ("[ r = r - " + std::to_string(edgeIncrement) + " ]"));
+	edge->setName(newName);
+}
+
+void initializePathRegister(BasicBlock* where, AllocaInst* pathCounterVar, int initValue) {
+	IRBuilder<> builder(where->getTerminator());
+
+	Value* init = ConstantInt::get(Type::getInt32Ty(where->getContext()), initValue);
+	builder.CreateStore(init, pathCounterVar);
+
+	StringRef oldName = where->getName();
+	Twine newName = oldName + "\n [ r = " + std::to_string(initValue) + " ] ";
+	where->setName(newName);
+}
+
+void CFGTransformer::addInstrumentedEdges(DAG* dag, AllocaInst* pathCounterVar) {
+	BasicBlock* entryBlock = dag->getEntry()->getBlock();
+	initializePathRegister(entryBlock, pathCounterVar, 0);
+	for(GraphEdge* edge : dag->getEdges()) {
+		if(edge->isDummyEdgeExitToEntry())
+			errs() << "Dummy edge exit to entry: " << *edge << "\n";
+		if(edge->isBackedge())
+			errs() << "Backedge: " << *edge;
+		if(edge->isDummyEdgeFromEntry())
+			errs() << "Dummy edge from entry: " << *edge << "\n";
+		if(edge->isDummyEdgeToExit())
+			errs() << "Dummy edge to exit: " << *edge << "\n";
+		if(edge->isNormal())
+			errs() << "Normal edge: " << *edge << "\n";
+
+
+		if(edge->isNormal() && edge->getValue() != 0) {
+			BasicBlock* src = edge->getSrc()->getBlock();
+			BasicBlock* dst = edge->getDst()->getBlock();
+			BasicBlock* edgeBlock = insertEdgeBlockBetween(src, dst);
+			instrumentEdge(edgeBlock, pathCounterVar, edge->getValue());
+		}
+		else if(edge->isDummyEdgeFromEntry()) {
+			GraphEdge* actualBackedge = dag->getBackedgeFromDummyEdge(edge);
+			BasicBlock* backedgeSrc = actualBackedge->getSrc()->getBlock();
+			BasicBlock* backedgeDst = actualBackedge->getDst()->getBlock();
+			assert(actualBackedge && "Actual backedge exists for dummy edge\n");	
+			BasicBlock* edgeBlock = insertEdgeBlockBetween(backedgeSrc, backedgeDst);
+			initializePathRegister(edgeBlock, pathCounterVar, edge->getValue());
+		}
+		else if(edge->isDummyEdgeToExit() && edge->getValue() != 0) {
+			GraphEdge* actualBackedge = dag->getBackedgeFromDummyEdge(edge);
+			BasicBlock* backedgeSrc = actualBackedge->getSrc()->getBlock();
+			instrumentEdge(backedgeSrc, pathCounterVar, edge->getValue());
+		}
+	}
 }

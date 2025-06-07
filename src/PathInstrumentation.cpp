@@ -105,28 +105,37 @@ PreservedAnalyses PathInstrumentation::run(Module &M, ModuleAnalysisManager &MAM
 
 
 		const auto dag = DAG::createFromFunction(F, FAM);
+		errs() << dag->toStr();
 		if(dag) {
 			dag->assignEdgeValues();
+			errs() << dag->toStr();
+			// dag->eventCountingDFS();
 			// dag->determineInstrumentedChords();
 			/* dag->printEdgeValues(); */
 			AllocaInst* counter = insertPathCounter(F);
-			CFGTransformer::addInstrumentedEdges(*dag, counter);
+			CFGTransformer::addInstrumentedEdges(dag, counter);
+			// CFGTransformer::instrumentChords(dag, counter);
 			BasicBlock* exitBlock = dag->getExit()->getBlock();
 			CFGTransformer::insertPrintOfCounter(F, *exitBlock, counter);
 			dumpNodesToJson(dag, M);
-			errs() << dag->toStr();
-			errs() << "Getting MCST of " << dag->getFunction()->getName() << "\n";
-			vector<GraphEdge*> mcst = SpanningTree::kruskalMaxSpanningTree(dag);
-			errs() << "MCST: \n";
-			for(auto e: mcst) {
-				errs() << *e << "\n";
-			}
-			errs() << "Chords:" << "\n";
-			for(auto e: dag->getEdges()) {
-				if(std::find(mcst.begin(), mcst.end(), e) == mcst.end()) {
-					errs() << *e << "\n";
-				}
-			}
+			// for(GraphEdge* e : dag->getEdges()) {
+			// 	errs() << "Edge: " << *e << ", increment value: " << e->getIncrementValue() << "\n";
+			// }
+			// for(GraphEdge* e : dag->getChords()) {
+			// 	errs() << "Chord: " << *e << ", increment value: " << e->getIncrementValue() << "\n";
+			// }
+			// errs() << "Getting MCST of " << dag->getFunction()->getName() << "\n";
+			// vector<GraphEdge*> mcst = SpanningTree::kruskalMaxSpanningTree(dag);
+			// errs() << "MCST: \n";
+			// for(auto e: mcst) {
+			// 	errs() << *e << "\n";
+			// }
+			// errs() << "Chords:" << "\n";
+			// for(auto e: dag->getEdges()) {
+			// 	if(std::find(mcst.begin(), mcst.end(), e) == mcst.end()) {
+			// 		errs() << *e << "\n";
+			// 	}
+			// }
 		}
 		WriteGraph(File, &F, false);
 	}

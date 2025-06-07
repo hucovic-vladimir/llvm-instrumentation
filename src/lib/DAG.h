@@ -3,6 +3,7 @@
 #include "llvm/IR/PassManager.h"
 #include <vector>
 #include <unordered_set>
+#include <map>
 #include "GraphNode.h"
 #include "GraphEdge.h"
 
@@ -29,6 +30,10 @@ class DAG {
 		GraphEdge* findBackedge(GraphNode src, GraphNode dst) {
 			return findBackedge(src.getBlock(), dst.getBlock());
 		}
+		GraphEdge* findChord(BasicBlock* src, BasicBlock* dst);
+		GraphEdge* findChord(GraphNode src, GraphNode dst) {
+			return findChord(src.getBlock(), dst.getBlock());
+		}
 		GraphNode* getEntry() const { return entry; }
 		GraphNode* getExit() const { return exit; }
 
@@ -42,7 +47,21 @@ class DAG {
 
 		void exportNodesToJson(string filename);
 
-		void determineInstrumentedChords();
+		void eventCountingDFS();
+		void eventCountingDFS(int events, GraphNode* node, GraphEdge* edge);
+
+		void getChordsAndSpanningTree();
+
+		vector<GraphEdge*> getSpanningTree() const { return spanningTree; }
+		vector<GraphEdge*> getChords() const { return chords; }
+
+		GraphEdge* getBackedgeFromDummyEdge(GraphEdge* dummyEdge) {
+			auto it = dummyEdgeToBackedgeMap.find(dummyEdge);
+			if (it != dummyEdgeToBackedgeMap.end()) {
+				return it->second;
+			}
+			return nullptr;
+		}
 
 
 	private:
@@ -60,5 +79,8 @@ class DAG {
 				vector<GraphNode*>& result);
 		void pushEdgesToReachableBlocks(Function& F);
 		bool hasUnreachable(BasicBlock& BB);
+		vector<GraphEdge*> spanningTree;
+		vector<GraphEdge*> chords;
+		map<GraphEdge*, GraphEdge*> dummyEdgeToBackedgeMap;
 };
 
