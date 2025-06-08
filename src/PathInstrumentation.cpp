@@ -14,6 +14,7 @@
 #include "lib/SpanningTree.h"
 #include "llvm/Support/GraphWriter.h"
 #include "llvm/IR/Verifier.h"
+#include "lib/PathRecorder.h"
 #include "../headers/InstrumentationFunctions.h"
 #include <filesystem>
 
@@ -43,18 +44,19 @@ void dumpModuleIR(llvm::Module &M, const std::string &Filename) {
   M.print(OS, nullptr);
 }
 
+void createDirectories(const std::string &path) {
+	if(!std::filesystem::exists(path)) {
+		sys::fs::create_directories(path, false);
+	}
+}
+
 void createOutputDirectories(Module &M) {
 	std::error_code EC;
 	string moduleSource = std::filesystem::path(M.getSourceFileName()).parent_path();
 	if(moduleSource.size()) {
-		sys::fs::create_directories("/tmp/graphs/" + moduleSource);
-		sys::fs::create_directories("/tmp/llfiles/" + moduleSource);
+		createDirectories("/tmp/graphs/" + moduleSource);
+		createDirectories("/tmp/llfiles/" + moduleSource);
 	}
-	else {
-		sys::fs::create_directories("/tmp/graphs/");
-		sys::fs::create_directories("/tmp/llfiles/");
-	}
-
 
 	if(EC) {
 		errs() << "Error creating directory: " << EC.message() << "\n";
@@ -85,14 +87,38 @@ void dumpNodesToJson(DAG* dag, Module& M) {
 	dag->exportNodesToJson(jsonFilename);
 }
 
+void addPathCounterToJSONArray(json::Array &array, Function* f, size_t size) {
+	json::Object pathCounterObject;
+	string moduleName = f->getParent()->getName().str();
+	pathCounterObject["counter"] = moduleName + "__paths_" + f->getName().str();
+	pathCounterObject["size"] = size;
+	array.push_back(std::move(pathCounterObject));
+}
+
+void writeJSON(json::Object &&jsonObj, const string &filename) {
+	std::error_code EC;
+	raw_fd_ostream file(filename, EC, sys::fs::OF_Text);
+	if (EC) {
+		errs() << "Error opening file " << filename << ": " << EC.message() << "\n";
+		return;
+	}
+
+	file << formatv("{0:2}", json::Value(std::move(jsonObj)));
+}
+
 PreservedAnalyses PathInstrumentation::run(Module &M, ModuleAnalysisManager &MAM) {
+	createDirectories(".pathinst/path_counters/");
+	json::Object pathCountersJSON;
+	json::Array pathCountersArray;
 	createOutputDirectories(M);
 	string moduleSourceFilename = filesystem::path(M.getSourceFileName()).filename().string();
+	string moduleFullPath = filesystem::path(M.getSourceFileName()).string(); 
 	FunctionAnalysisManager &FAM = 
 		MAM.getResult<FunctionAnalysisManagerModuleProxy>(M)
 		.getManager();
 		std::string IRFilename = "/tmp/llfiles/" + M.getName().str() + ".ll";
 		std::string IRFilename2 = "/tmp/llfiles/" + M.getName().str() + "post_transformation" + ".ll";
+		PathRecorder pr;
 	for(Function &F : M) {
 		if(F.isDeclaration() || F.isIntrinsic()) continue;
 
@@ -103,47 +129,37 @@ PreservedAnalyses PathInstrumentation::run(Module &M, ModuleAnalysisManager &MAM
 		raw_fd_ostream File(Filename, EC, sys::fs::OF_Text);
 		GraphNode::resetLastId();
 
+		if(F.size() == 1) {
+			pr.addCounterForSingleBlockFunction(&F);
+			addPathCounterToJSONArray(pathCountersArray, &F, 1);
+		}
 
-		const auto dag = DAG::createFromFunction(F, FAM);
-		errs() << dag->toStr();
-		if(dag) {
-			dag->assignEdgeValues();
-			errs() << dag->toStr();
-			// dag->eventCountingDFS();
-			// dag->determineInstrumentedChords();
-			/* dag->printEdgeValues(); */
-			AllocaInst* counter = insertPathCounter(F);
-			CFGTransformer::addInstrumentedEdges(dag, counter);
-			// CFGTransformer::instrumentChords(dag, counter);
-			BasicBlock* exitBlock = dag->getExit()->getBlock();
-			CFGTransformer::insertPrintOfCounter(F, *exitBlock, counter);
-			dumpNodesToJson(dag, M);
-			// for(GraphEdge* e : dag->getEdges()) {
-			// 	errs() << "Edge: " << *e << ", increment value: " << e->getIncrementValue() << "\n";
-			// }
-			// for(GraphEdge* e : dag->getChords()) {
-			// 	errs() << "Chord: " << *e << ", increment value: " << e->getIncrementValue() << "\n";
-			// }
-			// errs() << "Getting MCST of " << dag->getFunction()->getName() << "\n";
-			// vector<GraphEdge*> mcst = SpanningTree::kruskalMaxSpanningTree(dag);
-			// errs() << "MCST: \n";
-			// for(auto e: mcst) {
-			// 	errs() << *e << "\n";
-			// }
-			// errs() << "Chords:" << "\n";
-			// for(auto e: dag->getEdges()) {
-			// 	if(std::find(mcst.begin(), mcst.end(), e) == mcst.end()) {
-			// 		errs() << *e << "\n";
-			// 	}
-			// }
+		else {
+			const auto dag = DAG::createFromFunction(F, FAM);
+			if(dag) {
+				dag->assignEdgeValues();
+				// dag->eventCountingDFS();
+				AllocaInst* counter = insertPathCounter(F);
+				CFGTransformer::addInstrumentedEdges(dag, counter);
+				// CFGTransformer::instrumentChords(dag, counter);
+				BasicBlock* exitBlock = dag->getExit()->getBlock();
+				CFGTransformer::insertPrintOfCounter(F, *exitBlock, counter);
+				dumpNodesToJson(dag, M);
+				pr.addPathArray(dag);
+
+				addPathCounterToJSONArray(pathCountersArray, &F, dag->getNumberUniquePaths());
+			}
 		}
 		WriteGraph(File, &F, false);
 	}
 	dumpModuleIR(M, IRFilename);
 
+	pathCountersJSON["module"] = moduleFullPath;
+	pathCountersJSON["counters"] = std::move(pathCountersArray);
+
+	writeJSON(std::move(pathCountersJSON), ".pathinst/path_counters/" + moduleSourceFilename + ".json");
 	return PreservedAnalyses::none();
 }
-
 
 /// Static entry point
 PassPluginLibraryInfo getPathInstrumentationPluginInfo() {

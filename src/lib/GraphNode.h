@@ -15,6 +15,8 @@ class GraphNode {
 		}
 		BasicBlock* getBlock() const { return block; }
 		string getName() const { return block->getName().str(); }
+		string getNodeName() const { return name; }
+		void setNodeName(string n) { name = n; }
 
 		bool operator==(const GraphNode& other) const { return block == other.block;}
 		bool operator!=(const GraphNode& other) const { return !(*this == other);}
@@ -44,4 +46,5 @@ class GraphNode {
 		BasicBlock* block;
 		vector<GraphNode*> successors;
 		static int lastNodeId;
+		string name;
 };

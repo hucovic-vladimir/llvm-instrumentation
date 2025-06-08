@@ -244,18 +244,6 @@ void CFGTransformer::addInstrumentedEdges(DAG* dag, AllocaInst* pathCounterVar) 
 	BasicBlock* entryBlock = dag->getEntry()->getBlock();
 	initializePathRegister(entryBlock, pathCounterVar, 0);
 	for(GraphEdge* edge : dag->getEdges()) {
-		if(edge->isDummyEdgeExitToEntry())
-			errs() << "Dummy edge exit to entry: " << *edge << "\n";
-		if(edge->isBackedge())
-			errs() << "Backedge: " << *edge;
-		if(edge->isDummyEdgeFromEntry())
-			errs() << "Dummy edge from entry: " << *edge << "\n";
-		if(edge->isDummyEdgeToExit())
-			errs() << "Dummy edge to exit: " << *edge << "\n";
-		if(edge->isNormal())
-			errs() << "Normal edge: " << *edge << "\n";
-
-
 		if(edge->isNormal() && edge->getValue() != 0) {
 			BasicBlock* src = edge->getSrc()->getBlock();
 			BasicBlock* dst = edge->getDst()->getBlock();

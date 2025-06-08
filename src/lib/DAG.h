@@ -51,6 +51,7 @@ class DAG {
 		void eventCountingDFS(int events, GraphNode* node, GraphEdge* edge);
 
 		void getChordsAndSpanningTree();
+		int getNumberUniquePaths() const { return totalPathsToExit; }
 
 		vector<GraphEdge*> getSpanningTree() const { return spanningTree; }
 		vector<GraphEdge*> getChords() const { return chords; }
@@ -61,6 +62,12 @@ class DAG {
 				return it->second;
 			}
 			return nullptr;
+		}
+
+		void renameBasicBlocks() {
+			eachNode([](GraphNode* node){
+					node->getBlock()->setName(node->getNodeName());
+			});
 		}
 
 
@@ -82,5 +89,6 @@ class DAG {
 		vector<GraphEdge*> spanningTree;
 		vector<GraphEdge*> chords;
 		map<GraphEdge*, GraphEdge*> dummyEdgeToBackedgeMap;
+		int totalPathsToExit = 0;
 };
 

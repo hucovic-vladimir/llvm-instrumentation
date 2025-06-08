@@ -173,10 +173,6 @@ void DAG::dfsTopologicalSort(GraphNode* node, unordered_set<GraphNode*>& visited
 
 void DAG::assignEdgeValues() {
 	vector<GraphNode*> reverseTopoOrder = getReverseTopologicalOrder();
-	errs() << "Reverse Topological Order:\n";
-	for (auto node : reverseTopoOrder) {
-		errs() << "\t" << node->getName() << "\n";
-	}
 	map<GraphNode*, int> numPaths;
 	for(auto* node : reverseTopoOrder) {
 		if(node == exit) {
@@ -190,17 +186,14 @@ void DAG::assignEdgeValues() {
 				}
 				GraphNode* src = edge->getSrc();
 				if(src == node) {
-				errs() << "Processing edge: " << edge->getSrc()->getName() << " -> " << edge->getDst()->getName() << "\n";
-					errs() << "Num paths from " << src->getName() << " to exit: " << numPaths[exit] << "\n";
-					errs() << "Assigning value " << numPaths[src] << " to edge: " << edge->getSrc()->getName() << " -> " << edge->getDst()->getName() << "\n";
-					errs() << "Edge address: " << edge << "\n";
 					edge->assignValue(numPaths[src]);
 					numPaths[edge->getSrc()] += numPaths[edge->getDst()];
-					errs() << "Updated num paths for " << edge->getSrc()->getName() << ": " << numPaths[edge->getSrc()] << "\n";
 				}
 			}
 		}
 	}
+	totalPathsToExit = numPaths[entry];
+	errs() << "Unique paths of " << this->getFunction()->getName() << ": " << totalPathsToExit << "\n";
 }
 
 void DAG::printEdgeValues() {
@@ -308,6 +301,13 @@ int dir(GraphEdge* e, GraphEdge* f) {
 
 void DAG::eventCountingDFS() {
 	getChordsAndSpanningTree();
+	errs() << "Got spann tree and chords\n"; 
+	for(auto edge : spanningTree) {
+		errs() << "Span. Tree edge: " << *edge << "\n";
+	}
+	for(auto chord : chords) {
+		errs() << "Chord: " << *chord << "\n";
+	}
 	for(GraphEdge* e : chords) {
 		e->setIncrementValue(0);
 	}
