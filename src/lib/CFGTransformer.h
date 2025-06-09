@@ -8,11 +8,12 @@ class CFGTransformer {
 	public:
 
 static void instrumentChords(DAG* dag, AllocaInst* pathCounterVar);
+		static void incrementPathCounter(GlobalVariable* pathCounterArr, AllocaInst* pathCounterVar, BasicBlock* exit);
+		static void incrementPathCounter(GlobalVariable* pathCounterArr, int constantIndex, BasicBlock* exit);
 		static void transformToSingleExit(Function &F);
 		static void instrumentEdge(BasicBlock* edge, AllocaInst* counter, int edgeIncrement);
 		static BasicBlock* insertEdgeBlockBetween(BasicBlock* src, BasicBlock* dst);
-		static void addInstrumentedEdges(DAG* dag, AllocaInst* pathCounterVar);
-		static void addInstrumentedEdges(BasicBlock& start, DAG* dag, AllocaInst* pathCounterVar);
+		static void addInstrumentedEdges(DAG* dag, AllocaInst* pathCounterVar, GlobalVariable* pathCounterArr);
 		static void insertPathCounterIncrement(BasicBlock& edge, int edgeValue, AllocaInst* pathCounterVar);
 		static void resetCounterAlongBackedge(AllocaInst* counter, BasicBlock* backEdge);
 		static void insertPrintOfCounter(Function &F, BasicBlock& exit, AllocaInst* counter);

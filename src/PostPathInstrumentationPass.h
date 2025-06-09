@@ -42,10 +42,6 @@ class PostPathInstrumentationPass : public PassInfoMixin<PostPathInstrumentation
     Expected<std::vector<FunctionInfo>> parseFunctionInfoFromJSON(const std::string& filename);
 
 		Expected<PostPathInstrumentationPass::ModuleInfo> parseModuleInfoFromJSON(const std::string& filename);
-		/// @brief Extract ModuleInfo structs from the modules.tmp file
-		/// @param M The module to get the arrays from
-		/// @return structs with the information about the modules
-		std::vector<ModuleInfo> getModulesArraysFromFile(Module &M);
 		/// @brief Get the export functions as LLVM Function objects
 		/// @param M The module to get the functions from
 		/// @return The functions

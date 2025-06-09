@@ -83,6 +83,7 @@ void PostInstrumentationPass::insertArrayExportCalls(Module &M, std::vector<Modu
 
 /// Run the pass
 PreservedAnalyses PostInstrumentationPass::run(Module &M, ModuleAnalysisManager &AM) {
+	errs() << "Running PostInstrumentationPass on module: " << M.getName() << "\n";
 	std::vector<ModuleInfo> modules = getModulesArraysFromFile(M);
 	std::cerr << modules.size() << " modules found." << std::endl;
 	insertArrayExportCalls(M, modules);

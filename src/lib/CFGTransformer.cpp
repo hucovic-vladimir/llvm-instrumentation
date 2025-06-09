@@ -69,15 +69,15 @@ void CFGTransformer::createNewReturnInstruction(BasicBlock* newExitBlock, bool f
 
 void CFGTransformer::insertPathCounterIncrement(BasicBlock& edge, int edgeValue, AllocaInst* pathCounterVar) {
 	IRBuilder<> builder(&edge);
-	Value* currentValue = builder.CreateLoad(builder.getInt32Ty(), pathCounterVar, "current_value");
-	Value* newValue = builder.CreateAdd(currentValue, builder.getInt32(edgeValue), "new_value");
+	Value* currentValue = builder.CreateLoad(builder.getInt64Ty(), pathCounterVar, "current_value");
+	Value* newValue = builder.CreateAdd(currentValue, builder.getInt64(edgeValue), "new_value");
 	builder.CreateStore(newValue, pathCounterVar);
 }
 
 void CFGTransformer::resetCounterAlongBackedge(AllocaInst* counter, BasicBlock* backEdge) {
 	IRBuilder<> builder(backEdge);
 	builder.SetInsertPoint(backEdge->getTerminator());
-	builder.CreateStore(builder.getInt32(0), counter);
+	builder.CreateStore(builder.getInt64(0), counter);
 } 
 
 void CFGTransformer::insertPrintOfCounter(Function &F, BasicBlock& exit, AllocaInst* counter) {
@@ -87,9 +87,63 @@ void CFGTransformer::insertPrintOfCounter(Function &F, BasicBlock& exit, AllocaI
 	Instruction* term = exit.getTerminator(); 
 	IRBuilder<> builder(term);
 
-	Value* loadedCounter = builder.CreateLoad(builder.getInt32Ty(), counter, "loaded_counter"); 
+	Value* loadedCounter = builder.CreateLoad(builder.getInt64Ty(), counter, "loaded_counter"); 
 	IF.insertPrintfCall(M, term, "Counter: \%d\n", {loadedCounter});
 }
+
+void CFGTransformer::incrementPathCounter(GlobalVariable* pathCounterArr, AllocaInst* pathCounterVar, BasicBlock* exit) {
+	LLVMContext& context = exit->getContext();
+	IRBuilder<> builder(exit->getTerminator()); // Insert before the terminator
+
+	// Load the path counter value (i32) - this is our index
+	Value* pathIndex = builder.CreateLoad(Type::getInt64Ty(context), pathCounterVar, "path_index");
+
+	// Convert i32 index to i64 for GEP
+	Value* pathIndex64 = builder.CreateZExt(pathIndex, Type::getInt64Ty(context), "path_index_64");
+
+	// Get pointer to the array element at index pathIndex
+	Value* elementPtr = builder.CreateInBoundsGEP(
+			pathCounterArr->getValueType(),  // Array type
+			pathCounterArr,                  // Base pointer (the global array)
+			{builder.getInt64(0), pathIndex64}, // Indices: [0][pathIndex]
+			"path_element_ptr"
+			);
+
+	// Load current value at that index
+	Value* currentCount = builder.CreateLoad(Type::getInt64Ty(context), elementPtr, "current_count");
+
+	// Increment by 1
+	Value* newCount = builder.CreateAdd(currentCount, builder.getInt64(1), "new_count");
+
+	// Store the incremented value back
+	builder.CreateStore(newCount, elementPtr);
+}
+
+void CFGTransformer::incrementPathCounter(GlobalVariable* pathCounterArr, int constantIndex, BasicBlock* exit) {
+	LLVMContext& context = exit->getContext();
+	IRBuilder<> builder(exit->getTerminator());
+
+	// Use the constant index directly
+	Value* pathIndex = builder.getInt64(constantIndex);
+
+	// Get pointer to the array element at index pathIndex
+	Value* elementPtr = builder.CreateInBoundsGEP(
+			pathCounterArr->getValueType(),  
+			pathCounterArr,                  
+			{builder.getInt64(0), pathIndex}, 
+			"path_element_ptr"
+			);
+
+	// Load current value at that index
+	Value* currentCount = builder.CreateLoad(Type::getInt64Ty(context), elementPtr, "current_count");
+
+	// Increment by 1
+	Value* newCount = builder.CreateAdd(currentCount, builder.getInt64(1), "new_count");
+
+	// Store the incremented value back
+	builder.CreateStore(newCount, elementPtr);
+}
+
 
 void CFGTransformer::instrumentChords(DAG* dag, AllocaInst* pathCounterVar) {
 	Function* F = dag->getFunction();
@@ -217,10 +271,10 @@ void CFGTransformer::instrumentEdge(BasicBlock* edge, AllocaInst* counter, int e
 	IRBuilder<> builder(edge->getTerminator());
 
 	// Load the current value of the counter
-	Value* currentValue = builder.CreateLoad(builder.getInt32Ty(), counter, "current_value");
+	Value* currentValue = builder.CreateLoad(builder.getInt64Ty(), counter, "current_value");
 
 	// Increment the counter by the edge increment value
-	Value* newValue = builder.CreateAdd(currentValue, builder.getInt32(edgeIncrement), "new_value");
+	Value* newValue = builder.CreateAdd(currentValue, builder.getInt64(edgeIncrement), "new_value");
 
 	// Store the new value back to the counter
 	builder.CreateStore(newValue, counter);
@@ -232,7 +286,7 @@ void CFGTransformer::instrumentEdge(BasicBlock* edge, AllocaInst* counter, int e
 void initializePathRegister(BasicBlock* where, AllocaInst* pathCounterVar, int initValue) {
 	IRBuilder<> builder(where->getTerminator());
 
-	Value* init = ConstantInt::get(Type::getInt32Ty(where->getContext()), initValue);
+	Value* init = ConstantInt::get(Type::getInt64Ty(where->getContext()), initValue);
 	builder.CreateStore(init, pathCounterVar);
 
 	StringRef oldName = where->getName();
@@ -240,9 +294,12 @@ void initializePathRegister(BasicBlock* where, AllocaInst* pathCounterVar, int i
 	where->setName(newName);
 }
 
-void CFGTransformer::addInstrumentedEdges(DAG* dag, AllocaInst* pathCounterVar) {
+
+void CFGTransformer::addInstrumentedEdges(DAG* dag, AllocaInst* pathCounterVar, GlobalVariable* pathCounterArr) {
 	BasicBlock* entryBlock = dag->getEntry()->getBlock();
+	BasicBlock* exit = dag->getExit()->getBlock();
 	initializePathRegister(entryBlock, pathCounterVar, 0);
+	incrementPathCounter(pathCounterArr, pathCounterVar, exit);
 	for(GraphEdge* edge : dag->getEdges()) {
 		if(edge->isNormal() && edge->getValue() != 0) {
 			BasicBlock* src = edge->getSrc()->getBlock();
@@ -256,6 +313,7 @@ void CFGTransformer::addInstrumentedEdges(DAG* dag, AllocaInst* pathCounterVar) 
 			BasicBlock* backedgeDst = actualBackedge->getDst()->getBlock();
 			assert(actualBackedge && "Actual backedge exists for dummy edge\n");	
 			BasicBlock* edgeBlock = insertEdgeBlockBetween(backedgeSrc, backedgeDst);
+			incrementPathCounter(pathCounterArr, pathCounterVar, edgeBlock);
 			initializePathRegister(edgeBlock, pathCounterVar, edge->getValue());
 		}
 		else if(edge->isDummyEdgeToExit() && edge->getValue() != 0) {

@@ -11,12 +11,13 @@ target_link_libraries(InstrLibs ${llvm_libs})
 
 add_library(InstructionCount SHARED InstructionCount.cpp PassUtilities.cpp InstrumentationFunctions.cpp)
 add_library(PostInstrumentationPass SHARED PostInstrumentationPass.cpp)
-add_library(PathInstrumentation SHARED PathInstrumentation.cpp)
-add_library(PostPathInstrumentation SHARED PostPathInstrumentationPass.cpp)
+add_library(PathInstrumentation SHARED PathInstrumentation.cpp PassUtilities.cpp)
+add_library(PostPathInstrumentationPass SHARED PostPathInstrumentationPass.cpp InstrumentationFunctions.cpp) 
 
 target_link_libraries(InstructionCount InstrLibs ${llvm_libs})
 target_link_libraries(PostInstrumentationPass InstrLibs ${llvm_libs})
 target_link_libraries(PathInstrumentation InstrLibs ${llvm_libs})
+target_link_libraries(PostPathInstrumentationPass InstrLibs ${llvm_libs})
 
 
 

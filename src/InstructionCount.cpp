@@ -26,6 +26,7 @@
 #include <llvm/Analysis/CFGPrinter.h>
 #include <llvm/Support/GraphWriter.h>
 #include <llvm/Analysis/CallGraph.h>
+#include <llvm/IR/Verifier.h>
 #include <filesystem>
 
 namespace fs = std::filesystem;
@@ -47,25 +48,30 @@ const std::string InstructionCount::getLocalArrayName(Module &M) {
 }
 
 GlobalVariable* InstructionCount::getOrCreateCounter(Module &M) {
-	std::string arrayName = getLocalArrayName(M); 
-	GlobalVariable* counter = M.getGlobalVariable(arrayName);
-	if(counter) return counter;
-	else {
-		LLVMContext& CTX = M.getContext();
-		counter = new GlobalVariable(M, Type::getInt64PtrTy(CTX), false, GlobalValue::ExternalLinkage, nullptr, arrayName);
-	}
-	return counter;
+    std::string arrayName = getLocalArrayName(M); 
+    GlobalVariable* counter = M.getGlobalVariable(arrayName);
+    if(counter) return counter;
+    
+    LLVMContext& CTX = M.getContext();
+    // Create as external linkage with unspecified size - the runtime will allocate it
+    Type* arrayType = Type::getInt64Ty(CTX);
+    counter = new GlobalVariable(M, arrayType, false, GlobalValue::ExternalLinkage, nullptr, arrayName);
+    return counter;
 }
 
 void InstructionCount::incrementCounter(Module &M, Instruction* insertionPoint, unsigned long bbIndex) {
-	LLVMContext& CTX = M.getContext();
-	GlobalVariable* counter =	getOrCreateCounter(M);
-	IRBuilder<> builder(insertionPoint);
-	Value* offset = ConstantInt::get(Type::getInt64Ty(CTX), bbIndex);
-	Value* addr = builder.CreateGEP(Type::getInt64Ty(CTX), counter, offset);
-	Value* counterValue = builder.CreateLoad(Type::getInt64Ty(CTX), addr);
-	Value* newCounterValue = builder.CreateAdd(counterValue, ConstantInt::get(Type::getInt64Ty(CTX), 1));
-	builder.CreateStore(newCounterValue, addr);
+    LLVMContext& CTX = M.getContext();
+    GlobalVariable* counter = getOrCreateCounter(M);
+    IRBuilder<> builder(insertionPoint);
+    
+    // If counter is a single i64, we need to get a pointer to an array element
+    // This assumes the runtime provides an actual array
+    Value* counterAsArray = builder.CreateBitCast(counter, Type::getInt64PtrTy(CTX));
+    Value* offset = ConstantInt::get(Type::getInt64Ty(CTX), bbIndex);
+    Value* addr = builder.CreateGEP(Type::getInt64Ty(CTX), counterAsArray, offset);
+    Value* counterValue = builder.CreateLoad(Type::getInt64Ty(CTX), addr);
+    Value* newCounterValue = builder.CreateAdd(counterValue, ConstantInt::get(Type::getInt64Ty(CTX), 1));
+    builder.CreateStore(newCounterValue, addr);
 }
 
 std::vector<OptimizationPattern*> InstructionCount::getOptimizationPatterns(Function &F) {
@@ -124,7 +130,7 @@ std::vector<OptimizationPattern*> InstructionCount::getOptimizationPatterns(Func
 /// @param MAM The module analysis manager
 /// @return The preserved analyses (IR is modified, so none to be safe)
 PreservedAnalyses InstructionCount::run(Module &M, ModuleAnalysisManager &MAM){
-	/* errs() << "Running on module " << M.getName() << "\n"; */
+	errs() << "Running on module " << M.getName() << "\n"; 
 	unsigned long bbCount = 0;
 	LLVMContext& CTX = M.getContext();
 
@@ -142,33 +148,35 @@ PreservedAnalyses InstructionCount::run(Module &M, ModuleAnalysisManager &MAM){
 		}
 	}
 	
-	/* errs() << "Wrappers initialized" << "\n"; */
+ errs() << "Wrappers initialized" << "\n";
 
 	fs::create_directory(".basicblocks");
 	// could be removed later
 	/* fs::create_directory(".llfiles"); */
 	fs::create_directory(".patterns");
 
-	/* errs() << "Necessary directories created" << "\n"; */
+	errs() << "Necessary directories created" << "\n"; 
 
 	std::error_code EC;
 	std::string sourceFileName = PassUtilities::getFileName(M.getSourceFileName());
 	std::string directories = fs::path(M.getSourceFileName()).parent_path().string();
 
-	/* errs() << "directories: " << directories << "\n"; */
-	/* errs() << "src file name: " << sourceFileName << "\n"; */
-
-	if(directories.size())
+	if(directories.size()) {
 		fs::create_directories(".basicblocks/" + directories);
+	}
+	
+	errs() << "Creating basic block file for " << M.getSourceFileName() << "\n";
+
 	raw_fd_ostream bbFile(".basicblocks/" + M.getSourceFileName() + ".json", EC);
+	errs() << "Basic block file created" << "\n";
 	bbFile << "{\n";
 	bbFile << PassUtilities::getTabs(1) << "\"blocks\": [\n";
 	for(auto& wrapper : wrappersVec) {
-		/* errs() << "wrapper of block id: " << wrapper->getId() << "\n"; */
+		errs() << "Processing wrapper for block " << wrapper->getId() << "\n";
 		wrapper->getSuccessors(wrappers);
-		/* errs() << "got successors of wrapper" << "\n"; */
-		/* errs() << wrapper->toJson(2) << "\n"; */
+		errs() << "Successors got for block " << wrapper->getId() << "\n";
 		bbFile << wrapper->toJson(2);
+		errs() << "Wrapper for block " << wrapper->getId() << " processed" << "\n";
 		if(!(wrapper == wrappersVec.back())) {
 			bbFile << ",\n";
 		}
@@ -176,17 +184,21 @@ PreservedAnalyses InstructionCount::run(Module &M, ModuleAnalysisManager &MAM){
 			bbFile << "\n";
 		}
 	}
+	errs() << "All wrappers processed" << "\n";
 	bbFile << PassUtilities::getTabs(1) << "]\n";
 	bbFile << "}\n";
+	bbFile.close();
 
 	errs() << "Basic blocks exported" << "\n";
 
 	for(auto &F : M){
 		if(F.isDeclaration()) continue;
+		errs() << "Processing function " << F.getName() << "\n";
 
 		/// get the basic block patterns in this function and add them to the patterns vector
 		/// use the nonInstrumentedBlocks to specify which blocks should not be instrumented
 		std::vector<OptimizationPattern*> funcPatterns = getOptimizationPatterns(F);
+		errs() << "got patterns for function " << F.getName() << "\n";
 		std::vector<BasicBlock*> nonInstrumentedBlocks;
 		for(auto& pattern : funcPatterns) {
 			auto patternNonInstrumentedBlocks = pattern->getNonInstrumentedBlocks();
@@ -240,8 +252,10 @@ PreservedAnalyses InstructionCount::run(Module &M, ModuleAnalysisManager &MAM){
 				IF.insertProfExportCall(M, I);
 			}
 		}
+		errs() << "Function " << F.getName() << " processed\n";
 	} // for F
 
+	errs() << "Processed all functions in the module\n";
 
 	/// write the name of the module, the name of the array and the number of basic blocks to modules.tmp
 	std::fstream arraysFile("./modules.tmp", std::ios::out | std::ios::app);	
@@ -251,6 +265,7 @@ PreservedAnalyses InstructionCount::run(Module &M, ModuleAnalysisManager &MAM){
 	}
 	arraysFile << M.getSourceFileName() << "," << getLocalArrayName(M) << "," << bbCount << "\n";
 
+	errs() << "Module information written to modules.tmp\n";
 
 	/// export patterns
 	if(patterns.size() > 0){
@@ -269,8 +284,26 @@ PreservedAnalyses InstructionCount::run(Module &M, ModuleAnalysisManager &MAM){
 		}
 		patternFile << PassUtilities::getTabs(1) << "]\n";
 		patternFile << "}\n";
+		patternFile.close();
 	}
 
+	errs() << "Patterns exported\n";
+	for(auto& wrapper : wrappersVec) {
+		delete wrapper;
+	}
+	wrappersVec.clear();
+	wrappers.clear();
+	for(auto& pattern : patterns) {
+		delete pattern;
+	}
+	patterns.clear();
+	arraysFile.close();
+	errs() << "Verifying IR" << "\n";
+	if (verifyModule(M, &errs())) {
+		errs() << "Module verification failed!\n";
+		return PreservedAnalyses::none();
+	}
+	errs() << "Module verification succeeded\n";
 	return PreservedAnalyses::none();
 }
 

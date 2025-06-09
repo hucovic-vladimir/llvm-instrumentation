@@ -26,6 +26,8 @@ class InstrumentationFunctions {
 
 		llvm::FunctionType* printfFuncType;
 
+		llvm::FunctionType* pathArrayExportFuncType;
+
 		/// @brief Function Callee for profiling initialization function 
 		llvm::FunctionCallee profInitFunc;
 
@@ -37,6 +39,9 @@ class InstrumentationFunctions {
 		llvm::FunctionCallee bbEnterFunc;
 		
 		llvm::FunctionCallee printfFunc;
+
+		llvm::FunctionCallee pathArrayExportFunc;
+
 
 	public:
 		/// @brief constructs this class from the provided global LLVM context
@@ -51,6 +56,7 @@ class InstrumentationFunctions {
 		llvm::FunctionCallee* getExportFunctionCallee2(llvm::Module& module);
 		llvm::FunctionCallee* getBBEnterFunctionCallee(llvm::Module& module);
 		llvm::FunctionCallee* getPrintfFunctionCallee(llvm::Module& module);
+		llvm::FunctionCallee* getPathArrayExportFunctionCallee(llvm::Module& module);
 
 		/// @brief inserts the __prof_init() function into the provided Module and
 		/// inserts a call to it before the provided Instruction
@@ -64,4 +70,5 @@ class InstrumentationFunctions {
 		/// an integer type should be passed here
 		void insertBBEnterCall(llvm::Module &module, llvm::Instruction* insertBefore, llvm::Value* basicBlockId);
 		void insertPrintfCall(llvm::Module &module, llvm::Instruction* insertBefore, const std::string formatStr, std::vector<llvm::Value*> values);
+		void insertPathArrayExportCall(llvm::Module &module, llvm::Instruction* insertBefore); 
 };

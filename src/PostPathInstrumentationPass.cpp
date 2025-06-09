@@ -14,9 +14,139 @@
 using namespace llvm;
 using namespace std;
 
+void createPathArrayDefinitions(Module &M, vector<PostPathInstrumentationPass::ModuleInfo>& moduleInfo) {
+	LLVMContext& context = M.getContext();
+
+	for(auto& module : moduleInfo) {
+		for(auto& func : module.functions) {
+			GlobalVariable* existingArray = M.getGlobalVariable(func.pathArrayName);
+			if (existingArray) {
+				errs() << "Found existing path array: " << func.pathArrayName << "\n";
+				func.pathArray = existingArray;
+				continue;
+			}
+
+			ArrayType* arrayType = ArrayType::get(Type::getInt64Ty(context), func.arraySize);
+
+			Constant* zeroInit = Constant::getNullValue(arrayType);
+
+			GlobalVariable* pathArray = new GlobalVariable(
+					M, 
+					arrayType,
+					false,
+					GlobalValue::ExternalLinkage,   
+					zeroInit,                       
+					func.pathArrayName
+					); 
+
+			func.pathArray = pathArray;
+			errs() << "Created new path array: " << func.pathArrayName << "\n";
+		}
+	}
+}
+
+
+
+void insertPathArrayExportCalls(Module &M, vector<PostPathInstrumentationPass::ModuleInfo>& moduleInfo) {
+	LLVMContext& context = M.getContext();
+
+	// Find or create the __export_path_arrays function
+	Function* exportPathArraysFunc = M.getFunction("__export_path_arrays");
+	if (!exportPathArraysFunc) {
+		// Create function type: void __export_path_arrays()
+		FunctionType* funcType = FunctionType::get(Type::getVoidTy(context), false);
+		exportPathArraysFunc = Function::Create(
+				funcType,
+				GlobalValue::ExternalLinkage,
+				"__export_path_arrays",
+				M
+				);
+	}
+
+	// Clear existing basic blocks if any
+	exportPathArraysFunc->deleteBody();
+
+	// Create entry basic block
+	BasicBlock* entryBB = BasicBlock::Create(context, "entry", exportPathArraysFunc);
+	IRBuilder<> builder(entryBB);
+
+	// Get or declare the __export_path_array function
+	// void __export_path_array(const char* moduleName, const char* funcName, unsigned long* arr, unsigned long len, bool lastModule)
+	std::vector<Type*> paramTypes = {
+		Type::getInt8PtrTy(context),    // const char* moduleName
+		Type::getInt8PtrTy(context),    // const char* funcName  
+		Type::getInt64PtrTy(context),   // unsigned long* arr
+		Type::getInt64Ty(context),      // unsigned long len
+		Type::getInt1Ty(context)        // bool lastModule
+	};
+	FunctionType* exportFuncType = FunctionType::get(Type::getVoidTy(context), paramTypes, false);
+	FunctionCallee exportPathArrayFunc = M.getOrInsertFunction("__export_path_array", exportFuncType);
+
+	// Count total number of functions across all modules
+	size_t totalFunctions = 0;
+	for (const auto& module : moduleInfo) {
+		totalFunctions += module.functions.size();
+	}
+
+	size_t currentFunctionIndex = 0;
+
+	// Generate calls for each module and function
+	for (const auto& module : moduleInfo) {
+		// Create module name string constant
+		Constant* moduleNameStr = builder.CreateGlobalStringPtr(module.moduleName, "module_name_" + module.moduleName);
+
+		for (const auto& func : module.functions) {
+			currentFunctionIndex++;
+			bool isLastFunction = (currentFunctionIndex == totalFunctions);
+
+			// Create function name string constant
+			Constant* funcNameStr = builder.CreateGlobalStringPtr(func.functionName, "func_name_" + func.functionName);
+
+			// Get pointer to the path array
+			if (!func.pathArray) {
+				errs() << "Warning: pathArray is null for function " << func.functionName << "\n";
+				continue;
+			}
+
+			// Cast array to unsigned long* (i64*)
+			Value* arrayPtr = builder.CreateBitCast(func.pathArray, Type::getInt64PtrTy(context));
+
+			// Create array size constant
+			Value* arraySize = builder.getInt64(func.arraySize);
+
+			// Create lastModule boolean
+			Value* lastModule = builder.getInt1(isLastFunction);
+
+			// Create the function call
+			builder.CreateCall(exportPathArrayFunc, {
+					moduleNameStr,
+					funcNameStr,
+					arrayPtr,
+					arraySize,
+					lastModule
+					});
+
+			errs() << "Inserted call for: " << module.moduleName << "::" << func.functionName 
+				<< " (size: " << func.arraySize << ")" << (isLastFunction ? " [LAST]" : "") << "\n";
+		}
+	}
+
+	// Add return statement
+	builder.CreateRetVoid();
+
+	errs() << "Created __export_path_arrays function with " << totalFunctions << " export calls\n";
+}
+
+
+
+
 PreservedAnalyses PostPathInstrumentationPass::run(Module &M, ModuleAnalysisManager &AM) {
-	std::vector<ModuleInfo> modules = getModulesArraysFromFile(M);
-	std::cerr << modules.size() << " modules found." << std::endl;
+	vector<ModuleInfo> modules = getAllPathArrays();
+	errs() << "Found " << modules.size() << " modules with path arrays.\n";
+
+	createPathArrayDefinitions(M, modules);
+	insertPathArrayExportCalls(M, modules);
+
 	return PreservedAnalyses::none();
 }
 
@@ -174,4 +304,19 @@ PostPathInstrumentationPass::parseModuleInfoFromJSON(const std::string& filename
 	}
 
 	return moduleInfo;
+}
+
+
+// Implementation of function name extraction
+std::string PostPathInstrumentationPass::extractFunctionName(const std::string& counterName) {
+	const std::string prefix = "__paths_";
+	size_t pos = counterName.find(prefix);
+
+	if (pos != std::string::npos) {
+		// Return everything after "__paths_"
+		return counterName.substr(pos + prefix.length());
+	}
+
+	// If "__paths_" is not found, return the original name
+	return counterName;
 }

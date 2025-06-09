@@ -1,7 +1,7 @@
 UNAME_S := $(shell uname -s)
 SCRIPT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
-override CC=clang
+override CC=/Users/vladimirhucovic/school/pp1/llvm-project/build-dylib2/bin/clang
 override CFLAGS=-Wall -Wextra -Werror -O1 -march=native -S -emit-llvm -g3 -flto -fembed-bitcode -std=c2x -fPIC
 
 ifeq ($(UNAME_S),Darwin)

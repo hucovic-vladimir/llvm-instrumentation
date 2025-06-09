@@ -47,7 +47,7 @@ class PathRecorder {
 			}
 
 			LLVMContext& context = mod->getContext();
-			ArrayType* arrayType = ArrayType::get(Type::getInt32Ty(context), size);
+			ArrayType* arrayType = ArrayType::get(Type::getInt64Ty(context), size);
 
 			// Create declaration only (no initializer)
 			GlobalVariable* pathArray = new GlobalVariable (

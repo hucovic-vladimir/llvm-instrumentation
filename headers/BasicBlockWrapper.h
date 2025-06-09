@@ -65,8 +65,8 @@ class BasicBlockWrapper {
 		BasicBlock* getBB() { return bb; }
 		unsigned long getId() { return id; }
 		std::string toJson(unsigned depth = 0) {
-			/* errs() << "printing to json - basic block in function " << bb->getParent()->getName() << "\n"; */
-			/* errs() << "name: " << bb->getName() <<  "\n"; */
+			errs() << "printing to json - basic block in function " << bb->getParent()->getName() << "\n"; 
+			errs() << "name: " << bb->getName() <<  "\n"; 
 			auto tabs = PassUtilities::getTabs; 
 			std::stringstream ss;
 			ss << tabs(depth) << "{\n";
@@ -76,7 +76,7 @@ class BasicBlockWrapper {
 			ss << tabs(depth+1) << "\"debug\": " << getDebugInformation(depth+1);
 			ss << tabs(depth+1) << "\"successors\": [";
 			for (size_t i = 0; i < successorWrappers.size(); ++i) {
-				/* errs() << "iteration " << i << " of getting id" << "\n"; */
+				errs() << "iteration " << i << " of getting id" << "\n"; 
 				ss << successorWrappers[i]->getId();
 				if (i < successorWrappers.size() - 1) ss << ", ";
 			}
@@ -84,10 +84,16 @@ class BasicBlockWrapper {
 			ss << tabs(depth+1) << "\"ir\": [\n";
 			std::vector<Instruction*> nonDebugInstructions = getNonDebugInstructions();
 			for(Instruction* i : nonDebugInstructions) {
-				/* errs() << "instruction: " << *i << "\n"; */
 				std::string instructionStr;
 				raw_string_ostream rso(instructionStr);
-				i->print(rso);
+				if(i->getOpcode() == Instruction::FMul) {
+					rso << "FMUL instruction " << "\n";
+				}
+				else {
+					std::string instructionStr;
+					raw_string_ostream rso(instructionStr);
+					i->print(rso);
+				}
 				// TODO put escapes into function
 				while(instructionStr.find("\n") != std::string::npos)
 					instructionStr.replace(instructionStr.find("\n"), 1, "\\n");
@@ -108,7 +114,7 @@ class BasicBlockWrapper {
 			ss << tabs(depth) << "}";
 			return ss.str();
 		}
-		
+
 		std::vector<BasicBlockWrapper*> getSuccessors(std::unordered_map<BasicBlock*, BasicBlockWrapper*> bbMap) {
 			successorWrappers.clear();
 			for (BasicBlock* succ : successors(bb)) {

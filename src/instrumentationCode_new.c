@@ -73,6 +73,7 @@ void __export_path_array(const char* moduleName, const char* funcName, unsigned 
     fprintf(out, "\t\t\t\t\t\"paths\": [\n");
     
     // Export all path values
+		fprintf(out, "\t\t\t\t\t\t");
     for (unsigned long i = 0; i < len; i++) {
         if (i > 0) {
             fprintf(out, ", ");
@@ -114,7 +115,7 @@ void __pathinst_export() {
 	}
 	fprintf(out, "{\n");
 	fprintf(out, "\t\"modules\": [\n");
-	__export_modules();
+	__export_path_arrays();
 	fprintf(out, "\t]\n");
 	fprintf(out, "}\n");
 	return;

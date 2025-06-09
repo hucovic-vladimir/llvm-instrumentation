@@ -10,6 +10,7 @@
 #include "lib/CFGTransformer.h"
 #include "llvm/Analysis/CycleAnalysis.h"
 #include "llvm/IR/Dominators.h"
+#include "../headers/PassUtilities.h"
 #include "lib/DAG.h"
 #include "lib/SpanningTree.h"
 #include "llvm/Support/GraphWriter.h"
@@ -26,8 +27,8 @@ AllocaInst* insertPathCounter(Function &F) {
 	Instruction* firstInst = entry.getFirstNonPHI();
 	IRBuilder<> builder(firstInst);
 	LLVMContext &context = F.getContext();
-	AllocaInst* pathCounterVar = builder.CreateAlloca(Type::getInt32Ty(context), nullptr, "__path_counter");
-	builder.CreateStore(builder.getInt32(0), pathCounterVar);
+	AllocaInst* pathCounterVar = builder.CreateAlloca(Type::getInt64Ty(context), nullptr, "__path_counter");
+	builder.CreateStore(builder.getInt64(0), pathCounterVar);
 	return pathCounterVar;
 }
 
@@ -132,25 +133,34 @@ PreservedAnalyses PathInstrumentation::run(Module &M, ModuleAnalysisManager &MAM
 		if(F.size() == 1) {
 			pr.addCounterForSingleBlockFunction(&F);
 			addPathCounterToJSONArray(pathCountersArray, &F, 1);
+			CFGTransformer::incrementPathCounter(pr.getPathArray(&F), 0, &F.getEntryBlock());
 		}
 
 		else {
 			const auto dag = DAG::createFromFunction(F, FAM);
 			if(dag) {
 				dag->assignEdgeValues();
+				pr.addPathArray(dag);
+				GlobalVariable* pathArray = pr.getPathArray(&F);
 				// dag->eventCountingDFS();
 				AllocaInst* counter = insertPathCounter(F);
-				CFGTransformer::addInstrumentedEdges(dag, counter);
+				CFGTransformer::addInstrumentedEdges(dag, counter, pathArray);
 				// CFGTransformer::instrumentChords(dag, counter);
-				BasicBlock* exitBlock = dag->getExit()->getBlock();
-				CFGTransformer::insertPrintOfCounter(F, *exitBlock, counter);
+				// CFGTransformer::insertPrintOfCounter(F, dag->getExit()->getBlock(), counter);
 				dumpNodesToJson(dag, M);
-				pr.addPathArray(dag);
-
 				addPathCounterToJSONArray(pathCountersArray, &F, dag->getNumberUniquePaths());
 			}
 		}
 		WriteGraph(File, &F, false);
+
+		if(F.getName().str() == "main") {
+			InstrumentationFunctions IF(M.getContext());
+			std::vector<ReturnInst*> returnInstructions = PassUtilities::getReturnInstructionsFromFunction(F);
+			for(Instruction* I : returnInstructions){
+				IF.insertPathArrayExportCall(M, I);
+			}
+		}
+
 	}
 	dumpModuleIR(M, IRFilename);
 

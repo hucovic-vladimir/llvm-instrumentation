@@ -11,6 +11,7 @@ InstrumentationFunctions::InstrumentationFunctions(LLVMContext &context) {
 	profExportFuncType2 = FunctionType::get(Type::getVoidTy(context), false);
 	bbEnterFuncType = FunctionType::get(Type::getVoidTy(context), {Type::getInt64Ty(context)}, false);
 	printfFuncType = FunctionType::get(Type::getInt32Ty(context), {Type::getInt8PtrTy(context)}, true);
+	pathArrayExportFuncType = FunctionType::get(Type::getVoidTy(context), false);
 }
 
 
@@ -34,6 +35,11 @@ FunctionCallee* InstrumentationFunctions::getBBEnterFunctionCallee(Module& modul
 	return &bbEnterFunc;
 }
 
+FunctionCallee* InstrumentationFunctions::getPathArrayExportFunctionCallee(Module& module) {
+	pathArrayExportFunc = module.getOrInsertFunction("__pathinst_export", pathArrayExportFuncType);
+	return &pathArrayExportFunc;
+}
+
 
 void InstrumentationFunctions::insertProfInitCall(Module &module, Instruction* insertBefore) {
 	IRBuilder<> builder(insertBefore);
@@ -45,6 +51,12 @@ void InstrumentationFunctions::insertProfExportCall(Module &module, Instruction*
 	IRBuilder<> builder(insertBefore);
 	FunctionCallee* profExportFunc2 = getExportFunctionCallee2(module);
 	builder.CreateCall(*profExportFunc2);
+}
+
+void InstrumentationFunctions::insertPathArrayExportCall(llvm::Module &module, llvm::Instruction* insertBefore) {
+	IRBuilder<> builder(insertBefore);
+	FunctionCallee* pathArrayExportFunc = getPathArrayExportFunctionCallee(module);
+	builder.CreateCall(*pathArrayExportFunc);
 }
 
 
