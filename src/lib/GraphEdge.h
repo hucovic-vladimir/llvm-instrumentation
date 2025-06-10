@@ -23,7 +23,7 @@ class GraphEdge {
 		void assignValue(int value) { this->value = value; }
 		int getValue() const { return value; }
 		friend raw_ostream& operator<<(raw_ostream& OS, GraphEdge& edge) {
-			OS << "GraphEdge: " << edge.getSrc()->getName() << " -> " << edge.getDst()->getName() << ", value: " << edge.value;
+			OS << "GraphEdge: " << edge.getSrc()->getName() << " -> " << edge.getDst()->getName() << ", value: " << edge.value << ", increment: " << edge.incrementValue;
 			return OS;
 		}
 		int getIncrementValue() const { return incrementValue; };

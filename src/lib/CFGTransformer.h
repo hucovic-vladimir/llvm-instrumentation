@@ -7,7 +7,7 @@ using namespace llvm;
 class CFGTransformer {
 	public:
 
-static void instrumentChords(DAG* dag, AllocaInst* pathCounterVar);
+		static void instrumentChords(DAG* dag, AllocaInst* pathCounterVar, GlobalVariable* pathCounterArr);
 		static void incrementPathCounter(GlobalVariable* pathCounterArr, AllocaInst* pathCounterVar, BasicBlock* exit);
 		static void incrementPathCounter(GlobalVariable* pathCounterArr, int constantIndex, BasicBlock* exit);
 		static void transformToSingleExit(Function &F);

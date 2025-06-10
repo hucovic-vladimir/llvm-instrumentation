@@ -4,9 +4,26 @@
 #include "CFGTransformer.h"
 #include "CFGAnalysis.h"
 #include "../../headers/InstrumentationFunctions.h"
+#include <regex>
 
 using namespace llvm;
 
+std::string removeBracketsAndNewlinesRegex(const std::string& input) {
+	std::regex pattern(R"(\n?\s*\[.*?\]\n?)");
+	return std::regex_replace(input, pattern, "");
+	return input;
+}
+
+void initializePathRegister(BasicBlock* where, AllocaInst* pathCounterVar, int initValue) {
+	IRBuilder<> builder(where->getTerminator());
+
+	Value* init = ConstantInt::get(Type::getInt64Ty(where->getContext()), initValue);
+	builder.CreateStore(init, pathCounterVar);
+
+	string oldName = where->getName().str();
+	string newName = oldName + "\n [ r = " + std::to_string(initValue) + " ] ";
+	where->setName(newName);
+}
 
 void CFGTransformer::transformToSingleExit(Function &F) {
 	if(F.size() == 1) {
@@ -74,12 +91,6 @@ void CFGTransformer::insertPathCounterIncrement(BasicBlock& edge, int edgeValue,
 	builder.CreateStore(newValue, pathCounterVar);
 }
 
-void CFGTransformer::resetCounterAlongBackedge(AllocaInst* counter, BasicBlock* backEdge) {
-	IRBuilder<> builder(backEdge);
-	builder.SetInsertPoint(backEdge->getTerminator());
-	builder.CreateStore(builder.getInt64(0), counter);
-} 
-
 void CFGTransformer::insertPrintOfCounter(Function &F, BasicBlock& exit, AllocaInst* counter) {
 	InstrumentationFunctions IF(F.getContext());
 	Module &M = *F.getParent();
@@ -117,6 +128,10 @@ void CFGTransformer::incrementPathCounter(GlobalVariable* pathCounterArr, Alloca
 
 	// Store the incremented value back
 	builder.CreateStore(newCount, elementPtr);
+
+	string oldName = exit->getName().str();
+	string newName = oldName + "\n" + "[ paths(r)++; ]" ;
+	exit->setName(newName);
 }
 
 void CFGTransformer::incrementPathCounter(GlobalVariable* pathCounterArr, int constantIndex, BasicBlock* exit) {
@@ -142,56 +157,39 @@ void CFGTransformer::incrementPathCounter(GlobalVariable* pathCounterArr, int co
 
 	// Store the incremented value back
 	builder.CreateStore(newCount, elementPtr);
+
+	string oldName = exit->getName().str();
+	string newName = oldName + "\n" + "[ paths(" + std::to_string(constantIndex) +  ")++; ]" ;
+	exit->setName(newName);
 }
 
 
-void CFGTransformer::instrumentChords(DAG* dag, AllocaInst* pathCounterVar) {
-	Function* F = dag->getFunction();
-	if (F->empty() || F->size() == 1) {
-		return;
-	}
-
-	vector<GraphEdge*> chords = dag->getChords();
-	for(auto chord : chords) {
-		BasicBlock* src = chord->getSrc()->getBlock();
-		BasicBlock* dst = chord->getDst()->getBlock();
-
-		bool dummy = true;
-		for(auto succ : successors(src)) {
-			if(dst == succ) {
-				BasicBlock* edgeBlock = insertEdgeBlockBetween(src, dst);
-				instrumentEdge(edgeBlock, pathCounterVar, chord->getIncrementValue());
-				dummy = false;
-			}
-		}
-		if(dummy && dst != dag->getEntry()->getBlock() && src != dag->getExit()->getBlock()) {
-			// No actual edge like that found in the original CFG
-			// It means that it is either a dummy edge from entry to target of backedge
-			// or it is ad ummy edge from source of backedge to exit
-			// New edge will be created just before the target of the backEdge and instrumented
-			// with the dummy edge's (entry -> dest) increment
+void CFGTransformer::instrumentChords(DAG* dag, AllocaInst* pathCounterVar, GlobalVariable* pathCounterArr) {
+	BasicBlock* entryBlock = dag->getEntry()->getBlock();
+	BasicBlock* exit = dag->getExit()->getBlock();
+	initializePathRegister(entryBlock, pathCounterVar, 0);
+	incrementPathCounter(pathCounterArr, pathCounterVar, exit);
+	for(GraphEdge* chord : dag->getChords()) {
+		if(chord->isDummyEdgeFromEntry()) {
 			GraphEdge* actualBackedge = dag->getBackedgeFromDummyEdge(chord);
-			if(actualBackedge) {
-				if(chord->isDummyEdgeToExit()) {
-					// Should increment in the same block or in an edge after it
-					instrumentEdge(chord->getSrc()->getBlock(), pathCounterVar, chord->getIncrementValue());
-				}
-				else if(chord->isDummyEdgeFromEntry()) {
-					// Should determine the starting value of the counter when resetting along backedge
-					BasicBlock* edgeBlock = insertEdgeBlockBetween(actualBackedge->getSrc()->getBlock(), actualBackedge->getDst()->getBlock());
-					instrumentEdge(edgeBlock, pathCounterVar, chord->getIncrementValue());
-				}
-				else {
-					assert(false && "Dummy chord should be either a dummy edge to exit or a dummy edge from entry\n");
-				}
-			}
-			else {
-				assert(chord->isDummyEdgeToExit() && "Dummy chord should be a dummy edge from exit to entry\n");
-				instrumentEdge(chord->getSrc()->getBlock(), pathCounterVar, chord->getIncrementValue());
-			}
+			BasicBlock* backedgeSrc = actualBackedge->getSrc()->getBlock();
+			BasicBlock* backedgeDst = actualBackedge->getDst()->getBlock();
+			assert(actualBackedge && "Actual backedge exists for dummy edge\n");	
+			BasicBlock* edgeBlock = insertEdgeBlockBetween(backedgeSrc, backedgeDst);
+			incrementPathCounter(pathCounterArr, pathCounterVar, edgeBlock);
+			initializePathRegister(edgeBlock, pathCounterVar, chord->getIncrementValue());
 		}
-
-		if (src == dst) continue; // Skip self-loops
+		else if(chord->isDummyEdgeToExit() && chord->getIncrementValue() != 0) {
+			GraphEdge* actualBackedge = dag->getBackedgeFromDummyEdge(chord);
+			BasicBlock* backedgeSrc = actualBackedge->getSrc()->getBlock();
+			instrumentEdge(backedgeSrc, pathCounterVar, chord->getIncrementValue());
+		}
+		else if(chord->getIncrementValue() != 0) {
+			BasicBlock* src = chord->getSrc()->getBlock();
+			BasicBlock* dst = chord->getDst()->getBlock();
+			BasicBlock* edgeBlock = insertEdgeBlockBetween(src, dst);
+			instrumentEdge(edgeBlock, pathCounterVar, chord->getIncrementValue());
+		}
 	}
 }
 
@@ -201,7 +199,7 @@ BasicBlock* CFGTransformer::insertEdgeBlockBetween(BasicBlock* src, BasicBlock* 
 	LLVMContext& context = function->getContext();
 
 	// Create a new basic block
-	BasicBlock* newBlock = BasicBlock::Create(context, "EDGE " + src->getName() + " -> " + dst->getName() , function);
+	BasicBlock* newBlock = BasicBlock::Create(context, "EDGE " + removeBracketsAndNewlinesRegex(src->getName().str()) + " -> " + removeBracketsAndNewlinesRegex(dst->getName().str()) , function);
 
 	// Get the terminator instruction of the source block
 	Instruction* srcTerminator = src->getTerminator();
@@ -278,20 +276,9 @@ void CFGTransformer::instrumentEdge(BasicBlock* edge, AllocaInst* counter, int e
 
 	// Store the new value back to the counter
 	builder.CreateStore(newValue, counter);
-	StringRef oldName = edge->getName();
-	Twine newName = oldName + "\n" + (edgeIncrement >= 0 ? ("[ r = r +" + std::to_string(edgeIncrement) + " ]") : ("[ r = r - " + std::to_string(edgeIncrement) + " ]"));
+	string oldName = edge->getName().str();
+	string newName = oldName + "\n" + (edgeIncrement >= 0 ? ("[ r = r +" + std::to_string(edgeIncrement) + " ]") : ("[ r = r - " + std::to_string(-edgeIncrement) + " ]"));
 	edge->setName(newName);
-}
-
-void initializePathRegister(BasicBlock* where, AllocaInst* pathCounterVar, int initValue) {
-	IRBuilder<> builder(where->getTerminator());
-
-	Value* init = ConstantInt::get(Type::getInt64Ty(where->getContext()), initValue);
-	builder.CreateStore(init, pathCounterVar);
-
-	StringRef oldName = where->getName();
-	Twine newName = oldName + "\n [ r = " + std::to_string(initValue) + " ] ";
-	where->setName(newName);
 }
 
 

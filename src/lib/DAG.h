@@ -90,5 +90,6 @@ class DAG {
 		vector<GraphEdge*> chords;
 		map<GraphEdge*, GraphEdge*> dummyEdgeToBackedgeMap;
 		int totalPathsToExit = 0;
+		void buildDFSSpanningTree(GraphNode* node, unordered_set<GraphNode*>& visited, vector<GraphEdge*>& spanningTree); 
 };
 

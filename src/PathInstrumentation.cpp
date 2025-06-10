@@ -9,6 +9,9 @@
 #include "../headers/PathInstrumentation.h"
 #include "lib/CFGTransformer.h"
 #include "llvm/Analysis/CycleAnalysis.h"
+#include "llvm/Transforms/InstCombine/InstCombine.h"
+#include "llvm/Transforms/Scalar/SimplifyCFG.h"
+#include "llvm/Transforms/IPO/GlobalDCE.h"
 #include "llvm/IR/Dominators.h"
 #include "../headers/PassUtilities.h"
 #include "lib/DAG.h"
@@ -126,10 +129,13 @@ PreservedAnalyses PathInstrumentation::run(Module &M, ModuleAnalysisManager &MAM
 		CFGTransformer::transformToSingleExit(F);
 
 		std::string Filename = "/tmp/graphs/" + F.getName().str() + ".dot";
+		std::string Filename2 = "/tmp/graphs/" + F.getName().str() + "_pre.dot";
 		std::error_code EC;
 		raw_fd_ostream File(Filename, EC, sys::fs::OF_Text);
+		raw_fd_ostream File2(Filename2, EC, sys::fs::OF_Text);
 		GraphNode::resetLastId();
 
+		WriteGraph(File2, &F, false);
 		if(F.size() == 1) {
 			pr.addCounterForSingleBlockFunction(&F);
 			addPathCounterToJSONArray(pathCountersArray, &F, 1);
@@ -145,8 +151,7 @@ PreservedAnalyses PathInstrumentation::run(Module &M, ModuleAnalysisManager &MAM
 				// dag->eventCountingDFS();
 				AllocaInst* counter = insertPathCounter(F);
 				CFGTransformer::addInstrumentedEdges(dag, counter, pathArray);
-				// CFGTransformer::instrumentChords(dag, counter);
-				// CFGTransformer::insertPrintOfCounter(F, dag->getExit()->getBlock(), counter);
+				// CFGTransformer::instrumentChords(dag, counter, pathArray);
 				dumpNodesToJson(dag, M);
 				addPathCounterToJSONArray(pathCountersArray, &F, dag->getNumberUniquePaths());
 			}
@@ -160,7 +165,6 @@ PreservedAnalyses PathInstrumentation::run(Module &M, ModuleAnalysisManager &MAM
 				IF.insertPathArrayExportCall(M, I);
 			}
 		}
-
 	}
 	dumpModuleIR(M, IRFilename);
 
@@ -168,6 +172,7 @@ PreservedAnalyses PathInstrumentation::run(Module &M, ModuleAnalysisManager &MAM
 	pathCountersJSON["counters"] = std::move(pathCountersArray);
 
 	writeJSON(std::move(pathCountersJSON), ".pathinst/path_counters/" + moduleSourceFilename + ".json");
+
 	return PreservedAnalyses::none();
 }
 

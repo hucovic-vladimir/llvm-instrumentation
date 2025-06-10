@@ -289,14 +289,17 @@ GraphEdge* DAG::findChord(BasicBlock* src, BasicBlock* dst) {
 	return nullptr;
 }
 
-int dir(GraphEdge* e, GraphEdge* f) {
-	if(e == nullptr)
+int dir(GraphEdge* e, GraphEdge* f, DAG* dag) {
+	if(e == nullptr) {
 		return 1;
-	bool cond = (e->getSrc() == f->getSrc() || e->getSrc() == f->getDst() || e->getDst() == f->getSrc() || e->getDst() == f->getDst());
-	assert(cond && "Edges are not connected, cannot determine direction");
-	if(e->getSrc() == f->getDst() || e->getDst() == f->getSrc())
+	}
+	else if(e->getSrc() == f->getSrc()) {
+		return -1;
+	}
+	else if(e->getSrc() == f->getDst() || e->getDst() == f->getSrc()) {
 		return 1;
-	 return -1;
+	}
+	else return -1;
 }
 
 void DAG::eventCountingDFS() {
@@ -315,33 +318,67 @@ void DAG::eventCountingDFS() {
 	for(GraphEdge* e : chords) {
 		e->setIncrementValue(e->getIncrementValue() + e->getValue());
 	}
+	errs() <<  "Post DFS span and chords:\n"; 
+	for(auto edge : spanningTree) {
+		errs() << "Span. Tree edge: " << *edge << ", value: " << edge->getValue() << "\n";
+	}
+	for(auto chord : chords) {
+		errs() << "Chord: " << *chord << ", increment: " << chord->getIncrementValue() << "\n";
+	}
 }
 
 void DAG::eventCountingDFS(int events, GraphNode* node, GraphEdge* edge) {
 	for(GraphEdge* f : spanningTree) {
 		if(f->getDst() == node && edge != f) {
-			eventCountingDFS(dir(edge, f) * events + f->getValue(), f->getSrc(), f);
+			eventCountingDFS(dir(edge, f, this) * events + f->getValue(), f->getSrc(), f);
 		}
 		else if(f->getSrc() == node && edge != f) {
-			eventCountingDFS(dir(edge, f) * events + f->getValue(), f->getDst(), f);
+			eventCountingDFS(dir(edge, f, this) * events + f->getValue(), f->getDst(), f);
 		}
 	}
 	for(GraphEdge* c : chords) {
 		if(c->getSrc() == node || c->getDst() == node) {
-			c->setIncrementValue(c->getIncrementValue() + dir(edge, c) * events);
+			c->setIncrementValue(c->getIncrementValue() + dir(edge, c, this) * events);
 		}
 	}
 }
 
+
 void DAG::getChordsAndSpanningTree() {
-	vector<GraphEdge*> spanningTree = SpanningTree::kruskalMaxSpanningTree(this);
+	vector<GraphEdge*> spanningTreeEdges;
+	unordered_set<GraphNode*> visited;
+
+	// Build DFS spanning tree from entry
+	buildDFSSpanningTree(entry, visited, spanningTreeEdges);
+
+	// Find chords (edges not in spanning tree)
 	vector<GraphEdge*> chords;
 	for(GraphEdge* e : this->edges) {
-		if(std::find(spanningTree.begin(), spanningTree.end(), e) == spanningTree.end()) {
+		if(std::find(spanningTreeEdges.begin(), spanningTreeEdges.end(), e) == spanningTreeEdges.end()) {
 			chords.push_back(e);
 		}
 	}
-	this->spanningTree = spanningTree;
+
+	this->spanningTree = spanningTreeEdges;
 	this->chords = chords;
 }
+
+void DAG::buildDFSSpanningTree(GraphNode* node, unordered_set<GraphNode*>& visited, 
+		vector<GraphEdge*>& spanningTree) {
+	visited.insert(node);
+
+	for(auto edge : edges) {
+		if(edge->getSrc() == node) {
+			GraphNode* dest = edge->getDst();
+			if(visited.find(dest) == visited.end()) {
+				spanningTree.push_back(edge);
+				buildDFSSpanningTree(dest, visited, spanningTree);
+			}
+		}
+	}
+}
+
+
+
+
 
