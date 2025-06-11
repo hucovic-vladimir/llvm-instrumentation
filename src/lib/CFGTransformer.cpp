@@ -2,6 +2,8 @@
 #include "llvm/IR/Instructions.h"
 #include "llvm/IR/IRBuilder.h"
 #include "CFGTransformer.h"
+#include "SSACounterManager.h"
+#include <set>
 #include "CFGAnalysis.h"
 #include "../../headers/InstrumentationFunctions.h"
 #include <regex>

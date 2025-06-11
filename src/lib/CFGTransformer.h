@@ -1,12 +1,13 @@
+#pragma once
 #include "llvm/IR/Function.h"
 #include "llvm/IR/Instructions.h"
 #include "DAG.h"
+#include "SSACounterManager.h"
 
 using namespace llvm;
 
 class CFGTransformer {
 	public:
-
 		static void instrumentChords(DAG* dag, AllocaInst* pathCounterVar, GlobalVariable* pathCounterArr);
 		static void incrementPathCounter(GlobalVariable* pathCounterArr, AllocaInst* pathCounterVar, BasicBlock* exit);
 		static void incrementPathCounter(GlobalVariable* pathCounterArr, int constantIndex, BasicBlock* exit);

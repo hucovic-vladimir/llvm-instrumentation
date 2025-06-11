@@ -9,11 +9,10 @@
 #include "../headers/PathInstrumentation.h"
 #include "lib/CFGTransformer.h"
 #include "llvm/Analysis/CycleAnalysis.h"
-#include "llvm/Transforms/InstCombine/InstCombine.h"
-#include "llvm/Transforms/Scalar/SimplifyCFG.h"
-#include "llvm/Transforms/IPO/GlobalDCE.h"
 #include "llvm/IR/Dominators.h"
 #include "../headers/PassUtilities.h"
+#include "llvm/Transforms/IPO/GlobalDCE.h"
+#include "llvm/IR/Dominators.h"
 #include "lib/DAG.h"
 #include "lib/SpanningTree.h"
 #include "llvm/Support/GraphWriter.h"
@@ -149,6 +148,7 @@ PreservedAnalyses PathInstrumentation::run(Module &M, ModuleAnalysisManager &MAM
 				pr.addPathArray(dag);
 				GlobalVariable* pathArray = pr.getPathArray(&F);
 				// dag->eventCountingDFS();
+				auto &DT = FAM.getResult<DominatorTreeAnalysis>(F);
 				AllocaInst* counter = insertPathCounter(F);
 				CFGTransformer::addInstrumentedEdges(dag, counter, pathArray);
 				// CFGTransformer::instrumentChords(dag, counter, pathArray);
@@ -184,22 +184,20 @@ PassPluginLibraryInfo getPathInstrumentationPluginInfo() {
 					ArrayRef<PassBuilder::PipelineElement>) {
 				if (Name == "path-instrumentation") {
 				MPM.addPass(PathInstrumentation());
-					return true;
+				return true;
 				}
 				return false;
-			});
+				});
 
 		PB.registerPipelineEarlySimplificationEPCallback(
 				[](ModulePassManager &MPM, OptimizationLevel Level) {
-					MPM.addPass(PathInstrumentation());
+				FunctionPassManager FPM;
+				MPM.addPass(PathInstrumentation());
 				});
 		PB.registerAnalysisRegistrationCallback(
 				[](FunctionAnalysisManager &FAM) {
-					FAM.registerPass([&] { return CycleAnalysis(); });
-				});
-		PB.registerAnalysisRegistrationCallback(
-				[](FunctionAnalysisManager &FAM) {
-					FAM.registerPass([&] { return DominatorTreeAnalysis(); });
+				FAM.registerPass([]() { return CycleAnalysis(); });
+				FAM.registerPass([]() { return DominatorTreeAnalysis(); });
 				});
 	};
 	return {LLVM_PLUGIN_API_VERSION, "path-instrumentation", "v0.1", callback};
